@@ -1,233 +1,285 @@
-\subsection{A uniform approximation of the whole learning process}
+\subsection{The whole learning trajectory at a prescribed size}
 \label{sec:alltime}
 
-The central result concerns the learning-speed closure
-\eqref{eq:old-ode}--\eqref{eq:old-recon}, with its own residual and responses.
-Its accuracy is measured against the function selected by dense training,
-including on inputs never used for training.  For a test-input probability
-law $\mu$, write
-\begin{equation}
- \mathcal E_\mu(g,f)=
- \left(\int\sup_{t\ge0}|g(t,x)-f(t,x)|^2\dd\mu(x)\right)^{1/2}.
- \label{eq:test-metric}
-\end{equation}
-The supremum is inside the integral: the estimate controls the entire
-trajectory at every test input, rather than only a selected stopping time.
+Use the shared setup, normalization and confidence convention of
+\Cref{sec:setting}. The appendix gives unsimplified bounds and retains
+the full recurrence-defined label allowance for Harmonic and Logarithmic
+compression. That allowance implies $Y\le1$: omitting such explicit
+factors only enlarges their bounds and does not reduce sample/gap powers.
 
-\begin{theorem}[All-time response-memory approximation]
+\begin{theorem}[Dense variability and compression of a realized trajectory]
 \label{thm:alltime}
-Fix the depth $L\ge2$, input dimension $d$, and $m$ training inputs.  In each
-layer let $\phi_\ell\in C^1(\R)$ have a globally bounded derivative and a
-globally Lipschitz derivative.  Use the independent Gaussian initialization
-of \Cref{sec:setting}, with $w(0)=0$, and the same initialization for dense
-and compressed training.  Assume the limiting initial readout-feature Gram
-has a positive gap:
-\begin{equation}
- \Gamma_{w,\infty}(0)
- :=\lim_{n\to\infty}\frac{H^{(L)}(0)^\top H^{(L)}(0)}{mn}
- \succeq2\lambda I_m,\qquad \lambda>0,
- \label{eq:initial-gap}
-\end{equation}
-where the columns of $H^{(L)}$ are the training features.
-There is $Y_*>0$, independent of width and order, such that for fixed labels
-with $Y=(m^{-1}\sum_a y_a^2)^{1/2}\le Y_*$ the following hold.
+Fix an admissible problem.  For every sufficiently large individual width
+$n\ge d$, the following claims hold jointly with probability at least
+$99\%$.  The required width is finite but its stochastic threshold is not
+quantified.  The event covers every permitted order below.
 
-There are constants $C,K,\kappa>0$, independent of $n,q,t$, and common
-initialization events of probability tending to one, on which the dense
-flow and every closure order $q\ge1$ exist for all time and satisfy
+Let $f_n,\widetilde f_n$ be independently initialized dense runs.
+Then
 \begin{equation}
- \rho_n(t),\ \widehat\rho_{n,q}(t)\le Y e^{-\kappa t}.
- \label{eq:alltime-fit}
+ \frac{\norm{f_n-\widetilde f_n}_*}{Y}
+ \le C\left(1+\frac m\gamma\right)^5
+ \sqrt{\frac dn}\,\log(en)e^{\sqrt{\log(en)}}.
+ \label{eq:dense-upper}
 \end{equation}
-Their parameters converge as $t\to\infty$.  Simultaneously for every order,
+If $m\ge2$, also
 \begin{equation}
- \sup_{t\ge0}d_n(\widehat\theta_{n,q}(t),\theta_n(t))
- \le C\omega(q)+b_n,\qquad
- \omega(q)=\frac{\exp\{K\sqrt{\log(e+q)}\}}{q^2},
- \quad b_n\xrightarrow{\Pr}0,
- \label{eq:alltime-parameters}
+ \frac{\norm{f_n-\widetilde f_n}_*}{Y}
+ \ge \frac{c\sqrt\gamma}{\sqrt n\,[\log(en)]^{5/2}}.
+ \label{eq:dense-lower}
 \end{equation}
-where $b_n$ depends only on the dense reference, not on $q$.
+Legendre compression uses the realized initialization of $f_n$ and its own
+residual-driven moment dynamics.  Simultaneously for every integer $q\ge1$,
+\begin{equation}
+ \frac{\norm{f_{\mathrm{Leg},n,q}-f_n}_*}{Y}
+ \le C\left(1+\frac m\gamma\right)^6
+ \frac{\sqrt{\log(en)\log(eq)}}{q^2}e^{\sqrt{\log(en)}}.
+ \label{eq:legendre-forward}
+\end{equation}
+There is no additional accuracy-dependent order condition.
 
-The dense predictors converge to a deterministic population predictor
-$f_\infty$.  For every fixed $\mu$ with
-$\int\|x\|^2\dd\mu(x)<\infty$, there is an order-independent remainder
-$b_{n,\mu}\xrightarrow{\Pr}0$ such that, on the same events,
+Harmonic compression is an autonomous selected-coordinate model with its
+own corrected readout.  For every integer budget
+$C(m+d)\le q<n$, it satisfies
 \begin{equation}
- \mathcal E_\mu(\widehat f_{n,q},f_\infty)
- \le C_\mu\omega(q)+b_{n,\mu}.
- \label{eq:alltime-predictions}
+ \begin{split}
+ \frac{\norm{f_{\mathrm{Harm},n,q}-f_n}_*}{Y}
+ &\le C\frac m\gamma\left(1+\sqrt{\frac m\gamma}\right)
+ n e^{C\sqrt{\log(en)}}\\[-2pt]
+ &\quad\times\exp\!\left[-\frac{\sqrt d}{C}
+ \left(\frac{q}{(m/\gamma)^2[\log(en)]^{d/2}}
+ \right)^{1/(d+1)}\right].
+ \end{split}
+ \label{eq:harmonic-forward}
 \end{equation}
-For every fixed bounded input set $\mathcal X$, the analogous bound holds
-for $\sup_{t\ge0,x\in\mathcal X}|\widehat f_{n,q}(t,x)-f_\infty(t,x)|$.
-Constants may depend on depth, data, activation bounds and the initial Gram
-gap.  The label threshold is fixed as $n,q\to\infty$.
+For $q\ge n$, full retention gives exact agreement, including when $n$
+is below the stated overhead.  No input-rank assumption is needed for
+any assertion of this theorem.
 \end{theorem}
 
-Thus the order error is $q^{-2+o(1)}$: every fixed exponent below two is
-available.  The width remainder is a convergence statement, without an
-asserted numerical rate in $n$.  For any square-integrable target function,
-the difference between the closure's and the dense population's test RMSE
-is at most \eqref{eq:alltime-predictions}, uniformly in time, by the reverse
-triangle inequality.  In particular, a circle or sphere is a whole test
-domain covered by the theorem; a mesh is needed only to display its function.
+The lower bound concerns an actual prediction at a positive early time,
+not just a derivative at initialization.  It does not assert endpoint
+variability: at the witnessing training input both fitted runs equal the
+label.  The restriction $m\ge2$ is essential; at arbitrary confidence its
+coefficient also depends on that confidence.  Its coefficient and proof are
+in \hyperref[int:dense-trajectory-lower]{the dense lower-bound appendix}.
+The dense upper bound and all-order Legendre comparison follow from
+\hyperref[int:dense-proofs]{the dense proofs} and
+\hyperref[int:legendre-proofs]{the Legendre proofs}; the arbitrary-budget
+construction is in
+\hyperref[int:harmonic-variable-budget-theorem]{the Harmonic appendix}.
+These are function-fidelity guarantees, not assertions about unknown test labels.
 
-The activation class includes tanh, softplus, GELU, SiLU and softsign; its
-values need not be bounded.  The Gram condition is an initialization
-condition.  One sufficient input criterion is nonzero, pairwise
-nonproportional inputs, with a nonpolynomial first activation and nonconstant
-subsequent activations in the stated class.  The proof of this criterion and
-the theorem are in \Cref{app:proof-alltime}.
+\paragraph{Why dense trajectories genuinely fluctuate.}
+The argument conditions on preceding layers before using row independence.
+A conditional central limit argument propagates empirical-Gram fluctuations
+and adds a Gaussian innovation at each layer. For $m\ge2$, the positive
+feature-Gram gap forces a nonzero final-layer innovation in the label
+direction; earlier fluctuations cannot cancel its variance. Zero initial
+readout converts this into fluctuating prediction velocity. Complex-time
+control and a polynomial endpoint inequality then yield a positive-time
+prediction discrepancy with logarithmic losses.
 
-\paragraph{Why the bound survives feedback and infinite time.}
-Small labels first give a short total interval of learning activity.  This
-keeps the initial feature-Gram gap open.  The closure's exact velocity defect
-is the product of its forward and backward endpoint projection errors;
-their opposite powers of $q$ cancel in a coarse bound relative to the
-residual.  This proves exponential fitting for \emph{every} order before
-using any approximation-to-dense argument.  The sharper tracking estimate
-then uses the projection-energy identity to integrate the defect: its two
-history errors multiply.  Gaussian tail control is needed only for the dense
-reference's backward carriers.  Cutting those carriers in the proof and
-balancing the tail against feedback amplification produces the factor
-$\exp\{K\sqrt{\log(e+q)}\}$.  The actual algorithm is unchanged.
+\paragraph{What is stored.}
+The first three models count exact real coordinates, not finite-precision
+bits.  Their per-model storage is bounded by
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Model & Learned state & All retained model state\\
+\midrule
+Dense & $Cn^2$ & $Cn^2$\\
+Legendre & $Cn(d+mq)$ & $C(n^2+mnq)$\\
+Harmonic & $Cq^2$ & $Cq^2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Ordinary retained training data are additional for Dense and Legendre.
+Exact coordinate counts and the Harmonic overhead are given in the appendix.
+Harmonic's last column already includes data, fixed metrics, initial copies
+and solve caches; source arrays and setup histories are discarded.
+Legendre compresses learned increments, not the fixed Gaussian mixers.
+Harmonic compresses both, but uses its specified optimizer rather than
+ordinary gradient flow on an arbitrary smaller network.
 
-\begin{corollary}[Less evolving state for the same population flow]
-\label{cor:compression}
-Under \Cref{thm:alltime}, every deterministic sequence $q_n\to\infty$
-converges to $f_\infty$ in the all-time test metric, in probability.
-If also $q_n=o(n)$, then for fixed $m,d,L$ this convergence uses a vanishing
-fraction of the dense network's evolving state:
-\begin{equation}
- M_{\rm dense}=(L-1)n^2+n(d+1),\qquad
- M_{\rm memory}=2(L-1)mnq_n+n(d+1)+O(1),\qquad
- \frac{M_{\rm memory}}{M_{\rm dense}}\longrightarrow0.
- \label{eq:moving-state}
-\end{equation}
-Each learned hidden increment has rank at most $mq_n$ and approximates the
-corresponding dense increment with error bounded by
-\eqref{eq:alltime-parameters}, uniformly over all time.
-\label{cor:rank}
-\end{corollary}
-\begin{proof}
-The order term and width remainder in \eqref{eq:alltime-predictions} both
-vanish for every such sequence.  The state count follows directly from the
-two sets of $q_n$ length-$n$ moments per sample and hidden link, together with
-the first matrix, readout and clock.  Reconstruction
-\eqref{eq:old-recon} is a sum of $mq_n$ outer products; its error is a block
-of the normalized parameter distance.
-\end{proof}
-
-The order can therefore grow as slowly as $\lceil\log\log(e^e+n)\rceil$.
-No tuning of order against a hidden width-dependent amplification constant
-is required in this regime.  At a fixed accuracy, one may first choose the
-order and then take width sufficiently large: the learned state is linear
-in width, whereas dense storage is quadratic.  Quantifying the smallest
-sufficient width is a separate concentration question.
-
-\paragraph{A broader finite-time branch.}
-Small labels buy control through arbitrarily long training.  Without that
-condition, arbitrary finite data with $Y\le1$ and bounded initial readout
-RMS admit a different result: on every fixed $[0,T]$, a width-independent
-$C_T/q$ bound holds in a specified joint order--width region
-(\Cref{prop:trial-finite-time}).  For globally Lipschitz derivatives and
-zero readout, a sufficient threshold has the form
-$q\ge C_T\sqrt n\exp(C_T\sqrt n)$.  It requires neither a Gram gap nor
-successful fitting.  Its quantifiers matter: the constant is uniform on
-that joint region, while the order threshold grows with width.  It therefore
-extends the label range but does not supply the compression conclusion of
-\Cref{cor:compression}.  The general fixed-width guarantees, including
-$O_T(q^{-2})$ for the joint clock, remain in
-\Cref{app:proof-old,app:proof-new}.
-
-\begin{corollary}[Feature-learning strength]
-\label{cor:damped}
-Fix $0<\alpha\le1$.  Multiply the learning rates of every hidden weight,
-including $W^{(1)}$, by $\alpha^2$, keeping the readout rate unchanged.
-Use the learning-speed closure with $\dot\tau=\alpha\rho$, forward moment
-source $\alpha\rho h$, and backward moment source $\alpha^2 r\delta$;
-the dilation coefficient is $\alpha\rho/\tau$ and reconstruction is still
-\eqref{eq:old-recon}.  Then \Cref{thm:alltime} applies whenever
-$\alpha Y\le Y_*$, with the prediction bound divided by $\alpha$ and with
-the dense population trained by these same modified rates as reference.
-\end{corollary}
-\begin{proof}
-Run the canonical network on labels $\alpha y$ and denote its readout by
-$\widetilde w$.  Set $w=\widetilde w/\alpha$, leaving hidden weights
-unchanged.  Then $\widetilde f=\alpha f$,
-$\widetilde r=\alpha r$, and $\widetilde\delta=\alpha\delta$.
-Every hidden update acquires the factor $\alpha^2$, while dividing the
-readout update by $\alpha$ restores its original rate.  In
-\eqref{eq:old-ode}, $\widetilde\rho=\alpha\rho$ changes the clock and forward
-source, and $\widetilde r\widetilde\delta=\alpha^2r\delta$ changes the
-backward source.  The moments and hidden reconstruction are exactly those
-of the scaled-label canonical problem.  Its output discrepancy divided by
-$\alpha$ is the discrepancy for the modified problem.  This change of
-variables also transfers fitting and the state count.
-\end{proof}
-
-For fixed positive $\alpha$, hidden features still learn and the constants
-remain independent of width and time.  This is an exact learning-rate
-rescaling, rather than a clipping rule or a theorem for unrestricted-label
-canonical training.
-
-\subsection{Cost and size at accuracy}
+\subsection{Accuracy determines order and storage}
 \label{sec:size}
 
-\Cref{eq:moving-state} counts the evolving model.  The initialized hidden
-matrices are retained exactly, requiring another $(L-1)n^2$ fixed numbers.
-One right-hand-side evaluation costs
+The next prescriptions invert the displayed sufficient certificates; they
+are not minimax claims.  For fixed structural parameters, with $n$
+sufficiently large and polynomial accuracy $\varepsilon=n^{-\Theta(1)}$,
+a sufficient Legendre order is
 \begin{equation}
- O\bigl(Lmn^2+Lm^2nq+Lmnq+nmd\bigr).
- \label{eq:rhs-cost}
+ q=\left\lceil C\left(1+\frac m\gamma\right)^3
+ \varepsilon^{-1/2}
+ [\log(en)\log(en/\varepsilon)]^{1/4}
+ e^{\sqrt{\log(en)}/2}\right\rceil.
+ \label{eq:legendre-order}
 \end{equation}
-The terms are, respectively, the forward/adjoint actions of $W_0$, the
-learned low-rank actions on the batch, the moment updates using prefix sums,
-and the first layer.  The joint clock additionally stores $O(q^2)$ numbers
-and costs $O(q^3+Lmnq^2)$ for its Gram factorization and solves.  These are
-costs per evaluation; time discretization has its own accuracy requirement.
-Keeping $W_0$ explains why compressing the learned state does not itself
-reduce the dense matrix--vector runtime.
-
-For the all-time theorem, an order contribution at most $\varepsilon/2$
-is obtained with
+Keeping both logarithms avoids concealing a coefficient depending on the
+chosen polynomial accuracy exponent.  Its learned storage is at most
 \begin{equation}
- q_\varepsilon=\varepsilon^{-1/2}
- \exp\!\bigl(O(\sqrt{\log(1/\varepsilon)})\bigr)
- =\varepsilon^{-1/2+o(1)}.
- \label{eq:order-epsilon}
+ Cnd+Cmn\left(1+\frac m\gamma\right)^3\varepsilon^{-1/2}
+ [\log(en)\log(en/\varepsilon)]^{1/4}e^{\sqrt{\log(en)}/2}.
+ \label{eq:legendre-inverse-storage}
 \end{equation}
-The moving history budget is consequently
-$O(Lmn\varepsilon^{-1/2+o(1)})$.  For full population accuracy at confidence
-$1-\delta$, let $N_\mu(\varepsilon,\delta)$ be a sufficiently large width
-that makes the width remainder at most $\varepsilon/2$ and the common
-event hold with that confidence.  The theorem guarantees that this width
-is finite.  Taking $n=N_\mu(\varepsilon,\delta)$ gives the sufficient
-history budget
-$O(LmN_\mu(\varepsilon,\delta)\varepsilon^{-1/2+o(1)})$ under exactly
-the theorem's hypotheses.  Quantifying $N_\mu$ is needed to turn this into
-an explicit power of $\varepsilon$.  \Cref{app:size} isolates that step
-and the corresponding numerical obligations for history and hierarchy
-solvers; \Cref{cor:compression} already proves the reduction in moving
-state without a width-rate assumption.
+The fixed dense mixers remain additional.
 
-\subsection{What the population conclusion identifies}
-\label{sec:population-view}
+A sufficient Harmonic budget in the same regime is
+\begin{equation}
+ \begin{split}
+ q=\min\!\Bigl\{n,\Bigl\lceil C(m+d)
+ &+\left(\frac C{\sqrt d}\right)^{d+1}
+ \left(\frac m\gamma\right)^2\\
+ &\quad\times[\log(en)]^{d/2}[\log(en/\varepsilon)]^{d+1}
+ \Bigr\rceil\Bigr\},
+ \end{split}
+ \label{eq:harmonic-order}
+\end{equation}
+using exact retention when the minimum selects $n$.  Consequently its
+learned and total retained state are both bounded by
+\begin{equation}
+ C(m+d)^2+\left(\frac Cd\right)^{d+1}
+ \left(\frac m\gamma\right)^4
+ [\log(en)]^d[\log(en/\varepsilon)]^{2d+2}.
+ \label{eq:harmonic-inverse-storage}
+\end{equation}
+For arbitrary targets, replace the last logarithm in the budget by
+$\log(en)+\log\!\bigl(e+C(m/\gamma)(1+\sqrt{m/\gamma})/\varepsilon\bigr)$.
+The exact integer inverse also handles targets met by initialization alone;
+see \hyperref[int:harmonic-variable-budget-theorem]{the budget theorem}.
 
-The result identifies one target function-valued learning process,
-$f_\infty(t,x)$, and a smaller family of evolving approximations to it.
-Every divergent order sequence converges to that target over the whole
-training interval $[0,\infty]$.  At each fixed order, subsequential
-population predictor limits exist and inherit the pure order bound
-$C_\mu\omega(q)$; these limit predictors need not have been shown unique
-or deterministic.  Identifying a unique autonomous population
-\emph{moment-state} equation at fixed $q$ is a finer question than the
-predictor approximation proved here.
+For an independent dense comparison, width must instead be chosen before
+initialization.  As $\varepsilon\downarrow0$, a sufficient eventual choice is
+\begin{equation}
+ n=\left\lceil Cd\left(1+\frac m\gamma\right)^{10}
+ \varepsilon^{-2}\log(e/\varepsilon)^2
+ e^{C\sqrt{\log(e/\varepsilon)}}\right\rceil,
+ \label{eq:dense-inverse}
+\end{equation}
+and its storage is at most
+$Cd^2(1+m/\gamma)^{20}\varepsilon^{-4}
+\log(e/\varepsilon)^4e^{C\sqrt{\log(e/\varepsilon)}}$.
+This is not an effective confidence-certified width rule: it must also
+exceed the unquantified stochastic threshold in \Cref{thm:alltime}.
+For $m\ge2$, the dense lower bound conversely requires
+$n[\log(en)]^5\ge c\gamma/\varepsilon^2$ eventually at the stated confidence.
+Thus independent canonical dense runs need
+$\Omega(\varepsilon^{-4}/\log(1/\varepsilon)^{10})$ stored coordinates
+at a fixed problem.  This is not a lower bound on arbitrary representations.
 
-The natural interpretation is a finite collection of memory fields for
-each sample and layer, coupled through the initialized operator.  The
-learned action takes the form
-$g\mapsto-\frac{2}{m\tau}\sum_{a,k}(2k+1)\bar\delta^{(\ell)}_{a,k}
-\E_{\ell-1}[\bar h^{(\ell-1)}_{a,k}g]$.
-The theorem establishes the accuracy and compression of its finite-width
-implementations without requiring that stronger identification.
+\begin{corollary}[Compression error below actual dense variability]
+\label{cor:compression}
+Fix an admissible problem with $m\ge2$ and $Y>0$.  Choose
+\[
+ q_{\mathrm{Leg}}=\left\lceil C(1+m/\gamma)^3
+ n^{1/4}[\log(en)]^2e^{\sqrt{\log(en)}/2}\right\rceil
+\]
+and choose the Harmonic budget in \eqref{eq:harmonic-order} with
+$\varepsilon=n^{-1}$.  For either of these matched-reference constructions,
+\begin{equation}
+ \frac{\norm{f_{\mathrm{model}}-f_n}_*}
+ {\norm{f_n-\widetilde f_n}_*}\xrightarrow{\Pr}0.
+ \label{eq:negligible-compression}
+\end{equation}
+Legendre's learned storage is
+$Cnd+Cm(1+m/\gamma)^3n^{5/4+o(1)}$; Harmonic's total storage is at most
+\begin{equation}
+ C(m+d)^2+\left(\frac Cd\right)^{d+1}
+ \left(\frac m\gamma\right)^4[\log(en)]^{3d+2}.
+ \label{eq:harmonic-negligible-storage}
+\end{equation}
+\end{corollary}
+
+For the stated Legendre order the normalized error is at most
+$C/(\sqrt n\,[\log(en)]^3)$ eventually.  Harmonic's is at most $1/n$.
+The arbitrary-confidence lower theorem in the appendix then gives
+\eqref{eq:negligible-compression}; a fixed $99\%$ event alone would not.
+The ratio compares complete trajectory norms, not pointwise or endpoint
+ratios.  When $m\ge d$ the $nd$ term is eventually smaller; when
+$m/\gamma\ge1$, the displayed cubic Legendre dependence is equivalently
+$(m/\gamma)^3$.  The quartic Harmonic dependence has not been reduced by
+spending the small-label assumption.
+
+\subsection{A finite-word decoder with no supplied order}
+\label{sec:logarithmic}
+
+The Logarithmic decoder constructs a new compressed model, rather than
+compressing a supplied dense realization.  It compares with a fresh
+independent dense reference $f_n^{\mathrm{ind}}$.  Initialization may inspect
+a completed virtual training computation, but retains no dense array or
+future-answer table.  Seeds regenerate source rows for new inputs; queries
+use the current retained state and do not replay scalar training.
+
+\begin{theorem}[Logarithmic decoder]
+\label{thm:logarithmic}
+Assume the full common label allowance, $m\ge d$ and spanning training
+inputs.  There is a finite construction with no tunable order whenever
+\begin{equation}
+ n\ge\max\!\left\{Y^{-1},
+ \left[C(1+m/\gamma)^4(m+d)^4\right]^{1100}\right\}.
+ \label{eq:decoder-width}
+\end{equation}
+This is explicit, although extremely conservative; it has no additional
+existential stochastic-width condition.  Define the local resource logarithm
+\[
+ Z=\log(en)+\log\!\left(e+(m+d+2)(1+m/\gamma)\right).
+\]
+All retained state and live query workspace use at most
+\begin{equation}
+ C(m+d+2)^2(1+m/\gamma)^2\log(em)^2 Z^6
+ [d+1+\log(e+(d+1)Z)]
+ \label{eq:decoder-words}
+\end{equation}
+numerical words, with $CZ$ bits per word sufficient.  Seeds, selected
+packets, metrics, training data and all ensemble members are included.
+
+With probability at least $99\%$,
+\begin{equation}
+ \norm{f_{\mathrm{Log},n}-f_n^{\mathrm{ind}}}_*\le3b_n,
+ \label{eq:decoder-error}
+\end{equation}
+where $b_n$ is the exact dense upper certificate in
+\hyperref[int:logarithmic-decoder-detailed]{the decoder appendix}, with
+$b_n/Y=n^{-1/2+o(1)}$ at fixed problem parameters.
+The structural coefficients of this particular certificate are not further
+quantified; they are not included in the activation/depth-only constants
+$c,C$.  The event covers all physical times, fitted limits, sphere inputs
+and adaptively chosen queries.
+\end{theorem}
+
+The complete construction, arbitrary-confidence gate and finite arithmetic
+proof are in \hyperref[int:logarithmic-decoder-detailed]{the decoder appendix}.
+The proof uses a prescribed fixed-confidence member order of size
+$O(\log(em))$ and amplifies whole source models, not individual query
+answers.  Those orders are internal instructions, not a new model budget.
+At fixed admissible parameters, \eqref{eq:decoder-words} is
+$O(\log^6n\,\log\log n)$ words, or
+$O(\log^7n\,\log\log n)$ bits.  The sixth power counts words, not bits.
+Its error has the independent-dense upper-certificate scale
+$b_n/Y=n^{-1/2+o(1)}$; no negligible-error ratio analogous to
+\eqref{eq:negligible-compression} is proved for this method.
+
+\paragraph{One accuracy scale, four storage costs.}
+At fixed admissible parameters, choose $n=\varepsilon^{-2+o(1)}$
+sufficiently large for the relevant width gates and error certificate,
+and use the preceding inverse orders.  The sufficient storage bounds are
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Model & Learned storage & All retained storage\\
+\midrule
+Independent dense & $\varepsilon^{-4+o(1)}$ & same\\
+Legendre & $\varepsilon^{-5/2+o(1)}$ & $\varepsilon^{-4+o(1)}$\\
+Harmonic & $O(\log(1/\varepsilon)^{3d+2})$ & same\\
+Logarithmic & bounded by total &
+$O(\log(1/\varepsilon)^6\log\log(e^e+1/\varepsilon))$ words\\
+\bottomrule
+\end{tabular}
+\end{center}
+The decoder uses one additional logarithmic power in bits.  For its inverse
+choose a width meeting both \eqref{eq:decoder-width} and $3b_n\le Y\varepsilon$.
+The inverse rate is eventual because this certificate has fixed-problem
+coefficients.
+Against an independent dense run, splitting accuracy and failure budgets
+between compression and dense variability preserves these exponents.

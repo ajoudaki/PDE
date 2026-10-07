@@ -1,14 +1,51 @@
-# General dense, Legendre and Harmonic comparison
+# General dense, Legendre, Harmonic and Logarithmic comparison
 
 <!-- method-names:start -->
-The current method names are **Legendre compression** and **Harmonic
-compression**. The latter was previously called “compact”; the
+The current method names are **Legendre compression**, **Harmonic
+compression**, and **Logarithmic decoder compression**. Harmonic was
+previously called “compact”; its
 construction, notation for proof-local coefficients, and results are
 unchanged. Historical supporting notes and audit filenames retain their
 original names for traceability.
 <!-- method-names:end -->
 
 ## Integrated accuracy theorem and setup extension
+
+### Working-paper replacement completed
+
+The user explicitly authorized replacing the working manuscript under
+`paper/` by the integrated results, preserving canonical neural notation,
+putting detailed certificates/proofs in the appendix, and compiling and
+visually inspecting the result. This is a working-paper revision, not
+promotion into the maintained Quarto book or code. Root assembled
+`paper/main.tex`, costs, documentation and the final PDF; the source coauthor
+prepared `paper/results.tex`, the construction coauthor prepared
+`paper/methods.tex`, and the decoder coauthor prepared the static appendix
+and its study-local conversion checker. Scientific source is the completed integrated RESULT;
+the old paper supplies style, notation and existing illustrative figures.
+No new empirical claim or training run is authorized by this editorial task.
+Build products and visual checks use
+`data/generated/integrated_general_compression_20261004/paper_rewrite_KFCZPBuv/`.
+The current [paper](../../paper/main.pdf) has 14 main-text pages and the
+complete detailed appendix, with a linked guide: 189 pages total. The final
+build has no LaTeX warnings or overfull boxes. The
+[paper rewrite record](PAPER_REWRITE_CHECK.md) gives source and artifact hashes,
+complete conversion coverage, bounded cross-check scope and visual checks.
+No new formal proof audit or book promotion is claimed. The maintained book
+remains untouched; old paper modules are preserved but no longer included.
+
+The 2026-10-07 [complete-document audit](review.md) is a frozen pre-repair
+snapshot. The subsequent user-authorized reconstruction supplies the source
+derivative/remainder/stopping proof, finite decoder program and shared
+precision schedule, selected-metric replay, exact unseen-query construction,
+finite-space generator proof and finite arithmetic backends inside RESULT.
+It also addresses the audit's nine interface corrections. The headline
+rates, structural dependence, model scope and original label allowance are
+preserved. No new exponential sample dependence or smaller label cap is
+introduced. The [proof-completion record](PROOF_COMPLETION_CHECK.md) gives
+the new frozen proof inputs, separately scoped review coverage and checks;
+it distinguishes internal reconstruction from formal verification or
+promotion. Earlier audit files retain their original verdicts and hashes.
 
 [RESULT.md](RESULT.md) contains the complete current results and their
 proofs in four layers:
@@ -27,7 +64,11 @@ competing results interfaces. This consolidation was requested by the user;
 the user also authorized inspection of only the specifically cited
 dependencies in closure_sampling_20261003 and
 dense_cutoff_population_rate_20261001. Their relevant arguments are now
-included in RESULT. The maintained book and paper are unchanged.
+included in RESULT. The user subsequently directed import of the checked
+Logarithmic decoder result from `unseen_query_decoder_20261005`; its finite
+source, query, width, word-cost and confidence arguments are likewise included
+in RESULT. The maintained book is unchanged; the current paper revision is
+recorded above.
 
 The two lower-cost setup methods are now integrated into RESULT, including
 their full supplied-order costs, deterministic order recipe and proofs:
@@ -58,9 +99,13 @@ The forward interface takes dense width and model order/budget as inputs.
 Legendre permits every positive integer order. Harmonic takes a supplied
 per-layer neuron budget, has a decreasing error certificate with no floor,
 and retains exact-initialization overhead. Full-width Harmonic selection
-is exactly dense. The inverse interface takes accuracy and confidence as
-inputs and chooses dense width or compressed order; its prescriptions are
-sufficient certificate inversions, not minimax optimality claims.
+is exactly dense. Logarithmic decoder compression has no supplied order: its
+source, moment and finite-field orders are prescribed by the problem and
+confidence. It constructs a fresh joint law with an independent dense
+reference rather than compressing a supplied dense realization. The inverse
+interface takes accuracy and confidence as inputs and chooses dense width or
+compressed order where one exists; its prescriptions are sufficient
+certificate inversions, not minimax optimality claims.
 
 Harmonic means the corrected-readout autonomous optimizer, not ordinary
 gradient flow on an arbitrary smaller network. Finite initial or local jets,
@@ -73,17 +118,23 @@ trajectory for free. Its implicit execution uses exact adaptive Gaussian
 actions and factored numerical increments instead of hidden dense arrays.
 Every version initializes the final compressed model at original time zero.
 
-Storage counts real coordinates. Legendre's moving state and fixed
+Dense, Legendre and Harmonic storage counts real coordinates. Legendre's moving state and fixed
 quadratic mixers are reported separately. Harmonic's all-retained inventory
 includes metrics, fixed copies, data and specified solve caches.
+Logarithmic decoder storage instead counts variable-length numerical words;
+the sufficient word length is stated separately, so its word and bit bounds
+are never conflated.
 Storage alone does not bound preprocessing or runtime. The separate
 [computational-cost interface](RESULT.md#computational-costs) now gives
 arithmetic work and peak memory for warmup, a full-batch training stage,
-and a single inference-ready query. Query memory is additional workspace;
-warmup/training memory is total resident peak. Fixed-stage numerical steps,
+and a single inference-ready query. For those three models query memory is
+additional workspace; warmup/training memory is total resident peak.
+The Logarithmic decoder instead reports finite-word operations, its complete
+prescribed training schedule, and total live query memory. Fixed-stage numerical steps,
 activation routines, Gaussian sampling and readout-cache refresh are
 qualified explicitly. Accuracy of subsequent numerical training and bit
-complexity remain outside those cost tables. The integrated local-continuation
+complexity remain outside the Dense/Legendre/Harmonic cost tables; the decoder's
+finite-word theorem is separate. The integrated local-continuation
 setup proof supplies its own numerical defect bounds in exact arithmetic;
 finite-precision stability and accuracy of later compressed training steps
 remain separate.
@@ -117,11 +168,33 @@ The Harmonic error amplification has only numerical coefficients inside
 its growing exponential; sample/gap and activation-depth factors remain
 polynomial outside it.
 
+Logarithmic decoder compression matches an independent dense run at three
+times the dense-pair upper certificate while retaining
+\[
+O(\log^6(en)\log\log(e^e+n))
+\]
+numerical words at fixed problem parameters. Its sufficient word length is
+\(O(\log(en))\) bits, so the corresponding bit bound has seven logarithmic
+powers and the same outer logarithm. This is the sharp current proved result;
+the earlier informal “\(\log^5 n\)” description is not established. The
+method covers unseen and adaptively chosen inputs, all physical times and the
+fitted endpoint, but it does not prove error negligible relative to actual
+dense-versus-dense variability.
+
+In the canonical structural comparison, label RMS \(Y\) is a fixed
+\(O(1)\) problem constant and the label cap is used only as a validity
+hypothesis. It is not substituted to reduce sample/gap powers. The strongest
+currently proved headline dependencies are therefore \((m/\gamma)^3\) for
+Legendre learned storage and \((m/\gamma)^4\) for Harmonic retained storage.
+
 At a common reference width chosen for accuracy \(\varepsilon\), the
 fixed-problem sufficient learned-storage rates are
 \(\varepsilon^{-4+o(1)}\) for dense,
 \(\varepsilon^{-5/2+o(1)}\) for Legendre, and
-\(O(\log(1/\varepsilon)^{3d+2})\) for Harmonic.
+\(O(\log(1/\varepsilon)^{3d+2})\) real coordinates for Harmonic.
+Logarithmic decoder compression uses
+\(O([\log(1/\varepsilon)]^6
+\log\log(e^e+1/\varepsilon))\) numerical words.
 RESULT retains the full separate structural factors and qualifications.
 At these inverse choices, fixed dense mixers still dominate Legendre's
 total arithmetic and peak resident storage. Harmonic's per-stage and
@@ -138,6 +211,7 @@ stronger-accuracy setup recipe, its explicit setup work and peak memory are
 | Dense fitting, comparison, variability, confidence and inversion | [Dense](INTEGRATED_DENSE_AUDIT.md) |
 | Shared source, Legendre and all-time extension | [Source/Legendre](INTEGRATED_SOURCE_LEGENDRE_AUDIT.md) |
 | Harmonic construction, cancellation, supplied-budget and inverse bounds | [Harmonic](INTEGRATED_COMPACT_AUDIT.md) |
+| Logarithmic finite source, exact query, width and word costs | [Source](../unseen_query_decoder_20261005/FULL_FINITE_SOURCE_PROBABILITY_CHECK.md), [query](../unseen_query_decoder_20261005/SOURCE_SEED_EXACT_QUERY_CHECK.md), [words](../unseen_query_decoder_20261005/WORD_COST_REFINEMENT_CHECK.md), [width](../unseen_query_decoder_20261005/WIDTH_GATE_REFINEMENT_CHECK.md), [confidence](../unseen_query_decoder_20261005/CONFIDENCE_SEPARATION_CHECK.md) |
 | Final headline/exact/proof interfaces | [Assembly](INTEGRATED_ASSEMBLY_AUDIT.md) |
 
 The reviewers used separately scoped full frozen inputs. Dense and
@@ -182,6 +256,19 @@ Deterministic numerical algebra checks cover the added execution identities.
 No full Markdown/TeX render, timing benchmark or numerical training experiment
 was run.
 
+The earlier 2026-10-07 canonical-interface snapshot added the short headline at the
+top of `RESULT.md` and removed the cap-derived lower-power displays from the
+headline, proof and audit interfaces. It changed no underlying theorem or
+proof. At RESULT SHA-256
+`b808bce8dafc7660c7d31ac1ed85a025e952bd2795e277b719edfbefca87e3b2`,
+`node setup_integration_check.mjs` reported no failures and
+`python3 cost_algebra_check.py` reported `PASS`.
+
+The present Logarithmic-decoder integration is bound to RESULT SHA-256
+`5aae8d6de7d73cd3b2ddc081d3e45796438480878cc0dbf50f66ab0c66df8f23`.
+The same mechanical check reports no failures, the cost-algebra check remains
+`PASS`, and all five exact streamline-kernel tests pass.
+
 ## Integrated setup guarantees and limitations
 
 For separately fixed admissible data, depth, activations and confidence,
@@ -212,18 +299,29 @@ tends to zero for every fixed inverse-polynomial Euler step. No necessity of
 that step or speedup over all high-order dense solvers is claimed. Neither
 method has a measured practical timing advantage at widths 1000--10000.
 
+Logarithmic decoder compression has a different finite-word execution model.
+At fixed problem parameters its initialization uses
+\(O(n\log(en)^{29/2})\) word operations, complete compact training uses
+\(O(\log(en)^{12}\log\log(e^e+n))\), and one unseen query uses
+\(O(n\log(en)^{12}+\log(en)^{14})\). Retained, training and query memory are
+\(O(\log(en)^6\log\log(e^e+n))\) numerical words. Setup is offline and may
+inspect the completed virtual finite training computation, but no dense
+trajectory or answer table is retained.
+
 Earlier exploratory and conditional routes remain study history; the
 integrated proofs do not rely on the unproved complex-label continuation
 route or on the alternative Picard implementation.
 
 ### Remaining mathematical and computational limitations
 
-The stochastic source width and initialized-CLT onset remain
-unquantified. Every deterministic coefficient and extra width gate is
-explicit, but the full confidence-certified reference width is not
-computable from these results. Statements hold at each sufficiently large
-individual width, not on one event over infinitely many independent
-initializations.
+The stochastic source width and initialized-CLT onset used by Dense,
+Legendre and Harmonic remain unquantified. Every deterministic coefficient
+and extra gate for those methods is explicit, but their full
+confidence-certified reference width is not computable from these results.
+Statements hold at each sufficiently large individual width, not on one event
+over infinitely many independent initializations. The Logarithmic decoder has
+an explicit sufficient width instead, but its power \(1100\) is extremely
+conservative and gives no practical onset.
 
 Sharp sample/gap/dimension dependence, a general endpoint variability
 lower bound, a strict-root general dense upper, effective stochastic
@@ -231,11 +329,14 @@ widths, and optimal compression among arbitrary representations remain
 open. Fixed-problem exponents are not simultaneous growing-data theorems.
 The legacy origin-jet cost formula alone does not supply efficient setup
 orders; the integrated local-continuation recipe does for its own initializer.
-Numerical conditioning, working precision and the number of
-subsequent compressed training steps remain open.
+For Dense, Legendre and Harmonic, numerical conditioning, working precision
+and the number of subsequent compressed training steps remain open.
+The Logarithmic decoder matches the dense upper certificate, not actual
+dense-pair variability; its query remains linear in \(n\) up to logarithms,
+and no fixed-machine-precision or measured speedup claim is made.
 
 The previously completed cost update was authorized for commit on 2026-10-06.
-The present setup research modifies only this study and remains uncommitted;
+The present proof-completion pass modifies only this study and remains uncommitted;
 it includes no book promotion or paper modification. Concurrent changes in
 other studies and Quarto maintenance are outside the task's edit scope.
 

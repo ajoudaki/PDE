@@ -1,31 +1,271 @@
-# Dense, Legendre and Harmonic models: integrated statements and proofs
+# Dense, Legendre, Harmonic and Logarithmic models: integrated statements and proofs
 
 <!-- method-names:start -->
-The two methods are named **Legendre compression** and **Harmonic
-compression**. Harmonic compression is the method called “compact” in
-earlier proof and audit records; only its name has changed.
+The three compressed methods are named **Legendre compression**,
+**Harmonic compression**, and **Logarithmic decoder compression**.
+Harmonic compression is the method called “compact” in earlier proof and
+audit records; only its name has changed. Logarithmic decoder compression
+is the source-seeded exact-query construction previously developed under
+the name “streamlined exact-query compression.”
 <!-- method-names:end -->
 
-2026-10-06. This is the current integrated research document. It contains
+2026-10-07. This is the current integrated research document. It contains
 the headline interfaces, the unsuppressed numerical statements, and the
-proofs in one place. The only generic \(C\)'s occur in the explicitly
-labelled headline layer. They are not definitions of the exact
-certificates. The detailed layer gives finite formulas for every
-deterministic error/storage coefficient and additional width gate.
+proofs in one place. Headline \(C\)'s denote universal numerical constants,
+not definitions of exact certificates. The detailed dense, Legendre and
+Harmonic certificates give their coefficient recurrences. Finite-word
+algorithm costs and Logarithmic width envelopes retain declared universal
+algorithm constants; they are parameter-explicit rather than numerically
+instantiated throughout. Their dependence is never silently assigned to
+sample count, gap, dimension, depth or activation bounds.
 
-An inherited quantitative limitation of the theorems is stated at
-the outset: the stochastic sufficient-width threshold is existential,
-not numerically evaluated. Restating the result cannot manufacture an
-effective \(n(\delta)\). Each fixed confidence is reached at each
-sufficiently large individual width. Nothing below claims simultaneous
-success over infinitely many independently initialized widths.
+## Canonical headline results
+
+This first block is the canonical short interface. Width is \(n\), sample
+count is \(m\), input dimension is \(d\), hidden depth is \(L\), feature-Gram
+gap is \(\gamma>0\), activation envelope is \(\beta\), and compressed order
+or size is \(q\) for Legendre and Harmonic; the Logarithmic decoder has no
+free order. The label RMS \(Y=\|y\|_2/\sqrt m\) is a fixed \(O(1)\)
+problem constant in this headline comparison. It remains explicit in the
+detailed theorem, but the small-label hypothesis is never substituted to
+trade away powers of \(Y\) or \(m/\gamma\). Thus the genuine current
+sample/gap powers are cubic for Legendre compression and quartic for
+Harmonic compression.
+The nontrivial headline comparison below has \(Y>0\); for \(Y=0\),
+all four methods have the exact zero predictor, with no positive
+variability lower bound or discrepancy ratio asserted.
+
+All comparisons are uniform over the complete training trajectory, including
+the fitted endpoint, and over the whole sphere \(\|x\|_2=\sqrt d\). For each
+fixed admissible problem they hold with probability at least \(1-\delta\) at
+each qualifying individual width. For Dense, Legendre and Harmonic,
+\(0<\delta<1\) and the stochastic sufficient-width threshold remains
+unquantified. For the Logarithmic decoder, \(0<\delta<1/4\) and the sufficient
+width is explicit but extremely conservative. The notation
+\(\lesssim\) below suppresses numerical constants and the fixed label scale,
+but no dependence on \(n,m,d,L,\gamma\), or \(\beta\).
+
+### Dense reference and its intrinsic variability
+
+For \(n\ge d\), the learned and total retained storage coincide:
+\[
+\operatorname{storage}_{\mathrm{dense}}
+=(L-1)n^2+n(d+1)\lesssim Ln^2.
+\]
+For two independent width-\(n\) dense runs,
+\[
+\|f_n-\widetilde f_n\|_*
+\lesssim
+\beta^{CL}\left(1+\frac m\gamma\right)^5
+\sqrt{\frac dn}\,\log(en)e^{\sqrt{\log(en)}}.
+\tag{canonical dense upper}
+\]
+For \(m\ge2\),
+\[
+\|f_n-\widetilde f_n\|_*
+\ge
+c_{\phi,L,\delta}\frac{\sqrt\gamma}{\sqrt n\,\log(en)^{5/2}}.
+\tag{canonical dense lower}
+\]
+Both displayed variability bounds are proportional to \(Y\) before applying
+the fixed-label convention. The lower-bound witness occurs at a positive
+early-training time and is not an endpoint lower bound.
+
+### Legendre compression
+
+For supplied order \(q\),
+\[
+\operatorname{learned\ state}_{\mathrm{Leg}}
+\lesssim n(d+Lmq),\qquad
+\operatorname{total\ state}_{\mathrm{Leg}}
+\lesssim Ln^2+Lmnq,
+\tag{canonical Legendre storage}
+\]
+and
+\[
+\|f_{\mathrm{Leg},n,q}-f_n\|_*
+\lesssim
+\beta^{CL}\left(1+\frac m\gamma\right)^6
+\frac{\sqrt{\log(en)\log(eq)}}{q^2}
+e^{\sqrt{\log(en)}}.
+\tag{canonical Legendre forward}
+\]
+For \(m\ge2\) and \(Y>0\), choosing \(q\) so that this error is
+negligible relative to actual dense-versus-dense variability gives, when
+\(m\ge d\),
+\[
+\operatorname{learned\ state}_{\mathrm{Leg}}
+\lesssim
+\beta^{CL}Lm\left(\frac m\gamma\right)^3n^{5/4+o(1)}.
+\tag{canonical Legendre compression}
+\]
+The fixed dense mixers still add \(Ln^2\) to total retained storage. No
+smaller power than \((m/\gamma)^3\) has been proved under the convention that
+keeps \(Y\) fixed rather than spending the label cap.
+
+### Harmonic compression
+
+For supplied size \(q\), learned and total retained storage share the bound
+\[
+\operatorname{state}_{\mathrm{Harm}}\lesssim Lq^2,
+\tag{canonical Harmonic storage}
+\]
+while
+\[
+\begin{split}
+\|f_{\mathrm{Harm},n,q}-f_n\|_*
+\lesssim{}&
+\beta^{CL}\frac m\gamma
+\left(1+\sqrt{\frac m\gamma}\right)
+n e^{C\sqrt{\log(en)}}\\
+&\times
+\exp\left[-\frac{\sqrt d}{C\beta^{CL}}
+\left(
+\frac{q}{(m/\gamma)^2\log(en)^{d/2}}
+\right)^{1/(d+1)}\right].
+\end{split}
+\tag{canonical Harmonic forward}
+\]
+For \(m\ge2\) and \(Y>0\), choosing \(q\) so that this error is
+negligible relative to actual dense variability gives
+\[
+\operatorname{state}_{\mathrm{Harm}}
+\lesssim
+L(m+d)^2+
+L\left(\frac{C\beta^{CL}}d\right)^{d+1}
+\left(\frac m\gamma\right)^4
+(\log n)^{3d+2}.
+\tag{canonical Harmonic compression}
+\]
+If \(m\ge d\), the first term is at most a constant multiple of \(Lm^2\).
+No smaller power than \((m/\gamma)^4\) has been proved under the fixed-label
+convention.
+
+### Logarithmic decoder compression
+
+This third method has no freely tunable order \(q\). Given \(n\) and
+confidence \(1-\delta\), its finite source, moment order and decoder budget
+are prescribed by the certificate. It constructs a new compressed model and
+compares it with an independently initialized width-\(n\) dense reference;
+it does not compress a supplied dense realization.
+
+Assume additionally that the training inputs span \(\mathbb R^d\) and
+\(m\ge d\). Define
+\[
+p=\max\left\{1,\left\lceil
+\frac{\log(2^{22}emL)}{\log(64e^2)}
+\right\rceil\right\},
+\qquad
+Z=\log(en)+\log\left(e+
+\frac{(m+d+2)\beta^{100L}(1+m/\gamma)}\delta\right).
+\tag{canonical logarithmic orders}
+\]
+Its complete retained model, including evolving state and fixed compression
+metadata, uses at most a universal multiple of
+\[
+p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+\bigl[d+1+\log(e+(d+1)Z)\bigr]
+\tag{canonical logarithmic storage}
+\]
+numerical words. A proved sufficient word length is
+\[
+C\beta^{110L}Z\quad\text{bits per word}.
+\tag{canonical logarithmic precision}
+\]
+Consequently, at fixed problem parameters, retained storage is
+\[
+O\!\left(\log^6 n\,\log\log n\right)\ \text{words},
+\qquad
+O\!\left(\log^7 n\,\log\log n\right)\ \text{bits}.
+\]
+The present proof does not give a fifth-power bound.
+
+For an explicitly defined dense upper certificate \(b_n=n^{-1/2+o(1)}\),
+the decoder satisfies
+\[
+\|f_{\mathrm{Log},n}-f_n^{\mathrm{ind}}\|_*\le3b_n
+\tag{canonical logarithmic forward}
+\]
+with probability at least \(1-\delta\), uniformly over all sphere inputs,
+all physical times and the fitted endpoint. This matches the independent-
+dense upper-certificate scale. It is not proved negligible relative to the
+actual dense discrepancy lower bound.
+
+### Main compression comparison
+
+For \(m\ge2\) and \(Y>0\), at the accuracy required to be negligible relative to dense-run variability
+for Legendre and Harmonic, and at the proved dense-upper scale for the
+Logarithmic decoder, the canonical retained-state comparison is:
+
+|  | Legendre compression | Harmonic compression | Logarithmic decoder compression |
+|---|---:|---:|---:|
+| Learned-state upper bound | \(\beta^{CL}Lm(m/\gamma)^3n^{5/4+o(1)}\) real coordinates | \(L(m+d)^2+L(C\beta^{CL}/d)^{d+1}(m/\gamma)^4(\log n)^{3d+2}\) real coordinates | \(p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6[d+1+\log(e+(d+1)Z)]\) numerical words |
+| Total retained state | add \(Ln^2\) fixed mixers | same upper order, including fixed inventory | same upper bound, including seeds and metrics |
+| Width dependence | \(n^{5/4+o(1)}\) | polylogarithmic | polylogarithmic with absolute exponent six in words |
+| Compression error / actual dense discrepancy | \(\longrightarrow0\) in probability | \(\longrightarrow0\) in probability | not proved to vanish; matches the dense upper scale |
+
+For prescribed absolute error \(\varepsilon\), with the fixed problem
+parameters suppressed, sufficient storage scales as
+\[
+\begin{array}{c|cccc}
+&\text{independent dense}&\text{Legendre learned}&\text{Harmonic learned/total}
+&\text{Logarithmic learned/total}\\
+\hline
+\text{storage}&\varepsilon^{-4+o(1)}&\varepsilon^{-5/2+o(1)}
+&[\log(1/\varepsilon)]^{3d+2}
+&[\log(1/\varepsilon)]^6\log\log(1/\varepsilon).
+\end{array}
+\tag{canonical accuracy-to-storage comparison}
+\]
+Legendre total storage remains \(\varepsilon^{-4+o(1)}\) because of its fixed
+dense mixers.
+
+### Harmonic setup
+
+The two efficient initializers preserve the same Harmonic model and theorem.
+At source tolerance \(1/n\), fixed admissible structural parameters and fixed
+confidence, their sufficient costs are:
+
+| Initializer | Setup work | Peak setup memory |
+|---|---:|---:|
+| Explicit dense local continuation | \(n^2\log(en)^{3d/2+1}\) | \(n^2\) |
+| Implicit Gaussian local continuation | \(n\log(en)^{9d/2+3}\) | \(n\log(en)^{3d/2+1}\) |
+
+These are exact-real arithmetic envelopes. The fully exposed supplied-order
+costs, including all structural and primitive-cost dependence, appear below.
+
+### Logarithmic decoder setup and runtime
+
+At fixed problem parameters, its word-operation costs are
+
+| Phase | Work | Peak memory |
+|---|---:|---:|
+| Initialization | \(n\log^{29/2}n\) | retained state plus \(n\log^{5/2}n+\log^{15/2}n\) words |
+| Complete compact training | \(\log^{12}n\,\log\log n\) | retained state |
+| One unseen-input query | \(n\log^{12}n+\log^{14}n\) | retained state |
+
+Training here means the complete prescribed compact update schedule, not one
+training stage. Setup is offline and may inspect completed virtual training,
+although it stores no dense matrix or future-answer table afterward. Querying
+uses the current retained state and seeds, does not replay scalar training,
+and still has a linear factor in \(n\). For general analytic activations the
+actual evaluator work and scratch are additional; the displayed table includes
+the supplied finite tanh evaluator. No practical FP32/FP64 or GPU-speedup claim
+is made.
+
+For Dense, Legendre and Harmonic, the inherited stochastic sufficient-width
+threshold is existential, not numerically evaluated. Restating the result
+cannot manufacture an effective \(n(\delta)\). The Logarithmic decoder instead
+has the explicit power-\(1100\) enclosing gate below; this is quantitative but
+not practically small. Nothing claims simultaneous success over infinitely
+many independently initialized widths.
 
 **Navigation.**
 
-- [I. Headline results](#headline-results): the canonical forward and inverse interfaces.
+- [I. Harmonized result interfaces](#headline-results): the fully qualified forward and inverse interfaces.
 - [II. Detailed statements](#detailed-statements): exact coefficients, storage, qualifications and [computational costs](#computational-costs).
 - [Two efficient Harmonic initializers](#harmonic-efficient-initialization): explicit dense local continuation and exact implicit Gaussian execution, with [all deterministic orders](#harmonic-efficient-orders).
-- [III. Proofs](#integrated-proofs): initialization, source estimates, dense comparison and variability, both compressions, [cost derivations](#computational-cost-proofs), and [complete efficient-setup proofs](#harmonic-efficient-setup-proofs).
+- [III. Proofs](#integrated-proofs): initialization, source estimates, dense comparison and variability, all three compressions, [cost derivations](#computational-cost-proofs), [Logarithmic finite decoding](#logarithmic-decoder-proofs), and [complete efficient-setup proofs](#harmonic-efficient-setup-proofs).
 - [IV. Audit and provenance](#integrated-audit): checks, source versions and remaining limitations.
 
 This is an internal research consolidation, not promotion to the maintained
@@ -33,20 +273,23 @@ book or paper. Its audit status and any unresolved objections are recorded
 in Part IV; the word “integrated” alone is not an independent verification.
 
 <a id="headline-results"></a>
-## I. Headline results
+## I. Harmonized result interfaces
 
 ### Shared setup, notation and qualifications
 
 The structural parameters remain separate: dense width \(n\), sample count
 \(m\), input dimension \(d\), and hidden depth \(L\ge2\). Inputs satisfy
 \(\|x_a\|_2=\sqrt d\), and labels are arbitrary fixed real numbers.
-The only compressed-model size/order symbol is \(q\): Legendre memory
-order or Harmonic per-layer neuron budget. The remaining global numerical
-symbols are label RMS \(Y\), feature gap \(\gamma\), activation envelope
-\(\beta\), failure probability \(\delta\), target accuracy \(\varepsilon\),
-and a generic numerical constant \(C\). Different occurrences of \(C\)
-may denote different universal constants; they never conceal structural
-dependence. The detailed statements and proofs use locally defined coefficients, not extra model orders.
+The common freely supplied compression order is \(q\): Legendre memory
+order or Harmonic per-layer neuron budget. Logarithmic decoder compression
+has no free \(q\); its moment and field orders are prescribed by the width,
+problem and confidence certificate. The remaining global numerical symbols
+are label RMS \(Y\), feature gap \(\gamma\), activation envelope \(\beta\),
+failure probability \(\delta\), target accuracy \(\varepsilon\), and a
+generic numerical constant \(C\). Different occurrences of \(C\) may denote
+different universal constants; they never conceal structural dependence.
+The detailed statements and proofs use locally defined coefficients, not
+extra model orders.
 
 The dense forward pass is
 \[
@@ -57,8 +300,10 @@ z^{(j)}=W^{(j)}h^{(j-1)},\qquad h^{(j)}=\phi_j(z^{(j)}),
 The first weights have independent \(N(0,1)\) entries; hidden mixers have
 independent \(N(0,1/n)\) entries; blocks are independent; \(w(0)=0\).
 Training minimizes mean squared loss with mobilities \((n,1,\ldots,1,n)\).
-The dense copy \(\widetilde f_n\) is independently initialized. Compressed
-predictors use their realized reference initialization and the same physical time.
+The dense copy \(\widetilde f_n\) is independently initialized. Legendre
+and Harmonic use their realized reference initialization and the same
+physical time; the Logarithmic decoder instead compares a newly generated
+compressed model with an independent dense reference.
 For the implicit Harmonic initializer, that realization is latent: exact
 adaptive Gaussian actions couple the output to one ordinary dense reference
 without generating its full hidden matrices. This samples a fresh joint
@@ -80,8 +325,10 @@ Q^{(j)}_{ab}=\mathbb E[\phi_j(Z_a)\phi_j(Z_b)],\quad
 Z\sim N(0,Q^{(j-1)}),\qquad
 \gamma=\lambda_{\min}(Q^{(L)})>0.
 \]
-The gap is not divided by \(m\). No orthogonality, centering, sign pattern,
-clipping, or input-rank assumption is imposed.
+The gap is not divided by \(m\). No orthogonality, centering, sign pattern
+or clipping is imposed. Dense, Legendre and Harmonic need no input-rank
+assumption. Only the Logarithmic decoder uses the already stated spanning
+condition and \(m\ge d\).
 
 **Labels.** The clean dense/Legendre envelopes below use the unchanged
 sufficient cap
@@ -103,20 +350,21 @@ predictor and exact constant-zero compression separately.
 This includes fitted limits and the whole sphere, a circle only when
 \(d=2\). It measures function fidelity, not unknown-label test risk.
 
-**Probability and width.** Fix \(0<\delta<1\). For each fixed admissible
-problem there is a finite width threshold, depending on all its parameters
-and \(\delta\), above which the stated comparisons hold jointly with
-probability at least \(1-\delta\). It includes inherited source/initialization
-gates, the lower theorem's eventual threshold when used, and the explicit
-[analytic-tail and construction gates](#harmonic-storage-count). Its stochastic part
-remains unquantified. This concerns each individual width, not one event
-over infinitely many independent initializations. Split failure budgets
-for joint statements. The same event works for every permitted order/budget
-at that width; there is no additional tolerance-, horizon-, or order-dependent
-stochastic threshold. Fixed-confidence logarithms in upper bounds are
-absorbed by this eventual-width convention, not by a claimed numerical
-failure-rate formula. Multiplying storage by a fixed constant is not
-claimed to produce exponential confidence amplification.
+**Probability and width.** Fix \(0<\delta<1\). For the dense, Legendre and
+Harmonic results, each fixed admissible problem has a finite width threshold,
+depending on all its parameters and \(\delta\), above which the stated
+comparisons hold jointly with probability at least \(1-\delta\). It includes
+inherited source/initialization gates, the lower theorem's eventual threshold
+when used, and the explicit [analytic-tail and construction gates](#harmonic-storage-count).
+Its stochastic part remains unquantified. Logarithmic decoder compression has
+instead the explicit, extremely conservative sufficient width stated below;
+it introduces no additional existential stochastic threshold. Every statement
+concerns each individual width, not one event over infinitely many independent
+initializations. Split failure budgets for joint statements. Fixed-confidence
+logarithms in the first three upper bounds are absorbed by their eventual-width
+convention, not by a claimed numerical failure-rate formula. Multiplying
+storage by a fixed constant is not claimed to produce exponential confidence
+amplification.
 
 **Model domains.** Legendre permits every integer \(q\ge1\), with no
 separate accuracy-order condition. The Harmonic family permits every
@@ -125,10 +373,16 @@ in the headline counts only. This is exact-initialization overhead:
 positive training Gram forces top width at least \(m\), and exact
 first-weight columns force first width at least \(d\) when \(n\ge d\).
 For \(q\ge n\), the full selected space gives exact agreement with dense.
+Logarithmic decoder compression instead requires \(m\ge d\), spanning
+training inputs, \(0<\delta<1/4\), and the complete common fitting/source
+label allowance. It is a certificate-prescribed family indexed by \(n\),
+not an arbitrary-budget family indexed by \(q\).
 
 ### Forward interface: supplied size/order gives storage and error
 
-Storage counts real coordinates, not bits. The separate
+Dense, Legendre and Harmonic storage counts real coordinates, not bits.
+Logarithmic decoder storage counts finite numerical words and states its
+certified bits per word separately. The separate
 [computational-cost section](#computational-costs) reports initialization,
 per-stage training and single-query costs; storage alone is not a runtime bound.
 For \(n\ge d\), the clean counts are:
@@ -138,6 +392,7 @@ For \(n\ge d\), the clean counts are:
 | Dense | \(O(Ln^2)\) | \(O(Ln^2)\) |
 | Legendre | \(O(n[d+Lmq])\) | \(O(Ln^2+Lmnq)\) |
 | Harmonic | \(O(Lq^2)\) | \(O(Lq^2)\) |
+| Logarithmic decoder | bounded by the complete-model envelope at right | \(O(\log^6(en)\log\log(e^e+n))\) numerical words at fixed problem parameters |
 
 Before simplification, the exact dense moving count is
 \((L-1)n^2+n(d+1)\), the Legendre count is
@@ -148,6 +403,8 @@ Harmonic includes metrics, fixed copies, residual coordinates, data and
 solve caches. Original-width source arrays and jets are discarded.
 Ordinary data storage is additional for the dense/Legendre model-state
 counts if retained.
+The Logarithmic decoder count already includes its normalized training table,
+all ensemble members, seeds, selected packets, caches and current scalar state.
 
 Legendre uses its original residual-RMS clock and prefixes. Harmonic uses
 the corrected-readout autonomous optimizer, not ordinary gradient flow
@@ -231,6 +488,85 @@ its sharper error
 n^{-1}e^{C\sqrt{\log(en)}}\)
 and original \(O(\log(en)^{3d+2})\) all-retained storage.
 The supplied-budget family preserves that specialization as a separate available construction.
+
+<a id="logarithmic-forward-interface"></a>
+#### Logarithmic decoder versus an independent dense reference
+
+This method has no supplied order \(q\). Define its implemented member moment
+order and common resource logarithm by
+\[
+p=\max\left\{1,\left\lceil
+\frac{\log(2^{22}emL)}{\log(64e^2)}
+\right\rceil\right\},
+\qquad
+Z=\log(en)+\log\left(e+
+\frac{(m+d+2)\beta^{100L}(1+m/\gamma)}\delta\right).
+\tag{Logarithmic decoder orders}
+\]
+The confidence-dependent order used only to certify the independent reference is
+\[
+p_{\rm ref}=\max\left\{1,\left\lceil
+\frac{\log(2^{22}emL/\delta)}{\log(64e^2)}
+\right\rceil\right\}.
+\tag{Logarithmic reference order}
+\]
+A sufficient enclosing width is
+\[
+n\ge\max\left\{
+C_*\left[
+\frac{2^{20}\beta^{2000L}(1+m/\gamma)^4
+(m+d+p_{\rm ref}+1)^4}{\delta}
+\right]^{1100},\;Y^{-1},\;C_{\rm num}
+\right\}.
+\tag{Logarithmic explicit width}
+\]
+Here \(C_*\) is universal and
+\(C_{\rm num}=\max\{1,(A_{\rm num}/32)^{1/9}\}\), where
+\(A_{\rm num}\) is the absolute coefficient in the chosen numerical-error
+allocation. The sharper factorized
+gate and the few separately displayed implementation gates are retained in
+Part II. This width is fully quantitative but extremely conservative.
+
+Let
+\[
+\begin{split}
+b_n={}&\frac{c_0Y}{\sqrt n}
+e^{c_1Y^2\sqrt{\log(en)}}
+\sqrt{8\log\frac{2048(n+1)(1+2n)^d}{\delta}}
++c_{2,\rm mesh}\frac Yn,\\
+&32\le c_{2,\rm mesh}\le
+C\beta^{4L}(1+m/\gamma).
+\end{split}
+\tag{Logarithmic dense certificate}
+\]
+The positive coefficients \(c_0,c_1\) are the inherited fixed-problem
+coefficients of the dense comparison; this construction does not quantify
+them further. At every width satisfying the stated gates,
+\[
+\|f_{\rm Log,n}-f_n^{\rm ind}\|_*\le3b_n
+\tag{Logarithmic forward}
+\]
+with probability at least \(1-\delta\). The event is simultaneous over all
+sphere inputs, all physical times, adaptively chosen queries, and the fitted
+endpoint. The compact model is built jointly with a fresh independent dense
+reference law; it does not encode a previously supplied dense matrix or seed.
+
+Its learned and total retained storage are both at most a universal multiple of
+\[
+p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+\bigl[d+1+\log(e+(d+1)Z)\bigr]
+\tag{Logarithmic word storage}
+\]
+numerical words, each of sufficient length \(C\beta^{110L}Z\) bits. This
+includes all retained data, seeds and members; the same word envelope also
+covers the live query workspace. The clean
+display uses \(nY\ge1\), already enforced by the width gate. For
+\(0<nY<1\), replace \(Z\) everywhere in the numerical counts by
+\(Z+\log_+(1/(nY))\) and retain the enlarged Gaussian-RMS gate.
+
+This method reaches the dense-pair upper-certificate scale, not the Harmonic
+method's stronger matched-reference \(n^{-1+o(1)}\) error. In particular its
+error divided by the actual dense discrepancy is not proved to vanish.
 
 <a id="harmonic-setup-headline"></a>
 #### Two efficient initializers for the same Harmonic family
@@ -341,6 +677,32 @@ test even before taking this eventual simplification.
 Keeping the two logarithms also keeps the coefficient uniform in the
 fixed polynomial accuracy exponent; replacing them by \(\log(en)^2\)
 would hide a constant depending on that exponent.
+At the absolute root-width target \(\varepsilon=n^{-1/2}\), this gives
+\[
+\text{learned storage}\le Cnd+
+C\beta^{CL}Lm\sqrt Y\left(\frac m\gamma\right)^3n^{5/4}
+\sqrt{\log(en)}e^{\frac12\sqrt{\log(en)}}.
+\tag{Legendre absolute root-width storage}
+\]
+The outer factor \(m\) is the response-memory multiplicity in the exact
+count \(n(d+1)+1+2(L-1)mnq\); it has not been removed.
+When \(m\ge d\) and the positive problem parameters are fixed while \(n\)
+grows, the second term eventually dominates \(nd\), and the clean form is
+\[
+\text{learned storage}
+\le C\beta^{CL}Lm\sqrt Y
+\left(\frac m\gamma\right)^3n^{5/4+o(1)}.
+\tag{Legendre simplified root-width learned storage}
+\]
+At the label-scaled root target \(\varepsilon=Y/\sqrt n\), used before the
+extra logarithmic enlargement that makes compression negligible relative to
+dense variability, the factor \(\sqrt Y\) cancels. Thus, under the same
+\(m\ge d\) convention,
+\[
+\text{learned storage}
+\le C\beta^{CL}Lm\left(\frac m\gamma\right)^3n^{5/4+o(1)}.
+\tag{Legendre dense-variability-scale learned storage}
+\]
 
 #### Harmonic: choose width budget for the given reference
 
@@ -380,6 +742,38 @@ If the sufficient budget exceeds \(n\), the exact full-width branch
 suffices instead. The exact inverse in the proof also handles targets
 already met by the initialization-only model. These are internal choices
 of one width budget, not extra runtime orders.
+
+#### Logarithmic decoder: choose reference width for the target
+
+There is no order to optimize after choosing \(n\). For a requested
+\(\varepsilon\), choose the smallest integer width satisfying
+\[
+3b_n\le\varepsilon
+\tag{Logarithmic inverse error test}
+\]
+together with (Logarithmic explicit width), and then run the prescribed
+finite-source construction. At fixed admissible problem parameters and
+confidence,
+\[
+n(\varepsilon)=\varepsilon^{-2+o(1)}
+\tag{Logarithmic inverse width rate}
+\]
+suffices. Substitution into (Logarithmic word storage) gives
+\[
+\operatorname{storage}_{\rm Log}
+=O\!\left([\log(1/\varepsilon)]^6
+\log\log(e^e+1/\varepsilon)\right)
+\tag{Logarithmic inverse word storage}
+\]
+numerical words and
+\[
+O\!\left([\log(1/\varepsilon)]^7
+\log\log(e^e+1/\varepsilon)\right)
+\tag{Logarithmic inverse bit storage}
+\]
+bits. The inherited positive coefficients \(c_0,c_1\) in \(b_n\) are not
+fully parameter-quantified, so this fixed-problem inverse rate is eventual;
+the separately displayed finite-source width itself is explicit.
 
 <a id="cost-inverse-interface"></a>
 #### Costs at the prescribed inverse widths/orders
@@ -427,6 +821,29 @@ refresh is charged to training/model preparation, not hidden in the
 single-query bound. These are sufficient implementation costs, not
 time-optimal algorithms or numerical-step accuracy guarantees.
 
+The Logarithmic decoder uses finite-word rather than unit-cost real
+arithmetic, so its costs are stated separately. With \(p,Z\) as in
+(Logarithmic decoder orders), put
+\[
+M_{\rm Log}=p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+\bigl[d+1+\log(e+(d+1)Z)\bigr].
+\]
+Up to universal multiplicative constants:
+
+| Logarithmic decoder phase | Word operations | Peak numerical words |
+|---|---:|---:|
+| Initialization | \(n(d+1)p^5\beta^{1115L}(m+d+2)^5(1+m/\gamma)^5Z^{29/2}\) | \(M_{\rm Log}+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2}+p^3\beta^{603L}(m+d+2)^3(1+m/\gamma)^3Z^{15/2}\) |
+| Complete compact training | \((d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4Z^{12}\log(e+p\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2})\) | \(M_{\rm Log}\) |
+| One unseen-input query | \((d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4[(L+1)nZ^{12}+Z^{14}]\) | \(M_{\rm Log}\) |
+
+The training row counts all prescribed updates, not one vector-field stage.
+Each numerical word has \(C\beta^{110L}Z\) sufficient bits. General analytic
+activation evaluation, external descriptions and their access work remain
+additional; the finite tanh evaluator is included. Initialization may inspect
+completed virtual training and has width-linear temporary storage. Querying
+regenerates virtual source rows, does not replay scalar training, and retains
+the displayed factor \(n\).
+
 <a id="main-compression-consequences"></a>
 ### Common accuracy-to-storage and computational-cost corollary
 
@@ -442,6 +859,7 @@ Harmonic budget with this same storage order, as specified there:
 | Independent dense | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-4+o(1)}\) |
 | Legendre | \(\varepsilon^{-5/2+o(1)}\) | \(\varepsilon^{-4+o(1)}\), including fixed mixers |
 | Harmonic | \(O(\log(1/\varepsilon)^{3d+2})\) | \(O(\log(1/\varepsilon)^{3d+2})\) |
+| Logarithmic decoder | bounded by the complete-model envelope at right | \(O([\log(1/\varepsilon)]^6\log\log(e^e+1/\varepsilon))\) numerical words |
 
 These powers do not suppress growing structural parameters in the explicit
 bounds above. They are sufficient counts, not minimax storage lower bounds
@@ -471,6 +889,9 @@ The cost comparison is:
 | Harmonic warmup, implicit Gaussian local continuation | \(\varepsilon^{-2+o(1)}\) | \(\varepsilon^{-2+o(1)}\) |
 | Harmonic training stage | \(O(\log(1/\varepsilon)^{3d+2})\) | \(O(\log(1/\varepsilon)^{3d+2})\) |
 | Harmonic query | \(O(\log(1/\varepsilon)^{3d+2})\) | \(O(\log(1/\varepsilon)^{3d/2+1})\) additional |
+| Logarithmic decoder initialization | \(\varepsilon^{-2+o(1)}\) word operations | \(\varepsilon^{-2+o(1)}\) numerical words |
+| Logarithmic decoder complete training | \(O([\log(1/\varepsilon)]^{12}\log\log(e^e+1/\varepsilon))\) word operations | retained model |
+| Logarithmic decoder query | \(\varepsilon^{-2+o(1)}\) word operations | retained model |
 
 The displayed Harmonic rates follow by substituting
 \(n=\varepsilon^{-2+o(1)}\) into the two proved local-continuation
@@ -480,14 +901,21 @@ The explicit implementation holds quadratic dense arrays during warmup;
 the implicit implementation does not generate them. Neither warmup is
 polylogarithmic merely because the retained model is.
 All asymptotic rows fix the dataset, depth, dimension, activations
-and confidence and use unit-cost scalar evaluation/sampling.
-The more general arithmetic-plus-primitive-call qualification is in
-Part II. There is no bound here on numerical precision or the number
-of subsequent compressed training steps. The local initializer's own
-integration orders and numerical defect are controlled separately.
+and confidence. Dense, Legendre and Harmonic use unit-cost scalar
+evaluation/sampling; their more general arithmetic-plus-primitive-call
+qualification is in Part II. Those rows do not bound numerical precision
+or the number of subsequent compressed training steps. The local
+initializer's own integration orders and numerical defect are controlled
+separately. Logarithmic rows instead use the finite-word contract, include
+their stated word length, and count the complete prescribed training schedule.
 Legendre's smaller learned state does not eliminate
 its fixed dense-mixer work; Harmonic's small runtime state does not
 bound the cost of constructing it.
+The Logarithmic decoder has a dimension-independent logarithmic word-storage
+exponent. Its exponent six is smaller than Harmonic's coordinate exponent
+\(3d+2\) when \(d\ge2\), but not when \(d=1\); these also count
+different storage units. Unlike Harmonic, its certified query work is not
+polylogarithmic and its error is only at the dense upper-certificate scale.
 
 For \(m\ge2\) and nonzero labels, canonical independent-dense accuracy
 with fixed failure probability below one half requires, eventually,
@@ -530,8 +958,10 @@ and storage formulas in this part, rather than any choice of a headline
 constant, are the numerical certificates. Finite recurrence coefficients
 are defined locally where they are used; none is an independently
 adjustable parameter. The separate cost subsection exposes internal
-setup resolutions and qualifies its arithmetic big-O bounds explicitly;
-it is not an exact floating-point operation or bit-complexity certificate.
+setup resolutions and qualifies its arithmetic big-O bounds explicitly.
+Dense, Legendre and Harmonic costs are not finite-bit certificates;
+Logarithmic costs use the separately defined finite-word model. None is
+a measured floating-point operation or wall-clock benchmark.
 The same physical-time model and the same whole-sphere, all-time norm
 apply throughout. Where a proof writes \(v=x/\sqrt d\), its unit-sphere
 supremum is exactly the original input-sphere supremum.
@@ -562,7 +992,7 @@ The simpler dense/Legendre activation-power certificates use this smaller
 cap. Their full recurrence certificates retain the entire displayed
 interval. Harmonic's explicit full-range certificate and supplied-budget
 theorem use the entire interval. No target-dependent label assumption is
-introduced. If \(Y=0\), all three predictors stay identically zero;
+introduced. If \(Y=0\), all four models use the identically zero predictor;
 the positive-label formulas are replaced by that exact stationary case.
 
 ### One width and confidence convention
@@ -577,6 +1007,12 @@ included only for \(m\ge2\) and \(Y>0\). A conservative common
 explicit initialization requirement is
 \(n\ge N_{\rm fit}(\delta/32)\), whose numerical formula appears
 below. Also take \(n\ge d\) for the simplified storage counts.
+
+To include the Logarithmic decoder in the same assertion, use input
+\(\delta/5\) for each of the five assertions and take the union of their
+width requirements, including its explicit gate. The decoder's additional
+spanning assumption applies only to that assertion. This is a joint-event
+allocation, not a new hypothesis for any standalone model theorem.
 
 The remaining common gates have exactly these origins:
 
@@ -616,14 +1052,16 @@ statements one may include \(n\ge18(2m+d+9)\) in the common width
 threshold so these domains overlap directly. At smaller widths the
 full-coordinate branch still exists but is not a compression claim.
 
-All storage counts are numbers of real coordinates. For dense and
+Dense, Legendre and Harmonic storage counts are numbers of real coordinates.
+Logarithmic storage counts finite numerical words of the specified bit length.
+For dense and
 Legendre, state counts are distinguished from data and evaluation
 working memory. For Harmonic, the stated all-retained bound also includes
 fixed metrics/copies, data and prescribed solve caches. Setup jets and
 original-width arrays are discarded after construction. The separate
 [cost analysis](#computational-costs) supplies arithmetic and peak-memory
-implementation bounds, not bit complexity or storage optimality over all
-possible representations. “Least certified order”
+implementation bounds under each declared arithmetic model, not storage
+optimality over all possible representations. “Least certified order”
 means the least integer satisfying the particular displayed sufficient
 error bound; it is not an observed or minimax optimum.
 
@@ -1169,14 +1607,17 @@ The trained carrier event and finite-query holomorphic event depend on
 the shared source foundation's local Gaussian insertion theorem and
 its complex extension. Their finite activation/depth coefficients are
 the displayed source recurrences, not unspecified comparison constants.
-Their eventual stochastic width, coordinate-remainder constants,
-control-uniform stopping bounds, and higher-derivative probability
-constants are not quantified by the dense inputs. Any unresolved proof
-obligation for that source interface is inherited by the dense upper
-and actual-trajectory lower claims; the deterministic downstream proofs
-do not remove it. The concrete numerical initialization threshold and
-the displayed domain/remainder gates must remain distinct from that
-unquantified source success threshold.
+The maps, control-uniform stopping argument, nonlinear remainders,
+passive-query derivatives and scalar trace contractions are proved in
+(IC.1)--(IC.57), including the independent stopped-path extension
+(IC.stop). The complete complex query-tube source and initialized CLT
+still have eventual fixed-problem width quantifiers; no numerical full
+success threshold is asserted for those results. The concrete numerical
+initialization threshold and deterministic domain/remainder gates remain
+distinct from that qualitative width convention. The narrower finite
+training-source event has the separate explicit proof (IC.58)--(IC.90);
+its all-time training-carrier bridge suffices for the Logarithmic
+decoder's dense upper certificate, not for a quantitative lower-bound CLT.
 
 The same statements concern each sufficiently large individual width.
 They do not provide one event over infinitely many independently
@@ -1955,7 +2396,8 @@ The same construction also satisfies the fitting bound
 \|f_C-f_n\|_*\le(10H_c+4H_d)Y\sqrt{m/\gamma}.
 \tag{Harmonic baseline certificate}
 \]
-All three bounds include the limiting predictors. The factor 64 in
+The two all-time bounds include the limiting predictors; the first bound
+is only on its displayed finite horizon. The factor 64 in
 \(\mathcal B_n\) covers the all-time carrier extension. At the original
 horizon, before that extension is used, it can be replaced by 32.
 
@@ -2189,6 +2631,204 @@ These inequalities are eventual at every fixed admissible problem. They
 are independent of \(q\), \(T\), and target accuracy. Thus one event
 at a fixed width supports all the Harmonic budgets and tolerances above;
 there is no union over new horizon-dependent Gaussian events.
+
+<a id="logarithmic-decoder-detailed"></a>
+### Logarithmic decoder compression: explicit finite theorem
+
+The Logarithmic decoder uses the same dense architecture, Gaussian
+initialization, zero readout, mean-square loss and mobilities as the preceding
+sections. Its additional data hypotheses are \(m\ge d\) and
+\(\operatorname{span}\{x_1,\ldots,x_m\}=\mathbb R^d\). It retains the full
+intersection of the fitting and analytic-source label allowances; it adds no
+smaller upper label cap. The branch \(Y=0\) is the exact zero predictor.
+
+The method has three finite phases.
+
+1. **Initialization.** Generate a virtual finite source independently of the
+   dense reference, inspect its completed finite training computation, select
+   row packets and a positive metric reproducing its required empirical
+   contractions, and retain short seeds, selected packets, current scalar
+   state, scalar-noise marks and finite instructions. Full row tables and
+   future-answer tables are discarded. Setup is therefore offline but does
+   not retain a trained dense oracle.
+2. **Training.** Evolve the selected packets and scalar state using the
+   retained metric. Each already created selected field and its exact metric
+   product are cached. Creation-time scalar arguments are immutable.
+3. **Querying.** Regenerate the source rows from the retained seeds, stream
+   the empirical contractions for the new input, and apply the complete
+   two-orientation conditional covariance correction. A median over complete
+   source models gives one answer. Querying does not rerun scalar training.
+
+No test input or test label is supplied during initialization or training.
+The construction produces a fresh joint law for the compressed model and an
+independent width-\(n\) dense reference. It is not a deterministic conversion
+of a supplied dense realization.
+
+For \(0<\delta<1/4\), define \(p,Z,p_{\rm ref}\) by
+(Logarithmic decoder orders)--(Logarithmic reference order). The clean
+finite-word branch requires \(nY\ge1\). With a fixed absolute numerical
+allocation, it is sufficient that
+\[
+n\ge\max\left\{
+C_*\left[
+\frac{2^{20}\beta^{2000L}(1+m/\gamma)^4
+(m+d+p_{\rm ref}+1)^4}{\delta}
+\right]^{1100},\;Y^{-1},\;C_{\rm num}
+\right\}.
+\tag{Logarithmic complete enclosing gate}
+\]
+Here
+\[
+C_{\rm num}=\max\{1,(A_{\rm num}/32)^{1/9}\},
+\]
+where \(A_{\rm num}\) is the absolute coefficient assigned to the total
+\(Yn^{-10}\) numerical remainder.
+A sharper source-only alternative sets
+\[
+\rho=2^{-20}\delta,\qquad
+\mathcal A=\beta^{2000L}(1+m/\gamma)^4
+(m+d+p_{\rm ref}+1)^4
+\]
+and requires
+\[
+n\ge\max\left\{
+[2\mathcal A(2000\log(2\mathcal A))^{16}]^{1000},
+\frac{64mL}{\rho}
+\right\}.
+\tag{Logarithmic factorized source gate}
+\]
+When this sharper gate is used, retain separately
+\[
+n\ge d,\qquad
+n\ge\max\{1,e^{-1}\sqrt{1+66\beta^{100L}m/\gamma}\},
+\qquad
+n\ge\max\{1,(\beta^{23L}/8)^{1/15}\},
+\tag{Logarithmic physical gates}
+\]
+\[
+n\ge C_0\left[
+\frac{p_{\rm ref}\beta^{201L}(m+d+2)(1+m/\gamma)}\rho
+\right]^2,\qquad
+n\ge\max\{1,(A_{\rm num}/32)^{1/9}\}.
+\tag{Logarithmic implementation gates}
+\]
+All constants in these gates are universal or are the explicitly chosen
+numerical allocation. No stochastic eventual-width condition remains.
+The initialization input for this finite-width assertion is the
+exponential-concentration gate (IC.58)--(IC.61), proved in
+[the finite source section](#decoder-finite-source). It replaces the
+older sufficient \(N_{\rm fit}\) for this assertion; no exponential
+sphere-net cardinality is hidden in the power-\(1100\) gate.
+The all-time independent-reference bridge is (IC.88)--(IC.90).
+
+For the dense certificate, use the dense fitting quantities already defined
+above: the hidden-size envelope \(H_D\), the derivative envelope \(F_D\),
+the strip constant \(s\), and \(\lambda=\gamma/m\).
+One valid explicit mesh coefficient is
+\[
+c_{2,\rm mesh}=
+\frac{32H_D^2}{\lambda}+
+\frac{32F_DY^2}{\lambda^2}+
+\frac{4(9s)^L}{\sqrt\lambda},\qquad
+32\le c_{2,\rm mesh}\le C\beta^{4L}(1+m/\gamma).
+\tag{Logarithmic mesh coefficient}
+\]
+With the inherited positive fixed-problem leading coefficients \(c_0,c_1\),
+let \(b_n\) be (Logarithmic dense certificate). Then the complete theorem is
+\[
+\mathbb P\left\{
+\sup_{t\in[0,\infty]}\sup_{\|x\|_2=\sqrt d}
+|f_{\rm Log,n}(t,x)-f_n^{\rm ind}(t,x)|\le3b_n
+\right\}\ge1-\delta.
+\tag{Logarithmic complete comparison}
+\]
+The event includes unseen and adaptively chosen inputs and the fitted
+endpoint. It matches a dense-pair upper certificate; it is neither a lower-
+bound comparison nor an \(n^{-1+o(1)}\) matched-reference theorem.
+
+The retained model uses at most a universal multiple of
+\[
+M_{\rm Log}=p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+\bigl[d+1+\log(e+(d+1)Z)\bigr]
+\tag{Logarithmic retained words}
+\]
+numerical words of sufficient length
+\[
+w=\left\lceil C_{\rm word}\beta^{110L}Z\right\rceil
+\quad\text{bits}.
+\tag{Logarithmic word length}
+\]
+This retained inventory includes every ensemble member, both seed levels,
+selected packets, metrics, caches, scalar state and the normalized training
+table. The same envelope covers the live query workspace. Some exact setup
+integers occupy several such words.
+
+Up to universal multiplicative constants, the complete internal costs are
+\[
+\begin{array}{c|c|c}
+\text{phase}&\text{word operations}&\text{peak words}\\
+\hline
+\text{initialization}&
+n(d+1)p^5\beta^{1115L}(m+d+2)^5(1+m/\gamma)^5Z^{29/2}&
+M_{\rm Log}+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2}
++p^3\beta^{603L}(m+d+2)^3(1+m/\gamma)^3Z^{15/2}\\
+\text{complete training}&
+(d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4Z^{12}
+\log(e+p\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2})&M_{\rm Log}\\
+\text{one query}&
+(d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4
+[(L+1)nZ^{12}+Z^{14}]&M_{\rm Log}.
+\end{array}
+\tag{Logarithmic complete costs}
+\]
+Sufficient activation-value call counts for those three rows are, respectively,
+\[
+\begin{aligned}
+N_{\phi,\rm init}\le{}&
+Cn(d+1)p\beta^{201L}(m+d+2)(1+m/\gamma)Z^{7/2},\\
+N_{\phi,\rm train}\le{}&
+C(d+1)p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6,\\
+N_{\phi,\rm query}\le{}&
+C(d+1)(L+1)\bigl[
+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{7/2}\\
+&\hspace{39mm}
++p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+\bigr].
+\end{aligned}
+\tag{Logarithmic activation calls}
+\]
+For tanh, the supplied finite evaluator is included. For a general analytic
+activation, multiply these counts by its actual finite-word work per call and
+add one evaluator's workspace. Also add external data, certificate,
+query/time access and output work. If their retained descriptions require
+\(B_{\rm ext}\) bits beyond the counted finite table, add
+\(\lceil B_{\rm ext}/w\rceil\) retained and peak words. Raw-label access
+requires at least
+\[
+w+\lceil\log_2(16\sqrt m)\rceil+
+\lceil\log_2\max(1,1/Y)\rceil
+\tag{Logarithmic raw-label precision}
+\]
+fractional bits. Analytic regularity alone does not price these interfaces.
+
+For \(0<nY<1\), put
+\[
+Z_Y=Z+\log_+\frac1{nY}.
+\]
+The explicit small-label recipe (FC.61)--(FC.62) in
+[the finite construction](#decoder-finite-construction) enlarges the
+panel and Taylor orders as well as the precision, field, code and cost
+counts. Its constructed field/call count \(R_Y\) satisfies
+\[
+R_Y\le Cp\beta^{201L}(m+d+2)(1+m/\gamma)Z_Y^{5/2},
+\qquad n\ge2\log(2^{20}R_Y).
+\]
+The second inequality is the explicit enlarged finite Gaussian-RMS gate.
+Use \(Z_Y\) throughout the numerical storage/work envelopes in this
+branch. Changing word precision alone is not sufficient. There is no
+new lower label condition in the source probability theorem; the clean
+headline branch remains \(nY\ge1\), which is eventual for every fixed
+positive label scale.
 
 
 
@@ -3373,7 +4013,10 @@ and an effective probability threshold. The original source argument
 proves probability tending to one by sending width to infinity at each
 fixed empirical moment degree and only then taking the infimum over those
 degrees. It does **not** specify a numerical sufficient width as a function
-of confidence. None is asserted here. The deterministic source coefficients,
+of confidence for that entire complex-sphere source event. The later finite
+training-source proof gives a separate explicit width for the Logarithmic
+decoder; it must not be substituted for the stronger query-tube event.
+The deterministic source coefficients,
 label allowance, radii and additional width inequalities below are explicit.
 The finite-deletion argument uses eventual domination of fixed logarithmic
 factors; it is the source of the remaining qualitative width quantifier.
@@ -3381,214 +4024,1002 @@ factors; it is the source of the remaining qualitative width quantifier.
 <a id="source-local-insertion"></a>
 #### Finite deletion and its local comparison
 
-Here is the local probabilistic argument used by the source estimates.
-It is included to replace the former import of a specialized insertion
-theorem. Fix a number \(p\) of deleted neurons in one layer; it is fixed
-before width tends to infinity. Delete the activations themselves, leaving
-rectangular retained matrices and the original normalization \(n\).
-Setting their preactivations to zero is not the same operation, because
-\(\phi_j(0)\) need not vanish. Each cavity is initialized, stopped and
-continued from its own retained initialization. A reference whose own
-initialization fails its prescribed event is assigned the zero coefficient
-path. This is done before conditioning on any omitted Gaussian variable.
+<!-- insertion-completion:local:start -->
+The first conclusion has fixed deletion count and the original complex
+query tube; its width onset is qualitative. The second conclusion concerns
+only the finitely many training queries and has the explicit power-1100
+width gate. These scopes must not be interchanged. Throughout, retain the
+complete common label allowance, including (S.10). No restriction depending
+on a deletion count or on a confidence is added to that allowance.
 
-Use mobility coordinates
-\(\Theta=(A,\sqrt nW^{(2)},\ldots,\sqrt nW^{(L)},w)\) and
-\(F_a=nf_a\). At an interior deleted layer \(j\), write the incoming
-initialized row transposes as \(y_i\) and the outgoing columns as \(x_i\).
-Conditional on the retained initialization these vectors are independent
-\(N(0,I/n)\). The exact retained equation, with a forward source \(e_a\)
-at layer \(j+1\) and a reverse source \(q_a^{\rm rev}\) at layer \(j-1\), is
-\[
-\dot\Theta=-\frac2m\sum_a r_a
- \left[\nabla_\Theta F_a(\Theta,e)
- +(D_\Theta h_a^{(j-1)})^\top q_a^{\rm rev}\right],
-\qquad r_a=F_a(\Theta,e)/n-y_a.
-\]
-The actual sources are
-\[
-e_a=\sum_{i\in I}W^{(j+1)}_{:,i}h_{a,i}^{(j)},\qquad
-q_a^{\rm rev}=\sum_{i\in I}W^{(j)\top}_{i,:}\delta_{a,i}^{(j)}.
-\]
-Indeed differentiating the retained forward prediction misses exactly
-the paths through a deleted activation; their chain-rule contribution is
-the second term displayed above. The reverse source is not an artificial
-addition to the forward prediction or its residual.
+##### 1. Coordinates and the exact retained equation
 
-On the stopped source domain, a deleted activation and response are
-bounded by a fixed polynomial in \(\log(en)\); their coordinate speeds
-are bounded by \(\sqrt n\) times such a polynomial. Integrating their
-rank-one updates shows that the learned part of each deleted row or
-column, multiplied by its control, has Euclidean norm bounded by
-\(n^{-1/2}\) times a fixed polynomial in \(\log(en)\).
-The same assertion holds on the short complex segments: their total
-residual activity is bounded. These adaptive remainders are estimated
-pathwise and are never treated as independent Gaussian variables.
-
-For completeness, the derivative structure that prevents a hidden
-parameter-dimension factor is as follows. For a parameter variation \(U\),
-write \(Z_a^{(j)}U=D_\Theta z_a^{(j)}[U]\). Its recurrence is
+Write \(\ell=\log(en)\), \(\lambda=\gamma/m\), and
+\(S=16Y/\lambda\). For \(Y=0\), the readout and all parameter
+velocities vanish and the predictor is zero; the argument with barred
+variables below is only for \(Y>0\). Use Euclidean/Frobenius norm on
+the direct sum of the mobility coordinates
 \[
-Z_a^{(1)}U=U_Av_a,\qquad
-Z_a^{(j)}U=(U_j/\sqrt n)h_a^{(j-1)}
- +W^{(j)}\operatorname{diag}(\phi_{j-1}')Z_a^{(j-1)}U.
+ \Theta=(A,H^{(2)},\ldots,H^{(L)},w),\qquad H^{(j)}=\sqrt nW^{(j)}.
 \]
-The operator coefficients are bounded by the forward RMS recurrences
-given below. The exact Hessian is
+Here \(H^{(j)}\) is a rescaled matrix; the scalar RMS bound remains
+\(H_j\). Write \(v_a=x_a/\sqrt d\) for a normalized training
+input and \(F_a=n f(t,x_a)=w^\top h_a^{(L)}\) for its unnormalized
+prediction. Delete activations in one layer, keeping normalization \(n\)
+in every rectangular matrix. For a deleted interior neuron \(i\), its
+initialized incoming row transpose \(y_i\) and outgoing column \(x_i\)
+have law \(N(0,I/n)\) and are independent of the entire retained
+initialization and of the other omitted root pairs. At the first layer
+only \(x_i\) enters the retained forcing; the initialized incoming
+row has law \(N(0,I_d)\) and is used separately to evaluate its own
+preactivation. At the top there is no \(x_i\).
+
+Add forward ports \(e_a^{(j)}\) to preactivations and set
 \[
-\begin{split}
-D^2F_a[U,V]={}&U_w^\top\operatorname{diag}(\phi_L')Z_a^{(L)}V
+ \bar u=(\Theta-\Theta_0)/S,\quad
+ \bar F_a=F_a(\Theta_0+S\bar u,e_a)/S,
+ \quad\bar r_a=\bar F_a/n-y_a/S,\quad
+ \bar k=k/S,\quad\bar\delta=\delta/S.
+ \tag{IC.1}
+\]
+Zero initial readout gives \(\bar F_a=\bar u_w^\top h_a^{(L)}\).
+The scaled backward recursion and gradient blocks are
+\[
+ \bar k_a^{(L)}=\bar u_w,\quad
+ \bar\delta_a^{(j)}=\phi_j'(z_a^{(j)})\odot\bar k_a^{(j)},\quad
+ \bar k_a^{(j)}=W^{(j+1)\top}\bar\delta_a^{(j+1)},
+\]
+\[
+ \nabla_{\bar u_A}\bar F_a=S\bar\delta_a^{(1)}v_a^\top,
+ \quad\nabla_{\bar u_{H^{(j)}}}\bar F_a
+ ={S\over\sqrt n}\bar\delta_a^{(j)}h_a^{(j-1)\top},
+ \quad\nabla_{\bar u_w}\bar F_a=h_a^{(L)}.
+ \tag{IC.2}
+\]
+For deletion at layer \(j\), the actual ports are
+\[
+ e_a=\sum_{i\in I}W^{(j+1)}_{:,i}h_{a,i}^{(j)},\qquad
+ \bar q_a=\sum_{i\in I}W^{(j)\top}_{i,:}\bar\delta_{a,i}^{(j)}.
+\]
+Differentiating through the deleted activation accounts for exactly the
+second summand in the following equation:
+\[
+ \dot{\bar u}=-{2\over m}\sum_a\bar r_a
+ \left[\nabla_{\bar u}\bar F_a+
+       D_{\bar u}h_a^{(j-1)\top}\bar q_a\right].
+ \tag{IC.3}
+\]
+In particular \(D_{\bar u}h=S D_\Theta h\). The reverse source
+does not enter the forward residual. At the top the additional scalar
+\(\bar d_a=n^{-1}\sum_{i\in I}\bar u_{w,i}h_{a,i}^{(L)}\)
+is added to \(\bar r_a\) and multiplies both terms in the bracket.
+
+Each reference is the zero-source cavity with its own initialization
+test, real stopping time and complex stopping domain. Failed own
+initializations give identically zero coefficient paths. This convention
+is fixed before any omitted root is integrated. On a successful stopped
+reference, the physical RMS bounds are (S.5)--(S.6), its budgets are
+at most \(2\mathcal B\), its operator caps are ten, and
+\[
+ 2\int\bar\rho\,|dt|\le1,\quad
+ \bar\rho=\big(m^{-1}\sum_a|\bar r_a|^2\big)^{1/2},\quad
+ \bar\rho\le\lambda/8,\quad
+ M_n=\eta^{-1}\log(2n\mathcal B).
+ \tag{IC.4}
+\]
+For the original qualitative source, the short-contour conditions in
+(S.31) give (IC.4). For the quantitative training source, they will be
+proved directly in Section 7 at a smaller radius.
+
+The independent complex stops and their extensions are defined as follows.
+For a fixed target rectangle
+\(K=[-r_t,T+r_t]+i[-r_t,r_t]\), use the nested closed convex
+rectangles \(K_s=sK\), \(0\le s\le1\). Each cavity starts
+from its own initial germ and has its own first-exit level \(s_c\):
+all its running budgets, maxima, pole and response stops are suprema on
+\(K_s\). In the qualitative passive-query construction, take those
+suprema on \(K_s\) times the intrinsic query tube of thickness
+\(s r_q\), retaining the full real sphere at every level. Thus
+the first level has only real initial queries. This is the same target
+domain and the same stops at \(s=1\), with a precise nested-prefix
+convention. The real fitting trajectory is already defined independently
+for all positive time. Before a stop, finite-width parameter bounds and
+the strict separation from the activation singularities permit local
+holomorphic ODE continuation. Compactness and uniqueness glue these
+extensions. At a first stopped level the coefficients have continuous
+values on its closed rectangle; the activation strip still has strict
+slack, so the same local continuation justifies the one-sided derivative
+bounds there. A failed own initialization is treated separately by the
+identically zero convention.
+
+Let \(P_c\) be Euclidean projection onto the fixed rectangle
+\(K_{s_c}\), explicitly clamping its real and imaginary coordinates
+to the two closed intervals. It is 1-Lipschitz, fixes this rectangle,
+and is measurable in that cavity's retained initialization only. Extend
+each of its coefficient paths \(b_c\) to the whole target rectangle
+by \(\widetilde b_c(z)=b_c(P_cz)\). A derivative bound on the
+convex rectangle gives the corresponding Lipschitz bound by integration
+on a segment, and composition with \(P_c\) preserves that bound.
+For passive-query grids also clamp the intrinsic imaginary-circle
+coordinate to \([-s_cr_q,s_cr_q]\); the real frame ranges over
+the full frame manifold. These extensions need not be holomorphic outside
+their own stopped domains. Holomorphic identities are used only on the
+common successful prefix, where the projections are identity.
+
+In particular define the real-anchor map
+\(a(z)=\min\{T,\max\{0,\operatorname{Re}z\}\}\).
+The correct complex-minus-real coefficient is
+\[
+ b_c(P_cz)-b_c(P_ca(z))
+       =b_c(P_cz)-b_c(a(P_cz)).
+ \tag{IC.stop}
+\]
+The two projections commute because both real intervals contain zero
+and the anchor interval is \([0,T]\). Both arguments lie in
+\(K_{s_c}\), their distance is at most \(|z-a(z)|\le2r_t\),
+and both argument maps are 1-Lipschitz. Thus the small-radius and
+global modulus bounds for this difference follow from the derivative
+bounds on the closed stopped rectangle. Its real anchors trace a
+monotone interval from zero to \(\min\{s_c(T+r_t),T\}\),
+then freeze. The original real activity modulus and moment proof therefore
+apply to that real coefficient path. For two different cavities, extend
+each with its own projection before subtracting; the sum of their
+Lipschitz constants bounds the difference. On a successful full prefix,
+strict cavity-stop transfer proves \(s_c\) is at least its level,
+so these extended paths equal the actual paths there. This construction
+supplies the globally defined coefficient processes used in all later
+conditional Gaussian integrals.
+
+##### 2. Derivative maps, control moduli, and terminal interpolation
+
+We give recurrences rather than a dimension-dependent estimate for the
+parameter Hessian. In augmented mobility/port coordinates put
+\(Z_a^{(j)}U=D z_a^{(j)}[U]\). Then
+\[
+ Z_a^{(1)}U=U_Av_a+U_{e^{(1)}},\quad
+ Z_a^{(j)}U={U_{H^{(j)}}\over\sqrt n}h_a^{(j-1)}
+       +W^{(j)}\operatorname{diag}(\phi_{j-1}')Z_a^{(j-1)}U
+       +U_{e^{(j)}}.
+ \tag{IC.5}
+\]
+The coefficients \(P_j,f_j\) in (S.6) bound these maps and their
+activated versions. The exact Hessian is
+\[
+\begin{aligned}
+ D^2F_a[U,V]={}&U_w^\top\operatorname{diag}(\phi_L')Z_a^{(L)}V
  +V_w^\top\operatorname{diag}(\phi_L')Z_a^{(L)}U\\
-&+\sum_{j=1}^L(Z_a^{(j)}U)^\top
- \operatorname{diag}(k_a^{(j)}\phi_j'')Z_a^{(j)}V\\
-&+\sum_{j=2}^L\frac{\delta_a^{(j)\top}}{\sqrt n}
- \left[U_j\operatorname{diag}(\phi_{j-1}')Z_a^{(j-1)}V
-       +V_j\operatorname{diag}(\phi_{j-1}')Z_a^{(j-1)}U\right].
-\end{split}
+ &+\sum_j(Z_a^{(j)}U)^\top
+       \operatorname{diag}(k_a^{(j)}\phi_j'')Z_a^{(j)}V\\
+ &+\sum_{j\ge2}{\delta_a^{(j)\top}\over\sqrt n}
+ \{U_{H^{(j)}}\operatorname{diag}(\phi_{j-1}')Z_a^{(j-1)}V
+  +V_{H^{(j)}}\operatorname{diag}(\phi_{j-1}')Z_a^{(j-1)}U\}.
+\end{aligned}\tag{IC.6}
 \]
-There is one carrier in each curvature diagonal, not a product of
-carriers. All non-diagonal factors have bounded operator norm and factor
-through a hidden space of dimension at most \(n\). Adding preactivation
-ports makes \(D_\Theta\delta_a^{(j)}\) a subblock of this same Hessian.
-The normalized Schatten estimates below therefore apply to both
-endpoints of a response trace.
+Each cross term factors through a hidden space of dimension at most \(n\).
+Each curvature term has exactly one carrier diagonal. Schatten ideal
+inequalities applied to these displayed factors give (S.13); the port
+identity \(\partial_{e_a^{(j)}}F_a=\delta_a^{(j)}\) proves the
+same bounds for both endpoint blocks \(D_\Theta\delta\).
 
-Along the zero-source cavity the exact variational generator is
+The zero-source variational generator is
 \[
--\frac2{mn}\sum_a\nabla F_a\nabla F_a^\top
--\frac2m\sum_a r_aD^2F_a.
+ \mathscr L=-{2\over mn}\sum_a g_ag_a^\top
+             -{2\over m}\sum_a r_a D^2_\Theta F_a,
+ \qquad g_a=\nabla_\Theta F_a.
+ \tag{IC.7}
 \]
-The first term has a contractive real-time propagator. On the short
-non-real or backwards pieces its norm cost is bounded by the explicit
-complex Gram estimate below. The second term is controlled by the
-stopped carrier budget and total residual activity. The specified source
-allowance gives propagator norm at most \(n^{1/1000}\) eventually; in
-particular the coefficient multiplying \(\log n\) is small before width
-is enlarged. Increasing width alone is not used to absorb that coefficient.
-
-If \(d_a=\delta_a^{(j+1)}\), the three linear source maps are exactly
+Its first summand contracts along forward real time. Along disjoint
+short nonreal/backward pieces its accumulated norm cost is at most two.
+By (S.13) and (IC.4), its propagator \(J(t,s)\) therefore satisfies
 \[
--\frac2{mn}\nabla F_a d_a^\top,\qquad
--\frac2m r_a(D_\Theta d_a)^\top,\qquad
--\frac2m r_a(D_\Theta h_a^{(j-1)})^\top.
+ \|J(t,s)\|\le
+ 2e^{SA_*+(S^2D_*/\eta)\log(2n\mathcal B)}
+ \le J_0n^\kappa,
+ \quad J_0=2e^{1/4}(2\mathcal B)^{1/4000},\quad\kappa=1/4000.
+ \tag{IC.8}
 \]
-Variation of constants applies these maps to \(x_i\) times its forward
-control and \(y_i\) times its reverse control. For each deterministic
-choice of controls the resulting linear maps, and the finite forward,
-backward and passive-query derivative graphs, have operator norm at most
-\(n^{1/200}\) eventually. This follows by multiplying the preceding
-\(n^{1/1000}\) bound by the finite logarithmic factors in these recurrences.
-The number of layers, samples and deleted roots is fixed here.
+The coefficient of \(\log n\) is bounded using the unchanged
+label condition, before any width is enlarged.
 
-Each scalar Gaussian coordinate consequently has variance at most
-\(n^{-99/100}\) eventually. The elementary Gaussian bound at threshold
-\(n^{-1/10}/2\) then has exponent a positive fixed multiple of
-\(n^{79/100}\). Centered quadratic forms obey the same scale. To verify
-this assertion, diagonalize the real symmetric part of a matrix \(R\).
-For \(g\sim N(0,I)\) and \(|2u\lambda_i(R)|<1\),
+For deterministic scalar controls \(a_{a,i},b_{a,i}\), put
+\(e_a=\sum_i x_i a_{a,i}\), \(\bar q_a=\sum_i y_i b_{a,i}\).
+The three derivative maps from these ports to (IC.3), at zero ports,
+are exactly
 \[
-\mathbb E\exp\{u(g^\top Rg-\operatorname{tr}R)\}
- =\prod_i e^{-u\lambda_i(R)}(1-2u\lambda_i(R))^{-1/2}.
+ -{2\over mn}\nabla_{\bar u}\bar F_a\bar\delta_a^{(j+1)\top},
+ \qquad-{2\over m}\bar r_a(D_{\bar u}\bar\delta_a^{(j+1)})^\top,
+ \qquad-{2\over m}\bar r_a(D_{\bar u}h_a^{(j-1)})^\top.
+ \tag{IC.9}
 \]
-Using \(-\log(1-v)-v\le v^2/[2(1-|v|)]\), followed by the
-exponential Markov bound and optimization over \(u\), controls the
-tail by the smaller of the squared-threshold/HS-norm and
-threshold/operator-norm scales. Divide \(g\) by \(\sqrt n\).
-The HS norm is at most \(\sqrt n\|R\|_{\rm op}\). An independent-root
-bilinear form uses the symmetric off-diagonal block matrix
-\(\bigl(\begin{smallmatrix}0&R/2\\R^\top/2&0\end{smallmatrix}\bigr)\).
-Real and imaginary parts give the complex estimates. These steps are
-conditional on the cavity, not on the full-network survival event.
-
-Approximate scalar controls uniformly to accuracy \(n^{-1/8}\): sample
-time at that accuracy divided by the coordinate Lipschitz bound and
-round the sampled values. The logarithm of the number of controls is
-at most \(n^{5/8}\) times a fixed polynomial in \(\log(en)\).
-It is at most \(n^{13/20}\) eventually, while the Gaussian exponent
-is at least \(n^{39/50}\) eventually. The interpolation error has
-size at most \(n^{-1/8+1/200}\) times a fixed Gaussian-root norm,
-which is smaller than \(n^{-1/10}/2\) eventually. Polynomially fine
-terminal-time and query-frame grids add only a fixed multiple of
-\(\log n\) to log cardinality. Their off-grid control follows from
-the same finite derivative graph. A union bound, including all sets of
-\(p\) deleted neurons, therefore leaves failure at most
-\(e^{-n^{7/10}}\) eventually. On this event every needed linear
-vector has Euclidean norm at most \(n^{1/100}\), and every needed
-linear coordinate has magnitude at most \(n^{-1/10}\). The Euclidean
-bound also follows directly from the map norm and the norm of the
-fixed number of Gaussian roots. Only after this uniform event has
-been established are the actual adaptive controls substituted.
-
-Here is the nonlinear remainder check. Write the full parameter increment
-as its linear response plus a remainder of norm \(u\le n^{-1/25}\).
-The two basic vector remainders are
+The first is required because the residual depends on the forward port.
+Let \(\Gamma=\sqrt{\mathcal K}\), \(\tau_*=\max\tau_j\),
+\(f_*=\max f_j\), and take a contour length at most
+\(T_*\ell\), where \(T_*=32/\lambda+2c\) if its half-width
+is \(c/\sqrt\ell\). Define
 \[
-n^{-9/100}+n^{-1/10}u+u^2,
-\qquad
-n^{-1/2}(n^{2/100}+n^{1/100}u+u^2).
+\begin{gathered}
+ M_0=\eta^{-1}[1+\log(2\mathcal B)],\quad
+ A_0=b+sM_0,\quad B_0=sM_0,\quad E_0=A_*+SD_*M_0,\\
+ v_0=J_0\{A_0(2T_*\Gamma\tau_*+E_0)+Sf_*B_0\},\\
+ z_j^0=P_j(Sv_0+A_0),\quad h_j^0=sz_j^0,\quad
+ k_L^0=v_0,\\
+ d_j^0=sk_j^0+t_2M_0z_j^0,\qquad
+ k_j^0=10d_{j+1}^0+S\tau_{j+1}v_0+B_0\quad(j<L).
+\end{gathered}\tag{IC.10}
 \]
-The first follows from
-\(\|v\odot v\|_2\le\|v\|_\infty\|v\|_2\), with the
-linear coordinate bound just proved; mixed terms use
-\(\|v\odot U\|_2\le\|v\|_\infty\|U\|_2\).
-The second is the matrix cross term, which retains the factor
-\(1/\sqrt n\) from mobility coordinates. A reference feature multiplying
-a changed matrix is controlled by its RMS; bounded activation values
-are never used. Induction through the forward recursion and then the
-backward recursion preserves these bounds up to fixed logarithmic factors.
-The changed gate always multiplies the reference carrier or the already
-small linear carrier, not an uncontrolled changed carrier.
-
-For the reverse source one may check this separately with
-\(\psi_y(\Theta)=y^\top h_a^{(j-1)}(\Theta)\).
-Its reference probe carriers have Euclidean norm bounded independently
-of width and coordinate size at most \(n^{-1/10}\). Along the joining
-parameter segment, subtracting the probe recursion bounds their change
-by fixed logarithmic factors times
+As maps from the concatenation \(g\) of the omitted roots,
+the mobility, preactivation and feature variations have norms at most
+\(\sqrt p n^\kappa\ell^2(v_0,z_j^0,h_j^0)\);
+the scaled carrier/response variations have norms at most
+\(\sqrt p n^\kappa\ell^3(k_j^0,d_j^0)\).
+Indeed integrate (IC.9), using \(\|g_a\|\le\sqrt n\Gamma\),
+\(\|\bar\delta_a\|\le\sqrt n\tau_*\),
+\(\|D_{\bar u}\bar\delta_a\|\le A_*+SD_*M_n\),
+\(\|D_{\bar u}h_a\|\le Sf_*\), and (IC.4).
+Cauchy--Schwarz over roots gives \(\sqrt p\). The subsequent
+forward/backward differentiation is, explicitly,
 \[
-n^{-1/10}(n^{1/100}+u)+n^{-1/2}(n^{1/100}+u).
+\begin{aligned}
+ z_{[1]}^{(j)}&={S V_{H^{(j)}}\over\sqrt n}h^{(j-1)}
+                  +W^{(j)}h_{[1]}^{(j-1)}+e_{[1]}^{(j)},\\
+ h_{[1]}^{(j)}&=\phi'_j\odot z_{[1]}^{(j)},\\
+ \bar k_{[1]}^{(j)}&=W^{(j+1)\top}\bar\delta_{[1]}^{(j+1)}
+       +{S V_{H^{(j+1)}}^\top\over\sqrt n}\bar\delta^{(j+1)}
+       +\bar q_{[1]}^{(j)},\\
+ \bar\delta_{[1]}^{(j)}&=\phi'_j\odot\bar k_{[1]}^{(j)}
+                    +\phi_j''\odot\bar k^{(j)}\odot z_{[1]}^{(j)}.
+\end{aligned}\tag{IC.11}
 \]
-Its Hessian applied to the parameter increment therefore contributes
-\(n^{-8/100}+n^{-9/100}u+n^{-1/10}u^2\), times the residual and fixed
-logarithmic factors. Residual adaptation contributes the unweighted
-matrix-cross scale above: its scalar Taylor remainder is a Hessian
-quadratic form divided by \(n\), while the reference gradient has norm
-of order \(\sqrt n\). Thus the largest integrated forcing powers are
-\(n^{-8/100}\) and \(u^2\). Integration over a logarithmic horizon
-and propagation by \(n^{1/1000}\) leave a quantity
-\(o(n^{-1/25})\). A first-exit argument closes the assumed remainder
-bound. The resulting retained coordinate differences are at most
-\(n^{-1/30}\) eventually; relevant whole-vector differences are at
-most \(n^{1/100}\) times a fixed constant. Joining scalar segments
-remain inside the safe strip because their coordinate increments vanish.
+Only one forward and one reverse port is present in an actual deletion;
+allowing a port at every layer only enlarges these bounds. A logarithm
+is introduced by the reference carrier once, in the inhomogeneous last
+term, and is propagated by \(10s\), not by a carrier maximum.
 
-At the first layer there is no reverse source. At the top there is no
-outgoing Gaussian root. Instead, if
-\(d_a=n^{-1}\sum_{i\in I}w_i h_{a,i}^{(L)}\), the retained equation is
+For a control difference of supremum norm \(\epsilon\), replace
+\(A_0,B_0\) by one in the forcing coefficients of (IC.10), retaining
+\(M_0,E_0,J_0\). Explicitly set
 \[
--\frac2m\sum_a(r_a^0+d_a)
- \left[\nabla F_a^0+(D h_a^{(L-1)})^\top q_a^{\rm rev}\right].
+ v_c=J_0(2T_*\Gamma\tau_*+E_0+Sf_*),\quad
+ z_j^c=P_j(Sv_c+1),\quad h_j^c=sz_j^c,
 \]
-The offset multiplies both terms. Its gradient contribution is
-\(n^{-1/2}\) times a fixed logarithmic polynomial; its reverse contribution
-is smaller. Both fit the same remainder bound. The exact top readout
-equation and the incoming-root forward trace then replace the missing
-outgoing-root calculation.
+\[
+ k_L^c=v_c,\quad d_j^c=sk_j^c+t_2M_0z_j^c,
+ \quad k_j^c=10d_{j+1}^c+S\tau_{j+1}v_c+1,
+ \quad C_c=\max(v_c,z_j^c,h_j^c,k_j^c,d_j^c).
+ \tag{IC.12}
+\]
+Linearity of the variational equation in its controls proves
+\(\|\Delta L\|\le C_c\sqrt p n^\kappa\ell^2\epsilon\)
+for every map just listed.
+Indeed the difference forcing has amplitude \(\epsilon\), rather
+than \(A_0\ell\) or \(B_0\ell\). Its mobility integral has
+only one factor \(\ell\), from the horizon or the reference Hessian
+bound. Forward differences retain that one factor. The backward gate
+multiplies by \(M_0\ell\) once, giving \(\ell^2\). This is
+why the control modulus has one fewer logarithm than the amplitude bound.
 
-Every entire singleton/common-cavity difference excludes the root against
-which it is paired. Project that entire difference onto its deterministic
-Euclidean ball of radius a fixed constant times \(n^{1/100}\), before
-restricting to the successful common prefix. Projection is nonexpansive
-and preserves independence. Its Gaussian pairing radius is a fixed
-constant times \(n^{-49/100}\). The activity modulus and short complex
-segment estimates below imply that its supremum and every fixed
-exponential moment correction vanish. This is why conditioning on
-root-dependent full survival is unnecessary.
+All quadratic matrices and their moduli are now explicit. If \(E_i\)
+selects one root block and \(L\) maps roots to a lower feature or
+upper response variation, its pairing is
+\[
+ (E_ig)^\top Lg=g^\top R_i g,\qquad
+ R_i={1\over2}(E_i^\top L+L^\top E_i).
+ \tag{IC.13}
+\]
+Thus \(\|R_i\|\le\|L\|\) and
+\(\|\Delta R_i\|\le\|\Delta L\|\). Only the selected
+diagonal root block contributes to \(\operatorname{tr}R_i/n\).
+In particular an incoming/outgoing cross block is centered. On
+\(\|g\|\le2\sqrt{2p}\), centered-form interpolation costs
+\[
+ |\Delta(g^\top Rg-\operatorname{tr}R/n)|
+ \le10p\|\Delta R\|.
+ \tag{IC.14}
+\]
+The trace term has been included; it costs at most
+\(2p\|\Delta R\|\).
 
-This proof gives eventual bounds for each fixed deletion count. It does
-not quantify their onset and does not allow the deletion count to grow
-with width. The next argument takes the width limit first at each fixed
-moment degree, which is exactly the quantifier this local result supplies.
+Here are terminal-time moduli, including the normalization needed for
+off-grid interpolation. Define
+\[
+ T_L^0=2sH_L+2t_2M_0V_L,\quad
+ T_j^0=10sT_{j+1}^0+2s\tau_{j+1}^2H_j+2t_2M_0V_j,
+\]
+\[
+ D_c=\max\{\lambda s\max_jV_j/4,\lambda\max_jT_j^0/8\},
+\]
+\[
+ a_j^z=\lambda S^2V_j/4,\quad a_j^h=sa_j^z,\quad
+ a_j^W=\lambda S^2\tau_jH_{j-1}/4,
+ \quad a_j^\delta=\lambda T_j^0/8,
+\]
+\[
+ a_L^k=\lambda H_L/4,\quad
+ a_j^k=a_{j+1}^W\tau_{j+1}+10a_{j+1}^\delta,
+ \quad A_t=2\mathcal K+(\lambda/4)SE_0,
+\]
+\[
+ v_t=A_tv_0+A_0(2\Gamma\tau_*+\lambda E_0/4)
+                              +(\lambda/4)Sf_*B_0.
+ \tag{IC.15}
+\]
+Raw scalar control speeds are bounded by \(D_c\sqrt n\ell\).
+The reference RMS speeds are bounded by \(a_j^z,a_j^h,a_j^W\)
+and \(\ell a_j^\delta,\ell a_j^k\). Differentiating (IC.11)
+gives the following coefficient recurrences:
+\[
+\begin{gathered}
+ z_1^t=Sv_t+D_c,\quad h_1^t=sz_1^t+t_2a_1^zz_1^0,\\
+ z_j^t=S(H_{j-1}v_t+a_{j-1}^hv_0)
+       +a_j^Wh_{j-1}^0+10h_{j-1}^t+D_c,\quad
+ h_j^t=sz_j^t+t_2a_j^zz_j^0,\\
+ k_L^t=v_t,\quad
+ k_j^t=a_{j+1}^Wd_{j+1}^0+10d_{j+1}^t
+            +S\tau_{j+1}v_t+Sa_{j+1}^\delta v_0+D_c,\\
+ d_j^t=sk_j^t+t_2a_j^zk_j^0
+       +(t_3M_0a_j^z+t_2a_j^k)z_j^0+t_2M_0z_j^t,
+ \qquad t_3=16\beta/a\le\beta^2.
+\end{gathered}\tag{IC.16}
+\]
+Forward derivatives have bound \(\sqrt{pn}n^\kappa\ell^3\)
+times their coefficients; backward ones have
+\(\sqrt{pn}n^\kappa\ell^4\) times theirs. The factor
+\(\sqrt n\) comes from a reference coordinate speed and appears
+once. The homogeneous propagated derivative still costs \(10s\).
+For the control-independent lower probes, differentiate (IC.5):
+\[
+ z_1^J=0,\quad h_1^J=t_2a_1^zP_1,\quad
+ z_j^J=a_{j-1}^h+a_j^Wf_{j-1}+10h_{j-1}^J,\quad
+ h_j^J=sz_j^J+t_2a_j^zP_j.
+ \tag{IC.17}
+\]
+Restriction to a lower port and transposition give the raw adjoint probes
+used below. Their operator time derivatives are bounded by
+\(\sqrt n\max(z_j^J,h_j^J)\).
+
+Let \(C_t\) be the maximum of all coefficients in (IC.16)--(IC.17)
+and \(v_t\). A terminal mesh of size
+\[
+ h_t\le\min\left\{1,
+ {n^{-1/10-1/2-\kappa}\over80p^{3/2}(1+C_t)\ell^4}\right\}
+ \tag{IC.18}
+\]
+makes both the linear and centered-quadratic off-grid errors less than
+\(n^{-1/10}/4\), using (IC.14). A rectangle of real length
+\(32\ell/\lambda+2r_t\) and height \(2r_t\) has at most
+\([2+(32\ell/\lambda+2r_t)/h_t][2+2r_t/h_t]\) grid points.
+On complex rectangles these derivative identities apply to analytic
+actual controls. At grid points the Gaussian union uses deterministic
+one-dimensional control histories along the prescribed contour. Actual
+analytic controls are substituted only after that uniform event. No
+path independence is asserted for arbitrary two-dimensional controls.
+
+##### 3. Exact nonlinear remainder and reverse probes
+
+Here is a deterministic local lemma that specifies every term used in
+the first-exit argument. Write the augmented displacement as
+\(\eta_a=(V,e_a)+(U,0)\), with
+\[
+ \|V\|,\|e_a\|,\|Dg_0(V,e_a)\|_2\le N,
+ \quad\|Dg_0(V,e_a)\|_\infty\le d_0,\quad\|U\|\le u,
+ \tag{IC.19}
+\]
+where the bound on the combined augmented norm may be obtained by
+enlarging \(N\) by a fixed factor. The quantities \(g\) here
+are all forward vectors and scaled backward vectors in (IC.11).
+Assume \(N\ge1\), \(u,d_0\le1\), \(N+u\le\sqrt n\),
+and put
+\[
+ R=d_0N+d_0u+u^2,\quad P=(N+u)^2/\sqrt n,
+ \qquad u+R+P\le1.
+ \tag{IC.20}
+\]
+With reference scaled carrier maximum \(M\), define
+\(g_{[1]}=Dg_0\eta\) and \(E_g=g_1-g_0-g_{[1]}\).
+Feature RMS, first forward derivative, and first backward derivative
+bounds on the joining segment/reference are, respectively,
+\(\beta^{3L}\), \(J_f=\beta^{10L}\), and
+\(J_b=\beta^{20L}(1+M)\). To verify the latter two, use
+(IC.5), then the backward derivative in (IC.11): its forcing is a
+single reference carrier times the forward derivative, and its
+homogeneous propagation is \(10s\). Along a unit segment, physical
+operators are at most eleven and ports at most \(\sqrt n\);
+the affine feature recurrence is bounded by \((13\beta)^L\).
+
+The localized product bound is
+\[
+ \|z_{[1]}\odot z_{[1]}\|_2
+ \le d_0N+2d_0J_fu+J_f^2u^2\le3J_f^2R.
+ \tag{IC.21}
+\]
+The following identities are exact, so their use does not assume a
+bound on an uncontrolled changed carrier:
+\[
+ E_{z^{(1)}}=0,\quad
+ E_{z^{(j)}}=W_1^{(j)}E_{h^{(j-1)}}
+        +{S\Delta\bar u_{H^{(j)}}\over\sqrt n}h_{[1]}^{(j-1)},
+ \tag{IC.22}
+\]
+\[
+ E_{\bar k^{(L)}}=0,\quad
+ E_{\bar k^{(j)}}=W_1^{(j+1)\top}E_{\bar\delta^{(j+1)}}
+   +{S\Delta\bar u_{H^{(j+1)}}^\top\over\sqrt n}
+                  \bar\delta_{[1]}^{(j+1)},
+ \tag{IC.23}
+\]
+\[
+ E_{\bar\delta}=g_1\odot E_{\bar k}
+ +(g_1-g_0)\odot\bar k_{[1]}
+ +\bar k_0\odot[g_1-g_0-\phi''(z_0)z_{[1]}],
+ \qquad g_i=\phi'(z_i).
+ \tag{IC.24}
+\]
+For activation subtraction insert \(z_0+z_{[1]}\); this gives
+\(\|E_h\|\le\beta\|E_z\|+
+ (\beta/2)\|z_{[1]}^{\odot2}\|\).
+The cross term in (IC.22) is at most \(J_fP\). Summing its
+geometric propagation gives
+\[
+ \max_j(\|E_z\|,\|E_h\|)\le\beta^{30L}(R+P).
+ \tag{IC.25}
+\]
+In (IC.24), the second term is bounded by
+\[
+ \beta\{3J_fJ_bR+\beta^{30L}(R+P)(d_0+J_bu)\};
+\]
+the last is at most
+\(M[\beta\|E_z\|+(\beta^2/2)
+\|z_{[1]}^{\odot2}\|]\). The matrix cross term in (IC.23)
+is at most \(J_bP\). Homogeneous propagation uses only the
+perturbed mixer and slope, so
+\[
+ \max_j(\|E_{\bar k}\|,\|E_{\bar\delta}\|)
+ \le\beta^{60L}(1+M)(R+P).
+ \tag{IC.26}
+\]
+For a hidden gradient block its exact product remainder is
+\[
+ {S\over\sqrt n}
+ [E_{\bar\delta}h_1^\top+
+   \bar\delta_{[1]}(h_1-h_0)^\top+\bar\delta_0E_h^\top].
+ \tag{IC.27}
+\]
+Use reference feature/response RMS in its first and last terms and
+\(J_fJ_bP\) in its middle term. The first-layer and readout
+blocks give the gradient remainder bound
+\(\beta^{70L}(1+M)(R+P)\).
+
+Applying (IC.26) to each initial part of the joining segment proves
+a carrier cap \(\beta^{62L}(1+M)\) on that segment. Hence
+(IC.6) gives an augmented Hessian bound \(\beta^{87L}(1+M)\),
+and \(\|D\bar F\|\le\beta^{13L}\sqrt n\). Thus
+\[
+ |\Delta\bar r|\le\beta^{13L}(N+u)/\sqrt n,\quad
+ |\Delta\bar r-D\bar r_0\eta|
+ \le\tfrac12\beta^{87L}(1+M)(N+u)^2/n.
+ \tag{IC.28}
+\]
+The constant labels \(y_a/S\) cancel from both differences.
+For \(g=\nabla\bar F\), the product remainder is exactly
+\[
+ \bar r_0E_g+
+ (\Delta\bar r-D\bar r_0\eta)g_0+
+ \Delta\bar r\,(g_1-g_0).
+ \tag{IC.29}
+\]
+Its last two terms cost \(2\beta^{100L}(1+M)P\).
+
+For the reverse force, fix an omitted incoming root \(y_i\) and
+write \(\psi_i=y_i^\top h_a^{(j-1)}\). Include in the Gaussian
+event all its lower adjoint carriers. Their Euclidean norms are bounded
+by the forward operator recurrences and their coordinate maxima by
+\(d_0\). For an aggregate \(q=\sum_i y_ib_{a,i}\) with
+\(\|y_i\|\le2\), \(|b_{a,i}|\le\beta M\), put
+\(Q=2p\beta M\) and \(P_q=p\beta Md_0\).
+Subtracting the probe adjoint recursion along a parameter segment gives
+\[
+ \max_j\|k_{q,t}^{(j)}-k_{q,0}^{(j)}\|_2
+ \le\beta^{20L}(P_q+Q/\sqrt n)(N+u).
+ \tag{IC.30}
+\]
+The changed gate multiplies the reference probe maximum \(P_q\);
+the changed mixer costs \(Q(N+u)/\sqrt n\); the propagated
+difference costs \(11s\). These are all three terms in the
+recursion. Apply (IC.6) to the scalar lower-network output \(\psi_q\)
+and integrate its Hessian to obtain
+\[
+ \|(Dh_1-Dh_0)^\top q\|
+ \le\beta^{50L}(P_q+Q/\sqrt n)
+                 [N+u+(N+u)^2].
+ \tag{IC.31}
+\]
+The exact extra nonlinear terms in (IC.3) are
+\(\bar r_0(Dh_1-Dh_0)^\top\bar q\) and
+\(\Delta\bar r\,Dh_1^\top\bar q\). Equations (IC.28),
+(IC.31) bound both. Combining them with (IC.29) proves
+\[
+\begin{aligned}
+ \|\overline{\mathcal V}_1-\overline{\mathcal V}_0
+       -D_{\bar u}\overline{\mathcal V}_0\Delta\bar u
+       -D_e\overline{\mathcal V}_0e
+       -D_{\bar q}\overline{\mathcal V}_0\bar q\|
+ \le{}&\beta^{120L}(1+p)(1+M)\\
+ &\cdot\{\bar\rho_0[R+d_0(N^2+Nu+u^2)]
+                         +(1+\bar\rho_0)P\}.
+\end{aligned}\tag{IC.32}
+\]
+For complex application, every scalar Taylor point must remain in the
+half-strip. Starting from imaginary parts at most \(7a/16\), the
+explicit sufficient gate is
+\[
+ d_0+\beta^{10L}u+\beta^{30L}(R+P)<a/32.
+ \tag{IC.33}
+\]
+A first-exit argument using (IC.22) places the joining segments and the
+auxiliary points \(z_0+z_{[1]}\) within \(15a/32\).
+Cauchy's formula for \(\phi''\), on radius \(a/64\), bounds
+the third derivative by \(64\beta/a\le4\beta^2\).
+Replacing the coefficient \(\beta^{120L}\) in (IC.32) by
+\(\beta^{240L}\) pays for all complex versions above. Transposes
+remain algebraic; no complex energy inequality has been used.
+
+There is no hidden division by \(S\) in this proof. More formally,
+the effective network with actual hidden matrices and readout \(\bar u_w\)
+is the original architecture pulled back by the affine map whose derivative
+multiplies hidden parameter blocks by \(S\), the readout by one,
+and ports by one. This derivative and its transpose are contractions.
+Its second and higher derivatives vanish. Thus every displayed scaled
+derivative is the corresponding effective derivative with a factor \(S\)
+per hidden parameter argument, and never a negative power of \(S\).
+
+Finally integrate the actual omitted row/column equations, not Gaussian
+surrogates. Their learned parts obey
+\[
+ \|\Delta W_{:,i}^{(j+1)}\|
+ \le S^2\tau_*A_n/\sqrt n,\qquad
+ \|\Delta W_{i,:}^{(j)}\|
+ \le S^2H_{\max}B_n/\sqrt n,
+ \quad A_n=b+sM_n,\quad B_n=sM_n.
+ \tag{IC.34}
+\]
+Multiplying by the actual controls gives forward and scaled reverse
+source errors at most
+\(pS^2(\tau_*A_n^2+H_{\max}B_n^2)/\sqrt n\).
+Differentiating (IC.3) in its ports using (IC.28) shows that their
+additional force is at most
+\[
+ S^2\beta^{260L}(1+p)^2(1+M_n)^3(1+\bar\rho)/\sqrt n.
+ \tag{IC.35}
+\]
+At the top, \(|\bar d_a|\le pM_nA_n/n\), and its multiplication
+of both retained terms costs at most
+\(\beta^{32L}(1+p)^2(1+M_n)^3/\sqrt n\).
+This includes the reverse-offset product. Current row norms are at most
+three once the row increment in (IC.34) is below one.
+
+##### 4. Passive-query derivatives and the uniform Gaussian event
+
+For a passive query \(q\), set \(C_q^{(j)}=D_\Theta h_q^{(j)}\).
+For evaluated query \(q\) and training driver \(a\), define
+\(\bar R_{qa}^{(j)}=S^{-1}D_\Theta z_q^{(j)}g_a\),
+\(\bar Q_{qa}^{(j)}=\phi_j'(z_q^{(j)})\odot\bar R_{qa}^{(j)}\).
+The exact response recurrences are
+\[
+ \bar R_{qa}^{(1)}=\bar\delta_a^{(1)}v_a^\top q,
+ \quad\bar R_{qa}^{(j)}=
+ \bar\delta_a^{(j)}c_{aq}^{(j-1)}+W^{(j)}\bar Q_{qa}^{(j-1)},
+ \quad c_{aq}^{(j-1)}=h_a^{(j-1)\top}h_q^{(j-1)}/n.
+ \tag{IC.36}
+\]
+For a complex great circle \(q(\zeta)=u\cos\zeta+v\sin\zeta\),
+write \(J^{(j)}=\partial_\zeta z_q^{(j)}\) and
+\(I^{(j)}=\phi_j'(z_q^{(j)})\odot J^{(j)}\). Then
+\[
+ J^{(1)}=Aq',\qquad J^{(j)}=W^{(j)}I^{(j-1)}.
+ \tag{IC.37}
+\]
+These are passive derivatives; none changes the training equation.
+
+The complete additional first-variation recurrences are
+\[
+\begin{aligned}
+ c_{aq,[1]}&=(h_{a,[1]}^\top h_q+h_a^\top h_{q,[1]})/n,\\
+ \bar R_{qa,[1]}^{(j)}&=
+ \bar\delta_{a,[1]}^{(j)}c_{aq}
+ +\bar\delta_a^{(j)}c_{aq,[1]}
+ +{S V_{H^{(j)}}\over\sqrt n}\bar Q_{qa}^{(j-1)}
+ +W^{(j)}\bar Q_{qa,[1]}^{(j-1)}+e_{qa,[1]}^{R,j},\\
+ \bar Q_{qa,[1]}^{(j)}&=
+ \phi_j'\odot\bar R_{qa,[1]}^{(j)}
+       +\phi_j''\odot\bar R_{qa}^{(j)}\odot z_{q,[1]}^{(j)},\\
+ J_{[1]}^{(1)}&=S V_Aq',\qquad
+ J_{[1]}^{(j)}={S V_{H^{(j)}}\over\sqrt n}I^{(j-1)}
+                  +W^{(j)}I_{[1]}^{(j-1)}+e_{[1]}^{J,j},\\
+ I_{[1]}^{(j)}&=\phi_j'\odot J_{[1]}^{(j)}
+                  +\phi_j''\odot J^{(j)}\odot z_{q,[1]}^{(j)}.
+\end{aligned}\tag{IC.38}
+\]
+At the layer immediately above the deleted layer the extra ports are
+\(e_{qa}^{R,j+1}=\sum_i x_i\bar Q_{qa,i}^{(j)}\) and
+\(e^{J,j+1}=\sum_i x_i I_i^{(j)}\). At all other layers these
+ports are zero. There is also a direct lower reverse observable, which
+must be included in addition to (IC.38): below the deleted layer,
+\[
+ Q_{qa,\mathrm{full}}^{(j-1)}
+   =C_q^{(j-1)}[g_a+C_a^{(j-1)\top}q_a],
+ \quad S^{-1}(Q_{qa,\mathrm{full}}-C_qg_a)
+                   =C_qC_a^\top\bar q_a.
+ \tag{IC.39}
+\]
+Thus its reference linear map includes \(C_q^0C_a^{0\top}y_i\)
+for every driver and omitted incoming root. Include the reference
+forward images of \(\xi=C_a^{0\top}y_i\) at every lower layer
+in the same Gaussian coordinate event. This explicitly lists the
+additional probes. Their coefficient operators are measurable in retained
+initialization and independent of the omitted root; the probe vectors
+themselves depend linearly on that root. Their operator bounds therefore
+give the claimed centered Gaussian vector estimates.
+
+Here are remainder bounds for these additions. The feature-pairing
+product identity gives
+\[
+ |c_{aq,[1]}|\le\beta^{10L}(N+u)/\sqrt n,\quad
+ |E_c|\le\beta^{40L}\{(R+P)/\sqrt n+(N+u)^2/n\}.
+ \tag{IC.40}
+\]
+The exact product/mixer remainders in (IC.36) are
+\[
+ E_{\bar R}=E_{\bar\delta}c_1+
+       \bar\delta_{[1]}(c_1-c_0)+\bar\delta_0E_c
+       +W_1E_{\bar Q^{\rm prev}}
+       +\Delta W\bar Q_{[1]}^{\rm prev}+E_{\rm ports},
+\]
+\[
+ E_{\bar Q}=\phi'(z_1)E_{\bar R}
+       +[\phi'(z_1)-\phi'(z_0)]\bar R_{[1]}
+       +\bar R_0[\phi'(z_1)-\phi'(z_0)-\phi''(z_0)z_{[1]}].
+ \tag{IC.41}
+\]
+Equations (IC.23)--(IC.24) apply verbatim to \(J,I\), with
+\(E_{J^{(1)}}=0\), their displayed response ports, and \(J_0\)
+in place of a reference carrier. In (IC.41), \(\bar\delta_0E_c\)
+uses response RMS \(\sqrt n\tau_j\), canceling the first
+\(1/\sqrt n\) in (IC.40). Every product of two changed factors
+retains a width or localized-coordinate factor. Reference \(\bar R\)
+and \(J\) coordinate caps appear only in additive gate remainders.
+
+For (IC.39), subtract the directional forward recursions in the fixed
+direction \(\xi\). The new forcing terms are
+\(\xi_H\Delta h/\sqrt n\), \(\Delta H Dh_0[\xi]/\sqrt n\),
+and a changed activation gate multiplying \(Dz_0[\xi]\).
+On the enlarged Gaussian event that last vector has maximum \(d_0\).
+Propagation through the perturbed bounded mixers/slopes gives
+\[
+ \|(C_q^1-C_q^0)\xi\|
+ \le\beta^{50L}(d_0+n^{-1/2})(N+u).
+ \tag{IC.42}
+\]
+The other product difference is
+\(C_q^1(C_a^1-C_a^0)^\top y_i\); use (IC.31) and
+\(\|C_q^1\|\le\beta^{10L}\). Multiplication by the actual
+controls and summation over roots gives
+\[
+ \|C_q^1C_a^{1\top}\bar q_a-C_q^0C_a^{0\top}\bar q_a\|
+ \le\beta^{70L}(1+p)(1+M_n)
+ (d_0+n^{-1/2})[N+u+(N+u)^2].
+ \tag{IC.43}
+\]
+The missing feature-pairing term is at most \(pA_n^2/n\);
+the learned response and angular ports are bounded using (IC.34)
+times their actual stopped controls. These are additional
+\(n^{-1/2}\) vector errors. This accounts for every term hidden by
+rectangular deletion in (IC.36)--(IC.39).
+
+For fixed \(p,m,d,L\), use the temporary query preactivation cap
+in S.6 and doubled response/angular caps from (S.25). Equations
+(IC.10)--(IC.17), (IC.38), and the product rule give operator bounds
+\(n^\kappa\) times fixed polynomials in \(\ell\) for all the
+listed linear maps. For completeness, each differentiated gate is
+\(\phi''z_{[1]}\), each differentiated carrier gate is
+\(\phi'''z_t z_{[1]}\bar k+\phi''z_{[1]}\bar k_t
+ +\phi''\bar k z_{[1],t}\), and the response/angular gate has
+the same three terms with \(\bar R\) or \(J\). At most one
+raw reference coordinate derivative is used in each term. Its bound
+is \(\sqrt n\) times a fixed polynomial in \(\ell\).
+All homogeneous propagated derivatives have multiplier \(10s\).
+This proves terminal and frame derivative bounds
+\(\sqrt n n^\kappa\operatorname{poly}(\ell)\), with no
+power of \(n\) depending on depth. Frame derivatives of the input
+and of \(q'\) are bounded on a fixed tubular neighborhood of the
+orthonormal-frame manifold. Differentiating (IC.38) in those variables
+uses the same gate terms just listed. Polar normalization provides
+bounded local frame-coordinate derivatives.
+
+The controls in (IC.38) have polynomial logarithmic amplitudes. Their
+time speeds cost one \(\sqrt n\): for example
+\(\partial_t\bar Q=\phi'\partial_t\bar R+
+\phi''\bar R\partial_tz\), where the stopped coordinate cap
+on \(\bar R\) and the RMS bound on \(\partial_tz\) give a
+polynomial logarithmic RMS speed. The same calculation with \(J\)
+gives the angular-control speed. Thus the complete control net at
+accuracy \(\tau=n^{-1/8}\) has logarithmic cardinality bounded
+by \(n^{5/8}\operatorname{poly}(\ell)\). In detail, \(q_c\)
+real component controls with amplitude \(M_c\), Lipschitz constant
+\(D_c'\sqrt n\), and contour length \(T_c\) admit a net with
+\[
+ \log N_{\rm ctrl}\le
+ q_c(2+8T_cD_c'n^{5/8})\log(1+8M_cn^{1/8}).
+ \tag{IC.44}
+\]
+Sample each real/imaginary component at spacing
+\(\tau/(8D_c'\sqrt n)\), round on mesh \(\tau/4\),
+and interpolate. This proves both its accuracy and cardinality.
+
+For fixed controls, the conditional root covariance is \(I/n\).
+After eventual absorption of the fixed logarithmic coefficients, every
+listed linear operator and quadratic matrix has norm at most
+\(n^{1/200}\). A coordinate has variance at most \(n^{-99/100}\).
+For a centered form, diagonalizing its real symmetric part and using
+\[
+ \mathbb E e^{t(G^\top RG-\operatorname{tr}R)}
+   =\prod_\alpha e^{-t\lambda_\alpha}
+                         (1-2t\lambda_\alpha)^{-1/2},
+\]
+\[
+ -\log(1-v)-v\le v^2/[2(1-|v|)]\quad(|v|<1)
+ \tag{IC.45}
+\]
+gives a tail bounded by the minimum of threshold squared divided by
+Hilbert--Schmidt variance and threshold divided by operator scale.
+Here \(\|R\|_{\rm HS}\le\sqrt{2pn}\|R\|\).
+At threshold \(n^{-1/10}/8\), real/imaginary splitting yields
+\(4e^{-n^{0.78}}\) eventually. Independent-root bilinear forms
+are the symmetric off-diagonal block case of (IC.45).
+Root norms \(\|g\|\le2\sqrt{2p}\) have failure at most
+\(e^{-pn}\). They also give whole-vector image bounds below
+\(n^{1/100}\) after coefficients are absorbed. Use a smaller
+fixed share of this bound for each of the finitely many augmented
+components, so their combined norm in (IC.19) is at most that radius.
+
+Control interpolation uses (IC.12)--(IC.14); its error is
+\(n^{-1/8+1/200}\operatorname{poly}(\ell)\), smaller than
+\(n^{-1/10}/4\). A time/query/frame mesh of size
+\(n^{-2}/\operatorname{poly}(\ell)\) gives the other
+\(n^{-1/10}/4\). There are \(2d+3\) real frame/time/tube
+coordinates, so for fixed parameters its point count is at most
+\(n^{4d+10}\) eventually. The entropy (IC.44), this grid, the
+coordinate/probe tests, and at most \(pLn^p\) deletion sets cost
+less than \(n^{0.65}\) in logarithmic cardinality. The resulting
+uniform failure is at most \(e^{-n^{0.7}}\) eventually. Only
+now substitute the adaptive training and passive-query controls.
+
+Let \(V\) solve the exact linear variational equation and let \(U\)
+be the retained scaled displacement minus \(V\). It satisfies
+\[
+ U(t)=\int_0^t J(t,s)
+  [\mathcal R(\Delta\bar u(s),e(s),\bar q(s))
+       +\mathcal R_{\rm learned}(s)+\mathcal R_{\rm top}(s)]\,ds,
+ \qquad U(0)=0,
+ \tag{IC.46}
+\]
+where the three terms have exactly the bounds (IC.32), (IC.35),
+and the top-offset bound following it. Take
+\(N=n^{1/100}\), \(d_0=n^{-1/10}\), \(u_0=n^{-1/25}\).
+On a first-exit prefix \(\|U\|\le u_0\), integration with
+(IC.4) and (IC.8) bounds (IC.46) by
+\[
+ n^\kappa\operatorname{poly}(\ell)
+       [n^{-8/100}+u_0^2+n^{-48/100}+n^{-1/2}]
+                     =o(u_0).
+ \tag{IC.47}
+\]
+This strictly improves the remainder stop. Equations (IC.25)--(IC.26)
+and (IC.40)--(IC.43) then give retained coordinate discrepancies
+at most \(n^{-1/30}\) eventually, for preactivations, scaled
+carriers, responses and angular derivatives, and whole-vector
+discrepancies at most \(2n^{1/100}\). The strict strip condition
+(IC.33) closes simultaneously. The reference is always its independently
+stopped cavity; this argument transfers its prefix rather than conditioning
+a Gaussian law on full-network survival.
+
+##### 5. The actual contractions behind (S.15) and the mixed endpoints
+
+We now write the singleton expansion in unscaled mobility coordinates;
+all \(1/n\) factors remain visible. At an interior omitted neuron,
+put
+\[
+ C_a(t)=D_\Theta h_a^{(j-1)}(t),\quad
+ B_a(t)=D_\Theta\delta_a^{(j+1)}(t),\quad
+ E_a(t)=D_{e_a^{(j+1)}}\delta_a^{(j+1)}(t).
+\]
+All three are zero-source cavity derivatives. With deterministic
+controls \(\alpha_a=h_{a,i}^{(j)}\),
+\(b_a=\delta_{a,i}^{(j)}\), the linear mobility response is
+\[
+ V(t)=-{2\over m}\sum_b\int_0^t J(t,s)
+ \left[{g_b(s)d_b(s)^\top\over n}x_i\alpha_b(s)
+       +r_b(s)B_b(s)^\top x_i\alpha_b(s)
+       +r_b(s)C_b(s)^\top y_i b_b(s)\right]ds,
+ \quad d_b=\delta_b^{(j+1)}.
+ \tag{IC.48}
+\]
+The two scalar linearized pairings are
+\[
+ z_{a,i}=y_i^\top h_a^0+y_i^\top C_aV
+                 +(\Delta W_{i,:})h_a+\varepsilon_z,
+\]
+\[
+ k_{a,i}=x_i^\top\delta_a^0+x_i^\top B_aV
+                 +x_i^\top E_ax_i\alpha_a
+                 +(\Delta W_{:,i})^\top\delta_a+\varepsilon_k.
+ \tag{IC.49}
+\]
+The remainders include the nonlinear vector errors and their root
+pairings; they are uniform small errors from (IC.46)--(IC.47).
+For the scaled statement apply the same identities before dividing
+the carrier terms by \(S\), as in (IC.1)--(IC.35).
+
+Substituting (IC.48) into (IC.49) identifies all nonzero Gaussian means:
+\[
+\begin{array}{ll}
+ \text{incoming reverse mean:}&
+ -{2\over m}\displaystyle\sum_b\int_0^t
+ r_b(s)b_b(s){\operatorname{tr}[C_a(t)J(t,s)C_b(s)^\top]\over n}\,ds,\\[2mm]
+ \text{outgoing Hessian mean:}&
+ -{2\over m}\displaystyle\sum_b\int_0^t
+ r_b(s)\alpha_b(s){\operatorname{tr}[B_a(t)J(t,s)B_b(s)^\top]\over n}\,ds,\\[2mm]
+ \text{direct outgoing mean:}&
+ \alpha_a(t)\operatorname{tr}E_a(t)/n,\\[1mm]
+ \text{adaptive-residual mean:}&
+ -{2\over mn^2}\displaystyle\sum_b\int_0^t
+ \alpha_b(s)d_b(s)^\top B_a(t)J(t,s)g_b(s)\,ds.
+\end{array}\tag{IC.50}
+\]
+Every remaining linearized pairing has distinct incoming/outgoing roots
+and hence zero conditional mean, or is a centered same-root form. Their
+fluctuations are already controlled by (IC.13)--(IC.45). In particular,
+the direct mean multiplies the evaluated sample's current \(\alpha_a\),
+whereas the integrated means retain a sum over driving samples.
+The last line has the additional \(1/n\): using
+\(\|d_b\|,\|g_b\|=O(\sqrt n)\) bounds it by
+\(n^{-1+\kappa}\operatorname{poly}(\ell)\) on a logarithmic
+horizon. It belongs to the small remainder, not to a nonzero limiting
+trace coefficient.
+
+Here is the complete trace bound for the second line. Split the
+propagator into its negative-Gram base and residual-Hessian insertions.
+An ordered term with \(h\) insertions has residual-activity integral
+at most \(S^h/h!\). The product of base propagators costs at most
+two: their disjoint short contour pieces have total norm-growth integral
+at most \(\log2\), while forward real pieces contract. Normalized
+Schatten Hölder with exponent \(h+2\) on the two endpoint Hessian
+blocks and all \(h\) inserted Hessians bounds its normalized trace by
+\[
+ {2S^h\over h!}
+ [A_*+(SD_*/\eta)(h+2)(2\mathcal B)^{1/(h+2)}]^{h+2}.
+ \tag{IC.51}
+\]
+The term \(h=0\) is at most \(2H_*^2\), using both endpoint
+Hilbert--Schmidt bounds. For \(h\ge1\), use
+\((x+y)^{h+2}\le2^{h+1}(x^{h+2}+y^{h+2})\).
+The bounded part sums to \(4A_*^2(e^{2SA_*}-1)\).
+For the carrier part, \(h!\ge(h/e)^h\) and
+\((1+2/h)^h\le e^2\) bound its sum by
+\[
+ {8e^2D_*^2S^2\mathcal B\over\eta^2}
+ \sum_{h\ge1}(2eD_*S^2/\eta)^h(h+2)^2
+ \le{576e^3D_*^3\mathcal B S^4\over\eta^3}.
+ \tag{IC.52}
+\]
+The last inequality uses \(q=2eD_*S^2/\eta\le1/2\) and
+\(\sum_{h\ge1}q^h(h+2)^2\le36q\), obtained by differentiating
+the geometric series twice. Equation (S.10) gives this condition.
+
+For the first line of (IC.50), the zero term is at most \(2f_*^2\).
+For \(h\ge1\), give one forward endpoint exponent two, the other
+infinity, and each Hessian exponent \(2h\). The bounded part of
+the inserted series is controlled by \(e^{2SA_*}-1\), and the
+carrier part by
+\(\sqrt{2\mathcal B}\sum_{h\ge1}(4eD_*S^2/\eta)^h\).
+Both are at most one by (S.10). Their factors, together with the zero
+term, give
+\[
+ {1\over n}|\operatorname{tr}(C_aJ C_b^\top)|\le8f_*^2.
+ \tag{IC.53}
+\]
+These uses of Schatten Hölder have total reciprocal exponent one.
+The normalizations multiply to exactly \(n^{-1}\), independent
+of the parameter dimension.
+
+For the direct term, let \(T_{r,j+1}\) be the forward derivative
+from the port in layer \(j+1\) to preactivation in layer \(r\).
+The port Hessian is exactly
+\[
+ E_a=\sum_{r=j+1}^L T_{r,j+1}^\top
+       \operatorname{diag}(k_a^{(r)}\phi_r'')T_{r,j+1}.
+\]
+Here \(\|T_{r,j+1}\|\le(10s)^{r-j-1}\), and the nuclear
+norm per width of the diagonal is at most \(t_2Sk_r\), by
+the carrier RMS. Thus \(|\operatorname{tr}E_a|/n\le SE\)
+with exactly the coefficient \(E\) in (S.8).
+
+The learned outgoing column paired with the current upper response has
+bound \(s^2k_*^2S^3\) times the driving forward amplitude after
+the residual average. The learned incoming row paired with a current
+feature has bound \(sS^2U_iH_{j-1}^2\). Both follow by substituting
+their rank-one update integrals and applying RMS Cauchy--Schwarz to
+each retained vector. At the first layer its direct update has bound
+\(sS^2U_i\). Finally, for every driving time,
+\[
+ {1\over m}\sum_b|r_b||h_{b,i}|\le\rho(b+sZ_i),\qquad
+ {1\over m}\sum_b|r_b||\delta_{b,i}|\le\rho sS U_i.
+ \tag{IC.54}
+\]
+These follow from the running sample RMS definitions (S.12), so they
+also bound all past integrands. Combine (IC.50)--(IC.54) and divide
+the backward inequality by \(S\). The constants (S.8) give exactly
+\[
+ K_{a,i}/S\le G_{\delta,a,i}/S+
+ [D_0+D_1\mathcal B S^4/\eta^3](1+Z_{a,i}+Z_i)+\varepsilon_n,
+ \quad
+ Z_{a,i}\le G_{h,a,i}+C_FS^2U_i+\varepsilon_n.
+ \tag{IC.55}
+\]
+This is (S.15) with its contractions specified. For fixed parameters
+\(\varepsilon_n\to0\); under the finite gate below it is at most
+\(n^{-1/40}\), in the scaled norms. At the top use the exact
+readout integral \(\sup|w_i|/S\le b+sZ_i\), taking
+\(G_{\delta,a,i}=0\). At the first layer take
+\(G_{h,a,i}=\sup|A_{0,i}v_a|\). These endpoint formulas prove
+the same absorption, without inventing absent roots.
+
+The mixed endpoint constants in (S.24) can now be checked directly.
+For \(Q_{qa}=C_qg_a\),
+\[
+ DQ_{qa}=C_qDg_a+(DC_q)[\,\cdot\,]g_a.
+ \tag{IC.56}
+\]
+The first term has normalized Hilbert--Schmidt bound \(f_jH_*\).
+For the second, differentiating its forward recursion gives respectively
+the curvature diagonal \(\operatorname{diag}(\phi''R)Dz\),
+the changed mixer \(U_HQ/\sqrt n\), the term where the fixed
+gradient block acts on a changed feature, and the propagated lower
+derivative. Their normalized Hilbert--Schmidt coefficients are
+\(t_2r_jP_j\), \(sq_{j-1}\),
+\(s\tau_jH_{j-1}f_{j-1}\), and \(10s e_{j-1}\),
+respectively. This is precisely the recurrence defining \(e_j\).
+For example
+\(\|\operatorname{diag}(R)Dz\|_{\rm HS}/\sqrt n
+\le P_j\|R\|_2/\sqrt n\); no response maximum is needed
+for this Hilbert--Schmidt estimate. Replacing \(R\) by \(J\)
+gives \(t_2j_jP_j+s(b_{j-1}+10a_{j-1})\); at the first layer
+the map \(U_Aq'\) adds at most two. These are the coefficients
+\(a_j\) in (S.24). Applying the asymmetric estimate (IC.53) with
+these endpoints gives exactly \(T_Q,T_J\).
+
+For clarity, row insertion of (IC.36) has four noncentered terms:
+the direct feature pairing, the direct reverse observable (IC.39),
+the integrated mixed endpoint (IC.56), and the learned incoming row.
+After division by \(S\), their coefficients are
+\[
+ sK_{\rm src}H_{j-1}^2,\quad
+ sK_{\rm src}f_{j-1}^2,\quad
+ sK_{\rm src}ST_Q,\quad
+ sK_{\rm src}S^2H_{j-1}q_{j-1}.
+ \tag{IC.57}
+\]
+For (IC.37) there are the mixed endpoint and learned row, with
+coefficients \(sK_{\rm src}S^2T_J\) and
+\(sK_{\rm src}S^2H_{j-1}b_{j-1}\). The incoming-root Gaussian
+reference contributes \(G_dq_{j-1}\) or \(G_db_{j-1}\).
+Every forward-source pairing uses one incoming and one outgoing root
+and is centered; the training reverse source supplies the same incoming
+root twice. This proves the enumeration and the coefficients (S.25),
+including the lower direct reverse term. Its factor two leaves strict
+margin for the uniform errors in Section 4. The Gaussian mesh count
+there and \(G_d=16\sqrt{d+3}\) give (S.26). No exponential
+query budget has been added.
+<!-- insertion-completion:local:end -->
 
 <a id="source-explicit-recurrences"></a>
 #### Explicit source recurrences, budget removal and analytic domain
@@ -3851,7 +5282,7 @@ feature costs at most \(sS^2U_iH_{j-1}^2\). The first layer's direct
 update costs at most \(sS^2U_i\). Thus \(C_F\) bounds all forward
 feedback coefficients.
 
-The uniform insertion expansion, (S.8), and (S.14) now give, sample by sample,
+The explicit contractions (IC.48)--(IC.54), (S.8), and (S.14) now give, sample by sample,
 \[
 K_{a,i}/S\le G_{\delta,a,i}/S+
  [D_0+D_1\mathcal B S^4/\eta^3](1+Z_{a,i}+Z_i)+o(1),
@@ -5183,7 +6614,7 @@ off-grid term. Their initialized maxima have the same fresh-row
 Gaussian bounds. The source's passive-query size stop improves by
 the real increment \(U_{\rm fin}S^2\sqrt{\log(en)}\). There is no
 union over deletion subsets and no new exponential query budget.
-Conditional on the shared insertion interface this proves, with
+Applying the shared insertion theorem proved above gives, with
 probability tending to one,
 \[
 \max_{v,a,j}\|R_a^{(j)}(v)\|_\infty
@@ -5965,7 +7396,7 @@ give \(Y\le X^{-26}\le1\), so \(z\le m/\gamma\le\chi\).
 Thus the two bracket factors in \(P_n\) are at most
 \(2X^{100}\chi u\) and \(2X^{100}\chi^2e^u\).
 Together with \(z^2\le\chi^2\), this gives
-\(P_n\le12X^{300}\chi^5ue^u\le12X^{300}\chi^6ue^u\),
+\(P_n\le12X^{300}\chi^6ue^u\),
 as asserted.
 
 <a id="legendre-inverse-proof"></a>
@@ -5983,7 +7414,6 @@ and \(\log(eq_{\rm suff})\le4\ell\). The latter follows from
 \(\log r\le\ell\), and \(\log\ell\le\ell\).
 Therefore \(r\sqrt{\log(eq_{\rm suff})}/q_{\rm suff}^2\le1/2\).
 In particular this formula even leaves half of the error budget unused.
-
 
 In the full-range certificate the other summand is \(UT_n^4/q^4\),
 which is decreasing and tends to zero. Thus its sum with \(C_ng(q)\)
@@ -7255,6 +8685,2649 @@ not test risk for unknown labels. No claim of optimal rate, bounded-precision
 compression, or ordinary-gradient Harmonic training follows. Efficient setup
 requires the separate local-continuation/coupling arguments now integrated
 below; its costs do not follow from retained storage alone.
+
+<a id="logarithmic-decoder-proofs"></a>
+### Logarithmic decoder proofs
+
+The proof has four finite steps. The first constructs a physical source at
+an explicit width. The second replaces its independent row tape by a short
+seed without changing the law of its finite scalar transcript by more than
+the allocated variation error. The third regenerates those rows to answer an
+unseen query and amplifies complete source experiments. The fourth counts
+words and word operations. Every probability below includes the source,
+metric replay, finite arithmetic and query construction; there is no
+uncounted ideal-real computation.
+
+<a id="decoder-finite-source"></a>
+#### The finite source event and independent reference
+
+The local identities (IC.1)--(IC.57) are proved in the source foundation above. The following quantitative specialization uses only training queries, includes its own stronger initialization concentration argument, and proves the reference certificate at the displayed finite width.
+
+<!-- insertion-completion:finite:start -->
+##### 6. A sharper initialization gate, needed for the finite width claim
+
+The older displayed \(N_{\rm fit}\) has a sphere-net cardinality
+outside a logarithm. It cannot be used to justify a width polynomial in
+dimension. The following replacement has the same event and label cap.
+Here only write \(H=H_D\) for the population RMS coefficient of
+the existing dense-fitting theorem, and define
+\[
+ R_0=2H,\quad K_0=b+sR_0,\quad D_0^{\rm init}=2sb+4s^2R_0,
+ \quad T_1=\sum_{j=0}^{L-1}s^j,\quad T_2=\sum_{j=0}^{L-1}s^{2j},
+\]
+\[
+ C_0=T_2(2K_0+1+D_0^{\rm init}T_1),\qquad
+ \epsilon_0=\min\{(8T_1)^{-1},\lambda/(2C_0)\},
+ \quad h_0=\min\{1/2,H/[4(8s)^L]\}.
+\]
+For failure \(\alpha\in(0,1)\), set
+\[
+ \Xi_0=\log[16L(m+1)^2/\alpha]+d\log(1+2/h_0),
+\]
+\[
+ N_{\rm fit}^{\rm exp}(\alpha)=\left\lceil\max\left\{
+ 1,{\log(8L/\alpha)\over8-2\log9},
+ {d\log9+\log(8/\alpha)\over8-\log9},
+ {32s^2R_0^2\Xi_0\over\epsilon_0^2}\right\}\right\rceil.
+ \tag{IC.58}
+\]
+For every \(n\ge N_{\rm fit}^{\rm exp}(\alpha)\), with
+probability at least \(1-\alpha\), initial operators are at most
+eight, all initial sphere feature RMS norms are at most \(11H/8\),
+and the normalized training Gram gap is at least \(\lambda/2\).
+
+We supply the concentration proof. If \(F\) is \(a_0\)-Lipschitz
+in a standard Gaussian vector, then
+\[
+ \log\mathbb E e^{t(F-\mathbb EF)}\le a_0^2t^2/2,
+ \qquad\operatorname{Var}F\le a_0^2.
+ \tag{IC.59}
+\]
+One proof uses the Gaussian semigroup
+\(P_tg(x)=\mathbb E g(e^{-t}x+\sqrt{1-e^{-2t}}G)\).
+Differentiating its invariant entropy and integrating by parts gives
+\[
+ \operatorname{Ent}_\gamma(g)=
+ \int_0^\infty\mathbb E{|\nabla P_tg|^2\over P_tg}\,dt
+ \le\int_0^\infty e^{-2t}\mathbb E P_t(|\nabla g|^2/g)\,dt
+ ={1\over2}\mathbb E|\nabla g|^2/g.
+\]
+The inequality is weighted Cauchy--Schwarz and
+\(\nabla P_tg=e^{-t}P_t\nabla g\). Apply it to \(g=e^{uF}\)
+and integrate the differential inequality for
+\(u^{-1}\log\mathbb E e^{uF}\). Truncation and smoothing extend
+the bounded smooth calculation to Lipschitz \(F\); its Gaussian
+exponential integrability follows from linear growth. This proves
+(IC.59), its variance statement by differentiation at zero, and tails
+\(2e^{-t^2/(2a_0^2)}\). For nonnegative \(F\), its mean differs
+from \(\sqrt{\mathbb EF^2}\) by at most \(a_0\). Therefore
+at tolerance \(\epsilon\ge2a_0\) its deviation from that RMS
+has probability at most \(2e^{-\epsilon^2/(8a_0^2)}\).
+
+Conditioned on preceding layers, an individual empirical feature RMS is
+\(sR_0/\sqrt n\)-Lipschitz. The empirical RMS of
+\(\phi(Z_a)\pm\phi(Z_b)\) is
+\(2sR_0/\sqrt n\)-Lipschitz, including singular pair covariances.
+Polarization of these two norms shows that simultaneous RMS errors at
+most \(\epsilon_0\le1\) give covariance-entry error at most
+\((2K_0+1)\epsilon_0\) relative to the conditional covariance
+transform.
+
+Two distinct propagation estimates avoid a depth-squared power. The
+population scalar RMS transform is \(s\)-Lipschitz in its input
+standard deviation, by coupling with the same scalar Gaussian. If two
+Gaussian pair covariances have diagonal standard deviations at most
+\(R_0\), differing by at most \(\Delta\), their activation
+covariances differ by at most
+\[
+ s^2|C_{ab}-C'_{ab}|+(2sb+4s^2R_0)\Delta.
+ \tag{IC.60}
+\]
+To prove this, shrink both marginal standard deviations to their common
+minimum, preserving correlations. The total scaling cost is at most
+\(2sK_0\Delta\), by subtracting product factors and applying
+Cauchy--Schwarz. At fixed marginal standard deviations \(\tau_a,\tau_b\),
+Gaussian density differentiation and two integrations by parts give
+correlation derivative
+\(\tau_a\tau_b\mathbb E[\phi'(Z_a)\phi'(Z_b)]\), of modulus
+at most \(s^2\tau_a\tau_b\). Direct subtraction of the two
+correlations gives
+\(\tau_a\tau_b|\varrho-\varrho'|
+ \le|C_{ab}-C'_{ab}|+2R_0\Delta\).
+These estimates prove (IC.60). Degenerate variances and correlations
+\(\pm1\) follow by Gaussian dominated convergence, using linear
+activation growth; no variance is divided out in the final bound.
+
+Take a sphere \(h_0\)-net of cardinality at most
+\((1+2/h_0)^d\), obtained from disjoint balls centered at a maximal
+separated set. At each layer test its individual norms, the training
+individual norms, and the two polarization norms for every training
+pair. If \(\Delta_j\) is the largest individual RMS error and
+\(E_j\) the largest training covariance-entry error, the stopped
+induction is
+\[
+ \Delta_j\le\epsilon_0+s\Delta_{j-1},\qquad
+ E_j\le(2K_0+1)\epsilon_0+s^2E_{j-1}
+                             +D_0^{\rm init}\Delta_{j-1}.
+\]
+It gives \(\Delta_j\le1/8\), \(E_j\le\lambda/2\), and
+conditional input standard deviations below \(H+1/8<R_0\).
+There are at most \(L[3m^2+(1+2/h_0)^d]\) tests. Their union
+failure is at most
+\[
+ 2L[3m^2+(1+2/h_0)^d]
+       e^{-n\epsilon_0^2/(32s^2R_0^2)}\le\alpha/2.
+\]
+The two one-quarter operator nets have scalar threshold exponent
+\(-8n\) and cardinalities \(9^{2n}\) or \(9^{n+d}\).
+The second and third gates in (IC.58) pay their total failure
+\(\alpha/2\). On that operator event, normalized features are
+\((8s)^j\)-Lipschitz in the query. Their off-net increment is at
+most \(H/4\), so their sphere RMS is at most
+\(H+1/8+H/4\le11H/8\). Finally
+\(\|\mathsf H^\top\mathsf H/n-Q^{(L)}\|\le mE_L\le\gamma/2\).
+This proves the asserted event.
+
+The deterministic fitting proof already in RESULT applies to this
+stronger event with its unchanged condition
+\(Y\le\lambda/(8H_D\sqrt{F_D})\). Its stop improvements use
+only the initial operator/RMS/Gram bounds just proved. In particular
+\(\rho(t)\le Ye^{-\lambda t/2}\), and the weaker decay
+(S.3) is available. Direct finite-sum estimates give
+\[
+ H\le\beta^{2L},\quad R_0,K_0\le\beta^{3L},\quad
+ D_0^{\rm init}\le\beta^{4L},\quad T_1\le\beta^{2L},\quad
+ T_2\le\beta^{3L},\quad C_0\le\beta^{10L},
+\]
+\[
+ \epsilon_0^{-1}\le\beta^{11L}(1+\lambda^{-1}),\quad
+ 32s^2R_0^2\le\beta^{8L},\quad
+ \log(1+2/h_0)\le3L\log\beta.
+\]
+Thus a convenient sufficient envelope for (IC.58) is
+\[
+ n\ge\beta^{32L}(1+\lambda^{-1})^2
+ [dL\log\beta+\log(16L(m+1)^2/\alpha)]+1.
+ \tag{IC.61}
+\]
+This gate replaces, rather than assumes domination of, the older
+exponential-in-dimension initialization gate in the Logarithmic proof.
+
+##### 7. Quantitative training-source coefficient and width ledger
+
+Fix failure \(0<\rho<1/4\) for this one source event, and set
+\[
+ p=\max\left\{1,\left\lceil{\log(4emL/\rho)\over\log(64e^2)}
+                         \right\rceil\right\},\qquad
+ Q=m+d+p+1,\qquad
+ \mathcal A=\beta^{2000L}(1+\lambda^{-1})^4Q^4.
+ \tag{IC.62}
+\]
+The time domain is the neighborhood of the closed rectangle
+\[
+ [-r_t,32\ell/\lambda+r_t]+i[-r_t,r_t],\qquad
+ r_t={1\over p\beta^{100L}(1+\lambda)\sqrt\ell}.
+ \tag{IC.63}
+\]
+Only the \(m\) training queries and \(m^2\) training responses
+are used in the finite union. Define \(U_j^{\rm fin}\) by (S.25)
+with \(G_d\) replaced by 64. There is no dimension mesh in this
+source event. The exact response, reverse-observable and probe
+calculations are (IC.36)--(IC.43).
+
+Here is a numerical coefficient ledger from those displayed recurrences.
+All powers of \(\ell,n,\sqrt p\) stated separately below are
+removed before bounding a coefficient.
+
+| Coefficient | Sufficient bound |
+| --- | --- |
+| \(H_j,P_j,k_j,\tau_j\) | \(\beta^{3L},\beta^{3L},\beta^{5L},\beta^{6L}\) |
+| \(A_*,D_*,H_*,D_0,C_{\rm abs},W_{\rm G}\) | \(\beta^{11L},\beta^{8L},\beta^{13L},\beta^{30L},\beta^{32L},\beta^{23L}\) |
+| \(\eta^{-1},M_0,A_0,B_0\) | \(\beta^{80L}\) |
+| \(\max U_j^{\rm fin}\) | \(\beta^{72L}\) |
+| (IC.10)--(IC.17), including control/time moduli | \(\beta^{300L}(1+\lambda^{-1})\) |
+| Additional response/probe maps (IC.38)--(IC.43) | \(B=\beta^{1000L}(1+\lambda^{-1})^2\) |
+| Integrated local, learned-port and top-offset coefficients | \(B(1+p)^2\) |
+
+To check the depth dependence in this ledger, every homogeneous layer
+propagation is bounded by \(10s\le\beta^2\), and every finite
+layer sum costs at most \(L\le\beta^L\). In (S.7), substitute
+\(P_j\le\beta^{3L}\), \(k_j\le\beta^{5L}\): the mixed,
+curvature and squared trace coefficients then have the exponents in
+the first two rows. The sums (S.9) give
+\(V_*\le\beta^{15L}\), \(G_*\le\beta^{20L}\), hence
+the displayed \(W_{\rm G}\). Inserting these into
+\(\eta^{-1}=1024C_{\rm abs}W_{\rm G}\) and multiplying by
+\(1+\log(2\mathcal B)\) gives the third row with numerical slack.
+For (S.24), its terms give
+\(g\le\beta^{10L}\), \(r_j\le\beta^{13L}\),
+\(q_j\le\beta^{14L}\), \(e_j\le\beta^{21L}\), and
+\(T_Q\le\beta^{27L}\). Substitution into (IC.57) gives the
+\(72L\) response envelope. The largest operation in (IC.16) is
+one additional reference-carrier factor times a forward time derivative;
+the entire recurrence has degree at most four in \(M_0\) and
+degree one in \(T_*\). This gives its \(300L\) envelope.
+To check this last power without repeatedly using the deliberately loose
+\(80L\) row, retain the sharper intermediate bounds
+\(\eta^{-1}\le\beta^{57L}\),
+\(M_0,A_0,B_0\le\beta^{60L}\), and \(E_0\le\beta^{69L}\).
+They give \(v_0,v_c\le\beta^{133L}(1+\lambda^{-1})\),
+forward coefficients at most \(\beta^{137L}(1+\lambda^{-1})\),
+backward coefficients at most \(\beta^{202L}(1+\lambda^{-1})\),
+\(A_t\le\beta^{76L}\), and forward time coefficients at most
+\(\beta^{217L}(1+\lambda^{-1})\). The final backward time
+forcing adds at most \(61L\), and its geometric propagation at
+most \(3L\), remaining below \(300L\). These estimates also
+use \(\lambda\le\beta^{6L}\), so no positive-gap power is
+left uncharged.
+
+More explicitly, the enlargement from base to response maps has
+coefficient at most
+\[
+ \beta^{100L}(1+M_0+4U_*^{\rm fin})^2(1+C_*)^2,
+ \quad C_*=\max\{1,\hbox{coefficients in (IC.10)--(IC.17)}\}.
+ \tag{IC.64}
+\]
+In (IC.38), its four preactivation forcing terms are respectively a
+backward variation times a bounded scalar, a reference response times
+the pairing variation, a changed mixer times response RMS, and a lower
+propagated variation. The new gate term adds one reference response cap.
+The additional reverse map (IC.39) is a product of two bounded forward
+derivatives. Time differentiation adds one reference speed, and control
+subtraction is linear in the control differences. Thus (IC.64) covers
+the map, control modulus, and time modulus with respective powers
+\(\sqrt p n^\kappa\ell^5\),
+\(\sqrt p n^\kappa\ell^4\epsilon\), and
+\(\sqrt{pn}n^\kappa\ell^8\).
+It is at most the stated \(B\), since its numerical/depth factors
+cost less than \(100+160+600+20=880\) powers of \(\beta^L\).
+The response remainder from (IC.40)--(IC.43) is bounded by
+\[
+ \beta^{240L}(1+p)^2(1+M_n+4U_*^{\rm fin}\sqrt\ell)^3
+ [R+P+d_0(N+u+(N+u)^2)].
+ \tag{IC.65}
+\]
+The homogeneous terms in (IC.41) cost \(10s\); the reference
+cap occurs only in forcing. This proves the fixed cutoff degree three.
+The coefficient in (IC.35), contour length, and (IC.8) also fit the
+last ledger row with room below \(1000L\). No depth-dependent
+power of \(\ell\) or cutoff is absorbed into that row.
+
+There is a sharper bound useful to the numerical decoder:
+\(K_{\rm src}\le\beta^{21L}\), and hence certainly
+\(K_{\rm src}\le\beta^{40L}\). It follows directly from the
+S-independent source recurrence ledger:
+\(C_{\rm abs}\le\beta^{16L-1}\),
+\(H_j\le3\beta^{2j}\),
+\(\tau_j\le3\beta^{4L-2j+1}\), and (S.22).
+These bounds concern source constants and do not require a stronger
+label cap.
+
+The useful width conditions are
+\[
+ \mathcal A\ell^{16}\le n^{1/1000},\qquad n\ge64mL/\rho.
+ \tag{IC.66}
+\]
+They are implied by the factorized gate
+\[
+ n\ge\left\lceil\max\left\{
+ [2\mathcal A(2000\log(2\mathcal A))^{16}]^{1000},
+ 64mL/\rho\right\}\right\rceil,
+ \tag{IC.67}
+\]
+which is in turn implied by \(n\ge\lceil(\mathcal A/\rho)^{1100}\rceil\).
+To prove this without an implicit logarithmic onset, put
+\(u=\log(2\mathcal A)>9000\). The increasing function
+\(u/320-\log(2000u)\) is positive at 9000, so
+\(x_0=1000[u+16\log(2000u)]\le1050u\), and
+\(1+x_0\le2000u\). Hence
+\(\mathcal A(1+x_0)^{16}\le\tfrac12 e^{x_0/1000}\).
+The function \(x/1000-16\log(1+x)\) increases for \(x>15999\),
+proving (IC.66) at every larger width. Also
+\(1050\log(2\mathcal A)\le1100\log\mathcal A\) and
+\(\mathcal A\ge64mL\), proving the power-1100 envelope.
+
+For explicit checking of the remaining inequalities, (IC.66) implies
+\[
+ \log n>9\cdot10^6,\quad
+ p,m,d\le n^{1/4000},\quad L\le n^{1/2000000},\quad
+ \log(1/\rho)\le\log n,\quad
+ \log(64nmL/\rho)\le2\log n.
+ \tag{IC.68}
+\]
+Every numerical comparison of logarithms with positive powers below is
+valid already at this displayed lower endpoint and improves with width.
+
+The following table gives the actual finite Gaussian-union and remainder
+bounds. It instantiates Sections 2--4 at the coefficients just proved.
+
+| Step | Bound or sufficient inequality |
+| --- | --- |
+| Linear/quadratic map norm | \(B\sqrt p n^{1/4000}\ell^5\le n^{3/4000}<n^{1/200}\) |
+| Quadratic fixed-grid exponent at \(n^{-1/10}/8\) | \(\min\{n^{.79}/(8192p),n^{.895}/128\}>n^{.78}\) |
+| Centered control interpolation | \(80Bp^{3/2}\ell^4\le n^{99/4000}\) |
+| Terminal mesh | \(h_t=n^{-2}/(1+\mathcal A\ell^8)\), at most \(n^6\) terminals |
+| Terminal error | \(10\sqrt2Bp^{3/2}n^{1/2+1/4000}\ell^8h_t<n^{-1/10}/8\) |
+| Control entropy | \(\log N_{\rm ctrl}\le\mathcal A\ell^8n^{5/8}\le n^{.626}\) |
+| Remaining coordinate/probe/form tests | at most \(\mathcal A n^3\) per deletion set and terminal |
+| Local total failure | \(4pL\mathcal A n^{p+9}e^{n^{.626}-n^{.78}}+pLn^pe^{-pn}<e^{-n^{.7}}<\rho/16\) |
+| Integrated nonlinear force | \(\mathcal A\ell^8n^{1/4000}[n^{-.08}+u_0^2+n^{-.48}+n^{-1/2}]<u_0/2\) |
+| Coordinate transfer | \(16\mathcal A\ell^8[d_0+u_0+R+P+d_0(N+u_0+(N+u_0)^2)]<n^{-1/30}\) |
+| Scalar trace error | \(32\mathcal A\ell^8n^{-1/30}<n^{-1/40}\) |
+
+For example, \(B=\sqrt{\mathcal A}/Q^2\), so the control
+interpolation left side is at most \(80n^{1/2000}\).
+The nonlinear-force left side is at most \(4n^{-.07875}\),
+whereas \(u_0/2=n^{-.04}/2\). The coordinate-transfer left
+side is at most \(256n^{-.039}\), whose exponent is strictly
+smaller than \(-1/30\). These verify the margins; the exceptional
+probability row follows by taking logarithms and (IC.68).
+The terminal mesh count uses side lengths at most
+\(34(1+\lambda^{-1})\ell\), and control count at most
+\(4p(m+1)^2\) real components. Their speeds are at most
+\(\sqrt n\ell^3\) times the ledger coefficient, as shown by
+(IC.38). Thus the powers used in this table do not presume the
+desired Gaussian event.
+
+Full budgets stop at \(\mathcal B\), cavity budgets at
+\(2\mathcal B\); temporary full coordinate and response caps are
+twice their claimed values and cavity caps four times. Full and cavity
+pole stops are \(3a/8\) and \(7a/16\). The coordinate table
+gives, on their common prefix,
+\[
+ \max|\Delta z|+\max|\Delta\bar k|\le n^{-1/30},\quad
+ \max|\Delta\bar R|\le n^{-1/30},\quad
+ \mathcal H_a^{-I}\le e^{2\eta n^{-1/30}}\mathcal H_a+p/n
+                                    <2\mathcal B.
+ \tag{IC.69}
+\]
+The local size, learned-row norm, and strip gates (IC.20), (IC.33)
+hold because \(R\le3n^{-.08}\), \(P\le4n^{-.48}\), and
+\(a^{-1}\le\beta/16\). Thus no cavity stop occurs first.
+
+There is no exponential short-contour gate at (IC.63). The physical
+coefficient bounds are \(\mathcal K\le\beta^{20L}\),
+\(D_W\le\beta^{9L}\), \(U_*^{\rm fin}\le\beta^{72L}\),
+and \(\lambda\le H_D^2\le\beta^{6L}\). With
+\(c=[p\beta^{100L}(1+\lambda)]^{-1}\), each of
+\[
+ 8c,\quad\lambda c,\quad4\mathcal Kc/\log2,
+ \quad32YSD_Wc
+\]
+is below one for every \(n\ge1\). Follow a real solution to its
+nearest real anchor and then at most two short pieces. Residual growth
+is at most \(e^{4\mathcal Kr_t}\le2\), extra activity at most
+\(8Yr_t\le S/2\), hidden normalized increments at most
+\(8YSD_Wr_t\le1/4\), and, once the response cap is improved,
+the preactivation displacement is at most
+\[
+ 8YSU_*^{\rm fin}c\le a/8.
+ \tag{IC.70}
+\]
+This improves the pole stop. It uses \(64YS=4\lambda S^2\)
+and \(S\le1\), so no inverse label amplitude occurs.
+The source rectangle therefore supplies exactly the decoder radius
+\(\lambda r_t=[p\beta^{100L}(1+\lambda^{-1})\sqrt\ell]^{-1}\).
+Using this source in a Taylor construction requires the corresponding
+factor \(p\) in the number of time patches; it does not license
+the former larger complex radius.
+
+##### 8. Initializing every cavity and improving the finite stops
+
+Apply (IC.58) at failure \(\rho/32\). Gate (IC.66) implies
+its sufficient envelope (IC.61), since the latter is at most
+\(\mathcal A\ell\). Conditional initial Gaussian tails, before
+conditioning on the current operator event, also give
+\[
+ Z_0=2H_D\sqrt{2\log(64nmL/\rho)}\le4H_D\sqrt\ell
+ \tag{IC.71}
+\]
+as a simultaneous initial training-preactivation cap, with failure
+at most \(\rho/32\). Initial exponential budgets are controlled
+directly: \(\eta(2H_D)\le1\), so for a centered Gaussian with
+standard deviation at most \(2H_D\),
+\(\mathbb E e^{\eta|Z|}<4\) and
+\(\mathbb E e^{2\eta|Z|}<15\). Conditional Chebyshev at layer
+average eight gives failure \(15/(16n)\). The stopped layer/sample
+union therefore bounds all initial budgets by \(8L\) with failure
+at most \(15mL/(16n)<\rho/32\). Initial carriers are zero.
+Gaussian norm concentration gives all initialized hidden rows/columns
+norm at most two, with failure at most
+\(4nLe^{-n/2}<\rho/32\); the first layer's incoming rows are
+not needed for a reverse source and are excluded from this norm bound.
+
+Delete at most \(p\) neurons at one layer. Zero-embedding its
+rectangular features, the omitted initialized feature vector has norm
+at most \(\sqrt p(b+sZ_0)\). Every subsequent initialized
+feature difference has norm at most
+\[
+ D_{\rm init}=(8s)^L\sqrt p(b+sZ_0)
+                \le\beta^{10L}\sqrt{p\ell}.
+ \tag{IC.72}
+\]
+Restrictions do not increase initial operator norms. Gate (IC.66)
+implies
+\(D_{\rm init}/\sqrt n\le\min\{H_D/8,\sqrt\lambda/32\}\).
+Thus each cavity starts with training feature RMS below \(3H_D/2\)
+and least singular value of its normalized feature matrix at least
+\((1/\sqrt2-1/32)\sqrt\lambda\). Under the unchanged label
+condition its later feature-matrix motion is at most
+\(\sqrt\lambda/8\), by the existing deterministic fitting
+calculation. Its Gram gap stays strictly above \(\lambda/4\).
+This proves the fitting tube for all cavities from one full initialization
+event, without union-bounding a cavity Gram probability.
+In particular (IC.58) is not applied literally to a rectangular cavity.
+Its empirical norm, if estimated directly, would have mean-square factor
+\((n-p)/n\), hence an RMS bias at most \(pH_D/n\). The
+zero-embedded difference bound (IC.72) already includes the missing
+coordinates themselves and dominates this bias. The strict RMS and Gram
+margins above therefore pay for original normalization \(n\) without
+any false claim that a cavity's empirical covariance has the full-network
+expectation. The \(n^p\) multiplicity is used only in the coordinate
+comparison (IC.73), with its exponential Gaussian tail.
+
+For initial coordinate localization at a layer above the deletion,
+condition on the lower initialized layers and project their complete
+feature difference onto the deterministic ball of radius (IC.72).
+The current row is still independent Gaussian, so each pairing has
+variance at most \(D_{\rm init}^2/n\). At threshold
+\(n^{-1/10}\) its tail is
+\(2e^{-n^{4/5}/(2D_{\rm init}^2)}\). The union over deletion
+sets and tests costs at most
+\[
+ 2pmL^2n^{p+1}e^{-n^{4/5}/(2D_{\rm init}^2)}<\rho/32.
+ \tag{IC.73}
+\]
+The negative exponent is at least \(n^{.799}/2\), while the
+logarithm of the prefactor is at most \(10n^{1/4000}\ell\),
+by (IC.68). At the deleted layer retained coordinates agree. Hence
+each cavity starts with budget at most
+\(e^{\eta n^{-1/10}}8L+p/n<\mathcal B/2\).
+These initial failure allocations sum to less than \(\rho/4\).
+Each cavity nevertheless uses its own initialization test (including
+the just specified initial Gram margin), with the zero-reference
+convention of Section 1. This is needed when the full initial-event
+indicator is subsequently dropped.
+
+On the local uniform event in Section 7, (IC.55) and the unchanged
+scalar absorption (S.16) give
+\[
+ Z_{a,i}+K_{a,i}/S\le C_{\rm abs}
+ [1+G_{h,a,i}+G_{\delta,a,i}/S+
+                      \overline G_{h,i}+\overline G_{\delta,i}]
+                       +n^{-1/40}.
+ \tag{IC.74}
+\]
+Its coefficient remains the singleton coefficient, independent of the
+moment order \(p\). Each Gaussian reference has coefficient RMS
+at most \(V_*=\max(1,H_{\max},\tau_*)\). Its raw time
+derivative costs \(\sqrt n\) times the proved coefficient and
+a power of \(\ell\), so a mesh of size \(n^{-2}\) has vanishing
+interpolation error and at most \(n^5\) points under (IC.66).
+Use scalar grid threshold \(31V_*\sqrt\ell\), reserving
+\(V_*\sqrt\ell\) for interpolation. Real/imaginary splitting
+gives tail \(4e^{-31^2\ell/8}\). There are at most
+\(\mathcal A n^6\) tests. Their union is below \(n^{-100}\).
+Consequently (IC.74) improves the temporary full maxima to exactly
+\[
+ \max_{a,j,i}|z_{a,i}^{(j)}|\le K_{\rm src}\sqrt\ell,
+ \qquad\max_{a,j,i}|k_{a,i}^{(j)}|
+                          \le SK_{\rm src}\sqrt\ell.
+ \tag{IC.75}
+\]
+Apply the explicit response contractions (IC.57) in increasing layer
+order and use the Gaussian multiplier 64. The \(m^2\) driver/evaluated
+training pairs and the same mesh have total additional failure below
+\(n^{-100}\), and the response stops improve to
+\[
+ \max_{a,b,j,i}|R_{ba,i}^{(j)}|
+                         \le S U_j^{\rm fin}\sqrt\ell.
+ \tag{IC.76}
+\]
+The direct reverse mean here is explicitly
+\(\bar\delta_{a,i}\operatorname{tr}(C_bC_a^\top)/n\);
+its integrated term is (IC.56), and its cross forms are centered.
+Thus this step includes the reverse observable instead of inferring a
+response cap from a feature cap. Equations (IC.70), (IC.76) now improve
+the full pole stop. Budget removal has not yet been invoked.
+
+##### 9. Finite-order common-cavity moments and collisions
+
+We first state an elementary Gaussian rectangle estimate, including its
+constants. If a deterministic complex coefficient map \(b_z\) on a
+rectangle with sides at most \(H_0\) satisfies
+\(\sup\|b_z\|\le D\) and
+\(\|b_z-b_{z'}\|\le K\|z-z'\|\), then for a standard
+real Gaussian vector \(G\),
+\[
+ X=\sup_z|G^\top b_z|,\quad
+ M=256D\sqrt{\log(e+H_0K/D)},\quad
+ \log\mathbb E e^{uX}\le uM+2u^2D^2.
+ \tag{IC.77}
+\]
+If \(D=0\), interpret the process as zero. To prove the mean
+bound, use dyadic meshes of size proportional to \(D2^{-j}/K\),
+with at most \(4(1+H_0K/D)^2 4^j\) points. Connect each point
+to the preceding mesh; increment standard deviations are at most
+\(3D2^{-j}\). The bound
+\(\mathbb E\max_{r\le N}|Z_r|\le\sigma\sqrt{2\log(2N)}\)
+for Gaussian variables of standard deviation at most \(\sigma\)
+follows by their exponential moments and a union bound. Summing uses
+\(\sum2^{-j}=1\), \(\sum2^{-j}\sqrt j\le2\).
+The constant 128 covers the real initial grid and increments; using
+real and imaginary parts gives 256. The supremum is at most
+\(2D\)-Lipschitz in \(G\), so (IC.59) proves its exponential
+moment. For samplewise processes sharing the same root, their RMS
+\(\bar X\) is also \(2D\)-Lipschitz, and
+\(\mathbb E\bar X\le M+2D\) by the variance estimate.
+Thus (IC.77) holds for the sample RMS with \(M\) replaced by
+\(M+2D\), without independence between samples. For a root with
+covariance \(I/n\), use coefficient norms divided by \(\sqrt n\).
+
+For a set \(I\ni i\), both the singleton cavity and the common
+\(I\)-cavity omit the particular root against which their difference
+is paired. Their complete independently stopped coefficient paths,
+including their own failed-initialization conventions, are independent
+of that root. Project the whole difference path onto a deterministic
+Euclidean ball of radius \(4n^{1/100}\), before restricting to the
+successful full prefix. Projection is nonexpansive, preserves root
+independence, and agrees with the difference on that prefix by the
+\(2n^{1/100}\) comparison proved above. Its normalized Gaussian
+radius is
+\[
+ v_n=4n^{-49/100}.
+\]
+The raw normalized derivative recurrences give rectangle modulus at
+most \(\beta^{300L}(1+\lambda)\ell^3\); its side length is
+at most \((64/\lambda+4)\ell\). Applying (IC.77), and its
+RMS version, to the sum of the two cavity moduli yields
+\[
+ \log\mathbb E e^{uE_i}\le u\mu_n+2u^2v_n^2,
+ \quad\mu_n\le256v_n\sqrt{\log\left(e+
+ {\beta^{400L}(1+\lambda^{-1})\ell^4\over v_n}\right)}+2v_n.
+ \tag{IC.78}
+\]
+The two cavity paths need not be independent of each other. Equations
+(IC.66)--(IC.68) imply
+\[
+ p\mu_n+p^2v_n^2
+ \le1032n^{-.48975}\sqrt\ell+16n^{-.9795}<10^{-3}.
+ \tag{IC.79}
+\]
+
+We also need finite moments for complex-minus-real corrections, rather
+than a limit at fixed moment degree. The sharp derivative calculation
+in S.7, now using (IC.76), gives
+\[
+ \|\partial_t\delta_a^{(j)}\|_{2,n}
+ \le J\rho\left[1+{S^2\over\eta}
+                       (4+\log(2\mathcal B)+\log\ell)\right],
+ \qquad J=\beta^{80L}.
+ \tag{IC.80}
+\]
+To see that the constant is finite with this power, interpolate the
+RMS and maximum bounds on \(\dot z\), then use the carrier
+Schatten bound at real exponent
+\(r=\max\{4,\log(2\mathcal B\ell)\}\). The product
+\(k\odot\dot z\) is at most
+\((2\rho S^2N_*/\eta)r(2\mathcal B\ell)^{1/r}\) in RMS,
+where \(N_*\le\beta^{72L}\). The last exponential is at most
+\(e\). Differentiate the backward pass: the propagated upper
+derivative costs \(10s\), changed mixer costs
+\(2s^3k_{j+1}^2H_j\), and changed gate costs \(4et_2N_*\).
+Each forcing coefficient is at most \(\beta^{75L}\), and its
+geometric sum at most \(\beta^{78L}\). Enlarging to \(J\)
+also pays for the forward derivative and fixed contour factors.
+This proves (IC.80) for every width, retaining the fixed budget
+logarithm instead of assuming it is below \(\log\ell\).
+
+Call the bracket in (IC.80) \(A_\ell\). The unchanged condition
+\(S^2\Lambda/\eta\le1\) gives
+\(A_\ell\le8[1+\log(e+\ell)]\). Subtract the coefficient
+at the nearest real anchor. With \(c\) from Section 7, its
+normalized radius, Lipschitz coefficient, and rectangle side are bounded by
+\[
+ D={\lambda cJ A_\ell\over\sqrt\ell},\quad
+ K=\lambda J A_\ell,\quad
+ H_0=64\ell/\lambda+4c/\sqrt\ell.
+ \tag{IC.81}
+\]
+These bounds also hold after a reference's own clamping; the nearest
+real-anchor map is Lipschitz. Set \(r=\lambda^{-1}\) only in the
+following arithmetic. Then
+\[
+ D\le{\beta^{-20L}\over p(1+r)}{A_\ell\over\sqrt\ell},
+ \quad H_0K/D=64p\beta^{100L}(1+r)\ell^{3/2}+4,
+ \quad D\le32\beta^{-20L}/p.
+\]
+The logarithm in (IC.77) is at most
+\(6+100L\log\beta+\log p+\log(1+r)+2\log(e+\ell)\).
+Use \((2+u)e^{-u/2}\le2\) and
+\((2+u)^{3/2}e^{-u/2}\le4\) for \(u=\log\ell\ge0\),
+\(\sqrt{\log p}/p\le1\), and
+\(\sqrt{\log(1+r)}/(1+r)\le1\).
+Substitution gives \(M+2D\le2^{16}\beta^{-18L}\). Therefore
+for a complex-minus-real correction \(X\), including its sample RMS,
+\[
+ (\mathbb E e^{apX})^{1/p}
+ \le\exp\{a2^{16}\beta^{-18L}+2^{11}a^2\beta^{-40L}/p\}
+ \le e^{\beta^{-10L}},\qquad0\le a\le8.
+ \tag{IC.82}
+\]
+This holds at every width for the stopped references. It is why the
+factor \(p\) in (IC.63) suffices without an exponential width in
+the moment order or the inverse gap.
+
+On the common cavity, the real Gaussian references have the squared
+exponential bound (S.20), including the sample RMS form. Completing the
+square and Hölder for the four references in (IC.74) give a main
+one-neuron exponential moment below four at exponent at most \(8\eta\),
+exactly as in (S.21). Distinct omitted root pairs are conditionally
+independent on that common cavity. Bound each full singleton by its
+common-cavity real reference plus the projected correction (IC.78)
+and complex correction (IC.82), then drop the event indicator from
+these nonnegative bounds. Cauchy--Schwarz separates the product of main
+references from all corrections. Hölder over the at most \(p\) roots
+and four reference families pays for the corrections: their required
+coefficient is at most eight because
+\(\eta C_{\rm abs}\le(1024W_{\rm G})^{-1}\).
+Equation (IC.79) makes the projected factor smaller than
+\(e^{1/10}\), (IC.82) makes the complex factor smaller than
+\(e^{1/10}\), and the scalar error in (IC.74) contributes less
+than \(e^{1/10}\). These margins are per root; together with the
+main bound below four they are below sixteen. Thus, with \(E\)
+the common initialization, local and maximum event,
+\[
+ \mathbb E\left[1_E\prod_{i\in I}
+ e^{\eta(Z_{a,i}^{(j)}+K_{a,i}^{(j)}/S)}\right]\le16^{|I|},
+ \qquad1\le|I|\le p.
+ \tag{IC.83}
+\]
+At no point was \(E\), or full survival, a Gaussian conditioning
+event. Samples and correction processes have not been assumed independent.
+
+Repeated indices require separate treatment. The unchanged constants
+obey
+\[
+ 2\eta K_{\rm src}\le{1+C_G\over32W_{\rm G}}
+                  \le33/4096<1/100.
+\]
+Indeed \(W_{\rm G}\ge128\max(1,H_{\max},\tau_*)\), since
+\(V_1=\tau_1=\max_j\tau_j\). On (IC.75), put
+\(B_i=e^{\eta(Z_{a,i}^{(j)}+K_{a,i}^{(j)}/S)}\); then
+\[
+ 0\le B_i\le e^{\sqrt\ell/100}\le e^{1/100}n^{1/100}=W_n.
+ \tag{IC.84}
+\]
+Expand \((n^{-1}\sum_i B_i)^p\). For a partition of its ordered
+positions into \(k\) equal-index blocks, retain one factor per
+distinct index and bound the repeated factors by \(W_n^{p-k}\).
+The retained expectation is at most \(16^k\) by (IC.83), and
+there are at most \(n^k\) distinct index assignments. Partitions
+with \(j=p-k\) identifications are at most
+\(\binom{\binom p2}{j}\): map each block to the star joining
+its least position to all others; the resulting \(j\) edges
+determine the partition. Consequently
+\[
+ \mathbb E[1_E(n^{-1}\sum_iB_i)^p]
+ \le16^p\exp\{\tbinom p2 W_n/(16n)\}\le e16^p,
+ \tag{IC.85}
+\]
+where \(n\ge4p^3\), implied by (IC.68), suffices for the last
+inequality. This does not request an exponential moment at coefficient
+\(p\eta\) of a repeated main root.
+
+If any full budget reaches \(\mathcal B\), some sample/layer
+average reaches \(\mathcal B/L\). Markov and the \(mL\)
+union give
+\[
+ \Pr(\hbox{a budget is hit},E)
+ \le emL(16L/\mathcal B)^p
+ =emL(64e^2)^{-p}\le\rho/4.
+ \tag{IC.86}
+\]
+Initialization costs less than \(\rho/4\), the local event less
+than \(\rho/16\), and the two maximum events together cost
+\(2n^{-100}<\rho/16\). All stops are therefore removed with
+total failure less than \(\rho\). Their strict margins give
+holomorphy on a neighborhood of the closed rectangle (IC.63).
+The original RMS and operator bounds, (IC.75)--(IC.76), the real
+fitting trajectory and endpoint all hold on this event.
+
+For the Logarithmic decoder, use \(\rho=2^{-20}\delta\) and
+\(p=p_{\rm ref}\) for the independent dense reference. A constructed
+member uses \(\rho=2^{-20}\), giving the stated implemented order
+\(p\) independent of \(\delta\). The reference gate dominates
+the member gate because both \(p\) and \(\rho^{-1}\) are
+larger for the reference. Whole-experiment amplification, proved in
+the decoder section, pays for member failure. It is not a union-bound
+requirement that every member source succeed. Substitution in (IC.67)
+and its envelope gives exactly
+\[
+ n\ge\left\lceil\left[
+ {2^{20}\beta^{2000L}\over\delta}
+ (1+m/\gamma)^4(m+d+p_{\rm ref}+1)^4
+ \right]^{1100}\right\rceil.
+ \tag{IC.87}
+\]
+Additional numerical-precision or decoder-work gates remain their
+separately stated conditions. In particular this source proof does not
+remove a separately chosen \(n\ge Y^{-1}\) precision convention,
+and it imposes no positive lower label bound of its own.
+
+The independent dense-reference certificate also follows from this
+training-only source, with no qualitative complex-sphere event. Here is
+the exact bridge. Put \(T_0=32\ell/\lambda\) and define
+\[
+ C_L^k=1,\qquad
+ C_j^k=S\tau_{j+1}+10sC_{j+1}^k
+                +10t_2SP_{j+1}k_{j+1},\qquad
+ C_{\rm carrier}=\max_j C_j^k.
+ \tag{IC.88}
+\]
+For two real states in the physical operator/RMS tube, forward
+subtraction bounds a preactivation RMS difference by
+\(P_j\|\Delta\theta\|_{\rm par}\). In the backward subtraction,
+the changed mixer costs \(S\tau_{j+1}\|\Delta\theta\|_{\rm par}\),
+propagation costs \(10s\), and the changed gate costs
+\(10t_2SP_{j+1}k_{j+1}\sqrt n\|\Delta\theta\|_{\rm par}\).
+The first \(\sqrt n\) is the preactivation coordinate conversion;
+after the final carrier coordinate conversion this gives
+\[
+ \max_{a,j}\|k_a^{(j)}(t)-k_a^{(j)}(T_0)\|_\infty
+ \le C_{\rm carrier} n\|\theta(t)-\theta(T_0)\|_{\rm par}.
+\]
+Apply the real fitting energy/path-length inequality starting at \(T_0\):
+the rightmost parameter difference is at most
+\(2\rho(T_0)/\sqrt\lambda\le2Y(en)^{-16}/\sqrt\lambda\).
+Consequently the exact sufficient carrier-tail gate is
+\[
+ {2C_{\rm carrier}Y\over\sqrt\lambda}\,n(en)^{-16}
+                    \le K_{\rm src}S\sqrt\ell.
+ \tag{IC.89}
+\]
+It is implied by
+\[
+ n\ge\max\left\{1,
+ \left({C_{\rm carrier}\sqrt\lambda\over8K_{\rm src}}\right)^{1/15}
+ \right\}
+ \quad\text{and hence by}\quad
+ n\ge\max\{1,(\beta^{23L}/8)^{1/15}\}.
+ \tag{IC.90}
+\]
+Indeed \(S=16Y/\lambda\), \(K_{\rm src}\ge1\),
+\(C_{\rm carrier}\le\beta^{20L}\) by (IC.88)'s single
+geometric sum, and \(\sqrt\lambda\le\beta^{3L}\). Gate
+(IC.87) dominates (IC.90). Adding (IC.75) at \(T_0\) gives
+the exact all-time training-carrier bound used in dense comparison,
+\(M_n=2K_{\rm src}S\sqrt\ell\), also at the fitted endpoint.
+
+Define the real dense good set by the fitting operator/RMS/Gram tube,
+its endpoint tail, and this training-carrier bound. Its definition is
+independent of \(p\), the complex radius, and confidence. Both the
+fixed-confidence members and the high-confidence independent reference
+belong to that same set on their respective source events. The dense
+endpoint-subtraction proof uses coordinate carrier maxima only for
+training samples: its arbitrary-query step is forward RMS subtraction
+in the real operator tube. Its Gaussian extension then uses a real
+sphere net, a real compactified-time grid, and the real fitting tail.
+Thus the signed dense Lipschitz constant, its common extension center,
+and the whole-sphere/all-time certificate \(b_n\) are unchanged
+when this finite-training event replaces the original qualitative
+source event. No analyticity or carrier maximum at passive complex
+queries is a hypothesis of that comparison. This explicitly closes
+the reference-event dependency of the Logarithmic decoder.
+<!-- insertion-completion:finite:end -->
+
+<a id="decoder-finite-construction"></a>
+#### Finite physical program, selected metric and unseen queries
+
+<!-- decoder-construction:start -->
+##### 1. Physical variables and the precise source-event interface
+
+Write \(v_a=x_a/\sqrt d\), so \(\|v_a\|_2=1\), and retain the
+dense forward and backward recursions
+\[
+z_a^{(1)}=Av_a,\quad z_a^{(j)}=W^{(j)}h_a^{(j-1)},\quad
+h_a^{(j)}=\phi_j(z_a^{(j)}),\quad f_a=w^\top h_a^{(L)}/n,
+\]
+\[
+k_a^{(L)}=w,\qquad
+\delta_a^{(j)}=\phi_j'(z_a^{(j)})\odot k_a^{(j)},\qquad
+k_a^{(j)}=W^{(j+1)\top}\delta_a^{(j+1)}.
+\tag{FC.1}
+\]
+The residual is \(r_a=f_a-y_a\), and the loss is
+\(m^{-1}\sum_a r_a^2\). In physical time the exact equations are
+\[
+\dot A=-\frac2m\sum_a r_a\delta_a^{(1)}v_a^\top,\quad
+\dot W^{(j)}=-\frac2{mn}\sum_a r_a\delta_a^{(j)}h_a^{(j-1)\top},
+\quad \dot w=-\frac2m\sum_a r_a h_a^{(L)}.
+\tag{FC.2}
+\]
+Thus these are the original mobilities \((n,1,\ldots,1,n)\).
+Initially \(A_{ik}\sim N(0,1)\), \(W^{(j)}_{ik}\sim N(0,1/n)\)
+independently and \(w=0\). Every label restriction below is a consequence
+of the original common label allowance; none replaces it by a smaller cap.
+
+Let
+\[
+\lambda=\gamma/m,\quad r=\lambda^{-1},\quad
+Y=\|y\|_2/\sqrt m>0,\quad S=16Yr\le1,\quad
+\ell=\log(en),\quad B=\beta^{100L}.
+\tag{FC.3}
+\]
+The scalar \(r\) is distinct from the indexed residual \(r_a\).
+The zero-label branch is the exact constant zero predictor. The nonzero
+finite-word branch retains \(nY\ge1\). The source/fitting bounds give
+\(Y\le\beta^{3L}\) and \(r^{-1}\le\beta^{6L}\).
+All estimates use the existing
+\[
+Z=\ell+\log\left(e+
+\frac{(m+d+2)\beta^{100L}(1+r)}\delta\right).
+\]
+The implemented moment order is \(p\); it has fixed source confidence and
+is prescribed in the integrated theorem, with \(\log(p+2)\le CZ\).
+
+Here is the exact event used from the internal finite-source lemma. The
+training trajectory, its forward/backward fields and the training response
+fields are holomorphic on a neighborhood of
+\[
+[-r_t,32\ell/\lambda+r_t]+i[-r_t,r_t],\qquad
+r_t=\frac1{pB(1+\lambda)\sqrt\ell}.
+\tag{FC.4}
+\]
+The initialized operator bounds, the fitted real trajectory, and all-time
+real feature bounds hold there with their stated real/complex distinction.
+On the complex domain, hidden operators are at most ten, training feature
+RMS is at most \(\beta^{3L}\), training backward RMS is at most
+\(S\beta^{6L}\), carrier maximum is at most
+\(S\beta^{40L}\sqrt\ell\), and the preactivation imaginary part is
+at most \(a/4\). The parameter-gradient response satisfies
+\[
+\max_{a,b,j}\|R_{ba}^{(j)}\|_\infty
+\le S\beta^{72L}\sqrt\ell.
+\tag{FC.5}
+\]
+Here \(\Theta=(A,\sqrt nW^{(2)},\ldots,\sqrt nW^{(L)},w)\) and
+\(R_{ba}^{(j)}=D_\Theta z_b^{(j)}\nabla_\Theta(nf_a)\), with the
+Euclidean/Frobenius gradient in these blocks. This definition includes all
+mobility and width factors and contains no residual.
+For normalized time \(\tau=\lambda t\), a disk of radius
+\(\lambda r_t/2\) about a real anchor \(\tau_j\) has training residual
+RMS at most \(2Y e^{-\tau_j/4}\). These are direct conclusions of that
+source lemma at the full label allowance. In particular, no lower bound of
+the form \(\sqrt\ell\ge c(m,\gamma,\beta,L)\) is imported here.
+
+For a displacement \(u=(A-A_0,W^{(2)}-W_0^{(2)},\ldots,w)\), use
+\[
+\|u\|_\Sigma=\|A-A_0\|_F/\sqrt n+
+\sum_{j=2}^L\|W^{(j)}-W_0^{(j)}\|_F+\|w\|_2/\sqrt n,
+\]
+\[
+\|u\|_{\mathcal H}^2=\|A-A_0\|_F^2/n+
+\sum_{j=2}^L\|W^{(j)}-W_0^{(j)}\|_F^2+\|w\|_2^2/n.
+\tag{FC.6}
+\]
+Then \(\|u\|_{\mathcal H}\le\|u\|_\Sigma\le
+c_L\|u\|_{\mathcal H}\), where \(c_L=\sqrt{L+1}\).
+Set \(\bar u(\tau)=u(r\tau)/Y\). This normalization changes proof
+coordinates only. The normalized vector field is denoted by
+\(\overline F\).
+
+##### 2. Analytic tube and real stability, with explicit panel orders
+
+Choose the normalized source horizon and the equal-panel mesh by
+\[
+T_0=2\{10\log n+\log(1+66Br)\},\qquad
+T_0\le T\le T_0+1/4,\qquad
+h_0\le\frac1{128pB(1+r)\sqrt\ell},\qquad H=\lceil T/h_0\rceil,
+\quad h=T/H.
+\tag{FC.7}
+\]
+Choose a certified dyadic upper approximation \(T\) in the indicated
+interval and the largest dyadic \(h_0\) below its bound. The numerical
+horizon gate gives \(T_0<24\ell\), hence \(T<32\ell\).
+Now \(T/h_0\) is rational, its ceiling is an exact integer operation,
+and the equal-panel length \(h=T/H\) is rational. Scalar integration
+weights using this rational are rounded only at their declared local
+arithmetic step. Thus \(h_0/3\le h\le h_0\), and
+\[
+H\le CpB(1+r)Z\sqrt\ell.
+\tag{FC.8}
+\]
+Every radius-\(4h\) panel disk lies in (FC.4). Put
+\[
+q(\tau)=2^{-\lfloor\tau/4\rfloor},\quad q_j=q(jh),\quad
+q_T=q(T),\qquad
+d_n=\frac{\beta^{-200L}q_T}{(1+r)^2\sqrt n},
+\]
+\[
+M=B(1+r),\qquad \Lambda_j=B(1+r)(1+q_j\sqrt\ell).
+\tag{FC.9}
+\]
+We first verify the tube needed for numerical restarts. A physical parameter
+perturbation of sum norm at most \(Yd_n\) changes a training preactivation
+by RMS at most \(\beta^{4L}Yd_n\), by forward subtraction of (FC.1).
+Indeed, each changed-matrix term is bounded by the old feature RMS times
+its matrix operator norm, and each unchanged hidden propagation multiplies
+the previous RMS error by at most \(11\beta\le\beta^3\).
+Its coordinate error is therefore at most \(\sqrt n\beta^{4L}Yd_n<a/16\).
+Stopping the segment at a first half-strip exit proves that no exit occurs.
+The operator cap increases by at most one.
+
+Backward subtraction at a reference source state uses
+\[
+\Delta\delta^{(j)}=\phi_j'(\widetilde z^{(j)})\odot\Delta k^{(j)}
++[\phi_j'(\widetilde z^{(j)})-\phi_j'(z^{(j)})]\odot k^{(j)},
+\quad
+\Delta k^{(j)}=\widetilde W^{(j+1)\top}\Delta\delta^{(j+1)}
++\Delta W^{(j+1)\top}\delta^{(j+1)}.
+\tag{FC.10}
+\]
+Only the changed-gate term uses a reference carrier maximum. Summing the
+downward linear recursion gives RMS at most
+\(\beta^{50L}(1+S\sqrt\ell)Yd_n\). There is one carrier-maximum
+factor, not a product of such factors across layers. Conversion to a
+coordinate bound, using \(Y/S=1/(16r)\), \(r^{-1}\le\beta^{6L}\),
+and (FC.9), keeps the carrier maximum within twice its source bound.
+Prediction subtraction on the training complex tube has coefficient at most
+\(\beta^{8L}\) in the physical sum norm. At real parameter states the
+same bound holds for every real unit input, by the real all-sphere feature
+bound and forward subtraction; no passive complex-time analyticity is used.
+The residual
+on this tube is consequently at most \(3Yq_j\) in sample RMS.
+
+Subtracting the three factors in each gradient product of (FC.2), and
+using the forward and backward subtractions just proved, bounds the
+complex normalized Jacobian by \(\Lambda_j\). For clarity, before
+normalization the residual-difference terms contribute at most
+\(\beta^{70L}\), and the backward/feature-difference terms contribute
+at most \(\beta^{70L}Yq_j(1+S\sqrt\ell)\). Normalization multiplies
+this by \(r\); \(Yr\le1/16\) and the unused powers from 70 to 100
+give (FC.9). The normalized true derivative is at most \(M\).
+Thus the unclipped field is holomorphic and \(\Lambda_j\)-Lipschitz
+on the complex normalized sum-norm tube of radius \(d_n\).
+
+The sharper real estimate is essential. In the Euclidean coordinates
+\(P=(A/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)\), (FC.2) is
+\(\dot P=-\nabla_P\mathcal L\). The blocks of \(g_a=\nabla_Pf_a\)
+are \(\delta_a^{(1)}v_a^\top/\sqrt n\),
+\(\delta_a^{(j)}h_a^{(j-1)\top}/n\), and
+\(h_a^{(L)}/\sqrt n\). Differentiating the forward recursion in a
+physical direction gives RMS derivatives of \(z,h\) at most
+\(\beta^{9L}\|e\|_\Sigma\). Differentiating (FC.10), with the
+unchanged point as reference, gives backward derivative RMS at most
+\(\beta^{55L}(1+S\sqrt\ell)\|e\|_\Sigma\). Each hidden block of
+\(Dg_a[e]\) is the sum of the two outer products
+\(D\delta_a[e]h_a^\top/n+\delta_a Dh_a[e]^\top/n\);
+their Frobenius norms are products of the respective RMS norms. Summing
+the at most \(L+1\) blocks, and using \(\|e\|_\Sigma\le c_L\|e\|_{
+\mathcal H}\), proves
+\[
+\|D_P^2f_a\|_{\mathcal H\to\mathcal H}
+\le\beta^{70L}(1+S\sqrt\ell).
+\tag{FC.11}
+\]
+The real normalized Jacobian is exactly
+\[
+D\overline F=-\frac{2r}{m}\sum_a
+\{g_ag_a^\top+r_aD_P^2f_a\}.
+\]
+Its first quadratic form is nonpositive. Using the tube residual bound
+and (FC.11) on its second term gives
+\[
+\langle e,D\overline F e\rangle_{\mathcal H}
+\le\mu_j\|e\|_{\mathcal H}^2,
+\quad \mu_j=\beta^{80L}q_j(1+S\sqrt\ell),
+\quad E_+=9\beta^{80L}(1+S\sqrt\ell).
+\tag{FC.12}
+\]
+Indeed \(m^{-1}\sum_a|r_a|\le3Yq_j\) and \(rY\le1/16\).
+Since \(\int_0^\infty q=8\), its decreasing left sums obey
+\(\sum_jhq_j\le8+h\le9\), so \(\sum_jh\mu_j\le E_+\).
+This estimate holds throughout each real tube and hence on segments
+between the compared states. It is not applied on complex segments.
+
+Choose
+\[
+\varepsilon=\min\{d_n/(2^{12}c_L),n^{-10}/(2^{12}Bc_L)\},
+\]
+\[
+K=8+\left\lceil\frac{4E_+
++\log[2^{20}(c_L+1)(M+1)(T+1)/\varepsilon]
++\log(1+16c_LH)}{\log2}\right\rceil,
+\]
+\[
+\delta_0=\frac{\beta^{-150L}S q_T}{(1+r)^2\sqrt n},\quad
+C_N=B^2(1+r)^2\sqrt\ell,\quad
+\delta_\dagger=\min\left\{\delta_0,
+\frac{\varepsilon e^{-4E_+-10}}{2^{20}C_N(T+1)}\right\}.
+\tag{FC.13}
+\]
+These are constructive choices, with fixed fractions of \(\delta_\dagger\)
+allocated below. In particular
+\[
+K+\log(1/\delta_\dagger)+\log(1/\varepsilon)
++\log(H+1)+\log(h^{-1})\le CBZ.
+\tag{FC.14}
+\]
+To check the small scales, \(S\ge16\beta^{-6L}/n\),
+\(q_T^{-1}\le2e^{T\log2/4}\), and \(T\le CZ\); every remaining
+factor in (FC.13) has logarithm at most \(CZ\), apart from
+\(E_+\le CB\sqrt\ell\). No algebraic factor \(r\) enters the
+degree or numerical word length.
+
+##### 3. Causal coefficients, real activation values, and physical forcing
+
+Use \(\xi=(\tau-jh)/h\); brackets \([k]\) denote its power-series
+coefficients. The current physical parameters have coefficients through
+degree \(K\), and the normalized recurrence is
+\[
+\bar u[0]=\bar u_j,\qquad
+\bar u[k+1]=\frac h{k+1}[\xi^k]\overline F
+\left(\sum_{b=0}^k\bar u[b]\xi^b\right),\quad 0\le k<K.
+\tag{FC.15}
+\]
+At a fixed order evaluate forward layers upward, backward layers downward,
+residuals, and then gradient coefficients. Write
+\(D^{(j)}=W^{(j)}-W_0^{(j)}\). The initialized actions are exactly
+\[
+z_a^{(j)}[k]=W_0^{(j)}h_a^{(j-1)}[k]
++\sum_{b+c=k}D^{(j)}[b]h_a^{(j-1)}[c],
+\]
+\[
+k_a^{(j)}[k]=W_0^{(j+1)\top}\delta_a^{(j+1)}[k]
++\sum_{b+c=k}D^{(j+1)}[b]^\top\delta_a^{(j+1)}[c].
+\tag{FC.16}
+\]
+The first layer uses its \(d\) root columns and fixed input coordinates;
+the top backward carrier is \(w[k]\). For
+\(g_a^{(j)}[b]=\sum_{c+e=b}r_a[c]\delta_a^{(j)}[e]\), the physical
+hidden coefficients satisfy
+\[
+D^{(j)}[k+1]=-
+\frac{2hr}{mn(k+1)}\sum_a\sum_{b+c=k}
+g_a^{(j)}[b]h_a^{(j-1)}[c]^\top.
+\tag{FC.17}
+\]
+The analogous first and readout formulas are obtained directly from
+(FC.2). A learned matrix is represented by these actual stored factors
+and scalar weights; no orthogonalization or inverse Gram enters them.
+Committing a panel appends their integrated weights. All old fields keep
+their original scalar arguments.
+
+Here is a finite value-based realization of the activation coefficients.
+Let \(\alpha=\min(1,a/16)\), so \(\alpha^{-1}\le\beta\).
+At a real order-zero preactivation \(x\), interpolate \(J_a\) values
+of \(\phi(x+\alpha t_i)\), where
+\(t_i=-1+2i/(J_a-1)\). Each supplied value has absolute error at most
+\(\nu\). Use its polynomial \(p_x\) in the centered variable
+\((z-x)/\alpha\), and use the actual derivative of this same polynomial
+for the backward gate.
+
+For completeness, subtract \(\phi(x)\), which interpolation reproduces.
+On \(|s|=4\), the resulting function has modulus at most \(4\beta\alpha\).
+The residue formula with \(\omega(s)=\prod_i(s-t_i)\) gives interpolation
+error at most \(C\beta\alpha2^{-J_a}\) on \(|s|\le1/2\): numerator
+factors are at most \(3/2\) and denominator factors at least three.
+The sum of the absolute cardinal polynomials on that disk is at most
+\[
+\frac{[3(J_a-1)/2]^{J_a-1}}{(J_a-1)!}\le5^{J_a}.
+\]
+Cauchy's formula on circles of radius \(1/4\), followed by rescaling,
+therefore proves simultaneous value/first/second derivative errors at most
+\(C\beta^2(2^{-J_a}+5^{J_a}\nu)\) on \(|z-x|\le\alpha/4\).
+Choose
+\[
+J_a\ge\max\{K+2,\lceil\log_2(C\beta^2/\delta_\dagger)\rceil\},
+\qquad \nu\le\delta_\dagger/(C\beta^2 5^{J_a}),
+\tag{FC.18}
+\]
+with the least admissible orders and fixed additional error fractions.
+Then \(J_a\le CK\) and \(\log\nu^{-1}\le CBZ\).
+Only real values are requested; their evaluator costs remain charged.
+
+The scalar disk is available at each computed center. From (FC.2), (FC.5)
+and residual RMS at most \(2Y\),
+\(\|\partial_\tau z_a^{(j)}\|_\infty\le
+S^2\beta^{72L}\sqrt\ell/4\). A radius-\(4h\) panel changes the
+reference preactivation by at most \(hS^2\beta^{72L}\sqrt\ell<
+\alpha/4096\). The tube changes it by at most
+\(\sqrt n\beta^{4L}Yd_n<\alpha/4096\). The small node defects
+below leave the same strict margin. A first-exit argument therefore puts
+all polynomial evaluations in their interpolation disks.
+
+In the following bounds \(R\) is the deterministic enclosing field/call
+count explicitly constructed in (FC.25); that recipe depends only on the
+orders already chosen. Every initialized action is replaced by
+\(W_0v+\sigma\zeta\) or
+\(W_0^\top u+\sigma\zeta\), with fresh hidden independent
+\(\zeta\sim N(0,I_n)\). On the event that each such vector has RMS at
+most two, its errors through one panel through coefficient \(K-1\)
+form a polynomial of RMS at most \(\sigma4^K\) on \(|\xi|\le4\).
+Only those orders are needed by (FC.15). Choose
+\[
+\sigma\le\tfrac1{64}\delta_\dagger4^{-K}.
+\tag{FC.19}
+\]
+Every positive tolerance specified by an upper bound here is chosen as the
+largest dyadic below the stated minimum, after the fixed budget fractions.
+The precision upper bounds refer to those choices, not arbitrary smaller
+numbers. The common noise level is refined in Section 5 before setup.
+The probability of a raw-noise RMS violation is at most \(Re^{-n/2}\).
+Indeed exponential Markov with parameter \(3/8\) gives
+\(\Pr(\|\zeta\|_2^2>4n)\le
+\exp[-(3-\log4)n/2]\le e^{-n/2}\).
+
+Physical scalar pair calls use the actual created operands and return
+\(\widehat p(u,v)=n^{-1}u^\top v+e\), with
+\(|e|\le\epsilon_{\rm pair}\). If an actual stored matrix is
+\(D=n^{-1}\sum_\mu c_\mu a_\mu b_\mu^\top\), its approximate
+forward action differs from its exact action by precisely
+\[
+\sum_\mu c_\mu a_\mu e(b_\mu,v).
+\tag{FC.20}
+\]
+This compares the same realized matrix on both sides. Let
+\(N_{\rm sum}=C(R+K+1)^3\) bound all rank/convolution summand counts,
+and let \(A_\ast\ge2\) bound their scalar weights, factor RMS,
+\(n+1,m,L,K,Y^{-1},h^{-1}\), and inverse strict guard margins.
+Use finite bounds from the explicit formulas with a factor-four slack;
+interpolation scratch has size \(e^{CJ_a}\) times a polynomial in these
+scales. Thus \(\log A_\ast\le CBZ\).
+Equation (FC.20) has RMS at most
+\(N_{\rm sum}A_\ast^2\epsilon_{\rm pair}\). Readout coefficients
+are sums of pairs and have scalar error at most
+\(N_{\rm sum}\epsilon_{\rm pair}\). The exact rank-matrix norm is
+\[
+\|D\|_F^2=\sum_{\mu,\nu}c_\mu c_\nu
+\langle a_\mu,a_\nu\rangle_n\langle b_\mu,b_\nu\rangle_n;
+\]
+its pair-error change is at most
+\(3N_{\rm sum}^2A_\ast^4\epsilon_{\rm pair}\).
+Converting integrated-coefficient errors to velocity errors multiplies by
+\((k+1)/(hY)\), already in the polynomial allowance. Consequently all
+these physical errors, including normalized residual errors, extend to
+forcing polynomials bounded by
+\(C4^KN_{\rm sum}^2A_\ast^8\epsilon_{\rm pair}\). Choose
+\[
+\epsilon_{\rm pair}\le
+\delta_\dagger/(C4^KN_{\rm sum}^2A_\ast^{10}).
+\tag{FC.21}
+\]
+Principal local arithmetic outputs obey the same allowance. Their finite
+precision uses only the logarithms in (FC.14), (FC.18), (FC.21): centered
+polynomial interpolation has coefficient sums at most \(e^{CJ_a}\), and
+truncated convolution is submultiplicative in coefficient \(\ell^1\).
+It never raises the large real center to power \(J_a\).
+
+Freeze the realized coefficient errors into these forcing polynomials.
+This is a proof construction, not advance observation of future noises.
+The resulting holomorphic field \(\overline F_j^{\rm num}(\xi,U)\),
+with fixed polynomial activation coefficients and fixed forcings, obeys
+\[
+\|\overline F_j^{\rm num}-\overline F\|_\Sigma
+\le C_N\delta_\dagger=:\eta_\dagger,\qquad
+\|D_U\overline F_j^{\rm num}\|\le2\Lambda_j.
+\tag{FC.22}
+\]
+To verify the label scaling, forward error is at most
+\(\beta^{4L}\delta_\dagger\); backward error is at most
+\(\beta^{60L}(1+S\sqrt\ell)\delta_\dagger\); readout RMS is at most
+\(C\beta^{3L}S\); hence residual error is at most
+\(\beta^{10L}S\delta_\dagger\). Subtraction of the residual/backward/
+feature factors gives physical field error at most
+\(C\beta^{80L}[Y(1+S\sqrt\ell)+S+S^2]\delta_\dagger\).
+Multiplication by \(r/Y\), using \(S/Y=16r\), gives (FC.22).
+An independently added residual error of RMS \(Y\delta_\dagger\) has the
+same bound. Differentiating the same recursions uses only the first two
+polynomial derivatives from (FC.18) and the same tube bounds, proving the
+second inequality. No derivative of an activation center is taken.
+
+If the starting Hilbert error is \(e_j\) with \(c_Le_j\le d_n/8\),
+the difference equation on \(|z|<4h\) is a contraction in the sum-norm
+ball of radius \(d_n/2\): its contraction factor is
+\(8h\Lambda_j\le1/4\), and its forcing is bounded by
+\(c_Le_j+4h\eta_\dagger\). Thus both local flows exist on that disk,
+and their difference is at most \(2c_Le_j+8h\eta_\dagger\).
+On its real diameter, (FC.12) instead gives Hilbert error
+\((e_j+s\eta_\dagger)e^{s\mu_j}\). Cauchy's coefficient estimate at
+radius \(2h\) then gives the endpoint recurrence
+\[
+e_{j+1}\le(1+2h\mu_j+2c_L2^{-K})e_j
++4h\eta_\dagger+2Mh2^{-K}.
+\tag{FC.23}
+\]
+The extra unit in the forcing coefficient pays separately rounded endpoints;
+they are additive errors, not forcings asserted to leave the polynomial
+unchanged. The same calculation controls interior times. Products of the
+multipliers are at most \(\exp(2E_++2c_LH2^{-K})\). Substitution of
+(FC.13) bounds the total error by \(\varepsilon/8\), provided
+\[
+e_0\le\varepsilon e^{-4E_+-10}/2^{20}.
+\tag{FC.24}
+\]
+The proof closes the tube assumptions inductively. Strict-slack guards
+are justified causally: at a first potentially active guard, freeze the
+preceding defects and complete the remaining panel with zero defects.
+The contraction just proved supplies its local solution. Formal coefficient
+induction identifies the already computed prefix with that solution, whose
+Cauchy bounds lie strictly inside the guard. The proposed first activation
+is impossible. The argument applies to coefficient caps and approximate norm
+tests using (FC.20)–(FC.21), and inserts no residual projection into the
+holomorphic recurrence.
+
+Uniform real prediction subtraction and the original fitting tail at \(T\)
+now give a parameter-defined predictor of error at most \(CYn^{-10}\),
+for the entire sphere and all physical times, when parameters are frozen
+after \(T\). This includes the dense fitted endpoint.
+
+##### 4. Actual named fields and the finite Gaussian law
+
+Fix the source instructions before drawing randomness. In each panel and
+for each sample/layer/order name the preactivation, activation, gate,
+backward carrier, backward response, residual-weighted backward response,
+and each initialized answer in (FC.16). Also name the interpolation sample
+values and its needed centered coefficients, the readout coefficients,
+the constant field, and the \(d\) first-layer root columns. Each initialized
+call names one innovation field. Coefficient products internal to one
+coordinatewise interpolation or convolution are temporary scalar work;
+they never become operands of empirical reductions. Residuals and rank
+weights are shared scalars. This is a literal finite field recipe, of size
+\[
+R_0=1+d+C_0mLH(K+J_a+1),\qquad R=R_0+C_0(L+1),
+\tag{FC.25}
+\]
+where a fixed integer \(C_0\), for example 128, covers the listed field
+types and reserved query fields. Naming a reused field twice is unnecessary.
+The bounds (FC.8), (FC.14), (FC.18), and \(L\le\beta^L\) give
+\[
+R\le Cp\beta^{201L}(m+d+2)(1+r)Z^{5/2}.
+\tag{FC.26}
+\]
+There are \(O(mLHK^2)\) rank weights, at most \(CR^2\); there are
+not that many distinct row factors. Acquisition of every missing unordered
+pair is performed when both fields exist, at the end of a complete matrix
+call when necessary. Mandatory innovation contractions remain inside their
+own call. Thus at most \(P\le C_1R^2\) scalar acquisitions occur.
+Here \(P\) includes each scalar component of every mandatory innovation
+contraction, ordinary complete-table pair, and appended query reduction.
+Reserve distinct scalar marks for all of them, including an innovation pair
+that may also have an ordinary pair entry. This counts every finite scalar
+sampler used in the Gaussian cutoff below.
+All scalar means use the constant field. Norms of rank matrices use products
+of acquired pairs as displayed after (FC.20), not additional fourth moments.
+
+One fully explicit oversized local cap in Section 3 is
+\[
+A_\ast=2^{128(J_a+K+1)}
+\big[(n+1)(m+L+d+R+K+2)(B+1)(1+r)
+(1+Y^{-1})(1+h^{-1})(1+d_n^{-1})(1+S^{-1})\big]^{128}.
+\tag{FC.27}
+\]
+It exceeds the physical Cauchy coefficient bounds, rank weights, all
+interpolation intermediate coefficient sums, and the inverse fixed guard
+margins. For example, endpoint rank weights are bounded by a polynomial in
+\(rT,K,m\); interpolation weights by \(e^{CJ_a}\); and principal
+coordinate bounds by \(\sqrt n\) times their RMS bounds. Each displayed
+operation has bounded product degree or its explicit centered interpolation
+coefficient bound. Enlarging the fixed factor 128, if required by a chosen
+arithmetic implementation, changes no parameter exponent. Its logarithm is
+at most \(CBZ\). Take \(b=A_\ast\) as a common loose RMS cap for all
+physical query/raw-answer fields; interpolation-only fields do not enter
+physical posterior Gram solves. Their finite coordinate caps are retained
+separately for metric selection.
+
+We now derive the initialized-matrix calls, including their two orientations.
+For a single hidden matrix \(W\) with iid \(N(0,1/n)\) entries, suppose
+the previous raw observations are
+\[
+Y_f=WV+\sigma\Xi,\qquad X_b=W^\top U+\sigma Z_b.
+\tag{FC.28}
+\]
+Here \(V\in\mathbb R^{n\times a}\), \(U\in\mathbb R^{n\times b_h}\)
+are predictable old forward and reverse queries. The noise vectors are fresh
+independent standard Gaussians and are hidden. The letters \(Y_f,X_b\)
+denote answer matrices and are unrelated to the label scale \(Y\).
+At a complete observable history, put
+\[
+Q=V^\top V/n,\quad K_h=U^\top U/n,\quad
+H_c=U^\top Y_f/n,\quad J_c=X_b^\top V/n,\quad \Delta=\sigma^2.
+\]
+The likelihood times prior density is proportional to
+\[
+\exp\{-\tfrac n2\|W\|_F^2
+-\tfrac1{2\Delta}(\|Y_f-WV\|_F^2+\|X_b-W^\top U\|_F^2)\}.
+\]
+Predictability permits this expression even for adaptive calls: each query
+is fixed after the preceding answer history is fixed. Completing its square
+shows that the posterior mean solves
+\[
+\Delta\overline W+(UU^\top/n)\overline W
++\overline W(VV^\top/n)=(Y_fV^\top+UX_b^\top)/n.
+\tag{FC.29}
+\]
+The covariance operator is \((\Delta/n)
+(\Delta I+\mathcal L_{UU^\top/n}+\mathcal R_{VV^\top/n})^{-1}\),
+where left and right multiplication have their literal meanings. Its inverse
+is well defined since the quadratic form of its denominator is at least
+\(\Delta\|M\|_F^2\). Likelihoods factor by matrix label, preserving
+conditional independence of different hidden matrices.
+
+Define \(C=(\Delta I+Q)^{-1}\), \(D=(\Delta I+K_h)^{-1}\), and solve
+\[
+(\Delta I+K_h)E+EQ=-H_cC-DJ_c.
+\tag{FC.30}
+\]
+Diagonalizing the two real symmetric coefficients shows that all Sylvester
+divisors are \(\Delta+\lambda_i(K_h)+\lambda_j(Q)\ge\Delta\).
+Direct substitution in (FC.29) verifies
+\(\overline W=Y_fCV^\top/n+UDX_b^\top/n+UEV^\top/n\).
+For the next forward query \(q\), let
+\(v=V^\top q/n\), \(x=X_b^\top q/n\), \(d_q=q^\top q/n\).
+Its conditional mean is
+\[
+m_q=Y_fCv+U(Dx+Ev).
+\tag{FC.31}
+\]
+For the next reverse query \(u\), it is
+\(V(CY_f^\top u/n+E^\top U^\top u/n)+XD(U^\top u/n)\),
+with \(X=X_b\).
+
+Set
+\[
+f(a)=\frac\Delta{\Delta+a}
+\{d_q-v^\top[(\Delta+a)I+Q]^{-1}v\},\quad a\ge0.
+\tag{FC.32}
+\]
+Diagonalize \(UU^\top/n\) and \(VV^\top/n\) in the posterior covariance
+operator. The variance of \(Wq\) along an eigenvector of the former with
+eigenvalue \(a\) is \((\Delta/n)q^\top[(\Delta+a)I+VV^\top/n]^{-1}q\).
+The identity
+\[
+(cI+VV^\top/n)^{-1}
+=c^{-1}[I-V(cI+Q)^{-1}V^\top/n]
+\]
+is checked by multiplication and turns this variance into (FC.32). Therefore
+the next noisy answer has covariance
+\(\Gamma=\Delta I+f(UU^\top/n)\). In particular
+\(0\le f(a)\le d_q\) and \(\Gamma\succeq\sigma^2I\).
+
+Let \(f_0=f(0)\), \(c=\sqrt{\Delta+f_0}\), and define the rational
+divided difference
+\[
+h_f(a)=\frac{-f_0+\Delta v^\top C[(\Delta+a)I+Q]^{-1}v}{\Delta+a},
+\qquad
+T_q(a)=\frac{h_f(a)}{\sqrt{\Delta+f(a)}+c}.
+\tag{FC.33}
+\]
+Resolvent subtraction gives \(a h_f(a)=f(a)-f_0\), including zero by
+continuity; no division by a possibly zero Gram eigenvalue occurs. Along
+each singular direction of \(U/\sqrt n\),
+\(c+aT_q(a)=\sqrt{\Delta+f(a)}\). Hence
+\[
+\Gamma^{1/2}=cI+UT_q(K_h)U^\top/n.
+\tag{FC.34}
+\]
+This is the positive square root. Every inverse above has floor
+\(\sigma^2\), and the denominator in (FC.33) has floor \(2\sigma\).
+The reverse formula exchanges the forward and reverse histories. Empty
+histories simply omit their blocks.
+
+All these coefficients are computable with matrices of order at most
+\(CR\). In eigenbases of \(Q,K_h\), the Sylvester solve divides entry
+\((i,j)\) by \(\Delta+k_i+q_j\), and the two contractions needed in
+(FC.33) are
+\[
+\sum_j\frac{\widetilde v_j^2}{\Delta+k_i+q_j},\qquad
+\sum_j\frac{\widetilde v_j^2}{(\Delta+q_j)(\Delta+k_i+q_j)}.
+\tag{FC.35}
+\]
+There is no materialized Kronecker matrix. Away from genuine moment arrays,
+symmetrize the whole physical-field Gram, project it onto the PSD cone and
+cap its Frobenius norm at \(8R b^2\). This protection fixes a genuine Gram
+under the cap. Euclidean projection on a closed convex set is nonexpansive:
+the two minimizing variational inequalities imply
+\(\|Px-Py\|^2\le\langle Px-Py,x-y\rangle\).
+The protected augmented block \(\left(\begin{smallmatrix}Q&v\\v^\top&d_q
+\end{smallmatrix}\right)\) is a Gram, so its \(f(a)\) is nonnegative
+by the same variance formula. Positive-part protections on any finitely
+computed \(f\) preserve the explicit floors.
+
+These coefficient maps have fixed polynomial local sensitivity. For a
+checkable envelope let \(z=C(2+R+b+\sigma^{-1})\). Genuine/protected Gram
+norms are at most \(z^4\); inverse norms are at most \(z^2\).
+For perturbation size \(e\) in the moment entries, Frobenius conversions
+cost at most \(z^2\). The inverse identity gives error at most \(z^6e\).
+Subtracting (FC.30) gives \(E\)-error at most \(z^{18}e\), including
+its bounded right side. Resolvent contractions (FC.35), or their equivalent
+gapped tensor formulas, have errors at most \(z^{36}e\). The square-root
+bound
+\(\|A^{1/2}-B^{1/2}\|_F\le(2\sigma)^{-1}\|A-B\|_F\)
+follows by solving
+\(A^{1/2}X+XB^{1/2}=A-B\). Multiplying the remaining factors and
+applying the final gapped inverse bounds the correction and mean coefficient
+errors by \(z^{60}e\). Thus \(z^{100}\) is a common coefficient and
+Lipschitz cap, with ample dimension and constant slack. This calculation is
+for one call, not a product across earlier calls.
+
+##### 5. One finite pre-setup precision schedule and chronological coupling
+
+The finite row packet contains its \(d\) first roots and one innovation
+coordinate for every prescribed training call and every reserved query call.
+All coordinates are independent. Scalar-noise marks are a separate independent
+finite bit string. A finite Gaussian sampler can be coupled to a standard
+Gaussian \(g\) with coordinate error at most \(\epsilon_G\) when
+\(|g|\le T_G\): use the midpoint of the \(b_G\)-bit interval containing
+\(\Phi(g)\), then a certified inverse CDF clipped to \([-T_G,T_G]\).
+The interval index is uniform. The clipped inverse has Lipschitz constant
+at most \(\sqrt{2\pi}e^{T_G^2/2}\); consequently
+\[
+b_G\log2\ge T_G^2/2+\log(C/\epsilon_G)
+\tag{FC.36}
+\]
+suffices, with inverse-evaluation error at most \(\epsilon_G/2\).
+The finite arithmetic backend supplies the certified evaluation. For
+\(N_G=n(d+R)+P+1\), choose
+\(T_G=\lceil2+\sqrt{2\log(1024N_G/\rho_0)}\rceil\), with
+\(\rho_0=2^{-20}\). The union of coupled sampler failures is below
+\(\rho_0/512\). The implemented algorithm draws bits directly.
+
+All named row fields are dyadic. An ordinary pair acquisition uses exact
+dyadic products and exact integer summation, retains division by \(n\)
+as a rational until rounding, and records
+\[
+C_a=Q_{h_s}\left(n^{-1}\sum_i u_a(i)v_a(i)+\eta\widehat e_a\right).
+\tag{FC.37}
+\]
+Here \(Q_{h_s}\) is fixed nearest-grid rounding with a fixed tie convention,
+and \(h_s\le\eta\) is the scalar grid, distinct from the panel length.
+For a forward matrix call compute the protected mean coefficients,
+symmetric correction \(\widetilde T\), and scalar \(\widetilde c\)
+before reading its fresh innovation. Put
+\(A_c=U^\top/n\), \(B_c=U\widetilde T\). Then execute
+\[
+\widehat t=Q_{h_t}(A_c\widehat g+\eta\widehat e),\qquad
+\widehat y=Q_{h_y}(\widetilde m+B_c\widehat t+
+\widetilde c\widehat g).
+\tag{FC.38}
+\]
+Small coefficient arrays are rounded once to dyadics, symmetrically where
+required; final row combinations have exact dyadic arithmetic before the
+indicated rounding. The guard \(\widetilde c\ge\sigma/2\) is inactive
+on the successful range. No other matrix call or new coefficient solve
+occurs between these two operations. Reverse calls exchange orientations.
+The subsequent complete-table pairs are acquired after the answer is formed.
+
+At a fixed past consider, only for the proof, the affine Gaussian shadow
+\[
+t=A_cg+\eta e,\qquad y=\widetilde m+B_ct+\widetilde c g.
+\tag{FC.39}
+\]
+Its answer covariance is
+\(\widetilde\Gamma=\widetilde S^2+\eta^2B_cB_c^\top\), where
+\(\widetilde S=\widetilde cI+B_cA_c\) is symmetric. The map is
+invertible since \(\eta,\widetilde c>0\):
+\[
+g=(y-\widetilde m-B_ct)/\widetilde c,\qquad
+e=(t-A_cg)/\eta.
+\tag{FC.40}
+\]
+Therefore the entire finite call (FC.38), including every finite innovation
+mark used later, is a deterministic function \(J_H(y,t)\): reconstruct
+(FC.40), apply the fixed sampler functions and run the finite arithmetic.
+This possibly discontinuous map is used only in the proof. The algorithm
+executes (FC.38) directly and pays no numerical cost for (FC.40).
+
+Let \(Q_H(dy,dt)\) be the shadow kernel. Couple it to the physical call
+\(y=W_0q+\sigma\zeta\), with hidden fresh noise, by attaching
+\(t\mid(H,y,W_0)\sim Q_H(dt\mid y)\), then applying the same \(J_H\).
+This attachment is conditionally independent of every initialized matrix
+given \((H,y)\); its likelihood cancels in Bayes' formula. Consequently
+the Gaussian posterior derived in Section 4 remains valid at the next
+complete call, even if the finite marks are reused. Moreover
+\[
+\|Q_H(dy,dt)-P_H(dy)Q_H(dt\mid y)\|_{\rm TV}
+=\|Q_H(dy)-P_H(dy)\|_{\rm TV}.
+\tag{FC.41}
+\]
+Integration against the common conditional kernel gives one inequality;
+projection onto \(y\) gives the reverse. Deterministic finite postprocessing
+cannot increase this distance. The proof filtration includes raw answers,
+but excludes hidden physical noise, future innovation coordinates, and the
+private selected metric. No Gaussian-posterior claim is made at the
+intermediate prefix that reveals only \(\widehat t\).
+
+Here are quantitative finite choices. Let
+\(\mathcal M=(n+1)z^{120}\). This bounds every row-affine norm in
+(FC.38). Direct subtraction from (FC.39) gives
+\[
+\|\widehat t-t\|_\infty
+\le(\mathcal M+1)\epsilon_G+h_t/2=:d_t,
+\quad
+\|\widehat y-y\|_\infty
+\le h_y/2+\mathcal M d_t+\mathcal M\epsilon_G.
+\tag{FC.42}
+\]
+Choose \(h_t\le\min(\eta,h_y/(64\mathcal M))\) and
+\(\epsilon_G\le\min(h_t/(64\mathcal M),h_y/(64\mathcal M^2))\).
+Then the answer error is below \(h_y\). At a shared raw history the
+old finite and raw answers differ by at most \(h_y\). Their moments
+differ by at most \(2bh_y+h_y^2\); acquired-pair noise adds at most
+\(\eta(T_G+1)+h_s\). Thus the coefficient input error is at most
+\[
+e_{\rm mom}=C\{(b+1)h_y+h_y^2+\eta(T_G+1)+h_s\}.
+\tag{FC.43}
+\]
+Both queries are the same actual finite vectors at this history; there is
+no comparison with recomputed queries at a different history. If finite
+coefficient error is \(\epsilon_c\), put
+\(e_c=e_{\rm mom}+z^{10}\epsilon_c\). Section 4's local estimates give
+\(\|\widetilde m-m\|_2\le\sqrt n z^{110}e_c\) and
+\(\|\widetilde S-S\|_{\rm op}\le z^{110}e_c\), including the old
+answer-to-finite-answer change in the row combinations. Also
+\(\|B_cB_c^\top\|_F\le nRb^2z^{200}\).
+
+Since \(S\succeq\sigma I\), a sufficient smallness condition is
+\[
+\kappa=z^{230}(\sqrt n\,e_c+n\eta^2)\le1/32.
+\tag{FC.44}
+\]
+It implies \(\widetilde S\succeq\sigma I/2\). Expanding
+\(\widetilde S^2-S^2=(\widetilde S-S)\widetilde S+S(\widetilde S-S)\)
+bounds the Frobenius covariance error. To verify the TV conclusion, write
+\(E=\Gamma^{-1/2}(\widetilde\Gamma-\Gamma)\Gamma^{-1/2}\).
+The Gaussian density integral gives relative entropy
+\[
+\tfrac12\{\|\Gamma^{-1/2}(\widetilde m-m)\|^2+
+\operatorname{tr}E-\log\det(I+E)\}.
+\]
+For \(\|E\|\le1/2\), diagonalization and
+\(x-\log(1+x)\le x^2\) bound this by half the sum of squared
+\(\sigma^{-1}\)-scaled mean and \(\sigma^{-2}\)-scaled covariance
+errors. Split the density integral over an event attaining total variation
+and its complement. Convexity of \(u\log u\) bounds relative entropy
+below the resulting Bernoulli relative entropy. Its second derivative in
+its first argument is \(1/[a(1-a)]\ge4\), and it and its first derivative
+vanish at equality; integrating twice gives \({\rm KL}\ge2{\rm TV}^2\).
+Thus \({\rm TV}\le\sqrt{{\rm KL}/2}\).
+The exponents in (FC.44) dominate these expressions, so the one-call TV is
+at most \(\kappa\), with all positivity hypotheses included.
+
+Make the choices once, before generating any source or metric. A passive
+answer tolerance sufficient for Section 7 is
+\[
+a_{\rm qry}=n^{-10}/[C\beta^{6L}(1+r)].
+\]
+First choose a dyadic \(\sigma\) below (FC.19) and
+\(a_{\rm qry}/16\), common to training and query calls. Then compute
+\(z,\mathcal M,T_G\), and
+\[
+\xi_0=\frac{\rho_0}{2^{20}(R+1)(n+1)z^{240}},
+\]
+\[
+\eta\le\frac{\min(\epsilon_{\rm pair},\xi_0)}{64(T_G+1)},\quad
+h_s\le\eta/4,\quad
+h_y\le\min\{a_{\rm qry}/64,\epsilon_{\rm pair}/64,
+\xi_0/[64(b+1)]\},\quad
+\epsilon_c\le\xi_0/(64z^{10}).
+\tag{FC.45}
+\]
+Take each dyadic within a factor two below its bound. Further lower \(h_y\)
+to the initialized-answer fraction of (FC.21), so its polynomial forcing
+is also allocated there. Choose \(h_t,\epsilon_G\) from (FC.42), and
+add
+\[
+\eta\epsilon_G\le
+\frac{\rho_{\rm acq}\min(h_s,h_t)}{64(P+1)},\qquad
+\epsilon_G\le\frac{Y\varepsilon e^{-4E_+-10}}
+{2^{20}(\sqrt d+1)}.
+\tag{FC.46}
+\]
+The first pays for literal metric replay below; the second implies (FC.24)
+since the finite first-layer displacement has normalized Hilbert norm at
+most \(\sqrt d\epsilon_G/Y\). All other local rank/query arithmetic
+is made finer than its allocated fraction of \(a_{\rm qry}\), divided
+by the explicit local polynomial caps.
+
+Every tolerance logarithm above is at most \(CBZ\). Indeed this is a fixed
+number of products/minima of (FC.14), \(A_\ast\), counts, and local
+noise floors; it never multiplies precision by the number of earlier calls.
+Exact empirical summation adds \(\log n\) bits. The prescribed finite
+backend can therefore use
+\[
+w\le C\beta^{110L}Z
+\tag{FC.47}
+\]
+bits per word, including integer ranges, coefficient scratch and counters.
+This claim retains the charged activation/input interfaces of the theorem.
+
+At complete-call boundaries maximally couple the shadow and physical raw
+answers. On equality attach the same conditional augmentation and use the
+same finite postprocessing. The finite tapes then agree literally until
+failure. Summing (FC.44) over at most \(R\) calls costs at most
+\(\rho_0/64\). Sampler failure is charged on the iid-packet marginal,
+and raw-noise/source failure on the physical marginal. Before a mismatch,
+both histories are identical, so these probabilities add. On the surviving
+event, finite answers have form \(W_0q+\sigma\zeta+d\) with
+\(\|d\|_{2,n}\le h_y\), current-operand pairs meet (FC.21), and
+the strict-slack physical proof in Section 3 applies. This proves the
+finite physical-source coupling without a global row-history Lipschitz
+assumption and without changing the scientific Gaussian initialization.
+
+##### 6. Selected packets and literal replay at local precision
+
+Use only the completed finite training table in the permitted offline setup.
+Let \(V_\ast\in\mathbb R^{n\times s}\), \(s\le CR\), have its named
+dyadic fields as columns, including the constant one. If its exact dyadic
+rank is \(q\), then \(1\le q\le\min(n,s)\). Choose independent
+columns \(J\) and rows \(I\) for which
+\(H_I=V_\ast[I,J]\) is invertible; define
+\[
+C_I=V_\ast[:,J]H_I^{-1},\qquad M_I=C_I^\top C_I/n.
+\tag{FC.48}
+\]
+Every column lies in the span of those selected columns. Restriction to
+\(I\) identifies its coordinates, proving
+\[
+V_\ast=C_I V_\ast[I,:],\qquad C_I[I,:]=I_q,
+\qquad
+V_\ast^\top V_\ast/n=V_\ast[I,:]^\top M_I V_\ast[I,:].
+\tag{FC.49}
+\]
+In particular \(M_I\succeq I_q/n\), and the constant column gives
+\(\boldsymbol1^\top M_I\boldsymbol1=1\).
+
+The selected matrix can be bounded without any subspace-gap hypothesis.
+If \(|(C_I)_{ij}|>2\), replace selected row \(j\) by original row \(i\).
+Multilinearity gives
+\(|\det H_{I,\rm new}|=|(C_I)_{ij}|\,|\det H_I|>2|\det H_I|\).
+The new row cannot duplicate a different selected row, since its coefficient
+there would be zero. Repeat until every entry of \(C_I\) is at most two
+in modulus. For a table with fractional precision \(b_f\) and coordinate
+cap \(B_f\), a nonzero starting determinant is at least \(2^{-qb_f}\),
+and Hadamard bounds every selected determinant by \(q^{q/2}B_f^q\).
+There are therefore fewer than
+\(q[b_f+\log_2 B_f+\tfrac12\log_2q]+1\) swaps. This is a finite exact
+integer algorithm on the scaled dyadic table; its work and temporary
+expanded-integer storage are charged in the word-backend lemma. At termination
+\[
+|(M_I)_{ij}|\le4,\qquad \|M_I\|_{\rm op}\le4q.
+\tag{FC.50}
+\]
+
+To make every unsuccessful branch finite as well, cap each named field
+coordinate at a fixed dyadic \(B_f\) larger than
+\(8(n+1)z^{300}\), choosing a dyadic within a factor two of that bound.
+The physical local bounds and the sampler event keep these guards inactive.
+Off the successful range this specifies a total algorithm. Its cap logarithm
+is at most \(CBZ\); finite endpoint failure flags are deterministic scalar
+instructions. Rows with identical finite packet/prefix arguments always
+produce identical field bits, including on failed branches.
+
+Every operational guard is computable from the finite row fields or scalar
+state: coordinate caps are rowwise; learned-matrix norm tests use (FC.20)'s
+pair formula; residual norm tests use the \(m\) scalar outputs; coefficient
+floors and caps use their small finite arrays. The initialized operator and
+scientific source events are used only in the proof. The algorithm does not
+test an unmaterialized initialized operator norm or recognize a source-good
+event for free. If a finite operational guard fails, its deterministic failure
+flag and dummy output follow the finite prescribed instruction schedule.
+
+Round symmetric metric entries with error at most \(\epsilon_M\), producing
+\(M_0\), and retain
+\[
+\widehat M=M_0+q\epsilon_MI_q.
+\]
+Then \(\widehat M\succeq M_I\) and
+\(\|\widehat M-M_I\|_{\rm op}\le2q\epsilon_M\). For selected
+operand vectors bounded by \(B_f\),
+\[
+|u^\top(\widehat M-M_I)v|\le2q^2B_f^2\epsilon_M.
+\tag{FC.51}
+\]
+No inverse metric is used in training or querying.
+
+We prove the replay claim despite the private metric depending on the entire
+completed source and its noises. For a fixed real \(a\), Gaussian \(e\),
+grid \(g>0\), and \(0<v\le g/2\),
+\[
+\Pr\{\operatorname{dist}(a+\eta e,g(\mathbb Z+1/2))\le v\}
+\le2v(g^{-1}+\eta^{-1}).
+\tag{FC.52}
+\]
+If \(f\) is the density of \(a+\eta e\), then
+\(\int|f'|=2/(\eta\sqrt{2\pi})\le\eta^{-1}\). Integration of
+\(f(s+kg)\le f(x)+\int_{s+kg}^{s+(k+1)g}|f'|\) over each interval,
+then summation, gives \(\sum_k f(s+kg)\le g^{-1}+\eta^{-1}\).
+Integrating over an interval of length \(2v\) proves (FC.52), uniformly
+in \(a\). The same proof works conditionally when \(a\) is known and
+the fresh \(e\) remains independent.
+
+Fix \(\rho_{\rm acq}=2^{-12}\), let
+\(g_\ast=\min(h_s,h_t)\), and set
+\[
+\zeta=\rho_{\rm acq}g_\ast/[64(P+1)],\qquad
+\epsilon_M\le\zeta/(2q^2B_f^2).
+\tag{FC.53}
+\]
+In setup copy the selected packets and scalar marks exactly. Compact training
+replaces the empirical pair in (FC.37) by
+\(u(I;C_{<a})^\top\widehat Mv(I;C_{<a})\), and uses the same finite
+mark, grid and finite coefficient instructions. This bilinear form is formed
+with exact dyadic products and summation, then the specified outer rounding;
+an additional local arithmetic error up to \(\zeta\) would also suffice.
+
+Condition on the entire packet array and all preceding scalar marks. The
+next exact empirical mean is then fixed and the fresh raw scalar Gaussian
+is independent. Since both scalar grids are at most \(\eta\), (FC.52)
+with \(v=4\zeta\) bounds the chance of being within \(4\zeta\) of
+this update's boundary by \(16\zeta/g_\ast\). A union over the \(P\)
+updates costs less than \(\rho_{\rm acq}/4\). Condition (FC.46) and the
+sampler event give simultaneous scalar-mark change at most \(\zeta\).
+If compact and source prefixes agree, their selected operand bits agree.
+Equations (FC.49), (FC.51), (FC.53) put the metric error below \(\zeta\).
+The source and compact pre-rounding values are then within \(3\zeta\)
+of the same raw Gaussian value, and lie in its same rounding cell.
+Induction gives literal equality of all scalar prefixes with failure at
+most \(\rho_{\rm acq}\).
+
+This proof conditions on the packet array, not on the privately chosen metric.
+It applies to any random packet array independent of the fresh scalar marks;
+independence among different packets is unnecessary. Thus it also applies
+after the inner short-seed replacement. It asserts equality on the realized
+tape, and does not assert uniform quadrature over changed prefixes.
+The selected packet coordinates, rounded metric, finite scalar-noise marks,
+current scalar history and coefficient arrays occupy \(CR^2\) words.
+The full field table, exact rational metric intermediates, and all future
+scalar answers are discarded after offline setup. Future answers are
+recomputed causally during compact training, not retained as advice.
+
+##### 7. An unseen query streams the original empirical contractions
+
+At physical time \(t=r\tau\le rT\), take the already acquired panel
+containing \(\tau\) and evaluate its finite parameter polynomial. A panel
+is acquired as a whole by the causal coefficient recurrence at its left
+endpoint; requests within it do not acquire the next panel. At \(\tau\ge T\)
+use its frozen final state. The current first-layer increment and readout
+are scalar combinations of old named fields. A hidden increment has exactly
+the finite rank-list form
+\[
+D=T_r A_r S_r^\top/n,
+\tag{FC.54}
+\]
+where columns of \(T_r,S_r\) are old row fields and \(A_r\) is the current
+finite matrix of scalar rank weights. The subscripts here identify the
+rank representation and are not the inverse-gap scalar \(r\).
+
+For a new unit input \(v\), regenerate one row packet at a time from the
+retained inner seed and evaluate the old finite field DAG at its immutable
+creation-time scalar arguments. No scalar training reduction is recomputed.
+The first-layer value is the dot product of its \(d\) finite initial roots
+with \(v\), plus the exact finite learned increment. At a hidden layer the
+learned action is computed from the actual empirical contraction
+\[
+c_h=S_r^\top h/n,\qquad Dh=T_rA_rc_h.
+\tag{FC.55}
+\]
+Stream all \(n\) rows to form every entry of \(c_h\). These are exact
+dyadic sums followed by allocated finite scalar rounding; no population
+expectation is substituted. Similarly stream the new field's pairings with
+each old forward and reverse query/answer field. Use these and the already
+acquired old moments in (FC.30)–(FC.35), then perform (FC.38) using the
+reserved finite innovation coordinates and scalar marks. In particular the
+entire \(U\widetilde T\widehat t\) covariance correction remains.
+The final readout is likewise its empirical pair with the top feature.
+
+A constant number of passes per layer suffices: a pass obtains the new
+query moments and rank contractions; a pass obtains the innovation
+contractions; a pass evaluates the answer/activation and its next needed
+pairs. Multiple quantities in a pass have separate exact accumulators.
+Previous query fields are reevaluated rowwise at their already computed
+scalar arguments. The coefficient arrays are prepared once per fixed query
+context, never per regenerated row. A query uses \(CR^2\) words of scalar
+history, coefficients, accumulators and row scratch, besides its seed scratch.
+
+Each query starts its own local transcript at the current training prefix.
+The reserved coordinates are reused as a deterministic function of the fixed
+member seed; no query augments the retained training history, and no previous
+query answer is inserted as a new matrix constraint. This gives one well-defined
+finite prediction for every external code. The analysis below couples each
+fixed code separately; its final simultaneous event covers adaptive choices.
+
+For a fixed input/time code, run the iid source only through that acquired
+prefix and append the passive calls just described. Do not reveal the
+discarded future training answers first. Section 5's coupling applies to
+this chronological source-plus-query computation with the same pre-setup
+precision, because the old training moments and new query moments satisfy
+the same tolerances. Refining only the new query would not justify that step.
+The private selected metric is not added to the Gaussian posterior filtration.
+Metric replay is used afterward to identify the actual retained prefix.
+
+In the physical coupled process, the finite parameter state is within the
+all-sphere bound from Section 3. On its operator/feature event, forward
+subtraction for an additional answer/arithmetic defect of RMS at most
+\(a_{\rm qry}\) gives
+\[
+e_j\le\beta(11e_{j-1}+Ca_{\rm qry}),
+\qquad e_j=\|\widehat h^{(j)}-h^{(j)}\|_2/\sqrt n.
+\tag{FC.56}
+\]
+The first-layer input/initial-root arithmetic has its own allocated fraction
+of the same tolerance. Since \(11\beta\le\beta^{5/2}\), the geometric
+sum in (FC.56) is at most \(C\beta^{3L}a_{\rm qry}\). The readout
+RMS is at most \(CY\beta^{3L}(1+r)\), so the choice in Section 5 makes the
+query-only prediction change at most \(CYn^{-10}\), with an absolute
+total allocation after increasing the fixed constant in \(a_{\rm qry}\).
+Fresh physical noise RMS failures have total probability at most
+\(CL e^{-n/2}\), already included when \(R\) counts the appended calls.
+For one member impose \(Re^{-n/2}\le2^{-20}\); the clean branch's stated
+implementation gate is a stronger sufficient bound. The source failure at
+\(2^{-20}\), this noise failure, the coupling at \(\rho_0/64\), the
+sampler at \(\rho_0/512\), and metric replay at \(2^{-12}\) total less
+than \(1/1024\). Thus allocating at most \(1/64\) each to the internal
+dense-center and inner-generator errors still leaves the combined failure
+strictly below \(1/16\). These allocations give the fixed-code one-member
+physical conclusion required by the internal dense-center and short-seed
+lemmas. There is no passive bias of size \(R/n\) or
+\(\sqrt{R/n}\): (FC.55) has computed its exact finite empirical target.
+
+##### 8. Physical sphere/time codes, tails, and adaptive queries
+
+The finite decoder is permitted to be discontinuous. Its input mesh uses
+regularity of the physical reference alone. On the real operator/readout
+event, successive forward subtraction gives
+\[
+|f_n(t,v)-f_n(t,v')|/Y
+\le C\beta^{20L}(1+r)\|v-v'\|_2.
+\tag{FC.57}
+\]
+The first normalized operator has bounded norm; each hidden propagation
+costs at most \(11\beta\); Cauchy–Schwarz pairs the last feature difference
+with readout RMS at most \(CY\beta^{3L}(1+r)\). Differentiating the
+physical prediction and using (FC.2) gives
+\[
+|\partial_\tau f_n(r\tau,v)|/Y
+\le C\beta^{20L}(1+r)
+\tag{FC.58}
+\]
+through the finite horizon. For example the physical vector-field norm is
+at most \(Y\beta^{12L}\), and prediction sensitivity at most
+\(\beta^{8L}\); multiplication by \(r\) gives the stated bound.
+These estimates use real states and real inputs only.
+
+Choose an integer
+\[
+k_{\rm ext}=\left\lceil
+\log_2[C n^{10}\beta^{20L}(1+r)(d+2)(T+2)]
+\right\rceil.
+\tag{FC.59}
+\]
+For a unit \(v\), approximate its coordinates by a lattice vector \(z\)
+of step \(2^{-k_{\rm ext}-6-\lceil\log_2(d+1)\rceil}\), then use the
+mathematical sphere point \(z/\|z\|_2\). The lattice approximation can
+ensure \(\|z-v\|_2\le2^{-k_{\rm ext}-3}\); consequently
+\(\|z\|_2\ge1/2\) and
+\(\|z/\|z\|_2-v\|_2\le2^{-k_{\rm ext}-2}\).
+Its code is the finite integer vector \(z\); normalization is evaluated
+to the finer internal precision, with that error allocated in Section 5.
+Approximate input access may choose any qualifying code; no exact rounding
+tie on an arbitrary real input must be decided.
+
+Within its current acquired panel, approximate the fractional time from
+below, round down at mesh \(2^{-k_{\rm ext}}\), and clamp to \([0,1]\).
+Using a certified lower approximation with error at most one mesh width
+changes it by at most two mesh widths. The code and original time remain
+in the same acquired panel. At a boundary either already acquired adjacent
+certified panel can be used; both compare to the same physical value.
+Include all panel labels and their two endpoints and one frozen-tail code.
+The mesh is never enumerated or stored. Since \(\log H\le CZ\),
+\[
+\log N_{\rm ext}\le
+C\{d[k_{\rm ext}+\log(d+2)]+k_{\rm ext}+\log(H+1)\}
+\le C(d+1)Z.
+\tag{FC.60}
+\]
+Equations (FC.57)–(FC.59) make the physical input/time rounding error a
+fixed fraction of \(Yn^{-10}\). Beyond \(T\), compare to the physical
+prediction at \(T\), adding the fitting tail
+\(CYH_D^2r e^{-T/2}\le Yn^{-10}/4\). This proves the same scope at
+\(t=\infty\).
+
+The internal dense-center lemma and Section 7 therefore give, for each
+fixed code, a one-member bad-output probability at most \(1/16\), after
+the fixed source/coupling/replay/generator allocations. The internal
+whole-member amplification lemma makes all coded median outputs accurate
+simultaneously with the specified confidence. To transfer to an arbitrary
+query, compare its returned coded value with the physical value at that
+code, then use (FC.57)–(FC.59) and the tail. No continuity estimate for
+the finite decoder is used. Because this is one event for every code,
+queries may be chosen after inspecting the retained model and previous
+answers. Their dependence creates no new union bound or posterior premise.
+
+The resulting comparison with the independent dense reference is
+\(2b_n+A_{\rm num}Yn^{-10}\), with \(A_{\rm num}\) an absolute
+allocated constant. Its explicit mesh coefficient gives \(b_n\ge32Y/n\),
+so the stated numerical gate absorbs the remainder into \(3b_n\).
+The centers and source events used in this argument are proof objects;
+the retained model never receives them or any unknown test label.
+
+##### 9. Small positive labels and scope of the finite interfaces
+
+For completeness the separate branch \(0<nY<1\) has the following explicit
+recipe. Put \(Z_Y=Z+\log(1/(nY))\). Keep the same physical horizon
+and source domain, replace the panel count by
+\(H=\lceil T/h_0\rceil+\lceil BZ_Y\rceil\), and then compute (FC.13)
+with this \(H\), adding \(\lceil\log_2(1/(nY))\rceil\) to its Taylor
+degree. Choose \(J_a,\delta_\dagger\) and every subsequent tolerance
+from the actual \(Y,S\) by the same formulas. There is no circular choice:
+\(Z_Y,H,K,J_a,R\) are fixed in that order before the pair and sampler
+precisions. The extra degree makes \(J_a=O(K)\) valid even when
+\(\delta_0\) is tiny, and the extra panels ensure \(K\le CH\).
+All short-complex-panel estimates improve as the step shrinks.
+
+Here \(\log(1/Y)=\log n+\log(1/(nY))\le CZ_Y\). Therefore every
+precision estimate above holds with \(Z_Y\), and
+\[
+R_Y\le Cp\beta^{201L}(m+d+2)(1+r)Z_Y^{5/2},\qquad
+w_Y\le C\beta^{110L}Z_Y.
+\tag{FC.61}
+\]
+The source-event width has no new lower label condition. The finite
+implementation must additionally keep the explicitly enlarged Gaussian-RMS
+gate
+\[
+R_Ye^{-n/2}\le2^{-20},
+\quad\text{equivalently}\quad n\ge2\log(2^{20}R_Y),
+\tag{FC.62}
+\]
+where \(R_Y\) is the constructed integer field/call count. This is a
+finite numerical gate, not an unquantified stochastic threshold. Using the
+right side of (FC.61) as a deterministic certificate gives a directly
+checkable sufficient version. The finite row-root cutoff and code count are
+recomputed with these orders. Replacing only the word precision would have
+missed the activation interpolation orders and the raw-noise union. All
+claimed numerical storage/work envelopes use \(Z_Y\) in this branch;
+the displayed clean headline remains its \(nY\ge1\) branch.
+
+###### Interfaces and provenance
+
+Equations (FC.25)–(FC.26) define the actual field/call recipe and establish
+the claimed parameter dependence. Equations (FC.13), (FC.18), (FC.21),
+(FC.36), (FC.42), (FC.45)–(FC.46), and (FC.53) define one shared finite
+precision schedule before setup; their logarithms give (FC.47). The selected
+metric has at most \(R\) selected packets, all empirical communication is
+through \(CR^2\) scalar words, and its exact replay is on the finite tape
+it actually acquired. New queries regenerate the original finite rows and
+use all two-orientation covariance terms. These are the interfaces required
+by the separate internal word-backend and short-seed lemmas; no additional
+scientific hypothesis or undeclared history sensitivity is needed here.
+
+For the short-seed interface the entire scalar transcript has
+\(O(R^2w)\) bits. This count includes acquired pairs, shared scalar branch
+outputs consumed by later field definitions, and the final row coefficient
+vector at each field's creation. Row-local branches and internal spectral
+pivots or CDF bisection decisions are deterministic computations from the
+packet and candidate scalar inputs, and are recomputed rather than retained
+as transcript entries.
+A matrix call does not retain its whole correction matrix forever: after
+\(\widehat t\) is acquired it multiplies \(\widetilde T\widehat t\),
+combines that vector with the mean coefficients, retains at most \(CR\)
+coefficients for its new affine row field, and discards the \(R\)-square
+temporary matrices. There are \(CR\) field creations, so these vectors
+occupy \(CR^2\) words. The temporary spectral/Sylvester matrices are
+recomputed or discarded during fixed-context coefficient preparation.
+
+For a candidate-transcript verifier, all creation-time scalar arguments and
+these coefficient vectors are hardwired proof data. One pass through the
+packets accumulates at most \(CR^2\) exact dyadic sums. Each accumulator
+needs only a constant multiple of \(w\) bits, since its products have
+bounded arity and \(\log n\) is included in \(w\). After the stream,
+the verifier checks every scalar rounding instruction and coefficient-vector
+consistency in chronological order from those sums, reusing \(CR^2\) words
+of small-matrix scratch. It need not retain each earlier spectral matrix.
+Induction then identifies a passing candidate with the actual transcript.
+Thus both transcript length and between-packet verifier state are
+\(O(R^2w)\), not \(O(R^3w)\). At an intermediate training time only
+the already acquired coefficient vectors are retained; the future vectors
+used in offline selection have been discarded with the future-answer table.
+
+Initialization remains offline: its selected metric may depend on the entire
+virtual finite training trajectory. Its full source table is temporary.
+The retained state contains seeds, selected finite packets, the rounded
+metric, scalar-noise marks, current acquired history and finite instructions.
+It contains no dense hidden matrix, full row table or future-answer table.
+Training is causal scalar acquisition. Querying does not advance training.
+The numerical finite source approximates dense gradient flow; it is not
+asserted itself to fit exactly. The comparison remains to an independent
+dense reference over the whole sphere, all physical times and the fitted
+endpoint, and matches the upper certificate rather than the discrepancy
+lower bound.
+<!-- decoder-construction:end -->
+
+#### A short seed preserves the finite source transcript
+
+Consider the actual finite source program. Its random input consists of
+\(n\) independent finite row blocks and a separate string of scalar-noise
+marks. Communication between rows occurs only through finitely many exact
+dyadic reductions, followed by prescribed rounding and guarded scalar
+instructions. Include the reductions, rounded answers and branch decisions
+in one finite transcript.
+
+Fix a candidate transcript. A one-pass verifier hardwires that candidate,
+reads each row once, evaluates every row contribution at the candidate's
+creation-time scalar arguments, and checks at the end that every exact sum,
+rounding and branch reproduces the candidate. Induction over the scalar
+instructions proves that the verifier accepts exactly when the program's
+actual transcript equals that candidate.
+
+If the transcript has at most \(B\) bits, apply the finite-space generator
+proved in (WB.1)--(WB.4), with error \(\varepsilon2^{-B-1}\) for each candidate. Summing
+over at most \(2^B\) candidates gives
+\[
+\|\operatorname{Law}(T_{\rm seed})-
+  \operatorname{Law}(T_{\rm iid})\|_{\rm TV}\le\varepsilon.
+\tag{Logarithmic transcript transfer}
+\]
+The algorithm does not enumerate these candidates; they occur only in this
+probability proof. The recursive affine-Toeplitz construction and its full
+error estimate are proved in [the finite backend](#decoder-finite-backends).
+A depth-first traversal emits the
+same ordered blocks using fewer than twice as many hashes as rows, while
+retaining only its seed and recursion stack. No cryptographic assumption is
+used.
+
+For the present program, the transcript and its exact accumulators use at
+most \(CR^2w\) bits, where the local field count and word length satisfy
+\[
+R\le Cp\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2},
+\qquad
+w=\lceil C_{\rm word}\beta^{110L}Z\rceil.
+\tag{Logarithmic local resources}
+\]
+Consequently an inner block of \(CR^2w\) bits and its streamed short seed
+suffice. The selected-packet metric identity is deterministic for every
+finite packet table. Its replay proof needs fresh scalar noise to be
+independent of that table, not independence among generated packets, so the
+seed substitution preserves literal acquisition.
+
+#### Exact unseen queries and simultaneous amplification
+
+At any training time a learned matrix increment has the retained finite
+rank-list form
+\[
+D=TAS^\top/n.
+\]
+For an unseen input the decoder regenerates rows and streams the actual
+empirical contraction \(S^\top h/n\); it does not replace it by a population
+expectation. The initialized Gaussian part uses both orientations of every
+old constraint:
+\[
+\widehat t=Q_{h_t}(U^\top\widehat g/n+\eta\widehat e),
+\qquad
+\widehat y=Q_{h_y}
+(\widetilde m+U\widetilde T\widehat t+c\widehat g).
+\tag{Logarithmic conditional query}
+\]
+In particular the \(U\widetilde T\widehat t\) correction is not dropped.
+The coefficients come from the acquired finite Gram table with its stated
+noise floors. A constant number of row streams per layer computes every new
+contraction and innovation. Previous query fields are reevaluated at their
+already fixed scalar arguments, so scalar training is not replayed.
+
+Choose one common precision schedule for the source and the appended query.
+The finite coupling and the physical forward recurrence then put one complete
+member, at every fixed input/time code, within
+\[
+b_n+A_{\rm num}Yn^{-10}
+\]
+of the deterministic dense proof center with bad probability at most
+\(1/16\). This probability already includes failure of the member's entire
+physical source; it is not conditioned on an unrecognized good-source event.
+
+Let \(N_{\rm ext}\) be the finite input/time code count. The physical grid
+gives
+\[
+\log N_{\rm ext}\le C(d+1)Z.
+\]
+Use the smallest odd integer \(J\) at least
+\(\lceil\log_2(16N_{\rm ext}/\delta)\rceil\); then
+\(J\le C(d+1)Z\). For independent
+members the probability of a bad median is at most
+\(2^J(1/16)^{J/2}=2^{-J}\). An outer copy of the same finite block generator
+fools the bad-median test to error \(\delta/(16N_{\rm ext})\). A union over
+the codes, followed by the physical space/time modulus and the frozen fitted
+tail, gives
+\[
+\|f_{\rm Log,n}-f_n^{\rm ind}\|_*
+\le2b_n+A_{\rm num}Yn^{-10}.
+\]
+The explicit mesh term satisfies \(b_n\ge32Y/n\). Hence the numerical gate
+\(n\ge(A_{\rm num}/32)^{1/9}\) absorbs the last term and proves
+(Logarithmic complete comparison). This also proves the statement for a
+query chosen adaptively after seeing the retained model, because the final
+event is simultaneous over the complete external code set before the query
+is chosen.
+
+#### Word storage and operation counts
+
+The exact modular count uses
+\[
+J\le C(d+1)Z,
+\qquad
+a_{\rm blk}\asymp R^2w,
+\qquad
+b_{\rm mem}\le C\{R^2w\log(en)+\log(N_{\rm ext}/\delta)\},
+\]
+where \(a_{\rm blk}\) is the inner generator block length and
+\(b_{\rm mem}\) is the random input length of one complete member. These are
+local cost variables, not model orders. The retained and live training/query
+memory is
+\[
+C\left\{JR^2+
+\left\lceil\frac{b_{\rm mem}}w\right\rceil\log(J+2)\right\}
+\tag{Logarithmic modular memory}
+\]
+words. Initialization processes members sequentially and adds only
+\(C(nR+R^3)\) temporary words.
+
+Packed Toeplitz hashing computes a \(t\)-bit affine hash in
+\(Ct\lceil t/w\rceil\) word operations. Depth-first generator traversal,
+cached exact metric products and indexed exact spectral pivots therefore give
+\[
+\begin{aligned}
+W_{\rm init}\le{}&CJ\{nR^5w+(nR+R^2)w^2
++R^4w\log(R+2)+R^3w^2+R^4+nR^2
++na_{\rm blk}\lceil a_{\rm blk}/w\rceil\}+W_{\rm outer},\\
+W_{\rm train}\le{}&CJ\{R^4w\log(R+2)+R^3w^2+R^4\},\\
+W_{\rm query}\le{}&CJ(L+1)\{n[a_{\rm blk}\lceil a_{\rm blk}/w\rceil
++Rw^2+R^2]+R^3w\log(R+2)+R^2w^2+R^3\}\\
+&+W_{\rm outer}+CJ\log(J+2),
+\end{aligned}
+\tag{Logarithmic modular work}
+\]
+with
+\(W_{\rm outer}=CJb_{\rm mem}\lceil b_{\rm mem}/w\rceil\).
+Every generator stack, exact accumulator, median value and temporary member
+block is present in these formulas.
+
+Substitute (Logarithmic local resources) and
+\(\log N_{\rm ext}\le C(d+1)Z\). The two leading memory terms become
+\(JR^2\) and \(R^2\log(en)\log(J+2)\), which give exactly
+(Logarithmic retained words). The leading initialization term is
+\(JnR^5w\); the leading complete-training term is
+\(JR^4w\log(R+2)\); and the two leading query terms are the streamed inner
+and outer hashes. Their substitutions are precisely the three rows of
+(Logarithmic complete costs). This proves six powers of \(Z\), with one
+outer logarithm, in numerical words. Multiplying by the word length adds one
+power of \(Z\) in bits. It does not turn the bit bound into a sixth-power
+claim.
+
+Finally, for fixed problem parameters \(b_n=n^{-1/2+o(1)}\). Thus the
+smallest admissible reference width satisfying \(3b_n\le\varepsilon\) is
+\(n=\varepsilon^{-2+o(1)}\). Substitution in the word count proves the
+inverse logarithmic-storage statement. There is no order \(q\) to optimize,
+and no conclusion that the decoder error is negligible relative to the
+realized dense-versus-dense discrepancy.
+
+
+<a id="decoder-finite-backends"></a>
+#### Finite generators and numerical backends
+
+<!-- decoder-backend:start -->
+All parameters in this section are local algorithmic resources. In
+particular, the field count below is not a new compression order.
+
+##### A. An explicit finite-space generator, including its error proof
+
+An \(a\)-bit affine Toeplitz hash is \(h(x)=Tx+b\) over the field with two
+elements. Its seed consists of the \(2a-1\) diagonals of \(T\) and the
+\(a\) bits of \(b\), independently uniform. For distinct \(x,y\), the
+pair \(h(x),h(y)\) is uniform on two independent \(a\)-bit strings. Indeed,
+for a nonzero vector \(x-y\), let \(j\) be its first nonzero coordinate.
+In the successive coordinates of \(T(x-y)\), the diagonal indexed by
+\(i-j\) occurs with coefficient one; all other participating diagonals
+have smaller index. Prescribing the remaining diagonals and solving in
+increasing \(i\) proves surjectivity. The independent offset then proves
+the assertion about the pair.
+
+For independent hashes, define recursively
+\[
+G_0(x)=x,\qquad
+G_k(x)=G_{k-1}(x)\,\Vert\,G_{k-1}(h_k(x)),
+\]
+where the two children share the same lower-level hashes. This is the
+affine-hash recursive construction associated with
+[Nisan's finite-space generator](https://mathweb.ucsd.edu/~sbuss/CourseWeb/Math268_2013W/Nisan_PRG.pdf).
+The following direct expectation argument proves the precise version
+needed here, without invoking that paper's probability theorem.
+
+Consider a deterministic machine with at most \(s=2^u\) states between
+blocks. Its block counter is included in these states, so the transition
+rule may depend on the position. The machine reads \(N\) blocks; pad its
+execution to \(2^k\), where \(k=\lceil\log_2 N\rceil\), by absorbing
+states. It may perform arbitrary computation within a block. If
+\[
+a\ge\max\{\text{raw block length},\,
+4u+2k+2\lceil\log_2(1/\varepsilon)\rceil+4\},
+\tag{WB.1}
+\]
+then the acceptance probabilities under \(G_k\) and independent uniform
+blocks differ by at most \(\varepsilon\). The seed has exactly
+\(a+k(3a-1)\) bits.
+
+Here is a proof. Write \(\mu\) for uniform measure on \(a\)-bit strings.
+Pairwise independence gives, for arbitrary subsets \(A,B\),
+\[
+\mathbb E_h\left[
+\mu\{x\in A:h(x)\in B\}-\mu(A)\mu(B)
+\right]^2
+=2^{-a}\mu(A)\mu(B)(1-\mu(B)).
+\tag{WB.2}
+\]
+Fix all lower-level hashes. Let \(A_{ij}\) be the seeds that send machine
+state \(i\) to state \(j\) through the lower-level generator. For each
+\(i\), these sets partition the seed space. Let \(M_{k-1}\) be its
+transition matrix averaged over its root seed. Its square has entries
+\(\sum_l\mu(A_{il})\mu(A_{lj})\). The transition matrix \(M_k\)
+instead has entries
+\(\sum_l\mu\{x\in A_{il}:h_k(x)\in A_{lj}\}\).
+By (WB.2), Cauchy--Schwarz, and the partition identities,
+\[
+\begin{aligned}
+\mathbb E_{h_k}\|M_k-M_{k-1}^2\|_\infty
+&\le 2^{-a/2}\sum_{i,l,j}
+\sqrt{\mu(A_{il})\mu(A_{lj})}\\
+&\le s^2 2^{-a/2}.
+\end{aligned}
+\tag{WB.3}
+\]
+Here \(\|M\|_\infty=\max_i\sum_j|M_{ij}|\). If \(N_{k-1}\)
+is the transition matrix under independent blocks, then
+\(N_k=N_{k-1}^2\). Stochastic matrices have this norm one, so
+\[
+\|M^2-N^2\|_\infty\le2\|M-N\|_\infty.
+\]
+Consequently
+\[
+\mathbb E\|M_k-N_k\|_\infty
+\le(2^k-1)2^{2u-a/2}\le\varepsilon/4.
+\tag{WB.4}
+\]
+An acceptance event is a subset of final states; its probability
+difference is bounded by this norm. Averaging also over the root seed
+proves (WB.1). In particular no claim that generated blocks are
+independent, no cryptographic hypothesis, and no unproved generator
+lemma is needed.
+
+For a finite scalar transcript of at most \(B\) bits, fix both a
+candidate transcript and all independent scalar-noise marks. The
+one-pass verifier recomputes its row reductions at the candidate's
+creation-time arguments and checks its guarded scalar instructions.
+Induction over those instructions shows that it accepts exactly the
+candidate transcript. Apply (WB.1) to each candidate with error
+\(\varepsilon 2^{-B-1}\), and sum the absolute probability differences
+over at most \(2^B\) candidates. The total variation distance is at most
+\(\varepsilon\). The same bound holds after averaging the independently
+retained noise marks. The proof uses the candidates only as tests; the
+algorithm never enumerates them.
+
+For the finite program below, the verifier's state and transcript have
+at most \(CR^2w\) bits, including exact dyadic accumulators, row counters,
+rounding decisions and guarded branches. Thus (WB.1) permits an inner
+block of \(CR^2w\) bits. A full member, including its independent noise
+marks, needs at most
+\[
+C\{R^2w\log(en)+\log(N_{\rm ext}/\delta)\}
+\tag{WB.5}
+\]
+random bits. The outer application reads one complete member per block.
+For a fixed external input/time code, its test executes the member,
+compares its finite answer to the fixed success interval, discards its
+workspace, and increments a bad-member counter. Thus the counter test
+needs \(CR^2w+\log(J+2)\) between-block bits, not a table of all member
+answers. Taking per-test error \(\delta/(16N_{\rm ext})\), (WB.1)
+gives the stated outer seed. The fixed interval may have real endpoints:
+on the finite answer alphabet the comparison is just a finite Boolean
+transition table in this probability test, not a real-number oracle in
+the implemented algorithm.
+
+For independent members with bad probability at most \(1/16\), an odd
+\(J\ge\lceil\log_2(16N_{\rm ext}/\delta)\rceil\) has bad median
+probability at most \(2^J(1/16)^{J/2}=2^{-J}\). The outer generator,
+then a union over codes, proves the simultaneous claim. This argument
+amplifies complete source experiments, not conditionally successful
+members sharing an unamplified source failure.
+
+##### B. Exact word model and generator streaming
+
+A word contains \(w\) bits. The counted primitives are word reads and
+writes, comparisons, addition and subtraction, Boolean operations,
+bounded shifts, a full product returned in two words, and integer
+quotient/remainder on a constant number of words. Constant-factor wider
+scalars occupy a constant number of words. Integers with \(O(Rw)\) bits
+occupy \(O(R)\) words. There is no matrix-function, Gaussian, activation,
+unbounded-integer or carryless-multiplication oracle.
+
+For a \(t\)-bit Toeplitz hash, each input bit selects a contiguous
+\(t\)-bit window of the packed diagonal string to XOR into the output.
+Each window word uses at most two stored words and bounded shifts.
+Including the affine offset, the work is at most
+\(Ct\lceil t/w\rceil\), with \(C\lceil t/w\rceil\) scratch words.
+Traverse the generator depth first, storing pending right-child
+arguments. The full padded tree has fewer than \(2N\) internal nodes.
+It therefore produces its ordered stream with
+\[
+CNt\lceil t/w\rceil\text{ word operations},\qquad
+C\lceil t/w\rceil\log(N+2)\text{ words}.
+\tag{WB.6}
+\]
+This space includes the seed, traversal stack, flags and counters. Every
+query restarts the same ordered stream a constant number of times per
+layer; no sparse random-access regeneration is assumed. An outer stream
+is suspended, with its stack retained, while its current member is used.
+
+##### C. Exact metric selection, including large integers
+
+The finite field table is an \(n\)-by-\(s\) dyadic matrix \(V\),
+\(s\le CR\), with entries of \(O(w)\) bits. Include its constant field.
+Let its exact rank be \(r\le\min(n,s)\). Select independent columns and
+an invertible \(r\)-row square block \(H\) of these columns. Put
+\[
+C_V=V_{:,J}H^{-1},\qquad M=C_V^\top C_V/n.
+\tag{WB.7}
+\]
+Then \(V=C_VV_{I,:}\), and every required empirical field product is
+exactly a product of selected values with \(M\). The selected rows of
+\(C_V\) form the identity, whence \(M\succeq I/n\). Its constant-field
+identity is \(\mathbf1^\top M\mathbf1=1\).
+
+If some coefficient has absolute value greater than two, replace the
+corresponding row of \(H\) by that row. Multilinearity shows that the
+absolute determinant more than doubles. With a common \(O(w)\)-bit
+dyadic denominator, a nonzero determinant is at least \(2^{-Crw}\);
+Hadamard's bound is \(r^{r/2}2^{Crw}\). Because \(w\ge\log_2(r+2)\),
+there are at most \(Crw\) swaps. At termination every coefficient is at
+most two in absolute value. This bound concerns selected row values;
+it does not assume a lower singular-value gap in the original data.
+
+For completeness, exact rank and inverse arithmetic can be performed by
+fraction-free elimination. For a pivot \(a_{kk}\), update
+\[
+a_{ij}\leftarrow
+\frac{a_{kk}a_{ij}-a_{ik}a_{kj}}{a_{k-1,k-1}},
+\qquad i,j>k,
+\tag{WB.8}
+\]
+with denominator one at the first step and row/column pivoting when
+necessary. The two-by-two minor identity proves by induction that the
+division is exact and the intermediate entries are signed minors of
+the original integer matrix. Applying the same elimination to augmented
+right sides yields the adjugate and determinant. All these integers
+have \(O(rw)\) bits, even when the determinant is small.
+
+Schoolbook arithmetic on \(k\) words takes \(O(k^2)\) word operations.
+For division, use radix \(2^{\lfloor w/4\rfloor}\) and normalize the
+leading divisor digit to at least half the radix. The two-leading-digit
+quotient estimate is too large by at most two: the omitted divisor tail
+changes its trial product by less than twice the normalized divisor.
+Correcting and subtracting therefore takes \(O(k)\) work per quotient
+digit and \(O(k^2)\) overall. These steps use only the declared
+constant-word products and divisions.
+
+A rank test or adjugate consequently costs \(O(r^5)\) word work.
+A coefficient scan costs \(O(nr^4)\); \(r\le n\) absorbs one adjugate
+per scan. Including the initial exact rank scan, at most \(Crw\) swaps,
+and the final metric scan gives
+\[
+W_{\rm metric}\le CnR^5w,\qquad
+M_{\rm metric}\le C(nR+R^3)\text{ words}.
+\tag{WB.9}
+\]
+The algorithm stores the original \(O(w)\)-bit dyadic table \(V\), not
+the expanded rational table \(C_V\). Each row of \(C_V\) is computed,
+used for the swap test or exact metric accumulator, and discarded.
+Only the inverse/adjugate and the \(r\)-square large-integer accumulators
+use \(O(R^3)\) words. This is essential to the stated peak memory.
+For a final metric rounded entrywise to error at most \(\epsilon_M\),
+add \(r\epsilon_M I\). The spectral norm of the rounding perturbation
+is at most \(r\epsilon_M\), so this is positive semidefinite, and any
+two selected fields bounded by \(B\) have pairing error at most
+\(2r^2B^2\epsilon_M\). The adjacent replay proof chooses this tolerance
+before setup and charges its noise-boundary probability.
+
+##### D. Finite spectral routines without eigenvalue separation
+
+Let a symmetric \(r\)-square dyadic matrix have norm at most \(M\ge1\)
+and \(p\)-bit entries. Suppose the requested absolute error is \(2^{-b}\).
+For inverse or a gapped square root let the stated positive gap be
+\(a\in(0,1]\). Set locally
+\[
+v=2+p+b+\lceil\log_2(r+2)\rceil+
+\lceil\log_2(M+2)\rceil+\lceil\log_2(1/a)\rceil.
+\tag{WB.10}
+\]
+For positive part, omit the last term. A sufficiently large universal
+multiple of \(v\) working bits suffices. This is already included in
+the integrated word length; it is not \(R\) times that word length.
+
+Here are a terminating algorithm and its error analysis. Use a largest
+off-diagonal Jacobi pivot with a fixed lexicographic tie rule. If \(e\)
+is the Frobenius off-diagonal norm, a pivot has square at least
+\(e^2/[r(r-1)]\). An exact rotation removes twice that square from
+\(e^2\). For a target diagonalization residual \(t\le1\), stop at
+\(e\le t/16\), or perform at most
+\[
+K=\left\lceil 8r(r-1)\log\frac{64r(M+1)}t\right\rceil
+\tag{WB.11}
+\]
+rotations. With local rounding errors at most
+\(t/[2^{16}K r^3(M+1)^2]\), the rounded recurrence satisfies
+\[
+e_{j+1}\le\sqrt{1-2/[r(r-1)]}\,e_j+
+t/[2^{10}Kr(M+1)].
+\]
+Its geometric sum, and the product telescoping estimates for the
+rotations and updated basis, bound both the final off-diagonal norm
+and the accumulated similarity error by \(t/8\), and bound the
+orthogonality defect by \(t/[8(M+1)]\), after reducing local errors by
+another fixed numerical factor if needed. Thus the iteration cap
+always reaches the prescribed residual scale. Every local tolerance
+has logarithm \(O(v)\), since \(K=O(r^2v)\).
+
+The two-dimensional rotation is computed from its two diagonal entries
+and pivot. The stable quadratic formula chooses a tangent of magnitude
+at most one, followed by a positive scalar square root for its cosine.
+Before stopping the pivot has magnitude at least \(t/[16r]\); hence
+these divisions require only \(O(v)\) guard bits, not the inverse of
+an eigenvalue separation. Scalar square roots use binary search on an
+integer square, with \(O(w)\) constant-word operations.
+
+For the computed basis \(V_0\), its exact polar correction
+\(O=V_0(V_0^\top V_0)^{-1/2}\) exists when the orthogonality defect is
+less than \(1/2\), and satisfies
+\(\|O-V_0\|_F\le2\|V_0^\top V_0-I\|_F\). This follows by scalar
+diagonalization of \(V_0^\top V_0\) on \([1/2,3/2]\). It is a proof
+device, not a further implemented matrix operation. The preceding
+bounds therefore give a nearby exactly orthogonally diagonalized
+matrix within \(t\) of the input.
+
+Choose \(t\le 2^{-b-8}a^2\) for inversion, and
+\(t\le 2^{-b-8}\min(a,\sqrt a)\) for a gapped square root.
+The identity \(A^{-1}-B^{-1}=A^{-1}(B-A)B^{-1}\) bounds the first
+error. For square roots, their difference solves a Sylvester equation;
+the inverse is the integral of left and right multiplication by
+\(e^{-sA^{1/2}}\) and \(e^{-sB^{1/2}}\), bounded by
+\(1/(2\sqrt a)\) in Frobenius norm when both gaps are at least \(a\).
+Using the actual half-gap in this estimate covers the nearby matrix.
+For positive part take \(t\le2^{-b-8}\). Positive part is the Euclidean
+projection onto the positive-semidefinite cone; the two projection
+variational inequalities, added together, prove it is Frobenius
+nonexpansive. This proof uses no spectral gap at zero.
+
+Evaluate the scalar functions on the approximate diagonal, clamping
+small negative entries where a positive part is requested. Round all
+nonnegative diagonal function values to nonnegative dyadics and form
+\(V_0\operatorname{diag}(f_i)V_0^\top\) by exact dyadic products and
+sums. This preserves positive semidefiniteness. The final scalars have
+only a constant multiple of \(w\) bits, including the sum over \(r\).
+No unsafe final entrywise rounding is used.
+
+Store pivots in an indexed max-heap. One rotation changes only \(O(r)\)
+matrix entries, so heap maintenance costs \(O(r\log(r+2))\).
+The exact dyadic squared off-diagonal norm is updated by subtracting
+old squares and adding new squares, also in \(O(r)\) operations.
+Updating the basis costs \(O(r)\); scalar roots cost \(O(w)\).
+With \(O(r^2w)\) rotations, the whole macro costs
+\[
+C\{r^3w\log(r+2)+r^2w^2\}\text{ word operations},
+\qquad Cr^2\text{ words}.
+\tag{WB.12}
+\]
+For \(r=1\), use just the scalar routine. Exact heap ordering and exact
+residual accumulation give the same pivots and stop as a full-scan
+finite algorithm. No hidden \(r^2\) scan occurs per rotation.
+
+The decoder's coefficient solve also avoids a Kronecker-sized system.
+For its two Gram matrices \(Q,K\succeq0\), diagonalize them separately.
+In these bases a Sylvester equation
+\[
+(\sigma^2I+K)E+EQ=F
+\]
+is solved entrywise by division by \(\sigma^2+k_j+q_i\ge\sigma^2\).
+Scalar divided differences of square roots are evaluated as
+\((\sqrt a-\sqrt b)/(a-b)=1/(\sqrt a+\sqrt b)\), including \(a=b\).
+All denominator floors are the already fixed noise floors, so the
+normwise perturbation bounds in the finite construction apply to
+nearby matrices without attempting to match individual eigenvectors.
+This uses a constant number of (WB.12) macros and ordinary \(O(r^3)\)
+scalar arithmetic per call.
+
+##### E. Finite Gaussian and activation values
+
+Each Gaussian coordinate uses a dyadic uniform midpoint and inverse
+normal CDF on \([-T,T]\), with \(T^2\le Cw\). Choose its dyadic
+uniform precision so that
+\[
+\sqrt{2\pi}\,e^{T^2/2}2^{-b_U}
+\le\epsilon_G/4.
+\tag{WB.13}
+\]
+Clamp the midpoint to the CDF image of \([-T,T]\) before numerical
+inversion; mass moved by this clamp is charged to the displayed tail event.
+Couple the midpoint to a uniform variable in its cell. Except on the
+two Gaussian tails, of probability at most \(2e^{-T^2/2}\), the
+inverse-CDF Lipschitz bound gives coordinate error at most
+\(\epsilon_G/4\), before numerical evaluation. The cutoff and failure
+allocation used in the finite construction make \(b_U=O(w)\).
+
+There is a finite implementation of that evaluation in \(Cw^2\) word
+operations and \(O(1)\) scalar scratch. Indeed, integrate the Taylor
+series of \(e^{-x^2/2}\) term by term on the cutoff interval. Since
+\(T^2=O(w)\), \(Cw\) terms have a remainder below \(2^{-C'w}\), with
+suitable fixed constants by the factorial bound
+\(j!\ge(j/e)^j\). Intermediate terms have magnitude at most
+\(e^{Cw}\), so \(Cw\) guard bits suffice. Its recurrence and summation
+use \(O(w)\) word operations. Bisection of the coordinate takes
+\(O(w)\) CDF evaluations. Use enclosing rational intervals throughout:
+if a comparison overlaps, the positive density lower bound converts
+the overlap into a coordinate interval. Thus no exact comparison of
+transcendental numbers is assumed. The normalizing constant can be
+computed to this precision from
+\(\pi=16\arctan(1/5)-4\arctan(1/239)\), whose identity follows by
+the tangent addition formula and the angle ranges. The alternating
+series take \(O(w)\) terms; integer square root supplies the remaining
+normalization. Its cost is smaller than the CDF bisection.
+
+For tanh there is also an \(O(w)\)-word-work value evaluator, using
+only \(O(1)\) scalar scratch. By oddness take \(x\ge0\). For absolute
+error \(2^{-p}\), return one if \(x\ge p+4\); its error is at most
+\(2e^{-2x}\). Otherwise scale \(z=2x/2^k\le1\), with
+\(2^k\le4(p+4)\). The exponential series for \(e^{-z}\), truncated
+after \(16(p+1)\) terms, has error far below \(2^{-p}\).
+Use \(p+C\log_2(p+2)\) working bits, clip to \([0,1]\), and square
+\(k\) times. On \([0,1]\), each squaring amplifies error by at most
+two, so the total amplification is at most \(2^k\). The guard bits
+cover it and the final rational map \((1-e^{-2x})/(1+e^{-2x})\),
+whose denominator is at least one. All operations are finite.
+
+For a different analytic activation its supplied finite evaluator's
+actual work and workspace are added at every recorded value call.
+Analyticity bounds approximation errors but does not give a finite
+description or complexity bound for evaluating an arbitrary function.
+This is an explicit computational interface, not a probabilistic
+source assumption, and is necessary for the original activation scope.
+
+##### F. Complete modular ledger and substitution
+
+There are at most \(CR\) spectral calls of size at most \(CR\).
+Every selected field is created at immutable scalar arguments. Cache
+both its selected value vector and its exact product with the fixed
+metric; form all pairings by exact dyadic sums before their prescribed
+rounding. There are \(O(R^2)\) cached words and \(O(R^3)\) ordinary
+scalar work. The finite construction counts the same fields and calls
+for an appended query; old fields are evaluated at their creation-time
+arguments, not retrained.
+
+Write locally \(a_{\rm blk}\asymp R^2w\) and let \(b_{\rm mem}\)
+be (WB.5). For \(J\) complete ensemble members, retained and live
+training/query storage is
+\[
+C\left[J R^2+
+\left\lceil b_{\rm mem}/w\right\rceil\log(J+2)\right]
+\text{ words}.
+\tag{WB.14}
+\]
+Setup treats members sequentially, so its additional peak is
+\(C(nR+R^3)\), not \(J\) times this temporary inventory. Including
+all finite Gaussian coordinates, metric selection, coefficient
+preparation, source-row streams and both generator levels gives
+\[
+\begin{aligned}
+W_{\rm outer}&=CJb_{\rm mem}\lceil b_{\rm mem}/w\rceil,\\
+W_{\rm init}&\le CJ\{nR^5w+(nR+R^2)w^2
++R^4w\log(R+2)+R^3w^2+R^4+nR^2
++na_{\rm blk}\lceil a_{\rm blk}/w\rceil\}+W_{\rm outer},\\
+W_{\rm train}&\le CJ\{R^4w\log(R+2)+R^3w^2+R^4\},\\
+W_{\rm query}&\le CJ(L+1)\{n[a_{\rm blk}\lceil a_{\rm blk}/w\rceil
++Rw^2+R^2]+R^3w\log(R+2)+R^2w^2+R^3\}\\
+&\hspace{8mm}+W_{\rm outer}+CJ\log(J+2).
+\end{aligned}
+\tag{WB.15}
+\]
+The last term includes an ordinary sorting computation of the median.
+All exact accumulators, temporary member blocks, suspended generator
+stacks and selected-field caches are counted. Input/certificate access
+and the supplied activation evaluator are added as stated in Part II.
+
+Finally insert the already proved bounds
+\[
+R\le Cp\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2},\quad
+w\le C\beta^{110L}Z,\quad J\le C(d+1)Z.
+\tag{WB.16}
+\]
+The leading memory terms are \(JR^2\) and
+\(R^2\log(en)\log(J+2)\). They are bounded by
+\[
+Cp^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+[d+1+\log(e+(d+1)Z)].
+\tag{WB.17}
+\]
+The leading setup term \(JnR^5w\) gives the exponents \(1115L\)
+and \(29/2\). The leading training term \(JR^4w\log(R+2)\)
+gives \(914L\) and \(12\). Inner and outer query hashing give,
+respectively, \((L+1)nZ^{12}\) and \(Z^{14}\) with the same
+\(p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4(d+1)\) coefficient.
+These are exactly the existing headline bounds. Word length is
+separate: multiplying (WB.17) by \(w\) adds one logarithmic power
+to the retained bit count.
+
+When \(0<nY<1\), every appearance of \(Z\) in this construction and
+ledger is replaced by \(Z+\log_+(1/(nY))\), together with the stated
+finite Gaussian-RMS gate. This includes field counts and external
+codes, not just word length. Zero labels use the exact zero branch.
+<!-- decoder-backend:end -->
 
 
 <a id="headline-corollary-proofs"></a>
@@ -12069,6 +16142,10 @@ all-order fitting and signed comparison proofs; and Harmonic coordinate
 selection, metric/action, harmonic expansion, finite initial-jet setup,
 independent fitting, source energy, readout/deficit cancellation,
 all-time continuation, arbitrary-budget inversion and storage proofs.
+The Logarithmic decoder addition includes its all-deletion finite source,
+training-response recurrence, finite-transcript generator, exact empirical
+unseen-query reconstruction, whole-source median amplification, explicit
+width gates, finite word length, and complete word-operation ledger.
 The subsequent computational-cost addition derives initialization,
 per-stage and single-query bounds from these same constructions, exposing
 the Harmonic setup resolutions and activation backend separately.
@@ -12083,6 +16160,23 @@ and the standard elementary limiting theorems used with their stated
 hypotheses are not new model assumptions.
 
 ### Internal review status
+
+The 2026-10-07 [whole-document audit](review.md) is a frozen pre-repair
+snapshot, not a verdict on this revised text. It identified the omitted
+local source derivations, incomplete finite-decoder construction and nine
+interface corrections. The subsequent author repairs and separately scoped
+reconstructions are recorded in
+[the proof-completion check](PROOF_COMPLETION_CHECK.md). In particular the
+source reconstruction explicitly checked the new stopped-path projection,
+finite-width initialization and independent-reference bridge. The finite
+decoder reconstruction checks its local physical program, shared precision
+schedule and Gaussian coupling, exact metric replay, empirical unseen-query
+calculation, physical coding and resource accounting. Its generator and
+finite arithmetic backends have separate bounded checks. These are proofs
+of internal lemmas, not additional source-event hypotheses in the final
+theorems. Historical
+component reports below retain their original hashes and scopes; they are
+not substituted for that later reconstruction.
 
 The dense and source/Legendre sections received fresh, separately scoped
 reconstructions against frozen full inputs. Their reports distinguish
@@ -12103,9 +16197,10 @@ abbreviation. Both corrections are included.
 
 The separately scoped internal audits found no remaining mathematical
 objection in their combined assigned scope. Dense and Harmonic local
-verdicts are conditional on the shared source theorem; that theorem and
-the Legendre/all-time bridge were reconstructed in the separate source
-audit. No local verdict is presented as an independent proof of a
+verdicts rely on the shared source theorem; its previously missing local
+proofs are now supplied and separately reconstructed in the completion pass.
+The Legendre/all-time bridge also has its separate reconstruction.
+No local verdict is presented as an independent proof of a
 dependency it did not inspect. The final assembly audit checks
 interfaces, not a second reconstruction of every local proof.
 
@@ -12114,6 +16209,7 @@ interfaces, not a second reconstruction of every local proof.
 | Dense fitting, upper, lower, confidence and inversion | [Dense audit](INTEGRATED_DENSE_AUDIT.md) |
 | Source, all-order Legendre and all-time bridge | [Source/Legendre audit](INTEGRATED_SOURCE_LEGENDRE_AUDIT.md) |
 | Harmonic construction, comparison, budgets and storage | [Harmonic audit](INTEGRATED_COMPACT_AUDIT.md) |
+| Logarithmic finite source, exact query, width and word costs | [Source check](../unseen_query_decoder_20261005/FULL_FINITE_SOURCE_PROBABILITY_CHECK.md), [query check](../unseen_query_decoder_20261005/SOURCE_SEED_EXACT_QUERY_CHECK.md), [word check](../unseen_query_decoder_20261005/WORD_COST_REFINEMENT_CHECK.md), [width check](../unseen_query_decoder_20261005/WIDTH_GATE_REFINEMENT_CHECK.md), [confidence check](../unseen_query_decoder_20261005/CONFIDENCE_SEPARATION_CHECK.md) |
 | Headline/exact/proof interfaces and final assembly | [Assembly audit](INTEGRATED_ASSEMBLY_AUDIT.md) |
 
 The reports record frozen-input hashes and final-assembly bindings.
@@ -12198,6 +16294,38 @@ were read and applied to the efficient-setup integration, alongside the
 rigorous-math workflow and maintained notation contract. The earlier audit
 reports remain unchanged records of their original read scope.
 
+### Logarithmic-decoder integration record
+
+The user explicitly directed the current study to integrate the additional
+method from `unseen_query_decoder_20261005`. The complete imported scientific
+and resource interfaces are:
+
+- `FULL_FINITE_SOURCE_PROBABILITY.md` and `WIDTH_GATE_REFINEMENT.md` for the
+  finite all-deletion source, explicit probability composition and width;
+- `SOURCE_SEED_EXACT_QUERY.md` and `NUMERICAL_BENCHMARK_ABSORPTION.md` for the
+  finite-transcript seed, exact two-orientation query and \(3b_n\) absorption;
+- `WORD_COST_REFINEMENT.md` and `CONFIDENCE_SEPARATION_REFINEMENT.md` for
+  word precision, storage, phase work and the implemented/reference moment
+  separation; and
+- `STREAMLINED_METHOD_RESULT.md` and `TWO_GAP_CLOSURE_RESULT.md` for the
+  final composed theorem and its unchanged scientific boundary.
+
+Their scoped reconstruction reports are linked in the Logarithmic row of the
+audit table above. The five exact-algebra implementation tests in
+`test_streamline_kernels.py` pass. They check hashing, generator traversal,
+metric caching, tiled exact reductions and indexed spectral pivots; they do
+not simulate neural training or verify the probability theorem.
+
+The affine-hash generator construction is credited to
+[Nisan's original paper](https://mathweb.ucsd.edu/~sbuss/CourseWeb/Math268_2013W/Nisan_PRG.pdf).
+The required probability theorem is now proved here in (WB.1)--(WB.4):
+pairwise-independent hashing, a conditional transition-matrix estimate,
+and its recursion give the stated seed length. The transcript reduction,
+complete-member amplification and streamed traversal are also proved here;
+no external generator theorem is assumed. The component checks are internal
+research checks, not promotion reviews; the maintained book and paper
+are unchanged.
+
 ### Source scope
 
 The author used this study's current artifacts and the maintained
@@ -12211,6 +16339,19 @@ authorized for this consolidation:
   ACTIVATION_CLASS_EXTENSION_ROUTE, STORAGE_QUADRATIC_IMPROVEMENT,
   GENERAL_WEIGHTED_COMPARISON, SPHERICAL_SOURCE_DIMENSION_ROUTE
   and DIMENSION_PREFACTOR_OPTIMIZATION.
+- In the user-directed method import from unseen_query_decoder_20261005:
+  FULL_FINITE_SOURCE_PROBABILITY, SOURCE_SEED_EXACT_QUERY,
+  NUMERICAL_BENCHMARK_ABSORPTION, WORD_COST_REFINEMENT,
+  WIDTH_GATE_REFINEMENT, CONFIDENCE_SEPARATION_REFINEMENT,
+  TWO_GAP_CLOSURE_RESULT and STREAMLINED_METHOD_RESULT, together with their
+  named scoped checks and exact-kernel test. Completion of their explicitly
+  cited finite-construction chain additionally used
+  FAST_FINITE_SOURCE_BRIDGE, FAST_LOCAL_PRECISION_TEST,
+  FAST_PHYSICAL_QUERY_GRID, NOISY_TWO_ORIENTATION_TRANSCRIPT,
+  SANE_DECODER_CORE, SANE_METRIC_PACKETS, FAST_LOCAL_COMPOSITION,
+  GAP_REFINED_PHASE_COSTS, GAP_DEGREE_REFINEMENT,
+  PHYSICAL_PARAMETER_ACCOUNTING, FAST_TAYLOR_NOISE, FAST_SCALAR_FORCING,
+  FAST_LOCAL_KERNEL_AUDIT, SANE_TAYLOR_SOURCE and SANE_ADAPTIVE_TIME.
 
 These are the cited Markdown dependency proofs, not permission to import
 other research from those studies. Their specialized arguments have been
@@ -12233,11 +16374,13 @@ would not establish these setup bounds; the separate complete proofs do.
 
 ### What remains unresolved
 
-The finite-deletion moment argument and the initialized central limit
-theorem give only eventual stochastic widths, not a computable
-\(n(\delta)\). All deterministic coefficients and extra width gates
-are explicit, but the full sufficient width is not effective. This is
-a limitation of the theorem, not notation to be suppressed.
+For Dense, Legendre and Harmonic, the shared source event and initialized
+central limit theorem give only eventual stochastic widths, not a computable
+\(n(\delta)\). Their deterministic coefficients and extra gates are explicit,
+but their full sufficient width is not effective. The Logarithmic decoder is
+different: its sufficient width is explicit, but its power \(1100\) and
+activation-depth exponent are extremely conservative and give no practical
+onset claim.
 
 The general lower bound certifies the width exponent up to logarithms,
 not the upper bound's powers of \(m/\gamma\), dimension or depth.
@@ -12245,3 +16388,9 @@ It is a transient all-trajectory lower bound, not a general fitted-endpoint
 lower bound. Optimal compression among arbitrary representations and
 sharp growing-data dependence remain open. Fixed-problem exponents are
 not uniform theorems for simultaneously growing structural parameters.
+The Logarithmic decoder matches the dense-pair upper certificate, not the
+realized dense discrepancy or an \(n^{-1+o(1)}\) matched-reference error. Its
+setup is offline, its query work remains linear in \(n\) up to logarithms,
+and its sixth-power statement is in variable-length numerical words; bit
+storage has one additional logarithmic precision factor. No fixed-machine-
+precision or practical speedup result is proved for the full analytic class.

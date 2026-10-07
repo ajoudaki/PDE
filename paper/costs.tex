@@ -1,0 +1,145 @@
+\section{Initialization, training and inference}
+\label{sec:costs}
+
+A retained-state bound is not an algorithmic cost bound.
+Initialization includes every one-off operation needed to build the model;
+its memory is the total peak. A training stage means one full-batch
+vector-field evaluation, or a fixed-stage explicit update with its stage
+multiplier. A query is one new input at an inference-ready state; its
+workspace excludes the loaded model. The finite-word decoder uses a
+different contract, stated separately below.
+
+\subsection{The neural constructions}
+
+For supplied $q$ and $n\ge d$, classical arithmetic bounds are as follows.
+All entries are upper bounds up to the activation/depth constant $C$.
+Training data are included in peak memory.
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}P{0.23\textwidth}P{0.34\textwidth}P{0.34\textwidth}@{}}
+\toprule
+Operation & Work & Peak memory\\
+\midrule
+Dense initialization & $n^2$ & $n^2+md$\\
+Dense training stage & $mn^2$ & $n^2+mn+md$\\
+Dense query & $n^2$ & $n$ additional\\
+\midrule
+Legendre initialization & $mn^2+mnq$ & $n^2+mnq+md$\\
+Legendre training stage & $mn^2+nm^2q$ & $n^2+mnq+md$\\
+Legendre query & $n^2+nmq$ & $n$ additional\\
+\midrule
+Harmonic training stage & $mq^2+m^3$ & $q^2$\\
+Harmonic query & $q^2$ & $q$ additional\\
+\bottomrule
+\end{tabular}
+\caption{Real-arithmetic execution at supplied orders. Gaussian generation
+and scalar evaluation use the primitive convention specified in the text.
+Harmonic initialization is separate; its cost cannot be inferred from $q$.}
+\label{tab:runtime}
+\end{table}
+
+Legendre applies correction factors without materializing learned dense
+matrices, and uses cumulative prefixes for the triangular moment updates.
+Harmonic includes its feature-Gram solve and effective-readout refresh in
+training. Those computations are not hidden in the single-query count.
+The table assumes unit-cost scalar activation and Gaussian primitives;
+the appendix separates arithmetic from actual primitive calls and scratch.
+It does not bound the number or accuracy of subsequent numerical steps.
+
+For example, substitute the variability-negligible choices in
+\Cref{cor:compression}. Harmonic's query work and total retained state
+then share the bound
+\[
+ C(m+d)^2+
+ \left(\frac Cd\right)^{d+1}
+ \left(\frac m\gamma\right)^4[\log(en)]^{3d+2},
+\]
+and its training-stage work is at most $Cm$ times this expression.
+Legendre's query and training-stage bounds become, respectively,
+\[
+ Cn^2+Cm(1+m/\gamma)^3n^{5/4+o(1)},\qquad
+ Cmn^2+Cm^2(1+m/\gamma)^3n^{5/4+o(1)}.
+\]
+These displays keep the structural factors. Merely knowing that $n$ is
+larger than $m$ does not justify discarding the second term when the
+other parameters also grow.
+
+\subsection{Two ways to initialize Harmonic compression}
+
+At source tolerance $1/n$, both certified initializers produce the same
+type of retained model, with stronger error $n^{-1+o(1)}$.
+For this table only, the data and all structural parameters are fixed:
+the entries show width rates, not bounds with universal structural
+prefactors. Complete dependence on $m,d,\gamma$ and all internal orders
+is given in \hyperref[int:harmonic-efficient-orders]{the setup-order appendix}.
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Initializer & Arithmetic work & Peak real coordinates\\
+\midrule
+Explicit dense continuation
+& $O(n^2[\log(en)]^{3d/2+1})$ & $O(n^2)$\\
+Implicit Gaussian continuation
+& $O(n[\log(en)]^{9d/2+3})$ & $O(n[\log(en)]^{3d/2+1})$\\
+\bottomrule
+\end{tabular}
+\caption{Certified Harmonic initialization with structural parameters fixed.
+Both discard the setup-only trajectory, matrix actions and source arrays.}
+\label{tab:initialization}
+\end{table}
+The implicit execution samples a fresh coupled dense reference. It cannot
+read and convert an arbitrary supplied $n$-by-$n$ array in subquadratic
+time. The explicit execution traverses the required physical horizon
+with high-order local expansions; it is not claimed that a few early Euler
+steps determine the whole trajectory. The bounds do not establish a
+practical timing advantage at widths of a few thousand.
+
+\subsection{The finite-word decoder}
+
+Here initialization and query counts are word operations, not unit-cost
+real arithmetic; each word has the sufficient bit length from
+\Cref{thm:logarithmic}. Using that theorem's explicit resource logarithm
+$Z$, sufficient full structural work bounds are
+\begin{align}
+ \text{initialization:}\quad&
+ Cn(d+1)(m+d+2)^5(1+m/\gamma)^5
+ [\log(em)]^5Z^{29/2},\nonumber\\
+ \text{complete training:}\quad&
+ C(d+1)(m+d+2)^4(1+m/\gamma)^4[\log(em)]^4Z^{12}\nonumber\\
+ &\quad{}\times
+ \log\!\bigl(e+C(m+d+2)(1+m/\gamma)\log(em)Z^{5/2}\bigr),\nonumber\\
+ \text{one query:}\quad&
+ C(d+1)(m+d+2)^4(1+m/\gamma)^4
+ [\log(em)]^4\bigl(nZ^{12}+Z^{14}\bigr).
+ \label{eq:decoder-work}
+\end{align}
+Training and live query memory are bounded by the complete retained-word
+inventory in \eqref{eq:decoder-words}. Peak setup memory is that inventory
+plus
+\[
+ Cn(m+d+2)(1+m/\gamma)\log(em)Z^{5/2}
+ +C(m+d+2)^3(1+m/\gamma)^3[\log(em)]^3Z^{15/2}.
+\]
+These are total query-memory bounds, unlike the additional-workspace
+column in \Cref{tab:runtime}. The finite tanh evaluator is included;
+for a general analytic activation, add its supplied evaluator's actual
+word work and scratch, as well as external data/query access and output.
+The counted data are the finite training table; additionally retained
+external descriptions require their own storage.
+Analytic regularity alone does not make an arbitrary function a unit-cost
+computable primitive.
+
+At fixed parameters the decoder's word-operation rates are
+\[
+\begin{array}{rl}
+\text{setup:}&O(n[\log(en)]^{29/2}),\\
+\text{complete training:}&O([\log(en)]^{12}\log\log(e^e+n)),\\
+\text{one unseen query:}&O(n[\log(en)]^{12}+[\log(en)]^{14}).
+\end{array}
+\]
+The training row covers its \emph{complete prescribed} schedule.
+Its logarithmic retained state does not remove the width factor in query work.

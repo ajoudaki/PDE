@@ -10,13 +10,21 @@ const failures = [];
 const requireCheck = (condition, message) => {
   if (!condition) failures.push(message);
 };
-const count = token => result.split(token).length - 1;
+// A TeX row break such as \\[2mm] is not a \[ display opener.
+const count = token => {
+  let total = 0;
+  for (let at = result.indexOf(token); at !== -1; at = result.indexOf(token, at + token.length)) {
+    if (at === 0 || result[at - 1] !== '\\') total++;
+  }
+  return total;
+};
 requireCheck(count('\\[') === count('\\]'), 'Unbalanced display math');
 requireCheck(count('\\(') === count('\\)'), 'Unbalanced inline math');
 requireCheck(!/[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(result), 'Control character');
 requireCheck(!/[\t ]+$/m.test(result), 'Trailing whitespace');
 requireCheck(!result.includes('setup-orders:insert-here'), 'Unresolved insertion marker');
 requireCheck(!/\^\\ell_\*/.test(result), 'Unbraced spherical exponent');
+requireCheck(!/(?<!\\)\bqquad\b/.test(result), 'Unescaped qquad command');
 
 function uniqueMatches(pattern, label) {
   const values = [...result.matchAll(pattern)].map(match => match[1]);
@@ -55,6 +63,27 @@ for (const match of prose.matchAll(/\]\(([^)\n]+)\)/g)) {
 for (const fragment of ['SETUP_INTEGRATION_ORDERS.md', 'SETUP_INTEGRATION_PROOFS.md']) {
   const text = fs.readFileSync(path.join(dir, fragment), 'utf8').trimEnd();
   requireCheck(result.includes(text), `Fragment differs from integrated text: ${fragment}`);
+}
+// Author completion fragments are mirrored into RESULT; their administrative
+// provenance paragraphs are deliberately not part of the theorem text.
+const sourceCompletion = fs.readFileSync(path.join(dir, 'SOURCE_INSERTION_COMPLETION.md'), 'utf8');
+const backendCompletion = fs.readFileSync(path.join(dir, 'DECODER_WORD_BACKEND.md'), 'utf8');
+const decoderCompletion = fs.readFileSync(path.join(dir, 'DECODER_FINITE_CONSTRUCTION.md'), 'utf8');
+const completedBlocks = [
+  ['insertion-completion:local', sourceCompletion.slice(sourceCompletion.indexOf('The first conclusion'), sourceCompletion.indexOf('## 6.'))],
+  ['insertion-completion:finite', sourceCompletion.slice(sourceCompletion.indexOf('## 6.'), sourceCompletion.indexOf('## 10.'))],
+  ['decoder-backend', backendCompletion.slice(backendCompletion.indexOf('All parameters in this section'))],
+  ['decoder-construction', decoderCompletion.slice(decoderCompletion.indexOf('## 1.'), decoderCompletion.indexOf('Scientific inputs actually read:'))],
+];
+for (const [name, text] of completedBlocks) {
+  const expected = text.trimEnd().replace(/^#{2,3} /gm, heading => '###' + heading);
+  const begin = '<!-- ' + name + ':start -->\n';
+  const end = '\n<!-- ' + name + ':end -->';
+  const at = result.indexOf(begin);
+  const stop = result.indexOf(end, at);
+  requireCheck(at >= 0 && stop > at, 'Missing completion block: ' + name);
+  requireCheck(result.slice(at + begin.length, stop) === expected,
+    'Completion fragment differs from integrated text: ' + name);
 }
 const output = {
   result_sha256: crypto.createHash('sha256').update(result).digest('hex'),
