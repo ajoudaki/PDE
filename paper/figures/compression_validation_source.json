@@ -1,7 +1,7 @@
 {
   "scope": "Finite-grid empirical results, not supremum/asymptotic/confidence certificates",
   "inventory": "Harmonic model tensors include metrics; Logarithmic numerical payload includes descriptors/caches",
-  "plot_source_sha256": "209fc002ec7b4ba13e0e2a34922d290514ce7ebc23ab3d030b978b01c76e74ef",
+  "plot_source_sha256": "e880ea9f6beca740f5d8031bfd12211360d302928412b7c8e4acc2cd165912cd",
   "reports": {
     "checks_01": {
       "config": {
@@ -279,6 +279,507 @@
       "finite_scope": "not an all-time or whole-sphere supremum or an asymptotic theorem",
       "complete": false,
       "runs": {}
+    },
+    "checks_driver_final_01": {
+      "config": {
+        "out": "data/generated/compression_empirical_validation_20261007/checks_driver_final_01",
+        "device": "cpu",
+        "width": 32,
+        "dimension": 3,
+        "samples": 3,
+        "queries": 8,
+        "seed": 101,
+        "data_seed": 47,
+        "horizon": 1.0,
+        "step": 0.125,
+        "per_run_seconds": 120.0,
+        "task": "toy",
+        "check_only": false,
+        "refine": true,
+        "small_width": 0,
+        "lora_rank": 0,
+        "lora_step": 0.01,
+        "lora_multiplier": 1.0,
+        "harmonic_budget": 32,
+        "source_rank": 8,
+        "time_degree": 3,
+        "spatial_degree": 3,
+        "time_nodes": 9,
+        "spatial_nodes": 64,
+        "log_probe": true,
+        "log_steps": 2,
+        "log_step": 0.5,
+        "log_noise": 0.01,
+        "log_queries": 4
+      },
+      "checks": {
+        "dense_gradient_max_abs": 2.220446049250313e-16,
+        "lora_gradient_max_abs": 2.220446049250313e-16
+      },
+      "source_sha256": "e880ea9f6beca740f5d8031bfd12211360d302928412b7c8e4acc2cd165912cd",
+      "python": "3.10.14",
+      "torch": "2.9.0+cu130",
+      "numpy": "1.26.4",
+      "device": "CPU",
+      "metric": "maximum over recorded physical times of unseen-input RMS",
+      "finite_scope": "not an all-time or whole-sphere supremum or an asymptotic theorem",
+      "complete": true,
+      "runs": {
+        "dense": {
+          "seconds": 0.007211305201053619,
+          "query_seconds": 0.00017902255058288574,
+          "query_refresh_seconds": 5.327165126800537e-06,
+          "query_timing_scope": "whole query batch, after readout refresh; amortized, not single-query latency",
+          "training_seconds": 0.006624303758144379,
+          "steps": 8,
+          "seconds_per_step": 0.0008280379697680473,
+          "moving_scalars": 1152,
+          "fixed_scalars": 0,
+          "losses": [
+            0.9999999999999997,
+            0.7277234950694348,
+            0.44540400625692794
+          ],
+          "process_peak_cuda_bytes": null,
+          "incremental_peak_cuda_bytes": null,
+          "peak_scope": "whole process, including other resident references; not isolated model memory",
+          "test_label_rms": 0.6185745932806955,
+          "feature_rms_movement": 0.09458037598754876,
+          "relative_feature_gram_change": 0.24723621001291893,
+          "refinement": {
+            "max_time_rms": 1.9119473000999163e-06,
+            "endpoint_rms": 1.9119473000999163e-06,
+            "curve": [
+              0.0,
+              1.2971882031717985e-06,
+              1.9119473000999163e-06
+            ]
+          },
+          "refinement_seconds": 0.011126495897769928
+        },
+        "dense_iid": {
+          "seconds": 0.005022592842578888,
+          "query_seconds": 0.00013493746519088745,
+          "query_refresh_seconds": 3.762543201446533e-06,
+          "query_timing_scope": "whole query batch, after readout refresh; amortized, not single-query latency",
+          "training_seconds": 0.004592128098011017,
+          "steps": 8,
+          "seconds_per_step": 0.0005740160122513771,
+          "moving_scalars": 1152,
+          "fixed_scalars": 0,
+          "losses": [
+            0.9999999999999997,
+            0.6880978946102534,
+            0.40855319423018827
+          ],
+          "process_peak_cuda_bytes": null,
+          "incremental_peak_cuda_bytes": null,
+          "peak_scope": "whole process, including other resident references; not isolated model memory",
+          "test_label_rms": 0.5634537726375584,
+          "refinement": {
+            "max_time_rms": 6.991171762912568e-07,
+            "endpoint_rms": 6.991171762912568e-07,
+            "curve": [
+              0.0,
+              3.3997663211474466e-07,
+              6.991171762912568e-07
+            ]
+          },
+          "refinement_seconds": 0.009837456047534943
+        },
+        "harmonic": {
+          "seconds": 0.012948684394359589,
+          "query_seconds": 0.00012138485908508301,
+          "query_refresh_seconds": 0.0004828795790672302,
+          "query_timing_scope": "whole query batch, after readout refresh; amortized, not single-query latency",
+          "training_seconds": 0.01158420741558075,
+          "steps": 8,
+          "seconds_per_step": 0.0014480259269475937,
+          "moving_scalars": 1155,
+          "fixed_scalars": 3072,
+          "losses": [
+            0.9999999999999997,
+            0.7277217415038463,
+            0.44540246925577137
+          ],
+          "process_peak_cuda_bytes": null,
+          "incremental_peak_cuda_bytes": null,
+          "peak_scope": "whole process, including other resident references; not isolated model memory",
+          "test_label_rms": 0.6185745826051022,
+          "refinement": {
+            "max_time_rms": 1.8824942645953487e-06,
+            "endpoint_rms": 1.8824942645953487e-06,
+            "curve": [
+              0.0,
+              1.4762805947585318e-06,
+              1.8824942645953487e-06
+            ]
+          },
+          "refinement_seconds": 0.021900497376918793,
+          "runtime_checks": {
+            "training_constraint_error": 1.1102230246251565e-16,
+            "feature_gram_min": 0.00035704932749053747,
+            "update_gram_min": 0.0031580520968665054,
+            "update_gram_symmetry_error": 5.551115123125783e-17,
+            "gram_action_error": 1.1102230246251565e-16
+          }
+        },
+        "matched_dense": {
+          "seconds": 0.005695931613445282,
+          "query_seconds": 0.00015766173601150513,
+          "query_refresh_seconds": 3.91155481338501e-06,
+          "query_timing_scope": "whole query batch, after readout refresh; amortized, not single-query latency",
+          "training_seconds": 0.005198463797569275,
+          "steps": 8,
+          "seconds_per_step": 0.0006498079746961594,
+          "moving_scalars": 4221,
+          "fixed_scalars": 0,
+          "losses": [
+            0.9999999999999997,
+            0.6688900346969259,
+            0.3738740068608899
+          ],
+          "process_peak_cuda_bytes": null,
+          "incremental_peak_cuda_bytes": null,
+          "peak_scope": "whole process, including other resident references; not isolated model memory",
+          "test_label_rms": 0.5963253864318286,
+          "refinement": {
+            "max_time_rms": 9.110993549127336e-07,
+            "endpoint_rms": 9.110993549127336e-07,
+            "curve": [
+              0.0,
+              4.7583247783195913e-07,
+              9.110993549127336e-07
+            ]
+          },
+          "refinement_seconds": 0.011065438389778137
+        },
+        "log_matched_dense": {
+          "seconds": 0.006379850208759308,
+          "query_seconds": 0.00025485455989837646,
+          "query_refresh_seconds": 4.015862941741943e-06,
+          "query_timing_scope": "whole query batch, after readout refresh; amortized, not single-query latency",
+          "training_seconds": 0.005656145513057709,
+          "steps": 8,
+          "seconds_per_step": 0.0007070181891322136,
+          "moving_scalars": 7740,
+          "fixed_scalars": 0,
+          "losses": [
+            0.9999999999999997,
+            0.6629964282774702,
+            0.36941917078977143
+          ],
+          "process_peak_cuda_bytes": null,
+          "incremental_peak_cuda_bytes": null,
+          "peak_scope": "whole process, including other resident references; not isolated model memory",
+          "refinement": {
+            "max_time_rms": 1.031532383742844e-06,
+            "endpoint_rms": 1.031532383742844e-06,
+            "curve": [
+              0.0,
+              5.38693801869129e-07,
+              1.031532383742844e-06
+            ]
+          },
+          "refinement_seconds": 0.017048880457878113,
+          "width": 86,
+          "target_model_words": 7771
+        }
+      },
+      "times": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "query_partition": "pilot",
+      "training_rank": 3,
+      "label_rms": 0.9999999999999998,
+      "query_count": 8,
+      "train_inputs_sha256": "bbfff3f7d2f97ff9e94cc7c04303b783ef767049a65029e14febb0fa5bdcfeba",
+      "test_inputs_sha256": "8006bcaf11c894cf1b12759f6af8af27ac0a11df30f427e54bd8ff075665d7c8",
+      "harmonic_setup": {
+        "seconds": 0.017902813851833344,
+        "rollout": {
+          "seconds": 0.012660332024097443,
+          "query_seconds": 0.0003925114870071411,
+          "query_refresh_seconds": 1.4409422874450684e-05,
+          "query_timing_scope": "whole query batch, after readout refresh; amortized, not single-query latency",
+          "training_seconds": 0.00901428610086441,
+          "steps": 12,
+          "seconds_per_step": 0.0007511905084053675,
+          "moving_scalars": 1152,
+          "fixed_scalars": 0,
+          "losses": [
+            0.9999999999999997,
+            0.9796566831955019,
+            0.9229290591523851,
+            0.8364835378064491,
+            0.7277226885593769,
+            0.6149738483455214,
+            0.5224088127816967,
+            0.46465878496218194,
+            0.44540283297619254
+          ],
+          "process_peak_cuda_bytes": null,
+          "incremental_peak_cuda_bytes": null,
+          "peak_scope": "whole process, including other resident references; not isolated model memory"
+        },
+        "projection": {
+          "backend": "sphere_polynomial_restriction_least_squares",
+          "certified": false,
+          "time_degree": 3,
+          "spatial_degree": 3,
+          "temporal_rank": 4,
+          "spatial_rank": 16,
+          "coefficient_count": 80,
+          "source_fit_errors": {
+            "h1": {
+              "max_coordinate_error": 0.10439417384521388,
+              "relative_frobenius_error": 0.03300926680194735
+            },
+            "h2": {
+              "max_coordinate_error": 0.1359595839918351,
+              "relative_frobenius_error": 0.05083817574867254
+            },
+            "delta1": {
+              "max_coordinate_error": 0.5731698417524924,
+              "relative_frobenius_error": 0.20120049203040685
+            },
+            "delta2": {
+              "max_coordinate_error": 0.3833213657352682,
+              "relative_frobenius_error": 0.10535326472451888
+            }
+          },
+          "error_scope": "residual at setup nodes only; not a uniform source certificate"
+        },
+        "source_contract": "complete finite-horizon offline rollout; not a zero-time jet implementation",
+        "test_queries_used": false,
+        "assembly_seconds": 0.0006217658519744873,
+        "diagnostics": {
+          "branch": "full_retention_uncompressed",
+          "requested_budget": 32,
+          "widths": [
+            32,
+            32
+          ],
+          "source_ranks": [
+            32,
+            32
+          ],
+          "certified_source_setup": false,
+          "initial_feature_gram_min": 0.0005858673772072633,
+          "initial_feature_gram_condition": 288.2057134343232,
+          "moving_scalars": 1155,
+          "fixed_scalars": 3072
+        },
+        "seconds_total_after_dense_allocation": 0.018894635140895844,
+        "whole_process_peak_cuda_bytes": null,
+        "peak_scope": "source rollout, spectral fit and assembly; includes other resident references"
+      },
+      "matched_budget": {
+        "target_total_scalars": 4227,
+        "dense_width": 63,
+        "dense_total_scalars": 4221
+      },
+      "dense_variability": {
+        "max_time_rms": 0.11728484054332132,
+        "endpoint_rms": 0.11728484054332132,
+        "curve": [
+          0.0,
+          0.060128161686267195,
+          0.11728484054332132
+        ]
+      },
+      "comparisons": {
+        "frozen_ntk": {
+          "max_time_rms": 0.0646066767252105,
+          "endpoint_rms": 0.0646066767252105,
+          "curve": [
+            0.0,
+            0.013130629614617475,
+            0.0646066767252105
+          ],
+          "ratio_to_dense_pair": 0.5508527481123772,
+          "combined_numerical_sensitivity": 1.9119473000999163e-06,
+          "dense_pair_numerical_sensitivity": 2.611064476391173e-06,
+          "numerically_resolved": true,
+          "comparability_pass": true
+        },
+        "matched_dense": {
+          "max_time_rms": 0.05019079128962771,
+          "endpoint_rms": 0.05019079128962771,
+          "curve": [
+            0.0,
+            0.024394582372828138,
+            0.05019079128962771
+          ],
+          "ratio_to_dense_pair": 0.42793928914529084,
+          "combined_numerical_sensitivity": 2.82304665501265e-06,
+          "dense_pair_numerical_sensitivity": 2.611064476391173e-06,
+          "numerically_resolved": true,
+          "comparability_pass": true
+        },
+        "harmonic": {
+          "max_time_rms": 3.89361652737768e-08,
+          "endpoint_rms": 3.89361652737768e-08,
+          "curve": [
+            0.0,
+            3.459948142780111e-08,
+            3.89361652737768e-08
+          ],
+          "ratio_to_dense_pair": 3.3197952176432393e-07,
+          "combined_numerical_sensitivity": 3.794441564695265e-06,
+          "dense_pair_numerical_sensitivity": 2.611064476391173e-06,
+          "numerically_resolved": true,
+          "comparability_pass": true
+        },
+        "logarithmic": {
+          "max_time_rms": 0.0533456384488006,
+          "endpoint_rms": 0.0533456384488006,
+          "curve": [
+            0.0,
+            0.010625827473725166,
+            0.0533456384488006
+          ],
+          "ratio_to_dense_pair": 0.5864595910632096,
+          "scope": "recorded times and query subset only; empirical finite Euler program",
+          "dense_pair_numerical_sensitivity": 2.8089529491432943e-06,
+          "dense_reference_numerically_resolved": true,
+          "comparability_pass": true
+        },
+        "log_matched_dense": {
+          "max_time_rms": 0.09838197709837194,
+          "endpoint_rms": 0.09838197709837194,
+          "curve": [
+            0.0,
+            0.0513386391897086,
+            0.09838197709837194
+          ],
+          "ratio_to_dense_pair": 1.0815702226992185
+        }
+      },
+      "logarithmic_probe": {
+        "model": "logarithmic_empirical_finite_program",
+        "width": 32,
+        "seed": 50101,
+        "steps": 2,
+        "step": 0.5,
+        "final_time": 1.0,
+        "observation_noise": 0.01,
+        "device": "cpu",
+        "requested_device": "cpu",
+        "dtype": "float64",
+        "members": 1,
+        "completed": true,
+        "mechanism": "named row DAG, both-orientation conditional Gaussian actions, selected metric, causal replay, empirical row-stream queries",
+        "empirical_backend": "counter PRNG Gaussian packets; float64; Euler; one member; no certified precision/PRG/confidence claim",
+        "capture_steps": [
+          0,
+          1,
+          2
+        ],
+        "capture_times": [
+          0.0,
+          0.5,
+          1.0
+        ],
+        "source_seconds": 0.00986391305923462,
+        "named_fields": 109,
+        "innovation_fields": 15,
+        "source_training_losses": [
+          0.9999999999999997,
+          0.7028761248835625,
+          0.4194841901002609
+        ],
+        "source_field_payload_bytes": 27904,
+        "selected_rank": 32,
+        "numerical_rank_tolerance": 1.3096660381948879e-13,
+        "rank_rule": "column-normalized SVD, eps * max(shape) * largest singular value; no rank cap",
+        "selected_basis_condition": 1.0,
+        "field_reconstruction_relative_error": 0.0,
+        "rank_saturated": true,
+        "discarded_normalized_singular_max": 0.0,
+        "metric_seconds": 0.11572927981615067,
+        "training_seconds": 0.007044501602649689,
+        "minimum_computed_conditional_variance": 0.0,
+        "scalar_replay_max_abs": 0.0,
+        "scalar_replay_max_scaled": 0.0,
+        "training_prediction_replay_max_abs": 0.0,
+        "replay_passed": true,
+        "training_losses": [
+          0.9999999999999997,
+          0.7028761248835625,
+          0.4194841901002609
+        ],
+        "retained": {
+          "parts": {
+            "selected_field_values": 3488,
+            "cached_metric_products": 1504,
+            "metric": 1024,
+            "selected_row_indices": 32,
+            "immutable_affine_coefficients": 232,
+            "field_instructions": 720,
+            "acquired_pairs": 693,
+            "training_data": 12,
+            "recorded_training_observables": 6,
+            "live_parameter_ids": 22,
+            "gaussian_history_ids": 30,
+            "generator_seed_counters_and_scalar_controls": 20
+          },
+          "numerical_words": 7783,
+          "payload_bytes": 62264,
+          "accounting": "float64 arrays plus 64-bit scalar/index payload; excludes Python object overhead",
+          "dense_hidden_matrix_retained": false,
+          "future_scalar_answers_retained": false,
+          "source_object_discarded": true,
+          "selected_cache_covers_full_width": true
+        },
+        "dense_parameter_words": 1152,
+        "retained_to_dense_parameter_ratio": 6.756076388888889,
+        "status": "complete",
+        "query_seconds": 0.008796915411949158,
+        "query_count": 4,
+        "total_query_calls": 12,
+        "query_stream_passes": 8,
+        "query_batch_size": 4,
+        "query_execution": "shared row regeneration; separate posterior coefficients and same reserved innovation per input",
+        "query_row_scratch_words": 6368,
+        "query_scratch": {
+          "row_block_words": 6368,
+          "scalar_descriptor_words": 904,
+          "conditional_solve_word_envelope": 8064,
+          "batched_scalar_words": 552
+        },
+        "retained_plus_query_word_envelope": 23671,
+        "query_scratch_note": "numeric/index payload envelope; excludes Python and LAPACK internal workspace",
+        "external_observation_words": 12,
+        "query_preserved_training_transcript": true,
+        "seconds": 0.1416752189397812,
+        "dense_variability_same_queries": {
+          "max_time_rms": 0.09096217243559569,
+          "endpoint_rms": 0.09096217243559569,
+          "curve": [
+            0.0,
+            0.04823425011843271,
+            0.09096217243559569
+          ]
+        },
+        "comparison": {
+          "max_time_rms": 0.0533456384488006,
+          "endpoint_rms": 0.0533456384488006,
+          "curve": [
+            0.0,
+            0.010625827473725166,
+            0.0533456384488006
+          ],
+          "ratio_to_dense_pair": 0.5864595910632096,
+          "scope": "recorded times and query subset only; empirical finite Euler program",
+          "dense_pair_numerical_sensitivity": 2.8089529491432943e-06,
+          "dense_reference_numerically_resolved": true,
+          "comparability_pass": true
+        }
+      },
+      "requested_methods_completed": true
     },
     "checks_final_01": {
       "config": {

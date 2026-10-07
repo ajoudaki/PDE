@@ -232,12 +232,12 @@ initial split, and no individual real-data model is allowed over 300 seconds.
 
 ## Final outcomes and publication selection
 
-No further tuning follows the final confirmation. The ledger contains 399
+No further tuning follows the final confirmation. The scientific campaign contains 399
 recorded model/source executions under the accounting convention above,
 including 69 real-data executions and separate refinements. Recorded dense,
 Harmonic, small-network and LoRA solver work totals about 1,254 seconds;
 source assembly and Logarithmic work are additional and recorded separately.
-There are 52 report files, including check-only and failed/partial records;
+At campaign close there were 52 report files, including check-only and failed/partial records;
 driver completion is distinct from every requested method completing.
 The failed d=10 twenty-panel decoder stopped at 120.08 seconds: the
 deadline is checked between numerical operations, not a hard process kill.
@@ -285,10 +285,21 @@ its plot-eligibility finding was fixed without dropping failed accuracy cases.
 These are internal implementation and measurement audits, not independent
 validation of the theoretical proof chain.
 
-Publication exports are in `figures_final_01`. Rerendering solely from the
+Publication figures are in `figures_final_01`. Rerendering solely from the
 versioned JSON bundle in `portable_replot_01` produces byte-identical PNGs.
 The manuscript build in `paper_build_ByuJlC` has 199 pages and no final LaTeX
 warnings, unresolved references or overfull boxes. Main-text figure page 13,
 supplementary figure page 18 and the new empirical prose were visually checked;
 the checked PDF is copied to `paper/main.pdf`. The theorem modules and static
 proof appendix were not changed by this empirical integration.
+
+The closing independent audit also verified the final LoRA and real-decoder
+records. Its numerical-gate hardening was applied: both dense references must
+be numerically resolved, and decoder refinement uses exactly its sampled
+times and queries. Recomputing these stricter checks from all 25 confirmation
+arrays changes no outcome; the largest full-grid dense-pair sensitivity is
+0.000578 dense-pair units. `checks_driver_final_01` is a separate width-32
+functional regression (not a scientific scaling run) covering both gates and
+the smaller decoder query subset. The final portable ledger in
+`figures_final_02` includes this check, for 53 reports in total. Historical
+run reports retain their original gate fields rather than being rewritten.

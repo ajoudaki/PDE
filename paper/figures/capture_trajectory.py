@@ -923,10 +923,14 @@ def validation_main(argv):
                 comparison = trajectory_rms(arrays[name], arrays['dense'])
                 comparison['ratio_to_dense_pair'] = comparison['max_time_rms']/denominator if denominator > 1e-14 else None
                 sensitivity = report['runs']['dense'].get('refinement', {}).get('max_time_rms')
+                iid_sensitivity = report['runs']['dense_iid'].get('refinement', {}).get('max_time_rms')
                 own_sensitivity = 0. if name == 'frozen_ntk' else report['runs'][name].get('refinement', {}).get('max_time_rms')
                 combined = sensitivity + own_sensitivity if sensitivity is not None and own_sensitivity is not None else None
+                pair_sensitivity = sensitivity + iid_sensitivity if sensitivity is not None and iid_sensitivity is not None else None
                 comparison['combined_numerical_sensitivity'] = combined
-                comparison['numerically_resolved'] = bool(combined is not None and combined <= .1*denominator)
+                comparison['dense_pair_numerical_sensitivity'] = pair_sensitivity
+                comparison['numerically_resolved'] = bool(combined is not None and pair_sensitivity is not None
+                    and max(combined, pair_sensitivity) <= .1*denominator)
                 comparison['comparability_pass'] = bool(comparison['numerically_resolved'] and
                                                        denominator > 1e-14 and comparison['ratio_to_dense_pair'] <= 3.)
                 report['comparisons'][name] = comparison
@@ -950,8 +954,12 @@ def validation_main(argv):
                 scale = variability['max_time_rms']
                 comparison['ratio_to_dense_pair'] = comparison['max_time_rms']/scale if scale > 1e-14 else None
                 comparison['scope'] = 'recorded times and query subset only; empirical finite Euler program'
+                pair_sensitivity = (sum(trajectory_rms(arrays[name][log_indices, :count],
+                    arrays[name+'_coarse'][log_indices, :count])['max_time_rms']
+                    for name in ('dense', 'dense_iid')) if args.refine else None)
+                comparison['dense_pair_numerical_sensitivity'] = pair_sensitivity
                 comparison['dense_reference_numerically_resolved'] = bool(args.refine and
-                    report['runs']['dense']['refinement']['max_time_rms'] < .1*scale)
+                    pair_sensitivity < .1*scale)
                 comparison['comparability_pass'] = bool(comparison['dense_reference_numerically_resolved'] and
                     log_info['replay_passed'] and scale > 1e-14 and comparison['ratio_to_dense_pair'] <= 3.)
                 log_info['dense_variability_same_queries'] = variability
