@@ -1445,6 +1445,7 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
     if not all(bool(torch.isfinite(value).all()) for value in (inputs, labels, queries)):
         raise FloatingPointError('Euler data contain nonfinite entries')
     predictions, times, observation_steps, losses = [], [], [], []
+    observed_gram_minima = []
     loss_check_steps, loss_check_times, loss_checks = [], [], []
     steps, current, last_step = 0, 0., 0.
     training_seconds = loss_seconds = query_seconds = refresh_seconds = 0.
@@ -1488,6 +1489,9 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
         times.append(current)
         observation_steps.append(steps)
         losses.append(loss)
+        if getattr(model, 'readout_floor', None) is not None:
+            gram = model._readout(state, inputs, labels)[-1]
+            observed_gram_minima.append(float(torch.linalg.eigvalsh(gram)[0]))
 
     def stopping_reason(loss):
         if time.monotonic()-started >= seconds:
@@ -1542,6 +1546,7 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
         requested_horizon=horizon, actual_horizon=current, steps=steps,
         times=times, observation_steps=observation_steps, losses=losses,
         final_training_mse=loss, loss_target=loss_target,
+        observed_feature_gram_minima=observed_gram_minima,
         loss_target_reached=(loss < loss_target if loss_target is not None else None),
         horizon_reached=(steps == horizon_steps if horizon_steps is not None else None),
         stop_reason=reason, complete=reason in ('horizon', 'loss_target'),
@@ -3845,7 +3850,11 @@ def compression_pilot_main(argv):
 
 
 def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed, seconds=180., step=.125):
-    """Measured temporal sources; scored query inputs are deliberately not an argument."""
+    """Sources on training/passive inputs; caller records whether passive nodes are scored.
+
+    Passive labels are never an argument. The unseen protocol uses disjoint
+    calibration nodes; the declared-panel protocol permits the scored inputs.
+    """
     panel = torch.cat((inputs, calibration))
     boundaries = [0., min(1., horizon)]
     while boundaries[-1] < horizon:
@@ -3922,7 +3931,7 @@ def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed
 
 @torch.no_grad()
 def compression_probe_main(argv):
-    """One small, fixed-budget unseen-query comparison, with no parameter search."""
+    """One fixed-budget unseen-query or declared-panel comparison; no search."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--device', default='cuda:0')
@@ -3932,10 +3941,14 @@ def compression_probe_main(argv):
     parser.add_argument('--digits', type=int, nargs=2, default=(3, 8))
     parser.add_argument('--samples', type=int, default=8)
     parser.add_argument('--calibration', type=int, default=32)
+    parser.add_argument('--panel-queries', type=int,
+                        help='Score exactly these many passive setup inputs; no other calibration inputs')
     parser.add_argument('--budget', type=int, help='Given retained width; omit for the original logarithmic rule')
     parser.add_argument('--source-rank', type=int, help='Given rank per source family; omit for the original rule')
     parser.add_argument('--readout-floor', type=float,
                         help='Enable rank-safe compression, including budget<samples, with this fixed floor')
+    parser.add_argument('--compare-legacy', action='store_true',
+                        help='Pair old/new on identical sources; cap floor at initial compact Gram gap/8')
     parser.add_argument('--source-step', type=float, default=.125)
     parser.add_argument('--seed', type=int, default=601)
     parser.add_argument('--horizon', type=float, default=32.)
@@ -3950,6 +3963,10 @@ def compression_probe_main(argv):
         parser.error('Need positive budget<width (also budget>=samples without --readout-floor) and source rank')
     if args.readout_floor is not None and (not math.isfinite(args.readout_floor) or args.readout_floor <= 0):
         parser.error('Readout floor must be finite and strictly positive')
+    if args.panel_queries is not None and args.panel_queries < 1:
+        parser.error('Panel query count must be positive')
+    if args.compare_legacy and args.readout_floor is None:
+        parser.error('Legacy comparison requires a positive --readout-floor cap')
     if (not math.isfinite(args.horizon) or args.horizon <= 0 or not math.isfinite(args.step)
             or args.step <= 0 or not math.isclose(.5/(2*args.step), round(.5/(2*args.step)), abs_tol=1e-9)):
         parser.error('Need a positive horizon and a step whose double divides the 0.5 observation interval')
@@ -3975,10 +3992,17 @@ def compression_probe_main(argv):
         inputs, labels, pool, truth = validation_data(64, args.samples, 0, 47, device,
                                                      'digits', 'test', True, 0, args.digits)
         permutation = np.random.default_rng(48).permutation(len(pool))
-        calibration = pool[permutation[:args.calibration]]
-        queries, query_truth = pool[permutation[args.calibration:]], truth[permutation[args.calibration:]]
-        if len(queries) == 0 or bool(((calibration[:, None]-queries[None]).square().sum(-1) == 0).any()):
-            raise ValueError('Calibration/test sets must be nonempty and disjoint')
+        if args.panel_queries is not None:
+            if args.panel_queries > len(pool):
+                raise ValueError('Panel query count exceeds held-out pool')
+            indices = permutation[:args.panel_queries]
+            calibration = queries = pool[indices]
+            query_truth = truth[indices]
+        else:
+            calibration = pool[permutation[:args.calibration]]
+            queries, query_truth = pool[permutation[args.calibration:]], truth[permutation[args.calibration:]]
+            if len(queries) == 0 or bool(((calibration[:, None]-queries[None]).square().sum(-1) == 0).any()):
+                raise ValueError('Calibration/test sets must be nonempty and disjoint')
         arrays.update(train_inputs=inputs.cpu().numpy(), train_labels=labels.cpu().numpy(),
                       calibration_inputs=calibration.cpu().numpy(), query_inputs=queries.cpu().numpy(),
                       query_labels=query_truth.cpu().numpy())
@@ -3993,8 +4017,27 @@ def compression_probe_main(argv):
         dense = DeepDense(args.width, 64, args.depth, args.activation, args.seed, device)
         coefficients, source = deep_rollout_sources(dense, inputs, labels, calibration,
                                                     args.horizon, rank, args.seed, step=args.source_step)
+        source['scored_inputs_used'] = args.panel_queries is not None
+        source['input_contract'] = ('declared_unlabeled_test_panel' if args.panel_queries is not None
+                                    else 'disjoint_unlabeled_calibration')
+        floor = args.readout_floor
+        legacy = None
+        if args.compare_legacy:
+            legacy = DeepHarmonic(dense, inputs, labels, coefficients, budget=budget)
+            floor = min(floor, legacy.diagnostics['initial_feature_gram_min']/8)
+            if floor <= 0:
+                raise ArithmeticError('Paired legacy comparison requires a positive initial Gram gap')
         compact = DeepHarmonic(dense, inputs, labels, coefficients, budget=budget,
-                               readout_floor=args.readout_floor)
+                               readout_floor=floor)
+        if legacy is not None:
+            geometry_error = max(float((a-b).abs().max())
+                for key in ('initial_state', 'metrics', 'metric_inverses')
+                for a, b in zip(getattr(legacy, key), getattr(compact, key)))
+            assert geometry_error < 1e-12
+            assert not any(item['truncated'] for item in compact.diagnostics['source_truncations'])
+            report['legacy_pairing'] = dict(initial_arrays_max_difference=geometry_error,
+                initial_training_gram_min=legacy.diagnostics['initial_feature_gram_min'],
+                floor=floor, floor_rule='min(requested_cap, initial_compact_training_Gram_min/8)')
         del coefficients
         synchronize(device)
         report['setup'] = dict(seconds=time.monotonic()-started, source=source,
@@ -4002,7 +4045,8 @@ def compression_probe_main(argv):
             if device.type == 'cuda' else None)
         if report['setup']['seconds'] > 180:
             raise TimeoutError('Source compilation exceeded its 180-second budget')
-        for name, model in (('dense', dense), ('compact', compact)):
+        for name, model in ([('dense', dense), ('compact', compact)]
+                            +([('legacy', legacy)] if legacy is not None else [])):
             moving = sum(v.numel() for v in model.initial_state)
             report[name+'_words'] = dict(moving=moving, fixed=model.fixed_scalars,
                                          total=moving+model.fixed_scalars)
@@ -4018,21 +4062,24 @@ def compression_probe_main(argv):
                     setattr(model, key, [v.to(device=destination, dtype=torch.float32) for v in getattr(model, key)])
         move(dense, 'cpu')
         move(compact, 'cpu')
+        if legacy is not None:
+            move(legacy, 'cpu')
         torch.save(dict(depth=compact.depth, activation=compact.activation,
                         initial_state=compact.initial_state, metrics=compact.metrics,
                         metric_inverses=compact.metric_inverses,
-                        readout_floor=args.readout_floor), args.out/'compiled_model.pt')
+                        readout_floor=floor), args.out/'compiled_model.pt')
         report['checkpoint_sha256'] = sha((args.out/'compiled_model.pt').read_bytes())
         inputs, labels, queries = [v.float() for v in (inputs, labels, queries)]
         del calibration, pool, truth
-        for name in ('dense', 'compact', 'iid', 'small'):
-            model = (dense if name == 'dense' else compact if name == 'compact' else
+        names = ['dense', 'compact', 'iid', 'small']+(['legacy'] if legacy is not None else [])
+        for name in names:
+            model = (dense if name == 'dense' else compact if name == 'compact' else legacy if name == 'legacy' else
                      DeepDense(args.width if name == 'iid' else small_width, 64, args.depth,
                                args.activation, args.seed+(10000 if name == 'iid' else 20000), device))
             move(model, device)
             words = sum(v.numel() for v in model.initial_state)+model.fixed_scalars
             for suffix, step in ([('_coarse', 2*args.step), ('', args.step)]
-                                 if name in ('dense', 'compact') else [('', args.step)]):
+                                 if name in ('dense', 'compact', 'legacy') else [('', args.step)]):
                 print(json.dumps(dict(event='probe_start', model=name+suffix, step=step,
                                       width=args.width, depth=args.depth)), flush=True)
                 state, prediction, info = integrate_euler(model, inputs, labels, queries, step,
@@ -4057,7 +4104,7 @@ def compression_probe_main(argv):
                 del model
         assert report['runs']['small']['total_model_words'] <= expected
         reference = arrays['dense'].astype(float)
-        for name in ('iid', 'compact', 'small'):
+        for name in [key for key in names if key != 'dense']:
             error = arrays[name].astype(float)-reference
             curve = np.sqrt(np.mean(error**2, axis=1))
             report['comparisons'][name] = dict(max_time_rms=float(curve.max()), endpoint_rms=float(curve[-1]),
@@ -4071,12 +4118,23 @@ def compression_probe_main(argv):
         report.update(refinement_sum=refinement, numerical_threshold=.1*variability,
             numerical_gate_pass=bool(refinement < .1*variability),
             all_fitted=all(report['runs'][name]['final_training_mse'] < .01
-                           for name in ('dense', 'compact', 'iid', 'small')),
-            complete=True, scored_inputs_used_for_setup=False,
+                           for name in names),
+            complete=True, scored_inputs_used_for_setup=args.panel_queries is not None,
+            scored_labels_used_for_setup=False,
             retained_scope='current model arrays including all fixed metrics/inverses; data and workspaces separate')
         for value in report['comparisons'].values():
             value['ratio_to_dense_pair'] = value['max_time_rms']/variability
         report['accuracy_pass'] = report['comparisons']['compact']['ratio_to_dense_pair'] <= 3
+        if legacy is not None:
+            legacy_refinement = sum(trajectory_rms(arrays[name].astype(float), arrays[name+'_coarse'].astype(float))
+                                    ['max_time_rms'] for name in ('dense', 'legacy'))
+            agreement = trajectory_rms(arrays['compact'].astype(float), arrays['legacy'].astype(float))
+            report.update(legacy_refinement_sum=legacy_refinement,
+                legacy_numerical_gate_pass=bool(legacy_refinement < .1*variability),
+                old_new_agreement=agreement,
+                preservation_pass=bool(agreement['max_time_rms'] <= .01*variability),
+                beats_matched_small=bool(report['comparisons']['compact']['max_time_rms']
+                                        < report['comparisons']['small']['max_time_rms']))
         print(json.dumps({k: report[k] for k in ('storage_reduction', 'comparisons', 'all_fitted',
                                                 'numerical_gate_pass', 'accuracy_pass')}), flush=True)
     except Exception as error:
@@ -4112,7 +4170,7 @@ def compression_sweep_main(argv):
         parser.error(f'Cannot read plan: {error}')
     allowed = {'--width', '--depth', '--activation', '--digits', '--samples', '--calibration',
                '--budget', '--source-rank', '--source-step', '--seed', '--horizon', '--step',
-               '--per-run-seconds'}
+               '--per-run-seconds', '--panel-queries', '--readout-floor', '--compare-legacy'}
     if not isinstance(plan, list) or not 1 <= len(plan) <= 24:
         parser.error('Each sweep manifest must contain 1–24 cases')
     for case in plan:
@@ -4166,15 +4224,20 @@ def compression_sweep_main(argv):
                 result['returncode'] = child.returncode
                 report = json.loads(Path(rows[index]['report']).read_text())
                 for key in ('complete', 'error', 'storage_reduction', 'comparisons', 'all_fitted',
-                            'numerical_gate_pass', 'accuracy_pass', 'dense_words', 'compact_words'):
+                            'numerical_gate_pass', 'accuracy_pass', 'dense_words', 'compact_words',
+                            'legacy_numerical_gate_pass', 'preservation_pass', 'beats_matched_small',
+                            'old_new_agreement'):
                     if key in report:
                         result[key] = report[key]
                 if report.get('source_sha256') != source_hash or sha(source.read_bytes()) != source_hash:
                     raise RuntimeError('Executable hash changed during case; comparison invalid')
                 if child.returncode == 0 and report.get('complete'):
                     result['status'] = 'complete'
-                    if report.get('all_fitted') and report.get('numerical_gate_pass'):
-                        result['outcome'] = 'pass' if report.get('accuracy_pass') else 'fail'
+                    if (report.get('all_fitted') and report.get('numerical_gate_pass')
+                            and report.get('legacy_numerical_gate_pass', True)):
+                        success = (report.get('accuracy_pass') and report.get('preservation_pass', True)
+                                   and report.get('beats_matched_small', True))
+                        result['outcome'] = 'pass' if success else 'fail'
                 else:
                     result.setdefault('error', f'Incomplete probe; return code {child.returncode}')
             except subprocess.TimeoutExpired:

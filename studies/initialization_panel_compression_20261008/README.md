@@ -242,3 +242,134 @@ Final training states were not saved, so the recorded actual training losses
 were checked against the execution/report path, not recomputed from final
 weights. These checks are not a paper promotion or a broad audit. The
 predeclared stop applies: no refinement or retuning campaign.
+
+## Eight-training / sixteen-test preservation check: frozen follow-up
+
+The user now explicitly requests a small new test in the earlier low-sample
+regime, and confirms that the 16 scored test inputs may enter setup, but not
+their labels. This is a continuation of implementation validation, not a new
+theoretical claim or reopening of the q<m campaign.
+
+Four cases only: digit pairs 3/8 and 1/7 crossed with (tanh, two hidden layers)
+and (SiLU, three hidden layers); n=8192, m=8, p=16, raw d=64, q=383,
+source-family rank15, seed601 and unchanged split/selector seeds. Use the
+same full-horizon RK4 source setup (step0.125) for old and new compression.
+There are no extra calibration inputs. Use the first16 points of the fixed
+seed48 permutation of the held-out pool; test labels are stored only to
+document provenance and never used in model initialization or training.
+
+Compute old and new initial states independently from those same sources and
+assert agreement of every state/metric array. Fix the new floor before its
+integration to min(0.0001, initial normalized compact training-Gram gap/8).
+This training-geometry rule is not tuned on test errors; it may be smaller
+than the absolute floor in the q<m experiment. The new spectral evaluator
+uses float64 internally, unlike legacy float32 Cholesky, so bitwise trajectory
+agreement is not presumed. Record Gram minima at observation times, without
+claiming these bound the unsampled trajectory.
+
+All five models (dense, independent dense, matched-small, old compact, new
+compact) use Euler step0.003125 to T=32. Dense and both compacts also run
+at step0.00625. Report max-time and endpoint panel RMS, actual training MSE,
+moving/fixed storage and times. A preservation pass requires old-new max-time
+RMS <=1% of iid-dense max-time RMS. Advantage additionally requires new
+compact RMS <=3 times iid-dense RMS and below matched-small RMS. Require all
+fine training MSEs<0.01; each dense+compact refinement sum must be below10%
+of iid variability. Failed numerical/fitting/runtime gates are inconclusive.
+
+Run the four fixed cases on the two available GPUs, cap setup and individual
+integrations at180s and each case at900s. No seed/rank/floor/width searches or
+scientific reruns. Stop after one scoped code/result consistency check; failed
+cases remain in the report. The executable stays in the existing single
+capture script; generated products remain under this study's data namespace
+and outside new Git commits, as required by the shared workflow.
+
+### Outcome: preservation holds at both tested Euler steps
+
+All four cases completed without retuning. Old/new maximum-time prediction
+RMS difference was at most 6.055e-7 on the fine grid and 3.708e-7 on the coarse
+grid. All initial state and metric arrays agreed exactly, and no source
+truncation occurred. Thus the q<m extension preserves the previous full-source
+implementation in these tests; this does not improve its deficient-budget
+accuracy. The old and new models beat matched-small dense in all four saved
+Euler runs. Two tanh cases pass the full fitting/refinement/accuracy gates;
+the two SiLU cases remain inconclusive for the stricter GF-accuracy claim
+because both old and new fail the predeclared refinement gate.
+
+Maximum over the 65 recorded times of RMS discrepancy from coupled dense,
+using all16 declared test inputs (not ground-truth-label MSE):
+
+| Digits / activation / hidden depth | Iid dense | Old compact | New compact | Matched small |
+|---|---:|---:|---:|---:|
+| 3/8 / tanh / 2 | 0.0120061 | 0.0127820 | 0.0127820 | 0.0283108 |
+| 1/7 / tanh / 2 | 0.0126452 | 0.0108903 | 0.0108903 | 0.0254512 |
+| 3/8 / SiLU / 3 | 0.0627040 | 0.0451164 | 0.0451169 | 0.0781932 |
+| 1/7 / SiLU / 3 | 0.0711107 | 0.0178339 | 0.0178339 | 0.2558581 |
+
+Endpoint RMS in the same order:
+
+| Digits / activation | Iid dense | Old compact | New compact | Matched small |
+|---|---:|---:|---:|---:|
+| 3/8 / tanh | 0.0120057 | 0.0127817 | 0.0127816 | 0.0281718 |
+| 1/7 / tanh | 0.00983393 | 0.0108903 | 0.0108903 | 0.0164110 |
+| 3/8 / SiLU | 0.0302960 | 0.0229638 | 0.0229637 | 0.0468894 |
+| 1/7 / SiLU | 0.0161612 | 0.0178339 | 0.0178339 | 0.0700084 |
+
+For tanh, the new compact model stores 171,592 moving and 440,068 fixed scalars, total
+611,660 versus 67,641,344 dense: 110.5865-fold model compression. For SiLU,
+318,281 moving +733,446 fixed =1,051,727 versus 134,750,208 dense:
+128.1228-fold. Old compact has one fewer scalar (no floor). The matched small
+widths are750 and709, with611,250 and1,051,447 scalars. Common training-data
+storage is520 scalars; the declared16 test inputs occupy another1024 if kept
+alongside the model. Neither data nor workspaces are included in those model
+ratios. Source histories and the dense model are discarded at deployment.
+
+All five fine models in all cases have actual training MSE below0.000401.
+New compact MSEs, in table order, are 9.24014e-5, 2.95400e-4, 2.75835e-6
+and9.09013e-5. The sum of dense+new coarse/fine max-time discrepancies versus
+the 10%-iid thresholds is (0.00107210,0.00120061),
+(0.00126104,0.00126452), (0.00685166,0.00627040) and
+(0.00784479,0.00711107). The second tanh case passes narrowly; both SiLU
+cases fail. Legacy refinement has the same outcomes. These are empirical
+refinement diagnostics, not rigorous bounds on the continuous flow.
+
+The fixed floors were1e-4 for tanh and 2.12663e-5 /2.17526e-5 for SiLU3/8
+and1/7. The minimum observed training-Gram gaps were respectively0.00132570,
+0.00117622, 0.000170130 and0.000174021, all above the corresponding floors.
+These observations support the expected inactive-filter mechanism at the
+sampled times; they do not certify the gap between observations or all time.
+Legacy uses float32 Cholesky, new uses a float64 spectral reconstruction
+cast back to float32; sub-micro RMS differences are consistent with that
+arithmetic distinction. Source and initial metric assembly are float64.
+
+| Case | Setup seconds | Fine dense | Fine old | Fine new | Fine iid | Fine small |
+|---|---:|---:|---:|---:|---:|---:|
+| tanh3/8 | 6.63 | 25.47 | 24.97 | 31.67 | 25.46 | 8.65 |
+| tanh1/7 | 6.30 | 24.82 | 24.80 | 31.29 | 24.85 | 8.57 |
+| SiLU3/8 | 11.95 | 54.16 | 34.41 | 41.50 | 50.80 | 13.04 |
+| SiLU1/7 | 11.43 | 48.56 | 34.23 | 40.72 | 48.55 | 12.75 |
+
+Every integration stayed below180s. The four cases, including all coarse
+checks, took roughly7.4 minutes elapsed using both RTX3090s. No additional
+experiments were launched after the failed SiLU gates. Setup still uses the
+full-horizon disposable dense rollout; this check does not establish a cheap
+initialization-only compiler, whole-sphere approximation or logarithmic
+asymptotic accuracy. The test inputs were explicitly available to setup.
+
+Reproduction uses [PANEL_PRESERVATION_PLAN.json](PANEL_PRESERVATION_PLAN.json):
+`/home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py
+compression-sweep --plan studies/initialization_panel_compression_20261008/PANEL_PRESERVATION_PLAN.json
+--devices cuda:0 cuda:1 --out data/generated/initialization_panel_compression_20261008/panel_preservation_8_16
+--case-seconds 900`, with a fresh output folder. Frozen executable SHA256:
+`a0ca039bba4d319910c467f65f5226306bbce00b4775a13cb1b13bdd0339ab60`.
+The [summary](../../data/generated/initialization_panel_compression_20261008/panel_preservation_8_16/summary.json)
+links all four per-case reports, arrays, model checkpoints and logs. As in the
+previous test, final training states were not saved; prediction arrays and
+reported actual training losses remain distinct evidence products.
+
+One scoped independent artifact/code check reconstructed all RMS, refinement
+and gate values, verified frozen source/checkpoint hashes, and counted model
+arrays. It confirmed the two sizes, the one-scalar old/new difference,
+training/panel separation and test-label exclusion. All four preserve the
+old implementation at both saved Euler resolutions; only the two tanh cases
+pass the additional GF comparison gate. No unresolved artifact inconsistency
+was found, and no extra runs or broad audit were added.

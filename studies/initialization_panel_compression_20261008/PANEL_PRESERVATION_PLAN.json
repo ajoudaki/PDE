@@ -1,0 +1,6 @@
+[
+  {"name":"tanh_L2_digits38","args":["--width","8192","--depth","2","--activation","tanh","--digits","3","8","--samples","8","--panel-queries","16","--budget","383","--source-rank","15","--readout-floor","0.0001","--compare-legacy","--horizon","32","--step","0.003125","--source-step","0.125","--seed","601","--per-run-seconds","180"]},
+  {"name":"tanh_L2_digits17","args":["--width","8192","--depth","2","--activation","tanh","--digits","1","7","--samples","8","--panel-queries","16","--budget","383","--source-rank","15","--readout-floor","0.0001","--compare-legacy","--horizon","32","--step","0.003125","--source-step","0.125","--seed","601","--per-run-seconds","180"]},
+  {"name":"silu_L3_digits38","args":["--width","8192","--depth","3","--activation","silu","--digits","3","8","--samples","8","--panel-queries","16","--budget","383","--source-rank","15","--readout-floor","0.0001","--compare-legacy","--horizon","32","--step","0.003125","--source-step","0.125","--seed","601","--per-run-seconds","180"]},
+  {"name":"silu_L3_digits17","args":["--width","8192","--depth","3","--activation","silu","--digits","1","7","--samples","8","--panel-queries","16","--budget","383","--source-rank","15","--readout-floor","0.0001","--compare-legacy","--horizon","32","--step","0.003125","--source-step","0.125","--seed","601","--per-run-seconds","180"]}
+]
