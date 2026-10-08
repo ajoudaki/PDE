@@ -141,3 +141,116 @@ study Markdown files produced no whitespace errors; the Git index remained
 empty. No maintained docs/code, other study, or existing user changes were
 edited. The result is ready for the user to inspect. No further campaign or
 promotion is started by this handoff.
+
+## 2026-10-08: authorized practical fixed-panel digit comparison
+
+The user now explicitly requests implementing this study's construction and
+testing one digit pair against the ordinary large dense reference and a
+storage-matched smaller dense model. This authorizes the present empirical
+continuation and scoped changes to `paper/figures/capture_trajectory.py`;
+the earlier no-experiment statement describes the original theoretical work.
+No theorem or paper text will be changed. Other studies are not inputs.
+
+### Frozen experimental contract
+
+Use sklearn's raw 8-by-8 digits, classes 3 and 8, all 64 pixels, per-image
+unit normalization and no PCA. Use the existing stratified seed-47 split:
+100 training samples, every remaining example in the predeclared validation
+panel. Only training labels may enter initialization and dynamics. Reference
+width is 4096, with two hidden tanh layers, Gaussian initialization, zero
+readout, MSE and canonical mobilities. The comparison is physical-time Euler
+for every model, with a half-step check; the panel optimizer is the specified
+corrected-readout optimizer, not falsely called ordinary GD.
+
+The practical compiler uses only order-two initialization jets. It retains
+exact initialized training feature/image directions and first-weight columns,
+and rank-eight approximations of the four panel source families before
+forming exact initialized image pairs. Its selected-coordinate metrics are
+constructed by oversampled coordinate restriction with exact source isometry;
+measured conditioning and diagonal-comparison constants will be reported.
+This replaces the expensive BSS selector with a numerical selector and omits
+the globally continued high-order jets. Therefore it is an empirical
+implementation of the study's architecture/runtime, not a certified
+realization of its asymptotic source bounds. It is not trajectory playback,
+the bounded Gaussian packet initializer, or a frozen-feature model.
+
+Start with a fixed coordinate budget of 768 per layer. Select the small
+dense width to match all retained model arrays, including the fixed metrics
+and auxiliary residual, not just trainable weights. Common training and
+predeclared validation input storage is reported separately and equally.
+No source/dense arrays survive in the panel runtime. All models restart from
+their stored initial state for refinement comparisons; trajectories are
+experiment outputs, never model inputs.
+
+Primary statistic: validation prediction RMS against the same dense
+reference at the same final physical time. Also report the maximum sampled
+time RMS and time-averaged RMS, dense-versus-iid-dense RMS, training MSE,
+storage, setup time and runtime. RMS is not classification accuracy. A
+positive empirical comparison requires lower RMS than the matched small
+dense model and Euler refinement error below 10 percent of the smaller
+reported nonzero endpoint comparison. Failure of either accuracy comparison
+is retained; failed numerical validity is labeled inconclusive.
+
+Use model seeds 201 (source/reference), 202 (independent dense) and 203
+(matched small dense); this is one initialization comparison, not a
+multi-seed scaling claim. Choose the horizon from training losses only:
+start with the reference's first sampled MSE below 0.005, then extend to
+a common horizon if another model has MSE at least 0.01, up to time 200.
+Initial Euler steps are 0.05 and 0.025; if their comparison fails the
+discretization gate, one further 0.0125 refinement is allowed. No orders,
+seeds or digit pair may be selected by validation RMS. Conditioning failures
+permit one increase to 1024 coordinates, explicitly recorded, not a silent
+accuracy-tuned replacement. Each training run is capped at 300 seconds;
+setup is capped at 300 seconds, with no full dense rollout. Maximum 16
+training runs, two numerical setup attempts, and 60 minutes total compute.
+The experiment stops after these outcomes and reports any unmet gate.
+
+Lead owns implementation, this README and experiment synthesis. A fresh
+read-only scoped agent reads this study's three construction notes and checks
+the runtime/initial-jet mapping. A separate code check will inspect the final
+implementation. Generated records belong under
+`data/generated/finite_panel_absolute_compression_20261005/` in fresh folders.
+
+### Implementation and checks
+
+The new `panel-fit` and `panel-summary` commands live in the existing single
+`paper/figures/capture_trajectory.py` executable. `FinitePanelCompression`
+reuses the exact corrected runtime, not the bounded-packet ordinary-GF class.
+The compiler uses full panel forward jets and training-only backward jets;
+it truncates primary families before adding their exact initialized images.
+No global truncation destroys those paired directions. The setup object is
+discarded; a saved compiled checkpoint contains only selected weights, metrics,
+the incoming metric inverse, and scalar provenance.
+
+Checked implementation SHA256:
+`e6b50d066283dde9de2e2cc06e281efb1d706f8b99764fc3a822a9ffa45f7dec`.
+The fresh source-mapping agent read the three construction notes completely.
+The independent `finite_panel_code_check` agent read those notes and the
+relevant current implementation, without empirical results or other studies.
+It checked the runtime, coefficient provenance, storage, label isolation and
+summary contracts. Its independent backward-jet differentiation errors were
+at most 2.8e-17; no algebra or information-flow defect remained.
+Two reporting/audit corrections were implemented and rechecked: distinguish
+deployable storage from the benchmark restart copy and work buffers, and
+explicitly validate all model roles, source seeds, precision and matched
+budgets in the summary command.
+
+The persisted `--check-only` test compares the hidden/readout accelerations
+and forward jets against independent automatic differentiation, checks the
+metric/isometry and initialized forward/reverse identities, and checks
+nonlinear-runtime training constraints and restartability. Final fresh output:
+`data/generated/finite_panel_absolute_compression_20261005/check_final_v2/`.
+This is implementation validation, not promotion or a certificate for the
+empirical source truncation.
+
+The initial 768-coordinate setup completed in 2.35 seconds on an RTX 3090.
+Source ranks were 189 and 225; isometry error was at most 1.97e-14.
+Its measured diagonal-comparison factors were 7.63 and 12.22, not the
+theoretical BSS factor four. This qualification is retained in every report;
+the positive metrics and runtime are well defined, but the theorem is not
+invoked for these empirical orders, labels or metric constants.
+The source/state checkpoint is in `digits38_setup_q768_v1/` under the
+generated namespace. It has 639,844 moving and 1,769,472 fixed coordinates,
+2,409,316 total; the matched ordinary network has width 1,520 and
+2,409,200 weights. The common 357-input panel plus training labels adds
+22,948 real coordinates to either model.

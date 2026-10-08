@@ -496,6 +496,46 @@ def _harmonic_bss_metric(source_basis):
     return indices, metric, metric_inverse, diagonal, diagnostics
 
 
+def _panel_coordinate_metric(source_basis, budget, seed):
+    """Uniform coordinate selection with exact source isometry, not BSS.
+
+    The diagonal-comparison factor is measured, not asserted to be four.
+    The full positive metric and its inverse use the same correction formula
+    as the BSS backend; no ridge or discarded source directions are introduced.
+    """
+    n, rank = source_basis.shape
+    if not rank <= budget <= n:
+        raise ValueError(f'Panel coordinate budget {budget} cannot embed rank {rank} in width {n}')
+    generator = torch.Generator(device=source_basis.device).manual_seed(seed)
+    indices = torch.randperm(n, generator=generator, device=source_basis.device)[:budget]
+    selected = source_basis[indices]
+    identity = torch.eye(rank, dtype=selected.dtype, device=selected.device)
+    gram = selected.T @ selected / budget
+    eigenvalues = torch.linalg.eigvalsh((gram+gram.T)/2)
+    if float(eigenvalues[0]) <= 0 or float(eigenvalues[-1]/eigenvalues[0]) > 1e6:
+        raise ArithmeticError('Panel coordinate restriction is singular or too ill-conditioned')
+    # Rescale D so that I <= V^T D V <= kappa I. Consequently D/kappa <= M <= D.
+    diagonal = torch.full((budget,), 1/(budget*float(eigenvalues[0])),
+                          dtype=selected.dtype, device=selected.device)
+    gram = selected.T @ (diagonal[:, None]*selected)
+    gram = (gram+gram.T)/2
+    inverse = torch.linalg.solve(gram, identity)
+    weighted = diagonal[:, None]*selected
+    metric = torch.diag(diagonal)+weighted@(inverse@inverse-inverse)@weighted.T
+    metric_inverse = torch.diag(diagonal.reciprocal())+selected@(identity-inverse)@selected.T
+    metric, metric_inverse = (metric+metric.T)/2, (metric_inverse+metric_inverse.T)/2
+    diagnostics = dict(source_rank=rank, selected_width=budget, selector='uniform_exact_isometry',
+        seed=seed, embedding_min=1., embedding_max=float(eigenvalues[-1]/eigenvalues[0]),
+        bss_factor_four_satisfied=bool(eigenvalues[-1] <= 4*eigenvalues[0]),
+        source_isometry_error=float((selected.T@metric@selected-identity).abs().max()),
+        metric_inverse_error=float((metric@metric_inverse-torch.eye(budget,
+            dtype=selected.dtype, device=selected.device)).abs().max()),
+        constant_norm=float(metric.sum()), diagonal_mass=float(diagonal.sum()))
+    if max(diagnostics['source_isometry_error'], diagnostics['metric_inverse_error']) > 1e-8:
+        raise ArithmeticError(f'Panel metric construction lost numerical accuracy: {diagnostics}')
+    return indices, metric, metric_inverse, diagonal, diagnostics
+
+
 class Harmonic:
     """Two-hidden-layer autonomous metric/deficit optimizer from the appendix.
 
@@ -506,7 +546,7 @@ class Harmonic:
     """
 
     def __init__(self, dense, inputs, labels, source_coefficients=None, budget=None,
-                 source_rank=8, rank_tolerance=1e-9, selector='bss'):
+                 source_rank=8, rank_tolerance=1e-9, selector='bss', selection_seed=501):
         a0, w0, matrix0 = dense.initial_state
         n = len(w0)
         if matrix0.shape != (n, n) or a0.shape[0] != n:
@@ -518,8 +558,8 @@ class Harmonic:
             raise ValueError('Harmonic budget must permit a full-rank training feature Gram')
         if source_rank is not None and source_rank < 0:
             raise ValueError('source_rank must be nonnegative or None')
-        if selector != 'bss':
-            raise ValueError('Only the appendix BSS selector is implemented')
+        if selector not in ('bss', 'panel-uniform'):
+            raise ValueError('Unknown coordinate selector')
         h10, h20, _ = dense_fields(dense.initial_state, inputs)
         if budget >= n:
             self.metrics = [torch.eye(n, dtype=a0.dtype, device=a0.device)/n for _ in range(2)]
@@ -550,8 +590,12 @@ class Harmonic:
             optional2 = torch.cat((retained['h2'], retained['delta2'], matrix0@retained['h1']), dim=1)
             basis1, mandatory_error1 = _harmonic_source_basis(mandatory1, optional1)
             basis2, mandatory_error2 = _harmonic_source_basis(mandatory2, optional2)
-            selection1 = _harmonic_bss_metric(basis1)
-            selection2 = _harmonic_bss_metric(basis2)
+            if selector == 'bss':
+                selection1 = _harmonic_bss_metric(basis1)
+                selection2 = _harmonic_bss_metric(basis2)
+            else:
+                selection1 = _panel_coordinate_metric(basis1, budget, selection_seed)
+                selection2 = _panel_coordinate_metric(basis2, budget, selection_seed+1)
             i1, metric1, inverse1, diagonal1, diagnostic1 = selection1
             i2, metric2, inverse2, diagonal2, diagnostic2 = selection2
             if max(len(i1), len(i2)) > budget:
@@ -575,7 +619,9 @@ class Harmonic:
                              -(matrix0.T@retained['delta2'])[i1]
             def maximum(value):
                 return float(value.abs().max()) if value.numel() else 0.
-            self.diagnostics = dict(branch='empirical_spectral_setup_bss_runtime', certified_source_setup=False,
+            self.diagnostics = dict(branch=('empirical_spectral_setup_bss_runtime' if selector == 'bss'
+                                           else 'empirical_spectral_setup_metric_runtime'),
+                selector=selector, certified_source_setup=False,
                 requested_budget=budget, source_rank_limit=source_rank, rank_tolerance=rank_tolerance,
                 widths=[len(i1), len(i2)], source_ranks=[basis1.shape[1], basis2.shape[1]],
                 selection=[diagnostic1, diagnostic2], coefficient_truncation=truncation,
@@ -2773,6 +2819,347 @@ def euler_summary_main(argv):
                                   for label, row in report['models'].items()})), flush=True)
 
 
+@torch.no_grad()
+def finite_panel_initial_jets(dense, inputs, labels, panel):
+    """Order-two dense initialization jets, with no trajectory observations.
+
+    Forward coefficients cover all predeclared inputs; backward coefficients
+    involve training inputs only. Second derivatives are divided by 2!, so
+    these are Taylor coefficients, not samples from an evolved dense model.
+    """
+    a, w, matrix = dense.initial_state
+    if bool(w.ne(0).any()):
+        raise ValueError('Finite-panel jets require zero initial readout')
+    if not torch.equal(panel[:len(inputs)], inputs):
+        raise ValueError('The panel must start with the training inputs')
+    h1, h2, _ = dense_fields(dense.initial_state, panel)
+    m, n = len(labels), len(w)
+    train1, train2 = h1[:, :m], h2[:, :m]
+    dw = (2/m)*(train2@labels)
+    dc = (-2/m)*(train2.T@(train2@labels)/n)
+    ddw = (2/m)*(train2@dc)
+    delta2_first = (1-train2.square())*dw[:, None]
+    delta1_first = (1-train1.square())*(matrix.T@delta2_first)
+    delta2_second = (1-train2.square())*ddw[:, None]
+    delta1_second = (1-train1.square())*(matrix.T@delta2_second)
+    dda = (2/m)*(delta1_first*labels)@inputs
+    ddb = (2/(m*n))*(delta2_first*labels)@train1.T
+    ddh1 = (1-h1.square())*(dda@panel.T)
+    ddh2 = (1-h2.square())*(ddb@h1+matrix@ddh1)
+    return dict(h1=torch.cat((h1, .5*ddh1), dim=1),
+                h2=torch.cat((h2, .5*ddh2), dim=1),
+                delta1=torch.cat((delta1_first, .5*delta1_second), dim=1),
+                delta2=torch.cat((delta2_first, .5*delta2_second), dim=1)), [dda, ddw, ddb]
+
+
+class FinitePanelCompression(Harmonic):
+    """Empirical zero-time-jet compiler for the finite-panel corrected runtime.
+
+    Only source generation/coordinate selection differ from the Harmonic
+    compiler. The nonlinear autonomous equations are precisely the shared
+    metric/deficit optimizer. Low-order jets and numerical selection do not
+    inherit the continued-source theorem's all-time accuracy certificate.
+    """
+
+    def __init__(self, dense, inputs, labels, queries, budget=768, source_rank=8,
+                 selection_seed=501):
+        panel = torch.cat((inputs, queries))
+        sources, _ = finite_panel_initial_jets(dense, inputs, labels, panel)
+        super().__init__(dense, inputs, labels, sources, budget=budget,
+                         source_rank=source_rank, selector='panel-uniform',
+                         selection_seed=selection_seed)
+        self.diagnostics.update(branch='finite_panel_initial_jets',
+            training_inputs=len(inputs), passive_inputs=len(queries),
+            source_jet_order=2, dense_rollout_steps=0,
+            passive_labels_used=False, passive_inputs_declared_before_initialization=True,
+            source_scope='rank-truncated order-two jets, not continued global source coefficients',
+            guarantee='empirical only; no log^5 accuracy certificate')
+
+
+@torch.no_grad()
+def finite_panel_small_checks():
+    """Independent jet oracle, algebra, restart and information-flow checks."""
+    torch.set_default_dtype(torch.float64)
+    inputs = torch.tensor([[1., 0.], [.6, .8], [-.8, .6]])
+    labels = torch.tensor([.7, -.4, .3])
+    queries = torch.tensor([[0., 1.], [-.6, -.8]])
+    dense = Dense(80, 2, 201, 'cpu')
+    state = tuple(dense.initial_state)
+    velocity = tuple(dense_rhs(state, inputs, labels))
+    sources, acceleration = finite_panel_initial_jets(
+        dense, inputs, labels, torch.cat((inputs, queries)))
+    _, oracle = torch.func.jvp(lambda *s: tuple(dense_rhs(s, inputs, labels)), state, velocity)
+    jet_error = max(float((a-b).abs().max()) for a, b in zip(acceleration, oracle))
+    _, forward_oracle = torch.func.jvp(
+        lambda *s: dense_fields(s, torch.cat((inputs, queries)))[:2], state, tuple(acceleration))
+    for name, expected in zip(('h1', 'h2'), forward_oracle):
+        jet_error = max(jet_error, float((2*sources[name][:, 5:]-expected).abs().max()))
+    assert jet_error < 1e-12, jet_error
+    model = FinitePanelCompression(dense, inputs, labels, queries, budget=48, source_rank=2)
+    errors = model.diagnostics['mandatory_source_errors']+model.diagnostics['initialized_feature_errors']
+    errors += [model.diagnostics[key] for key in (
+        'initialized_gram_error', 'paired_forward_action_error', 'paired_reverse_action_error')]
+    errors += [row[key] for row in model.diagnostics['selection']
+               for key in ('source_isometry_error', 'metric_inverse_error')]
+    assert max(errors) < 1e-10, errors
+    final, prediction, info = integrate_euler(model, inputs, labels, queries,
+        step=.005, seconds=20, horizon=.2, observation_every=20)
+    checks = model.runtime_checks(final, inputs, labels)
+    assert checks['training_constraint_error'] < 1e-11, checks
+    assert checks['gram_action_error'] < 1e-11, checks
+    restored = FinitePanelCompression.__new__(FinitePanelCompression)
+    restored.metrics = [x.clone() for x in model.metrics]
+    restored.metric_inverses = [x.clone() for x in model.metric_inverses]
+    restored.initial_state = [x.clone() for x in final]
+    restored.fixed_scalars = model.fixed_scalars
+    restart_error = max(float((a-b).abs().max()) for a, b in zip(
+        model.rhs(final, inputs, labels), restored.rhs(restored.initial_state, inputs, labels)))
+    assert restart_error == 0
+    assert not any(hasattr(model, key) for key in ('dense', 'sources', 'panel', 'queries'))
+    assert model.fixed_scalars == sum(x.numel() for x in model.metrics+model.metric_inverses)
+    return dict(jet_jvp_max_abs=jet_error, setup_max_abs=max(errors),
+                runtime=checks, restart_rhs_max_abs=restart_error,
+                passive_labels_used=False, full_dense_or_source_retained=False)
+
+
+def finite_panel_summary_main(argv):
+    """Audit common data/time/Euler contracts and compare saved predictions."""
+    parser = argparse.ArgumentParser(description='Audit a one-pair finite-panel comparison')
+    parser.add_argument('--out', type=Path, required=True)
+    for name in ('dense', 'iid', 'panel', 'small'):
+        parser.add_argument('--'+name, type=Path, required=True)
+        parser.add_argument('--'+name+'-coarse', type=Path, required=True)
+    args = parser.parse_args(argv)
+    rows, arrays, refinements, reports = {}, {}, {}, {}
+    reference_arrays = None
+    for name in ('dense', 'iid', 'panel', 'small'):
+        directory = getattr(args, name)
+        report = json.loads((directory/'report.json').read_text())
+        coarse_report = json.loads((getattr(args, name+'_coarse')/'report.json').read_text())
+        expected_model = dict(dense='dense', iid='dense', panel='panel', small='small')[name]
+        if report['config']['model'] != expected_model or coarse_report['config']['model'] != expected_model:
+            raise ValueError(f'{name}: incorrect model identity')
+        for key in ('seed', 'width', 'budget', 'source_rank', 'dtype'):
+            if report['config'][key] != coarse_report['config'][key]:
+                raise ValueError(f'{name}: coarse/fine {key} mismatch')
+        with np.load(directory/'trajectories.npz') as data:
+            current = {k: data[k] for k in data.files}
+        with np.load(getattr(args, name+'_coarse')/'trajectories.npz') as data:
+            coarse = {k: data[k] for k in data.files}
+        if reference_arrays is None:
+            reference_arrays = current
+        for other in (reference_arrays, coarse):
+            for key in ('times', 'train_inputs', 'train_labels', 'query_inputs', 'query_labels'):
+                if not np.array_equal(current[key], other[key]):
+                    raise ValueError(f'{name}: incompatible {key}')
+        if (not report['complete'] or not coarse_report['complete']
+                or report['run']['method'] != 'explicit_euler'
+                or coarse_report['run']['method'] != 'explicit_euler'
+                or not math.isclose(coarse_report['run']['step'], 2*report['run']['step'])
+                or report['initial_float64_sha256'] != coarse_report['initial_float64_sha256']):
+            raise ValueError(f'{name}: incomplete or unmatched half-step comparison')
+        if name == 'panel' and report.get('checkpoint_sha256') != coarse_report.get('checkpoint_sha256'):
+            raise ValueError('Panel refinements use different metric/state checkpoints')
+        if name != 'dense' and report['run']['step'] != reports['dense']['run']['step']:
+            raise ValueError('Models do not use the same final Euler step')
+        if name != 'dense' and report['run']['dtype'] != reports['dense']['run']['dtype']:
+            raise ValueError('Models do not use the same runtime precision')
+        predictions, reference = current['predictions'], reference_arrays['predictions']
+        refinements[name] = trajectory_rms(predictions, coarse['predictions'])
+        comparison = trajectory_rms(predictions, reference)
+        times = current['times']
+        curve = np.asarray(comparison['curve'])
+        comparison['time_average_validation_rms'] = float(np.trapz(curve, times)/times[-1])
+        comparison['time_weighted_prediction_rms'] = float(np.sqrt(np.trapz(curve**2, times)/times[-1]))
+        rows[name] = dict(hidden_widths=report['hidden_widths'],
+            moving_words=report['moving_words'], fixed_words=report['fixed_words'],
+            total_model_words=report['total_model_words'], common_data_words=report['common_data_words'],
+            training_mse=report['run']['final_training_mse'], comparison=comparison,
+            setup_seconds=report['setup_seconds'], training_seconds=report['run']['seconds'],
+            euler_steps=report['run']['steps'], step_halving=refinements[name],
+            setup_process_peak_cuda_bytes=report['setup_process_peak_cuda_bytes'],
+            run_process_peak_cuda_bytes=report['run']['process_peak_cuda_bytes'],
+            source_directory=str(directory), coarse_directory=str(getattr(args, name+'_coarse')))
+        arrays[name] = predictions
+        reports[name] = report
+    dense_config, panel_config, iid_config = [reports[name]['config'] for name in ('dense', 'panel', 'iid')]
+    if (dense_config['width'] != panel_config['width'] or dense_config['seed'] != panel_config['seed']
+            or iid_config['width'] != dense_config['width'] or iid_config['seed'] == dense_config['seed']):
+        raise ValueError('Panel/source or iid/reference initialization contract mismatch')
+    if reports['small']['matched_panel_words'] != rows['panel']['total_model_words']:
+        raise ValueError('Small control was matched to a different model budget')
+    gate = .1*min(rows[name]['comparison']['endpoint_rms'] for name in ('iid', 'panel', 'small'))
+    # Sum both models' measured discretization discrepancies for every comparison.
+    for name in ('iid', 'panel', 'small'):
+        rows[name]['numerical_gate_passed'] = (
+            refinements[name]['max_time_rms']+refinements['dense']['max_time_rms'] < gate)
+    if rows['small']['total_model_words'] > rows['panel']['total_model_words']:
+        raise ValueError('Small dense control exceeds the declared matching budget')
+    args.out.mkdir(parents=True, exist_ok=False)
+    result = dict(rows=rows, horizon=float(reference_arrays['times'][-1]),
+        step=reports['dense']['run']['step'], validation_count=len(reference_arrays['query_labels']),
+        training_count=len(reference_arrays['train_labels']),
+        all_fitted=all(row['training_mse'] < .01 for row in rows.values()),
+        numerical_gate_absolute=gate,
+        all_numerically_resolved=all(rows[name]['numerical_gate_passed'] for name in ('iid', 'panel', 'small')),
+        panel_better_than_matched_small=rows['panel']['comparison']['endpoint_rms'] <
+                                       rows['small']['comparison']['endpoint_rms'],
+        setup=reports['panel']['setup'],
+        approximation='empirical low-order jet source and non-BSS selection; not an asymptotic certificate',
+        source_sha256=sha(Path(__file__).read_bytes()),
+        metric='RMS of prediction differences over all validation images, not classification accuracy')
+    save_json(args.out/'report.json', result)
+    np.savez_compressed(args.out/'predictions.npz', times=reference_arrays['times'], **arrays)
+    print(json.dumps({k: v for k, v in result.items() if k not in ('setup', 'rows')}), flush=True)
+    print(json.dumps({name: {k: row[k] for k in ('total_model_words', 'training_mse', 'comparison',
+                                                'step_halving')} for name, row in rows.items()}), flush=True)
+
+
+def finite_panel_fit_main(argv):
+    """One fixed-panel setup or fair physical-Euler digit comparison run."""
+    parser = argparse.ArgumentParser(description='Predeclared-panel initial-jet compression')
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--device', default='cuda:0')
+    parser.add_argument('--model', choices=('panel', 'dense', 'small'), default='panel')
+    parser.add_argument('--width', type=int, default=4096)
+    parser.add_argument('--budget', type=int, default=768)
+    parser.add_argument('--source-rank', type=int, default=8)
+    parser.add_argument('--seed', type=int, default=201)
+    parser.add_argument('--digits', type=int, nargs=2, default=(3, 8))
+    parser.add_argument('--checkpoint', type=Path)
+    parser.add_argument('--setup-only', action='store_true')
+    parser.add_argument('--check-only', action='store_true')
+    parser.add_argument('--step', type=float, default=.05)
+    parser.add_argument('--horizon', type=float)
+    parser.add_argument('--max-horizon', type=float, default=200.)
+    parser.add_argument('--loss-target', type=float, default=.005)
+    parser.add_argument('--per-run-seconds', type=float, default=300.)
+    parser.add_argument('--dtype', choices=('float64', 'float32'), default='float64')
+    args = parser.parse_args(argv)
+    if (args.width < 1 or not 0 < args.step <= .5 or args.max_horizon <= 0
+            or args.budget < 1 or args.source_rank < 0
+            or not math.isclose(.5/args.step, round(.5/args.step), abs_tol=1e-9)):
+        parser.error('Invalid size/order/time parameters; Euler step must divide 0.5')
+    if args.model == 'small' and args.checkpoint is None:
+        parser.error('The small dense control requires --checkpoint for total-state matching')
+    args.out.mkdir(parents=True, exist_ok=False)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    report = dict(config={k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
+        source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
+        git_head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+        python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+        threads=torch.get_num_threads(), complete=False,
+        experiment_scope='one digit pair; empirical low-order finite-panel source construction',
+        passive_inputs_known_at_setup=True, passive_labels_used=False)
+    save_json(args.out/'report.json', report)
+    if args.check_only:
+        report.update(checks=finite_panel_small_checks(), complete=True)
+        save_json(args.out/'report.json', report)
+        print(json.dumps(report['checks']), flush=True)
+        return
+    report['device'] = torch.cuda.get_device_name(args.device) if args.device.startswith('cuda') else 'CPU'
+    inputs, labels, queries, truth = validation_data(64, 100, 0, 47, args.device,
+                                                    'digits', 'test', True, 0, args.digits)
+    data_hashes = dict(train_inputs=array_sha(inputs.cpu().numpy()),
+                       training_labels=array_sha(labels.cpu().numpy()),
+                       passive_inputs=array_sha(queries.cpu().numpy()))
+    report.update(data_sha256=data_hashes, training_count=len(inputs), validation_count=len(queries),
+        preprocessing='all 64 raw pixels, per-image unit normalization; no PCA',
+        common_data_words=inputs.numel()+labels.numel()+queries.numel(),
+        retained_scope='deployable current state plus fixed metrics/inverse; common data separately; '
+                       'excludes benchmark initial-state copy, Euler RHS/temporaries and saved observations',
+        initial_source='float64 Gaussian initialization, then optional runtime dtype conversion')
+    synchronize(inputs.device)
+    started = time.monotonic()
+    if inputs.device.type == 'cuda':
+        torch.cuda.reset_peak_memory_stats(inputs.device)
+    try:
+        payload = None
+        if args.checkpoint is not None:
+            payload = torch.load(args.checkpoint, map_location=args.device, weights_only=True)
+            if payload['data_sha256'] != data_hashes:
+                raise ValueError('Checkpoint training/panel inputs or training labels differ')
+            report['checkpoint_sha256'] = sha(args.checkpoint.read_bytes())
+        if args.model == 'panel':
+            if payload is None:
+                # The full panel was loaded before the Gaussian reference is initialized.
+                dense = Dense(args.width, 64, args.seed, args.device)
+                model = FinitePanelCompression(dense, inputs, labels, queries,
+                    budget=args.budget, source_rank=args.source_rank)
+                del dense
+                payload = dict(initial_state=[v.cpu() for v in model.initial_state],
+                    metrics=[v.cpu() for v in model.metrics],
+                    metric_inverses=[v.cpu() for v in model.metric_inverses],
+                    fixed_scalars=model.fixed_scalars, diagnostics=model.diagnostics,
+                    data_sha256=data_hashes, source_width=args.width, source_seed=args.seed)
+                torch.save(payload, args.out/'compiled_model.pt')
+            else:
+                if payload['source_width'] != args.width or payload['source_seed'] != args.seed:
+                    raise ValueError('Checkpoint source width/seed mismatch')
+                model = FinitePanelCompression.__new__(FinitePanelCompression)
+                for key in ('initial_state', 'metrics', 'metric_inverses', 'fixed_scalars', 'diagnostics'):
+                    setattr(model, key, payload[key])
+            report['setup'] = model.diagnostics
+        else:
+            width = args.width
+            if args.model == 'small':
+                total = sum(v.numel() for v in payload['initial_state'])+payload['fixed_scalars']
+                width = math.floor((math.sqrt(65**2+4*total)-65)/2)
+                report['matched_panel_words'] = total
+                report['matching_shortfall_words'] = total-width*(width+65)
+            model = Dense(width, 64, args.seed, args.device)
+        synchronize(inputs.device)
+        report['setup_seconds'] = time.monotonic()-started
+        report['setup_process_peak_cuda_bytes'] = (torch.cuda.max_memory_allocated(inputs.device)
+                                                  if inputs.device.type == 'cuda' else None)
+        report['initial_float64_sha256'] = [array_sha(v.cpu().numpy()) for v in model.initial_state]
+        report['moving_words'] = sum(v.numel() for v in model.initial_state)
+        report['benchmark_restart_copy_words'] = report['moving_words']
+        report['fixed_words'] = int(model.fixed_scalars)
+        report['total_model_words'] = report['moving_words']+report['fixed_words']
+        report['hidden_widths'] = [len(model.initial_state[0]), len(model.initial_state[1])]
+        del payload
+        if report['setup_seconds'] > 300:
+            raise TimeoutError('Panel setup exceeded its 300-second budget')
+        if args.setup_only:
+            report['complete'] = True
+            save_json(args.out/'report.json', report)
+            print(json.dumps(dict(event='panel_setup_complete', **{
+                k: report[k] for k in ('setup_seconds', 'total_model_words', 'hidden_widths')})), flush=True)
+            return
+        dtype = getattr(torch, args.dtype)
+        model.initial_state = [v.to(dtype=dtype) for v in model.initial_state]
+        if hasattr(model, 'metrics'):
+            model.metrics = [v.to(dtype=dtype) for v in model.metrics]
+            model.metric_inverses = [v.to(dtype=dtype) for v in model.metric_inverses]
+        inputs, labels, queries, truth = [v.to(dtype=dtype) for v in (inputs, labels, queries, truth)]
+        save_json(args.out/'report.json', report)
+        print(json.dumps(dict(event='panel_euler_start', model=args.model, seed=args.seed,
+            widths=report['hidden_widths'], step=args.step, horizon=args.horizon)), flush=True)
+        state, predictions, info = integrate_euler(model, inputs, labels, queries,
+            args.step, args.per_run_seconds, horizon=args.horizon, loss_target=args.loss_target,
+            max_steps=round(args.max_horizon/args.step), observation_every=round(.5/args.step))
+        report.update(run=info, complete=info['complete'])
+        if hasattr(model, 'runtime_checks'):
+            report['final_runtime_checks'] = model.runtime_checks(state, inputs, labels)
+        np.savez_compressed(args.out/'trajectories.npz', predictions=predictions,
+            times=np.asarray(info['times']), training_mse=np.asarray(info['losses']),
+            train_inputs=inputs.cpu().numpy(), train_labels=labels.cpu().numpy(),
+            query_inputs=queries.cpu().numpy(), query_labels=truth.cpu().numpy(),
+            train_predictions=model.predict(state, inputs, inputs, labels).detach().cpu().numpy())
+        save_json(args.out/'report.json', report)
+        print(json.dumps(dict(event='panel_euler_complete', model=args.model, **{
+            k: info[k] for k in ('actual_horizon', 'final_training_mse', 'steps', 'seconds', 'stop_reason')})),
+            flush=True)
+    except (RuntimeError, ValueError, ArithmeticError, TimeoutError) as error:
+        report['error'] = f'{type(error).__name__}: {error}'
+        save_json(args.out/'report.json', report)
+        raise
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'validate':
         validation_main(sys.argv[2:])
@@ -2782,5 +3169,9 @@ if __name__ == '__main__':
         euler_fit_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'euler-summary':
         euler_summary_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'panel-fit':
+        finite_panel_fit_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'panel-summary':
+        finite_panel_summary_main(sys.argv[2:])
     else:
         main()
