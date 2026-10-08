@@ -18,5 +18,9 @@
 {"name":"digits38_L5_silu","args":["--width","8192","--depth","5","--activation","silu","--digits","3","8","--horizon","32","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]},
 {"name":"digits17_L5_silu","args":["--width","8192","--depth","5","--activation","silu","--digits","1","7","--horizon","32","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]},
 {"name":"digits38_L10_tanh","args":["--width","6144","--depth","10","--activation","tanh","--digits","3","8","--horizon","16","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]},
-{"name":"digits17_L10_tanh","args":["--width","6144","--depth","10","--activation","tanh","--digits","1","7","--horizon","16","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]}
+{"name":"digits17_L10_tanh","args":["--width","6144","--depth","10","--activation","tanh","--digits","1","7","--horizon","16","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]},
+{"name":"digits38_L10_gelu","args":["--width","6144","--depth","10","--activation","gelu","--digits","3","8","--horizon","256","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]},
+{"name":"digits17_L10_gelu","args":["--width","6144","--depth","10","--activation","gelu","--digits","1","7","--horizon","256","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]},
+{"name":"digits38_L10_silu","args":["--width","6144","--depth","10","--activation","silu","--digits","3","8","--horizon","432","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]},
+{"name":"digits17_L10_silu","args":["--width","6144","--depth","10","--activation","silu","--digits","1","7","--horizon","432","--step",".0015625","--source-step",".0625","--per-run-seconds","300"]}
 ]

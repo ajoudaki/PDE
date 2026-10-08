@@ -403,3 +403,12 @@ may be used for these four, with the same numerical rule for every compared
 model and refinement checks, or whether fixed-step runtime-cap outcomes
 should be reported as inconclusive. They are not silently counted as fitting
 or compression successes. The 20 straightforward cases proceed meanwhile.
+
+Before the main sweep started, the user selected **fixed-step Euler and the
+runtime cap**, rejecting adaptive stepping. `SWEEP100_PLAN.json` therefore
+includes all24 cases: append L10 GELU at time256 and L10 SiLU at time432 for
+both pairs, with exactly the same fixed Euler/source steps and caps. A
+setup or training time-cap outcome is inconclusive; it is not a compression
+failure or an underfit success. No adaptive solver is used in the main
+comparisons. All main cases now run under the single manifest and source
+version. The adaptive width128 runs above were training-only planning pilots.
