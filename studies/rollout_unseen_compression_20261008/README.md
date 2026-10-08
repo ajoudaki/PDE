@@ -340,3 +340,66 @@ and compressed initialization checkpoint. Reproduction uses the existing
 --source-rank 6 --source-step .0625 --horizon 24 --step .0015625`, the listed
 activation/digits and a fresh output directory. The authorized batch is
 complete; no follow-up search is part of this record.
+
+## Authorized 24-case activation/depth replication at approximately 100x
+
+The user now requests the full Cartesian product of tanh / exact GELU / SiLU,
+hidden depths 2 / 3 / 5 / 10, and digit pairs 3/8 / 1/7. This continues the same
+unseen-input investigation. Use the original q/rank law: n=8192 at depths
+2/3/5 (q=383, rank15), n=6144 at depth10 (q=356, rank14). These are fixed before
+any new scores, targeting roughly 95--139x total model storage, including all
+metrics/inverses. All 24 cases retain the same eight labeled examples, 32
+unlabeled calibration inputs, disjoint scored sets, seeds, unit-normalized raw
+64-pixel inputs, zero readout, mobilities, and Gaussian initialization. No
+activation gain or initialization rescaling is implicit. The ordinary small
+network is matched to total stored numbers, not to q.
+
+First run one training-only width128 pilot per case, CPU float64 adaptive
+DOP853 (rtol1e-6, atol1e-8, maximum step8), stopping at training MSE .001 or
+time4096, with a 30-second cap per case. This is only for training-duration
+and numerical planning, not compression evidence. Persist all outcomes,
+including slow/nonfitting pilots. No scored-query predictions are evaluated.
+The main-run horizons, Euler/source steps and caps will be frozen from these
+training-only observations before any 24-case fidelity evaluation. Retain
+the factor-three trajectory-RMS target, .01 fitting gate, and 10% empirical
+reference-plus-compact refinement gate. Primary comparison remains against
+an independent dense copy and a total-storage-matched small dense network.
+Report endpoint/time-average RMS separately, and all failures/inconclusive
+cases. No order, seed or activation search beyond this requested 24-case grid.
+
+Lead owns pilot/numerical settings and records. Scoped `sweep_runner` adds only
+a small manifest-driven two-GPU wrapper to the existing single executable;
+one process per GPU, bounded runs, no additional experiment files or refactor.
+
+### Pilot outcome and frozen first 20 comparisons
+
+Both training-only pilots completed. Times to .001 training MSE, with entries
+given as digits3/8 and digits1/7 respectively:
+
+| Depth | tanh | GELU | SiLU |
+|---|---|---|---|
+| 2 | 20.82 / 21.18 | 16.14 / 19.06 | 18.78 / 22.52 |
+| 3 | 15.90 / 14.53 | 12.07 / 16.11 | 15.39 / 20.99 |
+| 5 | 8.98 / 5.76 | 15.15 / 15.84 | 23.99 / 22.75 |
+| 10 | 5.57 / 4.52 | 204.26 / 177.04 | 344.28 / 249.18 |
+
+Raw pilot records are `sweep100_pilot_digits38_v1/report.json` and
+`sweep100_pilot_digits17_v1/report.json` in this study's generated namespace.
+For each activation/depth choose the same horizon for both digit pairs:
+the larger pilot time times1.25, rounded up to a multiple of8, minimum16.
+The first 20 comparisons therefore use horizons:
+L2 (32,24,32), L3 (24,24,32), L5 (16,24,32), L10 tanh16.
+They use fine Euler .0015625, coarse .003125, source RK4 .0625, source
+Chebyshev degree8, condition cap16, and four coordinate candidates. Rank/q
+remain the original prescribed values, identical across activations at a
+given depth. Per Euler run cap300 seconds; per setup180; per case1500.
+No extra refinement/order/seed branch is allowed after seeing scores.
+
+`SWEEP100_PLAN.json` records these 20 cases. Run them with `compression-sweep`
+on GPUs0/1 into a fresh `sweep100_main_v1` generated folder. The remaining
+four requested L10 GELU/SiLU cases need much longer physical times (256/432
+under the same rule). The user has been asked whether adaptive-step Euler
+may be used for these four, with the same numerical rule for every compared
+model and refinement checks, or whether fixed-step runtime-cap outcomes
+should be reported as inconclusive. They are not silently counted as fitting
+or compression successes. The 20 straightforward cases proceed meanwhile.

@@ -3677,6 +3677,56 @@ def finite_panel_fit_main(argv):
 
 
 @torch.no_grad()
+def compression_pilot_main(argv):
+    """Training-only horizon planning; no compressed model or test predictions."""
+    from scipy.integrate import solve_ivp
+    parser = argparse.ArgumentParser(description=compression_pilot_main.__doc__)
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--digits', type=int, nargs=2, required=True)
+    args = parser.parse_args(argv)
+    args.out.mkdir(parents=True, exist_ok=False)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    inputs, labels, _, _ = validation_data(64, 8, 0, 47, torch.device('cpu'),
+                                           'digits', 'test', True, 0, args.digits)
+    report = dict(source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
+        digits=args.digits, width=128, method='DOP853', rtol=1e-6, atol=1e-8,
+        horizon_cap=4096., per_case_seconds=30., training_mse_target=.001,
+        scored_predictions_used=False, cases=[])
+    with torch.no_grad():
+        for depth in (2, 3, 5, 10):
+            for activation in ('tanh', 'gelu', 'silu'):
+                model = DeepDense(128, 64, depth, activation, 601, torch.device('cpu'))
+                shapes = [v.shape for v in model.initial_state]
+                boundaries = np.cumsum([0]+[v.numel() for v in model.initial_state])
+                initial = np.concatenate([v.numpy().reshape(-1) for v in model.initial_state])
+                def unpack(value):
+                    return [torch.from_numpy(value[left:right]).reshape(shape)
+                            for left, right, shape in zip(boundaries[:-1], boundaries[1:], shapes)]
+                started = time.monotonic()
+                def rhs(t, value):
+                    if time.monotonic()-started > 30.:
+                        raise TimeoutError('Training-only pilot exceeded 30 seconds')
+                    return np.concatenate([v.numpy().reshape(-1) for v in model.rhs(unpack(value), inputs, labels)])
+                def fitted(t, value):
+                    return float((model.predict(unpack(value), inputs)-labels).square().mean())-.001
+                fitted.terminal, fitted.direction = True, -1
+                case = dict(depth=depth, activation=activation)
+                try:
+                    solution = solve_ivp(rhs, (0., 4096.), initial, method='DOP853',
+                                         rtol=1e-6, atol=1e-8, max_step=8., events=fitted)
+                    case.update(success=bool(solution.success), fitted=bool(len(solution.t_events[0])),
+                        time=float(solution.t[-1]), training_mse=fitted(solution.t[-1], solution.y[:, -1])+.001,
+                        rhs_calls=solution.nfev, accepted_steps=len(solution.t)-1)
+                    del solution
+                except Exception as error:
+                    case.update(success=False, fitted=False, error=f'{type(error).__name__}: {error}')
+                case['seconds'] = time.monotonic()-started
+                report['cases'].append(case)
+                save_json(args.out/'report.json', report)
+                print(json.dumps(case), flush=True)
+
+
 def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed, seconds=180., step=.125):
     """Measured temporal sources; scored query inputs are deliberately not an argument."""
     panel = torch.cat((inputs, calibration))
@@ -3909,8 +3959,117 @@ def compression_probe_main(argv):
         save_json(args.out/'report.json', report)
 
 
+def compression_sweep_main(argv):
+    """Run a frozen 1–24-case probe manifest, with one sequential worker per GPU."""
+    from concurrent.futures import ThreadPoolExecutor
+    import re
+    import threading
+
+    parser = argparse.ArgumentParser(description=compression_sweep_main.__doc__)
+    parser.add_argument('--plan', type=Path, required=True,
+                        help='JSON list of 1–24 {"name": "unique_case", "args": ["--width", "8192", ...]} objects')
+    parser.add_argument('--devices', nargs='+', default=['cuda:0', 'cuda:1'])
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--case-seconds', type=float, default=1500.)
+    args = parser.parse_args(argv)
+    if (len(set(args.devices)) != len(args.devices)
+            or any(not re.fullmatch(r'cuda:(0|[1-9][0-9]*)', value) for value in args.devices)):
+        parser.error('Need distinct explicit CUDA devices, e.g. cuda:0 cuda:1')
+    if not math.isfinite(args.case_seconds) or args.case_seconds <= 0:
+        parser.error('Need a positive finite per-case wall-clock cap')
+    try:
+        plan_bytes = args.plan.read_bytes()
+        plan = json.loads(plan_bytes)
+    except (OSError, ValueError) as error:
+        parser.error(f'Cannot read plan: {error}')
+    allowed = {'--width', '--depth', '--activation', '--digits', '--samples', '--calibration',
+               '--budget', '--source-rank', '--source-step', '--seed', '--horizon', '--step',
+               '--per-run-seconds'}
+    if not isinstance(plan, list) or not 1 <= len(plan) <= 24:
+        parser.error('Each sweep manifest must contain 1–24 cases')
+    for case in plan:
+        if (not isinstance(case, dict) or set(case) != {'name', 'args'}
+                or not isinstance(case['name'], str)
+                or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]*', case['name'])
+                or not isinstance(case['args'], list)
+                or any(not isinstance(v, str) or v.startswith('-') and v.split('=')[0] not in allowed
+                       for v in case['args'])):
+            parser.error('Each case needs a safe name and string probe args; --out/--device are assigned by the sweep')
+    if len({case['name'] for case in plan}) != len(plan):
+        parser.error('Case names must be unique')
+    source = Path(__file__).resolve()
+    source_hash = sha(source.read_bytes())
+    args.out = args.out.resolve()
+    args.out.mkdir(parents=True, exist_ok=False)
+    save_json(args.out/'config.json', dict(plan=plan, plan_sha256=sha(plan_bytes),
+        source_sha256=source_hash, command=sys.argv, executable=sys.executable,
+        python=platform.python_version(), devices=args.devices, case_seconds=args.case_seconds))
+    rows = [dict(name=case['name'], device=args.devices[i % len(args.devices)], status='pending',
+                 outcome='inconclusive', report=str(args.out/case['name']/'report.json'),
+                 log=str(args.out/(case['name']+'.log'))) for i, case in enumerate(plan)]
+    summary = dict(source_sha256=source_hash, complete=False, cases=rows)
+    lock = threading.Lock()
+
+    def record(index=None, **values):
+        with lock:
+            if index is not None:
+                rows[index].update(values)
+            summary['complete'] = all(row['status'] not in ('pending', 'running') for row in rows)
+            summary['status_counts'] = {status: sum(row['status'] == status for row in rows)
+                                        for status in sorted({row['status'] for row in rows})}
+            temporary = args.out/'summary.json.tmp'
+            save_json(temporary, summary)
+            temporary.replace(args.out/'summary.json')
+
+    def worker(slot, device):
+        for index in range(slot, len(plan), len(args.devices)):
+            case = plan[index]
+            command = [sys.executable, '-B', '-u', str(source), 'compression-probe',
+                       '--out', str(args.out/case['name']), '--device', device, *case['args']]
+            record(index, status='running', command=command)
+            started = time.monotonic()
+            result = dict(status='error', outcome='inconclusive', returncode=None)
+            try:
+                if sha(source.read_bytes()) != source_hash:
+                    raise RuntimeError('Executable changed after sweep freeze; case not launched')
+                with Path(rows[index]['log']).open('x') as log:
+                    child = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT,
+                                           timeout=args.case_seconds, check=False)
+                result['returncode'] = child.returncode
+                report = json.loads(Path(rows[index]['report']).read_text())
+                for key in ('complete', 'error', 'storage_reduction', 'comparisons', 'all_fitted',
+                            'numerical_gate_pass', 'accuracy_pass', 'dense_words', 'compact_words'):
+                    if key in report:
+                        result[key] = report[key]
+                if report.get('source_sha256') != source_hash or sha(source.read_bytes()) != source_hash:
+                    raise RuntimeError('Executable hash changed during case; comparison invalid')
+                if child.returncode == 0 and report.get('complete'):
+                    result['status'] = 'complete'
+                    if report.get('all_fitted') and report.get('numerical_gate_pass'):
+                        result['outcome'] = 'pass' if report.get('accuracy_pass') else 'fail'
+                else:
+                    result.setdefault('error', f'Incomplete probe; return code {child.returncode}')
+            except subprocess.TimeoutExpired:
+                result.update(status='timeout', error=f'Case exceeded {args.case_seconds:g} seconds')
+            except Exception as error:
+                result['error'] = f'{type(error).__name__}: {error}'
+            result['seconds'] = time.monotonic()-started
+            record(index, **result)
+            print(json.dumps(dict(case=case['name'], **result)), flush=True)
+
+    record()
+    with ThreadPoolExecutor(max_workers=len(args.devices)) as executor:
+        futures = [executor.submit(worker, slot, device) for slot, device in enumerate(args.devices)]
+        for future in futures:
+            future.result()
+    print(json.dumps(dict(summary=str(args.out/'summary.json'), **summary['status_counts'])), flush=True)
+    return 0 if all(row['status'] == 'complete' for row in rows) else 1
+
+
 if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] == 'validate':
+    if len(sys.argv) > 1 and sys.argv[1] == 'compression-pilot':
+        compression_pilot_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'validate':
         validation_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'plot-validation':
         validation_plot_main(sys.argv[2:])
@@ -3924,5 +4083,7 @@ if __name__ == '__main__':
         finite_panel_summary_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'compression-probe':
         compression_probe_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'compression-sweep':
+        sys.exit(compression_sweep_main(sys.argv[2:]))
     else:
         main()
