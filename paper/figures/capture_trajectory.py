@@ -2833,7 +2833,8 @@ def euler_summary_main(argv):
 
 @torch.no_grad()
 def finite_panel_rollout_sources(dense, inputs, labels, panel, horizon=100., step=.5,
-                                degree=4, source_rank=32, seed=501, seconds=300.):
+                                degree=4, source_rank=32, seed=501, seconds=300.,
+                                rollout_dtype=None):
     """Piecewise temporal sources from a disposable, full-horizon dense solve.
 
     Even Chebyshev nodes fit each polynomial; interlaced odd nodes only audit
@@ -2854,15 +2855,21 @@ def finite_panel_rollout_sources(dense, inputs, labels, panel, horizon=100., ste
         intervals.append(times)
         all_times.extend(times)
     all_times = np.asarray(sorted(set(all_times)))
+    teacher = Dense.__new__(Dense)
+    teacher.initial_state = [v.to(dtype=rollout_dtype or v.dtype) for v in dense.initial_state]
+    teacher.fixed_scalars = 0
+    source_inputs, source_labels, source_panel = [v.to(dtype=teacher.initial_state[0].dtype)
+                                                 for v in (inputs, labels, panel)]
     fields = {name: [] for name in ('h1', 'h2', 'delta1', 'delta2')}
     def observe(t, state):
-        h1, h2, _ = dense_fields(state, panel)
+        h1, h2, _ = dense_fields(state, source_panel)
         delta2 = state[1][:, None]*(1-h2[:, :len(labels)].square())
         delta1 = (state[2].T@delta2)*(1-h1[:, :len(labels)].square())
         for name, value in zip(fields, (h1, h2, delta1, delta2)):
             fields[name].append(value.clone())
-    _, _, rollout = integrate(dense, inputs, labels, panel[:1], all_times,
+    _, _, rollout = integrate(teacher, source_inputs, source_labels, source_panel[:1], all_times,
                               step, seconds, observer=observe)
+    del teacher, source_inputs, source_labels, source_panel
     fields = {name: torch.stack(values) for name, values in fields.items()}
     h10, h20, _ = dense_fields(dense.initial_state, inputs)
     a0, _, matrix0 = dense.initial_state
@@ -2872,6 +2879,7 @@ def finite_panel_rollout_sources(dense, inputs, labels, panel, horizon=100., ste
                      delta1=torch.cat((constant, a0, h10), dim=1))
     coefficients, diagnostics = {}, {}
     for family, values in fields.items():
+        values = values.to(dtype=a0.dtype)
         blocks, fit_max, fit_square, fit_count = [], 0., 0., 0
         for times in intervals:
             index = np.searchsorted(all_times, times)
@@ -2928,6 +2936,7 @@ def finite_panel_rollout_sources(dense, inputs, labels, panel, horizon=100., ste
         horizon=horizon, rk4_step=step, degree_per_interval=degree, boundaries=boundaries,
         source_observation_count=len(all_times), fitted_node_rule='even indices; odd indices held out',
         source_rank_cap=source_rank, source_checks=diagnostics, rollout=rollout,
+        rollout_dtype=str(rollout_dtype or a0.dtype), assembly_dtype=str(a0.dtype),
         seconds=time.monotonic()-started, dense_training_rhs_calls=4*rollout['steps'],
         source_contract='full physical interval; disposable teacher; not an early-prefix extrapolation',
         source_certificate=False, passive_labels_used=False)
@@ -2977,11 +2986,12 @@ class FinitePanelCompression(Harmonic):
 
     def __init__(self, dense, inputs, labels, queries, budget=768, source_rank=8,
                  selection_seed=501, source_mode='jets', source_horizon=100.,
-                 source_step=.5, time_degree=4):
+                 source_step=.5, time_degree=4, source_dtype=None):
         panel = torch.cat((inputs, queries))
         if source_mode == 'rollout':
             sources, source_info = finite_panel_rollout_sources(dense, inputs, labels, panel,
-                source_horizon, source_step, time_degree, source_rank, selection_seed)
+                source_horizon, source_step, time_degree, source_rank, selection_seed,
+                rollout_dtype=source_dtype)
         elif source_mode == 'jets':
             sources, _ = finite_panel_initial_jets(dense, inputs, labels, panel)
             source_info = dict(method='order_two_initial_jets', source_jet_order=2,
@@ -3206,6 +3216,7 @@ def finite_panel_fit_main(argv):
     parser.add_argument('--source-mode', choices=('jets', 'rollout'), default='jets')
     parser.add_argument('--source-horizon', type=float, default=100.)
     parser.add_argument('--source-step', type=float, default=.5)
+    parser.add_argument('--source-dtype', choices=('float64', 'float32'), default='float64')
     parser.add_argument('--time-degree', type=int, default=4)
     parser.add_argument('--seed', type=int, default=201)
     parser.add_argument('--digits', type=int, nargs=2, default=(3, 8))
@@ -3276,7 +3287,7 @@ def finite_panel_fit_main(argv):
                 model = FinitePanelCompression(dense, inputs, labels, queries,
                     budget=args.budget, source_rank=args.source_rank, source_mode=args.source_mode,
                     source_horizon=args.source_horizon, source_step=args.source_step,
-                    time_degree=args.time_degree)
+                    time_degree=args.time_degree, source_dtype=getattr(torch, args.source_dtype))
                 del dense
                 payload = dict(initial_state=[v.cpu() for v in model.initial_state],
                     metrics=[v.cpu() for v in model.metrics],

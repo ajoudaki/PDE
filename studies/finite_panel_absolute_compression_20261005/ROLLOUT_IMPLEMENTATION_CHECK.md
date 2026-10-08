@@ -44,7 +44,8 @@ Input SHA256 values:
 | --- | --- |
 | Original audited implementation | `98e63465d4cce569b0a6df6a5fe4455dace96d9b90d6863b4a3cda5fac9e7e77` |
 | First repair candidate | `53a12571644b303825eba28c411daa874be3a00af5ba8e9f9f5f0f624ff97be9` |
-| Final tested implementation | `d505c8c8df4d176afba2dda8a0366209f9635536b1b1f6872c4cf39aee4422ab` |
+| Final pre-precision implementation | `d505c8c8df4d176afba2dda8a0366209f9635536b1b1f6872c4cf39aee4422ab` |
+| Precision-option implementation, both checks passed | `3ad9b8bfe43c42fccca1e752c2aa0759ee2c98c3b1ec2a4313dc4c491e526eff` |
 | `RESULT.md` | `38ca06a2e812d8e2b45c6b7350c0437d710433b11a00b89aa66487a9229b028b` |
 | `PANEL_SOURCE.md` | `ca1066cf168829bea642db013a4fbc24166b224df0731783a51b4c85e4fdbaed` |
 | `PANEL_RUNTIME.md` | `514d9e06cfd1cf23c496df0ece976812a39ea33f70112334c84326cfa0f0cd9f` |
@@ -398,3 +399,174 @@ substitutions. None of the tests gives the logarithmic storage/accuracy
 certificate or verifies its small-label and eventual-width hypotheses.
 No finding here rules out the broader existence claim; no passing test
 promotes the implementation to the established book or code.
+
+## Addendum: disposable-teacher precision option
+
+The supervisor subsequently requested a narrow check of `rollout_dtype`
+(`source_dtype` in the constructor and `--source-dtype` in the driver).
+Only that change and its plumbing were inspected; no empirical result was
+read. The implementation at the start of this recheck had SHA256
+`3ad9b8bfe43c42fccca1e752c2aa0759ee2c98c3b1ec2a4313dc4c491e526eff`.
+Metadata-only checks before this addendum found HEAD
+`0bcf8367e92c3c83bfd03ea1268b09688a748107`, a clean report path, and no
+staged files. This reviewer still writes only this report and makes no
+Git-index change.
+
+The precision cast creates a disposable `Dense` teacher and matching copies
+or views of the source inputs, labels, and panel. If no conversion is needed,
+`Tensor.to` may alias the original initialization; this is safe here because
+`integrate` clones its initial state before evolving it. When conversion is
+needed, the original float64 tensors remain separate. The observer evaluates
+both forward and backward source fields in the teacher precision. Before
+Chebyshev coefficient assembly, each sampled family is converted back to the
+original dense-initialization dtype. Mandatory features, mandatory weights,
+initialized images, selected metrics and the compact initialization all
+continue to use that original dtype. The CLI establishes it as float64;
+the lower-level function preserves the caller's original dtype rather than
+unconditionally forcing float64. Source diagnostics record both rollout and
+assembly dtypes, and checkpoint compiler configuration records the option.
+
+The test below fixes two teacher precisions on the same tiny float64
+initialization. It verifies the actual teacher dtype, checks bitwise
+preservation of original initialization and data, compares raw sampled fields
+on identical observation times, and verifies float64 output/compact tensors
+and initialized pairing after the float32 teacher. Raw field discrepancy
+must be below `1e-4` in this tiny diagnostic; this threshold is a corruption
+check, not a scientific float32 accuracy certificate. No requirement that
+the rank-truncated bases be identical is imposed: casting the teacher can
+change small singular directions.
+
+Exact command, from `/home/amir/Codes/PDE`:
+
+```bash
+sed -n '/^# BEGIN PRECISION AUDIT$/,/^# END PRECISION AUDIT$/p' studies/finite_panel_absolute_compression_20261005/ROLLOUT_IMPLEMENTATION_CHECK.md | PYTHONDONTWRITEBYTECODE=1 /home/amir/Codes/sber-swap/.venv/bin/python -
+```
+
+```python
+# BEGIN PRECISION AUDIT
+import hashlib, importlib.util, json
+import torch
+path = 'paper/figures/capture_trajectory.py'
+with open(path, 'rb') as stream:
+    before = hashlib.sha256(stream.read()).hexdigest()
+spec = importlib.util.spec_from_file_location('capture_precision_audit', path)
+c = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(c)
+torch.set_num_threads(1)
+torch.set_default_dtype(torch.float64)
+inputs = torch.tensor([[1., 0.], [.6, .8], [-.8, .6]])
+labels = torch.tensor([.3, -.2, .1])
+queries = torch.tensor([[0., 1.], [-.6, -.8]])
+panel = torch.cat((inputs, queries))
+dense = c.Dense(72, 2, 915, 'cpu')
+originals = [x.clone() for x in dense.initial_state]
+data_before = [x.clone() for x in (inputs, labels, panel)]
+actual_integrate = c.integrate
+observations = {}
+current_dtype = None
+def capture_integrate(teacher, source_inputs, source_labels, source_queries,
+                      times, step, seconds, observer=None):
+    assert all(x.dtype == current_dtype for x in teacher.initial_state)
+    assert all(x.dtype == current_dtype for x in
+               (source_inputs, source_labels, source_queries))
+    def capture(t, state):
+        h1, h2, _ = c.dense_fields(state, panel.to(dtype=current_dtype))
+        d2 = state[1][:, None]*(1-h2[:, :len(labels)].square())
+        d1 = (state[2].T@d2)*(1-h1[:, :len(labels)].square())
+        observations[current_dtype].append(
+            (t, [v.to(torch.float64).clone() for v in (h1, h2, d1, d2)]))
+        observer(t, state)
+    return actual_integrate(teacher, source_inputs, source_labels,
+        source_queries, times, step, seconds, observer=capture)
+c.integrate = capture_integrate
+metadata = {}
+for current_dtype in (torch.float64, torch.float32):
+    observations[current_dtype] = []
+    sources, info = c.finite_panel_rollout_sources(
+        dense, inputs, labels, panel, horizon=.5, step=.025,
+        degree=3, source_rank=3, seconds=20, rollout_dtype=current_dtype)
+    assert all(value.dtype == torch.float64 for value in sources.values())
+    assert info['rollout_dtype'] == str(current_dtype)
+    assert info['assembly_dtype'] == 'torch.float64'
+    assert all(torch.equal(a, b) for a, b in zip(originals, dense.initial_state))
+    assert all(torch.equal(a, b) for a, b in zip(data_before, (inputs, labels, panel)))
+    metadata[str(current_dtype)] = {k: info[k] for k in
+        ('rollout_dtype', 'assembly_dtype', 'source_observation_count')}
+c.integrate = actual_integrate
+differences = dict.fromkeys(('h1', 'h2', 'delta1', 'delta2'), 0.)
+for left, right in zip(observations[torch.float64], observations[torch.float32]):
+    assert left[0] == right[0]
+    for name, a, b in zip(differences, left[1], right[1]):
+        differences[name] = max(differences[name], float((a-b).abs().max()))
+assert max(differences.values()) < 1e-4, differences
+model = c.FinitePanelCompression(
+    dense, inputs, labels, queries, budget=60, source_rank=3,
+    source_mode='rollout', source_horizon=.5, source_step=.025,
+    time_degree=3, source_dtype=torch.float32)
+assert all(x.dtype == torch.float64 for x in
+           model.initial_state+model.metrics+model.metric_inverses)
+assert all(torch.equal(a, b) for a, b in zip(originals, dense.initial_state))
+errors = {k: model.diagnostics[k] for k in (
+    'initialized_gram_error', 'paired_forward_action_error',
+    'paired_reverse_action_error')}
+assert max(errors.values()) < 1e-11, errors
+with open(path, 'rb') as stream:
+    after = hashlib.sha256(stream.read()).hexdigest()
+assert before == after, 'Implementation changed during verification'
+print(json.dumps(dict(source_sha256=before, metadata=metadata,
+    raw_field_float32_vs_float64_max_abs=differences,
+    original_initialization_and_data_bitwise_unchanged=True,
+    assembled_and_compact_dtype='torch.float64', paired_errors=errors), indent=2))
+# END PRECISION AUDIT
+```
+
+The precision command exited **zero** in approximately 1.57 seconds at
+`3ad9b8bfe43c42fccca1e752c2aa0759ee2c98c3b1ec2a4313dc4c491e526eff`.
+The original embedded audit was also rerun by this reviewer on that hash;
+it exited zero in approximately 1.56 seconds with the same numerical
+results recorded above. Both commands independently checked that the
+source hash stayed unchanged during execution. The environment and CPU
+settings remained those recorded for the preceding check.
+
+Observed precision-check results:
+
+```json
+{
+  "source_sha256": "3ad9b8bfe43c42fccca1e752c2aa0759ee2c98c3b1ec2a4313dc4c491e526eff",
+  "metadata": {
+    "torch.float64": {
+      "rollout_dtype": "torch.float64",
+      "assembly_dtype": "torch.float64",
+      "source_observation_count": 7
+    },
+    "torch.float32": {
+      "rollout_dtype": "torch.float32",
+      "assembly_dtype": "torch.float64",
+      "source_observation_count": 7
+    }
+  },
+  "raw_field_float32_vs_float64_max_abs": {
+    "h1": 2.2030892266045043e-07,
+    "h2": 4.918023416844441e-07,
+    "delta1": 2.1629063699790674e-08,
+    "delta2": 1.2856848020242895e-08
+  },
+  "original_initialization_and_data_bitwise_unchanged": true,
+  "assembled_and_compact_dtype": "torch.float64",
+  "paired_errors": {
+    "initialized_gram_error": 8.326672684688674e-17,
+    "paired_forward_action_error": 3.885780586188048e-16,
+    "paired_reverse_action_error": 4.163336342344337e-16
+  }
+}
+```
+
+**PASS for the narrow precision change.** The tested original dense weights
+and source data are bitwise unchanged; source assembly and compact tensors
+remain float64 while the disposable solve actually uses the requested
+precision. The float32 teacher rounds its copies of the float64 initial
+weights and data, so its source error includes that rounding and subsequent
+finite-precision integration. Converting sampled fields back to float64
+does not recover the lost accuracy. The small observed difference here
+does not certify full-horizon float32 source accuracy or GPU behavior.
+That numerical claim remains separate from this mutation/dtype audit.

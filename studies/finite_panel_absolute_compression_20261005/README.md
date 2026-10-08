@@ -513,3 +513,41 @@ their run report records the compiler hash, but their checkpoint predates the
 explicit compiler-hash payload field. Restoring them correctly reports null
 for that field rather than inventing provenance. Subsequent compilations
 carry the hash and effective configuration in both checkpoint and report.
+
+The source teacher may additionally use float32, followed by float64 source
+assembly and metric construction. This is a precision implementation choice,
+not a changed response family or budget rule. Before confirmation it must be
+compared on pilot seed 301 against the already compiled float64-teacher model,
+at the same RK4 step, temporal degree, rank and coordinate budget. Its effect
+on model predictions is tested against the existing precision gate. This
+check consumes the existing pilot/run budget; it does not add a new campaign.
+
+### Frozen confirmation choices
+
+After the prescribed pilot branches, freeze reference budget 1536 and optional
+rank 128 at width 4096, scaled by `(log(en)/log(e*4096))^(5/2)`. Use temporal
+degree eight per geometric interval, RK4 source step 0.25 through time 100,
+float32 disposable source evolution, and float64 source/metric assembly.
+Actual compared training uses float32 Euler at 0.0125 and 0.00625. The finer
+pair is the predeclared resolution branch: pilot dense step 0.025 versus
+0.0125 changed maximum-time predictions by 0.001554, too large for the
+prospective trajectory gate. No gate is relaxed for confirmation.
+
+Pilot precision checks found maximum-time differences 1.36e-7 for dense
+float32 versus float64, 2.22e-6 for panel runtime float32 versus float64,
+and 6.98e-7 for float32 versus float64 source evolution, all at identical
+respective initializations and orders. Increasing temporal degree four to
+eight reduced the largest heldout temporal RMS from 7.81e-4 to 7.92e-6;
+halving the source RK4 step gave 7.46e-6. These are measured finite-source
+checks, not a coordinate-uniform certificate. Float32 source evolution reduced
+the final 4096-width setup from 62.8 seconds to 9.65 seconds.
+
+The rule gives `(q, optional rank)` equal to `(1267,106)`, `(1536,128)`,
+`(1838,154)`, `(2173,182)` at widths 2048, 4096, 8192, 16384. At 2048,
+the full metric/state inventory `4q^2+65q+100` already exceeds the reference
+`n^2+65n`; record a **noncompressing budget** without spending training runs
+on that failed storage criterion. This is not an omitted favorable-width
+selection. Confirm at 4096 and 8192, adding 16384 only under the recorded
+8192 timing/memory condition. The existing 36-training-run cap has priority
+over optional second-seed replication. All first-seed confirmation results
+must be reported, even if they fail accuracy or numerical gates.
