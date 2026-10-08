@@ -1,5 +1,6 @@
 % Static scientific appendix. Generated from RESULT.md SHA256 5750d944b25629874764e333cfec5ff0d4294fbf4734ad4d9107bfc7b23af5c9.
-% Rebuild: node studies/integrated_general_compression_20261004/paper_appendix_build.mjs --check
+% Base conversion: studies/integrated_general_compression_20261004/paper_appendix_build.mjs.
+% Editorial integration changes now live here; do not regenerate over this file.
 % Required packages: amsmath, amssymb, mathtools, mathrsfs, graphicx, array, booktabs, longtable, hyperref.
 % No study file is read by LaTeX. Source line comments and build manifest audit coverage.
 \providecommand{\inttablemath}[1]{\begingroup
@@ -20,6 +21,20 @@
 \section{Complete certificate interfaces and notation}
 \label{int:headline-results}
 
+\paragraph{Scope of this detailed library.}
+This appendix contains the full dense, Legendre and Harmonic certificates,
+their common source and stability machinery, and a separate seeded
+finite-word decoder. The latter is supplementary: it is not the finite-panel
+Logarithmic construction of \Cref{thm:compression}. Its local notation
+$f_{\rm Log}$ and its word counts are retained in its own proof only.
+The new construction and the assembly of the current theorem appear in
+\Cref{sec:panel-proof,sec:panel-headline-proof}, which invoke the shared
+lemmas below and prove the additional flaring-domain estimates in full.
+Unless explicitly qualified otherwise, the norm $\norm{\cdot}_*$ in this
+library is the whole-sphere norm. In the new appendix it is replaced by
+the declared-panel norm. Decoder-local $p$ is a moment order, not the
+number of passive inputs in the main theorem.
+
 
 The first-layer matrix denoted by \(A\) in the detailed formulas below is
 exactly \(W^{(1)}\) in the main text. The hidden matrices
@@ -35,7 +50,7 @@ changing proof-local notation or introducing a second model.
 
 % SOURCE 355--367: paragraph
 
-The structural parameters remain separate: dense width \(n\), sample count \(m\), input dimension \(d\), and hidden depth \(L\ge2\). Inputs satisfy \(\|x_a\|_2=\sqrt d\), and labels are arbitrary fixed real numbers. The common freely supplied compression order is \(q\): Legendre memory order or Harmonic per-layer neuron budget. Logarithmic decoder compression has no free \(q\); its moment and field orders are prescribed by the width, problem and confidence certificate. The remaining global numerical symbols are label RMS \(Y\), feature gap \(\gamma\), activation envelope \(\beta\), failure probability \(\delta\), target accuracy \(\varepsilon\), and a generic numerical constant \(C\). Different occurrences of \(C\) may denote different universal constants; they never conceal structural dependence. The detailed statements and proofs use locally defined coefficients, not extra model orders.
+The structural parameters remain separate: dense width \(n\), sample count \(m\), input dimension \(d\), and hidden depth \(L\ge2\). Inputs satisfy \(\|x_a\|_2=\sqrt d\), and labels are arbitrary fixed real numbers. The common freely supplied compression order is \(q\): Legendre memory order or Harmonic per-layer neuron budget. Seeded decoder compression has no free \(q\); its moment and field orders are prescribed by the width, problem and confidence certificate. The remaining global numerical symbols are label RMS \(Y\), feature gap \(\gamma\), activation envelope \(\beta\), failure probability \(\delta\), target accuracy \(\varepsilon\), and a generic numerical constant \(C\). Different occurrences of \(C\) may denote different universal constants; they never conceal structural dependence. The detailed statements and proofs use locally defined coefficients, not extra model orders.
 
 
 % SOURCE 369--369: paragraph
@@ -56,7 +71,7 @@ z^{(j)}=W^{(j)}h^{(j-1)},\qquad h^{(j)}=\phi_j(z^{(j)}),
 
 % SOURCE 375--386: paragraph
 
-The first weights have independent \(N(0,\allowbreak 1)\) entries; hidden mixers have independent \(N(0,\allowbreak 1/n)\) entries; blocks are independent; \(w(0)=0\). Training minimizes mean squared loss with mobilities \((n,\allowbreak 1,\allowbreak \ldots,\allowbreak 1,\allowbreak n)\). The dense copy \(\widetilde f_n\) is independently initialized. Legendre and Harmonic use their realized reference initialization and the same physical time; the Logarithmic decoder instead compares a newly generated compressed model with an independent dense reference. For the implicit Harmonic initializer, that realization is latent: exact adaptive Gaussian actions couple the output to one ordinary dense reference without generating its full hidden matrices. This samples a fresh joint reference/output law; it is not conversion of a previously supplied matrix or a prescribed entrywise random seed.
+The first weights have independent \(N(0,\allowbreak 1)\) entries; hidden mixers have independent \(N(0,\allowbreak 1/n)\) entries; blocks are independent; \(w(0)=0\). Training minimizes mean squared loss with mobilities \((n,\allowbreak 1,\allowbreak \ldots,\allowbreak 1,\allowbreak n)\). The dense copy \(\widetilde f_n\) is independently initialized. Legendre and Harmonic use their realized reference initialization and the same physical time; the Seeded decoder instead compares a newly generated compressed model with an independent dense reference. For the implicit Harmonic initializer, that realization is latent: exact adaptive Gaussian actions couple the output to one ordinary dense reference without generating its full hidden matrices. This samples a fresh joint reference/output law; it is not conversion of a previously supplied matrix or a prescribed entrywise random seed.
 
 
 % SOURCE 388--390: paragraph
@@ -94,7 +109,7 @@ Z\sim N(0,Q^{(j-1)}),\qquad
 
 % SOURCE 403--406: paragraph
 
-The gap is not divided by \(m\). No orthogonality, centering, sign pattern or clipping is imposed. Dense, Legendre and Harmonic need no input-rank assumption. Only the Logarithmic decoder uses the already stated spanning condition and \(m\ge d\).
+The gap is not divided by \(m\). No orthogonality, centering, sign pattern or clipping is imposed. Dense, Legendre and Harmonic need no input-rank assumption. Only the Seeded decoder uses the already stated spanning condition and \(m\ge d\).
 
 
 % SOURCE 408--409: paragraph
@@ -140,12 +155,12 @@ This includes fitted limits and the whole sphere, a circle only when \(d=2\). It
 
 % SOURCE 428--442: paragraph
 
-\textbf{Probability and width.} Fix \(0<\delta<1\). For the dense, Legendre and Harmonic results, each fixed admissible problem has a finite width threshold, depending on all its parameters and \(\delta\), above which the stated comparisons hold jointly with probability at least \(1-\delta\). It includes inherited source/initialization gates, the lower theorem's eventual threshold when used, and the explicit \hyperref[int:harmonic-storage-count]{analytic-tail and construction gates}. Its stochastic part remains unquantified. Logarithmic decoder compression has instead the explicit, extremely conservative sufficient width stated below; it introduces no additional existential stochastic threshold. Every statement concerns each individual width, not one event over infinitely many independent initializations. Split failure budgets for joint statements. Fixed-confidence logarithms in the first three upper bounds are absorbed by their eventual-width convention, not by a claimed numerical failure-rate formula. Multiplying storage by a fixed constant is not claimed to produce exponential confidence amplification.
+\textbf{Probability and width.} Fix \(0<\delta<1\). For the dense, Legendre and Harmonic results, each fixed admissible problem has a finite width threshold, depending on all its parameters and \(\delta\), above which the stated comparisons hold jointly with probability at least \(1-\delta\). It includes inherited source/initialization gates, the lower theorem's eventual threshold when used, and the explicit \hyperref[int:harmonic-storage-count]{analytic-tail and construction gates}. Its stochastic part remains unquantified. Seeded decoder compression has instead the explicit, extremely conservative sufficient width stated below; it introduces no additional existential stochastic threshold. Every statement concerns each individual width, not one event over infinitely many independent initializations. Split failure budgets for joint statements. Fixed-confidence logarithms in the first three upper bounds are absorbed by their eventual-width convention, not by a claimed numerical failure-rate formula. Multiplying storage by a fixed constant is not claimed to produce exponential confidence amplification.
 
 
 % SOURCE 444--454: paragraph
 
-\textbf{Model domains.} Legendre permits every integer \(q\ge1\), with no separate accuracy-order condition. The Harmonic family permits every integer budget \(q\ge18(2m+d+9)\), abbreviated \(q\ge C(m+d)\) in the headline counts only. This is exact-initialization overhead: positive training Gram forces top width at least \(m\), and exact first-weight columns force first width at least \(d\) when \(n\ge d\). For \(q\ge n\), the full selected space gives exact agreement with dense. Logarithmic decoder compression instead requires \(m\ge d\), spanning training inputs, \(0<\delta<1/4\), and the complete common fitting/source label allowance. It is a certificate-prescribed family indexed by \(n\), not an arbitrary-budget family indexed by \(q\).
+\textbf{Model domains.} Legendre permits every integer \(q\ge1\), with no separate accuracy-order condition. The Harmonic family permits every integer budget \(q\ge18(2m+d+9)\), abbreviated \(q\ge C(m+d)\) in the headline counts only. This is exact-initialization overhead: positive training Gram forces top width at least \(m\), and exact first-weight columns force first width at least \(d\) when \(n\ge d\). For \(q\ge n\), the full selected space gives exact agreement with dense. Seeded decoder compression instead requires \(m\ge d\), spanning training inputs, \(0<\delta<1/4\), and the complete common fitting/source label allowance. It is a certificate-prescribed family indexed by \(n\), not an arbitrary-budget family indexed by \(q\).
 
 
 % SOURCE 456--456: heading
@@ -154,7 +169,7 @@ This includes fitted limits and the whole sphere, a circle only when \(d=2\). It
 
 % SOURCE 458--463: paragraph
 
-Dense, Legendre and Harmonic storage counts real coordinates, not bits. Logarithmic decoder storage counts finite numerical words and states its certified bits per word separately. The separate \hyperref[int:computational-costs]{computational-cost section} reports initialization, per-stage training and single-query costs; storage alone is not a runtime bound. For \(n\ge d\), the clean counts are:
+Dense, Legendre and Harmonic storage counts real coordinates, not bits. Seeded decoder storage counts finite numerical words and states its certified bits per word separately. The separate \hyperref[int:computational-costs]{computational-cost section} reports initialization, per-stage training and single-query costs; storage alone is not a runtime bound. For \(n\ge d\), the clean counts are:
 
 
 % SOURCE 465--470: table
@@ -177,7 +192,7 @@ All retained model storage & \inttablemath{O(Ln^2+Lmnq)} \\
 Learned state & \inttablemath{O(Lq^2)} \\
 All retained model storage & \inttablemath{O(Lq^2)} \\
 \addlinespace[0.45em]
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model: Logarithmic decoder}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model: Seeded decoder}} \\
 Learned state & bounded by the complete-model envelope at right \\
 All retained model storage & \inttablemath{O(\log^6(en)\log\log(e^e+n))} numerical words at fixed problem parameters \\
 \addlinespace[0.45em]
@@ -187,7 +202,7 @@ All retained model storage & \inttablemath{O(\log^6(en)\log\log(e^e+n))} numeric
 
 % SOURCE 472--482: paragraph
 
-Before simplification, the exact dense moving count is \((L-1)n^2+n(d+1)\), the Legendre count is \(n(d+1)+1+2(L-1)mnq\), and Harmonic has at most \((L-1)q^2+q(d+1)+m\). Legendre additionally retains \((L-1)n^2\) fixed mixers; reconstructed matrices are evaluation objects. Harmonic includes metrics, fixed copies, residual coordinates, data and solve caches. Original-width source arrays and jets are discarded. Ordinary data storage is additional for the dense/Legendre model-state counts if retained. The Logarithmic decoder count already includes its normalized training table, all ensemble members, seeds, selected packets, caches and current scalar state.
+Before simplification, the exact dense moving count is \((L-1)n^2+n(d+1)\), the Legendre count is \(n(d+1)+1+2(L-1)mnq\), and Harmonic has at most \((L-1)q^2+q(d+1)+m\). Legendre additionally retains \((L-1)n^2\) fixed mixers; reconstructed matrices are evaluation objects. Harmonic includes metrics, fixed copies, residual coordinates, data and solve caches. Original-width source arrays and jets are discarded. Ordinary data storage is additional for the dense/Legendre model-state counts if retained. The Seeded decoder count already includes its normalized training table, all ensemble members, seeds, selected packets, caches and current scalar state.
 
 
 % SOURCE 484--487: paragraph
@@ -311,7 +326,7 @@ The original construction at source tolerance \(1/n\) remains valid with its sha
 
 
 % SOURCE 568--568: heading
-\subsubsection{Logarithmic decoder versus an independent dense reference}
+\subsubsection{Seeded decoder versus an independent dense reference}
 \label{int:logarithmic-forward-interface}
 
 % SOURCE 570--571: paragraph
@@ -723,7 +738,7 @@ Enlarging numerical constants absorbs \(\sqrt{\log(en)}\). If the sufficient bud
 
 
 % SOURCE 824--824: heading
-\subsubsection{Logarithmic decoder: choose reference width for the target}
+\subsubsection{Seeded decoder: choose reference width for the target}
 
 
 % SOURCE 826--827: paragraph
@@ -867,7 +882,7 @@ The full-width exact fallback uses the dense row. Legendre rows use streamed cor
 
 % SOURCE 902--904: paragraph
 
-The Logarithmic decoder uses finite-word rather than unit-cost real arithmetic, so its costs are stated separately. With \(p,\allowbreak Z\) as in \eqref{int:eq-0007-logarithmic-decoder-orders}, put
+The Seeded decoder uses finite-word rather than unit-cost real arithmetic, so its costs are stated separately. With \(p,\allowbreak Z\) as in \eqref{int:eq-0007-logarithmic-decoder-orders}, put
 
 
 % SOURCE 905--908: display
@@ -893,15 +908,15 @@ Up to universal multiplicative constants:
 \toprule
 \multicolumn{2}{@{}l@{}}{\textit{Detailed comparison}} \\ \midrule
 \endhead
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Logarithmic decoder phase: Initialization}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Seeded decoder phase: Initialization}} \\
 Word operations & \inttablemath{n(d+1)p^5\beta^{1115L}(m+d+2)^5(1+m/\gamma)^5Z^{29/2}} \\
 Peak numerical words & \inttablemath{M_{\rm Log}+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2}+p^3\beta^{603L}(m+d+2)^3(1+m/\gamma)^3Z^{15/2}} \\
 \addlinespace[0.45em]
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Logarithmic decoder phase: Complete compact training}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Seeded decoder phase: Complete compact training}} \\
 Word operations & \inttablemath{(d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4Z^{12}\log(e+p\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2})} \\
 Peak numerical words & \inttablemath{M_{\rm Log}} \\
 \addlinespace[0.45em]
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Logarithmic decoder phase: One unseen-input query}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Seeded decoder phase: One unseen-input query}} \\
 Word operations & \inttablemath{(d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4[(L+1)nZ^{12}+Z^{14}]} \\
 Peak numerical words & \inttablemath{M_{\rm Log}} \\
 \addlinespace[0.45em]
@@ -943,7 +958,7 @@ All retained model storage & \inttablemath{\varepsilon^{-4+o(1)}}, including fix
 Learned storage at error \inttablemath{\varepsilon} & \inttablemath{O(\log(1/\varepsilon)^{3d+2})} \\
 All retained model storage & \inttablemath{O(\log(1/\varepsilon)^{3d+2})} \\
 \addlinespace[0.45em]
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model: Logarithmic decoder}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model: Seeded decoder}} \\
 Learned storage at error \inttablemath{\varepsilon} & bounded by the complete-model envelope at right \\
 All retained model storage & \inttablemath{O([\log(1/\varepsilon)]^6\log\log(e^e+1/\varepsilon))} numerical words \\
 \addlinespace[0.45em]
@@ -1009,15 +1024,15 @@ Peak memory & \inttablemath{O(\log(1/\varepsilon)^{3d+2})} \\
 Work & \inttablemath{O(\log(1/\varepsilon)^{3d+2})} \\
 Peak memory & \inttablemath{O(\log(1/\varepsilon)^{3d/2+1})} additional \\
 \addlinespace[0.45em]
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model and operation: Logarithmic decoder initialization}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model and operation: Seeded decoder initialization}} \\
 Work & \inttablemath{\varepsilon^{-2+o(1)}} word operations \\
 Peak memory & \inttablemath{\varepsilon^{-2+o(1)}} numerical words \\
 \addlinespace[0.45em]
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model and operation: Logarithmic decoder complete training}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model and operation: Seeded decoder complete training}} \\
 Work & \inttablemath{O([\log(1/\varepsilon)]^{12}\log\log(e^e+1/\varepsilon))} word operations \\
 Peak memory & retained model \\
 \addlinespace[0.45em]
-\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model and operation: Logarithmic decoder query}} \\
+\multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Model and operation: Seeded decoder query}} \\
 Work & \inttablemath{\varepsilon^{-2+o(1)}} word operations \\
 Peak memory & retained model \\
 \addlinespace[0.45em]
@@ -1027,7 +1042,7 @@ Peak memory & retained model \\
 
 % SOURCE 974--997: paragraph
 
-The displayed Harmonic rates follow by substituting \(n=\varepsilon^{-2+o(1)}\) into the two proved local-continuation bounds, with the sufficient source orders just stated. Arbitrary inverse budgets retain the full finite cost formulas in the preceding table. The explicit implementation holds quadratic dense arrays during warmup; the implicit implementation does not generate them. Neither warmup is polylogarithmic merely because the retained model is. All asymptotic rows fix the dataset, depth, dimension, activations and confidence. Dense, Legendre and Harmonic use unit-cost scalar evaluation/sampling; their more general arithmetic-plus-primitive-call qualification is in \hyperref[int:detailed-statements]{the detailed-statement appendix}. Those rows do not bound numerical precision or the number of subsequent compressed training steps. The local initializer's own integration orders and numerical defect are controlled separately. Logarithmic rows instead use the finite-word contract, include their stated word length, and count the complete prescribed training schedule. Legendre's smaller learned state does not eliminate its fixed dense-mixer work; Harmonic's small runtime state does not bound the cost of constructing it. The Logarithmic decoder has a dimension-independent logarithmic word-storage exponent. Its exponent six is smaller than Harmonic's coordinate exponent \(3d+2\) when \(d\ge2\), but not when \(d=1\); these also count different storage units. Unlike Harmonic, its certified query work is not polylogarithmic. Its error meets the actual dense-pair quantile scale; it is not proved negligible relative to a realized dense-pair discrepancy.
+The displayed Harmonic rates follow by substituting \(n=\varepsilon^{-2+o(1)}\) into the two proved local-continuation bounds, with the sufficient source orders just stated. Arbitrary inverse budgets retain the full finite cost formulas in the preceding table. The explicit implementation holds quadratic dense arrays during warmup; the implicit implementation does not generate them. Neither warmup is polylogarithmic merely because the retained model is. All asymptotic rows fix the dataset, depth, dimension, activations and confidence. Dense, Legendre and Harmonic use unit-cost scalar evaluation/sampling; their more general arithmetic-plus-primitive-call qualification is in \hyperref[int:detailed-statements]{the detailed-statement appendix}. Those rows do not bound numerical precision or the number of subsequent compressed training steps. The local initializer's own integration orders and numerical defect are controlled separately. Seeded rows instead use the finite-word contract, include their stated word length, and count the complete prescribed training schedule. Legendre's smaller learned state does not eliminate its fixed dense-mixer work; Harmonic's small runtime state does not bound the cost of constructing it. The Seeded decoder has a dimension-independent logarithmic word-storage exponent. Its exponent six is smaller than Harmonic's coordinate exponent \(3d+2\) when \(d\ge2\), but not when \(d=1\); these also count different storage units. Unlike Harmonic, its certified query work is not polylogarithmic. Its error meets the actual dense-pair quantile scale; it is not proved negligible relative to a realized dense-pair discrepancy.
 
 
 % SOURCE 999--1000: paragraph
@@ -1084,7 +1099,7 @@ This compares complete trajectory norms, not endpoint errors or pointwise-in-tim
 
 % SOURCE 1035--1046: paragraph
 
-The global quantities are exactly those defined in \hyperref[int:headline-results]{the certificate-interface appendix}. The error and storage formulas in this part, rather than any choice of a headline constant, are the numerical certificates. Finite recurrence coefficients are defined locally where they are used; none is an independently adjustable parameter. The separate cost subsection exposes internal setup resolutions and qualifies its arithmetic big-O bounds explicitly. Dense, Legendre and Harmonic costs are not finite-bit certificates; Logarithmic costs use the separately defined finite-word model. None is a measured floating-point operation or wall-clock benchmark. The same physical-time model and the same whole-sphere, all-time norm apply throughout. Where a proof writes \(v=x/\sqrt d\), its unit-sphere supremum is exactly the original input-sphere supremum.
+The global quantities are exactly those defined in \hyperref[int:headline-results]{the certificate-interface appendix}. The error and storage formulas in this part, rather than any choice of a headline constant, are the numerical certificates. Finite recurrence coefficients are defined locally where they are used; none is an independently adjustable parameter. The separate cost subsection exposes internal setup resolutions and qualifies its arithmetic big-O bounds explicitly. Dense, Legendre and Harmonic costs are not finite-bit certificates; Seeded costs use the separately defined finite-word model. None is a measured floating-point operation or wall-clock benchmark. The same physical-time model and the same whole-sphere, all-time norm apply throughout. Where a proof writes \(v=x/\sqrt d\), its unit-sphere supremum is exactly the original input-sphere supremum.
 
 
 % SOURCE 1048--1048: heading
@@ -1146,7 +1161,7 @@ Each detailed statement is written at its individual confidence input \(0<\delta
 
 % SOURCE 1090--1094: paragraph
 
-To include the Logarithmic decoder in the same assertion, use input \(\delta/5\) for each of the five assertions and take the union of their width requirements, including its explicit gate. The decoder's additional spanning assumption applies only to that assertion. This is a joint-event allocation, not a new hypothesis for any standalone model theorem.
+To include the Seeded decoder in the same assertion, use input \(\delta/5\) for each of the five assertions and take the union of their width requirements, including its explicit gate. The decoder's additional spanning assumption applies only to that assertion. This is a joint-event allocation, not a new hypothesis for any standalone model theorem.
 
 
 % SOURCE 1096--1096: paragraph
@@ -1182,7 +1197,7 @@ Legendre order is every integer \(q\ge1\). The Harmonic construction below cover
 
 % SOURCE 1134--1145: paragraph
 
-Dense, Legendre and Harmonic storage counts are numbers of real coordinates. Logarithmic storage counts finite numerical words of the specified bit length. For dense and Legendre, state counts are distinguished from data and evaluation working memory. For Harmonic, the stated all-retained bound also includes fixed metrics/copies, data and prescribed solve caches. Setup jets and original-width arrays are discarded after construction. The separate \hyperref[int:computational-costs]{cost analysis} supplies arithmetic and peak-memory implementation bounds under each declared arithmetic model, not storage optimality over all possible representations. ``Least certified order'' means the least integer satisfying the particular displayed sufficient error bound; it is not an observed or minimax optimum.
+Dense, Legendre and Harmonic storage counts are numbers of real coordinates. Seeded storage counts finite numerical words of the specified bit length. For dense and Legendre, state counts are distinguished from data and evaluation working memory. For Harmonic, the stated all-retained bound also includes fixed metrics/copies, data and prescribed solve caches. Setup jets and original-width arrays are discarded after construction. The separate \hyperref[int:computational-costs]{cost analysis} supplies arithmetic and peak-memory implementation bounds under each declared arithmetic model, not storage optimality over all possible representations. ``Least certified order'' means the least integer satisfying the particular displayed sufficient error bound; it is not an observed or minimax optimum.
 
 
 % SOURCE 1148--1148: heading
@@ -2238,7 +2253,7 @@ The quantitative fitting theorem, parameter comparison, Gaussian concentration, 
 
 % SOURCE 1685--1699: paragraph
 
-The trained carrier event and finite-query holomorphic event depend on the shared source foundation's local Gaussian insertion theorem and its complex extension. Their finite activation/depth coefficients are the displayed source recurrences, not unspecified comparison constants. The maps, control-uniform stopping argument, nonlinear remainders, passive-query derivatives and scalar trace contractions are proved in \eqref{int:eq-0118-ic-1}--\allowbreak \eqref{int:eq-0175-ic-57}, including the independent stopped-path extension \eqref{int:eq-0122-ic-stop}. The complete complex query-tube source and initialized CLT still have eventual fixed-problem width quantifiers; no numerical full success threshold is asserted for those results. The concrete numerical initialization threshold and deterministic domain/remainder gates remain distinct from that qualitative width convention. The narrower finite training-source event has the separate explicit proof \eqref{int:eq-0273-ic-58}--\allowbreak \eqref{int:eq-0305-ic-90}; its all-time training-carrier bridge suffices for the Logarithmic decoder's dense upper certificate, not for a quantitative lower-bound CLT.
+The trained carrier event and finite-query holomorphic event depend on the shared source foundation's local Gaussian insertion theorem and its complex extension. Their finite activation/depth coefficients are the displayed source recurrences, not unspecified comparison constants. The maps, control-uniform stopping argument, nonlinear remainders, passive-query derivatives and scalar trace contractions are proved in \eqref{int:eq-0118-ic-1}--\allowbreak \eqref{int:eq-0175-ic-57}, including the independent stopped-path extension \eqref{int:eq-0122-ic-stop}. The complete complex query-tube source and initialized CLT still have eventual fixed-problem width quantifiers; no numerical full success threshold is asserted for those results. The concrete numerical initialization threshold and deterministic domain/remainder gates remain distinct from that qualitative width convention. The narrower finite training-source event has the separate explicit proof \eqref{int:eq-0273-ic-58}--\allowbreak \eqref{int:eq-0305-ic-90}; its all-time training-carrier bridge suffices for the Seeded decoder's dense upper certificate, not for a quantitative lower-bound CLT.
 
 
 % SOURCE 1701--1706: paragraph
@@ -4027,12 +4042,12 @@ These inequalities are eventual at every fixed admissible problem. They are inde
 
 
 % SOURCE 2715--2715: heading
-\subsection{Logarithmic decoder compression: explicit finite theorem}
+\subsection{Seeded decoder compression: explicit finite theorem}
 \label{int:logarithmic-decoder-detailed}
 
 % SOURCE 2717--2722: paragraph
 
-The Logarithmic decoder uses the same dense architecture, Gaussian initialization, zero readout, mean-square loss and mobilities as the preceding sections. Its additional data hypotheses are \(m\ge d\) and \(\operatorname{span}\{x_1,\allowbreak \ldots,\allowbreak x_m\}=\mathbb R^d\). It retains the full intersection of the fitting and analytic-source label allowances; it adds no smaller upper label cap. The branch \(Y=0\) is the exact zero predictor.
+The Seeded decoder uses the same dense architecture, Gaussian initialization, zero readout, mean-square loss and mobilities as the preceding sections. Its additional data hypotheses are \(m\ge d\) and \(\operatorname{span}\{x_1,\allowbreak \ldots,\allowbreak x_m\}=\mathbb R^d\). It retains the full intersection of the fitting and analytic-source label allowances; it adds no smaller upper label cap. The branch \(Y=0\) is the exact zero predictor.
 
 
 % SOURCE 2724--2724: paragraph
@@ -5965,7 +5980,7 @@ t_2=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|\phi_j''(z)|\}.
 
 % SOURCE 4097--4108: paragraph
 
-There is an unavoidable distinction between an explicit error coefficient and an effective probability threshold. The original source argument proves probability tending to one by sending width to infinity at each fixed empirical moment degree and only then taking the infimum over those degrees. It does \textbf{not} specify a numerical sufficient width as a function of confidence for that entire complex-sphere source event. The later finite training-source proof gives a separate explicit width for the Logarithmic decoder; it must not be substituted for the stronger query-tube event. The deterministic source coefficients, label allowance, radii and additional width inequalities below are explicit. The finite-deletion argument uses eventual domination of fixed logarithmic factors; it is the source of the remaining qualitative width quantifier.
+There is an unavoidable distinction between an explicit error coefficient and an effective probability threshold. The original source argument proves probability tending to one by sending width to infinity at each fixed empirical moment degree and only then taking the infimum over those degrees. It does \textbf{not} specify a numerical sufficient width as a function of confidence for that entire complex-sphere source event. The later finite training-source proof gives a separate explicit width for the Seeded decoder; it must not be substituted for the stronger query-tube event. The deterministic source coefficients, label allowance, radii and additional width inequalities below are explicit. The finite-deletion argument uses eventual domination of fixed logarithmic factors; it is the source of the remaining qualitative width quantifier.
 
 
 % SOURCE 4111--4111: heading
@@ -12865,7 +12880,7 @@ The resulting deterministic Harmonic implication is complete relative to the sha
 
 
 % SOURCE 8776--8776: heading
-\subsection{Logarithmic decoder proofs}
+\subsection{Seeded decoder proofs}
 \label{int:logarithmic-decoder-proofs}
 
 % SOURCE 8778--8785: paragraph
@@ -13093,7 +13108,7 @@ n\ge\beta^{32L}(1+\lambda^{-1})^2
 
 % SOURCE 8939--8940: paragraph
 
-This gate replaces, rather than assumes domination of, the older exponential-in-dimension initialization gate in the Logarithmic proof.
+This gate replaces, rather than assumes domination of, the older exponential-in-dimension initialization gate in the Seeded proof.
 
 
 % SOURCE 8942--8942: heading
@@ -13758,7 +13773,7 @@ Initialization costs less than \(\rho/4\), the local event less than \(\rho/16\)
 
 % SOURCE 9483--9491: paragraph
 
-For the Logarithmic decoder, use \(\rho=2^{-20}\delta\) and \(p=p_{\rm ref}\) for the independent dense reference. A constructed member uses \(\rho=2^{-20}\), giving the stated implemented order \(p\) independent of \(\delta\). The reference gate dominates the member gate because both \(p\) and \(\rho^{-1}\) are larger for the reference. Whole-experiment amplification, proved in the decoder section, pays for member failure. It is not a union-bound requirement that every member source succeed. Substitution in \eqref{int:eq-0282-ic-67} and its envelope gives exactly
+For the Seeded decoder, use \(\rho=2^{-20}\delta\) and \(p=p_{\rm ref}\) for the independent dense reference. A constructed member uses \(\rho=2^{-20}\), giving the stated implemented order \(p\) independent of \(\delta\). The reference gate dominates the member gate because both \(p\) and \(\rho^{-1}\) are larger for the reference. Whole-experiment amplification, proved in the decoder section, pays for member failure. It is not a union-bound requirement that every member source succeed. Substitution in \eqref{int:eq-0282-ic-67} and its envelope gives exactly
 
 
 % SOURCE 9492--9498: display
@@ -13858,7 +13873,7 @@ Indeed \(S=16Y/\lambda\), \(K_{\rm src}\ge1\), \(C_{\rm carrier}\le\beta^{20L}\)
 
 % SOURCE 9551--9565: paragraph
 
-Define the real dense good set by the fitting operator/RMS/Gram tube, its endpoint tail, and this training-carrier bound. Its definition is independent of \(p\), the complex radius, and confidence. Both the fixed-confidence members and the high-confidence independent reference belong to that same set on their respective source events. The dense endpoint-subtraction proof uses coordinate carrier maxima only for training samples: its arbitrary-query step is forward RMS subtraction in the real operator tube. Its Gaussian extension then uses a real sphere net, a real compactified-time grid, and the real fitting tail. Thus the signed dense Lipschitz constant, its common extension center, and the whole-sphere/all-time certificate \(B_n\) are unchanged when this finite-training event replaces the original qualitative source event. No analyticity or carrier maximum at passive complex queries is a hypothesis of that comparison. This explicitly closes the reference-event dependency of the Logarithmic decoder.
+Define the real dense good set by the fitting operator/RMS/Gram tube, its endpoint tail, and this training-carrier bound. Its definition is independent of \(p\), the complex radius, and confidence. Both the fixed-confidence members and the high-confidence independent reference belong to that same set on their respective source events. The dense endpoint-subtraction proof uses coordinate carrier maxima only for training samples: its arbitrary-query step is forward RMS subtraction in the real operator tube. Its Gaussian extension then uses a real sphere net, a real compactified-time grid, and the real fitting tail. Thus the signed dense Lipschitz constant, its common extension center, and the whole-sphere/all-time certificate \(B_n\) are unchanged when this finite-training event replaces the original qualitative source event. No analyticity or carrier maximum at passive complex queries is a hypothesis of that comparison. This explicitly closes the reference-event dependency of the Seeded decoder.
 
 
 % SOURCE 9569--9569: heading
@@ -16672,12 +16687,21 @@ Whenever a separately justified lower bound gives \(b_n(\delta)\ge A_{\rm num}Yn
 
 
 % SOURCE 11755--11755: heading
-\subsection{Proof of the joint optimized-size headline theorem}
+\subsection{Sphere-model size derivations and supplementary decoder comparison}
 \label{int:joint-compression-headline-proof}
 
 % SOURCE 11757--11764: paragraph
 
-This subsection derives the paper's common comparison and chosen sizes from the complete certificates. Only in this subsection, \(c,\allowbreak C\) may depend on the fixed activations and depth. All confidence allocations below are fixed numerical values, and no dependence on \(m,\allowbreak n,\allowbreak d,\allowbreak \gamma\) is hidden in \(c,\allowbreak C\). Assume \(m/\gamma\ge1\), \(m\ge2\), and fixed \(Y>0\) in the common label interval. The paper uses the simpler shared subinterval \(Y\le c\gamma/m\). The full recurrence allowance implies \(Y\le1\), but is not used to trade powers of \(m/\gamma\).
+This subsection derives the Legendre and Harmonic sizes and the separate
+seeded-decoder comparison from their complete certificates. It is used by,
+but is not by itself the proof of, the current unified theorem; its new
+finite-panel component is assembled in \Cref{sec:panel-headline-proof}.
+Only in this subsection, \(c,C\) may depend on fixed activations and depth.
+The confidence allocations are fixed numerical values and these constants
+hide no dependence on \(m,n,d,Y,\gamma\). Assume \(m/\gamma\ge1\),
+\(m\ge2\), and fixed \(Y>0\) in the common label interval. The main
+text uses the simpler shared subinterval \(Y\le c\gamma/m\).
+No label inequality is used to reduce a displayed sample/gap power.
 
 
 % SOURCE 11766--11770: paragraph
@@ -16769,7 +16793,7 @@ For Harmonic use the exact inverse in \hyperref[int:harmonic-variable-budget-the
 \intdisplay{
 q\le C(m+d)+
 \left(\frac C{\sqrt d}\right)^{d+1}
-(m/\gamma)^2[\log(en)]^{3d/2+1}.
+(Ym/\gamma)^2[\log(en)]^{3d/2+1}.
 }
 \label{int:eq-0398-joint-internal-harmonic-budget}
 \end{equation}
@@ -16777,7 +16801,14 @@ q\le C(m+d)+
 
 % SOURCE 11832--11841: paragraph
 
-This follows by inserting \(\varepsilon=Y/n\) in the full inverse logarithm, keeping \(Y\) fixed, and absorbing the fixed structural addends into \(\log(en)\) only after enlarging the eventual width. The exact rank envelope and factorial-elimination calculation below give the displayed \(d\) coefficient. In the original label-explicit rank coefficient, retaining \(Y\le1\) only enlarges this bound and does not lower its sample/gap exponent. The exact retained inventory is \(13(L+1)q^2+10m(d+1)\). Squaring the two sufficient budget terms, using \((u+v)^2\le2u^2+2v^2\), and absorbing the data inventory gives
+This follows by inserting \(\varepsilon=Y/n\) in the full inverse
+logarithm, keeping \(Y\) fixed, and absorbing fixed structural addends
+into \(\log(en)\) only after enlarging the eventual width.
+The label-explicit inverse \eqref{int:eq-0021-harmonic-inverse} and
+its factorial-elimination proof give the displayed \(d\) coefficient
+while retaining the factor \(Y^2\). The exact retained inventory is
+\(13(L+1)q^2+10m(d+1)\). Squaring the two budget terms, using
+\((u+v)^2\le2u^2+2v^2\), and absorbing the data inventory gives
 
 
 % SOURCE 11842--11847: display
@@ -16785,7 +16816,7 @@ This follows by inserting \(\varepsilon=Y/n\) in the full inverse logarithm, kee
 \begin{equation}
 \intdisplay{
 C(m+d)^2+
-\left(\frac Cd\right)^{d+1}(m/\gamma)^4
+\left(\frac Cd\right)^{d+1}(Ym/\gamma)^4
 [\log(en)]^{3d+2}.
 }
 \label{int:eq-0399-joint-harmonic-retained-bound}
@@ -16799,7 +16830,7 @@ Its certified error is at most \(Y/n\). Its ratio to \(a_n\) is at most \(C[\log
 
 % SOURCE 11853--11859: paragraph
 
-For Logarithmic use the existing finite construction at failure \(\delta=1/100\), with its internal orders and width gate unchanged. The fixed-quantile version of the preceding center proof applies with \(\alpha_0=10^{-4}\): the regular center has dense-ball failure at most \(2\alpha_0=1/5000\), and the median/code failure is at most \(\delta/8=1/800\). The single-member failure remains below \(1/16\). Hence
+For Seeded use the existing finite construction at failure \(\delta=1/100\), with its internal orders and width gate unchanged. The fixed-quantile version of the preceding center proof applies with \(\alpha_0=10^{-4}\): the regular center has dense-ball failure at most \(2\alpha_0=1/5000\), and the median/code failure is at most \(\delta/8=1/800\). The single-member failure remains below \(1/16\). Hence
 
 
 % SOURCE 11860--11865: display

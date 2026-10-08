@@ -1,0 +1,769 @@
+\section{Residual-adapted finite-panel compression}
+\label{sec:panel-proof}
+
+This appendix proves the Logarithmic row of Theorem~\ref{thm:compression}.
+It uses the same selected-coordinate optimizer as Harmonic compression,
+but constructs its source spaces from finitely many response curves.
+The new argument concerns the complex-time domain of those curves.
+The coordinate-selection, fitting, and cancellation arguments are reused
+only after their hypotheses have been verified below.  All references in
+this appendix are to proofs included in this paper.
+
+\subsection{Contract, exact coefficients, and width qualification}
+\label{sec:panel-contract}
+
+Fix the training inputs and \(p\) additional inputs before initialization.
+Only the first \(m\) inputs have labels or enter training sums.  Write
+\(v_i=x_i/\sqrt d\), so \(\|v_i\|_2=1\), and use the canonical
+Gaussian initialization, zero readout, mobilities, and physical time of
+the main text.  The passive labels are neither required nor used.  The
+activation assumptions are those of
+\S\ref{int:source-foundations}: holomorphy on \(|\operatorname{Im}z|<a\),
+reality on the real axis, and bounded first derivative on that strip.
+Activation values need not be bounded.  Put
+\begin{align*}
+ b&=\max_j|\phi_j(0)|,&
+ s&=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|\phi_j'(z)|\},\\
+ t_2&=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|\phi_j''(z)|\},&
+ \beta&=\max(10,1+b,s,t_2,16/a).
+\end{align*}
+The second derivative bound is finite by the strip hypothesis and
+Cauchy's formula.  Throughout this appendix the local abbreviations are
+\[
+ \lambda=\gamma/m,\qquad Y=\|y\|_2/\sqrt m>0,\qquad
+ S=16Y/\lambda,\qquad \ell=\log(en),\qquad
+ \nu=\lambda/4,\qquad T_0=32\ell/\lambda.
+\]
+The case \(Y=0\) has the exact stationary zero predictor and needs no
+division by \(Y\).  The full label allowance is
+\begin{equation}
+ \frac{Y}{\lambda}\le
+ \min\left\{\frac1{8H_d\sqrt{F_d}},
+             \frac1{16H_c\sqrt{F_c}},\frac{S_*^{\rm src}}{16}\right\}.
+ \label{eq:panel-labels}
+\end{equation}
+Here \(H_d,F_d,H_c,F_c\) are exactly the finite recurrences in
+\eqref{int:eq-0054-harmonic-dense-coefficients}--\eqref{int:eq-0055-harmonic-fitting-coefficients},
+and \(S_*^{\rm src}\) is the explicit minimum
+\eqref{int:eq-0184-s-10}.  Thus \eqref{eq:panel-labels} is precisely
+the existing Harmonic allowance, not a new smaller cap.  In particular
+\(S\le1\).  The additional Legendre allowance is imposed only when
+all three methods are asserted together.
+
+For an explicit finite prescription we recall the source coefficients.
+All symbols in the following recurrence are fixed scalars, not model
+coordinates or approximation orders:
+\begin{align*}
+ H_1&=b+20s,&H_j&=b+10sH_{j-1},&
+ k_j&=H_L(10s)^{L-j},&\tau_j&=sk_j,\\
+ P_1&=3,&P_j&=H_{j-1}+10sP_{j-1}+1,&f_j&=sP_j,\\
+ g&=\tau_1+\sum_{j=2}^L\tau_jH_{j-1},&
+ r_j^{\rm src}&=P_jg,&q_j^{\rm src}&=f_jg,\\
+ A_*&=2sP_L+2s^2\sum_{j=2}^Lk_jP_{j-1},&
+ H_*&=A_*+t_2\sum_{j=1}^LP_j^2k_j,\\
+ E_*&=t_2\sum_{j=1}^L(10s)^{2(j-1)}k_j.
+\end{align*}
+Continue with
+\begin{align*}
+ D_0&=(1+b+s)\{1+2H_*^2+4A_*^2(e^2-1)+E_*+s^2\max_jk_j^2\},\\
+ K_{\rm src}&=128(D_0+1)\{1+32\max(1,\max_jH_j,\max_j\tau_j)\},\\
+ e_1&=t_2r_1^{\rm src}P_1,\\
+ e_j&=t_2r_j^{\rm src}P_j+
+ s(q_{j-1}^{\rm src}+\tau_jH_{j-1}f_{j-1}+10e_{j-1}),\\
+ T_Q&=8\max_jf_j\max_j(f_jH_*+e_j),\\
+ U=U_{\rm fin}(S)&=\max\left\{4sK_{\rm src},\right.\\[-2mm]
+ &\quad\left.\max_{j\ge2}2\left[sK_{\rm src}
+ (H_{j-1}^2+f_{j-1}^2+ST_Q+S^2H_{j-1}q_{j-1}^{\rm src})
+ +64q_{j-1}^{\rm src}+1\right]\right\}.
+\end{align*}
+These are the coefficients of \S\ref{int:source-explicit-recurrences}
+and \S\ref{int:dense-finite-query-source}; the superscripts on
+\(r_j^{\rm src},q_j^{\rm src}\) prevent confusion with residuals and
+selected widths.  Define
+\begin{equation}
+ \begin{split}
+ \mathcal K&=H_L^2+S^2\left[\tau_1^2+
+                  \sum_{j=2}^L\tau_j^2H_{j-1}^2\right],\qquad
+ M_0=10\max_j(H_j,\tau_j),\\
+ r_n&=\frac{a}{64YSU\sqrt\ell},\qquad
+ D_W=\max\{\tau_1,\max_{j\ge2}\tau_jH_{j-1}\}.
+ \end{split}
+ \label{eq:panel-source-coefficients}
+\end{equation}
+In the source budget \eqref{int:eq-0184-s-10}, denote its exponential
+coefficient by \(\eta_{\rm src}\) and its ceiling by
+\(\mathcal B=1024e^2L\), to distinguish them from an approximation
+tolerance.  Both retain their exact definitions there.
+
+The theorem is eventual for each fixed admissible problem and each
+fixed confidence.  In addition to the unchanged initialization and
+source-event onsets, the numerical gates used below are
+\begin{gather}
+ n^{-1}\le\min(1,Y,S),\qquad
+ \ell\ge\max(e^2,2\mathcal B),\qquad
+ \sqrt\ell\ge \frac{a}{64YSU}
+       \max\{8,\lambda,4\mathcal K/\log2,32YSD_W\},
+ \label{eq:panel-old-gates}\\
+ \max\left\{4\mathcal K r_n,
+     \frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n\right\}<\log(3/2),
+ \qquad B_n=1+\frac{S^2}{\eta_{\rm src}}\log(e+\ell),
+ \label{eq:panel-new-gate}
+\end{gather}
+where the finite coefficient \(C_g\) is given in
+\eqref{eq:panel-gradient-derivative} below.  The fitted-tail and degree
+gates are \eqref{eq:panel-tolerance} and \eqref{eq:panel-degree-gate}.
+Every displayed gate holds eventually at fixed parameters.  The
+probability onset is qualitative: no effective polynomial threshold,
+uniform growing-panel statement, or simultaneous event over infinitely
+many independent widths is asserted.
+
+\subsection{The enlarged analytic domain}
+\label{sec:panel-domain}
+
+The independently proved real fitting theorem gives
+\(\rho(t)=\|r(t)\|_2/\sqrt m\le Ye^{-\nu t}\), physical operator
+caps strictly below nine, and \(2\int_0^\infty\rho\le S/2\).
+These facts also hold for each fixed-size rectangular cavity on its
+own initialization event.  This last statement uses the zero-embedding
+calculation \eqref{int:eq-0286-ic-71}--\eqref{int:eq-0288-ic-73}; it
+does not identify a rectangular cavity covariance with the full one.
+
+Put
+\begin{equation}
+ h(t)=\frac1{2\mathcal K}\log(1+2\mathcal K r_ne^{\nu t}),\quad
+ h_0=h(0),\quad d_h=\frac\nu{2\mathcal K},\quad
+ T_+=T_0+h(T_0)+r_n.
+ \label{eq:panel-flaring-height}
+\end{equation}
+Since \(\lambda\le H_L^2\le\mathcal K\),
+\(0\le h'\le d_h\le1/8\), \(h_0\le r_n\), and
+\(h(t)\le r_n+d_ht\).  The inequality \(\lambda\le H_L^2\)
+follows by the population RMS recurrence and
+\(\gamma\le Q^{(L)}_{aa}\).  For \(0\le s_0\le1\) use
+\[
+ D_{s_0}=\{x+iy:-s_0h_0\le x\le s_0T_+,\quad
+                     |y|\le s_0h(\max(x,0))\}.
+\]
+These nested, vertically fibered domains are not assumed convex.
+Each point is reached by a real segment from zero and then a vertical
+segment.  For negative real part the combined exceptional length is
+at most \(2h_0\).
+
+Each cavity is stopped independently at its own first-exit level
+\(s_c\).  Use the source stops of
+\S\ref{int:source-local-insertion}: full and cavity exponential budgets
+\(\mathcal B,2\mathcal B\), provisional maxima and response caps
+twice and four times their claimed values, pole margins \(3a/8,7a/16\),
+and the unchanged operator, activity, row-size and passive-preactivation
+stops.  A failed own initialization gives identically zero reference
+coefficients.  This convention precedes integration over omitted roots.
+
+Here is the globally defined extension needed for conditional Gaussian
+arguments.  For real-interval clipping write
+\[
+ X_{s_0}(x)=\operatorname{clip}_{[-s_0h_0,s_0T_+]}(x),\qquad
+ P_{s_0}(x+iy)=X_{s_0}(x)+i\operatorname{clip}_{[-s_0h(X_{s_0}(x)_+),
+                  s_0h(X_{s_0}(x)_+)]}(y).
+\]
+This is a retraction onto \(D_{s_0}\), measurable in \(s_0\).
+With \(a_0(z)=\operatorname{clip}_{[0,T_+]}(\operatorname{Re}z)\),
+direct clipping gives
+\begin{equation}
+ P_{s_0}a_0(z)=a_0(P_{s_0}z),\qquad
+ \operatorname{Lip}(P_{s_0})\le1+d_h.
+ \label{eq:panel-clipping}
+\end{equation}
+For the Lipschitz assertion the coordinate increments satisfy
+\(|\Delta X|\le|\Delta x|\) and
+\(|\Delta\operatorname{Im}P|\le|\Delta y|+d_h|\Delta x|\);
+the resulting shear has norm at most \(1+d_h\).
+For a coefficient with derivative bound on \(D_{s_0}\), integrate
+along the image under \(P_{s_0}\) of a straight segment.  This proves
+the corresponding global Lipschitz bound without convexity.
+Extend each stopped coefficient as \(b_c(P_{s_c}z)\) on the deterministic
+rectangle
+\(E_n=[-h_0,T_+]+i[-h(T_+),h(T_+)]\).
+Its real anchors traverse a monotone real prefix and then freeze.
+Equation~\eqref{eq:panel-clipping} supplies the same commuting-anchor
+identity as \eqref{int:eq-0122-ic-stop}.
+
+Local holomorphic ODE continuation and uniqueness apply on every strict
+prefix: finite parameter bounds and a strict activation-strip margin
+permit extension, and overlapping real-anchor/vertical patches agree.
+The domain retracts onto its real interval and is simply connected.
+At a first exit, the strict margin below the half-strip permits one-sided
+derivative estimates.  A strict improvement of all stops therefore
+extends the solution across the compact boundary.  The clipped extensions
+themselves need not be holomorphic outside their own stopped domains.
+
+\subsection{The derivative estimate and the noncircular propagator bound}
+\label{sec:panel-propagator}
+
+Work first under each cavity's provisional response stop
+\(\max|R_{ba,i}^{(j)}|\le4SU\sqrt\ell\), where
+\(R_{ba}^{(j)}=D_\Theta z_b^{(j)}\nabla_\Theta F_a\),
+\(F_a=nf_n(v_a)\), and
+\(\Theta=(A,\sqrt nW^{(2)},\ldots,\sqrt nW^{(L)},w)\).
+The exact derivative equations give
+\[
+ \frac{\|\dot z_a^{(j)}\|_2}{\sqrt n}\le2\rho S r_j^{\rm src},
+ \qquad \|\dot z_a^{(j)}\|_\infty\le8\rho SU\sqrt\ell.
+\]
+Set \(N_*=\max_j\{r_j^{\rm src},4U\}\).
+Interpolation and the stopped exponential carrier budget imply, for
+\(u\ge4\),
+\[
+ \frac{\|\dot z_a^{(j)}\|_{2u/(u-2)}}{n^{(u-2)/(2u)}}
+       \le2\rho SN_*\ell^{1/u},\qquad
+ \frac{\|k_a^{(j)}\|_u}{n^{1/u}}
+       \le\frac S{\eta_{\rm src}}u(2\mathcal B)^{1/u}.
+\]
+H\"older consequently bounds the normalized 2-norm of
+\(k_a^{(j)}\odot\dot z_a^{(j)}\) by
+\(2\rho S^2N_*u(2\mathcal B\ell)^{1/u}/\eta_{\rm src}\).
+Choose \(u=\max(4,\log(2\mathcal B\ell))\).  Under
+\eqref{eq:panel-old-gates}, the exponential factor is at most \(e\)
+and \(u\le2\log(e+\ell)\).  Differentiation of the backward
+recursion then gives
+\begin{gather*}
+ J_L=2sH_L+4et_2N_*,\qquad
+ J_j=10sJ_{j+1}+2s^3k_{j+1}^2H_j+4et_2N_*,\\
+ J_* =\max_jJ_j,\qquad
+ \frac{\|\dot h_a^{(j)}\|_2}{\sqrt n}\le2\rho Sq_j^{\rm src},
+ \qquad
+ \frac{\|\dot\delta_a^{(j)}\|_2}{\sqrt n}\le J_*B_n\rho.
+\end{gather*}
+The four terms are respectively the changed readout, propagated upper
+derivative, changed mixer, and changed activation gate.  This derivation
+uses only the provisional stops, not their later Gaussian improvement.
+
+For the normalized gradient matrix
+\(G=(mn)^{-1/2}[\nabla_\Theta F_1,\ldots,\nabla_\Theta F_m]\),
+its column blocks are \(m^{-1/2}\) times
+\(\delta_a^{(1)}v_a^\top/\sqrt n\),
+\(\delta_a^{(j)}h_a^{(j-1)\top}/n\), and
+\(h_a^{(L)}/\sqrt n\).  Differentiating these products proves
+\begin{equation}
+ \begin{split}
+ \|G\|_{\rm op}&\le\sqrt{\mathcal K},\qquad
+ \|\dot G\|_{\rm op}\le C_gB_n\rho,\\
+ C_g&=J_*\left(1+\sum_{j=2}^LH_{j-1}\right)
+       +2S^2\sum_{j=2}^L\tau_jq_{j-1}^{\rm src}+2Sq_L^{\rm src}.
+ \end{split}
+ \label{eq:panel-gradient-derivative}
+\end{equation}
+Bounding the Frobenius norm after division of each column by \(\sqrt m\)
+introduces no sample factor.
+
+The exact residual equation is \(\dot r=-2G^\top Gr\), and the
+residual-free variational base is \(\dot P=-2GG^\top P\).
+Transposes here are algebraic.  On a vertical segment from a real
+anchor \(t\ge0\), norm differentiation yields
+\begin{equation}
+ \rho(t\pm iv)\le Ye^{-\nu t}e^{2\mathcal K v},\qquad
+ \int_0^{h(t)}\rho(t\pm iv)\,dv\le Yr_n.
+ \label{eq:panel-vertical-activity}
+\end{equation}
+The integral follows by substituting
+\(e^{2\mathcal K h(t)}=1+2\mathcal K r_ne^{\nu t}\).
+It also implies \(\rho\le Y+2\mathcal K Yr_n\le2Y\).
+
+At the real anchor \(A_t=2G(t)G(t)^\top\) is real symmetric;
+therefore \(-iA_t\) generates unitary motion.  Freeze this generator
+along the vertical segment.  By \eqref{eq:panel-gradient-derivative},
+\[
+ \|2G(t\pm iv)G(t\pm iv)^\top-A_t\|_{\rm op}
+ \le4\sqrt{\mathcal K}C_gB_n\int_0^v\rho(t\pm iu)\,du.
+\]
+Conjugating by the frozen unitary gives a propagator norm at most
+\begin{equation}
+ \exp\left(4\sqrt{\mathcal K}C_gB_n
+      \int_0^{h(t)}(h(t)-v)\rho(t\pm iv)\,dv\right)
+ \le\exp\left(\frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n\right).
+ \label{eq:panel-unitary-bound}
+\end{equation}
+Indeed the double integral is at most \(Yr_n/(2\mathcal K)\)
+by integrating the exponential in \eqref{eq:panel-vertical-activity}.
+Products on ordered disjoint subsegments have the same bound: use the
+same frozen generator and add their nonnegative growth integrals.
+Forward real segments contract.  The negative-real corner instead has
+length at most \(2r_n\) and costs at most \(e^{4\mathcal K r_n}\).
+Thus \eqref{eq:panel-new-gate} supplies a product bound below \(3/2\),
+strictly within the factor two required in
+\eqref{int:eq-0126-ic-8} and \eqref{int:eq-0169-ic-51}.
+This is established \emph{before} Gaussian insertion.
+
+The extra activity is at most \(8Yr_n\).  The original gates give
+\(8Yr_n\le S/2\) and \(8YSD_Wr_n\le1/4\), preserving activity
+cap \(S\), strict operator margins inside ten, and
+\(\rho/S\le\lambda/8\).  These are all the physical hypotheses
+of \eqref{int:eq-0121-ic-4}.  Since
+\(B_nr_n=O(\log(e+\ell)/\sqrt\ell)\), the added propagator gate
+is eventual without a new label restriction.
+
+\subsection{Transfer of the source proof to the larger domain}
+\label{sec:panel-source-transfer}
+
+We now verify the domain-dependent hypotheses of the complete insertion
+proof \S\ref{int:source-local-insertion}.  Its parameter derivative,
+nonlinear-remainder, and Gaussian-form identities are unchanged.
+First, canonical anchor contours have length at most
+\((64/\lambda+4r_n\sqrt\ell)\ell\).  Replacing the contour-length
+coefficient in \eqref{int:eq-0128-ic-10} by this fixed number leaves
+the derivative recurrences \eqref{int:eq-0123-ic-5}--\eqref{int:eq-0135-ic-17}
+and the passive response recurrences
+\eqref{int:eq-0154-ic-36}--\eqref{int:eq-0161-ic-43} of size
+\(n^{1/4000}\operatorname{poly}(\ell)\), with an additional
+\(\sqrt n\) for raw terminal derivatives.  Their inputs are precisely
+the unchanged operator/RMS/budget bounds, residual activity, provisional
+maxima, and base product bound just verified.
+
+Second, the one-dimensional control nets of
+\eqref{int:eq-0162-ic-44} still have logarithmic cardinality
+\(n^{5/8}\operatorname{poly}(\ell)\): control amplitudes and speeds
+remain respectively polynomial-logarithmic and
+\(\sqrt n\operatorname{poly}(\ell)\) along those contours.
+The globally clipped coefficient paths have the same moduli up to
+\(1+d_h\le9/8\).  A deterministic endpoint mesh in \(E_n\), whose
+sides are \(O(\ell)\), has polynomial size.  The finite panel and
+any fixed deletion-count unions therefore cost at most \(n^{0.65}\)
+in logarithmic cardinality eventually, whereas the conditional Gaussian
+linear/quadratic tails in \eqref{int:eq-0163-ic-45} have exponent
+\(n^{0.78}\).  The same uniform event consequently fails with
+probability at most \(e^{-n^{0.7}}\) eventually.  Deterministic
+one-dimensional control histories are netted before substituting actual
+analytic histories; no arbitrary two-dimensional control extension is
+being assumed.
+
+Third, the remainder identities
+\eqref{int:eq-0140-ic-22}--\eqref{int:eq-0161-ic-43} use joining
+segments inside the same safe activation half-strip.  Their Duhamel
+bound \eqref{int:eq-0164-ic-46} uses the same activity and propagator
+bound.  With the original cutoffs \(N=n^{1/100}\),
+\(d_0=n^{-1/10}\), \(u_0=n^{-1/25}\), its remainder remains
+\[
+ n^{1/4000}\operatorname{poly}(\ell)
+ [n^{-8/100}+u_0^2+n^{-48/100}+n^{-1/2}]=o(u_0).
+\]
+The common-prefix comparisons are therefore still coordinate discrepancy
+\(n^{-1/30}\) and whole-vector discrepancy \(2n^{1/100}\).
+The direct passive reverse observable in
+\eqref{int:eq-0157-ic-39} is included; it is not replaced by an
+independent reverse operator.
+
+Fourth, the trace expansion
+\eqref{int:eq-0166-ic-48}--\eqref{int:eq-0175-ic-57} requires products
+over ordered disjoint base-propagator segments, exactly as verified in
+\eqref{eq:panel-unitary-bound}.  Its ordered residual integrals remain
+bounded by \(S^h/h!\).  Thus its Schatten coefficients, direct exterior
+trace, learned row/column terms, and sample-RMS factors are unchanged.
+In particular the scalar absorption \eqref{int:eq-0190-s-16} and
+the coefficient \(U_{\rm fin}\) above are unchanged.
+
+The scalar Gaussian maximum grid now has at most
+\(O(n^4\ell^2)\le n^5\) points eventually.  Fixed panel, layer,
+driver, and root indices fit the original enclosing count \(n^{10}\).
+The tail union \(4n^{10}e^{-1024\ell}\) and off-grid error
+\(n^{-3/2}\operatorname{poly}(\ell)\) vanish.  Hence the full
+provisional caps improve to
+\begin{equation}
+ \max|z_{a,i}^{(j)}|\le K_{\rm src}\sqrt\ell,\qquad
+ \max|k_{a,i}^{(j)}|\le SK_{\rm src}\sqrt\ell,\qquad
+ \max|R_{ba,i}^{(j)}|\le SU\sqrt\ell.
+ \label{eq:panel-improved-caps}
+\end{equation}
+The last estimate has each training driver and each declared evaluated
+input.  Passive backward budgets are unnecessary.  The passive
+preactivation stop improves by its initial finite-panel Gaussian maximum
+and its activity integral.  Combining
+\eqref{eq:panel-vertical-activity} and \eqref{eq:panel-improved-caps}
+bounds displacement from a real anchor by \(a/32\); the negative corner
+gives \(a/8\).  The pole stop improves strictly.
+
+A cavity cannot stop first on the successful full prefix: coordinate
+comparison transfers its maxima and pole margin, while its budget is at
+most \(e^{2\eta_{\rm src}n^{-1/30}}\mathcal H_a+O_u(1/n)
+<2\mathcal B\) for fixed deletion count \(u\).  Operator and activity
+margins were already proved deterministically.  This verifies the
+strict independent-cavity transfer of \eqref{int:eq-0122-ic-stop}.
+No Gaussian law has been conditioned on full-network survival.
+
+It remains to remove the budgets on complete independently stopped
+paths, not just that prefix.  For a forward coefficient normalized by
+\(\sqrt n\), its complex-minus-real radius is at most
+\(2S\max_jq_j^{\rm src}Yr_n\).  For a backward coefficient normalized
+by \(S\sqrt n\), it is at most \(J_*B_nYr_n/S\).  The negative
+corner costs at most four times these amounts.  Commutation
+\eqref{eq:panel-clipping} thus gives the complete-path radius
+\[
+ D_n=4Yr_n\max\{2S\max_jq_j^{\rm src},J_*B_n/S\}
+      =O(\log(e+\ell)/\sqrt\ell).
+\]
+Its global normalized modulus is \(O(B_n)\).  Applying the proved
+Gaussian rectangle estimate \eqref{int:eq-0292-ic-77} gives mean
+\(O(\log(e+\ell)^{3/2}/\sqrt\ell)\), tail radius \(2D_n\),
+and every fixed exponential moment tending to one.  Its sample-RMS
+version requires no independence among samples.
+
+For singleton/common-cavity differences, extend each path with its own
+clipping map, subtract, and project onto the deterministic ball of radius
+\(4n^{1/100}\).  Both paths omit the root paired with that difference;
+projection preserves this independence and is the identity on the
+successful prefix.  The normalized Gaussian radius is
+\(4n^{-49/100}\), its modulus is polynomial-logarithmic, and
+\eqref{int:eq-0292-ic-77} gives fixed exponential moments tending to one,
+as in \eqref{int:eq-0293-ic-78}.
+
+The real reference paths retain their original activity modulus and
+squared-exponential estimate \eqref{int:eq-0194-s-20}.  Distinct omitted
+roots are conditionally independent given the common cavity.  Separate
+their main-reference products from all correction products by
+Cauchy--Schwarz and then H\"older at each fixed moment order.  The
+one-neuron main moment and scalar absorption retain the limiting base
+sixteen of \eqref{int:eq-0203-s-29}.  Joint independence of correction
+paths is neither used nor asserted.  Indicators of the full event are
+dropped only from nonnegative, globally defined cavity bounds.
+For a tuple of moment order \(u\) with only \(k<u\) distinct roots,
+the normalized multiplicity is \(O_u(n^{k-u})\).  Repeated weights
+cost at most \(e^{2u\eta_{\rm src}K_{\rm src}\sqrt\ell}=n^{o(1)}\)
+by \eqref{eq:panel-improved-caps}, so their contribution vanishes.
+The local exceptional events have superpolynomially small probability.
+Markov's inequality and the fixed sample/layer union now give
+\[
+ \limsup_{n\to\infty}\Pr\{\text{a full budget is hit}\}
+ \le mL(16L/\mathcal B)^u.
+\]
+Take the width limit at each fixed positive integer \(u\), then the
+infimum over \(u\).  Since \(16L/\mathcal B<1\), the probability
+tends to zero.  All other stops have strict improvements.  We have
+therefore proved holomorphy on a neighborhood of \(D_1\), with the
+original coordinate bound \(M_0\sqrt n\), for all required finite-panel
+sources, with probability tending to one.  This proves the new source
+event, rather than assuming it from the smaller rectangular event.
+
+\subsection{Adaptive polynomial sources and initialization-only coefficients}
+\label{sec:panel-compiler}
+
+At each layer include the curves
+\[
+ h^{(j)}(t,v_i),\ W_0^{(j)}h^{(j-1)}(t,v_i)\quad(i\le m+p),
+ \qquad
+ \delta_a^{(j)}(t),\ W_0^{(j+1)\top}\delta_a^{(j+1)}(t)
+       \quad(a\le m),
+\]
+omitting nonexistent boundary images.  There are at most \(2(2m+p)\)
+curves per layer.  Linear activation growth
+\(|\phi_j(z)|\le b+s|z|\), the source RMS bounds, and initialized
+operator norm eight imply their coordinate bound \(M_0\sqrt n\).
+
+Set \(\varrho(t)=h(t)/[2(1+d_h)]\) for \(0\le t\le T_0\).
+Its closed disk about \(t\) lies in \(D_1\): for nonnegative real
+coordinate \(x\), \(h(x)\ge h(t)-d_h\varrho(t)\ge\varrho(t)\).
+If the disk reaches a negative coordinate, then \(t<\varrho(t)\)
+and \(h(t)\le h_0+d_ht\) give \(\varrho(t)<h_0\).
+The right endpoint is below \(T_0+h(T_0)<T_+\).
+The radius is positive, nondecreasing, and Lipschitz with constant
+\(d_h/[2(1+d_h)]\).
+
+Starting at \(t_0=0\), set
+\(t_{b+1}=\min(T_0,t_b+\varrho(t_b)/2)\) until \(t_J=T_0\).
+For any nondecreasing radius with Lipschitz constant \(C_r\), every
+full panel contributes at least \(1/(2+C_r)\) to
+\(\int dt/\varrho(t)\); hence
+\(J\le1+(2+C_r)\int_0^{T_0}dt/\varrho(t)\).
+For our radius this yields
+\begin{equation}
+ J\le1+40960\frac Ua\left(\frac Y\lambda\right)^2\sqrt\ell
+       +80\frac{\mathcal K}{\lambda}
+                  \log\left(1+\frac{4\ell}{\log2}\right).
+ \label{eq:panel-panel-count}
+\end{equation}
+For completeness, it suffices to bound \(J\) by
+\(1+5\int_0^{T_0}dt/h(t)\).  Split where
+\(2\mathcal K r_ne^{\nu t}=1\).  Before that point use
+\(\log(1+x)\ge x/2\); afterward its logarithm grows at least
+with slope \(\nu/2\).  Thus the integral is at most
+\(2/(\nu r_n)+(4\mathcal K/\nu)
+\log(1+\nu T_0/(2\log2))\), giving the displayed constants.
+
+Given source tolerance \(0<\eta\le\min(1,Y,S)\), choose
+\begin{equation}
+ K=\max\left(0,\left\lceil\log_2\frac{8M_0\sqrt n}{\eta}
+                                          \right\rceil\right).
+ \label{eq:panel-degree}
+\end{equation}
+On panel \(b\), the coefficients
+\(\varrho(t_b)^ku^{(k)}(t_b)/k!\) have coordinate norm at most
+\(M_0\sqrt n\), by Cauchy's formula on its disk.  Since
+\(|t-t_b|/\varrho(t_b)\le1/2\), the degree-\(K\) tail is at
+most \(M_0\sqrt n\,2^{-K}\le\eta/8\).  All coefficients span
+one time-independent space of dimension at most \(J(K+1)\) per
+curve.  Adjacent approximants need not agree at a panel boundary:
+each approximates the same source there, and the comparison proof
+uses source values, never derivatives of the piecewise approximant.
+
+These coefficients can be computed from finite initialization jets,
+including derivatives requested at later anchors.  Indeed \(D_1\)
+contains a uniform rectangle about \([0,T_0]\) of radius
+\(\varrho(0)>0\).  Use this radius in the explicit conformal map
+\eqref{int:eq-0234-harmonic-initial-jet-map}, denoted here
+\(t=\mathfrak t(\xi)\).  It satisfies \(\mathfrak t(0)=0\),
+has nonzero derivative, maps the unit disk into that rectangle, and
+maps \([0,\xi_*]\), \(\xi_*<1\), onto \([0,T_0]\).
+For \(G(\xi)=u(\mathfrak t(\xi))\),
+\[
+ [\xi^j]G=\sum_{k=0}^j\frac{u^{(k)}(0)}{k!}
+                              [\xi^j]\mathfrak t(\xi)^k.
+\]
+Every coefficient therefore uses finitely many zero-time derivatives.
+They are obtained by differentiating the dense ODE at initialization;
+in normalized form, if \(\dot\Theta=F(\Theta)\), the recurrence is
+\(\Theta_{j+1}=(j+1)^{-1}[t^j]F(\sum_{k=0}^j\Theta_kt^k)\).
+It uses initialized weights, training data/labels, passive inputs,
+and the specified activation-derivative evaluator, not trained weights.
+
+To see that later derivatives are also finite computations, choose
+\(\xi_*<\rho_*<1\) and \(0<\delta_*<\rho_*-\xi_*\).
+The degree-\(N\) Taylor sum \(G_N\) obeys
+\[
+ \sup_{|\xi|\le\rho_*}|G-G_N|
+ \le\frac{M_0\sqrt n\,\rho_*^{N+1}}{1-\rho_*},\qquad
+ |(G-G_N)^{(k)}(\xi_b)|
+ \le\frac{k!M_0\sqrt n\,\rho_*^{N+1}}
+             {\delta_*^k(1-\rho_*)}.
+\]
+The second inequality is Cauchy's derivative formula.  Applying
+\((\mathfrak t'^{-1}\partial_\xi)^k\) converts these to physical
+derivatives; its coefficients are finite at the finitely many anchors
+for \(k\le K\).  A finite common \(N\) attains any prescribed
+coefficient accuracy. In particular, coordinate tolerance
+\(\eta/(128\sqrt n)\) for each scaled coefficient guarantees the
+Euclidean tolerance used below. This proves finite initialization-only
+provenance, not cheap arithmetic or well-conditioned numerical recovery.
+
+Approximate each scaled base coefficient in Euclidean norm to
+\(\eta/128\), and form its paired initialized image by the exact
+initialized matrix action.  The base reconstruction error is at most
+\((\eta/128)\sum_{k\ge0}2^{-k}=\eta/64\); initialized norm eight
+makes its image error at most \(\eta/8\).  Adding Taylor tails keeps
+both source errors below \(\eta\), while their image relation is
+exact.  Thus no small coordinate error is incorrectly multiplied by
+a width-dependent infinity norm.  An invertible conversion of each
+local polynomial to Chebyshev coordinates changes neither its vector
+span nor these paired actions; it is optional.
+
+Add the constant vector, exact initialized training features and their
+images, and all first-weight columns.  The resulting source dimension
+per layer is at most
+\begin{equation}
+ R=2m+d+1+2(2m+p)J(K+1).
+ \label{eq:panel-source-rank}
+\end{equation}
+The selection proof \S\ref{int:harmonic-selection-proof} supplies
+\(q_j\le9R\), exact normalized source isometry, and metrics
+\(D_j/4\preceq M_j\preceq D_j\),
+\(\mathbf1^\top D_j\mathbf1\le4\).
+The same selected initialized mixer and its metric adjoint preserve the
+forward and reverse image pairs.  Exact training additions preserve the
+initial training Gram.  These verify every initialization hypothesis of
+\S\ref{int:harmonic-runtime-definition}.
+
+\subsection{Autonomous runtime, all-time error, and retained inventory}
+\label{sec:panel-runtime-proof}
+
+Use the moving arrays and corrected readout
+\eqref{int:eq-0061-harmonic-state}--\eqref{int:eq-0064-harmonic-autonomous-optimizer},
+with training indices only in the deficit and Gram updates.  The
+training prediction is exactly \(y-c_C\); the passive inputs require
+neither deficits nor a Gram inverse.  The fitting proof
+\S\ref{int:harmonic-fitting-proof} applies because the metric bounds,
+initial operator bounds, exact Gram, and label allowance have just
+been verified.  In particular its normalized training Gram remains
+above \(\lambda/4\), residuals decay, and parameters converge.
+
+For clarity, the comparison does not follow from fitting alone.
+Source coordinate error \(\eta\) has dense RMS at most \(\eta\)
+and selected metric norm at most \(2\eta\).  Exact isometry therefore
+gives, for source RMS bounds \(A_1,A_2\), pairing error at most
+\(3\eta(A_1+A_2)+9\eta^2\), and paired initialized-action error
+at most \(18\eta\).  Learned actions integrate those defects
+against residuals.  The source-energy proof
+\S\ref{int:harmonic-source-energy-proof} controls the selected readout
+by \(O(Y/\sqrt\lambda)\).  With
+\(V_C=[h_{C,a}^{(L)}/\sqrt m]_a\),
+\(Q_C=V_C^*V_C\), \(T_C=V_CQ_C^{-1}\), and
+\(e=(c_C-c_n)/\sqrt m\), the error variable
+\(w_C-R_Lw_n+T_Ce\) has the exact cancellation
+\(+2V_Ce-2T_CQ_Ce=0\).
+This is \eqref{int:eq-0252-harmonic-exact-readout-cancellation}, not
+the false assertion that \(T_CV_C^*\) is the identity on all features.
+Remaining terms are handled by signed damping and residual-weighted
+integrals as in \S\ref{int:harmonic-cancellation-proof}.
+Backward terms and Gram inverses involve training points only;
+passive forward subtraction uses the declared source curves and a
+maximum over them introduces no factor \(p\).
+
+Consequently the identical recurrence certificate
+\eqref{int:eq-0069-harmonic-horizon-and-tolerance-certificate} gives
+\[
+ \sup_{t\in[0,\infty]}\max_{i\le m+p}
+       |f_C(t,x_i)-f_n(t,x_i)|
+ \le\mathcal A_n\eta+\mathcal D e^{-8\ell}.
+\]
+Here \(\mathcal A_n\) is exactly
+\eqref{int:eq-0068-harmonic-exact-error-coefficient}, with coefficient
+\(64\) in its \(\sqrt\ell\) exponent, and \(\mathcal D\) is
+\eqref{int:eq-0057-harmonic-tail-coefficient}.  The entire label
+interval permits the completely numerical substitutes
+\begin{align*}
+ \overline{\mathcal A}_n
+ &=2000e^{44}\beta^{42L}\frac Y\lambda
+            (1+\lambda^{-1/2})(1+\sqrt\ell)e^{64\sqrt\ell},\\
+ \overline{\mathcal D}
+ &=236\beta^{9L}\frac Y\lambda(1+\lambda^{-1/2}),
+\end{align*}
+by \eqref{int:eq-0264-harmonic-numerical-prefactor-bound}--\eqref{int:eq-0265-harmonic-numerical-tail-bound}.
+For the stronger target \(Y/n\), take
+\begin{equation}
+ \eta=\min\{1,Y,S,Y/(2n\overline{\mathcal A}_n)\},\qquad
+ \overline{\mathcal D}e^{-8\ell}\le Y/(2n).
+ \label{eq:panel-tolerance}
+\end{equation}
+Source comparison is used only through \(T_0\).  Afterward each flow
+is compared to its own value at \(T_0\), using the separate fitted
+tails \eqref{int:eq-0240-harmonic-endpoint-tail}.  Both flows continue
+to evolve; neither is frozen or played back.  Their limits give the
+same endpoint bound.
+
+The complete retained real-coordinate inventory is at most
+\begin{equation}
+ 1020(L+1)R^2+36R+10m(d+1)+pd+(m+p)+D_{\rm alg}.
+ \label{eq:panel-exact-inventory}
+\end{equation}
+Indeed \eqref{int:eq-0082-harmonic-all-retained-inventory} counts
+moving matrices, initialized copies, metrics and inverse caches,
+training/Gram buffers, readout workspace, and training data.
+Four reusable neuron buffers add at most \(36R\); passive input and
+panel output storage add \(pd+(m+p)\).  The separately charged
+\(D_{\rm alg}\) contains the scalar evaluator, program, and evaluator
+workspace; it may not conceal width-dependent source arrays.
+Dense weights, coefficient vectors, jets, panel anchors, and selected
+index lists are discarded.  There is no retained temporal forcing or
+panel schedule.  The count concerns real coordinates, not bits,
+conditioning, setup work, or numerical integration step count.
+
+An exact input-span reduction improves the dimension overhead.  Let
+\(U_0\in\mathbb R^{d\times k}\) have orthonormal columns spanning
+all declared inputs, \(k\le\min(d,m+p)\).  Replace inputs by
+\(U_0^\top v_i\) and the first matrix by \(AU_0\).
+Every first-layer update lies in this span, so
+\(A(t)(I-U_0U_0^\top)=A(0)(I-U_0U_0^\top)\).
+The reduced and original coupled trajectories agree on the panel by
+induction through the layers.  Each Gaussian row of \(A(0)U_0\) has
+covariance \(I_k\), and all panel inner products and the population
+Gram are unchanged.  Use
+\(R=2m+k+1+2(2m+p)J(K+1)\) and replace \(d\) by \(k\) in
+\eqref{eq:panel-exact-inventory}; a safe additional charge for the
+map and both original/transformed panel data is \(3(m+p)d\).
+This is exact on the declared panel, not a whole-sphere reduction.
+
+Finally impose the directly checkable eventual degree gate
+\begin{equation}
+ K+1\le8\log(en).
+ \label{eq:panel-degree-gate}
+\end{equation}
+It follows eventually from \eqref{eq:panel-degree} and
+\eqref{eq:panel-tolerance}.  Squaring the three terms of
+\eqref{eq:panel-panel-count} with
+\((u+v+w)^2\le3(u^2+v^2+w^2)\), and using the exact input-span
+count, gives a sufficient envelope
+\begin{equation}
+ \begin{split}
+ C\beta^{CL}(m+p)^2\bigg[
+ &\left(\frac{Ym}{\gamma}\right)^4[\log(en)]^3\\
+ &+\left(\frac m\gamma\right)^2[\log(en)]^2
+                   [\log(e+\log(en))]^2\bigg]
+ +C(m+p)d+D_{\rm alg}.
+ \end{split}
+ \label{eq:panel-final-inventory}
+\end{equation}
+Here only the final envelope uses an absolute numerical \(C\).
+To verify its parameter dependence directly, the recurrences above
+give \(H_j\le\beta^{3j}\),
+\(\tau_j\le\beta^{5L-2j+1}\),
+\(U/a\le\beta^{60L}\), and \(\mathcal K\le\beta^{14L}\).
+For example the intermediate exponent bounds
+\(A_*\le\beta^{8L}\), \(H_*\le\beta^{11L}\),
+\(D_0\le\beta^{24L}\), \(K_{\rm src}\le\beta^{32L}\),
+\(\max e_j\le\beta^{17L}\), \(T_Q\le\beta^{22L}\),
+and \(U\le\beta^{57L}\) follow by geometric unrolling, using
+\(10s\le\beta^2\) and \(L\le\beta^L\).
+Also \(\mathcal K/\lambda\ge1\), so the lower-order initial ranks
+and \(\ell^2\) term are absorbed in the second displayed term.
+The bound \(S\le1\) is used only for these source coefficients;
+the explicit factor \((Ym/\gamma)^4\) has not been removed by
+spending the label allowance.  The two sample/gap factors in
+\eqref{eq:panel-final-inventory} must not be identified or compared
+by treating \(m\) and \(1/\gamma\) as equal.
+
+\subsection{Assembly of the headline theorem}
+\label{sec:panel-headline-proof}
+
+For \(m\ge2\), the dense-variability proof in
+\S\ref{int:dense-innovation-lower} and
+\S\ref{int:dense-trajectory-lower} selects a deterministic
+\emph{training index}, not an arbitrary sphere point.  To recall the
+reason, for one initialized feature vector \(H\in\mathbb R^m\),
+the positive Gram gap and fourth-moment argument give
+\[
+ \operatorname{tr}\operatorname{Cov}(H(y^\top H))
+ \ge\frac{\gamma^3\mu_{2,L}}{16\mu_4}\|y\|_2^2.
+\]
+At least one training coordinate carries this variance divided by
+\(m\).  The initialized Gram CLT and the independent second run
+then give an onset-velocity fluctuation there; the finite-query
+time-analytic argument in \S\ref{int:dense-trajectory-lower}
+converts it into an actual positive-time discrepancy.  Thus for every
+fixed \(0<\delta_0<1\), eventually
+\[
+ \Pr\left\{\|f_n-\widetilde f_n\|_{\mathcal X}\ge
+       c_{\phi,L,\delta_0}\frac{Y\sqrt\gamma}
+                    {\sqrt n[\log(en)]^{5/2}}\right\}
+       \ge1-\delta_0
+\]
+for the declared panel \(\mathcal X\), with exactly the positive
+coefficient in \S\ref{int:dense-trajectory-lower}.  This is not an
+endpoint lower bound.  In particular, taking \(\delta_0=1/2\)
+puts the displayed lower scale below the fixed \(99.99\%\) quantile
+\(b_n(\mathcal X)\): every smaller threshold has cumulative
+probability at most \(1/2\).  The error \(Y/n\) proved above is
+eventually below that scale and hence below \(3b_n(\mathcal X)\).
+More strongly its ratio to realized independent-dense panel discrepancy
+tends to zero in probability, by first fixing arbitrary \(\delta_0\)
+and then letting \(n\) grow.  Independence between the compressed
+construction and the lower event is unnecessary; a union bound suffices.
+
+This proves the Logarithmic row and its all-time comparison in
+Theorem~\ref{thm:compression}.  The other two rows use their unchanged
+proofs: Legendre's signed-stability and optimized-order arguments are
+in \S\ref{int:legendre-stability-proof} and
+\S\ref{int:legendre-inverse-proof}; Harmonic's joint time/input
+source count and inverse are in
+\S\ref{int:harmonic-expansion-proof} and
+\S\ref{int:harmonic-budget-inversion-proof}, using the label-explicit
+inverse \eqref{int:eq-0021-harmonic-inverse} rather than its optional
+small-label simplification.  Their full-sphere errors also become
+negligible relative to the corresponding dense-pair discrepancy at
+the displayed orders.  Fixed-confidence intersections cost only a
+change in the qualitative sufficient width, not in the storage powers.
+The query domains remain distinct: a declared-panel certificate is not
+an unseen-input theorem.  No input-span condition, passive-label use,
+bounded-activation-value assumption, or additional label cap was added.
+
+For \(m=1\) the additive \(Y/n\) theorem still holds, but positive
+uncentered Gram alone need not give nonzero dense variability (a
+constant final activation is a counterexample).  The multiplicative
+comparison is therefore stated for \(m\ge2\).  The strict
+initialization-only compiler above may be expensive; neither its
+retained-coordinate theorem nor its finite-jet provenance asserts
+near-linear or near-quadratic setup for this new panel construction.

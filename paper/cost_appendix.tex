@@ -1,0 +1,143 @@
+\section{Detailed execution costs and supplementary decoder costs}
+\label{app:execution-costs}
+
+We cost the prescribed models in the sphere compression certificates, at the same dense
+width $n$ and their common dense-variability guarantee. Initialization
+includes every one-off operation needed to build a model. For the neural
+constructions, a training stage means one full-batch vector-field
+evaluation; a numerical update pays for all its stages. Initialization and
+training memory are total peaks, including data. Query workspace is
+additional to the loaded, inference-ready model. The supplementary seeded decoder, which is not the new finite-panel Logarithmic model, instead has
+a finite-word contract and a bound for its complete training schedule.
+
+\subsection{The neural constructions}
+
+For this section define the sufficient state envelopes
+\begin{align*}
+ S_{\rm Leg}&=Cm\left(\frac m\gamma\right)^3
+ n^{5/4}[\log(en)]^2e^{\sqrt{\log(en)}/2},\\
+ S_{\rm H}&=C(m+d)^2+
+ \left(\frac Cd\right)^{d+1}
+ \left(\frac{Ym}\gamma\right)^4[\log(en)]^{3d+2}.
+\end{align*}
+$S_{\rm Leg}$ bounds Legendre's moving coordinates; its fixed dense
+matrices are additional. $S_{\rm H}$ bounds Harmonic's complete retained
+state. These are the sizes selected by the sphere compression certificates, rather
+than separately supplied orders. Under the theorem's eventual-width
+qualification and with $n\ge\max(m,d)$, their classical
+arithmetic costs are as follows; $C$ retains the theorem's
+activation/depth convention.
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}P{0.23\textwidth}P{0.34\textwidth}P{0.34\textwidth}@{}}
+\toprule
+Operation & Work & Peak memory\\
+\midrule
+Dense initialization & $n^2$ & $n^2+md$\\
+Dense training stage & $mn^2$ & $n^2+mn+md$\\
+Dense query & $n^2$ & $n$ additional\\
+\midrule
+Legendre initialization & $mn^2+S_{\rm Leg}$ & $n^2+S_{\rm Leg}+md$\\
+Legendre training stage & $mn^2+mS_{\rm Leg}$ & $n^2+S_{\rm Leg}+md$\\
+Legendre query & $n^2+S_{\rm Leg}$ & $n$ additional\\
+\midrule
+Harmonic training stage & $mS_{\rm H}$ & $S_{\rm H}$\\
+Harmonic query & $S_{\rm H}$ & $\sqrt{S_{\rm H}}$ additional\\
+\bottomrule
+\end{tabular}
+\caption{Execution of the models prescribed by the sphere compression certificates.
+Entries are upper bounds up to $C$; scalar evaluator costs are charged
+below. Harmonic initialization is costed separately.}
+\label{tab:runtime}
+\end{table}
+
+Legendre streams its correction factors and uses cumulative prefixes for
+the moment updates. Its $n^{5/4+o(1)}$ moving state therefore retains the
+fixed dense-matrix cost. Harmonic's training row includes the moving
+feature-Gram solve and readout-cache refresh; the cubic solve is absorbed
+because $S_{\rm H}\ge Cm^2$. Its query row uses that refreshed cache.
+
+The table counts non-activation arithmetic. Dense and Legendre add $Cmn$
+activation-value and first-derivative calls per stage, and $Cn$ value calls
+per query. Legendre initialization adds $Cmn$ value calls. Harmonic adds
+$Cm\sqrt{S_{\rm H}}$ value and first-derivative calls per stage and
+$C\sqrt{S_{\rm H}}$ value calls per query. Add each routine's work and
+scratch. Dense-reference generation also requires $nd+(L-1)n^2$ Gaussian
+draws; omit these draws when the reference is supplied. The
+\hyperref[int:computational-costs]{complete execution inventory}
+retains the unsimplified counts. These arithmetic bounds do not specify
+the number, precision, or accuracy of subsequent numerical training steps.
+
+\subsection{Two ways to initialize Harmonic compression}
+
+Both certified initializers support the Harmonic model chosen to have
+error at most $Y/n$. At fixed problem parameters, its exact construction
+has a source horizon $O(\log(en))$ and logarithm of inverse source tolerance
+$O(\log(en))$. Substituting these into the certified local-order recipe
+gives $O([\log(en)]^{3/2})$ time panels, Taylor degree $O(\log(en))$,
+and source rank $O([\log(en)]^{3d/2+1})$. The resulting rates are below.
+For this table all problem parameters are fixed; its constants may
+depend on them. The
+\hyperref[int:harmonic-efficient-orders]{complete setup recipe and costs}
+retain every structural parameter and internal order.
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Initializer & Arithmetic work & Peak real coordinates\\
+\midrule
+Explicit dense continuation
+& $O(n^2[\log(en)]^{3d/2+1})$ & $O(n^2)$\\
+Implicit Gaussian continuation
+& $O(n[\log(en)]^{9d/2+3})$ & $O(n[\log(en)]^{3d/2+1})$\\
+\bottomrule
+\end{tabular}
+\caption{Certified initialization of the selected Harmonic model, with
+problem parameters fixed. Evaluator and sampler work remain charged.}
+\label{tab:initialization}
+\end{table}
+Both initializers discard their temporary trajectory, source arrays and
+matrix-action history. Their activation-value counts are
+$O(nm+[\log(en)]^{3/2})$ in this fixed-problem specialization; add the
+evaluator's actual work and scratch. Explicit initialization uses
+$nd+(L-1)n^2$ Gaussian draws;
+implicit initialization uses at most $nd+Cn[\log(en)]^{3d/2+1}$ at fixed
+problem parameters. The displayed work rates include these draws only
+under unit-cost sampling. The explicit execution accepts a supplied dense
+realization. The implicit execution samples a fresh coupled reference and
+has no subquadratic conversion guarantee for a supplied dense array.
+
+\subsection{The finite-word decoder}
+
+The decoder counts word operations. Its explicit width gates bound the
+resource logarithm by $C\log(en)$ and its member moment order by
+$C\log(em)$, so the retained-word bound in the sphere compression certificates
+already displays its dependence on $m,d,\gamma$. Each word has $C\log(en)$
+sufficient bits under the same activation/depth convention. With all
+problem parameters fixed, the complete operation bounds become
+\begin{equation}
+\begin{array}{rl}
+\text{initialization:}&O(n[\log(en)]^{29/2}),\\
+\text{complete training:}&O([\log(en)]^{12}\log(e+\log(en))),\\
+\text{one unseen query:}&O(n[\log(en)]^{12}+[\log(en)]^{14}).
+\end{array}
+\label{eq:decoder-work}
+\end{equation}
+Training and live query memory fit the complete retained inventory,
+$O([\log(en)]^6\log(e+\log(en)))$ words at fixed parameters. Initialization
+has peak $O(n[\log(en)]^{5/2}+[\log(en)]^{15/2})$ words. The
+\hyperref[int:decoder-finite-backends]{full word-operation ledger} keeps the structural
+prefactors and the separate temporary arrays. These query-memory counts
+are total memory, unlike the additional workspace in \Cref{tab:runtime}.
+
+The finite tanh evaluator is included. For another analytic activation,
+add its supplied evaluator's work at every recorded value call and its
+scratch, together with external data/query access and output. The finite
+training table is counted; other retained external descriptions require
+additional words. Analyticity supplies no evaluation-cost bound for an
+arbitrary function. The training row covers the complete prescribed
+schedule. A query streams the regenerated source rows, retaining the
+displayed width factor in its work.

@@ -41,32 +41,31 @@
 \title{{\fontsize{14}{17}\selectfont\bfseries
 Compressing Global Dynamics of Deep Nonlinear Feature Learning}}
 \author{Amir Joudaki}
-\date{October 7, 2026}
+\date{October 8, 2026}
 
 \begin{document}
 \maketitle
 \begin{abstract}
 Can a deep network's entire learning trajectory be represented by a much
 smaller state? We study Gaussian-initialized nonlinear networks with learned
-hidden features, fixed depth, a positive initial feature-Gram gap, and small
-fixed labels. Error is uniform over the whole input sphere and all training
-times, including the fitted limit. For $m\ge2$ and nonzero labels,
-independent dense runs have variability of order $n^{-1/2}$ up to
-subpolynomial and logarithmic factors.
-One intrinsic benchmark puts three compression guarantees on the same
-footing: each compressed trajectory is within a constant factor of the
-high-confidence discrepancy between two independent dense runs.
-Legendre compression
-uses $n^{5/4+o(1)}$ moving coordinates while retaining fixed dense mixers.
-Harmonic compression retains $O((\log n)^{3d+2})$ real coordinates and can
-achieve $n^{-1+o(1)}$ error against its coupled dense reference. Its certified
-initialization is near-quadratic with explicit dense matrices, or near-linear
-with an implicit Gaussian reference. A finite-word Logarithmic decoder
-retains $O(\log^6 n\log\log n)$ words and meets the same benchmark against
-an independent dense reference; its query work remains near-linear in width.
-The results separate moving memory, complete retained state, preprocessing
-and inference. Full parameter dependence, numerical qualifications and
-proofs are provided in the appendix.
+hidden features, fixed depth, at least two training examples, a positive
+initial feature-Gram gap, and small fixed nonzero labels. The common principle
+is to compress the forward and backward
+responses that generate learning, rather than approximate a fitted weight
+matrix. Legendre compression summarizes their temporal histories, using
+$n^{5/4+o(1)}$ moving coordinates while retaining fixed dense mixers.
+Two realizations of a shared reduced nonlinear dynamics also compress the
+neuron coordinate: Harmonic compression uses joint time--input regularity
+and retains $O((\log n)^{3d+2})$ real coordinates over the whole input sphere;
+Logarithmic compression uses residual-adapted temporal approximation and
+retains $O((\log n)^3)$ real coordinates on any fixed panel of inputs declared
+at initialization. Passive labels are not used. Each tracks a coupled dense
+trajectory, uniformly over all physical times including the fitted limit,
+to accuracy finer than independent dense-run variability. The proof retains
+Gram dissipation and finite residual activity; a readout correction cancels
+the feedback that would otherwise give a poor stability estimate. We expose
+the trade between query scope, moving memory and retained state, and separate
+initialization-only information from the work needed to process it.
 \end{abstract}
 
 \section{Introduction}
@@ -83,29 +82,41 @@ population variables and responses to reused random matrices
 \citep{yang2021tensor,nguyen2023rigorous,bordelon2022dmft}. They motivate a
 further question: how much finite state is needed to reproduce the actual
 learning trajectory of a finite network? Here both the reference and the
-compressed predictor remain finite. Accuracy is measured on inputs absent
-from the updates, uniformly over the whole sphere and all physical time.
+compressed predictor remain finite. Accuracy includes inputs absent from
+the updates and all physical time. The query domain is an explicit part of
+the guarantee: the whole sphere, or a declared finite panel whose passive
+labels are never supplied.
 
 \paragraph{An intrinsic accuracy benchmark.}
 Independent initializations already produce different dense trajectories.
 Our common compression theorem uses a high-confidence quantile of this
 actual discrepancy, not an analytic upper envelope. A constant factor is
-the success criterion. Legendre and Harmonic additionally attain
-negligible relative error, but that stronger property is not required.
-For the Logarithmic decoder, a center-and-median argument gives the
-intrinsic comparison without calculating the quantile. The dense lower
+the success criterion. All three constructions below additionally attain
+negligible relative error in their respective query domains, but that
+stronger property is not required. The benchmark need not be calculated
+to initialize a compressed model. The dense lower
 bound is witnessed during early training; it is not an endpoint lower bound.
 
-\paragraph{Three resources, three constructions.}
+\paragraph{One object to compress, two reduction mechanisms.}
 A learned matrix increment integrates paired forward and backward responses.
-Legendre compression replaces response histories by evolving polynomial
-moments but keeps initialized matrices. Harmonic compression uses time and
-input regularity to select a small coordinate realization of the response
-spaces, with a corrected autonomous optimizer. Logarithmic compression
-stores short random seeds, selected row packets and a finite metric, then
-regenerates the empirical contractions needed by a query.
-A small moving state need not imply small total storage, and a small
-retained model need not imply a cheap query.
+The first reduction, Legendre, compresses the history while retaining every
+neuron. The second compresses the response space itself and realizes its
+geometry on a small set of neuron coordinates. Harmonic and Logarithmic
+are two source builders for this same reduced dynamics. Harmonic represents
+responses jointly in time and input; Logarithmic represents only the finitely
+many requested input curves and spends fewer temporal pieces as learning
+slows. The latter removes the dimension-dependent logarithmic exponent by
+giving up a uniform guarantee for inputs first revealed after setup.
+
+\paragraph{Why feedback is the central obstacle.}
+These are closed learning systems, not playback of an approximated dense
+trajectory. A response error changes the next update, which changes the
+responses used thereafter. A black-box Lipschitz estimate treats this loop
+as exponential growth over an infinite horizon. The proof instead keeps
+the dissipative sign of the training Gram, measures forcing against the
+finite amount of remaining learning, and, for the selected models, cancels
+the leading readout--residual feedback. The main text explains these
+mechanisms before the appendix supplies their quantitative estimates.
 
 \paragraph{Scope.}
 The results allow arbitrary fixed depth, compatible finite sphere data,
@@ -114,10 +125,10 @@ as width grows. The feature-learning mobilities are retained rather than
 replaced by a frozen-kernel scaling. This permits hidden learning; it does
 not assert nonzero feature motion for every activation and dataset.
 The guarantees concern prediction fidelity, not risk against unknown test
-labels. Sufficient stochastic widths remain qualitative for Dense,
-Legendre and Harmonic. The finite-word decoder has an explicit but very
-conservative gate for its additive numerical certificate. Its pure
-constant-factor comparison also uses the lower bound's eventual onset.
+labels. Sufficient stochastic widths remain qualitative. The logarithmic
+storage counts real coordinates, not fixed-precision words; its finite
+initialization-jet construction establishes information provenance, not
+a practical setup-time bound.
 
 \section{Setting and reading conventions}
 \label{sec:setting}
@@ -170,43 +181,51 @@ $0<Y\le c\gamma/m$, for a sufficiently small activation/depth constant $c$.
 The appendix retains the larger original recurrence-defined allowance and
 its full certificates. $Y$ is fixed, not width-dependent; zero labels give
 the exact zero predictor separately. Dense, Legendre and Harmonic require
-no orthogonality, centering or input-rank assumption. Only the decoder
-additionally requires $m\ge d$ and spanning training inputs.
+no orthogonality, centering or input-rank assumption. Neither does the new
+Logarithmic construction. For it, fix $p\ge0$ further sphere inputs before
+initialization and write the full panel as $x_1,\ldots,x_{m+p}$.
+Only the first $m$ inputs have labels or enter the training sums.
 
 \paragraph{One observable and one accuracy benchmark.}
-Write
+For the promised query set $\mathcal X$, write
 \begin{equation}
- \norm{f-g}_*=
- \sup_{t\in[0,\infty]}\sup_{\norm{x}_2=\sqrt d}|f(t,x)-g(t,x)|.
+ \norm{f-g}_{\mathcal X}=
+ \sup_{t\in[0,\infty]}\sup_{x\in\mathcal X}|f(t,x)-g(t,x)|.
  \label{eq:test-norm}
 \end{equation}
-This includes fitted limits. Let $f_n,\widetilde f_n$ be two independently
+Take $\mathcal X$ to be the whole sphere for Legendre and Harmonic, and the
+declared panel for Logarithmic. This includes fitted limits. Let
+$f_n,\widetilde f_n$ be two independently
 initialized ordinary dense runs, and define their high-confidence
 variability by
 \begin{equation}
- b_n=\inf\{b\ge0:\Pr(\norm{f_n-\widetilde f_n}_*\le b)\ge0.9999\}.
+ b_n(\mathcal X)=\inf\{b\ge0:
+ \Pr(\norm{f_n-\widetilde f_n}_{\mathcal X}\le b)\ge0.9999\}.
  \label{eq:intrinsic-benchmark}
 \end{equation}
 The $99.99\%$ quantile is deterministic but need not be known. We seek
-compression error at most $3b_n$ with $99\%$ confidence. Both confidence
-levels are fixed numerical conventions; the appendix gives their general
-failure-probability relation. Discrepancy is assigned $+\infty$ on a
+compression error at most $3b_n(\mathcal X)$ with $99\%$ confidence. Both
+confidence levels are fixed numerical conventions; other fixed confidence
+levels are permitted. Discrepancy is assigned $+\infty$ on a
 trajectory lacking the required fitted limit, so the definition does not
 silently condition on a successful run. The qualifying width makes this
 quantile finite. All errors are absolute, with no implicit division by $Y$.
 We do not spend the label cap to reduce powers of
 $m/\gamma$: the learned-storage envelopes remain cubic for Legendre and
-quartic for Harmonic.
+quartic for Harmonic and in the leading Logarithmic term.
+The panel and sphere quantiles need not agree: both sides of a comparison
+always use the same query set. In the detailed sphere proofs,
+$\norm{\cdot}_*$ denotes the sphere instance of this norm.
 
 \paragraph{Constants, confidence and limits.}
 Main-text $c,C>0$ depend only on activations and fixed depth and can change
 between occurrences. They hide no dependence on $m,n,d,\gamma$.
 To keep the headlines short, confidence is fixed at $99\%$; the appendix
 retains arbitrary failure probability $\delta$, including its effect on
-the lower coefficient, width gates and finite-word costs.
+the lower coefficient and width gates.
 At each sufficiently large individual width the stated comparisons hold,
 not on one event over infinitely many independent widths.
-The first three models' stochastic width thresholds are not quantified.
+The stochastic width thresholds are not quantified.
 Expressions with $o(1)$ fix the admissible data, depth, activation and
 confidence before $n\to\infty$; they are not uniform growing-data claims.
 
@@ -215,81 +234,18 @@ Internal memory and approximation orders are optimized inside the
 constructions. They appear in the mechanism descriptions and appendix,
 not as inputs to the headline theorem. Moving state and complete retained
 state are distinguished.
-Legendre and Harmonic track a coupled dense reference. The implicit
+All three track a coupled dense reference. The implicit
 Harmonic implementation generates that reference jointly instead of
-materializing its hidden matrices. The Logarithmic decoder compares with
-an independent dense run and has no free order $q$.
+materializing its hidden matrices. For Logarithmic, initialization jets
+determine a finite response-space construction; the resulting small model
+then evolves autonomously. Its temporal pieces are preparation devices,
+not a growing runtime history or a prescribed prediction trajectory.
 
 \section{Quantitative results}
 \label{sec:results}
 \input{results}
 \input{methods}
 \input{costs}
-
-\section{Empirical trajectory compression}
-\label{sec:experiments}
-Fresh experiments test empirical Harmonic and Logarithmic implementations
-against independent dense-run variability. Error is the largest unseen-input
-RMS discrepancy at recorded common times; the practical threshold is three
-times the corresponding dense-pair discrepancy, not the theorem's quantile
-$b_n$. Harmonic meets this threshold in all nine held-out circle cases
-($n=1024,2048,4096$, three seeds), with ratios $0.159$--$1.617$.
-At $n=4096$ it uses $11.7$--$11.8$ times fewer model-tensor scalars.
-Single-seed checks in dimensions $3,5,10$ also meet the threshold.
-On digits $3$ versus $8$, three width-$4096$ runs preserve the dense
-teacher's $97.32\%$ accuracy with about $4.6$-fold smaller tensor state;
-their fidelity ratios are $1.85$--$2.44$. The matched smaller networks
-have better fidelity on all three real-data runs. Thus compression
-success does not establish superiority over ordinary small networks.
-
-The Logarithmic implementation retains $688{,}220$ numerical words across
-the tested dimension-five widths $1024,2048,4096$, a $24.4$-fold persistent
-payload reduction at width $4096$. All five dimension-five confirmation
-cases meet the empirical threshold, with ratios $0.909$--$1.781$ against
-independent dense references. Its circle check fails, with ratio $6.95$;
-a separate digits decoder check also fails ($4.94$). These results are
-not a universal success claim. \Cref{fig:compression-validation}
-shows both state and fidelity comparisons. Full-horizon source construction
-is charged as offline setup, so these experiments demonstrate no setup
-speedup. The implementations, query workspace, numerical checks and negative
-cases are detailed in \Cref{app:empirical}. Fresh labels have RMS one and need
-not satisfy the small-label theorem. The earlier Legendre trajectory in
-\Cref{fig:trajectory} remains a separate illustration.
-\begin{figure}[t]
- \centering
- \includegraphics[width=\textwidth]{figures/trajectory.pdf}
- \caption{\textbf{A trajectory, not only an endpoint.}
- Existing paired-label circle experiment: two hidden tanh layers,
- width $2048$, and Legendre orders $q=1,3,7$. Predictions are saved at
- the same physical times $t=0,5,20,80$. Radius is $3+f(\theta)$, the
- dashed ring marks zero, and black points are training labels.
- The source replay records $39$ common times and uses float64 adaptive
- Heun integration at two tolerances. These are discrete observations,
- not a certificate between the saved times.}
- \label{fig:trajectory}
-\end{figure}
-\begin{figure}[t]
- \centering
- \includegraphics[width=\textwidth]{figures/compression_validation.pdf}
- \par\smallskip
- \includegraphics[width=\textwidth]{figures/compression_logarithmic.pdf}
- \caption{\textbf{Retained state and finite-time prediction fidelity.}
- Top: Harmonic circle confirmation, with three held-out seeds at each
- width and a coupled dense reference. Bottom: the dimension-five
- Logarithmic finite program, with seed 201 across widths and three
- seeds at width $4096$, compared with independent dense references.
- Ordinary small-network controls match retained payload; the frozen
- initial kernel uses the dense initialization and physical clock.
- Ratios use a measured dense pair on the same times and queries.
- Storage means model-tensor scalars for Harmonic and persistent
- numerical payload for Logarithmic; setup and query workspace are
- additional (the dotted curve includes the latter's numerical envelope).
- Lines show medians and shading shows the full observed seed range,
- not confidence intervals. The fixed finite program's flat payload across these
- widths is not an asymptotic scaling estimate.}
- \label{fig:compression-validation}
-\end{figure}
-\FloatBarrier
 
 \section{Related work and discussion}
 \label{sec:related}
@@ -301,7 +257,7 @@ dynamical mean-field descriptions organize temporal correlations and
 responses \citep{bordelon2022dmft,bordelon2023finite}. Model assumptions,
 observables and solver representations must be matched before comparing
 their resource costs. Our certificates concern finite Gaussian networks,
-all physical times and the whole passive-input sphere.
+all physical times, with the promised query domain kept explicit.
 
 A frozen neural tangent kernel describes a different limiting regime
 \citep{jacot2018ntk,lee2019wide}. Higher-order responses appear in the neural
@@ -309,18 +265,21 @@ tangent hierarchy \citep{huang2020nth}, whose truncation theorem has its
 own scaling and horizon. Online polynomial memory summarizes an externally
 given signal \citep{gu2020hippo}; here the signals are endogenous, generated
 by the network reconstructed from those memories. Stabilizing that
-feedback is an additional obligation. The appendix also supplies the
-finite-space generator and numerical conditioning arguments used by the
-decoder; no fresh-noise approximation replaces a reused trained matrix.
+feedback is an additional obligation. Our second reduction preserves
+coordinatewise nonlinear gates together with response inner products;
+it is not ordinary projection of every layer onto an arbitrary linear
+subspace. No fresh-noise approximation replaces a reused trained matrix.
 
 \paragraph{The trade-off is not one-dimensional.}
 Legendre makes the evolving memory small but retains a quadratic fixed
 environment. Harmonic removes that environment from the retained state
 and has polylogarithmic query work at fixed dimension, with near-linear
-implicit setup. The decoder has a dimension-independent logarithmic
-word-storage exponent, but regenerates width-many rows per query.
-It meets the same intrinsic variability benchmark against an independent
-dense reference, rather than tracking a supplied dense realization.
+implicit setup. The new Logarithmic model uses the same selected runtime
+but specializes its response space to declared input curves. This removes
+the dimension-dependent logarithmic exponent, not the cost of preparing
+that space or the restriction on which inputs are certified. These are
+two different notions of generalization: accuracy on inputs absent from
+the updates, and uniform accuracy on inputs absent even from setup.
 
 \paragraph{Open boundaries.}
 The dense lower bound is transient and does not establish sharp
@@ -328,161 +287,28 @@ sample/gap dependence. Small labels are a sufficient stability regime,
 not a sharp necessity or a width-dependent scaling.
 The analytic class includes unbounded values but not exact ReLU.
 Exact-real setup costs do not establish fixed-machine-precision performance
-or superiority at practical widths. Finite-word costs charge activation
-and external-data access explicitly. Finally, trajectory fidelity alone
+or superiority at practical widths. A fixed program for an arbitrary
+analytic activation also needs a separately specified evaluation cost.
+The finite-panel third power does not yet imply a second-power neural
+construction or an efficient initialization-only compiler.
+Finally, trajectory fidelity alone
 does not establish out-of-sample label risk: the usefulness of the
 selected predictor remains a separate question.
+
+\paragraph{Earlier empirical illustrations.}
+\Cref{app:earlier-illustrations} preserves existing Legendre and Harmonic
+illustrations and experiments for an older seeded finite-word decoder.
+That decoder is a separate supplementary construction, not the present
+finite-panel Logarithmic model. Those measurements are not empirical
+validation of the new cubic-logarithmic guarantee.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
 \clearpage
 \appendix
-\section{Empirical protocol and additional results}
-\label{app:empirical}
-\begingroup
-\small
-\paragraph{Observable and split.}
-For recorded physical times $\mathcal T$ and unseen inputs $\mathcal Q$, use
-\[
- E(g,h)=\max_{t\in\mathcal T}
- \left(\frac1{|\mathcal Q|}\sum_{x\in\mathcal Q}
- |g(t,x)-h(t,x)|^2\right)^{1/2},\qquad
- R_{\rm emp}=\frac{E(f_{\rm model},f_{\rm reference})}
- {E(f_n,\widetilde f_n)}.
-\]
-The denominator uses independent dense initializations. A practical pass
-requires $R_{\rm emp}\le3$ and resolved reference numerics; Harmonic's
-combined coarse--fine sensitivity must also be at most $10\%$ of that
-denominator. This is neither a confidence estimate for $b_n$ nor a
-continuous-time, whole-sphere or asymptotic guarantee. Pilots use seeds
-101--102; settings were frozen before seeds 201--203. Setup nodes are
-separate from test queries. Digits uses 32 training images, training-only
-PCA to dimension eight, normalization to unit directions, 64 tuning images
-and 261 held-out images.
-
-\paragraph{Dynamics and empirical backends.}
-All fresh runs use two tanh hidden layers, zero readout, Gaussian
-initialization and mobilities $(n,1,n)$ from \Cref{eq:dense-flow}; stored
-inputs are $v=x/\sqrt d$. Labels have RMS one. Harmonic and dense use
-float64 RK4, with steps $0.125$ and $0.0625$, through time 20. Harmonic's
-full dense warmup is followed by Chebyshev/sphere-polynomial least squares
-and per-family SVD truncation before paired mixer images are formed.
-Mandatory initialization fields, BSS selection, full metrics and the
-corrected optimizer are retained. The circle uses family rank
-$\lceil2\log(en)\rceil$, time degree five and circle degree nine;
-dimension checks use rank $\lceil\log(en)\rceil$ and degrees three.
-Digits uses rank 19. These source approximations have no certified
-uniform error bound. All use nine time nodes; the circle, sphere checks
-and digits use respectively 64, 128 and 256 passive spatial nodes.
-The toy circle has seven training points and target
-$\sin(3\theta)+\tfrac12\cos(5\theta)$; the sphere target on unit
-directions $v$ is $\sqrt d\,v_1+d^{3/2}v_1v_2v_3$.
-Training-label RMS normalizes the targets. Harmonic uses 256 test directions,
-twelve sphere training points, and times $0,0.5,1,2,5,10,20$.
-Logarithmic uses ten Euler panels of length $0.5$,
-noise $0.01$, one member and 32 queries through time five. It retains
-both Gaussian orientations and covariance corrections, immutable row
-fields, causal metric replay and empirical query sums. Float64, a
-conventional counter PRNG and numerical-rank selection replace the
-certified finite-word backend; no bit, PRG or confidence certificate
-is asserted. Its fixed Euler program is not an integration-convergence
-study. Toy decoder checks use $m=\max(d,3)$ and the common recorded times
-$0,0.5,1,2,5$. Harmonic is coupled to its source; the decoder's target is independent.
-
-\paragraph{Controls, storage and costs.}
-Small MLPs train all layers at the same canonical mobilities, with width
-chosen to fit the retained payload. At zero readout, the exact frozen
-initial NTK has only its readout block; its constant-kernel flow is solved
-spectrally without ridge or time rescaling. Harmonic counts
-$q_1d+q_1q_2+q_2+m$ moving and $2q_1^2+q_2^2$ fixed tensor scalars.
-Common training data, measurement copies and query scratch are separate.
-Logarithmic counts data, seeds, selected fields, metric caches, acquired
-pairs, field instructions and immutable coefficients as 64-bit payload;
-Python overhead is excluded. In dimension five its retained-plus-batched-query
-workspace envelope is $1{,}201{,}027$ words: about $14.0$-fold smaller
-than the width-$4096$ dense parameters, but larger than the width-$1024$
-dense parameters. Source setup, training, readout refresh and batched
-queries are timed separately. Runs use two RTX 3090 GPUs and CPU scalar
-programs, with 120-second toy and at most 300-second real-data model caps.
-These measurements establish no end-to-end speedup.
-
-One circle confirmation also compares explicit LoRA increments with trained
-outer layers at width $2048$. Its $313{,}344$ moving scalars match Harmonic's
-$315{,}481$ from below, but its $4{,}194{,}304$ fixed mixer scalars are additional.
-Orthonormal initial right factors and zero left factors preserve the dense
-initialization. The factor mobility multiplier $0.25$ was selected from
-$0.25,1,4$ on pilot seed 101; steps $0.01$ and $0.005$ resolve the held-out
-seed-201 comparison. LoRA's discrepancy is $7.51$ dense-pair units versus
-$0.479$ for Harmonic. This is evidence against this matched-moving-state
-factorization and optimizer, not against every low-rank alternative.
-
-For timing context, the width-$4096$ circle seed-201 Harmonic source rollout
-and spectral fit take $4.75$ seconds, followed by $4.96$ seconds of assembly.
-Its RK4 updates take $12.5$ ms per step versus $27.7$ ms for dense, at step
-$0.125$; these figures exclude query evaluation and the separate refinement.
-For dimension-five Logarithmic seed 201 at the same width, CPU source and
-metric setup take $0.66+0.84$ seconds, ten causal training panels take $0.46$
-seconds, and all five batches of 32 passive queries take $3.31$ seconds.
-The tasks, clocks, solvers and hardware differ, so these are separate measured
-costs, not a cross-method speedup ratio. Device peaks in the records include
-other resident references; payload counts are not isolated process-RAM peaks.
-
-\paragraph{Additional and negative results.}
-Harmonic's dimension-$3,5,10$ ratios are $0.751,0.937,0.997$ at width
-$2048$ (one seed each). The real-data smaller-MLP ratios are
-$0.646$--$1.123$, below Harmonic's $1.85$--$2.44$; one also attains
-$97.70\%$ accuracy. The frozen-kernel circle ratios are $15.6$--$76.6$,
-so the measured trajectories depart substantially from that control.
-Logarithmic's width-$4096$ dimension-three and dimension-ten checks
-give $1.84$ and $1.26$, while the circle gives $6.95$ and fails.
-A dimension-ten pilot with twenty Euler panels exceeded the 120-second
-cap; the ten-panel pilot passed before its rule was frozen.
-A separate digits decoder experiment uses eight training images, training-only
-PCA dimension five and all 285 held-out images. The twenty-panel setting
-passed its tuning split but fails the single held-out confirmation:
-$R_{\rm emp}=4.94$, versus $3.02$ for its payload-matched MLP. The decoder
-retains $6{,}608{,}623$ words ($2.54$ times fewer than dense), and its
-retained-plus-batched-query envelope is $11{,}052{,}846$ words. Setup, replay
-and queries take $67.9$ seconds in total. This is not the 32-training-image
-Harmonic task and does not establish real-data decoder comparability.
-\Cref{fig:compression-checks} retains these scope distinctions.
-Gradient, metric, paired-action, posterior, replay and passive-query
-checks precede evaluation. The full-retention Harmonic trajectory error
-decreases approximately sixteenfold under RK4 step halving.
-Commands, hashes, inventories and failures are retained in
-\texttt{paper/figures/capture\_trajectory.py} and the study records under
-\texttt{data/generated/compression\_empirical\_validation\_20261007/}.
-\endgroup
-
-\begin{figure}[p]
- \centering
- \includegraphics[width=\textwidth,height=.29\textheight,keepaspectratio]{figures/compression_checks.pdf}
- \caption{\textbf{Dimension, real-data and decoder checks.}
- Additional finite-time comparisons supplement the width experiments.
- Dimension checks use one held-out seed; digits uses three.
- The dimension-five decoder bar summarizes three seeds, the others one;
- its annotations count persistent payload only, excluding query workspace.
- Lines/bars show medians and ranges show all observed seeds.
- The empirical factor-three threshold is not a confidence statement.
- The circle decoder failure and matched small-network controls prevent
- interpreting the favorable cases as uniform superiority.}
- \label{fig:compression-checks}
-\end{figure}
-\begin{figure}[p]
- \centering
- \includegraphics[width=\textwidth,height=.29\textheight,keepaspectratio]{figures/circles_deep.pdf}
- \caption{\textbf{Earlier Legendre fitted-function illustration.}
- Existing five-task comparison: three hidden tanh layers, width $4096$,
- and Legendre orders $q=1,2,3$, at each model's own training-MSE
- $10^{-3}$ endpoint, not a shared time. Grey curves are dense predictions,
- coloured curves are memory predictions, and black points are labels.
- Printed discrepancies are RMS differences on $8192$ circle queries,
- not uniform errors or risk against unseen labels. Fixed initialized
- matrices remain additional to Legendre's moving state. This archived
- illustration is separate from the fresh confirmation runs above.}
- \label{fig:deep}
-\end{figure}
-\FloatBarrier
+\input{empirical_appendix}
+\clearpage
+\input{cost_appendix}
 \clearpage
 \section*{Guide to the detailed statements and proofs}
 \addcontentsline{toc}{section}{Guide to the detailed statements and proofs}
@@ -499,8 +325,10 @@ runtime model parameters.
 
 The full label, width, confidence, storage and cost interfaces are followed
 by numerical certificates and proofs. The shared source construction,
-both efficient Harmonic initializers, and the finite decoder are included
-in the manuscript itself, not left as dependencies on research notes.
+both efficient Harmonic initializers, the new residual-adapted panel proof,
+and the supplementary seeded decoder are included in the manuscript itself,
+not left as dependencies on research notes. The last is retained as a
+distinct result, not an alternative definition of the new Logarithmic model.
 Historical review records and superseded paper theorems are not premises.
 
 \medskip
@@ -512,10 +340,10 @@ Detailed component & Page\\
 & \pageref{int:headline-results}\\
 \hyperref[int:detailed-statements]{Explicit statements, constants and cost inventories}
 & \pageref{int:detailed-statements}\\
-\hyperref[int:intrinsic-variability-comparison]{Actual-variability decoder comparison}
-& \pageref{int:intrinsic-variability-comparison}\\
-\hyperref[int:joint-compression-headline-proof]{Proof of the joint compression theorem}
-& \pageref{int:joint-compression-headline-proof}\\
+\hyperref[sec:panel-headline-proof]{Assembly of the unified compression theorem}
+& \pageref{sec:panel-headline-proof}\\
+\hyperref[sec:panel-proof]{Residual-adapted Logarithmic construction and complete proof}
+& \pageref{sec:panel-proof}\\
 \hyperref[int:source-foundations]{Shared source construction and analytic estimates}
 & \pageref{int:source-foundations}\\
 \hyperref[int:dense-proofs]{Dense upper and lower bounds}
@@ -524,7 +352,7 @@ Detailed component & Page\\
 & \pageref{int:legendre-proofs}\\
 \hyperref[int:harmonic-proofs]{Harmonic geometry, stability and budget inversion}
 & \pageref{int:harmonic-proofs}\\
-\hyperref[int:logarithmic-decoder-proofs]{Logarithmic decoder and confidence bounds}
+\hyperref[int:logarithmic-decoder-proofs]{Supplementary seeded decoder and confidence bounds}
 & \pageref{int:logarithmic-decoder-proofs}\\
 \hyperref[int:decoder-finite-construction]{Finite source, numerical execution and word backend}
 & \pageref{int:decoder-finite-construction}\\
@@ -536,5 +364,6 @@ Detailed component & Page\\
 \begingroup
 \small
 \input{integrated_appendix}
+\input{panel_appendix}
 \endgroup
 \end{document}
