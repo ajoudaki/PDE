@@ -5370,13 +5370,17 @@ def cubic_case_main(argv):
 
 @torch.no_grad()
 def cubic_budget_main(argv):
-    """Exactly two old-circle fits at approximately 2x/4x retained storage."""
+    """Requested circle fits at approximately 2x/4x retained storage."""
     from concurrent.futures import ThreadPoolExecutor
     parser = argparse.ArgumentParser(description=cubic_budget_main.__doc__)
     parser.add_argument('--reference', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--devices', nargs=2, default=['cuda:0', 'cuda:1'])
+    parser.add_argument('--partition', choices=('old', 'new'), default='old')
+    parser.add_argument('--factors', type=int, nargs='+', choices=(2, 4), default=[2, 4])
     args = parser.parse_args(argv)
+    if len(args.factors) != len(set(args.factors)):
+        parser.error('Storage factors must be distinct')
     args.out.mkdir(parents=True, exist_ok=False)
     torch.set_num_threads(1)
     torch.set_default_dtype(torch.float64)
@@ -5392,7 +5396,8 @@ def cubic_budget_main(argv):
         reference=str(args.reference), reference_arrays_sha256=sha((args.reference/'trajectories.npz').read_bytes()),
         reference_report_sha256=sha((args.reference/'report.json').read_bytes()),
         python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
-        scope=baseline['scope'], source_partition='old', complete=False, models={}, runs={}, errors={},
+        scope=baseline['scope'], source_partition=args.partition, requested_factors=args.factors,
+        complete=False, models={}, runs={}, errors={},
         numerical_qualification='same previously refined Euler step; no new-budget refinement runs',
         source_rank_qualification='nested ranks19/29 from one rank37 SVD; not nested with original rank20 SVD')
     arrays = {name: reference[name] for name in ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')}
@@ -5403,17 +5408,19 @@ def cubic_budget_main(argv):
                                   for name in ('train_inputs', 'train_labels', 'query_inputs')]
         dense = DeepDense(4096, 2, 2, 'tanh', 601, device)
         sources, report['sources'] = cubic_rollout_sources(dense, inputs, labels, queries,
-            ranks=(29, 19), partitions=('old',))
+            ranks=(29, 19), partitions=(args.partition,))
         np.testing.assert_allclose(report['sources']['observation_times'],
             baseline['sources']['observation_times'], atol=1e-12, rtol=0)
         models = []
         for factor, width, rank in ((2, 300, 19), (4, 424, 29)):
+            if factor not in args.factors:
+                continue
             t0 = time.monotonic()
-            model = DeepHarmonic(dense, inputs, labels, sources['old'][rank], width,
+            model = DeepHarmonic(dense, inputs, labels, sources[args.partition][rank], width,
                                  selection_seed=501, readout_floor=baseline['readout_floor'])
             assert model.diagnostics['widths'] == [width, width]
             assert not any(v['truncated'] for v in model.diagnostics['source_truncations'])
-            assert all(v.shape[1] == rank for family in sources['old'][rank].values() for v in family)
+            assert all(v.shape[1] == rank for family in sources[args.partition][rank].values() for v in family)
             moving = sum(v.numel() for v in model.initial_state)
             total = moving+model.fixed_scalars
             assert total == 4*width**2+3*width+9
@@ -5448,7 +5455,7 @@ def cubic_budget_main(argv):
                                            info['losses'], atol=1e-6, rtol=2e-5)
                 error = trajectory_rms(prediction[:, 8:].astype(float), reference['dense'][:, 8:].astype(float))
                 error.pop('curve')
-                error['endpoint_over_previous'] = error['endpoint_rms']/baseline['comparisons']['old_full']['endpoint_rms']
+                error['endpoint_over_previous'] = error['endpoint_rms']/baseline['comparisons'][args.partition+'_full']['endpoint_rms']
                 error['endpoint_over_dense_pair'] = error['endpoint_rms']/baseline['comparisons']['iid']['endpoint_rms']
                 info['comparison'] = error
             del state
@@ -5457,8 +5464,8 @@ def cubic_budget_main(argv):
             return factor, prediction, info
 
         with ThreadPoolExecutor(max_workers=2) as pool:
-            futures = [pool.submit(run, item, device) for item, device in zip(models, args.devices)]
-            for factor, future in zip((2, 4), futures):
+            futures = [(item[0], pool.submit(run, item, args.devices[int(item[0] == 4)])) for item in models]
+            for factor, future in futures:
                 try:
                     _, prediction, info = future.result()
                     arrays['budget_'+str(factor)] = prediction
@@ -5466,7 +5473,11 @@ def cubic_budget_main(argv):
                     report['runs'][str(factor)] = info
                 except Exception as error:
                     report['errors'][str(factor)] = f'{type(error).__name__}: {error}'
-        report['complete'] = len(report['runs']) == 2 and all(v['complete'] for v in report['runs'].values())
+        report['complete'] = (len(report['runs']) == len(args.factors)
+                              and all(v['complete'] for v in report['runs'].values()))
+    except Exception as error:
+        report['errors']['setup'] = f'{type(error).__name__}: {error}'
+        raise
     finally:
         report['seconds'] = time.monotonic()-started
         save_json(args.out/'report.json', report)

@@ -356,3 +356,74 @@ particular circle mismatch at4x storage in the measured Euler experiment.
 This does not identify which increased component caused the improvement,
 prove monotone convergence, or alter the old/new comparison at the original
 budgets. The requested two-run continuation is now closed.
+
+## Authorized follow-up: the same two budgets for the new construction
+
+The user next requested the new construction at the same2x/4x budgets. Freeze
+exactly the preceding width300/rank19 and width424/rank29 configurations,
+data, dense reference, seeds, floor, source-flow observation grid, degree8,
+nested rank37 SVD and Euler settings. Only the fitted source partition changes
+from old geometric intervals to the new residual-adapted intervals. Retained
+state, runtime and test-label isolation are unchanged. No new optimization or
+additional cases. Both are warmup-rollout empirical constructions, not the
+finite-jet compiler. The original experiment provides the new width212 baseline.
+
+Primary metric is endpoint RMS against the same dense reference, compared
+with the old construction at matching storage and with new width212's0.0729340.
+Use the same finite/grid/storage/truncation checks and20% descriptive improvement
+threshold. Exactly two fine Euler fits,120s each, common setup capped120s,
+400s wall limit. No fresh budget-specific step refinement or rescue runs.
+
+```sh
+timeout 400 /home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py cubic-budget --partition new --reference data/generated/cubic_log_comparison_20261008/paired_run/sphere2_seed601 --out data/generated/cubic_log_comparison_20261008/circle_larger_budgets_new --devices cuda:0 cuda:1
+```
+
+The initial launch exited1 during width424 assembly: the existing layer1
+source-condition cap16 failed. Zero Euler fits started; width300 had already
+assembled successfully and was registered. This4x outcome is invalid/inconclusive,
+not an RMS measurement. An interim conversational attribution to2x was corrected
+immediately after reading the saved registration metadata.
+No threshold change, alternate selector/seed, larger budget or rescue is made.
+The already assembled2x configuration has not yet trained. The runner
+now accepts `--factors 2` to execute that remaining fit alone,
+without retrying the failed4x case. Shared rank37 source production and all
+scientific settings remain unchanged. The failed launch's artifacts are kept.
+
+```sh
+timeout 240 /home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py cubic-budget --partition new --factors 2 --reference data/generated/cubic_log_comparison_20261008/paired_run/sphere2_seed601 --out data/generated/cubic_log_comparison_20261008/circle_larger_budgets_new_2 --devices cuda:0 cuda:1
+```
+
+Status:4x failed setup; the2x fit completed. No extra scientific configuration
+was added and the failed4x configuration was not retried or modified.
+
+| Total-storage budget | Old endpoint RMS | New endpoint RMS |
+|---|---:|---:|
+| Original,180,421 scalars | 0.0730863 | 0.0729340 |
+| Approximately2x,360,909 scalars | 0.0167651 | 0.0132641 |
+| Approximately4x,720,385 scalars | 0.00395727 | No RMS: setup guard failed |
+
+The new2x endpoint error is20.88% below old2x,5.50-fold below new width212,
+and2.401times the measured dense-pair endpoint RMS0.00552362. Its worst-
+recorded-time RMS is0.0239931; final training MSE is0.00223738. The readout
+floor is inactive at all recorded times. Layer source-embedding maxima were
+14.1694 and10.8808, below the unchanged16 cap. This is a finite-step result
+with no new-budget refinement certificate; the4x setup rejection is an
+inconclusive configuration, not evidence of prediction error or nonexistence.
+
+The valid2x run used the identical65 times,38 panel inputs, retained count
+and saved dense reference. Endpoint RMS was independently reconstructed
+from all30 held-out-label test columns; arrays are finite. Setup took8.18s
+and training61.83s,70.02s total; the preceding failed assembly took8.18s and
+started no training. No additional model fit, selector trial or tolerance
+change was performed. Both failed and completed artifact directories remain.
+
+The initial attempted pair used executable SHA256
+`7789f015021e2f69d6568a14e0ba9d7d668e5e9b1e7db45b95fd8615b1587045`;
+the successful single-factor dispatch used
+`37b432c7a4e8af7cc20313bb810f46200b5fb8309d8113222ad1a7485193195e`.
+The latter change only permits selecting an already-authorized factor and
+records setup errors; it does not change source or training mathematics.
+`circle_larger_budgets_new_2/trajectories.npz` SHA256:
+`72190af86f0cf6b258c5c87a6e360215a325324ca8ad39d0bb0fdcd161803c2e`.
+Environment/precision match the old-budget follow-up. The continuation is
+closed with one measured endpoint result and one setup failure.
