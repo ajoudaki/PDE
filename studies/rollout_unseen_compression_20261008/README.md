@@ -412,3 +412,225 @@ setup or training time-cap outcome is inconclusive; it is not a compression
 failure or an underfit success. No adaptive solver is used in the main
 comparisons. All main cases now run under the single manifest and source
 version. The adaptive width128 runs above were training-only planning pilots.
+
+### Completed 24-case approximately 100x sweep
+
+The frozen batch is finished: **16 passes, 4 numerically inconclusive
+comparisons, and 4 setup-cap outcomes**. All 20 completed comparisons fit
+(all six runs per case have final training MSE below .000452), have compressed
+maximum unseen-set RMS at most three times the independent dense-pair RMS,
+and improve on their total-storage-matched small dense control. Four of
+these comparisons fail the prescribed numerical diagnostic and are not
+counted as validated successes. No case was rerun, no order or seed was
+searched, and no cap was extended. All main training comparisons use the
+same fixed Euler step .0015625; there is no adaptive main-run exception.
+
+The data are the raw 64 coordinates of sklearn's 8x8 digit images, normalized
+to unit norm, without PCA: eight labeled training inputs (four per class),
+32 disjoint unlabeled setup-calibration inputs, and 317 scored unseen inputs
+for 3/8 or 321 for 1/7. Source construction sees neither scored inputs nor
+their labels. Source/reference seed601, independent dense seed10601 and
+matched-small seed20601 are unchanged. This is one initialization per case,
+not a repeated-seed probability estimate.
+
+#### Retained storage
+
+Counts below include all retained fixed metrics and inverses, not only moving
+weights. They count real coordinates, not bits or peak workspace. The common
+520 training-data numbers are separate; the 2048 calibration-input numbers
+are discarded after setup. Runtime storage does not append response history.
+
+| Depth | Dense width | q / source rank | Dense numbers | Compressed numbers (moving + fixed) | Small width | Reduction |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 8192 | 383 / 15 | 67,641,344 | 611,659 (171,592 + 440,067) | 750 | 110.587x |
+| 3 | 8192 | 383 / 15 | 134,750,208 | 1,051,726 (318,281 + 733,445) | 709 | 128.123x |
+| 5 | 8192 | 383 / 15 | 268,967,936 | 1,931,860 (611,659 + 1,320,201) | 686 | 139.227x |
+| 10 | 6144 | 356 / 14 | 340,137,984 | 3,571,756 (1,163,772 + 2,407,984) | 626 | 95.230x |
+
+The depth10 row describes the successfully constructed tanh models and the
+planned budget for the four capped cases; no successfully initialized
+GELU/SiLU model is claimed at that depth.
+
+#### Primary unseen-trajectory comparison
+
+RMS means prediction discrepancy across the entire scored unseen set against
+the same dense reference, **not classification accuracy**. The primary number
+is its maximum over the common saved times, spaced .5 apart through each
+frozen horizon. This is not a continuum-time or sphere supremum. The
+factor-three test compares these maxima; it is not a pointwise-in-time ratio.
+Refinement is the sum of dense and compressed coarse/fine maximum RMS,
+divided by independent-dense maximum RMS. PASS requires that percentage
+below 10%, fitting below .01, and the factor-three target.
+
+| Depth | Activation | Digits | Dense-pair RMS | Compressed RMS | Matched-small RMS | Refinement | Verdict |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | tanh | 3/8 | 0.01701205 | 0.01949564 | 0.03046504 | 3.058% | PASS |
+| 2 | tanh | 1/7 | 0.01093808 | 0.01565047 | 0.02345360 | 5.480% | PASS |
+| 2 | gelu | 3/8 | 0.01449307 | 0.02569705 | 0.03320071 | 8.449% | PASS |
+| 2 | gelu | 1/7 | 0.01346754 | 0.01639070 | 0.07408598 | 11.275% | INCONCLUSIVE |
+| 2 | silu | 3/8 | 0.01600815 | 0.01929662 | 0.03398884 | 8.571% | PASS |
+| 2 | silu | 1/7 | 0.01374508 | 0.01699163 | 0.08549381 | 12.858% | INCONCLUSIVE |
+| 3 | tanh | 3/8 | 0.01763712 | 0.02123112 | 0.04621260 | 5.224% | PASS |
+| 3 | tanh | 1/7 | 0.01612675 | 0.01829865 | 0.03606305 | 5.959% | PASS |
+| 3 | gelu | 3/8 | 0.04268152 | 0.03775559 | 0.04943671 | 6.283% | PASS |
+| 3 | gelu | 1/7 | 0.06833495 | 0.02109349 | 0.20627081 | 5.083% | PASS |
+| 3 | silu | 3/8 | 0.05840510 | 0.02489794 | 0.07132107 | 4.880% | PASS |
+| 3 | silu | 1/7 | 0.07347444 | 0.01879827 | 0.22135915 | 4.914% | PASS |
+| 5 | tanh | 3/8 | 0.02629512 | 0.03339348 | 0.03939007 | 6.162% | PASS |
+| 5 | tanh | 1/7 | 0.02889613 | 0.02168697 | 0.03551278 | 5.870% | PASS |
+| 5 | gelu | 3/8 | 0.05361941 | 0.12788688 | 0.55323547 | 22.278% | INCONCLUSIVE |
+| 5 | gelu | 1/7 | 0.37347852 | 0.09981917 | 0.54716709 | 3.234% | PASS |
+| 5 | silu | 3/8 | 0.16320106 | 0.23169779 | 0.52510978 | 36.608% | INCONCLUSIVE |
+| 5 | silu | 1/7 | 0.40601139 | 0.06013204 | 0.61515018 | 7.458% | PASS |
+| 10 | tanh | 3/8 | 0.04934614 | 0.06462977 | 0.12138106 | 5.403% | PASS |
+| 10 | tanh | 1/7 | 0.03571698 | 0.03039621 | 0.07205050 | 7.271% | PASS |
+
+Thus all eight tanh cases pass, all six depth3 cases pass, and GELU/SiLU each
+have four validated passes across the grid. The four numerical inconclusives
+are 1/7 at depth2 for GELU/SiLU and 3/8 at depth5 for GELU/SiLU. Their favorable
+same-step errors remain observations, not resolved gradient-flow fidelity
+claims. Even a passing step-halving diagnostic is empirical: the independent
+dense and small controls were not separately step-refined.
+
+The small control often also meets the factor-three target. Among the 16
+validated cases it exceeds that threshold only for depth3 GELU and SiLU on
+1/7, both only slightly. Therefore the stronger general observation is lower
+compressed RMS at the same storage, not that ordinary small networks always
+fail the target. For example, depth3 SiLU on 1/7 has .01879827 compressed
+maximum RMS versus .22135915 small, while the independent dense pair has
+.07347444. Depth5 SiLU on 1/7 has .06013204 versus .61515018, but its
+independent-dense maximum is also large (.40601139).
+
+#### Endpoint and time-average discrepancies
+
+These are distinct from the primary trajectory metric. Time-average RMS uses
+trapezoidal integration of the saved-time RMS divided by the horizon; it is
+not RMS over all time/input pairs. Large transient differences can be much
+smaller at the endpoint, so endpoint-only reporting would conceal them.
+
+| Depth | Activation | Digits | Endpoint dense-pair | Endpoint compressed | Endpoint small | Time-average compressed | Time-average small |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | tanh | 3/8 | 0.01687667 | 0.01949564 | 0.03046504 | 0.01691372 | 0.02663555 |
+| 2 | tanh | 1/7 | 0.00865836 | 0.01540676 | 0.01924836 | 0.01429643 | 0.01912514 |
+| 2 | gelu | 3/8 | 0.01449307 | 0.02569705 | 0.03320071 | 0.02157267 | 0.02760616 |
+| 2 | gelu | 1/7 | 0.01277947 | 0.01634040 | 0.03589649 | 0.01463455 | 0.03521325 |
+| 2 | silu | 3/8 | 0.01600815 | 0.01929662 | 0.03398884 | 0.01649063 | 0.02919120 |
+| 2 | silu | 1/7 | 0.01371732 | 0.01699163 | 0.04183390 | 0.01479665 | 0.03895853 |
+| 3 | tanh | 3/8 | 0.01763712 | 0.02074534 | 0.04276166 | 0.01822708 | 0.03870951 |
+| 3 | tanh | 1/7 | 0.01185553 | 0.01745717 | 0.03545098 | 0.01613756 | 0.03263791 |
+| 3 | gelu | 3/8 | 0.02865208 | 0.03509229 | 0.04905627 | 0.02954888 | 0.04068211 |
+| 3 | gelu | 1/7 | 0.01377538 | 0.01954757 | 0.06102377 | 0.01754525 | 0.05915001 |
+| 3 | silu | 3/8 | 0.02995117 | 0.02070381 | 0.03914729 | 0.01756725 | 0.03524339 |
+| 3 | silu | 1/7 | 0.01436028 | 0.01771855 | 0.06786997 | 0.01540344 | 0.06188423 |
+| 5 | tanh | 3/8 | 0.02629512 | 0.03339348 | 0.03883854 | 0.02681133 | 0.03122770 |
+| 5 | tanh | 1/7 | 0.01337863 | 0.02168697 | 0.03417297 | 0.01868713 | 0.03044003 |
+| 5 | gelu | 3/8 | 0.04479804 | 0.04203548 | 0.31697389 | 0.02891483 | 0.22300297 |
+| 5 | gelu | 1/7 | 0.07431238 | 0.03246306 | 0.08653638 | 0.02404259 | 0.09519098 |
+| 5 | silu | 3/8 | 0.04253470 | 0.04009662 | 0.38977022 | 0.02684300 | 0.23058222 |
+| 5 | silu | 1/7 | 0.08371738 | 0.03020652 | 0.07729419 | 0.01849305 | 0.07838097 |
+| 10 | tanh | 3/8 | 0.04913603 | 0.06462977 | 0.12138106 | 0.05032025 | 0.09918400 |
+| 10 | tanh | 1/7 | 0.02751961 | 0.03039621 | 0.07028222 | 0.02509487 | 0.06365731 |
+
+#### Runtime-cap outcomes
+
+All four depth10 modern-activation setups hit the 180-second source-integration
+cap before their planned horizons. The roughly 183-second case wall times
+include loading and surrounding overhead. No training-comparison trajectories
+or complete RMS scores were produced. These are inconclusive runtime outcomes,
+not fidelity failures or evidence of successful compression.
+
+| Depth | Activation | Digits | Planned horizon | Last source time | Case wall seconds |
+| --- | --- | --- | --- | --- | --- |
+| 10 | gelu | 3/8 | 256 | 118.62741699796952 | 182.76 |
+| 10 | gelu | 1/7 | 256 | 143.098 | 182.73 |
+| 10 | silu | 3/8 | 432 | 108.055 | 182.71 |
+| 10 | silu | 1/7 | 432 | 143.911 | 182.68 |
+
+No rescue run, adaptive stepping, activation gain, initialization rescaling,
+or shortened horizon was used.
+
+#### Measured costs
+
+Seconds below are wall times on the two RTX3090 GPUs, with float32 Euler and
+TF32 disabled. Setup includes dense creation, disposable coarse RK4 source
+evolution and float64 source/metric assembly. Training columns are individual
+fine-step runs at that case's horizon, excluding setup, controls and refinement.
+Horizons differ by activation/depth, so these are measured full-run costs,
+not normalized per-step or isolated activation benchmarks.
+
+| Depth | Activation | Digits | Setup seconds | Dense seconds | Compressed seconds | Small seconds |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | tanh | 3/8 | 10.76 | 51.66 | 67.66 | 22.91 |
+| 2 | tanh | 1/7 | 10.26 | 50.12 | 67.75 | 23.04 |
+| 2 | gelu | 3/8 | 8.86 | 44.23 | 54.58 | 19.76 |
+| 2 | gelu | 1/7 | 8.44 | 38.50 | 55.09 | 19.98 |
+| 2 | silu | 3/8 | 10.80 | 62.82 | 70.28 | 24.38 |
+| 2 | silu | 1/7 | 10.30 | 50.71 | 71.24 | 24.64 |
+| 3 | tanh | 3/8 | 16.05 | 95.47 | 69.65 | 24.17 |
+| 3 | tanh | 1/7 | 15.45 | 72.90 | 69.70 | 24.50 |
+| 3 | gelu | 3/8 | 16.25 | 101.41 | 73.57 | 27.99 |
+| 3 | gelu | 1/7 | 15.57 | 74.10 | 75.09 | 28.46 |
+| 3 | silu | 3/8 | 20.01 | 127.53 | 97.14 | 34.91 |
+| 3 | silu | 1/7 | 19.29 | 97.77 | 96.76 | 34.76 |
+| 5 | tanh | 3/8 | 21.99 | 136.32 | 70.24 | 25.45 |
+| 5 | tanh | 1/7 | 21.14 | 95.37 | 70.48 | 25.69 |
+| 5 | gelu | 3/8 | 32.50 | 196.82 | 111.78 | 44.06 |
+| 5 | gelu | 1/7 | 29.85 | 144.65 | 112.62 | 44.63 |
+| 5 | silu | 3/8 | 41.17 | 270.26 | 144.62 | 53.76 |
+| 5 | silu | 1/7 | 37.31 | 191.45 | 144.50 | 54.23 |
+| 10 | tanh | 3/8 | 28.77 | 161.73 | 128.75 | 46.88 |
+| 10 | tanh | 1/7 | 27.32 | 121.22 | 128.30 | 47.93 |
+
+For the completed cases, maxima of allocated GPU process memory within each
+depth are:
+
+| Depth | Setup peak GiB | Dense-training peak MiB | Compressed-training peak MiB |
+| --- | --- | --- | --- |
+| 2 | 2.799 | 996.15 | 36.48 |
+| 3 | 5.054 | 1576.68 | 38.73 |
+| 5 | 10.055 | 3114.18 | 44.33 |
+| 10 | 12.709 | 3930.47 | 54.97 |
+
+Depth10 cost rows cover tanh only. Memory is allocated GPU process peak, not
+host RAM, reserved GPU memory, minimal workspace or retained-number count;
+the saved reports state the process scope explicitly. Setup includes a
+disposable dense rollout over the **full physical interval**, with coarse RK4
+step .0625, not just a short initial-time prefix. Its structures are discarded.
+The large storage reduction is not a comparable time reduction: in these
+measurements depth2 compressed training is slower than dense, depth3/5 is
+generally faster, and depth10 tanh is mixed between GPUs/cases.
+
+#### Checks, provenance and claim limit
+
+During the batch, six local CPU float64 checks at depths5/10 with
+tanh/GELU/SiLU verified the dense RHS against autograd, full-retention dynamics,
+and the deficit/JVP identity at nonzero perturbed states. Maximum relative
+errors were respectively 1.99e-15, 4.78e-12, and 9.78e-15, all below the
+1e-8 gate with absolute error below 1e-10. These are algebra checks, not
+compression-fidelity evidence.
+
+A scoped second checker reconstructed every completed case's maximum,
+endpoint and time-average RMS from saved predictions, and checked checkpoint
+counts, grids, split disjointness and hashes. No discrepancy was found.
+The final lead check reconciled all24 manifest entries, source hashes,
+outcome gates and the four timeout classifications. The sweep process exits
+nonzero because four probes are incomplete; this expected status does not
+erase the 20 saved complete comparisons.
+
+The source stayed unchanged throughout the main batch:
+`8e26f402345e74151723008efcb60e183079c88a046f74e60e3381c842ab9463`, committed with the frozen plan at
+`3e260dd` (runner/pilot implementation `944a127`). The record is
+`data/generated/rollout_unseen_compression_20261008/sweep100_main_v1/`:
+`config.json` stores the manifest and source hash; `summary.json` includes
+all24 outcomes; each complete case has `report.json`, `trajectories.npz`
+and `compiled_model.pt`; capped cases retain reports and logs. Reproduce
+with the existing `compression-sweep` command and `SWEEP100_PLAN.json`,
+using a fresh output directory and the same devices/caps.
+
+Conclusion: this fixed batch provides substantially broader empirical support
+for roughly 100x retained-model compression than the previous roughly 1000x
+batch, across both digit pairs and all three activations, with tanh reaching
+depth10. It does not settle depth10 GELU/SiLU within the runtime budget, prove
+a logarithmic accuracy asymptote, provide a uniform unseen-input guarantee,
+or certify this empirical rollout initializer as the paper's Logarithmic
+decoder. No theorem or paper claim is changed. The authorized batch is closed.
