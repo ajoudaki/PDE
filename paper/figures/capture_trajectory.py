@@ -115,6 +115,261 @@ class Dense:
         return dense_fields(state, queries)[2]
 
 
+class DeepDense:
+    """Fixed hidden depth L; state [A, w, B2, ..., BL], f=w^T hL/n.
+
+    A has shape (n,d), each hidden mixer is (n,n), and w is (n,).
+    The squared-loss flow has mobilities (n,n,1,...,1) in this state order.
+    """
+
+    def __init__(self, width, dimension, depth, activation, seed, device):
+        if width < 1 or dimension < 1 or depth < 1 or int(depth) != depth:
+            raise ValueError('DeepDense needs positive width, dimension and integer hidden depth')
+        if activation not in ('tanh', 'atan'):
+            raise ValueError('DeepDense activation must be tanh or atan')
+        self.depth, self.activation = int(depth), activation
+        generator = torch.Generator(device=device).manual_seed(seed)
+        self.initial_state = [torch.randn(width, dimension, generator=generator, device=device,
+                                          dtype=torch.float64),
+                              torch.zeros(width, device=device, dtype=torch.float64)]
+        self.initial_state += [torch.randn(width, width, generator=generator, device=device,
+                                           dtype=torch.float64)/math.sqrt(width)
+                               for _ in range(self.depth-1)]
+        self.fixed_scalars = 0
+
+    def fields(self, state, inputs):
+        hs, gates = [], []
+        z = state[0]@inputs.T
+        for layer in range(self.depth):
+            if layer:
+                z = state[layer+1]@hs[-1]
+            h = z.tanh() if self.activation == 'tanh' else z.atan()
+            hs.append(h)
+            gates.append(1-h.square() if self.activation == 'tanh' else 1/(1+z.square()))
+        return hs, gates
+
+    def backward(self, state, hs, gates, readout=None):
+        deltas = [None]*self.depth
+        deltas[-1] = (state[1] if readout is None else readout)[:, None]*gates[-1]
+        for layer in range(self.depth-2, -1, -1):
+            deltas[layer] = (state[layer+2].T@deltas[layer+1])*gates[layer]
+        return deltas
+
+    def rhs(self, state, inputs, labels):
+        hs, gates = self.fields(state, inputs)
+        deltas = self.backward(state, hs, gates)
+        n, scale = len(state[1]), 2/len(labels)
+        deficit = labels-state[1]@hs[-1]/n
+        return [scale*(deltas[0]*deficit)@inputs, scale*hs[-1]@deficit] + [
+            scale/n*(deltas[layer]*deficit)@hs[layer-1].T
+            for layer in range(1, self.depth)]
+
+    def predict(self, state, queries, inputs=None, labels=None):
+        return state[1]@self.fields(state, queries)[0][-1]/len(state[1])
+
+
+class DeepHarmonic(DeepDense):
+    """Autonomous fixed-depth metric/deficit optimizer with offline sources.
+
+    Source columns are pre-truncated h/delta lists. Only their immediate
+    initialized forward/reverse images are added; no recursive image closure.
+    Construction uses float64, four coordinate candidates, and condition cap 16.
+    Sources and the dense model are discarded; all retained metrics are counted.
+    """
+
+    @torch.no_grad()
+    def __init__(self, dense, inputs, labels, source_coefficients, budget, selection_seed=501):
+        self.depth, self.activation = dense.depth, dense.activation
+        runtime_dtype = dense.initial_state[0].dtype
+        original = [value.to(dtype=torch.float64) for value in dense.initial_state]
+        a0, w0 = original[:2]
+        n, device, budget = len(w0), a0.device, int(budget)
+        training, targets = inputs.to(dtype=torch.float64), labels.to(dtype=torch.float64)
+        if bool(w0.ne(0).any()):
+            raise ValueError('DeepHarmonic initialization requires zero dense readout')
+        if budget < len(labels):
+            raise ValueError('DeepHarmonic budget must permit a full-rank training feature Gram')
+        h0, _ = self.fields(original, training)
+        if budget >= n:
+            self.metrics = [torch.eye(n, dtype=a0.dtype, device=device)/n for _ in range(self.depth)]
+            self.metric_inverses = [torch.eye(n, dtype=a0.dtype, device=device)*n
+                                   for _ in range(self.depth-1)]
+            self.initial_state = [value.clone() for value in original]+[targets.clone()]
+            self.diagnostics = dict(branch='full_retention_uncompressed', widths=[n]*self.depth,
+                                    source_ranks=[n]*self.depth)
+        else:
+            if source_coefficients is None or any(
+                    len(source_coefficients[name]) != self.depth for name in ('h', 'delta')):
+                raise ValueError('DeepHarmonic needs h and delta source lists of length depth')
+            retained = {name: [value.to(dtype=torch.float64, device=device)
+                               for value in source_coefficients[name]] for name in ('h', 'delta')}
+            if any(value.ndim != 2 or value.shape[0] != n or not bool(torch.isfinite(value).all())
+                   for family in retained.values() for value in family):
+                raise ValueError('DeepHarmonic sources must be finite (n,r) matrices')
+            bases, selected, selections, mandatory_errors = [], [], [], []
+            constant = torch.ones(n, 1, dtype=a0.dtype, device=device)
+            for layer in range(self.depth):
+                mandatory = ([constant, h0[layer], original[layer+1]@h0[layer-1]] if layer
+                             else [constant, a0, h0[layer]])
+                optional = [retained['h'][layer], retained['delta'][layer]]
+                if layer:
+                    optional.append(original[layer+1]@retained['h'][layer-1])
+                if layer+1 < self.depth:
+                    optional.append(original[layer+2].T@retained['delta'][layer+1])
+                basis, error = _harmonic_source_basis(torch.cat(mandatory, 1), torch.cat(optional, 1))
+                selection = _panel_coordinate_metric(basis, budget, selection_seed+layer, trials=4)
+                if selection[-1]['embedding_max'] > 16:
+                    raise ArithmeticError(f'DeepHarmonic layer {layer+1} source condition exceeds 16')
+                bases.append(basis)
+                selected.append(basis[selection[0]])
+                selections.append(selection)
+                mandatory_errors.append(error)
+            self.metrics = [item[1] for item in selections]
+            self.metric_inverses = [item[2] for item in selections[:-1]]
+            mixers = [selected[layer]@(bases[layer].T@original[layer+1]@bases[layer-1]/n)
+                      @(selected[layer-1].T@self.metrics[layer-1]) for layer in range(1, self.depth)]
+            indices = [item[0] for item in selections]
+            self.initial_state = [a0[indices[0]].clone(), w0[indices[-1]].clone()]+mixers+[targets.clone()]
+            hs, _ = self.fields(self.initial_state, training)
+            maximum = lambda value: float(value.abs().max()) if value.numel() else 0.
+            forward_errors, reverse_errors = [], []
+            for layer, mixer in enumerate(mixers, 1):
+                forward_errors.append(maximum(mixer@retained['h'][layer-1][indices[layer-1]]
+                    -(original[layer+1]@retained['h'][layer-1])[indices[layer]]))
+                reverse_errors.append(maximum(self.metric_inverses[layer-1]@mixer.T
+                    @self.metrics[layer]@retained['delta'][layer][indices[layer]]
+                    -(original[layer+1].T@retained['delta'][layer])[indices[layer-1]]))
+            self.diagnostics = dict(branch='empirical_spectral_setup_metric_runtime',
+                widths=[len(index) for index in indices], source_ranks=[basis.shape[1] for basis in bases],
+                selection=[item[-1] for item in selections], mandatory_source_errors=mandatory_errors,
+                initialized_feature_errors=[maximum(h-h0[layer][indices[layer]]) for layer, h in enumerate(hs)],
+                initialized_gram_error=maximum(hs[-1].T@self.metrics[-1]@hs[-1]-h0[-1].T@h0[-1]/n),
+                paired_forward_action_errors=forward_errors, paired_reverse_action_errors=reverse_errors)
+        # Offline geometry is assembled in double precision; deployment preserves
+        # the reference state dtype and keeps no dense/source construction arrays.
+        self.initial_state = [value.to(dtype=runtime_dtype) for value in self.initial_state]
+        self.metrics = [value.to(dtype=runtime_dtype) for value in self.metrics]
+        self.metric_inverses = [value.to(dtype=runtime_dtype) for value in self.metric_inverses]
+        self.fixed_scalars = sum(value.numel() for value in self.metrics+self.metric_inverses)
+        _, _, _, gram = self._readout(self.initial_state, inputs, labels)
+        eigenvalues = torch.linalg.eigvalsh(gram)
+        self.diagnostics.update(requested_budget=budget, activation=self.activation, depth=self.depth,
+            certified_source_setup=False, source_assembly_dtype='torch.float64', runtime_dtype=str(runtime_dtype),
+            initial_feature_gram_min=float(eigenvalues[0]),
+            initial_feature_gram_condition=float(eigenvalues[-1]/eigenvalues[0]),
+            moving_scalars=sum(value.numel() for value in self.initial_state), fixed_scalars=self.fixed_scalars)
+
+    def backward(self, state, hs, gates, readout=None):
+        deltas = [None]*self.depth
+        deltas[-1] = (state[1] if readout is None else readout)[:, None]*gates[-1]
+        for layer in range(self.depth-2, -1, -1):
+            deltas[layer] = gates[layer]*(self.metric_inverses[layer]@(state[layer+2].T
+                                          @(self.metrics[layer+1]@deltas[layer+1])))
+        return deltas
+
+    def _readout(self, state, inputs, labels):
+        hs, gates = self.fields(state, inputs)
+        normalized = hs[-1]/math.sqrt(len(labels))
+        gram = normalized.T@(self.metrics[-1]@normalized)
+        gram = (gram+gram.T)/2
+        factor, info = torch.linalg.cholesky_ex(gram)
+        if int(info) != 0:
+            raise ArithmeticError('DeepHarmonic training feature Gram is not positive definite; no ridge added')
+        correction = (labels-state[-1])/math.sqrt(len(labels))-normalized.T@(self.metrics[-1]@state[1])
+        readout = state[1]+normalized@torch.cholesky_solve(correction[:, None], factor).flatten()
+        return readout, hs, gates, gram
+
+    def rhs(self, state, inputs, labels):
+        readout, hs, gates, _ = self._readout(state, inputs, labels)
+        deltas = self.backward(state, hs, gates, readout)
+        scale, deficit = 2/len(labels), state[-1]
+        kernel = hs[-1].T@(self.metrics[-1]@hs[-1])
+        kernel = kernel+(deltas[0].T@(self.metrics[0]@deltas[0]))*(inputs@inputs.T)
+        updates = [scale*(deltas[0]*deficit)@inputs, scale*hs[-1]@deficit]
+        for layer in range(1, self.depth):
+            incoming = self.metrics[layer-1]@hs[layer-1]
+            updates.append(scale*(deltas[layer]*deficit)@incoming.T)
+            kernel = kernel+(deltas[layer].T@(self.metrics[layer]@deltas[layer]))*(hs[layer-1].T@incoming)
+        return updates+[-scale*kernel@deficit]
+
+    def predict(self, state, queries, inputs, labels):
+        return (self.metrics[-1]@self._readout(state, inputs, labels)[0])@self.fields(state, queries)[0][-1]
+
+    def prepare_query(self, state, inputs, labels):
+        coefficient = self.metrics[-1]@self._readout(state, inputs, labels)[0]
+        first, mixers, activation = state[0], tuple(state[2:self.depth+1]), self.activation
+
+        def predict(queries):
+            h = first@queries.T
+            h = h.tanh() if activation == 'tanh' else h.atan()
+            for mixer in mixers:
+                h = mixer@h
+                h = h.tanh() if activation == 'tanh' else h.atan()
+            return coefficient@h
+
+        return predict
+
+
+def deep_rollout_small_checks():
+    """Tiny CPU gradient, source-pair, full-retention and restart checks."""
+    dtype, device = torch.float64, torch.device('cpu')
+    inputs = torch.tensor([[1., 0.], [.6, .8], [-.8, .6]], dtype=dtype)
+    labels = torch.tensor([.2, -.1, .3], dtype=dtype)
+    generator = torch.Generator().manual_seed(17)
+    results = []
+    for depth in (2, 3):
+        for activation in ('tanh', 'atan'):
+            dense = DeepDense(32, 2, depth, activation, 3, device)
+            dense.initial_state = [value.to(dtype=dtype) for value in dense.initial_state]
+            arbitrary = [(value+.03*torch.randn(value.shape, generator=generator, dtype=dtype))
+                         .requires_grad_() for value in dense.initial_state]
+            prediction = dense.predict(arbitrary, inputs)
+            gradients = torch.autograd.grad((prediction-labels).square().mean(), arbitrary)
+            velocities = dense.rhs(arbitrary, inputs, labels)
+            maximum = lambda value: float(value.detach().abs().max())
+            gradient_error = max(maximum(v+mobility*g) for v, mobility, g in
+                                 zip(velocities, [32, 32]+[1]*(depth-1), gradients))
+            full = DeepHarmonic(dense, inputs, labels, None, budget=32)
+            actual = full.rhs(arbitrary+[labels-prediction], inputs, labels)
+            rhs_error = max(maximum(a-b) for a, b in zip(actual[:-1], velocities))
+            _, prediction_velocity = torch.autograd.functional.jvp(
+                lambda *state: dense.predict(state, inputs), tuple(arbitrary), tuple(velocities))
+            deficit_error = maximum(actual[-1]+prediction_velocity)
+            with torch.no_grad():
+                coefficients = {name: [torch.randn(32, 2, generator=generator, dtype=dtype)
+                                       for _ in range(depth)] for name in ('h', 'delta')}
+                compressed = DeepHarmonic(dense, inputs, labels, coefficients, budget=31)
+                setup = compressed.diagnostics
+                setup_error = max(setup['mandatory_source_errors']+setup['initialized_feature_errors']
+                    +setup['paired_forward_action_errors']+setup['paired_reverse_action_errors']
+                    +[setup['initialized_gram_error']])
+                state = [value.clone() for value in compressed.initial_state]
+                for _ in range(3):
+                    state = [value+.01*velocity for value, velocity in
+                             zip(state, compressed.rhs(state, inputs, labels))]
+                restored = DeepHarmonic.__new__(DeepHarmonic)
+                restored.depth, restored.activation = depth, activation
+                restored.metrics = [value.clone() for value in compressed.metrics]
+                restored.metric_inverses = [value.clone() for value in compressed.metric_inverses]
+                restored.initial_state = [value.clone() for value in state]
+                queries = torch.tensor([[0., 1.], [-1., 0.], [.8, -.6]], dtype=dtype)
+                expected = compressed.predict(state, queries, inputs, labels)
+                restarted = restored.prepare_query(restored.initial_state, inputs, labels)(queries)
+                restart_error = max([maximum(restarted-expected)]+[maximum(a-b) for a, b in zip(
+                    compressed.rhs(state, inputs, labels), restored.rhs(restored.initial_state, inputs, labels))])
+                constraint_error = maximum(compressed.predict(state, inputs, inputs, labels)-labels+state[-1])
+                assert compressed.fixed_scalars == (2*depth-1)*31**2
+                assert set(vars(compressed)) == {'depth', 'activation', 'metrics', 'metric_inverses',
+                                                 'initial_state', 'fixed_scalars', 'diagnostics'}
+                json.dumps(setup, allow_nan=False)
+            errors = dict(gradient_max_abs=gradient_error, full_retention_rhs_max_abs=rhs_error,
+                          full_retention_deficit_max_abs=deficit_error, source_setup_max_abs=setup_error,
+                          restart_max_abs=restart_error, training_constraint_max_abs=constraint_error)
+            assert max(errors.values()) < 1e-10, (depth, activation, errors)
+            results.append(dict(depth=depth, activation=activation, **errors))
+    return results
+
+
 class LoRA:
     """Explicit low-rank increment; its frozen dense mixer is NOT free storage."""
 
@@ -3374,6 +3629,227 @@ def finite_panel_fit_main(argv):
         raise
 
 
+@torch.no_grad()
+def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed, seconds=180.):
+    """Measured temporal sources; scored query inputs are deliberately not an argument."""
+    panel = torch.cat((inputs, calibration))
+    boundaries = [0., min(1., horizon)]
+    while boundaries[-1] < horizon:
+        boundaries.append(min(2*boundaries[-1], horizon))
+    intervals = [left+(right-left)*(1-np.cos(np.linspace(0, np.pi, 17)))/2
+                 for left, right in zip(boundaries[:-1], boundaries[1:])]
+    times = np.unique(np.concatenate(intervals))
+    fields = {name: [[] for _ in range(dense.depth)] for name in ('h', 'delta')}
+    teacher = DeepDense.__new__(DeepDense)
+    teacher.depth, teacher.activation = dense.depth, dense.activation
+    teacher.initial_state = [v.float() for v in dense.initial_state]
+    teacher.fixed_scalars = 0
+    source_inputs, source_labels, source_panel = [v.float() for v in (inputs, labels, panel)]
+    def observe(t, state):
+        hs, gates = teacher.fields(state, source_panel)
+        deltas = teacher.backward(state, [h[:, :len(labels)] for h in hs],
+                                  [g[:, :len(labels)] for g in gates])
+        for name, values in (('h', hs), ('delta', deltas)):
+            for layer, value in enumerate(values):
+                fields[name][layer].append(value.cpu())
+    _, _, source_run = integrate(teacher, source_inputs, source_labels, source_inputs[:1],
+                                 times, .125, seconds, observer=observe)
+    del teacher, source_inputs, source_labels, source_panel
+    h0, _ = dense.fields(dense.initial_state, inputs)
+    n, device = len(dense.initial_state[1]), inputs.device
+    constant = torch.ones(n, 1, dtype=inputs.dtype, device=device)
+    coefficients, checks = {name: [] for name in fields}, {name: [] for name in fields}
+    for name in fields:
+        for layer, observations in enumerate(fields[name]):
+            values = torch.stack(observations).to(device=device, dtype=torch.float64)
+            blocks, square, count = [], 0., 0
+            for nodes in intervals:
+                indices = np.searchsorted(times, nodes)
+                coordinate = 2*(nodes-nodes[0])/(nodes[-1]-nodes[0])-1
+                design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, 8),
+                                         dtype=values.dtype, device=device)
+                block = torch.einsum('kt,tnp->nkp', torch.linalg.pinv(design[::2]), values[indices[::2]])
+                error = torch.einsum('tk,nkp->tnp', design[1::2], block)-values[indices[1::2]]
+                square += float(error.square().sum())
+                count += error.numel()
+                blocks.append(block.flatten(1))
+            source = torch.cat(blocks, dim=1)
+            # Remove only directions whose required initialized images are already
+            # mandatory; other layers' reverse images must not be lost.
+            mandatory = source[:, :0]
+            if name == 'h':
+                mandatory = h0[layer]
+                if layer == dense.depth-1:
+                    mandatory = torch.cat((constant, h0[layer], dense.initial_state[layer+1]@h0[layer-1]), 1)
+            elif layer == 0:
+                mandatory = torch.cat((constant, dense.initial_state[0], h0[0]), 1)
+            if mandatory.shape[1]:
+                basis, _ = _harmonic_source_basis(mandatory, source[:, :0])
+                basis = basis/math.sqrt(n)
+                for _ in range(2):
+                    source -= basis@(basis.T@source)
+            devices = [device.index] if device.type == 'cuda' else []
+            with torch.random.fork_rng(devices=devices):
+                torch.manual_seed(seed+layer+(100 if name == 'delta' else 0))
+                left, singular, _ = torch.svd_lowrank(source, q=min(rank+8, *source.shape), niter=2)
+            available = int((singular > max(source.shape)*torch.finfo(source.dtype).eps*singular[0]).sum())
+            retained = left[:, :min(rank, available)]
+            coefficients[name].append(retained)
+            checks[name].append(dict(rank=retained.shape[1], temporal_holdout_rms=math.sqrt(square/count),
+                residual_coefficient_relative_error=float((source-retained@(retained.T@source)).norm()
+                                                          /source.norm().clamp_min(1e-30))))
+            del values, blocks, source, left, singular, error, block
+    return coefficients, dict(horizon=horizon, rk4_step=.125, chebyshev_degree=8,
+        observation_count=len(times), boundaries=boundaries, dense_rhs_calls=4*source_run['steps'],
+        source_run_seconds=source_run['seconds'], diagnostics=checks,
+        training_count=len(inputs), unlabeled_calibration_count=len(calibration),
+        scored_inputs_used=False, calibration_labels_used=False, source_certificate=False)
+
+
+@torch.no_grad()
+def compression_probe_main(argv):
+    """One small, fixed-budget unseen-query comparison, with no parameter search."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--device', default='cuda:0')
+    parser.add_argument('--width', type=int, default=8192)
+    parser.add_argument('--depth', type=int, default=3)
+    parser.add_argument('--activation', choices=('tanh', 'atan'), default='tanh')
+    parser.add_argument('--digits', type=int, nargs=2, default=(3, 8))
+    parser.add_argument('--samples', type=int, default=8)
+    parser.add_argument('--calibration', type=int, default=32)
+    parser.add_argument('--seed', type=int, default=601)
+    parser.add_argument('--horizon', type=float, default=32.)
+    parser.add_argument('--step', type=float, default=.003125)
+    parser.add_argument('--per-run-seconds', type=float, default=180.)
+    args = parser.parse_args(argv)
+    if args.depth < 2 or args.width < 1 or args.samples < 2 or args.calibration < 1:
+        parser.error('Need depth>=2, positive width/calibration and at least two samples')
+    args.out.mkdir(parents=True, exist_ok=False)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    device = torch.device(args.device)
+    scale = (math.log(math.e*args.width)/math.log(math.e*4096))**2.5
+    budget, rank = math.ceil(320*scale), math.ceil(12*scale)
+    report = dict(config={k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
+        source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
+        python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+        device=torch.cuda.get_device_name(device) if device.type == 'cuda' else 'CPU',
+        budget=budget, source_rank=rank, complete=False, runs={}, comparisons={})
+    arrays = {}
+    save_json(args.out/'report.json', report)
+    try:
+        inputs, labels, pool, truth = validation_data(64, args.samples, 0, 47, device,
+                                                     'digits', 'test', True, 0, args.digits)
+        permutation = np.random.default_rng(48).permutation(len(pool))
+        calibration = pool[permutation[:args.calibration]]
+        queries, query_truth = pool[permutation[args.calibration:]], truth[permutation[args.calibration:]]
+        if len(queries) == 0 or bool(((calibration[:, None]-queries[None]).square().sum(-1) == 0).any()):
+            raise ValueError('Calibration/test sets must be nonempty and disjoint')
+        arrays.update(train_inputs=inputs.cpu().numpy(), train_labels=labels.cpu().numpy(),
+                      calibration_inputs=calibration.cpu().numpy(), query_inputs=queries.cpu().numpy(),
+                      query_labels=query_truth.cpu().numpy())
+        report['data_sha256'] = {key: array_sha(value) for key, value in arrays.items()}
+        report['validation_count'] = len(queries)
+        report['common_training_words'] = inputs.numel()+labels.numel()
+        report['transient_calibration_words'] = calibration.numel()
+        synchronize(device)
+        started = time.monotonic()
+        if device.type == 'cuda':
+            torch.cuda.reset_peak_memory_stats(device)
+        dense = DeepDense(args.width, 64, args.depth, args.activation, args.seed, device)
+        coefficients, source = deep_rollout_sources(dense, inputs, labels, calibration,
+                                                    args.horizon, rank, args.seed)
+        compact = DeepHarmonic(dense, inputs, labels, coefficients, budget=budget)
+        del coefficients
+        synchronize(device)
+        report['setup'] = dict(seconds=time.monotonic()-started, source=source,
+            diagnostics=compact.diagnostics, peak_cuda_bytes=torch.cuda.max_memory_allocated(device)
+            if device.type == 'cuda' else None)
+        if report['setup']['seconds'] > 180:
+            raise TimeoutError('Source compilation exceeded its 180-second budget')
+        for name, model in (('dense', dense), ('compact', compact)):
+            moving = sum(v.numel() for v in model.initial_state)
+            report[name+'_words'] = dict(moving=moving, fixed=model.fixed_scalars,
+                                         total=moving+model.fixed_scalars)
+        expected = (3*args.depth-2)*budget**2+65*budget+args.samples
+        assert report['compact_words']['total'] == expected
+        small_width = math.floor((math.sqrt(65**2+4*(args.depth-1)*expected)-65)/(2*(args.depth-1)))
+        report['small_width'] = small_width
+        report['storage_reduction'] = report['dense_words']['total']/expected
+        def move(model, destination):
+            for key in ('initial_state', 'metrics', 'metric_inverses'):
+                if hasattr(model, key):
+                    setattr(model, key, [v.to(device=destination, dtype=torch.float32) for v in getattr(model, key)])
+        move(dense, 'cpu')
+        move(compact, 'cpu')
+        torch.save(dict(depth=compact.depth, activation=compact.activation,
+                        initial_state=compact.initial_state, metrics=compact.metrics,
+                        metric_inverses=compact.metric_inverses), args.out/'compiled_model.pt')
+        report['checkpoint_sha256'] = sha((args.out/'compiled_model.pt').read_bytes())
+        inputs, labels, queries = [v.float() for v in (inputs, labels, queries)]
+        del calibration, pool, truth
+        for name in ('dense', 'compact', 'iid', 'small'):
+            model = (dense if name == 'dense' else compact if name == 'compact' else
+                     DeepDense(args.width if name == 'iid' else small_width, 64, args.depth,
+                               args.activation, args.seed+(10000 if name == 'iid' else 20000), device))
+            move(model, device)
+            words = sum(v.numel() for v in model.initial_state)+model.fixed_scalars
+            for suffix, step in ([('_coarse', 2*args.step), ('', args.step)]
+                                 if name in ('dense', 'compact') else [('', args.step)]):
+                print(json.dumps(dict(event='probe_start', model=name+suffix, step=step,
+                                      width=args.width, depth=args.depth)), flush=True)
+                state, prediction, info = integrate_euler(model, inputs, labels, queries, step,
+                    args.per_run_seconds, horizon=args.horizon, max_steps=round(args.horizon/step),
+                    observation_every=round(.5/step))
+                report['runs'][name+suffix] = dict(info, total_model_words=words)
+                arrays[name+suffix] = prediction
+                arrays['times'] = np.asarray(info['times'])
+                if not info['complete']:
+                    raise TimeoutError(f'{name+suffix}: {info["stop_reason"]}')
+                if name == 'compact' and not suffix:
+                    report['training_constraint_max_abs'] = float((model.predict(state, inputs, inputs, labels)
+                                                                   -labels+state[-1]).abs().max())
+                del state
+                save_json(args.out/'report.json', report)
+                print(json.dumps(dict(event='probe_done', model=name+suffix, seconds=info['seconds'],
+                                      mse=info['final_training_mse'])), flush=True)
+            move(model, 'cpu')
+            if name in ('iid', 'small'):
+                del model
+        assert report['runs']['small']['total_model_words'] <= expected
+        reference = arrays['dense'].astype(float)
+        for name in ('iid', 'compact', 'small'):
+            error = arrays[name].astype(float)-reference
+            curve = np.sqrt(np.mean(error**2, axis=1))
+            report['comparisons'][name] = dict(max_time_rms=float(curve.max()), endpoint_rms=float(curve[-1]),
+                mean_time_rms=float(np.trapz(curve, arrays['times'])/args.horizon),
+                max_time_pointwise=float(abs(error).max()))
+        variability = report['comparisons']['iid']['max_time_rms']
+        if variability <= 1e-12:
+            raise ArithmeticError('Degenerate dense-versus-dense benchmark')
+        refinement = sum(trajectory_rms(arrays[name].astype(float), arrays[name+'_coarse'].astype(float))
+                         ['max_time_rms'] for name in ('dense', 'compact'))
+        report.update(refinement_sum=refinement, numerical_threshold=.1*variability,
+            numerical_gate_pass=bool(refinement < .1*variability),
+            all_fitted=all(v['final_training_mse'] < .01 for v in report['runs'].values()),
+            complete=True, scored_inputs_used_for_setup=False,
+            retained_scope='current model arrays including all fixed metrics/inverses; data and workspaces separate')
+        for value in report['comparisons'].values():
+            value['ratio_to_dense_pair'] = value['max_time_rms']/variability
+        report['accuracy_pass'] = report['comparisons']['compact']['ratio_to_dense_pair'] <= 3
+        print(json.dumps({k: report[k] for k in ('storage_reduction', 'comparisons', 'all_fitted',
+                                                'numerical_gate_pass', 'accuracy_pass')}), flush=True)
+    except Exception as error:
+        report['error'] = f'{type(error).__name__}: {error}'
+        raise
+    finally:
+        np.savez_compressed(args.out/'trajectories.npz', **arrays)
+        save_json(args.out/'report.json', report)
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'validate':
         validation_main(sys.argv[2:])
@@ -3387,5 +3863,7 @@ if __name__ == '__main__':
         finite_panel_fit_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'panel-summary':
         finite_panel_summary_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'compression-probe':
+        compression_probe_main(sys.argv[2:])
     else:
         main()
