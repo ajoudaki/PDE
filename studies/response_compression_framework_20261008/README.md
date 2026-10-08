@@ -162,3 +162,39 @@ listed in RESULT were used, not a fresh whole-paper audit:
   688efd057daee248d16ef9ddb78c080f815ef6cd5cc6e0ef0b3eeac505886ca7.
 - adaptive_clock_compression_20261008/RESULT.md:
   b8c57262f33938c90feff844a084cf9c260d0659fec67bf855fb5b0972916cfe.
+
+## Requested rollback commit and directory maintenance
+
+The subsequent user request authorized a rollback commit first, then cleanup
+of `paper/`. Commit `306733f` saves the complete paper integration and this
+task's three supporting studies before any deletion. No push was requested.
+
+Removed six unused top-level files: `proof_alltime.tex`,
+`proof_finite_time.tex`, `proof_tracking.tex`, `comparison_appendix.tex`,
+`sphere_appendix.tex`, and `NOTES_alltime_theorem.md`. The lead checked the
+current manuscript's LaTeX recorder inputs and script references; a separate
+read-only maintenance agent independently confirmed their unused status.
+All six remain recoverable from the rollback commit. No current proof,
+experiment implementation, figure source, data bundle, interactive viewer,
+or frozen review input was removed. No byte-identical duplicates were found
+among the current figure PDFs; frozen review copies are intentional.
+
+Moved 65 disposable files (21,768,755 bytes: the old trial PDF, review-page
+and contact-sheet PNGs, and a Python cache) outside `paper/`, preserving
+their relative paths under
+`data/generated/response_compression_framework_20261008/paper_cleanup_19UBb0/`.
+The paper and tool READMEs now distinguish retained historical assets from
+the maintained manuscript. Scientific sources and the tracked PDF are unchanged.
+
+Fresh verification command, run from `paper/`:
+
+```bash
+latexmk -pdf -quiet -interaction=nonstopmode -halt-on-error \
+  -outdir=/home/amir/Codes/PDE/data/generated/response_compression_framework_20261008/paper_clean_build_uIUTlJ main.tex
+```
+
+Exit 0; 212 pages; extracted PDF text matches the pre-cleanup tracked PDF
+exactly. No undefined references/citations, multiply defined labels, overfull
+boxes or LaTeX errors appear in the final log. Existing underfull warnings
+remain. The final scoped whitespace check passes. No experiments, mathematical
+reaudit or code refactoring were performed; unrelated work is untouched.

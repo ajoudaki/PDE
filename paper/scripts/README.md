@@ -4,6 +4,13 @@ The legacy circle/sphere renderers are in **`figures.py`**. This guide replaces
 the three separate circle, sphere and training-stage guides. The existing
 `order_decay.tex` is the independent TeX source for the Cartesian order plot.
 
+This is also a historical tool and figure catalog. Figure numbers, placement
+recommendations and references to the "current manuscript" in the older
+sections describe their original edition, not the unified 2026-10-08 paper.
+See [the paper README](../README.md) for the maintained manuscript structure
+and current experiment suite. Unused figure exports remain available for
+reproduction and alternative layouts.
+
 ## Fresh Harmonic and Logarithmic validation
 
 One implementation, `paper/figures/capture_trajectory.py`, contains both new

@@ -110,8 +110,11 @@ from this bundle without the raw runs. Commands are in
 [scripts/README.md](scripts/README.md); the protocol and outcome accounting are
 in [the empirical study](../studies/compression_empirical_validation_20261007/README.md).
 [FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) retains the historical figure record.
-Other figures, old proof modules, notes and trial manuscripts are preserved
-but are not alternative current theorem interfaces.
+Other figure exports and their renderers remain available for reproduction
+and alternative layouts; they are not all included in the current manuscript.
+The immutable snapshots under `reviews/` retain the inputs supporting those
+historical reviews, not alternative current theorem interfaces. Their copies
+are intentional and must not be deduplicated against the evolving manuscript.
 
 ### Unified width-scaling suite
 
@@ -140,3 +143,20 @@ dense rollouts. These experiments do **not** validate initialization-only
 setup, arbitrary unseen-input decoding by the finite-panel method, asymptotic
 exponents, or a uniform-in-time/input theorem. Results are not automatically
 inserted into the manuscript.
+
+## Directory cleanup
+
+Commit `306733f` preserves the complete unified-paper revision before cleanup.
+The unused top-level `proof_alltime.tex`, `proof_finite_time.tex`,
+`proof_tracking.tex`, `comparison_appendix.tex`, `sphere_appendix.tex`, and
+`NOTES_alltime_theorem.md` were removed: none is read by the current manuscript
+or its figure tools. They remain recoverable from that commit. Current proof
+sources, all figure/data bundles, experiment scripts, interactive viewers and
+frozen review inputs are retained. `scripts/order_decay.tex` is a standalone
+figure source, not a stray manuscript fragment.
+
+The old trial PDF, disposable review page/contact-sheet images and Python
+bytecode cache were moved out of `paper/` into the framing study's
+`data/generated/response_compression_framework_20261008/paper_cleanup_19UBb0/`
+archive, preserving their original relative paths. No experiment was rerun
+or scientific statement changed during cleanup.
