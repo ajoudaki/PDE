@@ -4456,7 +4456,8 @@ def cubic_source_small_checks():
 
 
 @torch.no_grad()
-def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., seconds=120., seed=501):
+def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., seconds=120., seed=501,
+                          ranks=(12, 6), partitions=('old', 'new')):
     """Paired empirical partitions, a shared float32 teacher, and nested source ranks.
 
     Sources are returned as sources[partition][rank][family][layer].  The common
@@ -4467,6 +4468,11 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
     if (not math.isfinite(horizon) or horizon <= 0 or not math.isfinite(seconds)
             or seconds <= 0 or len(labels) != len(inputs) or not len(labels)):
         raise ValueError('Paired source setup needs positive finite limits and training data')
+    if (not ranks or any(not isinstance(rank, int) or rank < 1 for rank in ranks)
+            or len(set(ranks)) != len(ranks) or not partitions
+            or len(set(partitions)) != len(partitions) or set(partitions)-{'old', 'new'}):
+        raise ValueError('Need distinct positive ranks and old/new partition names')
+    svd_order = max(ranks)+8
     device, n = inputs.device, len(dense.initial_state[1])
     synchronize(device)
     started = time.monotonic()
@@ -4524,17 +4530,18 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
     original = [value.double() for value in dense.initial_state]
     h0, _ = dense.fields(original, inputs.double())
     constant = torch.ones(n, 1, device=device, dtype=torch.float64)
-    sources = {name: {rank: {family: [] for family in fields} for rank in (12, 6)}
-               for name in intervals}
+    fit_intervals = {name: intervals[name] for name in partitions}
+    sources = {name: {rank: {family: [] for family in fields} for rank in ranks}
+               for name in fit_intervals}
     partition_reports = {}
-    for name, panels in intervals.items():
+    for name, panels in fit_intervals.items():
         partition_reports[name] = dict(
             boundaries=boundaries[name], interval_count=len(panels), degree=8,
             fitting_node_count=len(np.unique(np.concatenate([nodes[::2] for nodes in panels]))),
             interval_check_node_count=len(np.unique(np.concatenate([nodes[1::2] for nodes in panels]))),
             fitting_seconds=0., svd_seconds=0., checking_seconds=0., svd_calls=0,
             fit_blocks=0, fit_output_scalars=0, svd_input_scalars=0,
-            diagnostics={str(rank): {family: [] for family in fields} for rank in (12, 6)})
+            diagnostics={str(rank): {family: [] for family in fields} for rank in ranks})
     coordinate = -np.cos(np.linspace(0, np.pi, 17))
     design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, 8),
                              device=device, dtype=torch.float64)
@@ -4564,7 +4571,7 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
             for _ in range(2):
                 checked -= mandatory_basis@(mandatory_basis.T@checked)
             residual_square = float(checked.square().sum())
-            for partition, panels in intervals.items():
+            for partition, panels in fit_intervals.items():
                 remaining()
                 detail = partition_reports[partition]
                 phase = time.monotonic()
@@ -4587,14 +4594,14 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
                 phase = time.monotonic()
                 with torch.random.fork_rng(devices=devices):
                     torch.manual_seed(seed+layer+(100 if family == 'delta' else 0))
-                    left, singular, _ = torch.svd_lowrank(source, q=min(20, *source.shape), niter=2)
+                    left, singular, _ = torch.svd_lowrank(source, q=min(svd_order, *source.shape), niter=2)
                 remaining()
                 detail['svd_seconds'] += time.monotonic()-phase
                 detail['svd_calls'] += 1
                 detail['svd_input_scalars'] += source.numel()
                 available = int((singular > max(source.shape)*torch.finfo(source.dtype).eps*singular[0]).sum())
                 phase = time.monotonic()
-                for rank in (12, 6):
+                for rank in ranks:
                     retained = left[:, :min(rank, available)].clone()
                     sources[partition][rank][family].append(retained)
                     source_error = source-retained@(retained.T@source)
@@ -4603,7 +4610,7 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
                     detail['diagnostics'][str(rank)][family].append(dict(
                         rank=int(retained.shape[1]), available_rank=available,
                         mandatory_rank=int(mandatory_basis.shape[1]),
-                        coefficient_shape=list(source.shape), randomized_svd_q=min(20, *source.shape),
+                        coefficient_shape=list(source.shape), randomized_svd_q=min(svd_order, *source.shape),
                         temporal_holdout_rms=math.sqrt(square/count),
                         residual_coefficient_relative_error=float(source_error.norm()/source.norm().clamp_min(1e-30)),
                         common_check=dict(coordinate_max=float(error.abs().max()),
@@ -4619,7 +4626,7 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
     report = dict(
         horizon=float(horizon), rk4_step=.125, source_flow_dtype='torch.float32',
         coefficient_dtype='torch.float64', chebyshev_degree=8, svd_seed=int(seed),
-        randomized_svd_q=20, randomized_svd_niter=2, nested_ranks=[12, 6],
+        randomized_svd_q=svd_order, randomized_svd_niter=2, nested_ranks=list(ranks),
         precursor_run=precursor_run, precursor_times=trace_times.tolist(),
         precursor_residual_rms=residual_rms.tolist(), shared_source_run=shared_run,
         dense_rhs_calls=4*(precursor_run['steps']+shared_run['steps']),
@@ -5361,6 +5368,112 @@ def cubic_case_main(argv):
         persist()
 
 
+@torch.no_grad()
+def cubic_budget_main(argv):
+    """Exactly two old-circle fits at approximately 2x/4x retained storage."""
+    from concurrent.futures import ThreadPoolExecutor
+    parser = argparse.ArgumentParser(description=cubic_budget_main.__doc__)
+    parser.add_argument('--reference', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--devices', nargs=2, default=['cuda:0', 'cuda:1'])
+    args = parser.parse_args(argv)
+    args.out.mkdir(parents=True, exist_ok=False)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    baseline = json.loads((args.reference/'report.json').read_text())
+    with np.load(args.reference/'trajectories.npz') as saved:
+        reference = {key: saved[key] for key in saved.files}
+    assert baseline['config']['dataset'] == 'sphere2' and baseline['config']['seed'] == 601
+    for name, digest in baseline['data_sha256'].items():
+        assert array_sha(reference[name]) == digest
+    report = dict(source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
+        reference=str(args.reference), reference_arrays_sha256=sha((args.reference/'trajectories.npz').read_bytes()),
+        reference_report_sha256=sha((args.reference/'report.json').read_bytes()),
+        python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+        scope=baseline['scope'], source_partition='old', complete=False, models={}, runs={}, errors={},
+        numerical_qualification='same previously refined Euler step; no new-budget refinement runs',
+        source_rank_qualification='nested ranks19/29 from one rank37 SVD; not nested with original rank20 SVD')
+    arrays = {name: reference[name] for name in ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')}
+    started = time.monotonic()
+    try:
+        device = torch.device(args.devices[0])
+        inputs, labels, queries = [torch.as_tensor(reference[name], device=device)
+                                  for name in ('train_inputs', 'train_labels', 'query_inputs')]
+        dense = DeepDense(4096, 2, 2, 'tanh', 601, device)
+        sources, report['sources'] = cubic_rollout_sources(dense, inputs, labels, queries,
+            ranks=(29, 19), partitions=('old',))
+        np.testing.assert_allclose(report['sources']['observation_times'],
+            baseline['sources']['observation_times'], atol=1e-12, rtol=0)
+        models = []
+        for factor, width, rank in ((2, 300, 19), (4, 424, 29)):
+            t0 = time.monotonic()
+            model = DeepHarmonic(dense, inputs, labels, sources['old'][rank], width,
+                                 selection_seed=501, readout_floor=baseline['readout_floor'])
+            assert model.diagnostics['widths'] == [width, width]
+            assert not any(v['truncated'] for v in model.diagnostics['source_truncations'])
+            assert all(v.shape[1] == rank for family in sources['old'][rank].values() for v in family)
+            moving = sum(v.numel() for v in model.initial_state)
+            total = moving+model.fixed_scalars
+            assert total == 4*width**2+3*width+9
+            report['models'][str(factor)] = dict(compact_width=width, source_rank=rank,
+                moving=moving, fixed=model.fixed_scalars, total=total,
+                storage_multiple=total/baseline['models']['old_full']['total'],
+                assembly_seconds=time.monotonic()-t0, diagnostics=model.diagnostics,
+                diagnostics_scope='float64 assembly; runtime float32')
+            for key in ('initial_state', 'metrics', 'metric_inverses'):
+                setattr(model, key, [v.to(device='cpu', dtype=torch.float32) for v in getattr(model, key)])
+            models.append((factor, model))
+        del dense, sources, inputs, labels, queries
+        report['setup_seconds'] = time.monotonic()-started
+        save_json(args.out/'report.json', report)
+
+        def run(item, device_name):
+            factor, model = item
+            device = torch.device(device_name)
+            for key in ('initial_state', 'metrics', 'metric_inverses'):
+                setattr(model, key, [v.to(device) for v in getattr(model, key)])
+            inputs, labels, queries = [torch.as_tensor(reference[name], device=device, dtype=torch.float32)
+                                      for name in ('train_inputs', 'train_labels', 'query_inputs')]
+            print(json.dumps(dict(event='budget_run_start', storage_factor=factor, device=device_name)), flush=True)
+            state, prediction, info = integrate_euler(model, inputs, labels, torch.cat((inputs, queries)),
+                .0015625, 120., horizon=32., max_steps=20480, observation_every=320)
+            info['device'] = torch.cuda.get_device_name(device)
+            info['floor_active_at_observations'] = sum(
+                v < baseline['readout_floor'] for v in info['observed_feature_gram_minima'])
+            if info['complete']:
+                np.testing.assert_allclose(info['times'], reference['times_dense'], atol=1e-10, rtol=0)
+                np.testing.assert_allclose(np.mean((prediction[:, :8].astype(float)-reference['train_labels'])**2, axis=1),
+                                           info['losses'], atol=1e-6, rtol=2e-5)
+                error = trajectory_rms(prediction[:, 8:].astype(float), reference['dense'][:, 8:].astype(float))
+                error.pop('curve')
+                error['endpoint_over_previous'] = error['endpoint_rms']/baseline['comparisons']['old_full']['endpoint_rms']
+                error['endpoint_over_dense_pair'] = error['endpoint_rms']/baseline['comparisons']['iid']['endpoint_rms']
+                info['comparison'] = error
+            del state
+            print(json.dumps(dict(event='budget_run_done', storage_factor=factor, info=info.get('comparison'),
+                                  seconds=info['seconds'], complete=info['complete'])), flush=True)
+            return factor, prediction, info
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            futures = [pool.submit(run, item, device) for item, device in zip(models, args.devices)]
+            for factor, future in zip((2, 4), futures):
+                try:
+                    _, prediction, info = future.result()
+                    arrays['budget_'+str(factor)] = prediction
+                    arrays['times_'+str(factor)] = np.asarray(info['times'])
+                    report['runs'][str(factor)] = info
+                except Exception as error:
+                    report['errors'][str(factor)] = f'{type(error).__name__}: {error}'
+        report['complete'] = len(report['runs']) == 2 and all(v['complete'] for v in report['runs'].values())
+    finally:
+        report['seconds'] = time.monotonic()-started
+        save_json(args.out/'report.json', report)
+        np.savez_compressed(args.out/'trajectories.npz', **arrays)
+    return 0 if report['complete'] else 1
+
+
 def cubic_summary_main(argv):
     """One saved-array consistency check and one paired-comparison figure."""
     parser = argparse.ArgumentParser(description=cubic_summary_main.__doc__)
@@ -5826,6 +5939,8 @@ if __name__ == '__main__':
         print(json.dumps(cubic_source_small_checks(), indent=2))
     elif len(sys.argv) > 1 and sys.argv[1] == 'cubic-summary':
         cubic_summary_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'cubic-budget':
+        sys.exit(cubic_budget_main(sys.argv[2:]))
     elif len(sys.argv) > 1 and sys.argv[1] == 'unified-check':
         torch.set_num_threads(1)
         torch.set_default_dtype(torch.float64)

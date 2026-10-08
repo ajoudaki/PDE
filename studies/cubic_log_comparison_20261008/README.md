@@ -286,3 +286,73 @@ the new construction as a sharper theoretical guarantee, with no demonstrated
 practical advantage from this direct schedule adaptation. Preserve the failed
 circle cases and the RMS-versus-panel-maximum distinction. The manuscript and
 previous experiments were not changed.
+
+## Authorized follow-up: two larger old-circle budgets
+
+The user explicitly reopened the circle case for exactly two additional runs,
+clarifying2x/4x **total retained storage**, relative to the old width212 result.
+This is a budget continuation, not a new seed or method search. Frozen choices:
+width300/rank19 (360,909 scalars,2.00037x) and width424/rank29 (720,385 scalars,
+3.99280x). Both the source-space capacity and coordinate count increase using
+the same allocation rule. One rank37 randomized SVD gives nested ranks19/29;
+these are not strictly nested with the original rank12/rank20 SVD.
+
+Reuse exactly the original circle's data, dense reference, model seed601,
+selection/SVD seed501, floor, degree8 old source intervals, horizon32 and
+Euler step0.0015625. Source preparation retains the original union observation
+grid (including nodes not fitted by the old construction), because those nodes
+also determine shortened RK4 steps. Verify this grid against the saved report.
+No new-construction model is fitted. Test labels stay out of setup/training.
+
+Primary outcome: endpoint RMS against the same saved dense predictions on
+all30 test points, compared with old width212 endpoint RMS0.0730863.
+Report increases as well as decreases; reductions below20% are not interpreted
+as substantial improvement. Reject incomplete/nonfinite runs, extra source
+truncation, wrong retained counts or grid/data mismatches. These two runs use
+the previously refined step but receive **no fresh step-refinement certificate**;
+small differences are not promoted to a GF claim. Exactly two fine Euler fits,
+one per GPU,120s each, one common setup capped120s,400s total wall cap.
+No follow-on runs, rank tuning or rescue after either outcome.
+
+```sh
+timeout 400 /home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py cubic-budget --reference data/generated/cubic_log_comparison_20261008/paired_run/sphere2_seed601 --out data/generated/cubic_log_comparison_20261008/circle_larger_budgets --devices cuda:0 cuda:1
+```
+
+Status: exactly two fits completed; no additional runs. Both improved endpoint
+RMS substantially. The earlier four-case results remain unchanged. Unrelated
+concurrent manuscript edits are preserved.
+
+| Old-circle configuration | Total retained scalars | Endpoint test RMS vs dense | Improvement over original |
+|---|---:|---:|---:|
+| Original, width212/rank12 | 180,421 | 0.0730863 | — |
+| Approximately2x, width300/rank19 | 360,909 | 0.0167651 | 4.36-fold |
+| Approximately4x, width424/rank29 | 720,385 | 0.00395727 | 18.47-fold |
+
+The saved dense-pair endpoint RMS is0.00552362. Thus the4x model is below that
+measured benchmark;2x remains about3.04times it. Worst-recorded-time RMS is
+0.0266578 and0.00514229 respectively, versus the original0.125679 and dense
+pair0.0278325. These are prediction differences, not label RMSE.
+
+The two final training MSEs are0.00209825 and0.00287910. The readout floor is
+inactive at all recorded times. The common source grid matched the original
+to1e-12; no extra constructor truncation or full retention occurred. Saved
+trajectories are finite65-by38 arrays with identical dense observation times,
+and their endpoint test RMS was independently recomputed from all30 test
+columns. Both improvements exceed the frozen20% threshold. They are internally
+checked finite-step observations, not fresh budget-specific GF certificates.
+
+Setup took8.16s; the two parallel fits took68.76s and68.38s, with76.93s total
+elapsed. Runtime cap and two-fit limit were respected. The launch command
+above exited0. Environment remains Python3.10.14/Torch2.9.0+cu130/NumPy1.26.4,
+two RTX3090 GPUs, one Torch CPU thread, TF32 disabled; offline assemblyfloat64,
+runtimefloat32. Source SHA256:
+`7b0d449eb5949033fbcea6bbe84f47bb003f50ce239344881b8c3330f6f5f955`.
+Generated `circle_larger_budgets/trajectories.npz` SHA256:
+`10a31d2bb237c7d9cbe0650da7ba147d7e6b6c8db696fffd3d7bc62c9b498c02`.
+The report also hashes the consumed dense-reference report and arrays.
+
+Interpretation: increasing both source rank and coordinate budget repairs this
+particular circle mismatch at4x storage in the measured Euler experiment.
+This does not identify which increased component caused the improvement,
+prove monotone convergence, or alter the old/new comparison at the original
+budgets. The requested two-run continuation is now closed.
