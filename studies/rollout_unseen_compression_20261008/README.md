@@ -192,7 +192,7 @@ search. Freeze five comparisons: (digits38,tanh), (38,GELU), (17,SiLU),
 source rank 6 per family, m=8, and 32 unlabeled calibration images. All other
 seeds, raw-input splitting, paired-source construction and condition cap 16
 remain unchanged. Dense storage is 269,500,416 numbers; compressed storage
-is 278,792 including fixed geometry, a 966.675-fold reduction. This budget
+is 278,792 including fixed geometry, a 966.672-fold reduction. This budget
 is fixed before testing. No scored-image-driven order or seed search is allowed.
 
 A single training-only pilot at width 512, for each of these five cases,
@@ -238,3 +238,105 @@ other order, Euler step, gate or case. The pilot is not counted as a fidelity
 result or source-accuracy certificate. All 12 depth/activation CPU checks
 passed, with maximum error 3.56e-15. Full-case numerical failures will still
 be recorded, not used to reopen tuning.
+
+### Completed approximately thousand-fold batch
+
+All five setups and all 30 Euler runs completed within their caps. No main
+case was rerun or tuned. All six runs per case have training MSE below .0008;
+all five reference/compact step-refinement checks pass. Fine trajectories
+have 15360 updates through time 24, coarse trajectories 7680, with 49 common
+observations at spacing .5. These are same-step Euler results with empirical
+refinement diagnostics, not exact-GF certificates; iid and small controls
+are still not separately refined.
+
+Each dense model has **269,500,416** numbers. Each compressed model has
+**278,792**: 82,184 moving and 196,608 fixed. Each matched-small network has
+width 496 and **278,256** numbers. Thus the total-model storage reduction is
+**966.67198485x**. The 520 common training-data numbers are separate; including
+them in both model-plus-data counts gives about 964.9x. Setup calibration
+inputs are discarded. There are 317 scored unseen inputs for digits 3/8 and
+321 for 1/7; none enter source construction. No PCA is used.
+
+Primary RMS below is the maximum over the 49 saved times of RMS prediction
+discrepancy over the full unseen set, always against the same dense reference.
+The fidelity test is compressed RMS <= 3 times iid-dense RMS, with the
+previous fitting/numerical gates also required.
+
+| Activation | Digits | Dense-pair RMS | Compressed RMS | Matched-small RMS | Compressed / dense-pair | Fidelity test |
+|---|---|---:|---:|---:|---:|---|
+| tanh | 3/8 | .01083718 | .04114112 | .04303847 | 3.7963 | FAIL |
+| exact GELU | 3/8 | .01623898 | .07565696 | .03890072 | 4.6590 | FAIL |
+| SiLU | 1/7 | .01994706 | .02716352 | .08901399 | 1.3618 | PASS |
+| softplus | 3/8 | .01432547 | .02495815 | .03149082 | 1.7422 | PASS |
+| erf | 1/7 | .00878612 | .05242891 | .03892771 | 5.9672 | FAIL |
+
+For completeness, the endpoint and time-average metrics are different
+observables, not replacements for the primary trajectory test:
+
+| Activation | Endpoint dense-pair | Endpoint compressed | Endpoint small | Time-average compressed | Time-average small |
+|---|---:|---:|---:|---:|---:|
+| tanh | .01072449 | .03074531 | .03627776 | .02834034 | .03467910 |
+| exact GELU | .01387286 | .02848046 | .03889049 | .02896282 | .03511620 |
+| SiLU | .00920092 | .02240395 | .04173179 | .01966297 | .04092815 |
+| softplus | .01322580 | .02469141 | .03149082 | .01868457 | .02490611 |
+| erf | .00878612 | .03354973 | .03526881 | .03460137 | .03391275 |
+
+SiLU is the strongest discriminator: compressed maximum RMS is **3.28x
+lower** than matched-small RMS, and the small control fails factor three.
+Softplus is a second positive compression example, but the small control
+also passes and its error is only 1.26x larger. Tanh barely improves the
+primary small-control error. GELU and erf are worse on that primary metric,
+although every compressed endpoint is closer than its small-control
+endpoint. In particular, GELU's compressed peak is at time 3.5, not at the
+endpoint. Endpoint-only reporting would conceal its transient failure.
+
+### Follow-up costs and qualifications
+
+Times are measured seconds on the same two RTX 3090 GPUs. All use float32
+Euler, TF32 disabled, and float64 source/metric assembly. Each source setup
+uses 1720 dense RHS evaluations in a disposable RK4 solve across the full
+physical interval, not a short initial-time prefix. It is distinct from the
+15360 fine Euler updates used for each training comparison.
+
+| Activation | Setup | Dense training | Compressed training | Small training | Refinement / dense-pair |
+|---|---:|---:|---:|---:|---:|
+| tanh | 29.10 | 161.99 | 52.00 | 17.18 | 4.989% |
+| exact GELU | 28.55 | 140.08 | 54.82 | 19.82 | 7.935% |
+| SiLU | 29.16 | 174.54 | 53.36 | 18.08 | 8.620% |
+| softplus | 28.43 | 139.17 | 52.71 | 17.57 | 7.627% |
+| erf | 28.41 | 139.41 | 51.55 | 17.66 | 7.333% |
+
+Setup peak allocated GPU memory is about **11.067 GiB**, dense-training
+process peak **3880.21 MiB**, and compressed-training process peak
+**34.08--34.40 MiB**. These are allocated GPU process measurements, not total
+host RAM, reserved GPU memory, minimal workspaces, or model-storage counts.
+The 967x model-number reduction is not a 967x time or peak-memory reduction.
+
+Conclusion: approximately thousand-fold retained storage with useful
+unseen-trajectory fidelity is demonstrated for **two of these five fixed
+settings**, most convincingly SiLU. The hoped-for uniformly larger RMS
+advantage across activations is not established. The negative cases are
+well-fitted and numerically resolved under the stated diagnostic, so they
+are fidelity failures at this budget rather than inconclusive solver gates.
+One width and one initialization per setting do not establish a logarithmic
+accuracy exponent, activation-uniform success, or a probability guarantee.
+This empirical rollout initializer is not thereby certified as the paper's
+unseen-input Logarithmic decoder. No theorem or main-paper claim was changed.
+
+The lead reconstructed every RMS/count/grid and checked split disjointness
+from raw arrays. A scoped second check independently reconstructed the same
+quantities for each completed case; no extra GPU run was used. The final
+five-case source hash is
+`811ef7e346c7f79cba0b40aef2c677df7d9757ab3ccdb1277d7b6da6e1443d91`,
+commit `2ce1e9a`. Files are in the five folders
+`thousand_digits38_L2_tanh_n16384_v1`,
+`thousand_digits38_L2_gelu_n16384_v1`,
+`thousand_digits17_L2_silu_n16384_v1`,
+`thousand_digits38_L2_softplus_n16384_v1`, and
+`thousand_digits17_L2_erf_n16384_v1` in this study's generated namespace.
+Each has the exact command/configuration/hashes, raw predictions and inputs,
+and compressed initialization checkpoint. Reproduction uses the existing
+`compression-probe` CLI with `--width 16384 --depth 2 --budget 256
+--source-rank 6 --source-step .0625 --horizon 24 --step .0015625`, the listed
+activation/digits and a fresh output directory. The authorized batch is
+complete; no follow-up search is part of this record.
