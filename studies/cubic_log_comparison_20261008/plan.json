@@ -1,0 +1,6 @@
+[
+  {"name": "sphere3_seed601", "args": ["--dataset", "sphere3", "--seed", "601"]},
+  {"name": "digits17_seed601", "args": ["--dataset", "digits17", "--seed", "601"]},
+  {"name": "sphere2_seed601", "args": ["--dataset", "sphere2", "--seed", "601"]},
+  {"name": "digits17_seed602", "args": ["--dataset", "digits17", "--seed", "602"]}
+]

@@ -4409,6 +4409,232 @@ def compression_pilot_main(argv):
                 print(json.dumps(case), flush=True)
 
 
+def _cubic_residual_partition(times, residual_rms, horizon):
+    """Frozen empirical flaring rule; interpolate log residual on a fixed trace."""
+    times, residual_rms = np.asarray(times, dtype=float), np.asarray(residual_rms, dtype=float)
+    if (not math.isfinite(horizon) or horizon <= 0 or times.ndim != 1
+            or residual_rms.shape != times.shape or len(times) < 2
+            or not np.isfinite(times).all() or not np.isfinite(residual_rms).all()
+            or times[0] != 0 or times[-1] < horizon or np.any(np.diff(times) <= 0)
+            or residual_rms[0] <= 0 or np.any(residual_rms < 0)):
+        raise ValueError('Residual partition needs a positive horizon and finite nonnegative trace')
+    logarithms = np.log(np.maximum(residual_rms, np.finfo(float).tiny))
+    boundaries = [0.]
+    while boundaries[-1] < horizon:
+        log_rho = float(np.interp(boundaries[-1], times, logarithms))
+        length = (1. if log_rho == logarithms[0] else
+                  float(np.logaddexp(0., math.log(.1)+logarithms[0]-log_rho)/math.log1p(.1)))
+        endpoint = min(float(horizon), boundaries[-1]+length)
+        if endpoint <= boundaries[-1] or len(boundaries) > 100000:
+            raise ArithmeticError('Residual partition failed to advance within its finite budget')
+        boundaries.append(endpoint)
+    return boundaries
+
+
+def cubic_source_small_checks():
+    """Tiny schedule and polynomial-coordinate checks, with no learning experiment."""
+    times = np.arange(33, dtype=float)/8
+    constant = _cubic_residual_partition(times, np.ones_like(times), 4.)
+    if not np.allclose(constant, np.arange(5), atol=1e-13, rtol=0):
+        raise AssertionError('Constant residual must give unit physical-time intervals')
+    decaying = _cubic_residual_partition(times, np.exp(-times), 4.)
+    rescaled = _cubic_residual_partition(times, 7*np.exp(-times), 4.)
+    if not np.allclose(decaying, rescaled, atol=1e-13, rtol=0):
+        raise AssertionError('Residual partition must be invariant under label-scale rescaling')
+    if not (decaying[-1] == 4. and len(decaying) < len(constant)
+            and np.all(np.diff(decaying) > 0)):
+        raise AssertionError('Decaying residual must widen the untruncated early intervals')
+    coordinate = -np.cos(np.linspace(0, np.pi, 17))
+    design = np.polynomial.chebyshev.chebvander(coordinate, 8)
+    coefficient = np.arange(27, dtype=float).reshape(9, 3)/27
+    fitted = np.linalg.pinv(design[::2])@(design[::2]@coefficient)
+    error = float(np.max(np.abs(design[1::2]@(fitted-coefficient))))
+    if error > 1e-12:
+        raise AssertionError('Nine fitting nodes must recover degree-eight polynomials')
+    return dict(passed=True, constant_boundaries=constant, decaying_boundaries=decaying,
+                label_scale_invariant=True, polynomial_holdout_max=error)
+
+
+@torch.no_grad()
+def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., seconds=120., seed=501):
+    """Paired empirical partitions, a shared float32 teacher, and nested source ranks.
+
+    Sources are returned as sources[partition][rank][family][layer].  The common
+    check measures each dense field after removing its initialized mandatory
+    span and the retained directions.  No finite-jet or source certificate is
+    asserted, and shared teacher time is not a native single-method setup cost.
+    """
+    if (not math.isfinite(horizon) or horizon <= 0 or not math.isfinite(seconds)
+            or seconds <= 0 or len(labels) != len(inputs) or not len(labels)):
+        raise ValueError('Paired source setup needs positive finite limits and training data')
+    device, n = inputs.device, len(dense.initial_state[1])
+    synchronize(device)
+    started = time.monotonic()
+    deadline = started+min(float(seconds), 120.)
+
+    def remaining():
+        synchronize(device)
+        value = deadline-time.monotonic()
+        if value <= 0:
+            raise TimeoutError('Paired cubic source setup exceeded its total wall-clock cap')
+        return value
+
+    teacher = DeepDense.__new__(DeepDense)
+    teacher.depth, teacher.activation = dense.depth, dense.activation
+    teacher.initial_state = [value.float() for value in dense.initial_state]
+    teacher.fixed_scalars = 0
+    source_inputs, source_labels = inputs.float(), labels.float()
+    source_panel = torch.cat((source_inputs, source_queries.float()))
+    trace_times = np.unique(np.r_[np.arange(0., horizon, .125), float(horizon)])
+    precursor_state, precursor_predictions, precursor_run = integrate(
+        teacher, source_inputs, source_labels, source_inputs[:1], trace_times, .125, remaining())
+    del precursor_state, precursor_predictions
+    residual_rms = np.sqrt(np.asarray(precursor_run['losses'], dtype=float))
+    boundaries = {'old': [0., min(1., float(horizon))],
+                  'new': _cubic_residual_partition(trace_times, residual_rms, horizon)}
+    while boundaries['old'][-1] < horizon:
+        boundaries['old'].append(min(2*boundaries['old'][-1], float(horizon)))
+    intervals = {name: [left+(right-left)*(1-np.cos(np.linspace(0, np.pi, 17)))/2
+                       for left, right in zip(edges[:-1], edges[1:])]
+                 for name, edges in boundaries.items()}
+    fitting_times = np.unique(np.concatenate([nodes[::2] for panels in intervals.values()
+                                              for nodes in panels]))
+    common_times = (np.arange(129, dtype=float)+.5)*horizon/129
+    common_times = common_times[~np.isclose(common_times[:, None], fitting_times[None, :],
+                                           rtol=0, atol=1e-12).any(axis=1)]
+    observation_times = np.unique(np.concatenate(
+        [common_times]+[nodes for panels in intervals.values() for nodes in panels]))
+    common_indices = np.searchsorted(observation_times, common_times)
+    fields = {name: [[] for _ in range(dense.depth)] for name in ('h', 'delta')}
+
+    def observe(t, state):
+        remaining()
+        hs, gates = teacher.fields(state, source_panel)
+        deltas = teacher.backward(state, [h[:, :len(labels)] for h in hs],
+                                  [g[:, :len(labels)] for g in gates])
+        for family, values in (('h', hs), ('delta', deltas)):
+            for layer, value in enumerate(values):
+                fields[family][layer].append(value.cpu())
+
+    shared_state, shared_predictions, shared_run = integrate(
+        teacher, source_inputs, source_labels, source_inputs[:1], observation_times,
+        .125, remaining(), observer=observe)
+    del shared_state, shared_predictions, teacher, source_inputs, source_labels, source_panel
+    remaining()
+    original = [value.double() for value in dense.initial_state]
+    h0, _ = dense.fields(original, inputs.double())
+    constant = torch.ones(n, 1, device=device, dtype=torch.float64)
+    sources = {name: {rank: {family: [] for family in fields} for rank in (12, 6)}
+               for name in intervals}
+    partition_reports = {}
+    for name, panels in intervals.items():
+        partition_reports[name] = dict(
+            boundaries=boundaries[name], interval_count=len(panels), degree=8,
+            fitting_node_count=len(np.unique(np.concatenate([nodes[::2] for nodes in panels]))),
+            interval_check_node_count=len(np.unique(np.concatenate([nodes[1::2] for nodes in panels]))),
+            fitting_seconds=0., svd_seconds=0., checking_seconds=0., svd_calls=0,
+            fit_blocks=0, fit_output_scalars=0, svd_input_scalars=0,
+            diagnostics={str(rank): {family: [] for family in fields} for rank in (12, 6)})
+    coordinate = -np.cos(np.linspace(0, np.pi, 17))
+    design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, 8),
+                             device=device, dtype=torch.float64)
+    fitting_inverse = torch.linalg.pinv(design[::2])
+    devices = [device.index] if device.type == 'cuda' else []
+    for family in fields:
+        for layer, observations in enumerate(fields[family]):
+            remaining()
+            values = torch.stack(observations).to(device=device, dtype=torch.float64)
+            fields[family][layer] = []
+            mandatory = values.new_empty((n, 0))
+            if family == 'h':
+                mandatory = h0[layer]
+                if layer == dense.depth-1:
+                    additions = [constant, h0[layer]]
+                    if layer:
+                        additions.append(original[layer+1]@h0[layer-1])
+                    mandatory = torch.cat(additions, 1)
+            elif layer == 0:
+                mandatory = torch.cat((constant, original[0], h0[0]), 1)
+            mandatory_basis = mandatory
+            if mandatory.shape[1]:
+                mandatory_basis, _ = _harmonic_source_basis(mandatory, mandatory[:, :0])
+                mandatory_basis = mandatory_basis/math.sqrt(n)
+            checked = values[common_indices].permute(1, 0, 2).reshape(n, -1)
+            dense_square = float(checked.square().sum())
+            for _ in range(2):
+                checked -= mandatory_basis@(mandatory_basis.T@checked)
+            residual_square = float(checked.square().sum())
+            for partition, panels in intervals.items():
+                remaining()
+                detail = partition_reports[partition]
+                phase = time.monotonic()
+                blocks, square, count = [], 0., 0
+                for nodes in panels:
+                    remaining()
+                    indices = np.searchsorted(observation_times, nodes)
+                    block = torch.einsum('kt,tnp->nkp', fitting_inverse, values[indices[::2]])
+                    error = torch.einsum('tk,nkp->tnp', design[1::2], block)-values[indices[1::2]]
+                    square += float(error.square().sum())
+                    count += error.numel()
+                    blocks.append(block.flatten(1))
+                source = torch.cat(blocks, 1)
+                for _ in range(2):
+                    source -= mandatory_basis@(mandatory_basis.T@source)
+                remaining()
+                detail['fitting_seconds'] += time.monotonic()-phase
+                detail['fit_blocks'] += len(panels)
+                detail['fit_output_scalars'] += source.numel()
+                phase = time.monotonic()
+                with torch.random.fork_rng(devices=devices):
+                    torch.manual_seed(seed+layer+(100 if family == 'delta' else 0))
+                    left, singular, _ = torch.svd_lowrank(source, q=min(20, *source.shape), niter=2)
+                remaining()
+                detail['svd_seconds'] += time.monotonic()-phase
+                detail['svd_calls'] += 1
+                detail['svd_input_scalars'] += source.numel()
+                available = int((singular > max(source.shape)*torch.finfo(source.dtype).eps*singular[0]).sum())
+                phase = time.monotonic()
+                for rank in (12, 6):
+                    retained = left[:, :min(rank, available)].clone()
+                    sources[partition][rank][family].append(retained)
+                    source_error = source-retained@(retained.T@source)
+                    error = checked-retained@(retained.T@checked)
+                    error_square = float(error.square().sum())
+                    detail['diagnostics'][str(rank)][family].append(dict(
+                        rank=int(retained.shape[1]), available_rank=available,
+                        mandatory_rank=int(mandatory_basis.shape[1]),
+                        coefficient_shape=list(source.shape), randomized_svd_q=min(20, *source.shape),
+                        temporal_holdout_rms=math.sqrt(square/count),
+                        residual_coefficient_relative_error=float(source_error.norm()/source.norm().clamp_min(1e-30)),
+                        common_check=dict(coordinate_max=float(error.abs().max()),
+                            rms=math.sqrt(error_square/error.numel()),
+                            max_curve_rms=float(error.square().mean(0).sqrt().max()),
+                            relative_rms=math.sqrt(error_square/max(dense_square, 1e-60)),
+                            residual_relative_rms=math.sqrt(error_square/max(residual_square, 1e-60)))))
+                    remaining()
+                detail['checking_seconds'] += time.monotonic()-phase
+                del blocks, source, left, singular, source_error, error, block
+            del values, checked
+    remaining()
+    report = dict(
+        horizon=float(horizon), rk4_step=.125, source_flow_dtype='torch.float32',
+        coefficient_dtype='torch.float64', chebyshev_degree=8, svd_seed=int(seed),
+        randomized_svd_q=20, randomized_svd_niter=2, nested_ranks=[12, 6],
+        precursor_run=precursor_run, precursor_times=trace_times.tolist(),
+        precursor_residual_rms=residual_rms.tolist(), shared_source_run=shared_run,
+        dense_rhs_calls=4*(precursor_run['steps']+shared_run['steps']),
+        observation_count=len(observation_times), observation_times=observation_times.tolist(),
+        common_check_times=common_times.tolist(), common_check_count=len(common_times),
+        common_check_excluded_fit_collisions=129-len(common_times),
+        common_check_scope='dense h/delta minus mandatory and retained projections; all neuron coordinates',
+        partitions=partition_reports, training_count=len(inputs), passive_count=len(source_queries),
+        passive_labels_used=False, scored_inputs_used=True, source_certificate=False,
+        source_provenance='full-horizon dense RK4 rollout plus disposable residual precursor',
+        timing_scope='paired shared setup; not native single-method preprocessing latency',
+        total_setup_seconds=time.monotonic()-started, seconds_cap=min(float(seconds), 120.))
+    return sources, report
+
+
 def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed, seconds=180., step=.125):
     """Sources on training/passive inputs; caller records whether passive nodes are scored.
 
@@ -4930,6 +5156,299 @@ def unified_case_main(argv):
         persist()
 
 
+@torch.no_grad()
+def cubic_case_main(argv):
+    """Paired geometric/flaring source comparison; identical autonomous runtime."""
+    parser = argparse.ArgumentParser(description=cubic_case_main.__doc__)
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--dataset', choices=('sphere2', 'sphere3', 'digits17'), required=True)
+    parser.add_argument('--seed', type=int, default=601)
+    parser.add_argument('--device', default='cuda:0')
+    args = parser.parse_args(argv)
+    args.out.mkdir(parents=True, exist_ok=False)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    device, width, horizon, step = torch.device(args.device), 4096, 32., .0015625
+    d = int(args.dataset[6:]) if args.dataset.startswith('sphere') else 64
+    names = ('old_full', 'new_full', 'old_small', 'new_small')
+    report = dict(config={k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
+        source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
+        python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+        device=torch.cuda.get_device_name(device) if device.type == 'cuda' else 'CPU',
+        complete=False, models={}, runs={}, comparisons={}, methods={}, paired_comparisons={}, errors={},
+        scope=dict(width=width, samples=8, queries=30, dimension=d, depth=2, activation='tanh',
+            horizon=horizon, fine_step=step, coarse_step=2*step, observation_spacing=.5,
+            source_initialization='shared full-horizon RK4 rollout; not initialization-only',
+            new_rule='empirical residual-adapted flaring; not certified constants',
+            input_contract='all 38 inputs available at setup; test labels withheld',
+            accuracy_scope='finite recorded times and panel; not an asymptotic/continuum certificate'))
+    arrays, models, started = {}, {}, time.monotonic()
+
+    def persist():
+        save_json(args.out/'report.json', report)
+        np.savez_compressed(args.out/'trajectories.npz', **arrays)
+
+    def move(model, destination):
+        for key in ('initial_state', 'metrics', 'metric_inverses'):
+            if hasattr(model, key):
+                setattr(model, key, [v.to(device=destination, dtype=torch.float32)
+                                    for v in getattr(model, key)])
+
+    def register(name, model, elapsed, **extra):
+        moving = sum(v.numel() for v in model.initial_state)
+        report['models'][name] = dict(moving=moving, fixed=int(model.fixed_scalars),
+            total=moving+int(model.fixed_scalars), assembly_seconds=elapsed,
+            diagnostics=getattr(model, 'diagnostics', {}),
+            diagnostics_scope='float64 assembly, before deployment cast',
+            runtime_dtype='torch.float32', **extra)
+        move(model, 'cpu')
+        models[name] = model
+
+    try:
+        inputs, labels, queries, truth = validation_data(d, 8, 30, 47, device,
+            'digits' if d == 64 else 'toy', 'test', d == 64, 0, (1, 7))
+        if d == 64:
+            indices = np.random.default_rng(48).permutation(len(queries))[:30]
+            queries, truth = queries[indices], truth[indices]
+        for key, value in dict(train_inputs=inputs, train_labels=labels,
+                               query_inputs=queries, query_labels=truth).items():
+            arrays[key] = value.cpu().numpy()
+        report['data_sha256'] = {key: array_sha(value) for key, value in arrays.items()}
+        report['common_data_words'] = inputs.numel()+labels.numel()+queries.numel()
+        t0 = time.monotonic()
+        dense = DeepDense(width, d, 2, 'tanh', args.seed, device)
+        synchronize(device)
+        dense_setup = time.monotonic()-t0
+        features = dense.fields(dense.initial_state, inputs)[0][-1]
+        gap = float(torch.linalg.eigvalsh(features.T@features/(width*len(labels)))[0])
+        floor = min(1e-4, gap/8)
+        if floor <= 0:
+            raise ArithmeticError('Nonpositive initialized training Gram gap')
+        report['readout_floor'] = floor
+        del features
+        print(json.dumps(dict(event='paired_source_start', dataset=args.dataset, seed=args.seed)), flush=True)
+        source_started = time.monotonic()
+        sources, report['sources'] = cubic_rollout_sources(dense, inputs, labels, queries,
+                                                          horizon=horizon, seconds=120., seed=501)
+        print(json.dumps(dict(event='paired_source_done', seconds=report['sources']['total_setup_seconds'])), flush=True)
+        for name in names:
+            partition, size = name.split('_')
+            rank = 12 if size == 'full' else 6
+            budget = 4*(max(d+9, 17)+3*rank)
+            t0 = time.monotonic()
+            try:
+                model = DeepHarmonic(dense, inputs, labels, sources[partition][rank], budget,
+                                     selection_seed=501, readout_floor=floor)
+                if (model.diagnostics['branch'] == 'full_retention_uncompressed'
+                        or any(v['truncated'] for v in model.diagnostics.get('source_truncations', []))):
+                    raise ArithmeticError('Full retention or additional source truncation invalidates pairing')
+                synchronize(device)
+                elapsed = time.monotonic()-t0
+                if time.monotonic()-source_started > 120:
+                    raise TimeoutError('Paired source construction plus compact assembly exceeded 120 seconds')
+                register(name, model, elapsed, source_rank=rank, compact_width=budget)
+                print(json.dumps(dict(event='assembly_done', model=name, seconds=elapsed)), flush=True)
+            except Exception as error:
+                report['errors'][name] = f'{type(error).__name__}: {error}'
+                report['methods'][name] = dict(status='inconclusive', error=report['errors'][name])
+            persist()
+        del sources
+        register('dense', dense, dense_setup)
+        t0 = time.monotonic()
+        iid = DeepDense(width, d, 2, 'tanh', args.seed+10000, device)
+        synchronize(device)
+        register('iid', iid, time.monotonic()-t0)
+        inputs, labels = inputs.float(), labels.float()
+        panel = torch.cat((inputs, queries.float()))
+        for name in ('dense', 'iid')+names:
+            if name not in models:
+                continue
+            model = models.pop(name)
+            move(model, device)
+            for suffix, current_step in ([('', step)] if name == 'iid'
+                                         else [('_coarse', 2*step), ('', step)]):
+                key = name+suffix
+                print(json.dumps(dict(event='run_start', model=key)), flush=True)
+                try:
+                    state, prediction, info = integrate_euler(model, inputs, labels, panel,
+                        current_step, 120., horizon=horizon,
+                        max_steps=round(horizon/current_step), observation_every=round(.5/current_step))
+                    arrays[key], arrays['times_'+key] = prediction, np.asarray(info['times'])
+                    report['runs'][key] = info
+                    if getattr(model, 'readout_floor', None) is not None:
+                        info['floor_active_at_observations'] = sum(v < floor for v in info['observed_feature_gram_minima'])
+                        info['terminal_readout_constraint_max_abs'] = float(
+                            (model.predict(state, inputs, inputs, labels)-labels+state[-1]).abs().max())
+                    del state
+                    print(json.dumps(dict(event='run_done', model=key, seconds=info['seconds'],
+                        mse=info['final_training_mse'], complete=info['complete'])), flush=True)
+                except Exception as error:
+                    report['errors'][key] = f'{type(error).__name__}: {error}'
+                    print(json.dumps(dict(event='run_error', model=key, error=report['errors'][key])), flush=True)
+                persist()
+            move(model, 'cpu')
+            del model
+
+        def aligned(name):
+            return (report['runs'].get(name, {}).get('complete') and name in arrays
+                and arrays[name].shape == arrays['dense'].shape
+                and np.allclose(arrays['times_'+name], arrays['times_dense'], atol=1e-10, rtol=0))
+
+        if not report['runs'].get('dense', {}).get('complete'):
+            raise RuntimeError('No complete dense reference; comparisons inconclusive')
+        for name in ('dense', 'iid')+names:
+            if not aligned(name):
+                continue
+            value = trajectory_rms(arrays[name][:, 8:].astype(float), arrays['dense'][:, 8:].astype(float))
+            value.pop('curve', None)
+            value.update(full_panel_max_abs=float(np.max(np.abs(arrays[name].astype(float)-arrays['dense']))),
+                test_mse=float(np.mean((arrays[name][-1, 8:]-arrays['query_labels'])**2)),
+                training_mse_from_predictions=float(np.mean((arrays[name][-1, :8]-arrays['train_labels'])**2)))
+            if aligned(name+'_coarse'):
+                value['refinement_rms'] = trajectory_rms(arrays[name][:, 8:].astype(float),
+                    arrays[name+'_coarse'][:, 8:].astype(float))['max_time_rms']
+                value['full_panel_refinement_max_abs'] = float(np.max(np.abs(
+                    arrays[name].astype(float)-arrays[name+'_coarse'])))
+            report['comparisons'][name] = value
+        variability = report['comparisons'].get('iid', {}).get('max_time_rms', 0.)
+        if variability <= 1e-12:
+            raise ArithmeticError('No nondegenerate iid-dense benchmark')
+        dense_refinement = report['comparisons']['dense'].get('refinement_rms')
+        for name, value in report['comparisons'].items():
+            value['ratio_to_dense_pair'] = value['max_time_rms']/variability
+            for field in ('endpoint_rms', 'full_panel_max_abs'):
+                denominator = report['comparisons']['iid'][field]
+                value[field+'_ratio_to_dense_pair'] = value[field]/denominator if denominator > 0 else None
+            value['fitted_below_001'] = value['training_mse_from_predictions'] < .01
+            if name not in names:
+                continue
+            result = dict(status='inconclusive', accuracy_pass=value['ratio_to_dense_pair'] <= 3,
+                numerical_gate_pass=False,
+                learned_reduction=report['models']['dense']['moving']/report['models'][name]['moving'],
+                storage_reduction=report['models']['dense']['total']/report['models'][name]['total'])
+            if dense_refinement is not None and 'refinement_rms' in value:
+                refinement = dense_refinement+value['refinement_rms']
+                result.update(refinement_sum=refinement, numerical_threshold=.1*variability,
+                              numerical_gate_pass=refinement < .1*variability)
+                if result['numerical_gate_pass']:
+                    result['status'] = 'pass' if result['accuracy_pass'] else 'fail'
+            report['methods'][name] = result
+        for size in ('full', 'small'):
+            old, new = ('old_'+size, 'new_'+size)
+            comparison = dict(verdict='inconclusive')
+            if all(report['methods'].get(name, {}).get('numerical_gate_pass') for name in (old, new)):
+                a, b = (report['comparisons'][name] for name in (old, new))
+                uncertainty = 2*(a['refinement_rms']+b['refinement_rms'])
+                difference = a['max_time_rms']-b['max_time_rms']
+                better = b['max_time_rms'] <= .8*a['max_time_rms'] and difference > uncertainty
+                worse = b['max_time_rms'] >= 1.25*a['max_time_rms'] and -difference > uncertainty
+                comparison.update(verdict='better' if better else 'worse' if worse else 'similar_observed_accuracy',
+                    new_over_old=b['max_time_rms']/a['max_time_rms'], uncertainty=uncertainty)
+            report['paired_comparisons'][size] = comparison
+        report['smaller_budget_efficiency_signal'] = (
+            report['methods'].get('new_small', {}).get('status') == 'pass'
+            and report['methods'].get('old_small', {}).get('status') == 'fail'
+            and report['methods'].get('old_full', {}).get('status') == 'pass')
+        report['complete'] = True
+        print(json.dumps(dict(comparisons=report['comparisons'], paired=report['paired_comparisons'])), flush=True)
+    except Exception as error:
+        report['error'] = f'{type(error).__name__}: {error}'
+        raise
+    finally:
+        report['seconds'] = time.monotonic()-started
+        persist()
+
+
+def cubic_summary_main(argv):
+    """One saved-array consistency check and one paired-comparison figure."""
+    parser = argparse.ArgumentParser(description=cubic_summary_main.__doc__)
+    parser.add_argument('--root', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    manifest = json.loads((args.root/'config.json').read_text())
+    rows, checks = [], 0
+    for case in manifest['plan']:
+        path = args.root/case['name']
+        report = json.loads((path/'report.json').read_text())
+        assert report['source_sha256'] == manifest['source_sha256']
+        checks += 1
+        with np.load(path/'trajectories.npz') as saved:
+            arrays = {name: saved[name] for name in saved.files}
+        for name, run in report['runs'].items():
+            if not run.get('complete'):
+                continue
+            np.testing.assert_allclose(arrays['times_'+name], np.arange(65)/2, atol=1e-10, rtol=0)
+            assert arrays[name].shape == (65, 38) and np.isfinite(arrays[name]).all()
+            loss = np.mean((arrays[name][:, :8].astype(float)-arrays['train_labels'])**2, axis=1)
+            np.testing.assert_allclose(loss, run['losses'], atol=1e-6, rtol=2e-5)
+            checks += 3
+        for name, value in report['comparisons'].items():
+            rms = trajectory_rms(arrays[name][:, 8:].astype(float), arrays['dense'][:, 8:].astype(float))
+            for field in ('max_time_rms', 'endpoint_rms'):
+                np.testing.assert_allclose(rms[field], value[field], atol=1e-12, rtol=1e-10)
+            np.testing.assert_allclose(np.max(np.abs(arrays[name].astype(float)-arrays['dense'])),
+                                       value['full_panel_max_abs'], atol=1e-12, rtol=1e-10)
+            np.testing.assert_allclose(np.mean((arrays[name][-1, 8:]-arrays['query_labels'])**2),
+                                       value['test_mse'], atol=1e-12, rtol=1e-10)
+            checks += 4
+            if name not in report['methods']:
+                continue
+            model, result = report['models'][name], report['methods'][name]
+            q, d = model['compact_width'], report['scope']['dimension']
+            assert model['moving'] == q*q+(d+1)*q+8
+            assert model['fixed'] == 3*q*q+1 and model['total'] == model['moving']+model['fixed']
+            assert not any(v['truncated'] for v in model['diagnostics']['source_truncations'])
+            if 'refinement_rms' in value:
+                refine = trajectory_rms(arrays[name][:, 8:].astype(float),
+                                       arrays[name+'_coarse'][:, 8:].astype(float))['max_time_rms']
+                np.testing.assert_allclose(refine, value['refinement_rms'], atol=1e-12, rtol=1e-10)
+                total = refine+report['comparisons']['dense']['refinement_rms']
+                assert result['numerical_gate_pass'] == (total < .1*report['comparisons']['iid']['max_time_rms'])
+            checks += 5
+        rows.append(dict(case=case['name'], report=report))
+    args.out.mkdir(parents=True, exist_ok=False)
+    plt.rcParams.update({'font.size': 9, 'axes.spines.top': False, 'axes.spines.right': False,
+                         'pdf.fonttype': 42})
+    figure, axes = plt.subplots(1, len(rows), figsize=(3*len(rows), 3.6), squeeze=False)
+    colors = ('#5B6F9C', '#DA7740')
+    for axis, row in zip(axes.flat, rows):
+        report = row['report']
+        for i, size in enumerate(('full', 'small')):
+            for j, partition in enumerate(('old', 'new')):
+                name = partition+'_'+size
+                value = report['comparisons'].get(name, {}).get('ratio_to_dense_pair')
+                x = i+(j-.5)*.28
+                if value is None:
+                    axis.text(x, .04, 'missing', rotation=90, transform=axis.get_xaxis_transform(), ha='center')
+                    continue
+                resolved = report['methods'].get(name, {}).get('numerical_gate_pass', False)
+                axis.bar(x, value, width=.25, color=colors[j], alpha=1 if resolved else .35,
+                         hatch=None if resolved else '//', label=partition.capitalize() if i == 0 else None)
+                axis.text(x, value, f'{value:.2g}', ha='center', va='bottom', fontsize=8)
+        axis.axhline(1, color='#777777', lw=.8)
+        axis.axhline(3, color='#777777', lw=.8, ls=':')
+        axis.set_yscale('log')
+        axis.set_xticks((0, 1), ('Rank 12', 'Rank 6'))
+        axis.set_title(row['case'].replace('_seed', '\nseed ').replace('digits17', 'Digits 1/7'))
+        axis.grid(axis='y', alpha=.12)
+    axes[0, 0].set_ylabel('Maximum-time test RMS / dense-pair RMS')
+    axes[0, -1].legend(frameon=False, fontsize=8)
+    figure.text(.5, .025, 'Same compact optimizer and retained size within each pair. '
+        'Hatching: unresolved Euler refinement. Dotted line: accuracy threshold 3.', ha='center', fontsize=8)
+    figure.tight_layout(rect=(0, .07, 1, 1))
+    for suffix in ('png', 'pdf'):
+        figure.savefig(args.out/('paired_sources.'+suffix), dpi=180, bbox_inches='tight')
+    plt.close(figure)
+    save_json(args.out/'summary.json', dict(checks_passed=checks, source_sha256=manifest['source_sha256'], cases=rows))
+    print(json.dumps(dict(checks_passed=checks, cases=len(rows), output=str(args.out))), flush=True)
+
+
 def compression_sweep_main(argv):
     """Run a frozen 1–24-case probe manifest, with one sequential worker per GPU."""
     from concurrent.futures import ThreadPoolExecutor
@@ -4942,7 +5461,7 @@ def compression_sweep_main(argv):
     parser.add_argument('--devices', nargs='+', default=['cuda:0', 'cuda:1'])
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--case-seconds', type=float, default=1500.)
-    parser.add_argument('--protocol', choices=('probe', 'unified'), default='probe')
+    parser.add_argument('--protocol', choices=('probe', 'unified', 'cubic'), default='probe')
     args = parser.parse_args(argv)
     if (len(set(args.devices)) != len(args.devices)
             or any(not re.fullmatch(r'cuda:(0|[1-9][0-9]*)', value) for value in args.devices)):
@@ -4959,6 +5478,8 @@ def compression_sweep_main(argv):
                '--per-run-seconds', '--panel-queries', '--readout-floor', '--compare-legacy'}
     if args.protocol == 'unified':
         allowed = {'--width', '--dataset', '--horizon', '--step', '--per-run-seconds'}
+    elif args.protocol == 'cubic':
+        allowed = {'--dataset', '--seed'}
     if not isinstance(plan, list) or not 1 <= len(plan) <= 24:
         parser.error('Each sweep manifest must contain 1–24 cases')
     for case in plan:
@@ -4999,7 +5520,7 @@ def compression_sweep_main(argv):
         for index in range(slot, len(plan), len(args.devices)):
             case = plan[index]
             command = [sys.executable, '-B', '-u', str(source),
-                       'unified-case' if args.protocol == 'unified' else 'compression-probe',
+                       {'unified': 'unified-case', 'cubic': 'cubic-case', 'probe': 'compression-probe'}[args.protocol],
                        '--out', str(args.out/case['name']), '--device', device, *case['args']]
             record(index, status='running', command=command)
             started = time.monotonic()
@@ -5015,14 +5536,14 @@ def compression_sweep_main(argv):
                 for key in ('complete', 'error', 'storage_reduction', 'comparisons', 'all_fitted',
                             'numerical_gate_pass', 'accuracy_pass', 'dense_words', 'compact_words',
                             'legacy_numerical_gate_pass', 'preservation_pass', 'beats_matched_small',
-                            'old_new_agreement', 'methods', 'models', 'errors'):
+                            'old_new_agreement', 'methods', 'models', 'errors', 'paired_comparisons'):
                     if key in report:
                         result[key] = report[key]
                 if report.get('source_sha256') != source_hash or sha(source.read_bytes()) != source_hash:
                     raise RuntimeError('Executable hash changed during case; comparison invalid')
                 if child.returncode == 0 and report.get('complete'):
                     result['status'] = 'complete'
-                    if args.protocol == 'unified':
+                    if args.protocol in ('unified', 'cubic'):
                         result['outcome'] = 'reported_per_method'
                     if (report.get('all_fitted') and report.get('numerical_gate_pass')
                             and report.get('legacy_numerical_gate_pass', True)):
@@ -5299,6 +5820,12 @@ if __name__ == '__main__':
         sys.exit(compression_sweep_main(sys.argv[2:]))
     elif len(sys.argv) > 1 and sys.argv[1] == 'unified-case':
         unified_case_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'cubic-case':
+        cubic_case_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'cubic-check':
+        print(json.dumps(cubic_source_small_checks(), indent=2))
+    elif len(sys.argv) > 1 and sys.argv[1] == 'cubic-summary':
+        cubic_summary_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'unified-check':
         torch.set_num_threads(1)
         torch.set_default_dtype(torch.float64)
