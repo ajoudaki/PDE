@@ -105,3 +105,31 @@ in [the empirical study](../studies/compression_empirical_validation_20261007/RE
 [FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) retains the historical figure record.
 Other figures, old proof modules, notes and trial manuscripts are preserved
 but are not alternative current theorem interfaces.
+
+### Unified width-scaling suite
+
+The same executable now provides a self-contained two-layer tanh Legendre
+closure, geometric Harmonic setup in dimensions2/3, and the latest rank-safe
+finite-panel Logarithmic optimizer. The unified suite compares their Euler
+trajectories with learned-state-matched small dense and two-block low-rank
+models, plus the exact initial-NTK Euler control. Fixed matrices are charged
+separately; the NTK control deliberately uses a smaller state. There is no PCA.
+
+```bash
+python paper/figures/capture_trajectory.py unified-check
+python paper/figures/capture_trajectory.py compression-sweep --protocol unified \
+  --plan studies/unified_compression_empirics_20261008/plan.json \
+  --devices cuda:0 cuda:1 --case-seconds 900 --out /path/to/fresh/runs
+python paper/figures/capture_trajectory.py unified-plot \
+  --root /path/to/fresh/runs --out /path/to/figures
+```
+
+The [fixed protocol and outcome record](../studies/unified_compression_empirics_20261008/README.md)
+separate two engineering pilots from twelve width-comparison cases. Eight
+training inputs and thirty test inputs are used throughout. Harmonic uses
+independent sphere nodes; finite-panel Logarithmic setup sees the test inputs,
+never their labels. Both practical source builders use full-horizon offline
+dense rollouts. These experiments do **not** validate initialization-only
+setup, arbitrary unseen-input decoding by the finite-panel method, asymptotic
+exponents, or a uniform-in-time/input theorem. Results are not automatically
+inserted into the manuscript.
