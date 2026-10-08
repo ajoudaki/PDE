@@ -212,7 +212,8 @@ class DeepHarmonic(DeepDense):
     """
 
     @torch.no_grad()
-    def __init__(self, dense, inputs, labels, source_coefficients, budget, selection_seed=501):
+    def __init__(self, dense, inputs, labels, source_coefficients, budget, selection_seed=501,
+                 readout_floor=None):
         self.depth, self.activation = dense.depth, dense.activation
         runtime_dtype = dense.initial_state[0].dtype
         original = [value.to(dtype=torch.float64) for value in dense.initial_state]
@@ -221,7 +222,13 @@ class DeepHarmonic(DeepDense):
         training, targets = inputs.to(dtype=torch.float64), labels.to(dtype=torch.float64)
         if bool(w0.ne(0).any()):
             raise ValueError('DeepHarmonic initialization requires zero dense readout')
-        if budget < len(labels):
+        if readout_floor is not None:
+            if not math.isfinite(readout_floor) or readout_floor <= 0:
+                raise ValueError('Readout floor must be finite and strictly positive')
+            self.readout_floor = float(readout_floor)
+        if budget < 1:
+            raise ValueError('DeepHarmonic needs a positive width budget')
+        if readout_floor is None and budget < len(labels):
             raise ValueError('DeepHarmonic budget must permit a full-rank training feature Gram')
         h0, _ = self.fields(original, training)
         if budget >= n:
@@ -240,7 +247,7 @@ class DeepHarmonic(DeepDense):
             if any(value.ndim != 2 or value.shape[0] != n or not bool(torch.isfinite(value).all())
                    for family in retained.values() for value in family):
                 raise ValueError('DeepHarmonic sources must be finite (n,r) matrices')
-            bases, selected, selections, mandatory_errors = [], [], [], []
+            bases, selected, selections, mandatory_errors, truncations = [], [], [], [], []
             constant = torch.ones(n, 1, dtype=a0.dtype, device=device)
             for layer in range(self.depth):
                 mandatory = ([constant, h0[layer], original[layer+1]@h0[layer-1]] if layer
@@ -251,6 +258,14 @@ class DeepHarmonic(DeepDense):
                 if layer+1 < self.depth:
                     optional.append(original[layer+2].T@retained['delta'][layer+1])
                 basis, error = _harmonic_source_basis(torch.cat(mandatory, 1), torch.cat(optional, 1))
+                truncation = dict(full_rank=basis.shape[1], truncated=False)
+                if readout_floor is not None and basis.shape[1] > budget:
+                    # Constant-preserving low-budget source ordering. No training
+                    # column is mandatory here; truncation is empirical, not BSS.
+                    basis, error, omitted = _rank_safe_source_basis(
+                        torch.cat(mandatory, 1), torch.cat(optional, 1), max(1, budget//4))
+                    truncation.update(truncated=True, retained_rank=basis.shape[1],
+                                      normalized_source_relative_error=omitted)
                 selection = _panel_coordinate_metric(basis, budget, selection_seed+layer, trials=4)
                 if selection[-1]['embedding_max'] > 16:
                     raise ArithmeticError(f'DeepHarmonic layer {layer+1} source condition exceeds 16')
@@ -258,6 +273,7 @@ class DeepHarmonic(DeepDense):
                 selected.append(basis[selection[0]])
                 selections.append(selection)
                 mandatory_errors.append(error)
+                truncations.append(truncation)
             self.metrics = [item[1] for item in selections]
             self.metric_inverses = [item[2] for item in selections[:-1]]
             mixers = [selected[layer]@(bases[layer].T@original[layer+1]@bases[layer-1]/n)
@@ -276,6 +292,7 @@ class DeepHarmonic(DeepDense):
             self.diagnostics = dict(branch='empirical_spectral_setup_metric_runtime',
                 widths=[len(index) for index in indices], source_ranks=[basis.shape[1] for basis in bases],
                 selection=[item[-1] for item in selections], mandatory_source_errors=mandatory_errors,
+                source_truncations=truncations,
                 initialized_feature_errors=[maximum(h-h0[layer][indices[layer]]) for layer, h in enumerate(hs)],
                 initialized_gram_error=maximum(hs[-1].T@self.metrics[-1]@hs[-1]-h0[-1].T@h0[-1]/n),
                 paired_forward_action_errors=forward_errors, paired_reverse_action_errors=reverse_errors)
@@ -285,12 +302,15 @@ class DeepHarmonic(DeepDense):
         self.metrics = [value.to(dtype=runtime_dtype) for value in self.metrics]
         self.metric_inverses = [value.to(dtype=runtime_dtype) for value in self.metric_inverses]
         self.fixed_scalars = sum(value.numel() for value in self.metrics+self.metric_inverses)
+        self.fixed_scalars += int(readout_floor is not None)
         _, _, _, gram = self._readout(self.initial_state, inputs, labels)
         eigenvalues = torch.linalg.eigvalsh(gram)
         self.diagnostics.update(requested_budget=budget, activation=self.activation, depth=self.depth,
             certified_source_setup=False, source_assembly_dtype='torch.float64', runtime_dtype=str(runtime_dtype),
             initial_feature_gram_min=float(eigenvalues[0]),
-            initial_feature_gram_condition=float(eigenvalues[-1]/eigenvalues[0]),
+            initial_feature_gram_condition=(float(eigenvalues[-1]/eigenvalues[0])
+                                           if float(eigenvalues[0]) > 0 else None),
+            readout_floor=readout_floor,
             moving_scalars=sum(value.numel() for value in self.initial_state), fixed_scalars=self.fixed_scalars)
 
     def backward(self, state, hs, gates, readout=None):
@@ -303,6 +323,18 @@ class DeepHarmonic(DeepDense):
 
     def _readout(self, state, inputs, labels):
         hs, gates = self.fields(state, inputs)
+        floor = getattr(self, 'readout_floor', None)
+        if floor is not None:
+            # Form the singular Gram in double precision: in float32, numerical
+            # null directions times 1/tau can swamp the retained correction.
+            normalized = hs[-1].double()/math.sqrt(len(labels))
+            metric = self.metrics[-1].double()
+            gram = normalized.T@(metric@normalized)
+            gram = (gram+gram.T)/2
+            correction = ((labels.double()-state[-1].double())/math.sqrt(len(labels))
+                          -normalized.T@(metric@state[1].double()))
+            readout = state[1].double()+normalized@_rank_safe_spectral_solve(gram, correction, floor)
+            return readout.to(state[1].dtype), hs, gates, gram
         normalized = hs[-1]/math.sqrt(len(labels))
         gram = normalized.T@(self.metrics[-1]@normalized)
         gram = (gram+gram.T)/2
@@ -342,6 +374,61 @@ class DeepHarmonic(DeepDense):
             return coefficient@h
 
         return predict
+
+
+@torch.no_grad()
+def rank_safe_small_checks():
+    """Bounded algebra/regression checks; no fitted or scored experiment data."""
+    device, dtype = torch.device('cpu'), torch.float64
+    generator = torch.Generator().manual_seed(91)
+    inputs = torch.randn(7, 3, generator=generator, dtype=dtype)
+    inputs /= inputs.norm(dim=1, keepdim=True)
+    labels = torch.randn(7, generator=generator, dtype=dtype)/5
+    dense = DeepDense(40, 3, 2, 'tanh', 19, device)
+    legacy = DeepHarmonic(dense, inputs, labels, None, budget=40)
+    safe = DeepHarmonic(dense, inputs, labels, None, budget=40, readout_floor=1e-10)
+    state = [v+.001*torch.randn(v.shape, generator=generator, dtype=dtype)
+             for v in legacy.initial_state]
+    maximum = lambda v: float(v.abs().max())
+    errors = dict(legacy_readout=maximum(legacy._readout(state, inputs, labels)[0]
+                                         -safe._readout(state, inputs, labels)[0]),
+                  legacy_rhs=max(maximum(a-b) for a, b in zip(
+                      legacy.rhs(state, inputs, labels), safe.rhs(state, inputs, labels))))
+    sources = {name: [torch.randn(40, 3, generator=generator, dtype=dtype) for _ in range(2)]
+               for name in ('h', 'delta')}
+    for budget in (1, 4):
+        model = DeepHarmonic(dense, inputs, labels, sources, budget, readout_floor=.0001)
+        state = [v+.001*torch.randn(v.shape, generator=generator, dtype=dtype)
+                 for v in model.initial_state]
+        readout, hs, _, gram = model._readout(state, inputs, labels)
+        normalized = hs[-1]/math.sqrt(len(labels))
+        b = ((labels-state[-1])/math.sqrt(len(labels))
+             -normalized.T@(model.metrics[-1]@state[1]))
+        expected = -state[-1]-math.sqrt(len(labels))*(b-gram@_rank_safe_spectral_solve(gram, b, .0001))
+        residual = model.predict(state, inputs, inputs, labels)-labels
+        errors[f'residual_identity_q{budget}'] = maximum(residual-expected)
+        velocity = model.rhs(state, inputs, labels)
+        norm = ((velocity[0]*(model.metrics[0]@velocity[0])).sum()
+                +velocity[1]@(model.metrics[-1]@velocity[1])
+                +(velocity[2].T@model.metrics[1]@velocity[2]*model.metric_inverses[0].T).sum())
+        errors[f'energy_identity_q{budget}'] = float(abs(norm+2/len(labels)*(state[-1]@velocity[-1])))
+        restored = DeepHarmonic.__new__(DeepHarmonic)
+        for key in ('depth', 'activation', 'readout_floor', 'fixed_scalars'):
+            setattr(restored, key, getattr(model, key))
+        for key in ('metrics', 'metric_inverses'):
+            setattr(restored, key, [v.clone() for v in getattr(model, key)])
+        restored.initial_state = [v.clone() for v in state]
+        errors[f'restart_q{budget}'] = maximum(restored.prepare_query(state, inputs, labels)(inputs)
+                                              -model.predict(state, inputs, inputs, labels))
+        assert model.fixed_scalars == 3*budget**2+1
+        assert all(r <= max(1, budget//4) for r in model.diagnostics['source_ranks'])
+        assert all(abs(float(metric.sum())-1) < 1e-10 for metric in model.metrics)
+        assert all(bool(torch.isfinite(v).all()) for v in velocity)
+        json.dumps(model.diagnostics, allow_nan=False)
+    zeros = torch.zeros(7, 7, dtype=dtype)
+    errors['zero_gram'] = maximum(_rank_safe_spectral_solve(zeros, labels, .01)-labels/.01)
+    assert max(errors.values()) < 1e-9, errors
+    return errors
 
 
 def deep_rollout_small_checks():
@@ -721,6 +808,36 @@ def harmonic_source_coefficients(fields, times, nodes, time_degree=3, spatial_de
                        source_fit_errors=errors,
                        error_scope='residual at setup nodes only; not a uniform source certificate')
     return coefficients, diagnostics
+
+
+def _rank_safe_spectral_solve(gram, vector, floor):
+    """Smooth g_tau(Q)b; equals Q^-1 b above tau, finite at rank changes."""
+    values, vectors = torch.linalg.eigh(gram)
+    values = values.clamp_min(0)  # Gram roundoff, not a positive rank threshold.
+    coordinate = values/floor
+    interior = coordinate.clamp(.5+1e-15, 1-1e-15)
+    cutoff = torch.sigmoid(1/(interior-.5)-1/(1-interior))
+    cutoff = torch.where(coordinate <= .5, torch.ones_like(cutoff),
+                         torch.where(coordinate >= 1, torch.zeros_like(cutoff), cutoff))
+    return vectors@((vectors.T@vector)/(values+floor*cutoff))
+
+
+def _rank_safe_source_basis(mandatory, optional, rank):
+    """Constant plus leading normalized-generator directions; setup only."""
+    generators = torch.cat((mandatory, optional), 1)
+    n = generators.shape[0]
+    constant = torch.ones(n, 1, dtype=generators.dtype, device=generators.device)/math.sqrt(n)
+    normalized = generators/generators.norm(dim=0).clamp_min(torch.finfo(generators.dtype).tiny)
+    centered = normalized-constant@(constant.T@normalized)
+    left, singular, _ = torch.linalg.svd(centered, full_matrices=False)
+    tolerance = max(centered.shape)*torch.finfo(centered.dtype).eps*singular[0]
+    retained = min(max(0, rank-1), int((singular > tolerance).sum()))
+    basis = torch.cat((constant, left[:, :retained]), 1)
+    # Reorthogonalize against the exactly retained constant before selection.
+    basis = torch.linalg.qr(basis, mode='reduced')[0]
+    error = float((mandatory-basis@(basis.T@mandatory)).abs().max())
+    omitted = float((normalized-basis@(basis.T@normalized)).norm()/normalized.norm())
+    return math.sqrt(n)*basis, error, omitted
 
 
 def _harmonic_source_basis(mandatory, optional):
@@ -3817,6 +3934,8 @@ def compression_probe_main(argv):
     parser.add_argument('--calibration', type=int, default=32)
     parser.add_argument('--budget', type=int, help='Given retained width; omit for the original logarithmic rule')
     parser.add_argument('--source-rank', type=int, help='Given rank per source family; omit for the original rule')
+    parser.add_argument('--readout-floor', type=float,
+                        help='Enable rank-safe compression, including budget<samples, with this fixed floor')
     parser.add_argument('--source-step', type=float, default=.125)
     parser.add_argument('--seed', type=int, default=601)
     parser.add_argument('--horizon', type=float, default=32.)
@@ -3825,9 +3944,12 @@ def compression_probe_main(argv):
     args = parser.parse_args(argv)
     if args.depth < 2 or args.width < 1 or args.samples < 2 or args.calibration < 1:
         parser.error('Need depth>=2, positive width/calibration and at least two samples')
-    if (args.budget is not None and not args.samples <= args.budget < args.width
+    minimum_budget = 1 if args.readout_floor is not None else args.samples
+    if (args.budget is not None and not minimum_budget <= args.budget < args.width
             or args.source_rank is not None and args.source_rank < 1):
-        parser.error('Need samples<=budget<width and positive source rank when supplied')
+        parser.error('Need positive budget<width (also budget>=samples without --readout-floor) and source rank')
+    if args.readout_floor is not None and (not math.isfinite(args.readout_floor) or args.readout_floor <= 0):
+        parser.error('Readout floor must be finite and strictly positive')
     if (not math.isfinite(args.horizon) or args.horizon <= 0 or not math.isfinite(args.step)
             or args.step <= 0 or not math.isclose(.5/(2*args.step), round(.5/(2*args.step)), abs_tol=1e-9)):
         parser.error('Need a positive horizon and a step whose double divides the 0.5 observation interval')
@@ -3871,7 +3993,8 @@ def compression_probe_main(argv):
         dense = DeepDense(args.width, 64, args.depth, args.activation, args.seed, device)
         coefficients, source = deep_rollout_sources(dense, inputs, labels, calibration,
                                                     args.horizon, rank, args.seed, step=args.source_step)
-        compact = DeepHarmonic(dense, inputs, labels, coefficients, budget=budget)
+        compact = DeepHarmonic(dense, inputs, labels, coefficients, budget=budget,
+                               readout_floor=args.readout_floor)
         del coefficients
         synchronize(device)
         report['setup'] = dict(seconds=time.monotonic()-started, source=source,
@@ -3883,7 +4006,8 @@ def compression_probe_main(argv):
             moving = sum(v.numel() for v in model.initial_state)
             report[name+'_words'] = dict(moving=moving, fixed=model.fixed_scalars,
                                          total=moving+model.fixed_scalars)
-        expected = (3*args.depth-2)*budget**2+65*budget+args.samples
+        expected = ((3*args.depth-2)*budget**2+65*budget+args.samples
+                    +int(args.readout_floor is not None))
         assert report['compact_words']['total'] == expected
         small_width = math.floor((math.sqrt(65**2+4*(args.depth-1)*expected)-65)/(2*(args.depth-1)))
         report['small_width'] = small_width
@@ -3896,7 +4020,8 @@ def compression_probe_main(argv):
         move(compact, 'cpu')
         torch.save(dict(depth=compact.depth, activation=compact.activation,
                         initial_state=compact.initial_state, metrics=compact.metrics,
-                        metric_inverses=compact.metric_inverses), args.out/'compiled_model.pt')
+                        metric_inverses=compact.metric_inverses,
+                        readout_floor=args.readout_floor), args.out/'compiled_model.pt')
         report['checkpoint_sha256'] = sha((args.out/'compiled_model.pt').read_bytes())
         inputs, labels, queries = [v.float() for v in (inputs, labels, queries)]
         del calibration, pool, truth
@@ -3921,6 +4046,8 @@ def compression_probe_main(argv):
                 if name == 'compact' and not suffix:
                     report['training_constraint_max_abs'] = float((model.predict(state, inputs, inputs, labels)
                                                                    -labels+state[-1]).abs().max())
+                    report['final_deficit_energy'] = float(state[-1].square().mean())
+                    report['final_actual_training_mse'] = info['final_training_mse']
                 del state
                 save_json(args.out/'report.json', report)
                 print(json.dumps(dict(event='probe_done', model=name+suffix, seconds=info['seconds'],
@@ -3943,7 +4070,8 @@ def compression_probe_main(argv):
                          ['max_time_rms'] for name in ('dense', 'compact'))
         report.update(refinement_sum=refinement, numerical_threshold=.1*variability,
             numerical_gate_pass=bool(refinement < .1*variability),
-            all_fitted=all(v['final_training_mse'] < .01 for v in report['runs'].values()),
+            all_fitted=all(report['runs'][name]['final_training_mse'] < .01
+                           for name in ('dense', 'compact', 'iid', 'small')),
             complete=True, scored_inputs_used_for_setup=False,
             retained_scope='current model arrays including all fixed metrics/inverses; data and workspaces separate')
         for value in report['comparisons'].values():
