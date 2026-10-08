@@ -1,5 +1,26 @@
 # Absolute logarithmic exponent for a predeclared passive test panel
 
+## Latest empirical status: rollout initializer, 2026-10-08
+
+The rollout-based practical variant passes the recorded trajectory-RMS,
+storage-matched-control, fitting and Euler-refinement checks at dense widths
+4096 and 8192, on raw digits 3 versus 8. Its frozen coordinate rule has
+`q proportional to log(en)^(5/2)`, hence total model storage proportional to
+`log(en)^5` for fixed data dimensions. The measured panel/iid-dense
+maximum-time validation-RMS ratios are 0.336 and 0.693, with 1.79-fold and
+4.96-fold model-storage reductions. **This is two-width, one-held-out-seed
+empirical evidence, not a proof of asymptotic accuracy for this practical
+initializer.** At width 8192 the panel model loses to the matched small model
+on endpoint RMS, despite winning on maximum-time and time-average RMS.
+
+The implementation and complete outcomes, including failed original
+resolution checks, costs, qualifications and reproduction commands, are
+recorded in the final sections below. The earlier jet-only experiment is
+retained as historical evidence, not the current best empirical result.
+The original theorem and its qualifications are unchanged. The setup uses
+a cheap full-interval dense solve, not an early-time prefix; no dense solve
+or trajectory is retained by the autonomous compressed runtime.
+
 ## Research contract
 
 New study, 2026-10-05, for the user's changed observable contract. A finite
@@ -551,3 +572,240 @@ selection. Confirm at 4096 and 8192, adding 16384 only under the recorded
 8192 timing/memory condition. The existing 36-training-run cap has priority
 over optional second-seed replication. All first-seed confirmation results
 must be reported, even if they fail accuracy or numerical gates.
+
+### Recorded confirmation outcome and numerical follow-up
+
+The original frozen-resolution confirmation is preserved without changing its
+gate: width 4096 passed, whereas width 8192 had promising model error but an
+**inconclusive trajectory result** because the sum of separate Euler
+refinement discrepancies exceeded 10 percent of its iid-dense discrepancy.
+The endpoint diagnostic is distinct. Reports remain in the two
+`rollout_confirm_n*_summary_v1/` directories and are never overwritten.
+
+For the user's request to test the construction as well as practicable, the
+remaining eight training runs are reassigned from the optional width-16384
+extension to a separately labeled numerical follow-up: rerun all four models
+at each of 4096 and 8192 with step 0.003125, reusing the identical compiled
+checkpoints, data, seeds, source budgets and horizon. This is an explicit
+post-confirmation resolution amendment, not an originally preregistered pass
+or a new search for favorable model orders. All accuracy/validity thresholds
+stay unchanged, the initial inconclusive outcome is retained, and the hard
+36-training-run and 300-second per-run caps remain. No claim of width-16384
+accuracy or second-seed confirmation will be made. If this follow-up still
+fails a gate, the remaining result is reported as inconclusive and stops.
+
+### Completed rollout experiment: results and interpretation
+
+All 36 allowed training runs completed: 12 exploratory pilot runs, 16 initial
+confirmation runs and eight separately recorded finer-resolution follow-up
+runs. There were six pilot source compilations and two confirmation source
+compilations. No width-16384 or second-confirmation-seed run was performed.
+The final implementation is commit `4d23438`, source SHA256
+`3ad9b8bfe43c42fccca1e752c2aa0759ee2c98c3b1ec2a4313dc4c491e526eff`.
+The initial implementation was committed separately as `0bcf836`.
+
+The final experiment is raw sklearn digits 3 versus 8, 64 pixel coordinates,
+100 training images and all 257 remaining images as a predeclared passive
+panel. No PCA is used. Passive labels never enter compilation or dynamics.
+The network has two hidden tanh layers, canonical mobilities, zero readout
+and label RMS one. Setup/reference, iid-dense and small-dense seeds are 401,
+10401 and 20401. Pilot seed 301 is distinct. All four models use float32
+Euler at step 0.003125 through physical time 100: 32,000 updates, not a
+two-step experiment. Predictions are recorded at 201 common times, spaced
+by 0.5. The panel uses the study's corrected nonlinear optimizer, not an
+ordinary smaller network's gradient flow.
+
+The coordinate budget is frozen before the confirmation runs:
+
+\[
+q(n)=\left\lceil1536
+ \left(\frac{\log(en)}{\log(e\,4096)}\right)^{5/2}\right\rceil.
+\]
+
+The optional source rank uses the same rule with 128 replacing 1536.
+Thus `(q, optional rank)` is `(1536,128)` at 4096 and `(1838,154)` at
+8192. The actual assembled source ranks are `(549,585)` and `(627,663)`.
+The runtime has four moving arrays and three fixed arrays: first weights,
+readout, hidden mixer, training deficit, two metrics and an incoming metric
+inverse. Its complete deployable model inventory is
+
+\[
+q^2+65q+100\ \text{moving numbers},\qquad
+3q^2\ \text{fixed numbers},\qquad
+4q^2+65q+100\ \text{total numbers}.
+\]
+
+The same data add 22,948 numbers to every model. Counts exclude benchmark
+restart copies, saved output histories and execution workspaces; measured
+process peaks below include those allocations. For fixed panel size and
+dimension the runtime buffers also grow at most quadratically in q, but
+the displayed exact number is model storage, not peak execution storage.
+The budget law proves a storage-growth statement, **not** preservation of
+accuracy at every larger width.
+
+The primary error is the maximum, over the 201 saved times, of prediction
+RMS across all 257 validation images against the same dense reference.
+These are prediction discrepancies, not classification accuracies.
+
+| Dense width | Model | Total model numbers | Final training MSE | Maximum-time validation RMS | Time-average validation RMS | Endpoint validation RMS |
+|---:|---|---:|---:|---:|---:|---:|
+| 4096 | Independent dense | 17,043,456 | 0.00297243 | 0.02080351 | 0.00784317 | 0.00687829 |
+| 4096 | Rollout panel | 9,537,124 | 0.00235681 | 0.00698120 | 0.00509722 | 0.00698120 |
+| 4096 | Matched dense, width 3055 | 9,531,600 | 0.00303269 | 0.02587738 | 0.00923382 | 0.00856915 |
+| 8192 | Independent dense | 67,641,344 | 0.00305818 | 0.01163048 | 0.00622576 | 0.00623520 |
+| 8192 | Rollout panel | 13,632,546 | 0.00233783 | 0.00805827 | 0.00565780 | 0.00805827 |
+| 8192 | Matched dense, width 3659 | 13,626,116 | 0.00298448 | 0.01069626 | 0.00692150 | 0.00672397 |
+
+The reference dense training MSEs are 0.00293098 and 0.00291327. All eight
+final models fit below 0.01. The time-average column integrates the RMS
+curve, not its square. Panel maximum-time RMS is 0.336 and 0.693 times the
+actual respective iid-dense discrepancy, below the declared factor-three
+target. It also beats the matched small control at both widths on that
+primary statistic. At 8192 it **does not beat the small model at the
+endpoint**; no blanket endpoint-superiority claim is made. Even the matched
+small control satisfies the factor-three variability target on this dataset,
+so passing that target alone is not distinctive evidence for this method.
+
+As a secondary, post-hoc diagnostic closer to pointwise error, the maximum
+absolute discrepancy across all saved times and all validation images is:
+
+| Dense width | Independent dense | Rollout panel | Matched small dense |
+|---:|---:|---:|---:|
+| 4096 | 0.04142284 | 0.02654889 | 0.05446383 |
+| 8192 | 0.04026198 | 0.03645322 | 0.04994781 |
+
+This does not replace the primary RMS criterion and is not a continuous-time
+supremum certificate. Only endpoint training predictions, rather than their
+full trajectory, are saved, so this secondary table is specifically the
+validation subset, not the entire 357-point panel.
+
+### Numerical checks, initialization work and runtime costs
+
+The unchanged trajectory gate requires the sum of both models' measured
+step-refinement RMS maxima to be below ten percent of the iid-dense RMS
+maximum. The endpoint gate is evaluated separately against ten percent of
+the iid-dense endpoint RMS. At the finer follow-up resolution all three
+comparisons (panel, iid and small, each versus the reference) pass both
+gates. For the panel comparison:
+
+| Dense width | Trajectory refinement sum | Trajectory threshold | Endpoint refinement sum | Endpoint threshold |
+|---:|---:|---:|---:|---:|
+| 4096 | 0.00103367 | 0.00208035 | 0.00023780 | 0.00068783 |
+| 8192 | 0.00103638 | 0.00116305 | 0.00021721 | 0.00062352 |
+
+These are measured refinement diagnostics, not rigorous bounds on exact
+gradient-flow error. The originally frozen 8192-resolution trajectory gate
+failed; the separately disclosed follow-up resolved it without changing
+orders, seeds, models, horizon, checkpoints or thresholds. Pilot precision
+checks support the precision choice, but are not direct float64 replications
+of the final 8192/finer-step experiment. Some pilot comparisons span compiler
+hashes as precision/configuration plumbing changed; this provenance
+qualification remains explicit in the independent raw-results check.
+
+Compilation uses eight geometric time intervals with boundaries
+`0,1,2,4,8,16,32,64,100`, degree-eight Chebyshev fits, and 129 distinct
+observation times. Odd interlaced nodes are held out from fitting. The
+disposable RK4 solve takes 470 steps, hence 1880 dense training RHS calls,
+versus 32,000 Euler updates in each final comparison. It covers the **full
+physical interval**, not a short initial window. The sources are forward
+responses on the full panel and backward responses on training inputs only.
+Rank compression is applied before forming their exact initialized matrix
+images. Four fixed-seed coordinate candidates are compared by source-metric
+conditioning, never by validation predictions or labels. Assembly is float64;
+the disposable solve and the compared training runs are float32, with TF32
+disabled. Dense state, source coefficients and observations are discarded
+after compilation; the seven-tensor deployment checkpoint has no history.
+
+Both RTX 3090 GPUs were used, with no overlapping training jobs on the same
+GPU. All individual training and source-compilation runs stayed below their
+300-second limit. The final timings and peak allocated CUDA memory are:
+
+| Operation | Dense width 4096 | Dense width 8192 |
+|---|---:|---:|
+| Original panel compilation time | 9.65 s | 21.31 s |
+| Compilation process peak | 7.20 GiB | 14.59 GiB |
+| Dense reference full Euler run | 42.32 s | 120.04 s |
+| Panel full Euler run, excluding compilation | 114.10 s | 112.57 s |
+| Matched small full Euler run | 37.61 s | 38.00 s |
+| Dense run process peak | 274.12 MiB | 996.15 MiB |
+| Panel run process peak | 93.60 MiB | 120.44 MiB |
+| Matched small run process peak | 168.11 MiB | 225.43 MiB |
+
+The peaks are allocator/process measurements including benchmark restart
+copies and temporaries, not device-wide memory or a minimal implementation
+bound. Run wall times include loss checks and sparse queries. The summary
+field `training_seconds` is that whole-run time; each raw report separately
+records the training-only, loss-check, query and readout-refresh times.
+Checkpoint-loading time is not compilation cost. This implementation gives
+a memory reduction, **not an end-to-end speedup**: setup plus training is
+slower than the Euler dense reference at both widths. Nor is this a benchmark
+against the fastest possible dense solver; dense could also use RK4.
+
+### Scope of the evidence and reproducibility
+
+This practical method preserves the nonlinear corrected runtime, paired
+initialized actions, exact selected-source isometry, passive-label isolation
+and restartability. It does not certify the theorem's complete source
+approximation or selector constants. The measured metric factors are
+10.50/11.01 and 12.80/13.34, not four. The largest sampled source-projection
+RMS is about 0.0973 and 0.0861, so these experiments do not establish the
+theorem's uniform vanishing source-error requirement. Degree-eight temporal
+heldout RMS is below 7.4e-6 for these two sources, but that does not remove
+the rank-truncation error. Label RMS one and the rank-50 training-input
+matrix in 64 raw dimensions also do not meet the original certificate's
+small-label/full-span hypotheses. Those qualifications have not been erased
+to call the experiment a theorem test.
+
+Accordingly, the result is an empirically successful architecture-faithful
+variant under a fixed log-fifth-power budget, **not** a new unconditional
+log-fifth-power theorem for that variant, arbitrary future queries, all
+continuous times or the fitted infinite-time endpoint. Two widths and one
+confirmation seed cannot identify an asymptotic exponent or success
+probability. At width 2048 the same rule is noncompressing. No low-rank,
+lazy-feature or equal-budget jet-only ablation was added in this bounded
+campaign, so the improvement cannot be attributed to the rollout alone
+rather than the larger source ranks and changed coordinate selector.
+
+The independent scoped implementation check is
+[ROLLOUT_IMPLEMENTATION_CHECK.md](ROLLOUT_IMPLEMENTATION_CHECK.md).
+The independent raw-result reconstruction is
+[ROLLOUT_RESULTS_CHECK.md](ROLLOUT_RESULTS_CHECK.md); it checks data/seed/
+solver compatibility, checkpoint tensor inventory, measured costs and all
+comparisons directly from the saved arrays. These are internal checks, not
+promotion reviews or theoretical certificates. No paper or theorem is
+changed by this empirical continuation.
+
+All generated evidence is under
+`data/generated/finite_panel_absolute_compression_20261005/`:
+
+- `rollout_pilot_*`: every pilot, including unfavorable branches;
+- `rollout_confirm_n{4096,8192}_setup_v1/`: original compilation reports and
+  the immutable compiled checkpoints;
+- `rollout_confirm_n{4096,8192}_{dense,iid,panel,small}_h{0.0125,0.00625}_v1/`:
+  all original confirmation trajectories;
+- `rollout_confirm_n{4096,8192}_summary_v1/`: original pass/failure outcomes;
+- `rollout_followup_n{4096,8192}_{dense,iid,panel,small}_h0003125_v1/`:
+  all eight finer-resolution trajectories;
+- `rollout_followup_n{4096,8192}_summary_v1/`: final comparisons.
+
+Each run report contains its exact command, configuration, initialization,
+data and source hashes, versions, elapsed costs and stopping reason. Final
+summary SHA256 values, for 4096 then 8192, are
+`f6b85770264011be105f9597d34c1542ae8e35823c4cefe80f7a30b5bf98938e` and
+`b23a7936a54d570a8d54ad81d8ce3ae4d6d7339439a86738fc8aafede7b301a5`.
+The following reconstructs each final summary into a fresh output directory;
+use the recorded run commands with fresh outputs for a new training rerun:
+
+```bash
+experiment_root=data/generated/finite_panel_absolute_compression_20261005
+for n in 4096 8192; do
+  summary_args=()
+  for model in dense iid panel small; do
+    summary_args+=("--$model" "$experiment_root/rollout_followup_n${n}_${model}_h0003125_v1")
+    summary_args+=("--$model-coarse" "$experiment_root/rollout_confirm_n${n}_${model}_h0.00625_v1")
+  done
+  /home/amir/Codes/sber-swap/.venv/bin/python -B paper/figures/capture_trajectory.py \
+    panel-summary --primary trajectory "${summary_args[@]}" \
+    --out "$experiment_root/rollout_followup_n${n}_summary_reproduction"
+done
+```
