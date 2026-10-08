@@ -1,8 +1,53 @@
 # Paper figure tools
 
-All circle/sphere figure code is in **`figures.py`**. This guide replaces
+The legacy circle/sphere renderers are in **`figures.py`**. This guide replaces
 the three separate circle, sphere and training-stage guides. The existing
 `order_decay.tex` is the independent TeX source for the Cartesian order plot.
+
+## Fresh Harmonic and Logarithmic validation
+
+One implementation, `paper/figures/capture_trajectory.py`, contains both new
+closures, their numerical checks, dense/NTK/small-MLP/LoRA controls, capture
+and plotting. Its `validate` path does not load the archived Legendre producer.
+Use a PyTorch environment and fresh output directories; CUDA runs are float64
+with TF32 disabled. On the current host, use
+`/home/amir/miniconda3/bin/python` in place of `python`.
+
+```bash
+python -B paper/figures/capture_trajectory.py validate --check-only --device cpu \
+  --out /tmp/compression-checks
+
+# Frozen circle confirmation rule, one of three held-out seeds.
+python -B paper/figures/capture_trajectory.py validate --device cuda:0 \
+  --width 4096 --dimension 2 --samples 7 --seed 201 --refine \
+  --harmonic-budget 1535 --source-rank 19 --time-degree 5 --spatial-degree 9 \
+  --out /tmp/compression-harmonic
+
+# Independent-reference, dimension-five finite-program decoder.
+python -B paper/figures/capture_trajectory.py validate --device cuda:1 \
+  --width 4096 --dimension 5 --samples 5 --queries 32 --seed 201 \
+  --horizon 5 --refine --log-probe --log-steps 10 --log-step .5 --log-queries 32 \
+  --out /tmp/compression-logarithmic
+
+# Portable publication figures: no raw run directories are needed.
+python -B paper/figures/capture_trajectory.py plot-validation \
+  --bundle paper/figures/compression_validation_source.json \
+  --out /tmp/compression-figures
+```
+
+Each capture records exact configuration, code hash, orders, state counts,
+timings, numerical sensitivity and failures in `report.json`, plus predictions
+in `trajectories.npz`. The bundled reports contain all curves needed to render
+the paper figures. Model caps include query evaluation; setup is charged.
+Harmonic uses a full finite-horizon teacher rollout and paired-metric dynamics.
+Logarithmic is an empirical float64, numerical-rank, counter-PRNG backend;
+its fixed Euler horizon is not a continuous-flow convergence certificate.
+Neither the finite width grid nor the factor-three practical threshold proves
+the paper's asymptotic or probabilistic statements.
+
+The following sections document older figure products and the separate sphere
+capture. Their historical missing-trajectory caveat does not apply to the new
+validation runs or to `figures/trajectory.pdf`.
 
 ## Commands
 

@@ -79,17 +79,57 @@ The checked combined PDF is copied to `paper/main.pdf` for convenient reading.
 The static TeX sources, bibliography and included figures suffice to compile
 the manuscript; regenerating the appendix is not a build prerequisite.
 
-## Existing illustrations
+## Empirical validation
 
-Only `figures/trajectory.pdf` and `figures/circles_deep.pdf` are included.
-The first depicts recorded common-time Legendre predictions; the second
-compares individually fitted endpoints. Captions preserve the architecture,
-orders, query count and measurement qualifications. They are illustrations,
-not evidence for Harmonic or Logarithmic compression, confidence rates,
-continuous-time supremum bounds, or practical setup speedups.
+Fresh experiments implement Harmonic and an empirical finite-program
+Logarithmic decoder in the single script `figures/capture_trajectory.py`.
+The main paper includes their state/fidelity comparisons alongside the
+earlier common-time Legendre illustration. Dimension, embedded-digits and
+negative results appear in the empirical appendix; the older fitted-endpoint
+Legendre gallery is also retained there.
 
-This revision did not rerun training. Portable source bundles, capture
-commands and renderers are documented in [scripts/README.md](scripts/README.md)
-and [FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md). Other figures, old proof
-modules, notes and trial manuscripts are preserved but are not inputs to
-the rewritten paper. They are not alternative current theorem interfaces.
+The new experiments measure maximum recorded-time unseen-input RMS against
+an actual independent dense pair. They do not establish asymptotic exponents,
+continuous-time/sphere supremum bounds, confidence rates, or a setup speedup.
+Harmonic setup uses a full offline dense rollout. The empirical Logarithmic
+backend uses float64 and an ordinary counter PRNG, not the certified finite-bit
+backend. Source construction and query workspace are accounted for separately.
+Matched small networks sometimes do better, including on the digits task.
+
+`figures/compression_validation_source.json` preserves every pilot,
+confirmation, failure, configuration, source hash, timing and plotted curve
+available at export. The three `compression_*.pdf` figures can be regenerated
+from this bundle without the raw runs. Commands are in
+[scripts/README.md](scripts/README.md); the protocol and outcome accounting are
+in [the empirical study](../studies/compression_empirical_validation_20261007/README.md).
+[FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) retains the historical figure record.
+Other figures, old proof modules, notes and trial manuscripts are preserved
+but are not alternative current theorem interfaces.
+
+### Unified width-scaling suite
+
+The same executable now provides a self-contained two-layer tanh Legendre
+closure, geometric Harmonic setup in dimensions2/3, and the latest rank-safe
+finite-panel Logarithmic optimizer. The unified suite compares their Euler
+trajectories with learned-state-matched small dense and two-block low-rank
+models, plus the exact initial-NTK Euler control. Fixed matrices are charged
+separately; the NTK control deliberately uses a smaller state. There is no PCA.
+
+```bash
+python paper/figures/capture_trajectory.py unified-check
+python paper/figures/capture_trajectory.py compression-sweep --protocol unified \
+  --plan studies/unified_compression_empirics_20261008/plan.json \
+  --devices cuda:0 cuda:1 --case-seconds 900 --out /path/to/fresh/runs
+python paper/figures/capture_trajectory.py unified-plot \
+  --root /path/to/fresh/runs --out /path/to/figures
+```
+
+The [fixed protocol and outcome record](../studies/unified_compression_empirics_20261008/README.md)
+separate two engineering pilots from twelve width-comparison cases. Eight
+training inputs and thirty test inputs are used throughout. Harmonic uses
+independent sphere nodes; finite-panel Logarithmic setup sees the test inputs,
+never their labels. Both practical source builders use full-horizon offline
+dense rollouts. These experiments do **not** validate initialization-only
+setup, arbitrary unseen-input decoding by the finite-panel method, asymptotic
+exponents, or a uniform-in-time/input theorem. Results are not automatically
+inserted into the manuscript.

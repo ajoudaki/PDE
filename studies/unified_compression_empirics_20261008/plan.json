@@ -1,0 +1,14 @@
+[
+  {"name": "sphere2_n1024", "args": ["--dataset", "sphere2", "--width", "1024"]},
+  {"name": "sphere3_n1024", "args": ["--dataset", "sphere3", "--width", "1024"]},
+  {"name": "sphere2_n2048", "args": ["--dataset", "sphere2", "--width", "2048"]},
+  {"name": "sphere3_n2048", "args": ["--dataset", "sphere3", "--width", "2048"]},
+  {"name": "sphere2_n4096", "args": ["--dataset", "sphere2", "--width", "4096"]},
+  {"name": "sphere3_n4096", "args": ["--dataset", "sphere3", "--width", "4096"]},
+  {"name": "sphere10_n1024", "args": ["--dataset", "sphere10", "--width", "1024"]},
+  {"name": "digits17_n1024", "args": ["--dataset", "digits17", "--width", "1024"]},
+  {"name": "sphere10_n2048", "args": ["--dataset", "sphere10", "--width", "2048"]},
+  {"name": "digits17_n2048", "args": ["--dataset", "digits17", "--width", "2048"]},
+  {"name": "sphere10_n4096", "args": ["--dataset", "sphere10", "--width", "4096"]},
+  {"name": "digits17_n4096", "args": ["--dataset", "digits17", "--width", "4096"]}
+]

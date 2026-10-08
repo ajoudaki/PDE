@@ -1,0 +1,4 @@
+[
+  {"name": "sphere2_n512", "args": ["--dataset", "sphere2", "--width", "512"]},
+  {"name": "digits17_n512", "args": ["--dataset", "digits17", "--width", "512"]}
+]
