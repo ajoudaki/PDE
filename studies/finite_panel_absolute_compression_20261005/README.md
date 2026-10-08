@@ -254,3 +254,128 @@ generated namespace. It has 639,844 moving and 1,769,472 fixed coordinates,
 2,409,316 total; the matched ordinary network has width 1,520 and
 2,409,200 weights. The common 357-input panel plus training labels adds
 22,948 real coordinates to either model.
+
+### Final empirical result: unfavorable at these fixed orders
+
+The finished comparison used float64 Euler step 0.0125 through common physical
+time 79 (6,320 updates per model), with all 257 validation images. Values
+below are prediction differences against the same width-4,096 seed-201 dense
+reference, not classification accuracy. The reference's final training MSE
+was 0.005006330720. The time-average column integrates the validation-RMS
+curve by the trapezoidal rule over the 159 saved times 0, 0.5, ..., 79.
+
+| Model | Deployable coordinates | Final training MSE | Final validation RMS | Time-average validation RMS |
+|---|---:|---:|---:|---:|
+| Independent dense, width 4,096 | 17,043,456 | 0.005293986552 | 0.008108730967 | 0.009213783518 |
+| Fixed-panel model, widths 768/768 | 2,409,316 | 0.000298388258 | 0.063598161146 | 0.066259545238 |
+| Matched ordinary dense, width 1,520 | 2,409,200 | 0.004842170325 | 0.009837093148 | 0.011393522391 |
+
+The panel model's endpoint discrepancy is 6.465 times the matched small
+network's and 7.843 times the independent dense discrepancy. It fits the
+training labels, but that does not make it a faithful approximation of the
+dense predictions. These empirical orders/selection do not deliver the
+desired comparison on this split and seed. No orders, seed or digit pair
+were changed after observing validation scores.
+
+The extra precommitted step refinement was used. Comparing steps 0.025 and
+0.0125, endpoint prediction differences were 5.79e-5 for the reference,
+5.85e-5 for the iid dense run, 1.12e-4 for the panel model, and 5.76e-5 for
+the matched small model. Summing both sides of each comparison keeps the
+endpoint diagnostic below 1.70e-4, comfortably below the descriptive
+10-percent endpoint threshold 8.11e-4. Endpoint RMS is therefore stable in
+these measured refinements; this is not a rigorous solver-error bound.
+
+The **original stricter maximum-over-saved-times gate remains failed**:
+the corresponding per-model maximum step changes are 0.001577, 0.001616,
+0.003159 and 0.001536. It has not been replaced by an endpoint gate.
+Accordingly the preregistered full-trajectory numerical-validity outcome
+is inconclusive, while the displayed endpoint comparison is unfavorable
+and numerically stable. The added endpoint diagnostics are explicitly
+secondary reporting, not a post-hoc change to the original gate. No further
+refinement or hyperparameter search was run after the allowed branch.
+
+This is not a counterexample to the finite-panel theorem: the global
+continued source compiler and its BSS selector were not implemented. These
+are practical order-two/rank-eight sources, with label RMS one and measured
+metric factors above four. Moreover the raw training-input matrix has rank
+50 in the 64-dimensional pixel space, so the theorem's full input-span
+condition is not met either. No PCA or other projection was inserted to
+change the requested raw-image experiment. The exact corrected autonomous
+runtime was implemented, but its theoretical dense-comparison certificate
+is not invoked. One digit pair and one seed comparison cannot establish
+or disprove an asymptotic compression rate.
+
+### Costs, evidence and reproduction
+
+Both RTX 3090 GPUs were used. The original panel compilation took 2.355
+seconds and reached 487.80 MiB allocated CUDA memory, including the temporary
+dense source, with zero dense training updates. At step 0.0125 the measured
+whole-run times (training, loss checks and sparse validation together) were
+181.25 seconds for the dense reference, 178.71 seconds for its iid copy,
+45.91 seconds for the panel runtime, and 25.91 seconds for the matched small
+network. Their peak allocated CUDA memory was 468.24, 468.24, 63.91 and
+94.09 MiB respectively. These are per-process allocation peaks, not physical
+device-wide memory or minimal workspace estimates; they include benchmark
+restart copies. Checkpoint-loading time in the individual panel run report
+is not the original compilation time. The summary field `training_seconds`
+contains this whole-run wall time; the underlying run report separately
+records training, loss-check, query and readout-refresh times.
+
+There were 13 training runs, one setup, and two tiny deterministic check
+invocations, all within the recorded budgets. The initial pilot and coarser
+results remain preserved, not overwritten. Final raw trajectories and run
+reports are the four `digits38_*_h00125_T79_v1/` directories; the complete
+computed comparison is
+`data/generated/finite_panel_absolute_compression_20261005/digits38_summary_final_v2/report.json`.
+The intermediate comparison remains in `digits38_summary_v1/`. Every run
+report retains its exact command, source hash, model/input initialization
+hashes, precision, seeds, versions, stopping reason and actual horizon.
+Run hashes differ because metadata and summary auditing were improved;
+the compiler and nonlinear RHS were unchanged throughout the experiments.
+The independent `finite_panel_code_check` agent recomputed both intermediate
+and final comparisons from raw NPZ to 1e-14 and verified the checkpoint
+inventory. It confirmed all four final 6,320-step runs, unchanged input and
+initial-state hashes, the common step/time, all MSE values below 0.01, and
+the separate endpoint-pass/strict-trajectory-fail numerical diagnostics.
+No additional dataset run was performed by the checker.
+
+Final summary SHA256:
+`1064e1377dfd8c9cc1a587b55adcca594b246f2f81aa25e08b6f51e6bbf6b96b`.
+Compiled checkpoint SHA256:
+`4e25ff7e6445bf614bfc7c4badb586f5d60436461575fdb54f5d49f68f1d16a1`.
+Final raw NPZ hashes, independently verified:
+
+| Run | SHA256 |
+|---|---|
+| Dense reference | `f1b24cde49d0ba3a2e72e6f1c235a54517a9eab7828479f60fbc1b7208c5d133` |
+| Independent dense | `b5eaee54c904d89cd2439401df214d0a2a4cc9633183c46ddbfdfea0b9849e2c` |
+| Panel | `3f9fe548cd34026cdec1554d782c5e3d5b9186910311900b533f86a308b64dc0` |
+| Matched small | `9b0c4acd0c7b4c566a530630ffa5cd8e83f2007b8e98dc5db8d3573c1222d859` |
+
+The final summary-reporting source hash is
+`8af7741b9bd7dad1e2b803f0d6591f602cc2193c5d7d2375364a0e7c2fdbdcb1`.
+It differs from the earlier checked implementation only by the secondary
+endpoint refinement fields and compact summary stdout. The original strict
+numerical gate and all model/solver equations remain unchanged.
+
+Environment: Python 3.10.12, PyTorch 2.6.0+cu124, NumPy 1.26.4,
+scikit-learn 1.6.1; one CPU thread per process, TF32 disabled, float64 state.
+Executable used: `/home/amir/Codes/sber-swap/.venv/bin/python`.
+No new dependencies were installed. The dataset is sklearn's bundled digits.
+
+To reproduce in a fresh output root, run `panel-fit --model panel
+--setup-only --width 4096 --budget 768 --source-rank 8 --seed 201` first,
+with a new `--out` path and an available `--device`. It writes
+`compiled_model.pt`. Run `panel-fit` for each of the two dense seeds 201/202,
+panel seed 201, and small seed 203, using `--horizon 79` and each of
+`--step 0.025` and `--step 0.0125`; panel and small require `--checkpoint`
+pointing to that same compiled file. All commands use the default digits
+3/8, split seed 47 and raw preprocessing. Each run needs its own new `--out`.
+Then call `panel-summary` with `--dense`, `--iid`, `--panel`, `--small`
+pointing to the step-0.0125 directories and the corresponding `--*-coarse`
+arguments pointing to step 0.025. The summary rejects incompatible inputs,
+times, initialization, model identities, precision or storage budgets.
+The preserved reports contain the exact executed versions of these commands.
+
+This empirical continuation changes no theorem, proof, or paper claim.
+The bounded test campaign is complete; no additional experiment is implied.

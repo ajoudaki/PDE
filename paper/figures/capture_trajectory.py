@@ -2993,6 +2993,9 @@ def finite_panel_summary_main(argv):
     for name in ('iid', 'panel', 'small'):
         rows[name]['numerical_gate_passed'] = (
             refinements[name]['max_time_rms']+refinements['dense']['max_time_rms'] < gate)
+        rows[name]['endpoint_refinement_sum'] = (
+            refinements[name]['endpoint_rms']+refinements['dense']['endpoint_rms'])
+        rows[name]['endpoint_numerically_resolved'] = rows[name]['endpoint_refinement_sum'] < gate
     if rows['small']['total_model_words'] > rows['panel']['total_model_words']:
         raise ValueError('Small dense control exceeds the declared matching budget')
     args.out.mkdir(parents=True, exist_ok=False)
@@ -3002,6 +3005,8 @@ def finite_panel_summary_main(argv):
         all_fitted=all(row['training_mse'] < .01 for row in rows.values()),
         numerical_gate_absolute=gate,
         all_numerically_resolved=all(rows[name]['numerical_gate_passed'] for name in ('iid', 'panel', 'small')),
+        endpoints_numerically_resolved=all(
+            rows[name]['endpoint_numerically_resolved'] for name in ('iid', 'panel', 'small')),
         panel_better_than_matched_small=rows['panel']['comparison']['endpoint_rms'] <
                                        rows['small']['comparison']['endpoint_rms'],
         setup=reports['panel']['setup'],
@@ -3011,8 +3016,14 @@ def finite_panel_summary_main(argv):
     save_json(args.out/'report.json', result)
     np.savez_compressed(args.out/'predictions.npz', times=reference_arrays['times'], **arrays)
     print(json.dumps({k: v for k, v in result.items() if k not in ('setup', 'rows')}), flush=True)
-    print(json.dumps({name: {k: row[k] for k in ('total_model_words', 'training_mse', 'comparison',
-                                                'step_halving')} for name, row in rows.items()}), flush=True)
+    print(json.dumps({name: dict(total_model_words=row['total_model_words'],
+        training_mse=row['training_mse'],
+        endpoint_rms=row['comparison']['endpoint_rms'],
+        time_average_validation_rms=row['comparison']['time_average_validation_rms'],
+        sampled_max_time_rms=row['comparison']['max_time_rms'],
+        step_halving_endpoint=row['step_halving']['endpoint_rms'],
+        step_halving_sampled_max=row['step_halving']['max_time_rms'])
+        for name, row in rows.items()}), flush=True)
 
 
 def finite_panel_fit_main(argv):
