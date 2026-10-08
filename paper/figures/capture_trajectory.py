@@ -214,13 +214,15 @@ class DeepHarmonic(DeepDense):
 
     Source columns are pre-truncated h/delta lists. Only their immediate
     initialized forward/reverse images are added; no recursive image closure.
-    Construction uses float64, four coordinate candidates, and condition cap 16.
+    Construction uses float64, four coordinate candidates by default, and condition cap 16.
     Sources and the dense model are discarded; all retained metrics are counted.
     """
 
     @torch.no_grad()
     def __init__(self, dense, inputs, labels, source_coefficients, budget, selection_seed=501,
-                 readout_floor=None):
+                 readout_floor=None, selection_trials=4):
+        if not isinstance(selection_trials, int) or isinstance(selection_trials, bool) or selection_trials < 1:
+            raise ValueError('Coordinate-selection trials must be a positive integer')
         self.depth, self.activation = dense.depth, dense.activation
         runtime_dtype = dense.initial_state[0].dtype
         original = [value.to(dtype=torch.float64) for value in dense.initial_state]
@@ -273,9 +275,10 @@ class DeepHarmonic(DeepDense):
                         torch.cat(mandatory, 1), torch.cat(optional, 1), max(1, budget//4))
                     truncation.update(truncated=True, retained_rank=basis.shape[1],
                                       normalized_source_relative_error=omitted)
-                selection = _panel_coordinate_metric(basis, budget, selection_seed+layer, trials=4)
+                selection = _panel_coordinate_metric(basis, budget, selection_seed+layer, trials=selection_trials)
                 if selection[-1]['embedding_max'] > 16:
-                    raise ArithmeticError(f'DeepHarmonic layer {layer+1} source condition exceeds 16')
+                    raise ArithmeticError(f'DeepHarmonic layer {layer+1} source condition '
+                        f'{selection[-1]["embedding_max"]:.9g} exceeds 16 after {selection_trials} candidates')
                 bases.append(basis)
                 selected.append(basis[selection[0]])
                 selections.append(selection)
@@ -1486,8 +1489,8 @@ def _panel_coordinate_metric(source_basis, budget, seed, trials=1):
     if not rank <= budget <= n:
         raise ValueError(f'Panel coordinate budget {budget} cannot embed rank {rank} in width {n}')
     generator = torch.Generator(device=source_basis.device).manual_seed(seed)
-    best = None
-    for _ in range(trials):
+    best, first_four_best = None, None
+    for trial in range(trials):
         candidate = torch.randperm(n, generator=generator, device=source_basis.device)[:budget]
         selected = source_basis[candidate]
         gram = selected.T @ selected / budget
@@ -1495,6 +1498,8 @@ def _panel_coordinate_metric(source_basis, budget, seed, trials=1):
         condition = float(values[-1]/values[0]) if float(values[0]) > 0 else math.inf
         if best is None or condition < best[0]:
             best = condition, candidate, values
+        if trial == min(4, trials)-1:
+            first_four_best = best[0]
     _, indices, eigenvalues = best
     selected = source_basis[indices]
     identity = torch.eye(rank, dtype=selected.dtype, device=selected.device)
@@ -1512,6 +1517,7 @@ def _panel_coordinate_metric(source_basis, budget, seed, trials=1):
     metric, metric_inverse = (metric+metric.T)/2, (metric_inverse+metric_inverse.T)/2
     diagnostics = dict(source_rank=rank, selected_width=budget, selector='uniform_exact_isometry',
         seed=seed, selection_trials=trials, embedding_min=1.,
+        first_four_best_condition=(float(first_four_best) if math.isfinite(first_four_best) else None),
         embedding_max=float(eigenvalues[-1]/eigenvalues[0]),
         bss_factor_four_satisfied=bool(eigenvalues[-1] <= 4*eigenvalues[0]),
         source_isometry_error=float((selected.T@metric@selected-identity).abs().max()),
@@ -5378,9 +5384,12 @@ def cubic_budget_main(argv):
     parser.add_argument('--devices', nargs=2, default=['cuda:0', 'cuda:1'])
     parser.add_argument('--partition', choices=('old', 'new'), default='old')
     parser.add_argument('--factors', type=int, nargs='+', choices=(2, 4), default=[2, 4])
+    parser.add_argument('--selection-trials', type=int, default=4)
     args = parser.parse_args(argv)
     if len(args.factors) != len(set(args.factors)):
         parser.error('Storage factors must be distinct')
+    if args.selection_trials < 1:
+        parser.error('Need a positive coordinate-selection trial count')
     args.out.mkdir(parents=True, exist_ok=False)
     torch.set_num_threads(1)
     torch.set_default_dtype(torch.float64)
@@ -5397,6 +5406,7 @@ def cubic_budget_main(argv):
         reference_report_sha256=sha((args.reference/'report.json').read_bytes()),
         python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
         scope=baseline['scope'], source_partition=args.partition, requested_factors=args.factors,
+        selection_trials=args.selection_trials,
         complete=False, models={}, runs={}, errors={},
         numerical_qualification='same previously refined Euler step; no new-budget refinement runs',
         source_rank_qualification='nested ranks19/29 from one rank37 SVD; not nested with original rank20 SVD')
@@ -5417,7 +5427,8 @@ def cubic_budget_main(argv):
                 continue
             t0 = time.monotonic()
             model = DeepHarmonic(dense, inputs, labels, sources[args.partition][rank], width,
-                                 selection_seed=501, readout_floor=baseline['readout_floor'])
+                                 selection_seed=501, readout_floor=baseline['readout_floor'],
+                                 selection_trials=args.selection_trials)
             assert model.diagnostics['widths'] == [width, width]
             assert not any(v['truncated'] for v in model.diagnostics['source_truncations'])
             assert all(v.shape[1] == rank for family in sources[args.partition][rank].values() for v in family)

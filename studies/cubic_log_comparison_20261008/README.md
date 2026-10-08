@@ -427,3 +427,59 @@ records setup errors; it does not change source or training mathematics.
 `72190af86f0cf6b258c5c87a6e360215a325324ca8ad39d0bb0fdcd161803c2e`.
 Environment/precision match the old-budget follow-up. The continuation is
 closed with one measured endpoint result and one setup failure.
+
+## Authorized retry: more coordinate samples for new4x
+
+The user explicitly requested retrying the new method with more random
+coordinate samples. Retry only the previously rejected width424/rank29
+configuration with64 candidates per layer instead of4. Retained storage stays
+720,385 scalars; source construction, rank37 SVD, model/selection seeds,
+conditioning cap16, data, reference and Euler settings remain unchanged.
+The64-candidate sequence extends the original first4 with the same generator.
+Select solely by source-Gram conditioning, never by test prediction error.
+Record both the best condition among the first4 and the final best condition.
+
+One source/setup attempt and at most one fine Euler fit; setup and fit each
+capped120s, total240s. If no valid selection is found, stop without further
+trials or a relaxed guard. Primary metric is endpoint test RMS against the
+same saved dense reference and old4x result0.00395727; retain the original
+finite-step/no-new-refinement qualification. No other budget or seed is run.
+
+```sh
+timeout 240 /home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py cubic-budget --partition new --factors 4 --selection-trials 64 --reference data/generated/cubic_log_comparison_20261008/paired_run/sphere2_seed601 --out data/generated/cubic_log_comparison_20261008/circle_new_4_trials64 --devices cuda:0 cuda:1
+```
+
+Status: one authorized retry completed successfully. Earlier failed artifacts
+are retained. The first layer's best condition among the original4 candidates
+was16.0636139, barely above16; among64 it was12.0339674. The second layer
+remained10.2295242. Thus the same conditioning guard passed at unchanged storage.
+The candidate was chosen before training solely by conditioning, not test RMS.
+
+The new4x endpoint RMS is0.0109307133, versus old4x0.0039572688, new2x0.0132640852
+and dense-pair endpoint0.0055236243. The new4x result is therefore1.979times the
+measured dense-pair endpoint discrepancy,17.6% lower than new2x, but2.762times
+old4x. Worst-recorded-time RMS is0.0135652838. Final training MSE is0.00236210;
+the readout floor is inactive at all recorded times. Its modest reduction from
+new2x does not meet the earlier20% descriptive substantial-improvement threshold.
+
+No source rank, width, retained count, seed, cap or Euler step changed. Source
+selection effort differs: this new4x uses64 candidates, while old4x used4.
+Do not interpret it as a matched-selector-effort comparison or infer that
+improved conditioning monotonically improves prediction accuracy.
+
+One fit completed in62.21s; setup8.62s; total70.99s. Independently reconstructed
+endpoint RMS and identical65-time/38-point grids passed, arrays are finite,
+and total retained storage is720,385 scalars. The tiny pre-run synthetic
+selector check also confirmed exact first-four candidate preservation and
+nonincreasing best conditioning. No fresh step-refinement run was added.
+The command exited0. Source SHA256:
+`b83f70ef30a9243c18e4e705e86f41ee4cccdece3d82e403c160086eea9b809e`.
+`circle_new_4_trials64/trajectories.npz` SHA256:
+`54070c7be1915403834a92ae4a953c049ec181a3edfc2e1a9040dd86c2a42114`.
+Environment/precision are unchanged from the preceding budget runs.
+
+This resolves the practical setup rejection at this budget with the explicitly
+authorized larger sampling effort. It supersedes the absence of a measured
+new4x result, not the historical fact that the original4-candidate setup failed.
+It does not establish superiority over old4x or a new theorem. The retry is
+closed; no additional runs or selector searches were made.
