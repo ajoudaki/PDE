@@ -5108,7 +5108,7 @@ def unified_plot_main(argv):
 
     def ratio_axis(axis):
         # A short linear interval retains exact zeros; larger ratios are logarithmic.
-        axis.set_yscale('symlog', linthresh=.1, linscale=.3)
+        axis.set_yscale('symlog', linthresh=1e-4, linscale=.3)
         axis.axhline(1, color='#72777D', lw=.8, zorder=0)
         axis.axhline(3, color='#72777D', lw=.8, ls=':', zorder=0)
         axis.grid(axis='y', alpha=.16)
@@ -5236,6 +5236,8 @@ def unified_plot_main(argv):
                           color=color, ls=style, lw=1.7, marker='o', ms=3.5)
         axis.set_xscale('log', base=2)
         axis.set_yscale('log')
+        if not any(np.any(np.asarray(line.get_ydata()) > 0) for line in axis.lines):
+            axis.set_ylim(1, 10)
         axis.set_xticks(widths, [str(width) for width in widths])
         axis.grid(axis='y', alpha=.16)
         axis.set_title(label, loc='left')
@@ -5245,7 +5247,8 @@ def unified_plot_main(argv):
                   loc='upper center', ncol=4, frameon=False, bbox_to_anchor=(.5, 1.005))
     figure.text(.5, .025, 'Solid: total retained model; dashed: moving state. '
                  'Fixed matrices and metrics are counted.\n'
-                 'Common data, disposable source construction, and integrator workspace are excluded.',
+                 'Common data, source construction, and workspace are excluded. '
+                 'Harmonic/Logarithmic storage curves overlap in d=2,3.',
                  ha='center', va='bottom', fontsize=8)
     figure.subplots_adjust(top=.91, bottom=.15, hspace=.42, wspace=.30)
     save(figure, 'unified_state_storage')
