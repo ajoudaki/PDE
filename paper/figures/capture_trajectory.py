@@ -496,7 +496,7 @@ def _harmonic_bss_metric(source_basis):
     return indices, metric, metric_inverse, diagonal, diagnostics
 
 
-def _panel_coordinate_metric(source_basis, budget, seed):
+def _panel_coordinate_metric(source_basis, budget, seed, trials=1):
     """Uniform coordinate selection with exact source isometry, not BSS.
 
     The diagonal-comparison factor is measured, not asserted to be four.
@@ -507,11 +507,18 @@ def _panel_coordinate_metric(source_basis, budget, seed):
     if not rank <= budget <= n:
         raise ValueError(f'Panel coordinate budget {budget} cannot embed rank {rank} in width {n}')
     generator = torch.Generator(device=source_basis.device).manual_seed(seed)
-    indices = torch.randperm(n, generator=generator, device=source_basis.device)[:budget]
+    best = None
+    for _ in range(trials):
+        candidate = torch.randperm(n, generator=generator, device=source_basis.device)[:budget]
+        selected = source_basis[candidate]
+        gram = selected.T @ selected / budget
+        values = torch.linalg.eigvalsh((gram+gram.T)/2)
+        condition = float(values[-1]/values[0]) if float(values[0]) > 0 else math.inf
+        if best is None or condition < best[0]:
+            best = condition, candidate, values
+    _, indices, eigenvalues = best
     selected = source_basis[indices]
     identity = torch.eye(rank, dtype=selected.dtype, device=selected.device)
-    gram = selected.T @ selected / budget
-    eigenvalues = torch.linalg.eigvalsh((gram+gram.T)/2)
     if float(eigenvalues[0]) <= 0 or float(eigenvalues[-1]/eigenvalues[0]) > 1e6:
         raise ArithmeticError('Panel coordinate restriction is singular or too ill-conditioned')
     # Rescale D so that I <= V^T D V <= kappa I. Consequently D/kappa <= M <= D.
@@ -525,7 +532,8 @@ def _panel_coordinate_metric(source_basis, budget, seed):
     metric_inverse = torch.diag(diagonal.reciprocal())+selected@(identity-inverse)@selected.T
     metric, metric_inverse = (metric+metric.T)/2, (metric_inverse+metric_inverse.T)/2
     diagnostics = dict(source_rank=rank, selected_width=budget, selector='uniform_exact_isometry',
-        seed=seed, embedding_min=1., embedding_max=float(eigenvalues[-1]/eigenvalues[0]),
+        seed=seed, selection_trials=trials, embedding_min=1.,
+        embedding_max=float(eigenvalues[-1]/eigenvalues[0]),
         bss_factor_four_satisfied=bool(eigenvalues[-1] <= 4*eigenvalues[0]),
         source_isometry_error=float((selected.T@metric@selected-identity).abs().max()),
         metric_inverse_error=float((metric@metric_inverse-torch.eye(budget,
@@ -558,7 +566,7 @@ class Harmonic:
             raise ValueError('Harmonic budget must permit a full-rank training feature Gram')
         if source_rank is not None and source_rank < 0:
             raise ValueError('source_rank must be nonnegative or None')
-        if selector not in ('bss', 'panel-uniform'):
+        if selector not in ('bss', 'panel-uniform', 'panel-conditioned'):
             raise ValueError('Unknown coordinate selector')
         h10, h20, _ = dense_fields(dense.initial_state, inputs)
         if budget >= n:
@@ -582,7 +590,7 @@ class Harmonic:
                 error = coefficient-left[:, :count]@(singular[:count, None]*right[:count])
                 truncation[name] = dict(numerical_rank=numerical_rank, retained_rank=count,
                     relative_frobenius_error=float(error.norm()/coefficient.norm().clamp_min(1e-30)),
-                    max_coefficient_error=float(error.abs().max()))
+                    max_coefficient_error=float(error.abs().max()) if error.numel() else 0.)
             constant = torch.ones(n, 1, dtype=a0.dtype, device=a0.device)
             mandatory1 = torch.cat((constant, a0, h10), dim=1)
             mandatory2 = torch.cat((constant, h20, matrix0@h10), dim=1)
@@ -594,8 +602,12 @@ class Harmonic:
                 selection1 = _harmonic_bss_metric(basis1)
                 selection2 = _harmonic_bss_metric(basis2)
             else:
-                selection1 = _panel_coordinate_metric(basis1, budget, selection_seed)
-                selection2 = _panel_coordinate_metric(basis2, budget, selection_seed+1)
+                trials = 4 if selector == 'panel-conditioned' else 1
+                selection1 = _panel_coordinate_metric(basis1, budget, selection_seed, trials)
+                selection2 = _panel_coordinate_metric(basis2, budget, selection_seed+1, trials)
+                if selector == 'panel-conditioned' and max(
+                        selection1[-1]['embedding_max'], selection2[-1]['embedding_max']) > 16:
+                    raise ArithmeticError('Panel source embedding exceeds empirical condition gate 16')
             i1, metric1, inverse1, diagonal1, diagnostic1 = selection1
             i2, metric2, inverse2, diagonal2, diagnostic2 = selection2
             if max(len(i1), len(i2)) > budget:
@@ -2820,6 +2832,108 @@ def euler_summary_main(argv):
 
 
 @torch.no_grad()
+def finite_panel_rollout_sources(dense, inputs, labels, panel, horizon=100., step=.5,
+                                degree=4, source_rank=32, seed=501, seconds=300.):
+    """Piecewise temporal sources from a disposable, full-horizon dense solve.
+
+    Even Chebyshev nodes fit each polynomial; interlaced odd nodes only audit
+    its error. No query label enters this function. Rank truncation acts on
+    base families before their initialized images are formed by ``Harmonic``.
+    This is a measured numerical source, not the theorem's certified compiler.
+    """
+    if horizon <= 0 or step <= 0 or degree < 1 or source_rank < 1:
+        raise ValueError('Rollout horizon, step, degree and source rank must be positive')
+    started = time.monotonic()
+    boundaries = [0., min(1., horizon)]
+    while boundaries[-1] < horizon:
+        boundaries.append(min(2*boundaries[-1], horizon))
+    intervals, all_times = [], []
+    for left, right in zip(boundaries[:-1], boundaries[1:]):
+        times = left+(right-left)*(1-np.cos(np.linspace(0, np.pi, 2*degree+1)))/2
+        times[0], times[-1] = left, right
+        intervals.append(times)
+        all_times.extend(times)
+    all_times = np.asarray(sorted(set(all_times)))
+    fields = {name: [] for name in ('h1', 'h2', 'delta1', 'delta2')}
+    def observe(t, state):
+        h1, h2, _ = dense_fields(state, panel)
+        delta2 = state[1][:, None]*(1-h2[:, :len(labels)].square())
+        delta1 = (state[2].T@delta2)*(1-h1[:, :len(labels)].square())
+        for name, value in zip(fields, (h1, h2, delta1, delta2)):
+            fields[name].append(value.clone())
+    _, _, rollout = integrate(dense, inputs, labels, panel[:1], all_times,
+                              step, seconds, observer=observe)
+    fields = {name: torch.stack(values) for name, values in fields.items()}
+    h10, h20, _ = dense_fields(dense.initial_state, inputs)
+    a0, _, matrix0 = dense.initial_state
+    n = len(a0)
+    constant = torch.ones(n, 1, dtype=a0.dtype, device=a0.device)
+    mandatory = dict(h1=h10, h2=torch.cat((constant, h20, matrix0@h10), dim=1),
+                     delta1=torch.cat((constant, a0, h10), dim=1))
+    coefficients, diagnostics = {}, {}
+    for family, values in fields.items():
+        blocks, fit_max, fit_square, fit_count = [], 0., 0., 0
+        for times in intervals:
+            index = np.searchsorted(all_times, times)
+            coordinate = 2*(times-times[0])/(times[-1]-times[0])-1
+            design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, degree),
+                                     dtype=values.dtype, device=values.device)
+            fit = values[index[::2]]
+            block = torch.einsum('kt,tnp->nkp', torch.linalg.pinv(design[::2]), fit)
+            error = torch.einsum('tk,nkp->tnp', design[1::2], block)-values[index[1::2]]
+            fit_max = max(fit_max, float(error.abs().max()))
+            fit_square += float(error.square().sum())
+            fit_count += error.numel()
+            blocks.append(block.flatten(1))
+        source = torch.cat(blocks, dim=1)
+        del blocks, block, fit, error
+        # Remove only components whose necessary initialized images are already
+        # mandatory. In particular delta2 is NOT projected against h20.
+        if family in mandatory:
+            basis, _ = _harmonic_source_basis(mandatory[family], source[:, :0])
+            basis = basis/math.sqrt(n)
+            for _ in range(2):
+                source -= basis@(basis.T@source)
+        else:
+            basis = source[:, :0]
+        rank = min(source_rank+16, *source.shape)
+        # A deterministic randomized SVD avoids a full n-by-(panel*modes) SVD.
+        devices = [a0.device.index] if a0.device.type == 'cuda' else []
+        with torch.random.fork_rng(devices=devices):
+            torch.manual_seed(seed+list(fields).index(family))
+            left, singular, _ = torch.svd_lowrank(source, q=rank, niter=2)
+        numerical_rank = int((singular > max(source.shape)*torch.finfo(source.dtype).eps*
+                              singular[0]).sum()) if len(singular) else 0
+        retained = left[:, :min(source_rank, numerical_rank)]
+        coefficients[family] = retained
+        truncation = source-retained@(retained.T@source)
+        # Audit projection of actual sampled fields, including unused fit nodes.
+        projection_max = projection_rms = 0.
+        for sample in values:
+            residual = sample-basis@(basis.T@sample)
+            residual -= retained@(retained.T@residual)
+            projection_max = max(projection_max, float(residual.abs().max()))
+            projection_rms = max(projection_rms, float(rms(residual)))
+        diagnostics[family] = dict(coefficient_columns=source.shape[1], retained_rank=retained.shape[1],
+            numerical_rank_within_randomized_subspace=numerical_rank,
+            removed_mandatory_rank=basis.shape[1], heldout_temporal_max_abs=fit_max,
+            heldout_temporal_rms=math.sqrt(fit_square/max(1, fit_count)),
+            residual_coefficient_relative_error=float(truncation.norm()/source.norm().clamp_min(1e-30)),
+            sampled_projection_max_abs=projection_max, sampled_projection_max_rms=projection_rms)
+        del source, truncation, left, singular, values
+        if time.monotonic()-started > seconds:
+            raise TimeoutError('Finite-panel rollout/source compression exceeded its setup budget')
+    synchronize(a0.device)
+    return coefficients, dict(method='piecewise_chebyshev_dense_rollout',
+        horizon=horizon, rk4_step=step, degree_per_interval=degree, boundaries=boundaries,
+        source_observation_count=len(all_times), fitted_node_rule='even indices; odd indices held out',
+        source_rank_cap=source_rank, source_checks=diagnostics, rollout=rollout,
+        seconds=time.monotonic()-started, dense_training_rhs_calls=4*rollout['steps'],
+        source_contract='full physical interval; disposable teacher; not an early-prefix extrapolation',
+        source_certificate=False, passive_labels_used=False)
+
+
+@torch.no_grad()
 def finite_panel_initial_jets(dense, inputs, labels, panel):
     """Order-two dense initialization jets, with no trajectory observations.
 
@@ -2862,17 +2976,27 @@ class FinitePanelCompression(Harmonic):
     """
 
     def __init__(self, dense, inputs, labels, queries, budget=768, source_rank=8,
-                 selection_seed=501):
+                 selection_seed=501, source_mode='jets', source_horizon=100.,
+                 source_step=.5, time_degree=4):
         panel = torch.cat((inputs, queries))
-        sources, _ = finite_panel_initial_jets(dense, inputs, labels, panel)
+        if source_mode == 'rollout':
+            sources, source_info = finite_panel_rollout_sources(dense, inputs, labels, panel,
+                source_horizon, source_step, time_degree, source_rank, selection_seed)
+        elif source_mode == 'jets':
+            sources, _ = finite_panel_initial_jets(dense, inputs, labels, panel)
+            source_info = dict(method='order_two_initial_jets', source_jet_order=2,
+                               dense_training_rhs_calls=0)
+        else:
+            raise ValueError('Unknown finite-panel source mode')
         super().__init__(dense, inputs, labels, sources, budget=budget,
-                         source_rank=source_rank, selector='panel-uniform',
+                         source_rank=None if source_mode == 'rollout' else source_rank,
+                         selector='panel-conditioned' if source_mode == 'rollout' else 'panel-uniform',
                          selection_seed=selection_seed)
-        self.diagnostics.update(branch='finite_panel_initial_jets',
+        self.diagnostics.update(branch='finite_panel_'+source_mode, source=source_info,
             training_inputs=len(inputs), passive_inputs=len(queries),
-            source_jet_order=2, dense_rollout_steps=0,
             passive_labels_used=False, passive_inputs_declared_before_initialization=True,
-            source_scope='rank-truncated order-two jets, not continued global source coefficients',
+            source_scope=('rank-truncated measured rollout coefficients' if source_mode == 'rollout'
+                          else 'rank-truncated order-two jets, not continued global source coefficients'),
             guarantee='empirical only; no log^5 accuracy certificate')
 
 
@@ -2922,10 +3046,40 @@ def finite_panel_small_checks():
                 passive_labels_used=False, full_dense_or_source_retained=False)
 
 
+def finite_panel_rollout_checks():
+    """Small deterministic source/paired-action/restart checks, without data."""
+    dense = Dense(96, 3, 811, 'cpu')
+    generator = torch.Generator().manual_seed(812)
+    panel = torch.randn(10, 3, generator=generator)
+    panel /= panel.norm(dim=1, keepdim=True)
+    inputs, queries = panel[:4], panel[4:]
+    labels = torch.tensor([.2, -.3, .4, -.1])
+    model = FinitePanelCompression(dense, inputs, labels, queries, budget=80,
+        source_rank=4, source_mode='rollout', source_horizon=1., source_step=.025, time_degree=3)
+    checks = model.runtime_checks(model.initial_state, inputs, labels)
+    errors = [model.diagnostics[name] for name in
+              ('initialized_gram_error', 'paired_forward_action_error', 'paired_reverse_action_error')]
+    errors += model.diagnostics['initialized_feature_errors']
+    if max(errors) > 1e-9:
+        raise AssertionError(('rollout initialization', errors))
+    restart = FinitePanelCompression.__new__(FinitePanelCompression)
+    for key in ('initial_state', 'metrics', 'metric_inverses'):
+        setattr(restart, key, [v.clone() for v in getattr(model, key)])
+    restart.fixed_scalars = model.fixed_scalars
+    expected, actual = model.rhs(model.initial_state, inputs, labels), restart.rhs(
+        restart.initial_state, inputs, labels)
+    restart_error = max(float((a-b).abs().max()) for a, b in zip(actual, expected))
+    if restart_error > 1e-12:
+        raise AssertionError(('rollout restart', restart_error))
+    return dict(setup_max_abs=max(errors), runtime=checks, restart_rhs_max_abs=restart_error,
+                source=model.diagnostics['source'], selection=model.diagnostics['selection'])
+
+
 def finite_panel_summary_main(argv):
     """Audit common data/time/Euler contracts and compare saved predictions."""
     parser = argparse.ArgumentParser(description='Audit a one-pair finite-panel comparison')
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--primary', choices=('endpoint', 'trajectory'), default='endpoint')
     for name in ('dense', 'iid', 'panel', 'small'):
         parser.add_argument('--'+name, type=Path, required=True)
         parser.add_argument('--'+name+'-coarse', type=Path, required=True)
@@ -2960,6 +3114,12 @@ def finite_panel_summary_main(argv):
             raise ValueError(f'{name}: incomplete or unmatched half-step comparison')
         if name == 'panel' and report.get('checkpoint_sha256') != coarse_report.get('checkpoint_sha256'):
             raise ValueError('Panel refinements use different metric/state checkpoints')
+        if name == 'panel':
+            for candidate in (report, coarse_report):
+                source = candidate['setup'].get('source', {})
+                if (source.get('method') == 'piecewise_chebyshev_dense_rollout' and
+                        candidate['run']['actual_horizon'] > source['horizon']+1e-10):
+                    raise ValueError('Panel trajectory exceeds the compiled source horizon')
         if name != 'dense' and report['run']['step'] != reports['dense']['run']['step']:
             raise ValueError('Models do not use the same final Euler step')
         if name != 'dense' and report['run']['dtype'] != reports['dense']['run']['dtype']:
@@ -2988,14 +3148,18 @@ def finite_panel_summary_main(argv):
         raise ValueError('Panel/source or iid/reference initialization contract mismatch')
     if reports['small']['matched_panel_words'] != rows['panel']['total_model_words']:
         raise ValueError('Small control was matched to a different model budget')
-    gate = .1*min(rows[name]['comparison']['endpoint_rms'] for name in ('iid', 'panel', 'small'))
+    gate = (.1*rows['iid']['comparison']['max_time_rms'] if args.primary == 'trajectory' else
+            .1*min(rows[name]['comparison']['endpoint_rms'] for name in ('iid', 'panel', 'small')))
+    endpoint_gate = .1*rows['iid']['comparison']['endpoint_rms'] if args.primary == 'trajectory' else gate
     # Sum both models' measured discretization discrepancies for every comparison.
     for name in ('iid', 'panel', 'small'):
         rows[name]['numerical_gate_passed'] = (
             refinements[name]['max_time_rms']+refinements['dense']['max_time_rms'] < gate)
         rows[name]['endpoint_refinement_sum'] = (
             refinements[name]['endpoint_rms']+refinements['dense']['endpoint_rms'])
-        rows[name]['endpoint_numerically_resolved'] = rows[name]['endpoint_refinement_sum'] < gate
+        rows[name]['endpoint_numerically_resolved'] = rows[name]['endpoint_refinement_sum'] < endpoint_gate
+        rows[name]['dense_variability_ratio'] = (rows[name]['comparison']['max_time_rms']/
+                                                rows['iid']['comparison']['max_time_rms'])
     if rows['small']['total_model_words'] > rows['panel']['total_model_words']:
         raise ValueError('Small dense control exceeds the declared matching budget')
     args.out.mkdir(parents=True, exist_ok=False)
@@ -3004,13 +3168,17 @@ def finite_panel_summary_main(argv):
         training_count=len(reference_arrays['train_labels']),
         all_fitted=all(row['training_mse'] < .01 for row in rows.values()),
         numerical_gate_absolute=gate,
+        endpoint_numerical_gate_absolute=endpoint_gate, primary=args.primary,
         all_numerically_resolved=all(rows[name]['numerical_gate_passed'] for name in ('iid', 'panel', 'small')),
         endpoints_numerically_resolved=all(
             rows[name]['endpoint_numerically_resolved'] for name in ('iid', 'panel', 'small')),
         panel_better_than_matched_small=rows['panel']['comparison']['endpoint_rms'] <
                                        rows['small']['comparison']['endpoint_rms'],
+        panel_trajectory_better_than_matched_small=rows['panel']['comparison']['max_time_rms'] <
+                                                   rows['small']['comparison']['max_time_rms'],
+        panel_trajectory_within_three_dense_pairs=rows['panel']['dense_variability_ratio'] <= 3,
         setup=reports['panel']['setup'],
-        approximation='empirical low-order jet source and non-BSS selection; not an asymptotic certificate',
+        approximation=reports['panel']['setup'].get('source_scope', 'empirical finite-panel source'),
         source_sha256=sha(Path(__file__).read_bytes()),
         metric='RMS of prediction differences over all validation images, not classification accuracy')
     save_json(args.out/'report.json', result)
@@ -3028,13 +3196,17 @@ def finite_panel_summary_main(argv):
 
 def finite_panel_fit_main(argv):
     """One fixed-panel setup or fair physical-Euler digit comparison run."""
-    parser = argparse.ArgumentParser(description='Predeclared-panel initial-jet compression')
+    parser = argparse.ArgumentParser(description='Predeclared-panel temporal-source compression')
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--device', default='cuda:0')
     parser.add_argument('--model', choices=('panel', 'dense', 'small'), default='panel')
     parser.add_argument('--width', type=int, default=4096)
     parser.add_argument('--budget', type=int, default=768)
     parser.add_argument('--source-rank', type=int, default=8)
+    parser.add_argument('--source-mode', choices=('jets', 'rollout'), default='jets')
+    parser.add_argument('--source-horizon', type=float, default=100.)
+    parser.add_argument('--source-step', type=float, default=.5)
+    parser.add_argument('--time-degree', type=int, default=4)
     parser.add_argument('--seed', type=int, default=201)
     parser.add_argument('--digits', type=int, nargs=2, default=(3, 8))
     parser.add_argument('--checkpoint', type=Path)
@@ -3063,11 +3235,14 @@ def finite_panel_fit_main(argv):
         git_head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
         python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
         threads=torch.get_num_threads(), complete=False,
-        experiment_scope='one digit pair; empirical low-order finite-panel source construction',
+        experiment_scope='one digit pair; empirical finite-panel temporal source construction',
         passive_inputs_known_at_setup=True, passive_labels_used=False)
     save_json(args.out/'report.json', report)
     if args.check_only:
-        report.update(checks=finite_panel_small_checks(), complete=True)
+        checks = finite_panel_small_checks()
+        if args.source_mode == 'rollout':
+            checks['rollout'] = finite_panel_rollout_checks()
+        report.update(checks=checks, complete=True)
         save_json(args.out/'report.json', report)
         print(json.dumps(report['checks']), flush=True)
         return
@@ -3099,13 +3274,16 @@ def finite_panel_fit_main(argv):
                 # The full panel was loaded before the Gaussian reference is initialized.
                 dense = Dense(args.width, 64, args.seed, args.device)
                 model = FinitePanelCompression(dense, inputs, labels, queries,
-                    budget=args.budget, source_rank=args.source_rank)
+                    budget=args.budget, source_rank=args.source_rank, source_mode=args.source_mode,
+                    source_horizon=args.source_horizon, source_step=args.source_step,
+                    time_degree=args.time_degree)
                 del dense
                 payload = dict(initial_state=[v.cpu() for v in model.initial_state],
                     metrics=[v.cpu() for v in model.metrics],
                     metric_inverses=[v.cpu() for v in model.metric_inverses],
                     fixed_scalars=model.fixed_scalars, diagnostics=model.diagnostics,
-                    data_sha256=data_hashes, source_width=args.width, source_seed=args.seed)
+                    data_sha256=data_hashes, source_width=args.width, source_seed=args.seed,
+                    compiler_source_sha256=report['source_sha256'], compiler_config=report['config'])
                 torch.save(payload, args.out/'compiled_model.pt')
             else:
                 if payload['source_width'] != args.width or payload['source_seed'] != args.seed:
@@ -3114,6 +3292,11 @@ def finite_panel_fit_main(argv):
                 for key in ('initial_state', 'metrics', 'metric_inverses', 'fixed_scalars', 'diagnostics'):
                     setattr(model, key, payload[key])
             report['setup'] = model.diagnostics
+            report['compiler_source_sha256'] = payload.get('compiler_source_sha256')
+            report['compiler_config'] = payload.get('compiler_config')
+            report['effective_source_config'] = dict(source=model.diagnostics.get('source'),
+                requested_budget=model.diagnostics.get('requested_budget'),
+                hidden_widths=model.diagnostics.get('widths'), selector=model.diagnostics.get('selector'))
         else:
             width = args.width
             if args.model == 'small':
@@ -3132,6 +3315,11 @@ def finite_panel_fit_main(argv):
         report['fixed_words'] = int(model.fixed_scalars)
         report['total_model_words'] = report['moving_words']+report['fixed_words']
         report['hidden_widths'] = [len(model.initial_state[0]), len(model.initial_state[1])]
+        if args.model == 'panel' and model.diagnostics.get('source', {}).get('method') == 'piecewise_chebyshev_dense_rollout':
+            source_horizon = model.diagnostics['source']['horizon']
+            report['source_horizon'] = source_horizon
+            if args.horizon is not None and args.horizon > source_horizon+1e-10:
+                raise ValueError('Requested training horizon exceeds this checkpoint source horizon')
         del payload
         if report['setup_seconds'] > 300:
             raise TimeoutError('Panel setup exceeded its 300-second budget')
@@ -3154,6 +3342,10 @@ def finite_panel_fit_main(argv):
             args.step, args.per_run_seconds, horizon=args.horizon, loss_target=args.loss_target,
             max_steps=round(args.max_horizon/args.step), observation_every=round(.5/args.step))
         report.update(run=info, complete=info['complete'])
+        if 'source_horizon' in report:
+            report['within_source_horizon'] = info['actual_horizon'] <= report['source_horizon']+1e-10
+            if not report['within_source_horizon']:
+                report['source_scope_warning'] = 'Training extrapolated beyond the compiled source interval'
         if hasattr(model, 'runtime_checks'):
             report['final_runtime_checks'] = model.runtime_checks(state, inputs, labels)
         np.savez_compressed(args.out/'trajectories.npz', predictions=predictions,

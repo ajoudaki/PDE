@@ -379,3 +379,137 @@ The preserved reports contain the exact executed versions of these commands.
 
 This empirical continuation changes no theorem, proof, or paper claim.
 The bounded test campaign is complete; no additional experiment is implied.
+
+## 2026-10-08: authorized rollout-source continuation
+
+The user explicitly authorizes replacing the inadequate low-order jet compiler
+by rollout-derived temporal sources and testing practical logarithmic scaling.
+This is a continuation of the same finite-panel implementation investigation,
+not a modification of the theorem. The lead owns this README and changes to
+the existing single executable `paper/figures/capture_trajectory.py`. Generated
+products remain in this study's namespace. No maintained book or paper claims
+are changed. Initial HEAD is `99f6930`; the shared index was empty. Unrelated
+migration changes and the untracked transparent-learning study are preserved.
+
+### Prospective experiment contract
+
+The disputed mechanism is whether responses spanning the actual nonlinear
+training interval, rather than only their second-order initial jets, support
+a genuinely compressed autonomous runtime at dense-pair prediction accuracy.
+The alternative is that source rank/selection or the corrected runtime still
+requires substantially larger state in this practical label regime. Ordinary
+small dense networks matched to **all** retained parameters and metrics, and
+an independent full-width dense reference, are the primary controls.
+
+Keep raw digits 3 versus 8, 100 training inputs, the 257 predeclared passive
+inputs, split 47, two hidden tanh layers, zero readout, canonical mobilities,
+and labels of magnitude one. No PCA, test labels, trajectory playback,
+retained dense model, frozen features, or modified physical clock. Setup may
+evolve a disposable dense reference across the relevant physical interval,
+using a higher-order solver; report its full work and do not call a full
+interval a short initial-time prefix. Actual compared training remains Euler.
+
+Pilot seed 301 is used only for source construction and numerical choices;
+confirmation seeds are 401 and 402, with iid controls offset by 10000 and
+small controls by 20000. Start at width 4096, source horizon 100, source RK4
+step at most 0.5, and piecewise Chebyshev interpolation on geometric time
+panels. Interlaced unused source observation nodes check interpolation error.
+Retain exact mandatory initialization directions and exact initialized images
+of every retained paired source. When residualizing coefficient families,
+remove only already represented directions with their required images intact.
+All source, selection, precision and runtime errors remain separately recorded.
+
+Pilot optional per-family rank caps are 32, 64 and 128; coordinate budgets
+are 1024, 1536 and 2048, in that order and only as needed for source quality,
+metric conditioning or an unsuccessful pilot comparison. A numerical selector
+must preserve source isometry, and report its actual diagonal-comparison
+factor; factor four is checked rather than inferred. Four predetermined
+uniform-coordinate candidates are compared using only embedding condition,
+with an empirical acceptance cap of 16 (not the theorem's factor four).
+Pilot comparisons are
+explicitly exploratory and never counted as confirmation. Freeze the smallest
+successful pilot pair before confirmation. Across widths use that pair times
+`(log(en)/log(e*4096))^(5/2)`, rounding upward; also report all fixed-data terms.
+This prescribes O(log(n)^5) storage but does not prove its accuracy scaling.
+Do not replace a budget failure by hidden full-width retention.
+
+The bounded width sweep is 2048, 4096, 8192, with 16384 permitted only if
+the 8192 runs finish below 150 seconds each and memory permits. Seed 401
+covers the sweep; seed 402 repeats its smallest and largest genuinely
+compressed successful widths. If the lowest width has no total-storage
+compression, report that rather than silently omitting it.
+
+The common training horizon starts at 100, with one extension to 150 only
+if a model's training MSE remains at least 0.01. Source horizon is extended
+with it. Initial Euler steps are 0.025 and 0.0125; a further 0.00625 branch
+is allowed for failed numerical validity. Float32 is permitted only after
+a float64 comparison of the same initialized models; all compared models
+use the same runtime precision. Source assembly and metric checks use float64.
+
+Primary accuracy is maximum-over-saved-times validation prediction RMS
+against the same reference; endpoint RMS and time-average RMS are secondary.
+The empirical dense-variability target is at most three times the corresponding
+independent-dense RMS, plus improvement over the total-state-matched small
+network. These are separate criteria, not a redefinition of the primary norm.
+Every compared model must fit below 0.01 MSE. For each metric separately, the
+sum of both models' step-refinement changes must be below 10 percent of the
+corresponding dense-pair discrepancy; precision changes must be below that
+same threshold. Failed gates make that metric inconclusive, not a success.
+Predictions and source checks use all declared passive inputs without their
+labels. Validation labels are only recorded for dataset provenance.
+
+One source-step halving and one temporal-degree doubling are allowed to
+resolve source numerical/temporal defects before freezing the pilot. Their
+effects are checked separately from rank and selection. If the largest
+pilot budget fails, retain the negative result and stop confirmation rather
+than inventing a new architecture. At most 8 pilot assemblies, 36 training
+runs, and 2 hours of total GPU wall time; every assembly or training operation
+is capped at 300 seconds. Use both available RTX 3090 GPUs, one run per GPU.
+Stop after the prescribed outcomes, even if no logarithmic empirical rule
+succeeds. All failures and partial runs are retained in fresh directories.
+
+Theoretical qualification remains unchanged: these practical label/data and
+finite-precision choices do not invoke the small-label theorem. A successful
+finite width grid supports a specified logarithmic budget rule; it cannot
+establish the infinite-width exponent, the whole-sphere guarantee, or a new
+all-time theorem. Fresh implementation and result checks are required before
+calling the new empirical conclusion internally checked.
+
+### Implementation checkpoint (before confirmation)
+
+`panel-fit --source-mode rollout` now constructs piecewise Chebyshev sources
+on `[0,1,2,4,8,16,32,64,100]`, using the actual dense nonlinear flow and
+training-only gradients. It fits on even Chebyshev nodes, audits interlaced
+odd nodes, residualizes only safe mandatory directions, and uses a seeded
+randomized SVD before forming exact initialized image pairs. No dense/source
+tensor survives in the autonomous deployment state. The summary's new
+`--primary trajectory` option uses the prospective trajectory-RMS criterion;
+the old endpoint-based summary remains reproducible by its default.
+
+The independent scoped audit [ROLLOUT_IMPLEMENTATION_CHECK.md](ROLLOUT_IMPLEMENTATION_CHECK.md)
+passes implementation hash
+`d505c8c8df4d176afba2dda8a0366209f9635536b1b1f6872c4cf39aee4422ab`.
+It tested heldout-value isolation, initialized two-way actions, restart at a
+noninitial state, and zero-label/null-source robustness. The lead read the
+full report. It is an internal implementation check, not a theorem audit or
+empirical-results reproduction. Fresh standard tiny checks are in
+`rollout_checks_v1/` and `rollout_checks_v2/` under the generated namespace.
+
+Pilot results remain exploratory. At reference width 4096, seed 301,
+Euler step 0.0125 through time 100, rank 32/budget 1024 gave maximum-time
+RMS 0.02017, and rank 64/budget 1024 gave 0.01823. The latter's matched
+small network gave 0.01672 and the iid dense reference gave 0.01284.
+Rank 128/budget 1536 gave 0.01014 against a matched-small value 0.01668;
+its endpoint 0.01014 was slightly worse than matched-small endpoint 0.00874.
+All fit below 0.01 MSE. These numbers have not yet passed the final solver
+refinement/precision gates or held-out-seed confirmation. They must not be
+described as a confirmed scaling result. All corresponding `rollout_pilot_*`
+directories are preserved. Dense float32 versus float64 at the identical
+initialization/step changed maximum-time predictions by 1.36e-7; the panel
+precision check remains pending at this checkpoint.
+
+The first three pilot compilations used the initial source code revision;
+their run report records the compiler hash, but their checkpoint predates the
+explicit compiler-hash payload field. Restoring them correctly reports null
+for that field rather than inventing provenance. Subsequent compilations
+carry the hash and effective configuration in both checkpoint and report.
