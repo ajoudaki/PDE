@@ -115,6 +115,40 @@ class Dense:
         return dense_fields(state, queries)[2]
 
 
+DEEP_ACTIVATIONS = ('tanh', 'atan', 'gelu', 'silu', 'softplus', 'erf')
+
+
+def _deep_activation(z, activation, with_derivative=True):
+    """Evaluate a smooth activation and, optionally, its analytic derivative.
+
+    GELU uses the exact Gaussian CDF, not its tanh approximation. Softplus
+    uses logaddexp, so its stable evaluation has no linear threshold branch.
+    """
+    if activation == 'tanh':
+        h = z.tanh()
+        gate = 1-h.square() if with_derivative else None
+    elif activation == 'atan':
+        h = z.atan()
+        gate = 1/(1+z.square()) if with_derivative else None
+    elif activation == 'gelu':
+        cdf = .5*(1+torch.erf(z/math.sqrt(2)))
+        h = z*cdf
+        gate = cdf+z*torch.exp(-.5*z.square())/math.sqrt(2*math.pi) if with_derivative else None
+    elif activation == 'silu':
+        sigmoid = z.sigmoid()
+        h = z*sigmoid
+        gate = sigmoid*(1+z*(1-sigmoid)) if with_derivative else None
+    elif activation == 'softplus':
+        h = torch.logaddexp(z, z.new_zeros(()))
+        gate = z.sigmoid() if with_derivative else None
+    elif activation == 'erf':
+        h = z.erf()
+        gate = (2/math.sqrt(math.pi))*torch.exp(-z.square()) if with_derivative else None
+    else:
+        raise ValueError(f'DeepDense activation must be one of {DEEP_ACTIVATIONS}')
+    return h, gate
+
+
 class DeepDense:
     """Fixed hidden depth L; state [A, w, B2, ..., BL], f=w^T hL/n.
 
@@ -125,8 +159,8 @@ class DeepDense:
     def __init__(self, width, dimension, depth, activation, seed, device):
         if width < 1 or dimension < 1 or depth < 1 or int(depth) != depth:
             raise ValueError('DeepDense needs positive width, dimension and integer hidden depth')
-        if activation not in ('tanh', 'atan'):
-            raise ValueError('DeepDense activation must be tanh or atan')
+        if activation not in DEEP_ACTIVATIONS:
+            raise ValueError(f'DeepDense activation must be one of {DEEP_ACTIVATIONS}')
         self.depth, self.activation = int(depth), activation
         generator = torch.Generator(device=device).manual_seed(seed)
         self.initial_state = [torch.randn(width, dimension, generator=generator, device=device,
@@ -143,9 +177,9 @@ class DeepDense:
         for layer in range(self.depth):
             if layer:
                 z = state[layer+1]@hs[-1]
-            h = z.tanh() if self.activation == 'tanh' else z.atan()
+            h, gate = _deep_activation(z, self.activation)
             hs.append(h)
-            gates.append(1-h.square() if self.activation == 'tanh' else 1/(1+z.square()))
+            gates.append(gate)
         return hs, gates
 
     def backward(self, state, hs, gates, readout=None):
@@ -301,24 +335,37 @@ class DeepHarmonic(DeepDense):
 
         def predict(queries):
             h = first@queries.T
-            h = h.tanh() if activation == 'tanh' else h.atan()
+            h = _deep_activation(h, activation, with_derivative=False)[0]
             for mixer in mixers:
                 h = mixer@h
-                h = h.tanh() if activation == 'tanh' else h.atan()
+                h = _deep_activation(h, activation, with_derivative=False)[0]
             return coefficient@h
 
         return predict
 
 
 def deep_rollout_small_checks():
-    """Tiny CPU gradient, source-pair, full-retention and restart checks."""
+    """Tiny CPU activation, gradient, source-pair, retention and restart checks."""
     dtype, device = torch.float64, torch.device('cpu')
     inputs = torch.tensor([[1., 0.], [.6, .8], [-.8, .6]], dtype=dtype)
     labels = torch.tensor([.2, -.1, .3], dtype=dtype)
     generator = torch.Generator().manual_seed(17)
+    activation_references = dict(tanh=torch.tanh, atan=torch.atan,
+        gelu=lambda z: torch.nn.functional.gelu(z, approximate='none'),
+        silu=torch.nn.functional.silu, softplus=torch.nn.functional.softplus, erf=torch.erf)
     results = []
     for depth in (2, 3):
-        for activation in ('tanh', 'atan'):
+        for activation in DEEP_ACTIVATIONS:
+            probes = torch.linspace(-12., 12., 97, dtype=dtype, requires_grad=True)
+            values, derivatives = _deep_activation(probes, activation)
+            reference = activation_references[activation](probes)
+            reference_derivative, = torch.autograd.grad(reference.sum(), probes)
+            maximum = lambda value: float(value.detach().abs().max())
+            value_error = maximum(values-reference)
+            derivative_error = maximum(derivatives-reference_derivative)
+            assert torch.equal(values, _deep_activation(probes, activation, with_derivative=False)[0])
+            tails = torch.tensor([-1000., -100., -40., 40., 100., 1000.], dtype=dtype)
+            assert all(bool(torch.isfinite(value).all()) for value in _deep_activation(tails, activation))
             dense = DeepDense(32, 2, depth, activation, 3, device)
             dense.initial_state = [value.to(dtype=dtype) for value in dense.initial_state]
             arbitrary = [(value+.03*torch.randn(value.shape, generator=generator, dtype=dtype))
@@ -326,7 +373,6 @@ def deep_rollout_small_checks():
             prediction = dense.predict(arbitrary, inputs)
             gradients = torch.autograd.grad((prediction-labels).square().mean(), arbitrary)
             velocities = dense.rhs(arbitrary, inputs, labels)
-            maximum = lambda value: float(value.detach().abs().max())
             gradient_error = max(maximum(v+mobility*g) for v, mobility, g in
                                  zip(velocities, [32, 32]+[1]*(depth-1), gradients))
             full = DeepHarmonic(dense, inputs, labels, None, budget=32)
@@ -362,7 +408,8 @@ def deep_rollout_small_checks():
                 assert set(vars(compressed)) == {'depth', 'activation', 'metrics', 'metric_inverses',
                                                  'initial_state', 'fixed_scalars', 'diagnostics'}
                 json.dumps(setup, allow_nan=False)
-            errors = dict(gradient_max_abs=gradient_error, full_retention_rhs_max_abs=rhs_error,
+            errors = dict(activation_value_max_abs=value_error, activation_derivative_max_abs=derivative_error,
+                          gradient_max_abs=gradient_error, full_retention_rhs_max_abs=rhs_error,
                           full_retention_deficit_max_abs=deficit_error, source_setup_max_abs=setup_error,
                           restart_max_abs=restart_error, training_constraint_max_abs=constraint_error)
             assert max(errors.values()) < 1e-10, (depth, activation, errors)
@@ -3630,7 +3677,7 @@ def finite_panel_fit_main(argv):
 
 
 @torch.no_grad()
-def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed, seconds=180.):
+def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed, seconds=180., step=.125):
     """Measured temporal sources; scored query inputs are deliberately not an argument."""
     panel = torch.cat((inputs, calibration))
     boundaries = [0., min(1., horizon)]
@@ -3653,7 +3700,7 @@ def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed
             for layer, value in enumerate(values):
                 fields[name][layer].append(value.cpu())
     _, _, source_run = integrate(teacher, source_inputs, source_labels, source_inputs[:1],
-                                 times, .125, seconds, observer=observe)
+                                 times, step, seconds, observer=observe)
     del teacher, source_inputs, source_labels, source_panel
     h0, _ = dense.fields(dense.initial_state, inputs)
     n, device = len(dense.initial_state[1]), inputs.device
@@ -3699,7 +3746,7 @@ def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed
                 residual_coefficient_relative_error=float((source-retained@(retained.T@source)).norm()
                                                           /source.norm().clamp_min(1e-30))))
             del values, blocks, source, left, singular, error, block
-    return coefficients, dict(horizon=horizon, rk4_step=.125, chebyshev_degree=8,
+    return coefficients, dict(horizon=horizon, rk4_step=step, chebyshev_degree=8,
         observation_count=len(times), boundaries=boundaries, dense_rhs_calls=4*source_run['steps'],
         source_run_seconds=source_run['seconds'], diagnostics=checks,
         training_count=len(inputs), unlabeled_calibration_count=len(calibration),
@@ -3714,10 +3761,13 @@ def compression_probe_main(argv):
     parser.add_argument('--device', default='cuda:0')
     parser.add_argument('--width', type=int, default=8192)
     parser.add_argument('--depth', type=int, default=3)
-    parser.add_argument('--activation', choices=('tanh', 'atan'), default='tanh')
+    parser.add_argument('--activation', choices=DEEP_ACTIVATIONS, default='tanh')
     parser.add_argument('--digits', type=int, nargs=2, default=(3, 8))
     parser.add_argument('--samples', type=int, default=8)
     parser.add_argument('--calibration', type=int, default=32)
+    parser.add_argument('--budget', type=int, help='Given retained width; omit for the original logarithmic rule')
+    parser.add_argument('--source-rank', type=int, help='Given rank per source family; omit for the original rule')
+    parser.add_argument('--source-step', type=float, default=.125)
     parser.add_argument('--seed', type=int, default=601)
     parser.add_argument('--horizon', type=float, default=32.)
     parser.add_argument('--step', type=float, default=.003125)
@@ -3725,9 +3775,14 @@ def compression_probe_main(argv):
     args = parser.parse_args(argv)
     if args.depth < 2 or args.width < 1 or args.samples < 2 or args.calibration < 1:
         parser.error('Need depth>=2, positive width/calibration and at least two samples')
+    if (args.budget is not None and not args.samples <= args.budget < args.width
+            or args.source_rank is not None and args.source_rank < 1):
+        parser.error('Need samples<=budget<width and positive source rank when supplied')
     if (not math.isfinite(args.horizon) or args.horizon <= 0 or not math.isfinite(args.step)
             or args.step <= 0 or not math.isclose(.5/(2*args.step), round(.5/(2*args.step)), abs_tol=1e-9)):
         parser.error('Need a positive horizon and a step whose double divides the 0.5 observation interval')
+    if not math.isfinite(args.source_step) or args.source_step <= 0:
+        parser.error('Need a positive finite source step')
     args.out.mkdir(parents=True, exist_ok=False)
     torch.set_num_threads(1)
     torch.set_default_dtype(torch.float64)
@@ -3735,7 +3790,8 @@ def compression_probe_main(argv):
     torch.backends.cudnn.allow_tf32 = False
     device = torch.device(args.device)
     scale = (math.log(math.e*args.width)/math.log(math.e*4096))**2.5
-    budget, rank = math.ceil(320*scale), math.ceil(12*scale)
+    budget = args.budget if args.budget is not None else math.ceil(320*scale)
+    rank = args.source_rank if args.source_rank is not None else math.ceil(12*scale)
     report = dict(config={k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
         source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
         python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
@@ -3764,7 +3820,7 @@ def compression_probe_main(argv):
             torch.cuda.reset_peak_memory_stats(device)
         dense = DeepDense(args.width, 64, args.depth, args.activation, args.seed, device)
         coefficients, source = deep_rollout_sources(dense, inputs, labels, calibration,
-                                                    args.horizon, rank, args.seed)
+                                                    args.horizon, rank, args.seed, step=args.source_step)
         compact = DeepHarmonic(dense, inputs, labels, coefficients, budget=budget)
         del coefficients
         synchronize(device)

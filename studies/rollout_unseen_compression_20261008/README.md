@@ -183,3 +183,58 @@ The six original folders are `digits38_L3_tanh_n4096_v1`,
 all metrics), `trajectories.npz` (raw inputs/predictions/labeled split), and
 `compiled_model.pt` (only the deployable model tensors and activation/depth).
 The bounded batch is complete; no further sweep is authorized by this record.
+
+## Authorized follow-up: approximately thousand-fold storage and modern activations
+
+The user's next request authorizes this bounded continuation, not an open-ended
+search. Freeze five comparisons: (digits38,tanh), (38,GELU), (17,SiLU),
+(38,softplus), (17,erf). Every case uses two hidden layers, n=16384, q=256,
+source rank 6 per family, m=8, and 32 unlabeled calibration images. All other
+seeds, raw-input splitting, paired-source construction and condition cap 16
+remain unchanged. Dense storage is 269,500,416 numbers; compressed storage
+is 278,792 including fixed geometry, a 966.675-fold reduction. This budget
+is fixed before testing. No scored-image-driven order or seed search is allowed.
+
+A single training-only pilot at width 512, for each of these five cases,
+uses RK4 step .125 through time 32. Pick the common horizon as the first of
+16,24,32 at which all five pilot losses are below .001; if none succeeds,
+use 32 and retain any underfit outcome. This is numerical pilot selection,
+not independent evidence. No scored test predictions enter that choice.
+Fine Euler step is .0015625 and coarse step .003125 for the same single
+reference/compact refinement check. Iid and matched-small runs use the fine
+step. The previous .01 fitting, factor-three fidelity and 10% step-sensitivity
+gates remain unchanged. Run/source caps remain 180 seconds; one job per GPU.
+Stop after five setups and at most 30 training runs, retaining failures rather
+than relaxing geometry or numerical gates. A source failure stops that case.
+
+The new activations use exact GELU (not its tanh approximation), SiLU, smooth
+softplus without a threshold splice, and erf. Their value/derivative pairs
+are checked against autograd, and the metric optimizer's existing tiny checks
+are repeated for them. They satisfy the activation regularity assumption
+(a sufficiently narrow strip for SiLU/softplus); this does not certify the
+other theorem assumptions or this empirical source construction.
+
+H1 is that approximately thousand-fold retained storage still tracks an iid
+dense reference within the factor-three comparison and improves materially
+on the storage-matched small network, across the activation choices. H0 is
+that the previous advantage disappears at this smaller budget or outside
+tanh/arctan. Report both maximum-over-time and endpoint unseen-set RMS,
+storage, setup and training time, and the same validity gates. A passing
+finite batch supports this empirical regime, not a logarithmic accuracy
+asymptote, a success probability, or a theorem about all unseen inputs.
+
+### Training-only pilot and final frozen numerical settings
+
+Pilot losses at times 16 / 24 / 32, in the five-case order above:
+tanh .001169 / .0002670 / .00007712;
+GELU .0003981 / .00004780 / .000007584;
+SiLU .002237 / .0006974 / .0002277;
+softplus .002264 / .0003600 / .005315;
+erf .0009090 / .0003535 / .0001420.
+The frozen common horizon is therefore **24**. The softplus pilot's late loss
+increase flags coarse-source integration risk. Before any main comparison,
+reduce the RK4 source step to **.0625 for all five cases**; do not change any
+other order, Euler step, gate or case. The pilot is not counted as a fidelity
+result or source-accuracy certificate. All 12 depth/activation CPU checks
+passed, with maximum error 3.56e-15. Full-case numerical failures will still
+be recorded, not used to reopen tuning.
