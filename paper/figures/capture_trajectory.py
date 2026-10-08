@@ -3725,6 +3725,9 @@ def compression_probe_main(argv):
     args = parser.parse_args(argv)
     if args.depth < 2 or args.width < 1 or args.samples < 2 or args.calibration < 1:
         parser.error('Need depth>=2, positive width/calibration and at least two samples')
+    if (not math.isfinite(args.horizon) or args.horizon <= 0 or not math.isfinite(args.step)
+            or args.step <= 0 or not math.isclose(.5/(2*args.step), round(.5/(2*args.step)), abs_tol=1e-9)):
+        parser.error('Need a positive horizon and a step whose double divides the 0.5 observation interval')
     args.out.mkdir(parents=True, exist_ok=False)
     torch.set_num_threads(1)
     torch.set_default_dtype(torch.float64)
@@ -3802,7 +3805,7 @@ def compression_probe_main(argv):
                 print(json.dumps(dict(event='probe_start', model=name+suffix, step=step,
                                       width=args.width, depth=args.depth)), flush=True)
                 state, prediction, info = integrate_euler(model, inputs, labels, queries, step,
-                    args.per_run_seconds, horizon=args.horizon, max_steps=round(args.horizon/step),
+                    args.per_run_seconds, horizon=args.horizon, max_steps=math.ceil(args.horizon/step),
                     observation_every=round(.5/step))
                 report['runs'][name+suffix] = dict(info, total_model_words=words)
                 arrays[name+suffix] = prediction
