@@ -1,0 +1,11 @@
+{
+  "output": "data/generated/paper_appendix_pilots_20261009/feedback/conditioning",
+  "device": "cuda:0",
+  "seconds_per_fit": 120,
+  "queue_seconds": 240,
+  "cases": [
+    {"case": "architecture_silu", "width": 512, "source_rank": 37, "failed_layer": 2, "original_condition": 17.3406306},
+    {"case": "architecture_m16", "width": 512, "source_rank": 37, "failed_layer": 1, "original_condition": 21.8625708},
+    {"case": "dimension_d64", "width": 256, "source_rank": 15, "failed_layer": 1, "original_condition": 18.0980819}
+  ]
+}

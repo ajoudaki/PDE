@@ -1,0 +1,33 @@
+{
+  "input": "data/generated/paper_appendix_pilots_20261009/transfer",
+  "output": "data/generated/paper_appendix_pilots_20261009/feedback/pooled_transfer",
+  "device": "cuda:0",
+  "width": 1024,
+  "depth": 2,
+  "activation": "tanh",
+  "seed": 901,
+  "samples": 8,
+  "queries": 30,
+  "budget": 256,
+  "source_rank": 15,
+  "auxiliary_label_seeds": [4712, 4713],
+  "pooling": "concatenate three orthonormal rank-15 source blocks with equal weight, direct SVD, retain 15",
+  "selection_strategy": "uniform",
+  "selection_trials": 64,
+  "condition_limit": 16,
+  "horizon": 32,
+  "step": 0.00625,
+  "record_every": 80,
+  "rollout_step": 0.125,
+  "time_degree": 8,
+  "wall_budget_seconds": 120,
+  "pass_factor": 1,
+  "reproduction_factor": 0.1,
+  "decision": "Does fixed-rank source pooling over three non-target label tasks reduce transferred query error and satisfy both strict dense-pair criteria?",
+  "hypotheses": {
+    "H1": "Pooling broadens reusable source directions enough to lower transferred error at the fixed rank and compact width.",
+    "H0": "At the same retained rank, pooling does not improve transfer or still fails strict dense-pair fidelity."
+  },
+  "validity": "Same saved target-task reference, iid pair and observation grid; all source blocks finite orthonormal rank 15; fixed geometry survives resetting only target-label deficit; no constructor truncation; source condition at most 16; old-only rerun differs from saved old-only by at most 0.1 of dense-pair endpoint and separate maximum RMS.",
+  "stopping": "Exactly three source compiles and at most two compact target fits; no dense target reruns, new label draws, rank/width rescue, or outcome-dependent branch. Constructor/numerical failures remain inconclusive."
+}

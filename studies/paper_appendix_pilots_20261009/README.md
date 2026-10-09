@@ -1,5 +1,33 @@
 # Bounded appendix figure pilots
 
+## Current status after the feedback fixes
+
+The feedback continuation below supersedes the original pilot's presentation,
+not its saved observations. Revised figures use a strict 1x dense-pair criterion,
+show learned AND total retained storage, distinguish censored minima and failures,
+and disclose the offline full-horizon source rollout. The original 3x choice was
+user-authorized, not a hidden implementation error; 1x is the new stricter test.
+
+Panel-span reduction now permits raw MNIST and dimension784 Logarithmic pilots.
+At dense width2048, the smallest tested passing MNIST model has58,920 learned
+and180,321 fixed scalars (239,241 total), with endpoint RMS0.017086 versus
+dense-pair RMS0.021206. The local tested width crossing is192--224. On sphere3,
+the Harmonic and Logarithmic crossings are288--320 and224--256. These are
+single-seed, finite-grid comparisons, not global optimality or asymptotic rates.
+
+Three independent dense pairs per width are complete on sphere3 and raw MNIST
+at widths1024/2048/4096, using the same seed lists across widths. Compressions
+have NOT been rebuilt for all these pairs. The representative sphere3 half-step
+check passes; the16-example compact case fails its numerical gate and remains
+unresolved. The SiLU endpoint and pooled-label transfer tests do not pass1x.
+No failed result has been relabelled a success or removed.
+
+All new evidence lives in `data/generated/paper_appendix_pilots_20261009/feedback/`.
+Hand-written reproduction configs are `feedback*.json` alongside this README;
+implementation remains solely `paper/figures/capture_trajectory.py`.
+Detailed corrected results and remaining limitations are at the end of this file.
+The original protocol and results below are retained for provenance.
+
 ## Scope and design frozen before runs
 
 This is a new study of source transfer and empirical mechanism/scope tests.
@@ -239,3 +267,270 @@ The flat panel-size draft and fixed-budget-ratio draft are secondary; neither
 establishes an asymptotic rate. Equation-changing ablations are deliberately
 deferred. No paper theorem/text has been changed, no promotion is claimed,
 and no further runs are pending.
+
+## User-requested feedback fixes (new bounded continuation)
+
+The user supplied a review of the eleven drafts and authorized strategic fixes,
+prioritizing high leverage and deferring exorbitant campaigns. Preserve the
+original pilot results; new outputs are under `feedback/`. Continue this study
+as corrections/validation of the same empirical investigation. The supplied
+feedback is an input, not automatically an established conclusion.
+
+Priorities frozen before new runs: (1) strict 1x selection, learned AND total
+storage, censored budget crossings, and smallest-selected-model timewise ratios;
+(2) check factorized low-rank dynamics against autograd and distinguish them
+from fixed-right projected updates; (3) replace uniform coordinate search in
+the three conditioning failures with one deterministic selector, same budget,
+same condition cap16 and no additional source truncation; (4) panel-span first
+layer, with an exact finite-panel small-step oracle and explicit basis storage;
+(5) three independent dense pairs per width using identical reference/partner
+seed lists across widths, on sphere3 and raw MNIST if available; (6) one
+Euler half-step check for dense and compressed trajectories; (7) targeted
+budget bracketing rather than a full eight-size multi-seed campaign.
+
+Standard new fits remain L2 tanh,m8,p30,T32,h0.00625,float32,TF32off, source
+RK4h0.125/degree8 unless a case explicitly tests SiLU,m16 or refinement. Each
+fit/source retains120s cap, total new GPU work bounded to25min per device.
+Reference seeds901/902/903 and independent partner seeds1901/1902/1903 are
+fixed across widths1024/2048/4096. Report empirical means/SD; any fitted
+c/sqrt(n) curve is descriptive, not a replacement for actual dense-pair errors
+or a certificate. Existing one-seed compressions remain one-seed evidence.
+
+The panel-span implementation may only discard input directions orthogonal
+to ALL training and declared query inputs. It must count its d-by-r fixed
+projection basis and state that off-panel decoding has no equivalence guarantee.
+Never normalize projected inputs. No initialization-only source claim follows.
+The conditional new-model pilots are d784 and MNIST at n2048,width256/rank15;
+if a numerical/construction gate fails, report it rather than escalating size.
+Conditioning has at most three rebuilds and three successful-gate fits, no
+trial/width grid. Tiny deterministic solver/control checks are not training
+campaigns. More replication, larger spectra and broad joint size/seed searches
+are deliberately deferred until these basic corrections have passed.
+
+Root owns this record, dense-pair/refinement/budget probes and Git. Scoped
+helpers own revised plotting, panel projection/data loading, and selector/control
+checks in the SAME existing paper script. Shared edits preserve original defaults.
+No new theorem or paper-scope change is authorized by a successful pilot.
+
+Final bounded follow-ups, fixed before execution: extend the identical source
+spectral measurement to widths4096/8192, at most120s each and no retries. For
+MNIST, the first budget search spent its three requests on128/127/129, all
+inconclusive constructors. Correct the proposal rule to move upward across a
+constructor failure, without counting it as an accuracy failure, and allow at
+most two further candidates. Preserve all failed requests on continuation;
+only actual measured accuracy failures can establish a lower crossing bound.
+
+### Completed corrections and bounded results
+
+All reported error ratios below compare query RMS with the coupled dense run
+against an independent dense pair on the SAME task, query panel and recorded
+time grid. A pass requires both endpoint RMS and maximum-over-recorded-times
+RMS to be no larger than their respective dense-pair benchmarks. A ratio of
+maxima is not pointwise domination. The timewise figure separately displays
+the pointwise ratio, omitting time zero where both numerator and denominator
+vanish. Unless stated otherwise, results use one compression seed, not three.
+
+#### Presentation and storage
+
+`feedback/figures/figure2_storage` now shows learned and total storage separately,
+labels the dense formula, marks left-censored minima and missing passes, and
+separates overlapping markers. No exponent is fitted to the coarse pilot grid.
+`figure3_accuracy` also has both storage axes. `figure4_training` selects the
+same smallest tested passing model as Figure2, plots error/dense-pair error
+at each recorded time, and explicitly labels the nonpassing Harmonic witness.
+The strict criterion leaves Harmonic without a circle pass at widths2048/4096.
+It changes the old raw8x8-digits Logarithmic selected widths to256/384/512;
+the previous flat line is not retained as evidence of a measured minimum.
+
+These regenerated main figures still identify their original circle/8x8-digits
+tasks in their titles. Sphere3/MNIST now have new baseline replications and
+midwidth compression probes below, but the entire main-figure size sweep has
+NOT been migrated to those tasks. Existing fixed-budget ratio curves likewise
+retain their original paired runs; new denominators are not substituted into
+old compression trajectories.
+
+The saved cost-bars figure is replaced by a table separating source compilation,
+assembly, training and query timings, learned/fixed storage and leading MAC
+counts. `feedback_controls.md` defines those counts and their exclusions.
+Reported process CUDA peaks include other resident models and are not isolated
+model peaks. The panel-span implementation also retains its projection basis;
+its scalar count must not be hidden in a claim of dimension-independent total
+storage. One-off source work still consumes a complete dense trajectory.
+
+#### Panel-span implementation and correct tasks
+
+The opt-in `methods.non_oblivious.logarithmic.panel_span` uses an orthonormal
+basis of all training and declared query inputs, and projects the first-layer
+weights and inputs without renormalizing them. Dense first-layer velocities
+lie in the training-input span; consequently projection preserves the coupled
+dense dynamics on the declared panel, up to the recorded numerical rank
+tolerance. Hidden weights/readout are unchanged. This is a coordinate change,
+not PCA and not a certificate for the subsequent empirical source truncation.
+Off-span queries can be evaluated but have no equivalence guarantee.
+
+The tiny float64 oracle checks full-rank, redundant, rank-deficient and zero
+panels. Maximum state/prediction/velocity discrepancies are1.34e-15,3.56e-17,
+9.72e-17 respectively. Float32 device/restart checks also passed. Reproduce
+with the `panel-span-check` subcommand.
+
+Dimension784 and raw MNIST1-vs-7 pilots use n2048, m8, p30, compact width256,
+source rank15 and panel rank38. Both retain75,528 learned +226,401 fixed
+scalars, including the29,792-scalar784-by-38 projection. Endpoint and
+maximum-recorded ratios are0.37055 on the spherical task and0.83939 on MNIST.
+The spherical dense trajectories match the original dimension784 pair bitwise.
+MNIST uses the official training/test split, four training examples per class
+and fifteen test examples per class, raw784 coordinates and no PCA. Only test
+inputs, never test labels, enter source construction. Cache/download options
+are explicit in the common dataset config. Evidence: `feedback/panel_d784/`
+and `feedback/mnist/`; corresponding configs are `feedback_panel_d784.json`
+and `feedback_mnist.json`.
+
+The paired-baseline runs use reference seeds901/902/903 and partner seeds
+1901/1902/1903, fixed across every width. Each task finishes18 dense fits.
+Endpoint query RMS mean +/- sample SD is:
+
+| Dense width | Sphere3 | Raw MNIST1 vs7 |
+|---:|---:|---:|
+|1024|0.01791 +/-0.00783|0.03485 +/-0.00777|
+|2048|0.01063 +/-0.00394|0.02299 +/-0.00372|
+|4096|0.00835 +/-0.00468|0.01367 +/-0.00189|
+
+GPU queues took73.0s and72.5s respectively, including scoring/plotting. Any
+fitted inverse-square-root guide is explicitly descriptive. It does not replace
+measured thresholds, and these are not three independent compression trials.
+Evidence/plots: `feedback/pairs_sphere3/` and `feedback/pairs_mnist/`; reproduce
+using `feedback-dense-pairs --config feedback_pairs_<task>.json` with the full
+study-relative config path and a fresh output directory.
+
+#### Targeted budget measurements
+
+Refinement reuses hash-verified dense trajectories and reconstructs the same
+largest-rank source basis and selector seed. Intermediate ranks are fixed by
+the existing width-to-rank rule; no seed or source search is performed.
+
+| Task at n2048 | Method | Failed width | Passing width | Passing endpoint ratio | Learned | Fixed | Total |
+|---|---|---:|---:|---:|---:|---:|---:|
+|Sphere3|Harmonic|288|320|0.89339|103,688|307,200|410,888|
+|Sphere3|Logarithmic|224|256|0.92511|66,568|196,609|263,177|
+|MNIST|Logarithmic|192|224|0.80575|58,920|180,321|239,241|
+
+The brackets are11.1%,14.3%,16.7% wide. They are observed local crossings,
+not proofs of monotonicity or global minimum, and no interpolated unmeasured
+model is presented as a successful construction. Worst-recorded ratios for
+the passing rows are0.51186,0.53004,0.80575. The MNIST failed width192 ratio
+is1.49709; the previous width256 model remains a valid, slightly worse witness.
+
+The first MNIST search wasted its three requests at128/127/129 on constructor
+failures. The corrected proposal rule moves upward across a construction
+failure without converting it into an accuracy failure, preserving all past
+requests on continuation. Exactly two follow-up candidates192/224 closed the
+local bracket. Evidence is in `feedback/budget_sphere3/`, `budget_mnist/`,
+and `budget_mnist_followup/`; the corresponding JSON plans reproduce each
+bounded stage using `refine-budgets --plan <path>`.
+
+#### Numerical and baseline checks
+
+The sphere3 representative half-step repeats both dense runs, Harmonic512/r37
+and Logarithmic512/r37 at0.003125 instead of0.00625, keeping the identical65
+recorded times. Their maximum coarse/fine RMS divided by the coarse dense-pair
+maximum is respectively0.01253,0.01260,0.02806,0.02834. All pass the predeclared
+0.1 numerical gate. This is one representative test, not a continuum theorem
+or a validation of every smaller-budget/activation/sample-size run.
+Evidence: `feedback/refine_sphere3/` and the original `dimension_d3/` arrays.
+
+Pivoted-QR/log-determinant coordinate selection is opt-in, keeps the entire
+given source span, and uses the unchanged condition cap16. It fixes the
+dimension64 width256 constructor and obtains0.67862 endpoint/worst ratio.
+It also builds the16-example width512 model, but the latter's half-step change
+is3.129 times the endpoint and6.520 times the maximum dense-pair benchmark.
+Its original poor accuracy is numerically unresolved, not evidence of an
+intrinsic source-approximation obstruction. SiLU width512 still fails the
+constructor gate; one width768 follow-up builds but has endpoint ratio1.35382
+and maximum-recorded ratio0.44550. No further rescue fits were made.
+
+The low-rank implementation passes automatic differentiation and induced-metric
+checks. A fixed-right, full-rank additive oracle reproduces dense Euler to
+8.89e-16. Training BOTH factors changes the induced matrix metric, even at full
+rank, so full-rank LoRA is not required to follow dense Euler thereafter. No
+baseline equations were changed and optimal baseline tuning is not claimed.
+Detailed definitions, checks, conditioning results and their follow-up are in
+`feedback_controls.md`; tiny checks rerun through `feedback-control-check`.
+
+#### Transfer and controlled scope
+
+The pooled-source test uses the old target plus two fixed Rademacher-label
+source tasks, pooling then truncating to the SAME rank15 and compact width256.
+It retains the same storage and never uses the new target's rollout in those
+sources. Transferred endpoint/worst ratios worsen from9.963/9.575 to
+15.026/15.050; target-specific rebuilt sources remain0.802/0.771. The old-only
+comparison reproduces previous predictions bitwise. Construction conditions
+pass. This fixed-budget pool does not solve source transfer; it is not a proof
+that all pooling schemes fail. Evidence and plot: `feedback/pooled_transfer/`.
+One denied-CUDA launch before model construction is retained separately as an
+infrastructure failure, not silently treated as a scientific trial.
+
+The controlled distance test uses d10, n2048, three declared anchors and two
+fixed geodesic directions per anchor, at nine distances. Its54 new query
+inputs are excluded from all source construction. The maximal angle0.42323
+is less than half the minimum inter-panel separation, so the chosen anchor
+remains nearest. Endpoint RMS rises from0.03739 to0.05585 for width256 and
+from0.01134 to0.02886 for width512, versus dense-pair0.03986 to0.04184.
+Zero-distance approximation error is measured, not artificially subtracted.
+Plot: `feedback/scope/controlled_query_paths`.
+
+The companion d10 fixed-budget panel test uses8/30/60 declared queries, with
+separately built sources at each panel size. Endpoint ratios at width256 are
+0.6249/0.7343/0.8097, and at width512 they are0.04858/0.3779/0.4141. It displays
+accuracy at fixed budgets, not a flat bottom-of-grid minimum. The d10 target
+still depends on the first three coordinates, an explicit intrinsic-complexity
+qualification. Plot: `feedback/scope/fixed_budget_panel_size`; both scope
+figures reproduce via `feedback-scope-pilot --config feedback_scope.json`
+using the full study-relative path, or its plot-only option on saved data.
+
+#### Spectral extension
+
+The unchanged circle source-history measurement now includes dense widths4096
+and8192; these GPU workers finished in9.93s and22.86s. Full spectra are measured,
+not capped at the construction's retained rank. The minimum rank for the stated
+relative Frobenius tail of the residual top-layer feature history is:
+
+| Dense width | 1% tail | 0.1% tail | Tail tolerance0.01 sqrt(512/n) |
+|---:|---:|---:|---:|
+|512|42|104|42|
+|1024|44|111|51|
+|2048|44|115|61|
+|4096|45|117|72|
+|8192|45|117|83|
+
+Histories are sampled at common temporal holdouts after mandatory-span removal.
+The shrinking tolerance is motivated by dense fluctuation scaling but is a
+source-history relative error, NOT a direct prediction-error certificate.
+The five-width pattern is empirical and does not establish an asymptotic law.
+Coefficient spectra remain auxiliary diagnostics, not a separate headline
+figure. Evidence is in `feedback/spectral_n4096/`, `feedback/spectral_n8192/`
+and the original `spectral_history/`. Reproduce the new workers with
+`appendix-spectral --worker-width 4096 --out <fresh-output> --device cuda:0`
+(and8192), using the same paper script and Python interpreter as above.
+The updated `feedback/figures/appendix_response_history_spectra` shows all five
+widths and both fixed and shrinking-tolerance rank requirements.
+
+#### Remaining limits and final consistency check
+
+Defer the full eight-budget x three-compression-seed x all-width x two-task
+campaign: it multiplies these targeted probes into hundreds of source/fit
+jobs. In particular, a replicated asymptotic compression curve, complete
+sphere3/MNIST replacement of all main panels, finer16-example integration and
+tuned activation/baseline sweeps remain undone. No new expensive search is
+pending or implied by this record. The current empirical source compiler still
+uses a full-horizon RK4 dense rollout (step0.125); training is Euler, not setup.
+Neither cheap initialization nor initialization-jet-only implementation has
+been demonstrated by these experiments.
+
+The final root consistency check parsed all feedback configs and the single
+script, verified hashes and common65-point grids for42 completed standard
+trajectories, checked finite arrays and learned+fixed=total storage, recomputed
+every refined budget classification, and verified both three-pair datasets.
+Tiny panel-span and low-rank checks were rerun after integration and passed.
+The original data, failed constructors and mixed-step failures are preserved.
+The research workflow kept finite-grid successes distinct from numerical
+qualification failures, empirical mechanisms and theorem-level claims.

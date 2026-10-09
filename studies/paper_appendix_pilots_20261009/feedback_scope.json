@@ -1,0 +1,27 @@
+{
+  "output": "data/generated/paper_appendix_pilots_20261009/feedback/scope",
+  "panel_sizes": [8, 30, 60],
+  "path_panel_size": 30,
+  "anchor_count": 3,
+  "directions_per_anchor": 2,
+  "angle_count": 9,
+  "tangent_seed": 4711,
+  "maximum_angle": 0.5,
+  "nearest_fraction": 0.45,
+  "experiment": {
+    "dataset": {"name": "sphere", "dimension": 10, "train_samples": 8, "test_samples": 30, "seed": 47},
+    "model": {"width": 2048, "depth": 2, "activation": "tanh"},
+    "seeds": [901],
+    "training": {"solver": "euler", "step": 0.00625, "horizon": 32, "record_every": 80, "dtype": "float32"},
+    "methods": {
+      "oblivious": {"dense": {"widths": [2048]}, "legendre": {"orders": []}, "low_rank": {"ranks": []}, "frozen_features": {"enabled": false}},
+      "non_oblivious": {
+        "setup": {"selection_strategy": "uniform", "selection_trials": 64, "condition_limit": 16},
+        "harmonic": {"budgets": []},
+        "logarithmic": {"budgets": [{"width": 256, "source_rank": 15}, {"width": 512, "source_rank": 37}], "panel_span": false, "test_inputs_at_setup": true}
+      }
+    },
+    "execution": {"devices": "cuda:1", "seconds_per_fit": 120, "dense_seconds_per_fit": 120, "reuse_completed": true, "tf32": false},
+    "plots": {"aggregate": "mean", "spread": "none"}
+  }
+}

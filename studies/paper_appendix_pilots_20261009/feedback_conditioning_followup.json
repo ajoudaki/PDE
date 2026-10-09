@@ -1,0 +1,10 @@
+{
+  "cached": "data/generated/paper_appendix_pilots_20261009/feedback/conditioning",
+  "output": "data/generated/paper_appendix_pilots_20261009/feedback/conditioning_followup",
+  "device": "cuda:0",
+  "queue_seconds": 120,
+  "cases": [
+    {"case": "architecture_silu", "width": 768, "source_rank": 37, "step": 0.00625},
+    {"case": "architecture_m16", "width": 512, "source_rank": 37, "step": 0.003125, "half_step_check": true}
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "runs": ["data/generated/paper_appendix_pilots_20261009/dimension_d3"],
+  "devices": ["cuda:0"], "factor": 1, "width_tolerance": 0.2,
+  "max_new_per_family": 3,
+  "output": "data/generated/paper_appendix_pilots_20261009/feedback/budget_sphere3"
+}

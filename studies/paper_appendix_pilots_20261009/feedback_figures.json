@@ -1,0 +1,26 @@
+{
+  "tasks": [
+    {
+      "name": "circle",
+      "title": "Circle (saved pilot)",
+      "roots": [
+        "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/circle_n1024",
+        "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/circle_n2048",
+        "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/circle_n4096"
+      ],
+      "fixed_width": 4096
+    },
+    {
+      "name": "digits17",
+      "title": "8×8 digits 1 vs 7 (saved pilot)",
+      "roots": [
+        "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/digits17_n1024",
+        "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/digits17_n2048",
+        "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/digits17_n4096"
+      ],
+      "fixed_width": 4096
+    }
+  ],
+  "factor": 1,
+  "output": "/home/amir/Codes/PDE/data/generated/paper_appendix_pilots_20261009/feedback/figures"
+}

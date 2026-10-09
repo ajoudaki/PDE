@@ -1,0 +1,6 @@
+{
+  "runs": ["data/generated/paper_appendix_pilots_20261009/feedback/mnist"],
+  "devices": ["cuda:1"], "factor": 1, "width_tolerance": 0.2,
+  "max_new_per_family": 3,
+  "output": "data/generated/paper_appendix_pilots_20261009/feedback/budget_mnist"
+}

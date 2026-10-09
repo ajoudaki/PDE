@@ -1,0 +1,16 @@
+{
+  "dataset": {"name": "mnist", "dimension": 784, "train_samples": 8, "test_samples": 30, "seed": 47, "digit_pair": [1, 7], "cache": "data/generated/paper_appendix_pilots_20261009/feedback/mnist_cache", "download": true},
+  "model": {"width": 2048, "depth": 2, "activation": "tanh"},
+  "seeds": [901],
+  "training": {"solver": "euler", "step": 0.00625, "horizon": 32, "record_every": 80, "dtype": "float32"},
+  "methods": {
+    "oblivious": {"dense": {"widths": [2048]}, "legendre": {"orders": []}, "low_rank": {"ranks": []}, "frozen_features": {"enabled": false}},
+    "non_oblivious": {
+      "setup": {"selection_strategy": "uniform"},
+      "harmonic": {"budgets": []},
+      "logarithmic": {"budgets": [{"width": 256, "source_rank": 15}], "panel_span": true, "test_inputs_at_setup": true}
+    }
+  },
+  "execution": {"devices": "cuda:1", "seconds_per_fit": 120, "dense_seconds_per_fit": 120, "reuse_completed": true, "tf32": false, "output": "data/generated/paper_appendix_pilots_20261009/feedback/mnist"},
+  "plots": {"aggregate": "mean", "spread": "none"}
+}

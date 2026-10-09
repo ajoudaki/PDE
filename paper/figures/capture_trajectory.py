@@ -232,6 +232,120 @@ class DeepDense:
         return state[1]@self.fields(state, queries)[0][-1]/len(state[1])
 
 
+@torch.no_grad()
+def _panel_span_dense(dense, inputs, queries):
+    """Couple the dense model exactly on the declared panel, up to rank tolerance.
+
+    V spans the rows of [inputs; queries]. Set A_span=A@V and x_span=x@V;
+    keep all hidden weights/readout unchanged and never renormalize x_span.
+    First-layer velocities lie in the training span, so this coordinate change
+    preserves dense Euler/GF panel predictions. It does not certify a subsequent
+    empirical coordinate selection or predictions outside the declared span.
+    """
+    panel = torch.cat((inputs, queries)).to(dtype=torch.float64)
+    if panel.ndim != 2 or not len(panel) or not bool(torch.isfinite(panel).all()):
+        raise ValueError('Panel-span setup requires a nonempty finite input panel')
+    _, singular, right = torch.linalg.svd(panel, full_matrices=False)
+    tolerance = max(panel.shape)*torch.finfo(panel.dtype).eps*float(singular[0])
+    rank = int((singular > tolerance).sum())
+    basis = right[:rank].T.contiguous()
+    reduced = DeepDense.__new__(DeepDense)
+    reduced.depth, reduced.activation, reduced.fixed_scalars = dense.depth, dense.activation, 0
+    reduced.initial_state = [dense.initial_state[0]@basis.to(dense.initial_state[0])]
+    reduced.initial_state += [value.clone() for value in dense.initial_state[1:]]
+    residual = panel-panel@basis@basis.T
+    info = dict(original_dimension=panel.shape[1], panel_size=len(panel), rank=rank,
+        rank_tolerance=tolerance, construction_dtype=str(panel.dtype),
+        input_reconstruction_max_abs=float(residual.abs().max()),
+        orthogonality_max_abs=(float((basis.T@basis-torch.eye(rank, device=panel.device,
+                                    dtype=panel.dtype)).abs().max()) if rank else 0.),
+        basis_fixed_scalars=basis.numel(),
+        guarantee='coupled dense Euler/GF on training and declared-query span, up to numerical rank tolerance',
+        unseen_query_rule='evaluate x@V without renormalization; outside-span accuracy is not guaranteed',
+        storage='moving first layer uses width*rank; fixed dimension*rank basis is included in total storage')
+    return reduced, basis, info
+
+
+class PanelSpanModel:
+    """Raw-input interface for a core already constructed in panel coordinates."""
+
+    def __init__(self, core, input_basis, diagnostics):
+        self.core = core
+        self.input_basis = input_basis.to(core.initial_state[0])
+        self.initial_state = core.initial_state
+        self.depth, self.activation = core.depth, core.activation
+        self.fixed_scalars = core.fixed_scalars+self.input_basis.numel()
+        if hasattr(core, 'readout_floor'):
+            self.readout_floor = core.readout_floor
+        self.diagnostics = dict(getattr(core, 'diagnostics', {}), panel_span=dict(diagnostics),
+                                fixed_scalars=self.fixed_scalars)
+
+    def fields(self, state, inputs):
+        return self.core.fields(state, inputs@self.input_basis)
+
+    def rhs(self, state, inputs, labels):
+        return self.core.rhs(state, inputs@self.input_basis, labels)
+
+    def predict(self, state, queries, inputs, labels):
+        return self.core.predict(state, queries@self.input_basis, inputs@self.input_basis, labels)
+
+    def _readout(self, state, inputs, labels):
+        return self.core._readout(state, inputs@self.input_basis, labels)
+
+    def prepare_query(self, state, inputs, labels):
+        training = inputs@self.input_basis
+        prepared = (self.core.prepare_query(state, training, labels)
+                    if hasattr(self.core, 'prepare_query') else
+                    lambda queries: self.core.predict(state, queries, training, labels))
+        return lambda queries: prepared(queries@self.input_basis)
+
+
+@torch.no_grad()
+def panel_span_small_checks():
+    """Dense coupling oracle: redundant panels, rank deficiency, and zero span."""
+    dtype, device = torch.float64, torch.device('cpu')
+    generator = torch.Generator().manual_seed(231)
+    results = {}
+    for dimension, panel_count, expected_rank in ((3, 11, 3), (9, 12, 4), (7, 13, 0)):
+        frame = torch.linalg.qr(torch.randn(dimension, max(1, expected_rank),
+                                           dtype=dtype, generator=generator)).Q[:, :expected_rank]
+        panel = torch.randn(panel_count, expected_rank, dtype=dtype, generator=generator)@frame.T
+        panel[-2:] = panel[:2]  # Explicit duplicate points; the panel has p>d.
+        inputs, queries = panel[:5], panel[5:]
+        labels = torch.randn(len(inputs), dtype=dtype, generator=generator)/5
+        dense = DeepDense(19, dimension, 3, 'tanh', 17, device)
+        dense.initial_state[1].copy_(torch.randn(19, dtype=dtype, generator=generator)/5)
+        reduced, basis, info = _panel_span_dense(dense, inputs, queries)
+        assert info['rank'] == expected_rank, info
+        model = PanelSpanModel(reduced, basis, info)
+        original = [value.clone() for value in dense.initial_state]
+        projected = [value.clone() for value in model.initial_state]
+        prediction_error = velocity_error = state_error = 0.
+        maximum = lambda value: float(value.abs().max()) if value.numel() else 0.
+        for _ in range(6):
+            prediction_error = max(prediction_error, maximum(
+                dense.predict(original, panel)-model.predict(projected, panel, inputs, labels)))
+            full_velocity, reduced_velocity = dense.rhs(original, inputs, labels), model.rhs(projected, inputs, labels)
+            velocity_error = max(velocity_error, maximum(full_velocity[0]@basis-reduced_velocity[0]),
+                maximum(full_velocity[0]-reduced_velocity[0]@basis.T),
+                *(maximum(a-b) for a, b in zip(full_velocity[1:], reduced_velocity[1:])))
+            for state, velocity in ((original, full_velocity), (projected, reduced_velocity)):
+                for value, derivative in zip(state, velocity):
+                    value.add_(derivative, alpha=.007)
+            state_error = max(state_error, maximum(original[0]@basis-projected[0]),
+                             *(maximum(a-b) for a, b in zip(original[1:], projected[1:])))
+        assert model.fixed_scalars == dimension*expected_rank
+        assert max(prediction_error, velocity_error, state_error) < 1e-11
+        _experiment_move(model, device, torch.float32)
+        assert model.core.initial_state is model.initial_state and model.input_basis.dtype == torch.float32
+        torch.testing.assert_close(model.prepare_query(model.initial_state, inputs.float(), labels.float())(panel.float()),
+            model.predict(model.initial_state, panel.float(), inputs.float(), labels.float()))
+        results[f'd{dimension}_p{panel_count}_rank{expected_rank}'] = dict(
+            prediction_max_abs=prediction_error, velocity_max_abs=velocity_error,
+            state_max_abs=state_error, basis_fixed_scalars=model.fixed_scalars)
+    return results
+
+
 class DeepHarmonic(DeepDense):
     """Autonomous fixed-depth metric/deficit optimizer with offline sources.
 
@@ -243,7 +357,7 @@ class DeepHarmonic(DeepDense):
 
     @torch.no_grad()
     def __init__(self, dense, inputs, labels, source_coefficients, budget, selection_seed=501,
-                 readout_floor=None, selection_trials=4, condition_limit=16.):
+                 readout_floor=None, selection_trials=4, condition_limit=16., selection_strategy='uniform'):
         if not isinstance(selection_trials, int) or isinstance(selection_trials, bool) or selection_trials < 1:
             raise ValueError('Coordinate-selection trials must be a positive integer')
         if not math.isfinite(condition_limit) or condition_limit < 1:
@@ -300,7 +414,8 @@ class DeepHarmonic(DeepDense):
                         torch.cat(mandatory, 1), torch.cat(optional, 1), max(1, budget//4))
                     truncation.update(truncated=True, retained_rank=basis.shape[1],
                                       normalized_source_relative_error=omitted)
-                selection = _panel_coordinate_metric(basis, budget, selection_seed+layer, trials=selection_trials)
+                selection = _panel_coordinate_metric(basis, budget, selection_seed+layer,
+                    trials=selection_trials, strategy=selection_strategy)
                 if selection[-1]['embedding_max'] > condition_limit:
                     raise ArithmeticError(f'DeepHarmonic layer {layer+1} source condition '
                         f'{selection[-1]["embedding_max"]:.9g} exceeds {condition_limit:g} '
@@ -344,6 +459,7 @@ class DeepHarmonic(DeepDense):
         self.diagnostics.update(requested_budget=budget, activation=self.activation, depth=self.depth,
             certified_source_setup=False, source_assembly_dtype='torch.float64', runtime_dtype=str(runtime_dtype),
             condition_limit=float(condition_limit),
+            selection_strategy=selection_strategy,
             initial_feature_gram_min=float(eigenvalues[0]),
             initial_feature_gram_condition=(float(eigenvalues[-1]/eigenvalues[0])
                                            if float(eigenvalues[0]) > 0 else None),
@@ -833,6 +949,331 @@ class BudgetLoRA:
 
     def predict(self, state, queries, inputs=None, labels=None):
         return self.fields(state, queries)[2]
+
+
+def feedback_control_checks():
+    """Tiny deterministic oracles for factorized LoRA and coordinate selection.
+
+    Full-rank trainable factors are not a dense-gradient parametrization.
+    A separate fixed-orthonormal-right additive adapter is used only here as
+    an exact full-rank Euler oracle, never substituted for the plotted baseline.
+    """
+    torch.set_num_threads(1)
+    dtype, device = torch.float64, torch.device('cpu')
+    generator = torch.Generator().manual_seed(811)
+    n, d, m = 12, 3, 5
+    inputs = torch.randn(m, d, generator=generator, dtype=dtype)
+    inputs /= inputs.norm(dim=1, keepdim=True)
+    labels = torch.randn(m, generator=generator, dtype=dtype)
+    dense = DeepDense(n, d, 2, 'tanh', 19, device)
+    budget = n+d*(n+d)+2*n*n
+    model = BudgetLoRA(dense, budget, 41)
+    maximum = lambda value: float(value.detach().abs().max())
+    state = [(value+.15*torch.randn(value.shape, generator=generator, dtype=dtype))
+             .requires_grad_() for value in model.initial_state]
+    gradients = torch.autograd.grad((model.predict(state, inputs)-labels).square().mean(), state)
+    velocity = model.rhs(state, inputs, labels)
+    mobilities = [n, model.first_mobility, model.first_mobility,
+                  model.hidden_mobility, model.hidden_mobility]
+    errors = dict(autograd=max(maximum(v+mu*g) for v, mu, g in zip(velocity, mobilities, gradients)))
+    reconstructed = [model.first+state[1]@state[2].T, state[0], model.matrix+state[3]@state[4].T]
+    dense_velocity = dense.rhs(reconstructed, inputs, labels)
+    for name, offset, dense_index, mu, canonical_mu in (
+            ('first', 1, 0, model.first_mobility, n),
+            ('hidden', 3, 2, model.hidden_mobility, 1)):
+        left, right = state[offset:offset+2]
+        induced = velocity[offset]@right.T+left@velocity[offset+1].T
+        gradient = -dense_velocity[dense_index]/canonical_mu
+        expected = -mu*(gradient@(right@right.T)+(left@left.T)@gradient)
+        errors[name+'_induced_metric'] = maximum(induced-expected)
+    with torch.no_grad():
+        # Nonzero readout makes the initial block-velocity comparison nonvacuous.
+        probe = [v.clone() for v in model.initial_state]
+        probe[0] = torch.randn(n, generator=generator, dtype=dtype)
+        reference_probe = [dense.initial_state[0], probe[0], dense.initial_state[2]]
+        v, dv = model.rhs(probe, inputs, labels), dense.rhs(reference_probe, inputs, labels)
+        errors['full_rank_initial_first_velocity'] = maximum(v[1]@probe[2].T-dv[0])
+        errors['full_rank_initial_hidden_velocity'] = maximum(v[3]@probe[4].T-dv[2])
+        reference = [v.clone() for v in dense.initial_state]
+        factored = [v.clone() for v in model.initial_state]
+        fixed = [v.clone() for v in model.initial_state]
+        errors['fixed_right_full_rank_euler'] = 0.
+        step, steps = .04, 32
+        for _ in range(steps):
+            reference_rhs = dense.rhs(reference, inputs, labels)
+            fixed_dense = [model.first+fixed[1]@fixed[2].T, fixed[0], model.matrix+fixed[3]@fixed[4].T]
+            fixed_rhs = dense.rhs(fixed_dense, inputs, labels)
+            fixed = [fixed[0]+step*fixed_rhs[1], fixed[1]+step*fixed_rhs[0]@fixed[2],
+                     fixed[2], fixed[3]+step*fixed_rhs[2]@fixed[4], fixed[4]]
+            factored = [v+step*dv for v, dv in zip(factored, model.rhs(factored, inputs, labels))]
+            reference = [v+step*dv for v, dv in zip(reference, reference_rhs)]
+            fixed_dense = [model.first+fixed[1]@fixed[2].T, fixed[0], model.matrix+fixed[3]@fixed[4].T]
+            errors['fixed_right_full_rank_euler'] = max(errors['fixed_right_full_rank_euler'],
+                max(maximum(a-b) for a, b in zip(fixed_dense, reference)))
+        divergence = maximum(model.predict(factored, inputs)-dense.predict(reference, inputs))
+        basis = math.sqrt(80)*torch.linalg.qr(torch.randn(80, 8, generator=generator, dtype=dtype))[0]
+        selection = _panel_coordinate_metric(basis, 24, 7, strategy='qr_leverage')
+        repeat = _panel_coordinate_metric(basis, 24, 99, strategy='qr_leverage')
+        assert torch.equal(selection[0], repeat[0])
+        assert len(selection[0].unique()) == 24
+        errors['selector_source_isometry'] = selection[-1]['source_isometry_error']
+        errors['selector_metric_inverse'] = selection[-1]['metric_inverse_error']
+    assert max(errors.values()) < 1e-10, errors
+    assert divergence > 1e-8, divergence
+    return dict(errors=errors, full_rank_trainable_factor_prediction_difference=divergence,
+        oracle_steps=steps, oracle_step=step, rank_first=model.rank_first, rank_hidden=model.rank_hidden,
+        selector=selection[-1], baseline_equations_changed=False,
+        conclusion='Factorized LoRA passes its gradient oracle; fixed right full-rank adapters reproduce dense Euler; trainable factors do not.')
+
+
+def feedback_conditioning_main(argv=None):
+    """Reproduce three saved failures, then try one fixed replacement selector."""
+    parser = argparse.ArgumentParser(description=feedback_conditioning_main.__doc__)
+    parser.add_argument('--config', required=True)
+    args = parser.parse_args(argv)
+    config_path = Path(args.config)
+    config = json.loads(config_path.read_text())
+    out = Path(config['output'])
+    out.mkdir(parents=True, exist_ok=False)
+    source_bytes = Path(__file__).read_bytes()
+    (out/'source.py').write_bytes(source_bytes)
+    save_json(out/'config.json', config)
+    torch.set_num_threads(1)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    device = torch.device(config['device'])
+    started = time.monotonic()
+    report = dict(source_sha256=sha(source_bytes), config_sha256=sha(config_path.read_bytes()),
+        environment=dict(python=sys.version, torch=torch.__version__, numpy=np.__version__,
+            device=str(device), hardware=torch.cuda.get_device_name(device), threads=1, tf32=False),
+        control_checks=feedback_control_checks(), cases={}, scope='Single-selector finite Euler diagnostics, not theory certificates')
+    save_json(out/'report.json', report)
+    for request in config['cases']:
+        if time.monotonic()-started > config['queue_seconds']:
+            report['cases'][request['case']] = dict(status='inconclusive', reason='Queue cap reached')
+            continue
+        case = request['case']
+        case_out = out/case
+        case_out.mkdir()
+        original_root = ROOT/'data/generated/paper_appendix_pilots_20261009'/case
+        old_config = json.loads((original_root/'config.json').read_text())
+        old_path = original_root/'seed_901/attempt_001'
+        old = json.loads((old_path/'report.json').read_text())
+        archive_bytes = (old_path/'trajectories.npz').read_bytes()
+        assert sha(archive_bytes) == old['trajectories_sha256']
+        archive = np.load(old_path/'trajectories.npz', allow_pickle=False)
+        inputs, labels, queries = [torch.as_tensor(archive[key], device=device, dtype=torch.float64)
+                                  for key in ('train_inputs', 'train_labels', 'query_inputs')]
+        n, d = old_config['model']['width'], inputs.shape[1]
+        training = old_config['training']
+        setup = old_config['methods']['non_oblivious']['setup']
+        entry = dict(original_report=str(old_path/'report.json'), original_errors=old['errors'],
+            original_trajectories_sha256=sha(archive_bytes), requested_width=request['width'],
+            source_rank=request['source_rank'], status='inconclusive')
+        report['cases'][case] = entry
+        save_json(out/'report.json', report)
+        try:
+            dense = DeepDense(n, d, old_config['model']['depth'], old_config['model']['activation'], 901, device)
+            hashes = [array_sha(v.cpu().numpy()) for v in dense.initial_state]
+            assert hashes == old['reference_initial_state_sha256']
+            ranks = tuple(old['sources']['logarithmic']['nested_ranks'])
+            with torch.no_grad():
+                sources, source_info = cubic_rollout_sources(dense, inputs, labels, queries,
+                    training['horizon'], seed=old['seeds']['logarithmic_source'], ranks=ranks,
+                    partitions=('new',), step=setup['rollout_step'], time_degree=setup['time_degree'],
+                    rollout_dtype=setup['rollout_dtype'], coefficient_dtype=setup['coefficient_dtype'],
+                    seconds=config['seconds_per_fit'])
+                source = sources['new'][request['source_rank']]
+                entry['source'] = source_info
+                entry['source_hashes'] = {key: [array_sha(v.cpu().numpy()) for v in values]
+                                           for key, values in source.items()}
+                old_source = old['sources']['logarithmic']
+                assert source_info['partitions']['new']['boundaries'] == old_source['partitions']['new']['boundaries']
+                residual_error = float(np.max(np.abs(np.asarray(source_info['precursor_residual_rms'])
+                                                     -old_source['precursor_residual_rms'])))
+                entry['source_precursor_reproduction_max_abs'] = residual_error
+                assert residual_error < 1e-6
+                h0 = dense.fields(dense.initial_state, inputs)[0]
+                constant = inputs.new_ones((n, 1))
+                arrays = {f'{key}_{layer}': v.cpu().numpy() for key, values in source.items()
+                          for layer, v in enumerate(values)}
+                entry['selections'] = []
+                for layer in range(dense.depth):
+                    mandatory = ([constant, h0[layer], dense.initial_state[layer+1]@h0[layer-1]]
+                                 if layer else [constant, dense.initial_state[0], h0[layer]])
+                    optional = [source['h'][layer], source['delta'][layer]]
+                    if layer:
+                        optional.append(dense.initial_state[layer+1]@source['h'][layer-1])
+                    if layer+1 < dense.depth:
+                        optional.append(dense.initial_state[layer+2].T@source['delta'][layer+1])
+                    basis, mandatory_error = _harmonic_source_basis(torch.cat(mandatory, 1), torch.cat(optional, 1))
+                    assert basis.shape[1] <= request['width'], 'No source truncation permitted'
+                    arrays[f'basis_{layer}'] = basis.cpu().numpy()
+                    layer_result = dict(layer=layer+1, source_rank=basis.shape[1], mandatory_error=mandatory_error)
+                    for strategy in ('uniform', 'qr_leverage'):
+                        selection = _panel_coordinate_metric(basis, request['width'],
+                            old['seeds']['logarithmic_selector']+layer, trials=setup['selection_trials'], strategy=strategy)
+                        layer_result[strategy] = selection[-1]
+                        arrays[f'{strategy}_indices_{layer}'] = selection[0].cpu().numpy()
+                    entry['selections'].append(layer_result)
+                original_failure = entry['selections'][request['failed_layer']-1]['uniform']['embedding_max']
+                entry['original_failure_reproduction_absolute_error'] = abs(original_failure-request['original_condition'])
+                assert abs(original_failure-request['original_condition']) < 1e-3
+                np.savez_compressed(case_out/'sources_and_bases.npz', **arrays)
+                entry['sources_and_bases_sha256'] = sha((case_out/'sources_and_bases.npz').read_bytes())
+                save_json(out/'report.json', report)
+                if any(row['qr_leverage']['embedding_max'] > 16 for row in entry['selections']):
+                    entry['reason'] = 'Replacement selector exceeds unchanged condition cap 16; no fit run'
+                    continue
+                gap = float(torch.linalg.eigvalsh(h0[-1].T@h0[-1]/(n*len(labels)))[0])
+                model = DeepHarmonic(dense, inputs, labels, source, request['width'],
+                    selection_seed=old['seeds']['logarithmic_selector'], readout_floor=min(1e-4, gap/8),
+                    selection_trials=setup['selection_trials'], condition_limit=16., selection_strategy='qr_leverage')
+                assert not any(row['truncated'] for row in model.diagnostics['source_truncations'])
+                entry['model'] = model.diagnostics
+                _experiment_move(model, device, torch.float32)
+                state, predictions, run = integrate_euler(model, inputs.float(), labels.float(),
+                    torch.cat((inputs, queries)).float(), training['step'], config['seconds_per_fit'],
+                    horizon=training['horizon'], observation_every=training['record_every'])
+                entry['run'] = run
+                np.savez_compressed(case_out/'trajectory.npz', prediction=predictions, times=run['times'],
+                    reference=archive['reference'], dense_pair=archive[f'dense_{n}'])
+                entry['trajectory_sha256'] = sha((case_out/'trajectory.npz').read_bytes())
+                if not run['complete']:
+                    entry['reason'] = run['stop_reason']
+                    continue
+                assert np.array_equal(np.asarray(run['times']), archive['times_reference'])
+                reference = archive['reference'][:, len(labels):].astype(float)
+                error = np.sqrt(np.mean((predictions[:, len(labels):].astype(float)-reference)**2, axis=1))
+                baseline = np.sqrt(np.mean((archive[f'dense_{n}'][:, len(labels):].astype(float)-reference)**2, axis=1))
+                entry['metrics'] = dict(endpoint_rms=float(error[-1]), worst_recorded_rms=float(error.max()),
+                    endpoint_ratio=float(error[-1]/baseline[-1]), worst_recorded_ratio=float(error.max()/baseline.max()),
+                    threshold_factor=1., passed=bool(error[-1] <= baseline[-1] and error.max() <= baseline.max()))
+                entry['status'] = 'pass' if entry['metrics']['passed'] else 'fail'
+                del state, model, sources, source, arrays
+        except (ValueError, RuntimeError, ArithmeticError, TimeoutError, AssertionError) as error:
+            entry['reason'] = f'{type(error).__name__}: {error}'
+        finally:
+            entry['queue_elapsed_seconds'] = time.monotonic()-started
+            save_json(out/'report.json', report)
+            print(json.dumps(dict(case=case, status=entry['status'], metrics=entry.get('metrics'),
+                reason=entry.get('reason'), conditions=[row['qr_leverage']['embedding_max']
+                    for row in entry.get('selections', [])])), flush=True)
+    report['seconds'] = time.monotonic()-started
+    save_json(out/'report.json', report)
+    return 0
+
+
+def feedback_conditioning_followup_main(argv=None):
+    """Two frozen follow-ups using cached sources, never another dense rollout."""
+    import ast
+    parser = argparse.ArgumentParser(description=feedback_conditioning_followup_main.__doc__)
+    parser.add_argument('--config', required=True)
+    args = parser.parse_args(argv)
+    config_path = Path(args.config)
+    config = json.loads(config_path.read_text())
+    cached = Path(config['cached'])
+    previous = json.loads((cached/'report.json').read_text())
+    # Check that rebuilding cached geometry executes precisely the same code.
+    current_bytes, old_bytes = Path(__file__).read_bytes(), (cached/'source.py').read_bytes()
+    def geometry_code(data):
+        tree = ast.parse(data)
+        return {node.name: ast.dump(node, include_attributes=False) for node in tree.body
+                if isinstance(node, (ast.ClassDef, ast.FunctionDef))
+                if node.name in ('DeepHarmonic', '_panel_coordinate_metric', '_harmonic_source_basis')}
+    assert geometry_code(current_bytes) == geometry_code(old_bytes)
+    out = Path(config['output'])
+    out.mkdir(parents=True, exist_ok=False)
+    (out/'source.py').write_bytes(current_bytes)
+    save_json(out/'config.json', config)
+    device = torch.device(config['device'])
+    torch.set_num_threads(1)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    started = time.monotonic()
+    report = dict(source_sha256=sha(current_bytes), config_sha256=sha(config_path.read_bytes()),
+        cached_report_sha256=sha((cached/'report.json').read_bytes()), source_rollouts=0,
+        compiled_geometry_code_unchanged=True, cases={})
+    for request in config['cases']:
+        case = request['case']
+        entry = dict(request=request, status='inconclusive')
+        report['cases'][case] = entry
+        try:
+            remaining = config['queue_seconds']-(time.monotonic()-started)
+            if remaining <= 0:
+                raise TimeoutError('Follow-up queue cap reached')
+            case_out = out/case
+            case_out.mkdir()
+            old_path = ROOT/'data/generated/paper_appendix_pilots_20261009'/case/'seed_901/attempt_001'
+            old = json.loads((old_path/'report.json').read_text())
+            assert sha((old_path/'trajectories.npz').read_bytes()) == old['trajectories_sha256']
+            data = np.load(old_path/'trajectories.npz', allow_pickle=False)
+            source_path = cached/case/'sources_and_bases.npz'
+            assert sha(source_path.read_bytes()) == previous['cases'][case]['sources_and_bases_sha256']
+            saved_source = np.load(source_path, allow_pickle=False)
+            inputs, labels, queries = [torch.as_tensor(data[key], device=device, dtype=torch.float64)
+                                      for key in ('train_inputs', 'train_labels', 'query_inputs')]
+            dense = DeepDense(2048, inputs.shape[1], 2, 'silu' if case == 'architecture_silu' else 'tanh', 901, device)
+            assert [array_sha(v.cpu().numpy()) for v in dense.initial_state] == old['reference_initial_state_sha256']
+            source = {key: [torch.as_tensor(saved_source[f'{key}_{layer}'], device=device)
+                           for layer in range(2)] for key in ('h', 'delta')}
+            assert {key: [array_sha(v.cpu().numpy()) for v in values] for key, values in source.items()} == previous['cases'][case]['source_hashes']
+            with torch.no_grad():
+                h0 = dense.fields(dense.initial_state, inputs)[0][-1]
+                gap = float(torch.linalg.eigvalsh(h0.T@h0/(2048*len(labels)))[0])
+                model = DeepHarmonic(dense, inputs, labels, source, request['width'],
+                    selection_seed=old['seeds']['logarithmic_selector'], readout_floor=min(1e-4, gap/8),
+                    selection_trials=64, condition_limit=16., selection_strategy='qr_leverage')
+                assert not any(v['truncated'] for v in model.diagnostics['source_truncations'])
+                entry['model'] = model.diagnostics
+                if request.get('half_step_check'):
+                    assert model.diagnostics == previous['cases'][case]['model'], 'Compiled geometry changed'
+                    entry['compiled_geometry_matches_coarse'] = True
+                _experiment_move(model, device, torch.float32)
+                entry['compiled_state_sha256'] = [array_sha(v.cpu().numpy()) for v in model.initial_state]
+                entry['compiled_metrics_sha256'] = [array_sha(v.cpu().numpy())
+                    for v in model.metrics+model.metric_inverses]
+                remaining = config['queue_seconds']-(time.monotonic()-started)
+                state, predictions, run = integrate_euler(model, inputs.float(), labels.float(),
+                    torch.cat((inputs, queries)).float(), request['step'], remaining,
+                    horizon=32., observation_every=round(.5/request['step']))
+                entry['run'] = run
+                np.savez_compressed(case_out/'trajectory.npz', prediction=predictions, times=run['times'])
+                entry['trajectory_sha256'] = sha((case_out/'trajectory.npz').read_bytes())
+                if not run['complete']:
+                    raise TimeoutError(run['stop_reason'])
+                assert np.array_equal(np.asarray(run['times']), data['times_reference'])
+                reference = data['reference'][:, len(labels):].astype(float)
+                baseline = np.sqrt(np.mean((data['dense_2048'][:, len(labels):].astype(float)-reference)**2, axis=1))
+                def ratios(curve):
+                    return dict(endpoint_rms=float(curve[-1]), worst_recorded_rms=float(curve.max()),
+                        endpoint_ratio=float(curve[-1]/baseline[-1]), worst_recorded_ratio=float(curve.max()/baseline.max()))
+                error = np.sqrt(np.mean((predictions[:, len(labels):].astype(float)-reference)**2, axis=1))
+                entry['versus_saved_dense'] = ratios(error)
+                if request.get('half_step_check'):
+                    coarse_path = cached/case/'trajectory.npz'
+                    assert sha(coarse_path.read_bytes()) == previous['cases'][case]['trajectory_sha256']
+                    coarse = np.load(coarse_path, allow_pickle=False)['prediction'][:, len(labels):].astype(float)
+                    difference = np.sqrt(np.mean((predictions[:, len(labels):].astype(float)-coarse)**2, axis=1))
+                    entry['coarse_fine_compact'] = ratios(difference)
+                    entry['coarse_fine_compact']['threshold_factor'] = .1
+                    passed = difference[-1] <= .1*baseline[-1] and difference.max() <= .1*baseline.max()
+                    entry['comparison_scope'] = 'Fine compact versus saved coarse dense is mixed-step diagnostic only'
+                else:
+                    passed = error[-1] <= baseline[-1] and error.max() <= baseline.max()
+                    entry['comparison_scope'] = 'Same-step Euler comparison, factor-one criterion'
+                entry['status'] = 'pass' if passed else 'fail'
+                del state, model, source
+        except (ValueError, RuntimeError, ArithmeticError, TimeoutError, AssertionError) as error:
+            entry['reason'] = f'{type(error).__name__}: {error}'
+        finally:
+            entry['queue_elapsed_seconds'] = time.monotonic()-started
+            save_json(out/'report.json', report)
+            print(json.dumps(dict(case=case, status=entry['status'], reason=entry.get('reason'),
+                comparison=entry.get('versus_saved_dense'), coarse_fine=entry.get('coarse_fine_compact'))), flush=True)
+    report['seconds'] = time.monotonic()-started
+    save_json(out/'report.json', report)
+    return 0
 
 
 class FrozenNTK:
@@ -1558,8 +1999,8 @@ def _harmonic_bss_metric(source_basis):
     return indices, metric, metric_inverse, diagonal, diagnostics
 
 
-def _panel_coordinate_metric(source_basis, budget, seed, trials=1):
-    """Uniform coordinate selection with exact source isometry, not BSS.
+def _panel_coordinate_metric(source_basis, budget, seed, trials=1, strategy='uniform'):
+    """Coordinate selection with exact source isometry, not BSS.
 
     The diagonal-comparison factor is measured, not asserted to be four.
     The full positive metric and its inverse use the same correction formula
@@ -1568,17 +2009,50 @@ def _panel_coordinate_metric(source_basis, budget, seed, trials=1):
     n, rank = source_basis.shape
     if not rank <= budget <= n:
         raise ValueError(f'Panel coordinate budget {budget} cannot embed rank {rank} in width {n}')
+    if strategy not in ('uniform', 'qr_leverage'):
+        raise ValueError('Coordinate strategy must be uniform or qr_leverage')
     generator = torch.Generator(device=source_basis.device).manual_seed(seed)
     best, first_four_best = None, None
-    for trial in range(trials):
-        candidate = torch.randperm(n, generator=generator, device=source_basis.device)[:budget]
+    if strategy == 'qr_leverage':
+        # Pivoted QR seeds a nonsingular square restriction. Greedy additions
+        # maximize det(G+vv^T)/det(G)=1+v^T G^{-1}v. Sherman--Morrison updates
+        # all row leverages in O(n*r+r*r) work per addition, without a ridge,
+        # weighting, replacement, or source truncation. This is one deterministic
+        # candidate; the final spectral gate remains unchanged.
+        from scipy.linalg import qr
+        pivots = qr(source_basis.detach().cpu().numpy().T, mode='economic', pivoting=True)[2]
+        candidate = torch.as_tensor(pivots[:rank].copy(), device=source_basis.device, dtype=torch.long)
+        rows = source_basis/math.sqrt(n)
+        gram = rows[candidate].T@rows[candidate]
+        inverse = torch.linalg.inv(gram)
+        projected = rows@inverse
+        scores = (projected*rows).sum(1)
+        chosen = torch.zeros(n, dtype=torch.bool, device=source_basis.device)
+        chosen[candidate] = True
+        indices_list = list(candidate.unbind())
+        for _ in range(budget-rank):
+            index = torch.where(chosen, -torch.inf, scores).argmax()
+            vector = rows[index]
+            inverse_vector = inverse@vector
+            cross = projected@vector
+            denominator = 1+vector@inverse_vector
+            inverse -= torch.outer(inverse_vector, inverse_vector)/denominator
+            projected -= torch.outer(cross, inverse_vector)/denominator
+            scores -= cross.square()/denominator
+            chosen[index] = True
+            indices_list.append(index)
+        candidates = [torch.stack(indices_list)]
+    else:
+        candidates = (torch.randperm(n, generator=generator, device=source_basis.device)[:budget]
+                      for _ in range(trials))
+    for trial, candidate in enumerate(candidates):
         selected = source_basis[candidate]
         gram = selected.T @ selected / budget
         values = torch.linalg.eigvalsh((gram+gram.T)/2)
         condition = float(values[-1]/values[0]) if float(values[0]) > 0 else math.inf
         if best is None or condition < best[0]:
             best = condition, candidate, values
-        if trial == min(4, trials)-1:
+        if strategy == 'uniform' and trial == min(4, trials)-1:
             first_four_best = best[0]
     _, indices, eigenvalues = best
     selected = source_basis[indices]
@@ -1595,9 +2069,10 @@ def _panel_coordinate_metric(source_basis, budget, seed, trials=1):
     metric = torch.diag(diagonal)+weighted@(inverse@inverse-inverse)@weighted.T
     metric_inverse = torch.diag(diagonal.reciprocal())+selected@(identity-inverse)@selected.T
     metric, metric_inverse = (metric+metric.T)/2, (metric_inverse+metric_inverse.T)/2
-    diagnostics = dict(source_rank=rank, selected_width=budget, selector='uniform_exact_isometry',
-        seed=seed, selection_trials=trials, embedding_min=1.,
-        first_four_best_condition=(float(first_four_best) if math.isfinite(first_four_best) else None),
+    diagnostics = dict(source_rank=rank, selected_width=budget, selector=strategy+'_exact_isometry',
+        seed=seed, selection_trials=trials if strategy == 'uniform' else 1, embedding_min=1.,
+        first_four_best_condition=(float(first_four_best)
+            if first_four_best is not None and math.isfinite(first_four_best) else None),
         embedding_max=float(eigenvalues[-1]/eigenvalues[0]),
         bss_factor_four_satisfied=bool(eigenvalues[-1] <= 4*eigenvalues[0]),
         source_isometry_error=float((selected.T@metric@selected-identity).abs().max()),
@@ -4587,13 +5062,15 @@ def appendix_spectral_main(argv):
     parser = argparse.ArgumentParser(description=appendix_spectral_main.__doc__)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--device', default='cuda:0')
-    parser.add_argument('--worker-width', type=int, choices=(512, 1024, 2048), help=argparse.SUPPRESS)
+    parser.add_argument('--worker-width', type=int, choices=(512, 1024, 2048, 4096, 8192),
+                        help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
     torch.set_num_threads(1)
     torch.set_default_dtype(torch.float64)
     torch.backends.cuda.matmul.allow_tf32 = False
     torch.backends.cudnn.allow_tf32 = False
-    config = dict(widths=[512, 1024, 2048], depth=2, activation='tanh', reference_seed=901,
+    config = dict(widths=[args.worker_width] if args.worker_width else [512, 1024, 2048],
+        depth=2, activation='tanh', reference_seed=901,
         dataset=dict(name='sphere', dimension=2, train_samples=8, test_samples=30,
                      undeclared_samples=30, seed=47, digit_pair=[1, 7], label_scale=1.),
         horizon=32., source_step=.125, time_degree=8, source_dtype='float32',
@@ -4608,11 +5085,13 @@ def appendix_spectral_main(argv):
         scope='Single-seed finite-width source spectra; no asymptotic rate or theorem certificate')
     args.out.mkdir(parents=True, exist_ok=False)
     save_json(args.out/'config.json', config)
-    report = dict(config=config, source_sha256=sha(Path(__file__).read_bytes()),
+    source_bytes = Path(__file__).read_bytes()
+    report = dict(config=config, source_sha256=sha(source_bytes),
         command=[sys.executable, str(Path(__file__).resolve()), *sys.argv[1:]],
         cwd=str(Path.cwd()), python=platform.python_version(), torch=torch.__version__,
         numpy=np.__version__, complete=False, cases=[])
     if args.worker_width is not None:
+        (args.out/'source.py').write_bytes(source_bytes)
         device = torch.device(args.device)
         report.update(width=args.worker_width, spectra=[], history_spectra=[], status='inconclusive',
             hardware=torch.cuda.get_device_name(device) if device.type == 'cuda' else platform.processor())
@@ -4649,7 +5128,7 @@ def appendix_spectral_main(argv):
     # Freeze all compared runs against this exact script even while other tasks
     # are editing unrelated entry points in the maintained executable.
     snapshot = args.out/'capture_trajectory_snapshot.py'
-    snapshot.write_bytes(Path(__file__).read_bytes())
+    snapshot.write_bytes(source_bytes)
     report['snapshot'] = str(snapshot.resolve())
     save_json(args.out/'report.json', report)
     for width in config['widths']:
@@ -7851,7 +8330,8 @@ def experiment_plot(config):
 # are replaced, dictionaries are merged; an empty order/budget list disables a method.
 EXPERIMENT_DEFAULTS = {
     'dataset': dict(name='sphere', dimension=3, train_samples=8, test_samples=30,
-                    seed=47, digit_pair=[1, 7], file=None, label_scale=1., undeclared_samples=0),
+                    seed=47, digit_pair=[1, 7], file=None, label_scale=1., undeclared_samples=0,
+                    cache=None, download=False),
     'model': dict(width=4096, depth=2, activation='tanh'),
     'seeds': [601],
     'training': dict(solver='euler', step=.0015625, horizon=32., record_every=320, dtype='float32'),
@@ -7862,9 +8342,10 @@ EXPERIMENT_DEFAULTS = {
         'non_oblivious': {
             'setup': dict(initializer='dense_rollout', rollout_solver='rk4', rollout_step=.125,
                           rollout_dtype='float32', coefficient_dtype='float64', time_degree=8,
-                          selection_trials=64, condition_limit=16.),
+                          selection_trials=64, condition_limit=16., selection_strategy='uniform'),
             'harmonic': dict(budgets=[dict(width=424, source_rank=29)], spatial_degree=5),
-            'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True)}},
+            'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True,
+                                panel_span=False)}},
     'execution': dict(devices='auto', tf32=False, seconds_per_fit=120., dense_seconds_per_fit=120., reuse_completed=True,
                       stop_after_match=False,
                       output='data/generated/compression_experiments/default'),
@@ -7873,7 +8354,7 @@ EXPERIMENT_DEFAULTS = {
 }
 
 
-def _experiment_matched_controls(config, n, d):
+def _experiment_matched_controls(config, n, d, panel_rank=None):
     """Select controls from requested learned-state counts, without model fitting.
 
     Explicit widths/ranks keep their order; additional choices are deduplicated.
@@ -7895,9 +8376,14 @@ def _experiment_matched_controls(config, n, d):
     for family in ('harmonic', 'logarithmic'):
         for compact in config['methods']['non_oblivious'][family]['budgets']:
             width, rank = compact['width'], compact['source_rank']
+            first_dimension = d
+            if family == 'logarithmic' and config['methods']['non_oblivious'][family].get('panel_span', False):
+                if panel_rank is None:
+                    raise ValueError('Panel-span state matching requires the actual declared-panel rank')
+                first_dimension = panel_rank
             controls['targets'].append(dict(model=f'{family}_{width}_r{rank}', family=family,
                 width=width, source_rank=rank,
-                moving_scalars=width*(d+1)+(depth-1)*width*width+m))
+                moving_scalars=width*(first_dimension+1)+(depth-1)*width*width+m))
 
     def largest_fitting(budget, upper, size):
         lower = 0
@@ -8055,12 +8541,14 @@ def _experiment_validate(config):
         raise ValueError('seeds must be a nonempty list of distinct integers')
     if any(seed < 0 or seed >= 2**63 for seed in config['seeds']) or not 0 <= data['seed'] < 2**32-1:
         raise ValueError('Invalid seed (repetitions: [0,2^63); data: [0,2^32-1))')
-    if data['name'] not in ('sphere', 'digits', 'npz'):
-        raise ValueError('dataset.name must be sphere, digits (raw 8x8), or npz')
-    if data['name'] == 'digits':
-        data['dimension'] = 64
+    if data['name'] not in ('sphere', 'digits', 'mnist', 'npz'):
+        raise ValueError('dataset.name must be sphere, digits (raw 8x8), mnist (raw 28x28), or npz')
+    if data['name'] in ('digits', 'mnist'):
+        data['dimension'] = 784 if data['name'] == 'mnist' else 64
         if len(set(data['digit_pair'])) != 2 or any(v < 0 or v > 9 for v in data['digit_pair']):
             raise ValueError('Digits requires two different labels from 0 through 9')
+        if data['name'] == 'mnist' and not data['cache']:
+            raise ValueError('MNIST requires dataset.cache (use the current study generated-data directory)')
     elif data['name'] == 'npz':
         if not data['file']:
             raise ValueError('dataset.file is required for npz')
@@ -8111,6 +8599,8 @@ def _experiment_validate(config):
             raise ValueError('Setup supports dense_rollout/RK4, float32/float64 rollout, float64 coefficients')
         if min(setup['rollout_step'], setup['time_degree'], setup['selection_trials']) <= 0 or setup['condition_limit'] < 1:
             raise ValueError('Setup orders/step/trials must be positive and condition_limit >= 1')
+        if setup['selection_strategy'] not in ('uniform', 'qr_leverage'):
+            raise ValueError('Setup selection_strategy must be uniform or qr_leverage')
     if (not config['plots']['metrics'] or set(config['plots']['metrics'])-{'endpoint_rms', 'worst_recorded_rms'}
             or not config['plots']['methods']
             or set(config['plots']['methods'])-set(EXPERIMENT_DEFAULTS['plots']['methods'])
@@ -8136,6 +8626,10 @@ def _experiment_data(config):
     data = config['dataset']
     extra = data.get('undeclared_samples', 0)
     if extra:
+        if data['name'] == 'npz':
+            with np.load(data['file'], allow_pickle=False) as archive:
+                if {'extra_query_inputs', 'extra_query_labels'} & set(archive.files):
+                    raise ValueError('Choose explicit NPZ extra queries or undeclared_samples, not both')
         # Draw disjoint panels together, before any fitting or budget selection.
         expanded = dict(config, dataset=dict(data, test_samples=data['test_samples']+extra,
                                             undeclared_samples=0))
@@ -8148,9 +8642,46 @@ def _experiment_data(config):
             arrays['extra_query_'+field] = values[unseen]
         return arrays
     keys = ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')
-    if data['name'] == 'npz':
+    extra_arrays = {}
+    if data['name'] == 'mnist':
+        from torchvision.datasets import MNIST
+        arrays = []
+        # Use the official train/test partition. Each requested binary subset is
+        # balanced (the first digit gets one extra row for odd counts), then shuffled.
+        for split, count in enumerate((data['train_samples'], data['test_samples'])):
+            source = MNIST(root=data['cache'], train=split == 0, download=data['download'])
+            targets = source.targets.numpy()
+            rng = np.random.default_rng(data['seed']+split)
+            selected = []
+            for digit, wanted in zip(data['digit_pair'], ((count+1)//2, count//2)):
+                candidates = np.flatnonzero(targets == digit)
+                if len(candidates) < wanted:
+                    raise ValueError('Requested MNIST subset exceeds an official split class count')
+                selected.extend(rng.permutation(candidates)[:wanted])
+            rows = rng.permutation(np.asarray(selected, dtype=int))
+            values = source.data.numpy()[rows].reshape(count, 784).astype(np.float64)
+            norms = np.linalg.norm(values, axis=1, keepdims=True)
+            if np.any(norms == 0):
+                raise ValueError('MNIST subset contains a zero-norm image')
+            values /= norms
+            arrays.extend((values, np.where(targets[rows] == data['digit_pair'][0], -1., 1.)))
+    elif data['name'] == 'npz':
         with np.load(data['file'], allow_pickle=False) as archive:
             arrays = [np.array(archive[key], dtype=np.float64) for key in keys]
+            extra_keys = {'extra_query_inputs', 'extra_query_labels'}
+            present = extra_keys & set(archive.files)
+            if present and present != extra_keys:
+                raise ValueError('NPZ explicit extra queries require both inputs and labels')
+            if present:
+                extra_arrays = {key: np.array(archive[key], dtype=np.float64) for key in extra_keys}
+                x, y = extra_arrays['extra_query_inputs'], extra_arrays['extra_query_labels']
+                if x.ndim != 2 or x.shape[1] != data['dimension'] or y.shape != (len(x),):
+                    raise ValueError('NPZ extra queries need shape (count, dimension) and one label per row')
+                norms = np.linalg.norm(x, axis=1, keepdims=True)
+                if np.any(norms == 0):
+                    raise ValueError('NPZ extra queries must have nonzero norms')
+                extra_arrays['extra_query_inputs'] = x/norms
+                extra_arrays['extra_query_labels'] *= data['label_scale']
         for start, count in ((0, data['train_samples']), (2, data['test_samples'])):
             x, y = arrays[start:start+2]
             if x.ndim != 2 or y.shape != (len(x),) or len(x) < count:
@@ -8174,9 +8705,193 @@ def _experiment_data(config):
             arrays[2:] = [v[rows] for v in arrays[2:]]
     arrays[1] *= data['label_scale']
     arrays[3] *= data['label_scale']
-    if not all(np.isfinite(v).all() for v in arrays):
+    if not all(np.isfinite(v).all() for v in arrays+list(extra_arrays.values())):
         raise ValueError('Dataset contains nonfinite values')
-    return dict(zip(keys, arrays))
+    return dict(zip(keys, arrays), **extra_arrays)
+
+
+def feedback_scope_main(argv):
+    """Frozen d=10 query paths and fixed-budget panel-size pilots."""
+    parser = argparse.ArgumentParser(description=feedback_scope_main.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    phase = parser.add_mutually_exclusive_group()
+    phase.add_argument('--prepare-only', action='store_true')
+    phase.add_argument('--plot-only', action='store_true')
+    args = parser.parse_args(argv)
+    config = json.loads(args.config.read_text())
+    out = Path(config['output']).resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    config_hash = sha(json.dumps(config, sort_keys=True).encode())
+    plan_path = out/'plan.json'
+    if plan_path.exists():
+        plan = json.loads(plan_path.read_text())
+        if plan['config_sha256'] != config_hash:
+            raise ValueError('Scope pilot output belongs to a different frozen configuration')
+    else:
+        if args.plot_only:
+            raise FileNotFoundError('Prepare and run the scope pilot before plotting')
+        base = _experiment_merge(EXPERIMENT_DEFAULTS, config['experiment'])
+        _experiment_validate(base)
+        if base['dataset']['name'] != 'sphere' or base['dataset']['dimension'] < 3:
+            raise ValueError('Scope pilot requires the normalized sphere toy with dimension >= 3')
+        if base['methods']['non_oblivious']['logarithmic']['panel_span']:
+            raise ValueError('Controlled query-distance probe keeps the unprojected first layer')
+        if not 0 < config['nearest_fraction'] < .5 or config['angle_count'] < 2:
+            raise ValueError('Nearest-anchor paths require fraction in (0,.5) and at least two angles')
+        source = Path(__file__).read_bytes()
+        (out/'source.py').write_bytes(source)
+        save_json(out/'config.json', config)
+        plan = dict(config_sha256=config_hash, source_sha256=sha(source), cases=[],
+            scope='One seed and dense pair; fixed budgets; no rescue selections or crossing fit. '
+                  'The ambient dimension is 10 but the toy target uses only its first three coordinates. '
+                  'Extra path inputs and all query labels are withheld from Logarithmic source setup.')
+        for panel_size in config['panel_sizes']:
+            case = _experiment_merge(base, dict(dataset=dict(test_samples=panel_size),
+                execution=dict(output=str(out/f'p{panel_size}'))))
+            if panel_size == config['path_panel_size']:
+                arrays = _experiment_data(case)
+                count, d = len(arrays['train_labels']), arrays['train_inputs'].shape[1]
+                anchors = arrays['query_inputs'][:config['anchor_count']]
+                if len(anchors) != config['anchor_count']:
+                    raise ValueError('Not enough declared anchors')
+                panel = np.concatenate((arrays['train_inputs'], arrays['query_inputs']))
+                separation = np.arccos(np.clip(anchors@panel.T, -1., 1.))
+                separation[np.arange(len(anchors)), count+np.arange(len(anchors))] = np.inf
+                nearest = separation.min(axis=1)
+                cap = min(config['maximum_angle'], config['nearest_fraction']*float(nearest.min()))
+                angles = np.linspace(0., cap, config['angle_count'])
+                rng, paths, tangent_vectors = np.random.default_rng(config['tangent_seed']), [], []
+                for anchor in anchors:
+                    for _ in range(config['directions_per_anchor']):
+                        tangent = rng.normal(size=d)
+                        tangent -= (tangent@anchor)*anchor
+                        tangent /= np.linalg.norm(tangent)
+                        paths.append(np.cos(angles)[:, None]*anchor+np.sin(angles)[:, None]*tangent)
+                        tangent_vectors.append(tangent)
+                paths = np.asarray(paths)
+                nearest_indices = (paths.reshape(-1, d)@panel.T).argmax(axis=1).reshape(paths.shape[:2])
+                expected = count+np.repeat(np.arange(len(anchors)), config['directions_per_anchor'])
+                if not np.all(nearest_indices == expected[:, None]):
+                    raise AssertionError('A generated path left its anchor Voronoi cell')
+                target = lambda x: math.sqrt(d)*x[:, 0]+d**1.5*x[:, 0]*x[:, 1]*x[:, 2]
+                scale = np.sqrt(np.mean(target(arrays['train_inputs'])**2))
+                # Undo the established NPZ loader permutations to preserve the
+                # original training/query order. Its extra rows retain file order.
+                archive = {}
+                for prefix, seed_offset in (('train', 0), ('query', 1)):
+                    rows = np.random.default_rng(case['dataset']['seed']+seed_offset).permutation(len(arrays[prefix+'_labels']))
+                    for field in ('inputs', 'labels'):
+                        archive[prefix+'_'+field] = arrays[prefix+'_'+field][np.argsort(rows)]
+                    archive[prefix+'_labels'] /= case['dataset']['label_scale']
+                archive['extra_query_inputs'] = paths.reshape(-1, d)
+                archive['extra_query_labels'] = target(archive['extra_query_inputs'])/scale
+                np.savez_compressed(out/'controlled_queries.npz', **archive)
+                case['dataset'].update(name='npz', file=str(out/'controlled_queries.npz'))
+                loaded = _experiment_data(case)
+                for key in arrays:
+                    np.testing.assert_allclose(loaded[key], arrays[key], rtol=0, atol=1e-14)
+                plan['paths'] = dict(angles=angles.tolist(), path_count=len(paths),
+                    path_shape=list(paths.shape[:2]), row_order='path first, then angle',
+                    declared_anchor_indices=list(range(len(anchors))),
+                    tangent_seed=config['tangent_seed'], tangents=np.asarray(tangent_vectors).tolist(),
+                    nearest_other_panel_angles=nearest.tolist(), angle_cap=cap,
+                    anchor_is_nearest_at_every_sample=True,
+                    cap_rule='common min(maximum_angle, nearest_fraction*minimum anchor separation)',
+                    zero_angle_rule='includes the actual declared-anchor discrepancy; no subtraction',
+                    arrays_sha256={key: array_sha(value) for key, value in loaded.items()})
+            path = out/f'p{panel_size}_config.json'
+            save_json(path, case)
+            plan['cases'].append(dict(panel_size=panel_size, config=str(path), output=case['execution']['output']))
+        save_json(plan_path, plan)
+    if args.prepare_only:
+        print(json.dumps(dict(prepared=str(plan_path), source=str(out/'source.py'))), flush=True)
+        return 0
+    if not args.plot_only:
+        if sha(Path(__file__).read_bytes()) != plan['source_sha256']:
+            raise RuntimeError('Run the frozen scope/source.py snapshot created during preparation')
+        for case in plan['cases']:
+            experiment_main(['--config', case['config']])
+
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    report = dict(plan=plan, cases=[], controlled_paths={}, errors={})
+    path_arrays = None
+    for case in plan['cases']:
+        folder = Path(case['output'])
+        manifest = json.loads((folder/'run.json').read_text())
+        seed = manifest['config']['seeds'][0]
+        attempt = folder/manifest['repetitions'][str(seed)]
+        record = json.loads((attempt/'report.json').read_text())
+        if sha((attempt/'trajectories.npz').read_bytes()) != record['trajectories_sha256']:
+            raise RuntimeError('Scope trajectory hash mismatch')
+        with np.load(attempt/'trajectories.npz', allow_pickle=False) as archive:
+            arrays = {key: archive[key] for key in archive.files}
+        training_count = len(arrays['train_labels'])
+        width = manifest['config']['model']['width']
+        baseline = trajectory_rms(arrays[f'dense_{width}'][:, training_count:].astype(float),
+                                   arrays['reference'][:, training_count:].astype(float))
+        row = dict(panel_size=case['panel_size'], complete=record['complete'], errors=record['errors'],
+                   report=str(attempt/'report.json'), dense_pair=baseline, models={})
+        source_info = record['sources'].get('logarithmic', {})
+        if source_info and source_info['passive_count'] != case['panel_size']:
+            raise AssertionError('Extra path queries leaked into source construction')
+        for name, model in record['models'].items():
+            if model['family'] != 'logarithmic' or not record['runs'].get(name, {}).get('complete'):
+                continue
+            metric = trajectory_rms(arrays[name][:, training_count:].astype(float),
+                                    arrays['reference'][:, training_count:].astype(float))
+            row['models'][name] = dict(**metric, width=model['width'],
+                endpoint_ratio=metric['endpoint_rms']/baseline['endpoint_rms'],
+                worst_recorded_ratio=metric['max_time_rms']/baseline['max_time_rms'])
+        report['cases'].append(row)
+        if not record['complete']:
+            report['errors'][f'p{case["panel_size"]}'] = record['errors']
+        if case['panel_size'] == config['path_panel_size']:
+            path_arrays, path_record = arrays, record
+    if path_arrays is not None:
+        shape = tuple(plan['paths']['path_shape'])
+        reference = path_arrays['extra_reference'][-1].astype(float).reshape(shape)
+        names = [f'dense_{width}']+[name for name in path_record['models']
+            if path_record['models'][name]['family'] == 'logarithmic']
+        fig, ax = plt.subplots(figsize=(5.8, 3.6))
+        for name in names:
+            if not path_record['runs'].get(name, {}).get('complete'):
+                continue
+            error = path_arrays['extra_'+name][-1].astype(float).reshape(shape)-reference
+            curve = np.sqrt(np.mean(error**2, axis=0))
+            report['controlled_paths'][name] = dict(endpoint_rms_by_angle=curve.tolist(),
+                zero_angle_rms=float(curve[0]), signed_error_by_path=error.tolist())
+            ax.plot(plan['paths']['angles'], curve, marker='o', ms=3,
+                    label='Independent dense pair' if name.startswith('dense_') else name.replace('logarithmic_', 'Log. '))
+        ax.set(xlabel='Angular distance from declared anchor (radians)',
+               ylabel='Endpoint RMS across six fixed paths', title='Controlled query paths · d=10, n=2048')
+        ax.legend(frameon=False, fontsize=8)
+        ax.grid(alpha=.15)
+        fig.tight_layout()
+        for suffix in ('png', 'pdf'):
+            fig.savefig(out/f'controlled_query_paths.{suffix}', dpi=180)
+        plt.close(fig)
+    fig, axes = plt.subplots(1, 2, figsize=(8.3, 3.5))
+    for axis, field, title in zip(axes, ('endpoint_ratio', 'worst_recorded_ratio'), ('Endpoint', 'Maximum recorded')):
+        for name in sorted({name for row in report['cases'] for name in row['models']}):
+            rows = [row for row in report['cases'] if name in row['models']]
+            axis.plot([row['panel_size'] for row in rows], [row['models'][name][field] for row in rows],
+                      'o-', label=name.replace('logarithmic_', 'Log. '))
+        axis.axhline(1., color='grey', ls=':')
+        axis.set(xlabel='Declared query-panel size', ylabel='RMS / independent dense-pair RMS', title=title,
+                 xticks=config['panel_sizes'])
+        axis.grid(alpha=.15)
+        axis.legend(frameon=False, fontsize=8)
+    fig.suptitle('Fixed compact widths on d=10 sphere inputs · one seed')
+    fig.tight_layout()
+    for suffix in ('png', 'pdf'):
+        fig.savefig(out/f'fixed_budget_panel_size.{suffix}', dpi=180)
+    plt.close(fig)
+    report['complete'] = not report['errors']
+    save_json(out/'report.json', report)
+    print(json.dumps(dict(output=str(out), complete=report['complete'])), flush=True)
+    return int(not report['complete'])
 
 
 @torch.no_grad()
@@ -8321,6 +9036,404 @@ def appendix_transfer_main(argv):
         raise
 
 
+@torch.no_grad()
+def feedback_pooled_transfer_main(argv):
+    """Fixed-rank pooling of three non-target source tasks, against saved target curves."""
+    import ast
+    import io
+
+    parser = argparse.ArgumentParser(description=feedback_pooled_transfer_main.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    args = parser.parse_args(argv)
+    started = time.monotonic()
+    config_bytes = args.config.read_bytes()
+    config = json.loads(config_bytes)
+    frozen = dict(width=1024, depth=2, activation='tanh', seed=901, samples=8, queries=30,
+                  budget=256, source_rank=15, auxiliary_label_seeds=[4712, 4713],
+                  selection_strategy='uniform', selection_trials=64, condition_limit=16,
+                  horizon=32, step=.00625, record_every=80, rollout_step=.125, time_degree=8,
+                  wall_budget_seconds=120, pass_factor=1, reproduction_factor=.1)
+    if any(config[key] != value for key, value in frozen.items()):
+        raise ValueError('Pooled-transfer design differs from the frozen bounded test')
+    source_root = (ROOT/config['input']).resolve()
+    out = (ROOT/config['output']).resolve()
+    expected_root = ROOT/'data/generated/paper_appendix_pilots_20261009/transfer'
+    if source_root != expected_root or not out.is_relative_to(expected_root.parent/'feedback'):
+        raise ValueError('Pooled transfer must use its assigned saved inputs and feedback output')
+    if out.exists():
+        raise FileExistsError('Pooled-transfer output must be fresh')
+    saved_bytes = (source_root/'report.json').read_bytes()
+    saved = json.loads(saved_bytes)
+    payload = (source_root/'trajectories.npz').read_bytes()
+    old_source = (source_root/'source.py').read_bytes()
+    if sha(payload) != saved['trajectories_sha256'] or sha(old_source) != saved['source_sha256']:
+        raise ValueError('Saved transfer input hash mismatch')
+    if saved['errors'] or any(not saved['models'][name]['run']['complete'] for name in
+                             ('reference', 'independent_dense', 'transferred', 'rebuilt')):
+        raise ValueError('Saved comparison contains an incomplete or failed required model')
+    for key in ('width', 'depth', 'activation', 'seed', 'samples', 'queries', 'budget', 'source_rank',
+                'selection_trials', 'condition_limit', 'horizon', 'step', 'record_every',
+                'rollout_step', 'time_degree'):
+        if config[key] != saved['config'][key]:
+            raise ValueError(f'Saved transfer contract mismatch: {key}')
+    with np.load(io.BytesIO(payload), allow_pickle=False) as raw:
+        arrays = {key: raw[key] for key in raw.files}
+    times = arrays['times_reference']
+    for name in ('reference', 'independent_dense', 'transferred', 'rebuilt'):
+        if not np.array_equal(arrays['times_'+name], times) or not np.isfinite(arrays[name]).all():
+            raise ValueError(f'Invalid saved reference grid or values: {name}')
+    if arrays['train_inputs'].shape != (8, 2) or arrays['query_inputs'].shape != (30, 2):
+        raise ValueError('Expected the saved circle transfer panel')
+    current_source = Path(__file__).read_bytes()
+    old_tree, current_tree = ast.parse(old_source), ast.parse(current_source)
+    compiler_match = {}
+    for name in ('cubic_rollout_sources', '_cubic_residual_partition', 'integrate'):
+        old_node = next(node for node in old_tree.body if isinstance(node, ast.FunctionDef) and node.name == name)
+        current_node = next(node for node in current_tree.body if isinstance(node, ast.FunctionDef) and node.name == name)
+        compiler_match[name] = ast.dump(old_node, include_attributes=False) == ast.dump(current_node, include_attributes=False)
+    if not all(compiler_match[name] for name in ('_cubic_residual_partition', 'integrate')):
+        raise ValueError('Source integration changed relative to the saved transfer baseline')
+    # The current compiler has optional spectral instrumentation. Execute only
+    # the hash-checked saved function so all three label tasks share the exact
+    # compiler used by the original transfer trial, without importing its CLI.
+    saved_compiler = next(node for node in old_tree.body
+                          if isinstance(node, ast.FunctionDef) and node.name == 'cubic_rollout_sources')
+    compiler_namespace = dict(globals())
+    exec(compile(ast.Module(body=[saved_compiler], type_ignores=[]), str(source_root/'source.py'), 'exec'),
+         compiler_namespace)
+    compile_sources = compiler_namespace['cubic_rollout_sources']
+    out.mkdir(parents=True)
+    (out/'source.py').write_bytes(current_source)
+    save_json(out/'config.json', config)
+    report = dict(config=config, config_sha256=sha(config_bytes), source_sha256=sha(current_source),
+        input_report_path=str(source_root/'report.json'), input_report_sha256=sha(saved_bytes),
+        input_trajectories_sha256=sha(payload), input_source_sha256=sha(old_source),
+        source_compiler_ast_matches_saved=compiler_match,
+        executed_source_compiler='hash-checked saved cubic_rollout_sources function; current unchanged RK4 driver',
+        sources={}, pooling={}, models={}, errors={},
+        complete=False, status='inconclusive', source_label_tasks=[],
+        provenance='Full-horizon RK4 sources for old labels and two fixed non-target label tasks. '
+                   'No target labels enter any source rollout. Saved new-target dense/iid/rebuilt '
+                   'curves are reused. This is not an initialization-only source construction.')
+    source_arrays = {}
+    device = torch.device(config['device'])
+    deadline = started+config['wall_budget_seconds']
+
+    def persist():
+        np.savez_compressed(out/'trajectories.npz', **arrays)
+        report['trajectories_sha256'] = sha((out/'trajectories.npz').read_bytes())
+        if source_arrays:
+            np.savez_compressed(out/'sources.npz', **source_arrays)
+            report['sources_sha256'] = sha((out/'sources.npz').read_bytes())
+        report['seconds'] = time.monotonic()-started
+        save_json(out/'report.json', report)
+
+    def remaining():
+        synchronize(device)
+        seconds = deadline-time.monotonic()
+        if seconds <= 0:
+            raise TimeoutError('Pooled transfer exhausted its total 120-second budget')
+        return seconds
+
+    def geometry(model):
+        return [array_sha(value.detach().cpu().numpy()) for value in
+                model.initial_state[:-1]+model.metrics+model.metric_inverses]
+
+    try:
+        torch.set_num_threads(1)
+        torch.set_default_dtype(torch.float64)
+        torch.backends.cuda.matmul.allow_tf32 = False
+        torch.backends.cudnn.allow_tf32 = False
+        inputs, queries, old_labels, labels = [torch.as_tensor(arrays[key], device=device, dtype=torch.float64)
+            for key in ('train_inputs', 'query_inputs', 'old_labels', 'train_labels')]
+        dense = DeepDense(config['width'], 2, 2, 'tanh', config['seed'], device)
+        initial_hashes = [array_sha(value.cpu().numpy()) for value in dense.initial_state]
+        if initial_hashes != saved['initial_state_sha256']:
+            raise ArithmeticError('Dense initialization differs from the saved transfer reference')
+        report['initial_state_sha256'] = initial_hashes
+        source_tasks = [('old', old_labels)]
+        for seed in config['auxiliary_label_seeds']:
+            generator = np.random.default_rng(seed)
+            values = generator.choice(np.array([-1., 1.]), size=len(inputs))
+            values /= np.sqrt(np.mean(values**2))
+            if np.allclose(values, arrays['train_labels']) or np.allclose(values, -arrays['train_labels']):
+                raise ArithmeticError('Auxiliary labels duplicate the target up to sign')
+            arrays[f'auxiliary_labels_{seed}'] = values
+            source_tasks.append((f'rademacher_{seed}', torch.as_tensor(values, device=device)))
+        for name, task_labels in source_tasks:
+            values = task_labels.cpu().numpy()
+            report['source_label_tasks'].append(dict(name=name, labels=values.tolist(),
+                labels_sha256=array_sha(values), training_rms=float(np.sqrt(np.mean(values**2))),
+                target_label_cosine=float(task_labels@labels/(task_labels.norm()*labels.norm())),
+                old_label_cosine=float(task_labels@old_labels/(task_labels.norm()*old_labels.norm())),
+                equals_target=bool(torch.equal(task_labels, labels))))
+        persist()
+        rank = config['source_rank']
+        compiled = []
+        for name, task_labels in source_tasks:
+            print(f'pooled transfer: compiling {name}', flush=True)
+            source, info = compile_sources(dense, inputs, task_labels, queries,
+                horizon=config['horizon'], seconds=remaining(),
+                seed=_experiment_seed(config['seed'], 'logarithmic_source'), ranks=(rank,),
+                partitions=('new',), step=config['rollout_step'], time_degree=config['time_degree'])
+            blocks = source['new'][rank]
+            for family in ('h', 'delta'):
+                for layer, block in enumerate(blocks[family]):
+                    if block.shape != (config['width'], rank) or not bool(torch.isfinite(block).all()):
+                        raise ArithmeticError(f'Incomplete rank-{rank} source block: {name}/{family}/{layer}')
+                    if float((block.T@block-torch.eye(rank, device=device)).abs().max()) > 1e-8:
+                        raise ArithmeticError('Source columns are not orthonormal')
+                    source_arrays[f'{name}_{family}_{layer+1}'] = block.cpu().numpy()
+            compiled.append(blocks)
+            report['sources'][name] = info
+            persist()
+        pooled = {family: [] for family in ('h', 'delta')}
+        for family in pooled:
+            for layer in range(2):
+                remaining()
+                concatenated = torch.cat([source[family][layer] for source in compiled], dim=1)
+                left, singular, _ = torch.linalg.svd(concatenated, full_matrices=False)
+                block = left[:, :rank].clone()
+                pooled[family].append(block)
+                source_arrays[f'pooled_{family}_{layer+1}'] = block.cpu().numpy()
+                report['pooling'][f'{family}_{layer+1}'] = dict(
+                    concatenated_shape=list(concatenated.shape), retained_rank=rank,
+                    singular_values=singular.cpu().tolist(),
+                    relative_frobenius_tail=float(singular[rank:].norm()/singular.norm()),
+                    per_task_residual_frobenius=[float((source[family][layer]-block@(block.T@source[family][layer])).norm())
+                                               for source in compiled],
+                    orthonormality_max_abs=float((block.T@block-torch.eye(rank, device=device)).abs().max()))
+        h = dense.fields(dense.initial_state, inputs)[0][-1]
+        gap = float(torch.linalg.eigvalsh(h.T@h/(config['width']*len(inputs)))[0])
+        if gap <= 0:
+            raise ArithmeticError('Nonpositive initialized training-feature gap')
+        floor = min(1e-4, gap/8)
+        if not math.isclose(floor, saved['models']['transferred']['diagnostics']['readout_floor'], rel_tol=1e-10):
+            raise ArithmeticError('Readout regularization differs from saved old-only transfer')
+        for name, source in (('old_only', compiled[0]), ('pooled', pooled)):
+            entry = dict(status='inconclusive')
+            report['models'][name] = entry
+            try:
+                remaining()
+                model = DeepHarmonic(dense, inputs, old_labels, source, config['budget'],
+                    selection_seed=_experiment_seed(config['seed'], 'logarithmic_selector'),
+                    readout_floor=floor, selection_trials=config['selection_trials'],
+                    condition_limit=config['condition_limit'], selection_strategy='uniform')
+                entry['diagnostics'] = model.diagnostics
+                if any(value['truncated'] for value in model.diagnostics['source_truncations']):
+                    raise ArithmeticError('Constructor applied an additional source truncation')
+                before = geometry(model)
+                model.initial_state[-1] = labels.clone()
+                after = geometry(model)
+                if before != after:
+                    raise ArithmeticError('Resetting the label deficit changed frozen geometry')
+                entry.update(geometry_sha256_before=before, geometry_sha256_after=after,
+                    geometry_unchanged=True, learned=sum(value.numel() for value in model.initial_state),
+                    fixed=int(model.fixed_scalars))
+                _experiment_move(model, device, torch.float32)
+                state, prediction, run = integrate_euler(model, inputs.float(), labels.float(),
+                    torch.cat((inputs, queries)).float(), config['step'], remaining(),
+                    horizon=config['horizon'], observation_every=config['record_every'])
+                arrays[name], arrays['times_'+name] = prediction, np.asarray(run['times'])
+                entry['run'] = run
+                if not run['complete'] or not np.array_equal(arrays['times_'+name], times):
+                    raise ArithmeticError('Compact rollout is incomplete or has a different observation grid')
+                entry['status'] = 'complete'
+                del state, model
+            except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
+                entry['reason'] = f'{type(error).__name__}: {error}'
+                report['errors'][name] = entry['reason']
+            persist()
+            print(json.dumps(dict(model=name, status=entry['status'], reason=entry.get('reason'))), flush=True)
+    except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
+        report['errors']['setup'] = f'{type(error).__name__}: {error}'
+
+    m = config['samples']
+    reference = arrays['reference'][:, m:].astype(float)
+    baseline = np.sqrt(np.mean((arrays['independent_dense'][:, m:].astype(float)-reference)**2, axis=1))
+    metrics = {}
+    if baseline[-1] <= 0 or baseline.max() <= 0:
+        report['errors']['baseline'] = 'Saved dense-pair denominator is zero'
+    else:
+        for name in ('transferred', 'rebuilt', 'old_only', 'pooled'):
+            if name not in arrays or not np.array_equal(arrays['times_'+name], times):
+                continue
+            error = np.sqrt(np.mean((arrays[name][:, m:].astype(float)-reference)**2, axis=1))
+            if not np.isfinite(error).all():
+                continue
+            endpoint_ratio, maximum_ratio = float(error[-1]/baseline[-1]), float(error.max()/baseline.max())
+            metrics[name] = dict(curve=error.tolist(), endpoint_rms=float(error[-1]),
+                worst_recorded_rms=float(error.max()), endpoint_ratio=endpoint_ratio,
+                worst_recorded_ratio=maximum_ratio, passes_1x=max(endpoint_ratio, maximum_ratio) <= 1)
+        if 'old_only' in metrics:
+            difference = np.sqrt(np.mean((arrays['old_only'][:, m:].astype(float)-
+                                          arrays['transferred'][:, m:].astype(float))**2, axis=1))
+            reproduction = dict(endpoint_ratio=float(difference[-1]/baseline[-1]),
+                                worst_recorded_ratio=float(difference.max()/baseline.max()), threshold=.1)
+            reproduction['pass'] = max(reproduction['endpoint_ratio'], reproduction['worst_recorded_ratio']) <= .1
+            report['old_only_reproduction'] = reproduction
+            if not reproduction['pass']:
+                report['errors']['reproduction'] = 'Old-only rerun exceeded the frozen numerical-agreement gate'
+        if 'old_only' in metrics and 'pooled' in metrics:
+            report['pooling_comparison'] = {
+                field: metrics['pooled'][field]/metrics['old_only'][field]
+                for field in ('endpoint_rms', 'worst_recorded_rms')}
+            report['pooling_comparison']['improves_both'] = all(
+                metrics['pooled'][field] < metrics['old_only'][field]
+                for field in ('endpoint_rms', 'worst_recorded_rms'))
+        report['baseline'] = dict(endpoint_rms=float(baseline[-1]), worst_recorded_rms=float(baseline.max()),
+                                  curve=baseline.tolist())
+    report['metrics'] = metrics
+    report['complete'] = not report['errors'] and all(
+        report['models'].get(name, {}).get('status') == 'complete' for name in ('old_only', 'pooled'))
+    report['status'] = ('pass' if metrics['pooled']['passes_1x'] else 'fail') if report['complete'] else 'inconclusive'
+    persist()
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.6))
+    for name, label, color, style in (
+            ('transferred', 'Old-only, saved', '#999999', ':'),
+            ('old_only', 'Old-only, rerun', '#1b9970', '-'),
+            ('pooled', 'Pooled non-target labels', '#eb6834', '-'),
+            ('rebuilt', 'Target sources, saved', '#2a78d6', '--')):
+        if name not in metrics:
+            continue
+        error = np.asarray(metrics[name]['curve'])
+        valid = (times > 0) & (baseline > 0)
+        axes[0].plot(times[1:], error[1:], color=color, linestyle=style, label=label)
+        axes[1].plot(times[valid], error[valid]/baseline[valid], color=color, linestyle=style, label=label)
+    axes[0].plot(times[1:], baseline[1:], color='black', linestyle=':', label='Dense pair, saved')
+    axes[1].axhline(1, color='black', linestyle=':', label='Dense-pair ratio 1')
+    for ax in axes:
+        ax.set(xlabel='Training time', yscale='log')
+        ax.grid(alpha=.15)
+        ax.legend(frameon=False, fontsize=7)
+    axes[0].set_ylabel('Declared-query prediction RMS')
+    axes[1].set_ylabel('Pointwise RMS / saved dense-pair RMS')
+    fig.suptitle(f"Fixed rank 15, compact width 256 · pooled transfer: {report['status']}", fontsize=10)
+    fig.tight_layout()
+    for extension in ('png', 'pdf'):
+        fig.savefig(out/f'pooled_transfer.{extension}', dpi=200)
+    plt.close(fig)
+    (out/'caption.txt').write_text(
+        'Three full-horizon source tasks use the old labels and fixed Rademacher labels from '
+        'seeds 4712 and 4713. Each has unit training RMS; none uses the changed target labels. '
+        'For each h/delta family and hidden layer, concatenate their orthonormal rank-15 source '
+        'columns with equal weight and retain the first 15 left singular vectors. Old-only and '
+        'pooled constructors both use width 256, 64 uniform coordinate candidates and condition '
+        'cap 16. Only the label-dependent initial deficit is reset to the new target; retained '
+        'weights and geometry are hash checked unchanged. The target-task dense reference, '
+        'independent dense comparator and rebuilt positive control are saved curves, not rerun. '
+        'The fidelity decision uses endpoint RMS and the ratio of separate recorded maxima, '
+        'each at most 1; it does not require the plotted pointwise ratio to stay below 1. '
+        'Initialization is omitted from ratio plots. The old-only rerun must agree with its '
+        'saved curve to within 0.1 of the dense-pair endpoint and maximum RMS. All sources use '
+        'RK4 step 1/8 to T=32, and compact deployment uses Euler step 1/160. This bounded '
+        'single-seed label-pooling test gives no initialization-only or general-transfer guarantee.\n')
+    report['seconds_including_plot'] = time.monotonic()-started
+    save_json(out/'report.json', report)
+    print(json.dumps(dict(output=str(out), status=report['status'], seconds=report['seconds_including_plot'],
+                         comparison=report.get('pooling_comparison'), errors=report['errors'])), flush=True)
+    return 0
+
+
+@torch.no_grad()
+def feedback_dense_pairs_main(argv):
+    """Measured dense variability with the same independent seed pairs at every width."""
+    parser = argparse.ArgumentParser(description=feedback_dense_pairs_main.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    args = parser.parse_args(argv)
+    config = json.loads(args.config.read_text())
+    out = Path(config['output'])
+    out.mkdir(parents=True, exist_ok=True)
+    if (out/'report.json').exists():
+        raise FileExistsError('Choose a fresh dense-pair output')
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    device = torch.device(config['device'])
+    data_config = _experiment_merge(EXPERIMENT_DEFAULTS, {'dataset': config['dataset']})
+    arrays = _experiment_data(data_config)
+    inputs, labels, queries = [torch.as_tensor(arrays[k], device=device, dtype=torch.float32)
+                               for k in ('train_inputs', 'train_labels', 'query_inputs')]
+    if len(config['seeds']) != len(config['partner_seeds']) or set(config['seeds']) & set(config['partner_seeds']):
+        raise ValueError('Need disjoint equally sized reference and partner seed lists')
+    source = Path(__file__).read_bytes()
+    (out/'source.py').write_bytes(source)
+    save_json(out/'config.json', config)
+    report = dict(config=config, source_sha256=sha(source), pairs=[], runs={}, summary=[], errors={},
+        scope='Three independent pairs per width. Same seed lists across widths. '
+              'No compressed repetitions implied; fitted c/sqrt(n) is descriptive, not the pass threshold.')
+    started = time.monotonic()
+    def persist():
+        np.savez_compressed(out/'trajectories.npz', **arrays)
+        report['trajectories_sha256'] = sha((out/'trajectories.npz').read_bytes())
+        report['seconds'] = time.monotonic()-started
+        save_json(out/'report.json', report)
+    for width in config['widths']:
+        for seed, partner in zip(config['seeds'], config['partner_seeds']):
+            keys = []
+            for role, role_seed in (('reference', seed), ('partner', partner)):
+                key = f'{role}_n{width}_seed{role_seed}'
+                model = DeepDense(width, inputs.shape[1], config['depth'], config['activation'], role_seed, device)
+                _experiment_move(model, device, torch.float32)
+                state, prediction, run = integrate_euler(model, inputs, labels,
+                    torch.cat((inputs, queries)), config['step'], config['seconds'],
+                    horizon=config['horizon'], observation_every=config['record_every'])
+                del model, state
+                arrays[key], arrays['times_'+key] = prediction, np.asarray(run['times'])
+                report['runs'][key] = run
+                keys.append(key)
+                if not run['complete']:
+                    report['errors'][key] = run['stop_reason']
+                persist()
+            if not any(key in report['errors'] for key in keys):
+                assert np.array_equal(arrays['times_'+keys[0]], arrays['times_'+keys[1]])
+                metric = trajectory_rms(arrays[keys[0]][:, len(labels):], arrays[keys[1]][:, len(labels):])
+                report['pairs'].append(dict(width=width, seed=seed, partner_seed=partner, **metric))
+                print(json.dumps(dict(width=width, seed=seed, endpoint_rms=metric['endpoint_rms'],
+                                      max_time_rms=metric['max_time_rms'])), flush=True)
+                persist()
+    for width in config['widths']:
+        rows = [p for p in report['pairs'] if p['width'] == width]
+        row = dict(width=width, count=len(rows))
+        for metric in ('endpoint_rms', 'max_time_rms'):
+            values = np.asarray([p[metric] for p in rows])
+            row[metric] = dict(mean=float(values.mean()) if len(values) else None,
+                              sd=float(values.std(ddof=1)) if len(values) > 1 else None,
+                              values=values.tolist())
+        report['summary'].append(row)
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    fig, axes = plt.subplots(1, 2, figsize=(8.4, 3.4))
+    for axis, metric, title in zip(axes, ('endpoint_rms', 'max_time_rms'), ('Endpoint', 'Worst recorded')):
+        rows = [p for p in report['summary'] if p['count']]
+        widths = np.asarray([p['width'] for p in rows])
+        means = np.asarray([p[metric]['mean'] for p in rows])
+        deviations = np.asarray([p[metric]['sd'] or 0 for p in rows])
+        axis.errorbar(widths, means, yerr=[np.minimum(deviations, .95*means), deviations],
+                      fmt='o-', capsize=3, label='Mean ± SD')
+        for row in rows:
+            axis.scatter(np.full(row['count'], row['width']), row[metric]['values'],
+                         color='#0072B2', alpha=.4, s=14)
+        coefficient = float(np.mean(means*np.sqrt(widths)))
+        report.setdefault('descriptive_sqrt_fits', {})[metric] = coefficient
+        axis.plot(widths, coefficient/np.sqrt(widths), '--', color='grey', label='Fitted c/√n')
+        axis.set(xscale='log', yscale='log', xlabel='Dense width', ylabel='Dense-pair RMS', title=title)
+        axis.grid(alpha=.15)
+        axis.legend(frameon=False, fontsize=8)
+    fig.tight_layout()
+    for extension in ('png', 'pdf'):
+        fig.savefig(out/f'dense_pairs.{extension}', dpi=180)
+    plt.close(fig)
+    report['complete'] = not report['errors']
+    persist()
+    return int(bool(report['errors']))
+
+
 def _experiment_seed(seed, role):
     # Stable under changes to method order, budgets, process scheduling, or Python's hash salt.
     value = int(sha(f'{seed}:{role}'.encode())[:15], 16)
@@ -8328,6 +9441,11 @@ def _experiment_seed(seed, role):
 
 
 def _experiment_move(model, device, dtype):
+    if isinstance(model, PanelSpanModel):
+        _experiment_move(model.core, device, dtype)
+        model.initial_state = model.core.initial_state
+        model.input_basis = model.input_basis.to(device=device, dtype=dtype)
+        return model
     for key in ('initial_state', 'metrics', 'metric_inverses'):
         if hasattr(model, key):
             setattr(model, key, [v.to(device=device, dtype=dtype) for v in getattr(model, key)])
@@ -8453,7 +9571,10 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
         if not report['runs']['reference']['complete']:
             return 1
         oblivious = config['methods']['oblivious']
-        controls = _experiment_matched_controls(config, n, d)
+        panel_rank = None
+        if config['methods']['non_oblivious']['logarithmic'].get('panel_span', False):
+            panel_rank = int(torch.linalg.matrix_rank(torch.cat((inputs, queries)).double()))
+        controls = _experiment_matched_controls(config, n, d, panel_rank=panel_rank)
         if any(oblivious[family].get('match_compressions', False) for family in ('dense', 'low_rank')):
             report['matched_controls'] = controls
             report['skipped'].update(controls['skipped'])
@@ -8485,6 +9606,11 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
             selector_seed = role_seed(f'{family}_selector')
             print(json.dumps(dict(event='source_setup', seed=seed, method=family)), flush=True)
             try:
+                setup_dense, setup_inputs, setup_queries = dense, inputs, queries
+                input_basis, panel_info = None, None
+                if family == 'logarithmic' and method.get('panel_span', False):
+                    setup_dense, input_basis, panel_info = _panel_span_dense(dense, inputs, queries)
+                    setup_inputs, setup_queries = inputs@input_basis, queries@input_basis
                 options = dict(seconds=seconds, step=setup['rollout_step'], time_degree=setup['time_degree'],
                     rollout_dtype=setup['rollout_dtype'], coefficient_dtype=setup['coefficient_dtype'])
                 if family == 'harmonic':
@@ -8496,7 +9622,7 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                     info['prefix_diagnostics_scope'] = 'Source checks describe largest rank; smaller prefixes are not separately checked'
                     floor = None
                 else:
-                    sources, info = cubic_rollout_sources(dense, inputs, labels, queries,
+                    sources, info = cubic_rollout_sources(setup_dense, setup_inputs, labels, setup_queries,
                         training['horizon'], seed=source_seed, ranks=tuple(ranks), partitions=('new',), **options)
                     sources = sources['new']
                     features = dense.fields(dense.initial_state, inputs)[0][-1]
@@ -8505,6 +9631,8 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                         raise ArithmeticError('Initial normalized training feature Gram has no positive gap')
                     floor = min(1e-4, gap/8)
                     info['readout_floor'] = floor
+                    if panel_info is not None:
+                        info['panel_span'] = panel_info
                 info['effective_setup'] = setup
                 report['sources'][family] = info
                 for index, budget in enumerate(method['budgets']):
@@ -8512,12 +9640,14 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                     name = f'{family}_{width}_r{rank}'
 
                     def construct():
-                        model = DeepHarmonic(dense, inputs, labels, sources[rank], width,
+                        model = DeepHarmonic(setup_dense, setup_inputs, labels, sources[rank], width,
                             selection_seed=selector_seed, readout_floor=floor,
-                            selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'])
+                            selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'],
+                            selection_strategy=setup['selection_strategy'])
                         if any(item['truncated'] for item in model.diagnostics['source_truncations']):
                             raise ArithmeticError('Budget requires extra constructor truncation; result inconclusive, not silently substituted')
-                        return model
+                        return (PanelSpanModel(model, input_basis, panel_info)
+                                if input_basis is not None else model)
 
                     build_fit(name, family, construct, width=width, source_rank=rank, shared_source=family,
                               source_seed=source_seed, selection_seed=selector_seed)
@@ -8554,8 +9684,17 @@ def _budget_search_next(observations, tolerance, minimum=1, start=None, maximum=
     if upper == minimum or (failed and (upper <= lower+1 or upper/lower <= 1+tolerance)):
         bracket['status'] = 'minimum_order' if upper == minimum else 'resolved_local'
         return None, bracket
-    midpoint = (lower+upper)//2
-    available = [q for q in range(max(minimum, lower+1), upper) if q not in observations]
+    # A failed constructor gives no accuracy bound. For the next proposal only,
+    # move above it rather than spending the fit cap on its immediate neighbors.
+    # Keep the reported lower crossing tied exclusively to measured failures.
+    blocked = [q for q, value in observations.items()
+               if lower < q < upper and value['status'] == 'inconclusive']
+    proposal_lower = max(blocked, default=lower)
+    if blocked and (upper <= proposal_lower+1 or upper/proposal_lower <= 1+tolerance):
+        bracket.update(status='inconclusive_lower', construction_floor=proposal_lower)
+        return None, bracket
+    midpoint = (proposal_lower+upper)//2
+    available = [q for q in range(max(minimum, proposal_lower+1), upper) if q not in observations]
     if not available:
         bracket['status'] = 'inconclusive_gap'
         return None, bracket
@@ -8617,7 +9756,8 @@ def _budget_search_worker(out, device_name, plan):
                              worst_recorded_ratio=float(metrics[1]/baseline.max()))
             values[q] = value
         # Constructor failures may precede the creation of a model record.
-        for request in report['budget_search'][family]['requested']:
+        search = report['budget_search'][family]
+        for request in search.get('inherited_requested', [])+search['requested']:
             q = request.get('order', request.get('width'))
             values.setdefault(q, dict(status='inconclusive', name=request['name']))
         return values
@@ -8625,6 +9765,8 @@ def _budget_search_worker(out, device_name, plan):
     for family in ('legendre', 'harmonic', 'logarithmic'):
         search = report['budget_search'][family]
         source, floor, setup = None, None, None
+        setup_dense, setup_inputs, setup_queries = dense, inputs, queries
+        input_basis, panel_info = None, None
         expansion = plan.get('expansion', {}).get(family, {})
         for _ in range(plan['max_new_per_family']):
             observations = observed(family)
@@ -8643,6 +9785,9 @@ def _budget_search_worker(out, device_name, plan):
             try:
                 if family != 'legendre' and source is None:
                     method = config['methods']['non_oblivious'][family]
+                    if family == 'logarithmic' and method.get('panel_span', False):
+                        setup_dense, input_basis, panel_info = _panel_span_dense(dense, inputs, queries)
+                        setup_inputs, setup_queries = inputs@input_basis, queries@input_basis
                     maximum = max((v['source_rank'] for v in method['budgets']),
                                   default=plan.get('source_max_ranks', {}).get(family, 0))
                     if maximum < 1:
@@ -8661,7 +9806,7 @@ def _budget_search_worker(out, device_name, plan):
                         old_checks = old_info['diagnostics'] if old_info else None
                         new_checks = info['diagnostics']
                     else:
-                        sources, info = cubic_rollout_sources(dense, inputs, labels, queries, training['horizon'],
+                        sources, info = cubic_rollout_sources(setup_dense, setup_inputs, labels, setup_queries, training['horizon'],
                             seed=source_seed, ranks=(maximum,), partitions=('new',), **options)
                         source = sources['new'][maximum]
                         if old_info:
@@ -8673,6 +9818,8 @@ def _budget_search_worker(out, device_name, plan):
                                 raise ArithmeticError('Initial normalized training feature Gram has no positive gap')
                             floor = min(1e-4, gap/8)
                         info['readout_floor'] = floor
+                        if panel_info is not None:
+                            info['panel_span'] = panel_info
                         old_checks = old_info['partitions']['new']['diagnostics'][str(maximum)] if old_info else None
                         new_checks = info['partitions']['new']['diagnostics'][str(maximum)]
                     if old_checks is not None:
@@ -8696,11 +9843,14 @@ def _budget_search_worker(out, device_name, plan):
                     if rank > maximum:
                         raise ValueError('Refinement would change original source SVD maximum')
                     prefix = {key: [v[:, :rank] for v in values] for key, values in source.items()}
-                    model = DeepHarmonic(dense, inputs, labels, prefix, q,
+                    model = DeepHarmonic(setup_dense, setup_inputs, labels, prefix, q,
                         selection_seed=report['seeds'][family+'_selector'], readout_floor=floor,
-                        selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'])
+                        selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'],
+                        selection_strategy=setup['selection_strategy'])
                     if any(item['truncated'] for item in model.diagnostics['source_truncations']):
                         raise ArithmeticError('Extra constructor truncation is not permitted')
+                    if input_basis is not None:
+                        model = PanelSpanModel(model, input_basis, panel_info)
                     details = dict(width=q, source_rank=rank, shared_source=family,
                                    source_seed=report['seeds'][family+'_source'],
                                    selection_seed=report['seeds'][family+'_selector'])
@@ -8773,7 +9923,9 @@ def budget_search_main(argv):
     save_json(out/'plan.json', plan)
     for index, old_root in enumerate(map(Path, plan['runs'])):
         previous = json.loads((old_root/'run.json').read_text())
-        config = copy.deepcopy(previous['config'])
+        # Old saved runs may predate optional selector/panel/dataset fields.
+        # Fill defaults without changing their explicitly recorded settings.
+        config = _experiment_merge(EXPERIMENT_DEFAULTS, previous['config'])
         seed, n = config['seeds'][0], config['model']['width']
         old_path = old_root/previous['repetitions'][str(seed)]
         report = json.loads((old_path/'report.json').read_text())
@@ -8801,8 +9953,13 @@ def budget_search_main(argv):
         reused = dict(root=str(old_root.resolve()), source_sha256=report['source_sha256'],
             report_sha256=sha((old_path/'report.json').read_bytes()), trajectories_sha256=sha(trajectory_bytes),
             names=list(report['runs']), previous_seconds=report['seconds'])
+        old_search = report.get('budget_search', {})
+        inherited = {family: copy.deepcopy(old_search.get(family, {}).get('inherited_requested', [])
+                     +old_search.get(family, {}).get('requested', []))
+                     for family in ('legendre', 'harmonic', 'logarithmic')}
         report.update(source_sha256=source_hash, fingerprint=fingerprint, reused_from=reused,
             search_complete=False, budget_search={family: dict(requested=[], evaluations={}, bracket={},
+                inherited_requested=inherited[family],
                 factor=plan['factor'], width_tolerance=plan['width_tolerance'])
                 for family in ('legendre', 'harmonic', 'logarithmic')})
         manifest = dict(config=config, identity=identity, fingerprint=fingerprint, source_sha256=source_hash,
@@ -8942,12 +10099,18 @@ def appendix_saved_plot(argv):
     from matplotlib.lines import Line2D
 
     parser = argparse.ArgumentParser(description=appendix_saved_plot.__doc__)
+    parser.add_argument('--manifest', type=Path,
+                        default=ROOT/'studies/paper_figure_drafts_20261009/figures.json')
+    parser.add_argument('--spectra', type=Path,
+                        default=ROOT/'data/generated/paper_appendix_pilots_20261009/spectral_history')
+    parser.add_argument('--additional-spectra', type=Path, nargs='*', default=[],
+                        help='Additional completed or inconclusive single-width spectral output folders')
     parser.add_argument('--output', type=Path,
                         default=ROOT/'data/generated/paper_appendix_pilots_20261009/figures')
     args = parser.parse_args(argv)
     destination = args.output.resolve()
     destination.mkdir(parents=True, exist_ok=True)
-    manifest_path = ROOT/'studies/paper_figure_drafts_20261009/figures.json'
+    manifest_path = args.manifest.resolve()
     manifest_bytes = manifest_path.read_bytes()
     plan = json.loads(manifest_bytes)
     plot_source_hash = sha(Path(__file__).read_bytes())
@@ -9078,6 +10241,19 @@ def appendix_saved_plot(argv):
                 setup = source.get('total_setup_seconds', source.get('seconds', 0.))
                 require(runtime['dtype'] == 'torch.float32', f'Unexpected payload dtype: {name}')
                 require(model['total'] == model['moving']+model['fixed'], f'Invalid counts: {name}')
+                require(config['model']['depth'] == 2, 'Arithmetic table currently covers two hidden layers')
+                m, d, n = train_count, config['dataset']['dimension'], width
+                if model['family'] == 'reference':
+                    leading_macs = 3*n*n*m+2*n*d*m
+                    arithmetic_formula = '3 n^2 m + 2 n d m + O(n m)'
+                elif model['family'] == 'legendre':
+                    q = model['order']
+                    leading_macs = 2*n*n*m+8*q*n*m*m+2*n*d*m
+                    arithmetic_formula = '2 n^2 m + 8 q n m^2 + 2 n d m + O(q n m + n m)'
+                else:
+                    k = model['width']
+                    leading_macs = 10*k*k*m+2*k*d*m+5*k*m*m+d*m*m
+                    arithmetic_formula = '10 k^2 m + 2 k d m + 5 k m^2 + d m^2 + O(k^2 + k m + m^3)'
                 costs.append(dict(task=task['name'], name=name, family=model['family'],
                     offline_shared_source_seconds=setup, construction_seconds=model['setup_seconds'],
                     training_update_seconds=runtime['training_seconds'],
@@ -9087,6 +10263,11 @@ def appendix_saved_plot(argv):
                     runtime_wall_seconds=runtime['seconds'], observations=len(times),
                     inputs_per_query_batch=len(declared)+len(extra),
                     learned_payload_bytes=4*model['moving'], fixed_payload_bytes=4*model['fixed'],
+                    leading_training_rhs_macs=leading_macs,
+                    training_rhs_arithmetic=arithmetic_formula,
+                    arithmetic_parameters=dict(n=n, d=d, m=m, q=model.get('order'), k=model.get('width')),
+                    arithmetic_convention='one multiply-accumulate is one MAC; analytic leading product counts, not profiling',
+                    arithmetic_exclusions='pointwise activation/scaling, lower-order vector work, compact m-cubed solve, setup and query work',
                     payload_definition='recorded retained scalars times four bytes; nominal float32 payload',
                     process_peak_cuda_bytes=runtime['process_peak_cuda_bytes'], peak_scope=runtime['peak_scope'],
                     source_timing_scope=source.get('timing_scope', 'shared family source setup' if source else 'none'),
@@ -9139,7 +10320,6 @@ def appendix_saved_plot(argv):
                         linestyle, color=color, marker=marker, markersize=4, linewidth=1.2,
                         label=label if field == 'endpoint_ratio' else None)
         ax.axhline(1, color='#777777', linewidth=.8, linestyle=':')
-        ax.axhline(3, color='#aaaaaa', linewidth=.7, linestyle=':')
         ax.set_xticks([1024, 2048, 4096])
         ax.set_yscale('log')
         ax.set_title(task['title'])
@@ -9147,44 +10327,122 @@ def appendix_saved_plot(argv):
         ax.set_ylabel('Prediction RMS / respective dense-pair RMS')
         ax.legend(frameon=False, fontsize=7)
     fig.legend(handles=[Line2D([0], [0], color='black', label='Endpoint'),
-                        Line2D([0], [0], color='black', linestyle='--', label='Maximum over recorded times')],
+                        Line2D([0], [0], color='black', linestyle='--', label='Ratio of separate recorded maxima')],
                loc='lower center', ncol=2, frameon=False, fontsize=8)
     fig.tight_layout(rect=(0, .08, 1, 1))
     save(fig, 'appendix_fixed_budget_ratios')
 
-    fig, axes = plt.subplots(2, 2, figsize=(10, 6), gridspec_kw={'height_ratios': [2.4, 1.2]})
-    phases = [('offline_shared_source_seconds', 'Offline source setup', '#9472b0'),
-              ('construction_seconds', 'Model construction', '#e9b54a'),
-              ('training_update_seconds', 'Training updates', '#2a78d6'),
-              ('query_with_refresh_seconds', 'Query + refresh', '#1b9970')]
+    fig, axes = plt.subplots(2, 1, figsize=(12.5, 4.8))
     for index, task in enumerate(plan['tasks']):
         rows = [row for row in costs if row['task'] == task['name']]
-        names = [('Dense' if row['family'] == 'reference' else styles[row['family']][0]).replace(', ', '\n')
+        names = [('Dense' if row['family'] == 'reference' else styles[row['family']][0])
                  for row in rows]
-        ax = axes[0, index]
-        positions = np.arange(len(rows))
-        for j, (field, label, color) in enumerate(phases):
-            values = [row[field] if row[field] > 0 else np.nan for row in rows]
-            ax.bar(positions+(j-1.5)*.19, values, width=.18, color=color, label=label)
-        ax.set_xticks(positions, names, fontsize=7)
-        ax.set_yscale('log')
-        ax.set_ylabel('Recorded seconds')
-        ax.set_title(task['title']+' · n=4096')
-        table_ax = axes[1, index]
-        table_ax.axis('off')
-        cells = [[name.replace('\n', ' '), f"{row['learned_payload_bytes']/2**20:.3f}",
+        ax = axes[index]
+        ax.axis('off')
+        ax.set_title(task['title']+' · n=4096 · recorded runtime and retained payload', pad=2)
+        cells = [[name, f"{row['offline_shared_source_seconds']:.2f}",
+                  f"{row['construction_seconds']:.2f}", f"{row['training_update_seconds']:.2f}",
+                  f"{row['query_with_refresh_seconds']:.2f}", f"{row['learned_payload_bytes']/2**20:.3f}",
                   f"{row['fixed_payload_bytes']/2**20:.3f}",
+                  f"{row['leading_training_rhs_macs']/1e6:.2f}",
                   f"{row['process_peak_cuda_bytes']/2**20:.1f}"] for name, row in zip(names, rows)]
-        table = table_ax.table(cellText=cells,
-            colLabels=['Model', 'Learned\nMiB', 'Fixed\nMiB', 'Process peak\nGPU MiB'],
-            colWidths=[.42, .18, .18, .22], cellLoc='center', loc='center')
+        table = ax.table(cellText=cells,
+            colLabels=['Model', 'Source\ns', 'Build\ns', 'Updates\ns', 'Queries\ns',
+                       'Learned\nMiB', 'Fixed\nMiB', 'Leading\nM MAC/RHS', 'Process peak\nGPU MiB'],
+            colWidths=[.20, .085, .085, .09, .09, .10, .10, .12, .13], cellLoc='center', loc='center')
         table.auto_set_font_size(False)
         table.set_fontsize(7)
-        table.scale(1, 1.6)
-    handles, labels = axes[0, 0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc='lower center', ncol=4, frameon=False, fontsize=8)
-    fig.tight_layout(rect=(0, .055, 1, 1))
+        table.scale(1, 1.8)
+    fig.tight_layout()
     save(fig, 'appendix_recorded_costs')
+
+    spectral_root = args.spectra.resolve()
+    require(spectral_root.is_relative_to(ROOT/'data/generated/paper_appendix_pilots_20261009'),
+            f'Out-of-scope spectral root: {spectral_root}')
+    spectral_bytes = (spectral_root/'report.json').read_bytes()
+    spectral_report = json.loads(spectral_bytes)
+    require(spectral_report['complete'], 'Incomplete saved spectral measurements')
+    spectral_rows, spectral_inconclusive = [], []
+    worker_paths = [(spectral_root/f"n{case['width']}"/'report.json', case['result'])
+                    for case in spectral_report['cases']]
+    for additional in args.additional_spectra:
+        additional = additional.resolve()
+        require(additional.is_relative_to(ROOT/'data/generated/paper_appendix_pilots_20261009/feedback'),
+                f'Out-of-scope additional spectral root: {additional}')
+        worker_paths.append((additional/'report.json', None))
+    observed_widths = set()
+    for worker_path, expected in worker_paths:
+        worker_bytes = worker_path.read_bytes()
+        worker = json.loads(worker_bytes)
+        width = worker['width']
+        require(width not in observed_widths, f'Duplicate spectral width: {width}')
+        observed_widths.add(width)
+        require(expected is None or worker == expected, f'Spectral worker mismatch: {worker_path}')
+        require(all(worker['config'][key] == value for key, value in spectral_report['config'].items()
+                    if key not in ('widths', 'device')), f'Changed spectral protocol: {worker_path}')
+        if expected is None:
+            require(worker['config']['widths'] == [width], f'Incorrect worker width config: {worker_path}')
+            require(sha((worker_path.parent/'source.py').read_bytes()) == worker['source_sha256'],
+                    f'Spectral source snapshot mismatch: {worker_path}')
+        if not worker['complete']:
+            spectral_inconclusive.append(dict(width=width, report_path=str(worker_path),
+                report_sha256=sha(worker_bytes), status='inconclusive',
+                reason=worker.get('error', 'Worker did not complete within the bounded attempt; no retry')))
+            continue
+        history = worker['history_spectra'][0]
+        singular = np.asarray(history['singular_values'], dtype=float)
+        denominator = history['projected_history_frobenius']
+        require(history['full_spectrum'] and not history['polynomial_fitting_used']
+                and len(singular) == min(history['history_shape'])
+                and np.isfinite(singular).all() and np.all(singular >= 0)
+                and np.all(np.diff(singular) <= 0) and denominator > 0,
+                f'Invalid full saved history spectrum: {worker_path}')
+        tail = np.sqrt(np.r_[np.cumsum(singular[::-1]**2)[::-1], 0.])/denominator
+        require(abs(tail[0]-1) < 1e-8, f'Spectral energy mismatch: {worker_path}')
+        tolerance = .01*math.sqrt(512/width)
+        ranks = {str(tol): int(np.flatnonzero(tail <= tol)[0]) for tol in (.01, .001)}
+        require(ranks == history['required_rank'], f'Fixed-tolerance rank mismatch: {worker_path}')
+        spectral_rows.append(dict(width=width, tolerance=tolerance,
+            shrinking_tolerance_rank=int(np.flatnonzero(tail <= tolerance)[0]),
+            fixed_tolerance_ranks=ranks, mandatory_span_rank=history['mandatory_span_rank'],
+            normalized_singular_values=(singular/denominator).tolist(),
+            original_history_rms=history['original_history_rms'],
+            projected_history_rms=history['projected_history_rms'],
+            report_path=str(worker_path), report_sha256=sha(worker_bytes),
+            seconds=worker['seconds'],
+            maximum_temporal_holdout_relative_rms=worker['maximum_temporal_holdout_relative_rms']))
+    spectral_rows.sort(key=lambda row: row['width'])
+    fig, axes = plt.subplots(1, 3, figsize=(11.8, 3.6))
+    colors = ['#2563eb', '#d97706', '#16856c', '#8b5bb7', '#c44848']
+    for row, color in zip(spectral_rows, colors):
+        singular = row['normalized_singular_values']
+        axes[0].loglog(np.arange(1, len(singular)+1), singular, color=color,
+                       linewidth=1.2, label=f"n={row['width']}")
+    axes[0].set(xlabel='Singular-value index', ylabel=r'$\sigma_j/\|H_\perp\|_F$',
+                title='Saved dense activation histories', ylim=(1e-10, 1.5))
+    widths = [row['width'] for row in spectral_rows]
+    for tol, marker, label in (('0.01', 'o', '1% tail'), ('0.001', 's', '0.1% tail')):
+        axes[1].plot(widths, [row['fixed_tolerance_ranks'][tol] for row in spectral_rows],
+                     marker=marker, label=label)
+    axes[1].plot(widths, [row['shrinking_tolerance_rank'] for row in spectral_rows],
+                 marker='^', linestyle='--', color='#ad3b70', label=r'$0.01\sqrt{512/n}$ tail')
+    axes[1].set(xlabel='Dense width n', ylabel='Required history rank',
+                title='Relative Frobenius-tail tolerance', xscale='log', xticks=widths)
+    axes[1].set_xticklabels([str(width) for width in widths])
+    for field, label, marker in (('original_history_rms', 'Before projection', 's'),
+                                 ('projected_history_rms', 'After projection', 'o')):
+        axes[2].plot(widths, [row[field] for row in spectral_rows], marker=marker, label=label)
+    axes[2].set(xlabel='Dense width n', ylabel='History RMS', title='Measured history size',
+                xscale='log', xticks=widths)
+    axes[2].set_xticklabels([str(width) for width in widths])
+    for ax in axes:
+        ax.legend(frameon=False, fontsize=7)
+        ax.grid(alpha=.15)
+    fig.suptitle('Circle pilot · empirical history ranks · no prediction-error guarantee', fontsize=10)
+    if spectral_inconclusive:
+        fig.supxlabel('Inconclusive: '+', '.join(str(row['width']) for row in spectral_inconclusive), fontsize=8)
+    fig.tight_layout()
+    save(fig, 'appendix_response_history_spectra')
 
     captions = [
         'Scope. At dense width n=4096 and largest saved Logarithmic width 512 (source rank 37 on '
@@ -9201,14 +10459,14 @@ def appendix_saved_plot(argv):
         'Here E(t) is RMS over the 30 declared queries relative to the coupled dense reference; '
         'E_iid(t) compares that reference with one independent dense initialization. Fixed compact '
         'width 512 and source ranks (circle 37, digits 32) are retained; Legendre order q=4 is '
-        'fixed while its learned-state count grows with dense width. Dotted levels are ratios 1 '
-        'and 3. Lines connect observations only: no exponent, limiting ratio, asymptotic vanishing '
+        'fixed while its learned-state count grows with dense width. The dotted level is ratio 1. '
+        'Lines connect observations only: no exponent, limiting ratio, asymptotic vanishing '
         'or continuous-time maximum is estimated. Each width uses its saved reference seed.',
-        'Costs. Bars show saved timings at n=4096 on NVIDIA RTX 3090: offline source setup, model '
+        'Costs. Tables show saved timings at n=4096 on NVIDIA RTX 3090: offline source setup, model '
         'construction, actual Euler training updates, and query work including readout refresh. '
         'Query totals cover 65 batches, each containing 8 training, 30 declared and 30 undeclared '
         'inputs. Training-loss checks and final host export are separate fields in metrics. '
-        'Absent source bars mean no offline source stage. Each source setup was shared across '
+        'Zero source time means no offline source stage. Each source setup was shared across '
         'three compact budgets; the displayed full setup is not an apportioned or isolated '
         'single-model benchmark. Logarithmic setup includes its disposable precursor and dense '
         'full-horizon rollout. Model construction excludes the shared source stage. Dense uses '
@@ -9218,17 +10476,53 @@ def appendix_saved_plot(argv):
         'and fixed storage. Common data, workspace and source temporaries are excluded from '
         'payload counts. CUDA peak is allocated memory of the whole process, including resident '
         'references; it is not isolated model peak memory.',
-        'All three figures reuse the six existing single-seed Figure 2–4 runs. No fitting, new '
-        'training, seed selection, numerical refinement or theorem certification was performed.']
+        'Arithmetic counts. One multiply-accumulate is one MAC. For two hidden layers, training '
+        'batch m, input dimension d, dense width n, compact width k and Legendre order q, the '
+        'leading product counts per training RHS evaluation are: Dense, 3 n^2 m+2 n d m+O(n m); '
+        'Legendre, 2 n^2 m+8 q n m^2+2 n d m+O(q n m+n m); Harmonic and Logarithmic, '
+        '10 k^2 m+2 k d m+5 k m^2+d m^2+O(k^2+k m+m^3). The table evaluates the displayed '
+        'polynomial terms in millions of MACs (10^6), with m=8 and q=4. The compact counts '
+        'include retained metric products and duplicated training-Gram products; the additional '
+        'm-by-m readout solve is represented only by its O(m^3) order, without a guessed '
+        'constant. Legendre moment transport uses cumulative sums. Pointwise activations, '
+        'scalings, lower-order work, source setup and query evaluations are excluded. These '
+        'analytic classical-arithmetic counts are not measured hardware FLOPs, wall-time '
+        'predictions or a claim of optimized speedup; dtype and per-step overhead also matter.',
+        'Response-history spectra. H_perp is the saved top-layer activation-history matrix at '
+        '128 held-out times and 38 declared inputs after projecting out its mandatory initialized '
+        'span. The displayed rank is the smallest r with sqrt(sum_{j>r} sigma_j^2)/||H_perp||_F '
+        '<= epsilon. Fixed tolerances 0.01 and 0.001 are supplemented by epsilon(n)=c/sqrt(n), '
+        'where c=0.01 sqrt(512) is fixed, so epsilon(512)=0.01. This reference scale is not '
+        'fitted to dense-pair prediction errors. The mandatory span remains additional. These '
+        'empirical reconstruction ranks provide no prediction-error guarantee or prediction of '
+        'Figure 2: a stability/propagation bound is absent. The spectrum display clips values '
+        'below 10^-10; every rank calculation uses all saved singular values. '
+        'Full saved singular values are reused; '
+        'the plot command runs no SVD or rollout. Completed measured widths are '
+        +', '.join(str(row['width']) for row in spectral_rows)+'. '
+        +('Inconclusive bounded attempts: '+', '.join(str(row['width']) for row in spectral_inconclusive)+'. '
+          if spectral_inconclusive else '')+
+        'Degree-8 coefficient interpolation is auxiliary: its held-out relative RMS is '
+        '10^-7 to 10^-6; the original coefficient-spectrum artifacts remain preserved.',
+        'The scope, ratio and cost tables reuse the six existing single-seed Figure 2–4 runs; '
+        'history spectra reuse completed saved single-seed source measurements, including explicitly '
+        'requested width extensions when supplied. This plot command performs no fitting, new '
+        'training, seed selection, numerical refinement or theorem certification.']
     (destination/'appendix_saved_captions.txt').write_text('\n\n'.join(captions)+'\n')
     save_json(destination/'appendix_saved_metrics.json', dict(
         manifest_path=str(manifest_path), manifest_sha256=sha(manifest_bytes),
         plot_source_path=str(Path(__file__).resolve()), plot_source_sha256=plot_source_hash,
         provenance=records, scope=scope, fixed_budget_ratios=ratios, recorded_costs=costs,
+        history_spectra=spectral_rows, spectral_inconclusive=spectral_inconclusive,
+        additional_spectral_reports=[str(path) for path, expected in worker_paths if expected is None],
+        spectral_report_path=str(spectral_root/'report.json'),
+        spectral_report_sha256=sha(spectral_bytes), shrinking_tolerance_constant=.01*math.sqrt(512),
+        arithmetic_counts_status='analytic leading matrix-product counts; excluded terms stated in caption',
         fitted_exponents=None, new_experiments=False,
-        figures=['appendix_query_distance', 'appendix_fixed_budget_ratios', 'appendix_recorded_costs']))
+        figures=['appendix_query_distance', 'appendix_fixed_budget_ratios', 'appendix_recorded_costs',
+                 'appendix_response_history_spectra']))
     print(json.dumps(dict(output=str(destination), saved_runs=len(records),
-                          figures=3, new_experiments=False)), flush=True)
+                          figures=4, new_experiments=False)), flush=True)
     return 0
 
 
@@ -9240,9 +10534,13 @@ def appendix_sweep_plot(argv):
     import matplotlib.pyplot as plt
 
     parser = argparse.ArgumentParser(description=appendix_sweep_plot.__doc__)
+    parser.add_argument('--factor', type=float, default=1.)
     parser.add_argument('--output', type=Path,
                         default=ROOT/'data/generated/paper_appendix_pilots_20261009/figures')
     args = parser.parse_args(argv)
+    factor = args.factor
+    if not math.isfinite(factor) or factor <= 0:
+        raise ValueError('Passing factor must be finite and positive')
     destination = args.output.resolve()
     destination.mkdir(parents=True, exist_ok=True)
     study = ROOT/'studies/paper_appendix_pilots_20261009'
@@ -9365,16 +10663,24 @@ def appendix_sweep_plot(argv):
             model = report['models'][name]
             error = np.sqrt(np.mean((arrays[name][:, m:].astype(float)-reference)**2, axis=1))
             endpoint_ratio, worst_ratio = float(error[-1]/baseline[-1]), float(error.max()/baseline.max())
-            candidate.update(status='pass' if max(endpoint_ratio, worst_ratio) <= 3 else 'fail',
+            candidate.update(status='pass' if max(endpoint_ratio, worst_ratio) <= factor else 'fail',
                 endpoint_rms=float(error[-1]), worst_recorded_rms=float(error.max()),
                 endpoint_ratio=endpoint_ratio, worst_recorded_ratio=worst_ratio,
-                learned_scalars=model['moving'], fixed_scalars=model['fixed'],
+                learned_scalars=model['moving'], fixed_scalars=model['fixed'], total_scalars=model['total'],
                 final_training_mse=report['runs'][name]['final_training_mse'])
         for family in ('logarithmic', 'harmonic'):
             passed = [candidate for candidate in row['candidates']
                       if candidate['family'] == family and candidate['status'] == 'pass']
             if passed:
-                row['minimum_tested_passing'][family] = min(passed, key=lambda item: item['learned_scalars'])
+                selected = min(passed, key=lambda item: item['learned_scalars'])
+                completed = [candidate for candidate in row['candidates']
+                             if candidate['family'] == family and 'learned_scalars' in candidate]
+                selected['crossing_status'] = ('left_censored' if selected['width'] ==
+                    min(candidate['width'] for candidate in row['candidates'] if candidate['family'] == family)
+                    else 'tested_bracket' if len(completed) == len([
+                        candidate for candidate in row['candidates'] if candidate['family'] == family])
+                    else 'smaller_budgets_unresolved')
+                row['minimum_tested_passing'][family] = selected
 
     plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 8, 'axes.titlesize': 9,
                          'axes.spines.top': False, 'axes.spines.right': False, 'pdf.fonttype': 42})
@@ -9391,10 +10697,18 @@ def appendix_sweep_plot(argv):
                       for case in case_names]
             offset = (j-.5)*.08 if len(families) > 1 else 0
             ax.plot(np.arange(len(labels))+offset, values, color=colors[family], marker='o' if j == 0 else 'D',
-                    markersize=5, linewidth=1.3, label=family.capitalize())
+                    markersize=5, linewidth=1.3, label=family.capitalize()+' learned')
+            totals = [records[case]['minimum_tested_passing'].get(family, {}).get('total_scalars', np.nan)
+                      for case in case_names]
+            ax.plot(np.arange(len(labels))+offset, totals, color=colors[family], linestyle='--',
+                    marker='o' if j == 0 else 'D', markersize=3, linewidth=.9,
+                    label=family.capitalize()+' total')
             for i, case in enumerate(case_names):
                 candidates = [candidate for candidate in records[case]['candidates'] if candidate['family'] == family]
                 if np.isfinite(values[i]):
+                    if records[case]['minimum_tested_passing'][family]['crossing_status'] == 'left_censored':
+                        ax.annotate('≤', (i+offset, values[i]), xytext=(-10, -2),
+                                    textcoords='offset points', color=colors[family])
                     unresolved = [str(candidate['width']) for candidate in candidates
                                   if candidate['status'] in ('inconclusive', 'pending', 'infeasible')]
                     if unresolved:
@@ -9411,9 +10725,7 @@ def appendix_sweep_plot(argv):
         ax.set_xticks(np.arange(len(labels)), labels)
         ax.set_xlim(-.35, len(labels)-.65)
         ax.set_yscale('log')
-        ax.set_ylim(4e4, 6e5)
-        ax.set_ylabel('Learned coordinates')
-        ax.legend(frameon=False, fontsize=7)
+        ax.set_ylabel('Retained scalars')
 
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.7))
     dimension_cases = ['dimension_d'+str(d) for d in (2, 3, 10, 64, 784)]
@@ -9426,7 +10738,7 @@ def appendix_sweep_plot(argv):
                           'architecture_silu', 'architecture_m16']
     ax = axes[1]
     for field, label, marker, offset in (('endpoint_ratio', 'Endpoint', 'o', -.07),
-                                       ('worst_recorded_ratio', 'Maximum recorded', 's', .07)):
+                                       ('worst_recorded_ratio', 'Max/max recorded', 's', .07)):
         values = []
         for case in architecture_cases:
             candidate = next((candidate for candidate in records[case]['candidates']
@@ -9443,35 +10755,50 @@ def appendix_sweep_plot(argv):
                 label += '\ncondition >16'
             ax.text(i, .08, label, transform=ax.get_xaxis_transform(),
                     ha='center', fontsize=7, color='#9b3636')
-    ax.axhline(3, color='#777777', linewidth=1, linestyle='--', label='Passing ceiling 3')
-    ax.axhline(1, color='#aaaaaa', linewidth=.7, linestyle=':')
+    ax.axhline(factor, color='#777777', linewidth=1, linestyle=':', label=f'Passing ceiling {factor:g}')
     ax.set_yscale('log')
     ax.set_xticks(range(5), ['Baseline\nL=2, tanh, m=8', 'L=3', 'L=4', 'SiLU', 'm=16'], fontsize=7)
     ax.set_xlim(-.5, 4.5)
     ax.set_ylabel('RMS / dense pair')
     ax.set_title('Architecture robustness')
     ax.legend(frameon=False, fontsize=7, loc='upper left')
-    fig.tight_layout()
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, fontsize=7, loc='lower center', ncol=4)
+    fig.tight_layout(rect=(0, .07, 1, 1))
     save(fig, 'appendix_dimensions_architecture')
 
-    fig, ax = plt.subplots(figsize=(5.3, 3.5))
-    storage(ax, ['panel_p8', 'dimension_d2', 'panel_p60'], ['8', '30', '60'], ['logarithmic'])
+    fig, ax = plt.subplots(figsize=(5.7, 4.0))
+    panel_cases = ['panel_p8', 'dimension_d2', 'panel_p60']
+    for width, color, marker in ((256, '#9472b0', 'o'), (512, '#eb6834', 's')):
+        for field, style in (('endpoint_ratio', '-'), ('worst_recorded_ratio', '--')):
+            values = [next((candidate.get(field, np.nan) for candidate in records[case]['candidates']
+                            if candidate['family'] == 'logarithmic' and candidate['width'] == width), np.nan)
+                      for case in panel_cases]
+            ax.plot([8, 30, 60], values, color=color, marker=marker, linestyle=style,
+                    label=f"width {width}, "+('endpoint' if field == 'endpoint_ratio' else 'max/max'))
+    ax.axhline(factor, color='#777777', linewidth=1, linestyle=':', label=f'Passing ceiling {factor:g}')
     ax.set_xlabel('Declared queries')
-    ax.set_title('Storage vs panel size')
-    ax.set_ylim(4e4, 1.2e5)
+    ax.set_ylabel('Query RMS / respective dense-pair RMS')
+    ax.set_xticks([8, 30, 60])
+    ax.set_yscale('log')
+    ax.set_title('Fixed compact budgets · circle pilot')
+    handles, labels = ax.get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, fontsize=7, loc='lower center', ncol=2)
     ax.grid(axis='y', alpha=.15)
-    fig.tight_layout()
-    save(fig, 'appendix_panel_storage')
+    fig.tight_layout(rect=(0, .14, 1, 1))
+    save(fig, 'appendix_panel_ratios')
 
     captions = [
         'Dimension and architecture. Every case uses dense width n=2048, dataset seed 47, '
         'reference seed 901 and one independent dense comparator, with T=32 and 65 recorded '
         'Euler times. Let E(t) be prediction RMS over the declared query inputs relative to '
         'the coupled dense reference, and E_iid(t) the corresponding independent dense-pair RMS. '
-        'A candidate passes only if E(T)<=3 E_iid(T) AND max_t E(t)<=3 max_t E_iid(t). '
+        f'A candidate passes only if E(T)<={factor:g} E_iid(T) AND max_t E(t)<={factor:g} max_t E_iid(t). '
         'The dimension panel reports the smallest tested passing learned scalar count among '
-        'compact widths 256 and 512 with source ranks 15 and 37. Fixed retained storage is '
-        'additional, recorded in metrics. This is a tested upper bound on sufficient storage, '
+        'compact widths 256 and 512 with source ranks 15 and 37. Solid lines count learned '
+        'scalars; dashed lines include fixed retained storage for the same selected model. '
+        'A ≤ annotation means the smallest grid budget passed, so the crossing is left-censored. '
+        'Absent passing points leave the crossing open. This is a tested upper bound on sufficient storage, '
         'not an optimized minimum. Harmonic is tested only at d=2,3. At d=784 both compact '
         'widths are constructor-infeasible because the mandatory first-layer input-weight span '
         'has rank 784; no zero storage or accuracy failure is imputed. Other absent results '
@@ -9489,18 +10816,21 @@ def appendix_sweep_plot(argv):
         'Panel size. On the circle, only declared query count p changes between 8,30,60, with '
         'the p=30 dimension baseline reused. Training data, initialization and the two compact '
         'budget candidates are fixed. The equally spaced query grids change with p. Labels '
-        'never enter source setup. The smallest tested passing learned count uses both 3x '
-        'criteria on that case\'s own query panel and dense comparator. Missing or failed '
-        'candidates are retained in metrics; no adaptive budget or source-rank search is used.',
+        'never enter source setup. Both fixed compact widths 256 and 512 are shown through '
+        'endpoint ratios (solid) and ratios of separate recorded maxima (dashed), using each '
+        'case\'s own query panel and dense comparator. No selected-storage plateau is interpreted '
+        'as an intrinsic size law. These circle data are not a higher-dimensional panel stress '
+        'test; that replacement remains unmeasured. Missing or failed candidates are retained '
+        'in metrics; no adaptive budget or source-rank search is used.',
         'All results are single-seed finite-discretization pilots using offline dense source '
         'rollouts and empirical source truncations. They do not establish a dimension-free '
         'theorem, an initialization-only compiler, a limiting scaling law, or a continuous-time bound.']
     (destination/'appendix_sweep_captions.txt').write_text('\n\n'.join(captions)+'\n')
     save_json(destination/'appendix_sweep_metrics.json', dict(
         plot_source_path=str(Path(__file__).resolve()), plot_source_sha256=sha(Path(__file__).read_bytes()),
-        factor=3, cases=records, fitted_exponents=None,
+        factor=factor, cases=records, fitted_exponents=None,
         dense_final_training_mse={case: row['dense_final_training_mse'] for case, row in records.items()},
-        figures=['appendix_dimensions_architecture', 'appendix_panel_storage']))
+        figures=['appendix_dimensions_architecture', 'appendix_panel_ratios']))
     print(json.dumps(dict(output=str(destination), cases=len(records),
                           complete=sum(row['status'] == 'complete' for row in records.values()))), flush=True)
     return 0
@@ -9520,7 +10850,7 @@ def paper_draft_plot(argv):
     manifest_path = args.manifest.resolve()
     manifest_bytes = manifest_path.read_bytes()
     plan = json.loads(manifest_bytes)
-    factor = float(plan.get('factor', 3))
+    factor = float(plan.get('factor', 1))
     if not math.isfinite(factor) or factor <= 0 or len(plan['tasks']) != 2:
         raise ValueError('Draft figures require two tasks and a finite positive factor')
     destination = Path(plan['output']).resolve()
@@ -9742,10 +11072,25 @@ def paper_draft_plot(argv):
             for family in families:
                 if family not in row['requested_families']:
                     continue
+                candidates = sorted((v for v in row['models'] if v['family'] == family),
+                                    key=lambda v: (v.get('moving', math.inf), v['name']))
                 passing = [v for v in row['models'] if v['family'] == family and v['status'] == 'pass']
+                row.setdefault('tested_crossings', {})
                 if passing:
-                    row['selected'][family] = min(passing, key=lambda v: (v['moving'], v['total'], v['name']))['name']
+                    chosen = min(passing, key=lambda v: (v['moving'], v['total'], v['name']))
+                    row['selected'][family] = chosen['name']
+                    below = [v for v in candidates if v.get('moving', math.inf) < chosen['moving']]
+                    row['tested_crossings'][family] = dict(
+                        status=('incomplete_grid' if any(v['status'] == 'unavailable' for v in candidates)
+                                else 'left_censored' if not below else 'tested_bracket'),
+                        passing_name=chosen['name'], passing_learned=chosen['moving'],
+                        passing_total=chosen['total'],
+                        smaller_tested=[dict(name=v['name'], status=v['status'], moving=v.get('moving')) for v in below],
+                        interpolation=None,
+                        interpretation='smallest tested passing budget; untested smaller budgets unresolved')
                 else:
+                    row['tested_crossings'][family] = dict(status='no_tested_pass', interpolation=None,
+                        largest_completed_learned=max((v['moving'] for v in candidates if 'endpoint_rms' in v), default=None))
                     row['omissions'].append(f'{family}: no tested complete budget passes both criteria')
             if not extra_curves:
                 row['omissions'].append('No paired undeclared-query predictions available')
@@ -9791,38 +11136,55 @@ def paper_draft_plot(argv):
     def empty(ax, message):
         ax.text(.5, .5, message, ha='center', va='center', transform=ax.transAxes, color='#777777')
 
-    fig, axes = panels('Learned state', storage=True)
-    for ax, task in zip(axes, tasks):
+    fig, axes = plt.subplots(2, 2, figsize=(7.8, 5.3), squeeze=False)
+    for column, task in enumerate(tasks):
         rows = task['records']
-        ax.set_xlabel('Width')
-        if not rows:
-            empty(ax, 'Runs not yet available')
-            continue
         ns = [row['width'] for row in rows]
-        ax.plot(ns, [row['dense_learned'] for row in rows], ':', color='#777777', label='Dense')
-        missing = []
-        for family, (label, color, marker) in families.items():
-            if not any(family in row['requested_families'] for row in rows):
+        for index, (field, ylabel) in enumerate((('moving', 'Learned scalars'), ('total', 'Total retained scalars'))):
+            ax = axes[index, column]
+            ax.set_title(task['title'] if index == 0 else '')
+            ax.set_xlabel('Dense reference width')
+            ax.set_ylabel(ylabel)
+            ax.set_xscale('log')
+            ax.set_yscale('log')
+            if not rows:
+                empty(ax, 'Runs not yet available')
                 continue
-            selected = [(row['width'], next(v for v in row['models'] if v['name'] == row['selected'][family]))
-                        for row in rows if family in row['selected']]
-            ax.plot([n for n, _ in selected], [v['moving'] for _, v in selected],
-                    color=color, marker=marker, markersize=4, linewidth=1.3, label=label)
-            omitted = [str(row['width']) for row in rows
-                       if family in row['requested_families'] and family not in row['selected']]
-            if omitted:
-                missing.append(f"{label}: {', '.join(omitted)}")
-        ax.set_xticks(ns, labels=[str(n) for n in ns])
-        ax.minorticks_off()
-        if missing:
-            ax.text(0, -.28, 'No passing point: '+'; '.join(missing),
-                    transform=ax.transAxes, fontsize=5.8, color='#666666', va='top', wrap=True)
+            ax.plot(ns, [row['dense_learned'] for row in rows], ':', color='#777777',
+                    label=r'Dense formula: $(L-1)n^2+n(d+1)$')
+            missing = []
+            for family, (label, color, marker) in families.items():
+                if not any(family in row['requested_families'] for row in rows):
+                    continue
+                selected = [(row, next(v for v in row['models'] if v['name'] == row['selected'][family]))
+                            for row in rows if family in row['selected']]
+                shift = {'legendre': 1., 'harmonic': .985, 'logarithmic': 1.015}[family]
+                ax.plot([row['width']*shift for row, _ in selected], [v[field] for _, v in selected],
+                        color=color, marker=marker, markersize=4, linewidth=1.1, label=label)
+                for row, value in selected:
+                    if row['tested_crossings'][family]['status'] == 'left_censored':
+                        ax.annotate('≤', (row['width']*shift, value[field]), xytext=(-9, -2),
+                                    textcoords='offset points', fontsize=8, color=color)
+                omitted = [str(row['width']) for row in rows
+                           if family in row['requested_families'] and family not in row['selected']]
+                if omitted:
+                    missing.append(f"{label}: {', '.join(omitted)}")
+            ax.set_xticks(ns, labels=[str(n) for n in ns])
+            ax.minorticks_off()
+            if missing:
+                ax.text(.02, .96, 'No tested pass: '+'; '.join(missing),
+                        transform=ax.transAxes, fontsize=6, color='#666666', va='top', wrap=True)
     save(fig, 'figure2_storage')
 
-    fig, axes = panels('Test RMS', storage=True)
-    for ax, task in zip(axes, tasks):
+    fig, axes = plt.subplots(2, 2, figsize=(7.8, 5.5), squeeze=False)
+    for ax, task, storage_field in ((axes[i, j], task, field)
+                                   for i, field in enumerate(('moving', 'total'))
+                                   for j, task in enumerate(tasks)):
         row = fixed(task)
-        ax.set_xlabel('Learned state')
+        ax.set_xlabel('Learned scalars' if storage_field == 'moving' else 'Total retained scalars')
+        ax.set_ylabel('Endpoint query RMS')
+        ax.set_xscale('log')
+        ax.set_yscale('log')
         ax.set_title(f"{task['title']}  ·  $n={task['fixed_width']}$")
         if row is None or (task['name'], row['width']) not in curves:
             empty(ax, 'Fixed-width reference not yet available')
@@ -9831,16 +11193,16 @@ def paper_draft_plot(argv):
             values = [v for v in scored(row, family) if v['name'] != f"dense_{row['width']}" and v['endpoint_rms'] > 0]
             if values and family == 'frozen_features':
                 ax.axhline(values[0]['endpoint_rms'], color=color, linewidth=1.1, linestyle='--', label=label)
-                ax.plot(values[0]['moving'], values[0]['endpoint_rms'], marker=marker,
+                ax.plot(values[0][storage_field], values[0]['endpoint_rms'], marker=marker,
                         color=color, markersize=4, linestyle='none')
             elif values:
-                ax.plot([v['moving'] for v in values], [v['endpoint_rms'] for v in values],
+                ax.plot([v[storage_field] for v in values], [v['endpoint_rms'] for v in values],
                         color=color, marker=marker, markersize=4, linewidth=1.25,
                         linestyle='--' if family == 'frozen_features' else '-', label=label)
             if family == 'logarithmic':
                 extra = [v for v in values if v.get('extra_endpoint_rms', 0) > 0]
                 if extra:
-                    ax.plot([v['moving'] for v in extra], [v['extra_endpoint_rms'] for v in extra],
+                    ax.plot([v[storage_field] for v in extra], [v['extra_endpoint_rms'] for v in extra],
                             color=color, marker=marker, markerfacecolor='white', markeredgewidth=1,
                             markersize=4.5, linewidth=.8, linestyle=':', label='Log., undeclared')
         pair = row['dense_pair']
@@ -9858,7 +11220,7 @@ def paper_draft_plot(argv):
                     fontsize=6, color='#666666', va='top')
     save(fig, 'figure3_accuracy')
 
-    fig, axes = panels('Test RMS')
+    fig, axes = panels(r'Query RMS ratio $E(t)/E_{\mathrm{iid}}(t)$')
     for ax, task in zip(axes, tasks):
         row = fixed(task)
         ax.set_xlabel('Training time')
@@ -9867,16 +11229,27 @@ def paper_draft_plot(argv):
             empty(ax, 'Fixed-width reference not yet available')
             continue
         times, width_curves, _ = curves[(task['name'], row['width'])]
+        if not row['dense_pair']:
+            empty(ax, 'Independent dense comparator unavailable')
+            continue
+        baseline = width_curves[row['dense_pair']['name']]
+        valid = (times > 0) & (baseline > 0)
         choices = []
         row['trajectory_selection'] = {}
         for family, (label, color, _) in families.items():
             values = scored(row, family)
             if not values:
                 continue
-            chosen = values[-1]
+            passing_name = row['selected'].get(family)
+            chosen = (next(v for v in values if v['name'] == passing_name) if passing_name else
+                      min(values, key=lambda v: (max(v['endpoint_rms']/baseline[-1],
+                                                    v['worst_recorded_rms']/baseline.max()), v['moving'])))
             row['trajectory_selection'][family] = dict(name=chosen['name'], moving=chosen['moving'],
-                rule='largest completed tested learned-state budget; independent of trajectory scores')
-            choices.append((chosen, label, color, '-'))
+                status=chosen['status'], total=chosen['total'],
+                rule=('smallest tested passing budget from Figure 2' if passing_name else
+                      'no tested pass: completed budget minimizing the larger endpoint and max/max ratio'))
+            choices.append((chosen, label if passing_name else label+' (no pass)', color,
+                            '-' if passing_name else '--'))
         target = next((v for v, _, _, _ in choices if v['family'] == 'logarithmic'),
                       choices[-1][0] if choices else None)
         controls = [v for family in ('dense', 'low_rank') for v in scored(row, family)
@@ -9894,26 +11267,37 @@ def paper_draft_plot(argv):
             row['trajectory_selection']['frozen_features'] = dict(name=frozen[0]['name'], moving=frozen[0]['moving'])
         for point, label, color, style in choices:
             curve = width_curves[point['name']]
-            ax.plot(times, np.where(curve > 0, curve, np.nan), color=color,
+            ratio = np.divide(curve, baseline, out=np.full_like(curve, np.nan), where=valid)
+            selection_key = 'matched_control' if point['family'] in ('dense', 'low_rank') else point['family']
+            row['trajectory_selection'][selection_key].update(
+                plotted_times=times[valid].tolist(), pointwise_ratios=ratio[valid].tolist())
+            ax.plot(times, np.where(ratio > 0, ratio, np.nan), color=color,
                     linewidth=1.3, linestyle=style, label=label)
         if row['dense_pair']:
             row['trajectory_selection']['independent_dense'] = dict(name=row['dense_pair']['name'],
                                                                      moving=row['dense_learned'])
-            curve = width_curves[row['dense_pair']['name']]
-            ax.plot(times, np.where(curve > 0, curve, np.nan), ':', color='#333333',
-                    linewidth=1.1, label='Independent dense')
+            ax.axhline(1, linestyle=':', color='#333333', linewidth=1.1, label='Dense-pair ratio 1')
     save(fig, 'figure4_training')
 
     captions = [
         f'Figure 2. Smallest tested learned state passing both finite-query RMS criteria. '
         f'At each reference width n, the endpoint RMS and maximum RMS over recorded times must each '
         f'be at most {factor:g} times the corresponding metric between two independently initialized '
-        'dense width-n networks. Lines connect tested widths; no growth exponent is fitted. '
-        'Missing passing points are omitted, including unavailable or failed runs. This is a tested-budget '
-        'minimum, not a global minimum or an asymptotic scaling result. The dotted Dense line counts '
+        'dense width-n networks. With E(t) the declared-query RMS and E_iid(t) the dense-pair RMS, '
+        'the criteria use E(T)/E_iid(T) and max_t E(t)/max_t E_iid(t), separately. '
+        'Top panels count learned scalars; bottom panels include all fixed retained scalars. '
+        'The ≤ annotation marks a passing lowest tested budget: the crossing is left-censored '
+        'by the grid, and smaller untested budgets are unresolved. No-tested-pass widths are '
+        'explicitly labelled; their crossing remains open. Lines connect tested widths; no '
+        'crossing interpolation or growth exponent is fitted. Harmonic and Logarithmic markers '
+        'are displaced horizontally by -1.5% and +1.5% to separate overlaps; underlying widths '
+        'are identical. This is a tested-budget minimum, not a global minimum or an asymptotic '
+        'scaling result. The dotted Dense formula line counts '
         'all learned scalars: (L-1)n^2+n(d+1), where L is hidden depth and d is input dimension.',
         'Figure 3. Endpoint prediction RMS to the coupled dense reference versus learned-state count '
-        'at the stated fixed width. Filled compression markers use declared query inputs. Logarithmic '
+        '(top) and total retained scalar count, including fixed state (bottom), at the stated fixed '
+        'width. Hollow markers retain their query-scope meaning and do not encode storage. '
+        'Filled compression markers use declared query inputs. Logarithmic '
         'setup sees these inputs but never their labels; Harmonic setup uses input geometry independently '
         'of scored query inputs. Hollow Logarithmic markers use entirely undeclared inputs, checked '
         'disjoint from both the training and declared-query panels, and their own dense reference '
@@ -9922,20 +11306,24 @@ def paper_draft_plot(argv):
         'show their actual learned counts. The dashed frozen-feature line shows endpoint RMS; its '
         'marker counts the primal readout. Equivalent '
         'executed dual storage is recorded in each model record. Nonpositive scores are omitted on log axes.',
-        'Figure 4. Prediction RMS to the dense reference throughout the recorded training trajectory '
-        'at the stated fixed width. Each compression uses its largest completed tested learned-state '
-        'budget from Figure 3. This structural budget rule does not optimize the observed trajectory '
-        'and differs from the smallest-passing rule in Figure 2. One small-dense or low-rank control '
+        'Figure 4. Pointwise ratio E(t)/E_iid(t) of declared-query prediction RMS to the dense '
+        'reference throughout the recorded training trajectory at the stated fixed width. Each '
+        'passing compression uses exactly the smallest tested passing budget from Figure 2. '
+        'If no budget passes, the dashed curve labelled no pass uses the completed budget '
+        'minimizing max{E(T)/E_iid(T), max_t E(t)/max_t E_iid(t)}; it is a failed candidate. '
+        'One small-dense or low-rank control '
         'is chosen nearest in logarithmic learned-state '
         'distance to the selected Logarithmic model, or the last available compression. The independent '
-        'dense curve is the unscaled observed RMS. Zero errors, including initialization, are omitted '
-        'on logarithmic axes. Endpoint and maximum-error matching do not imply pointwise matching.',
+        'dense-pair reference is the horizontal ratio 1. Initialization t=0 and every zero '
+        'dense-pair denominator are omitted; zero ratios are omitted on logarithmic axes. '
+        'The Figure 2 maximum criterion is a ratio of separate recorded maxima, not the maximum '
+        'of this pointwise ratio. Endpoint and maximum-error matching do not imply pointwise matching.',
         'All panels are bounded drafts with one reference seed and one independent dense comparator '
         'per width. Selection uses the declared query errors, so they are not an independent '
         'post-selection test. Full-horizon offline spectral source construction is additional setup '
         'work. Finite recorded Euler trajectories are not a gradient-flow refinement certificate. '
-        'Learned state counts evolving retained scalars; fixed retained scalars are additional and '
-        'are listed below. Common data, integrator workspace and temporary source-construction '
+        'Learned state counts evolving retained scalars; total storage includes fixed retained '
+        'scalars. Both are plotted and listed below. Common data, integrator workspace and temporary source-construction '
         'storage are excluded. Missing and incomplete models and constructor errors are listed in metrics.json.']
     for task in tasks:
         excluded = [label for family, (label, _, _) in families.items()
@@ -9965,6 +11353,19 @@ def paper_draft_plot(argv):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'feedback-pooled-transfer':
+        sys.exit(feedback_pooled_transfer_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'feedback-scope-pilot':
+        sys.exit(feedback_scope_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'feedback-conditioning-followup':
+        sys.exit(feedback_conditioning_followup_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'feedback-conditioning':
+        sys.exit(feedback_conditioning_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'feedback-control-check':
+        print(json.dumps(feedback_control_checks(), indent=2))
+        sys.exit(0)
+    if len(sys.argv) > 1 and sys.argv[1] == 'feedback-dense-pairs':
+        sys.exit(feedback_dense_pairs_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'appendix-sweep-plot':
         sys.exit(appendix_sweep_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'appendix-spectral':
@@ -10019,6 +11420,10 @@ if __name__ == '__main__':
         torch.set_default_dtype(torch.float64)
         print(json.dumps(dict(legendre=legendre_smoke_test(), baselines=unified_baseline_checks(),
                               harmonic=unified_harmonic_source_checks()), indent=2))
+    elif len(sys.argv) > 1 and sys.argv[1] == 'panel-span-check':
+        torch.set_num_threads(1)
+        torch.set_default_dtype(torch.float64)
+        print(json.dumps(panel_span_small_checks(), indent=2))
     elif len(sys.argv) > 1 and sys.argv[1] == 'unified-plot':
         unified_plot_main(sys.argv[2:])
     else:

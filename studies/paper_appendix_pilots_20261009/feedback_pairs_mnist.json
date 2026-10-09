@@ -1,0 +1,38 @@
+{
+  "dataset": {
+    "name": "mnist",
+    "dimension": 784,
+    "train_samples": 8,
+    "test_samples": 30,
+    "seed": 47,
+    "digit_pair": [
+      1,
+      7
+    ],
+    "cache": "data/generated/paper_appendix_pilots_20261009/feedback/mnist_cache",
+    "download": false
+  },
+  "widths": [
+    1024,
+    2048,
+    4096
+  ],
+  "seeds": [
+    901,
+    902,
+    903
+  ],
+  "partner_seeds": [
+    1901,
+    1902,
+    1903
+  ],
+  "depth": 2,
+  "activation": "tanh",
+  "step": 0.00625,
+  "horizon": 32,
+  "record_every": 80,
+  "seconds": 120,
+  "device": "cuda:1",
+  "output": "data/generated/paper_appendix_pilots_20261009/feedback/pairs_mnist"
+}
