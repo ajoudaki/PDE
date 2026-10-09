@@ -9,7 +9,6 @@ them) and writes spectra/*.npz and json/fig*.json beside them. build_html.py
 injects these JSON files into templates/ to regenerate the figure fragments.
 """
 import argparse
-import base64
 import json
 import math
 from pathlib import Path
@@ -227,70 +226,6 @@ def fig21c(z, out):
                 n=int(sh.shape[1]))
 
 
-def selection_order(H, D, tol=1e-4, upto=256):
-    """Logarithmic selection on E = span of the recorded fields, extended greedily beyond dim E.
-
-    E is the numerical span (column-normalized SVD, relative tolerance tol) of the
-    forward and backward fields over the whole run. Pivoted QR on a basis of E picks
-    dim E rows, as in capture_trajectory._logarithmic_selected_metric; further rows
-    maximize det(G + v v^T)/det(G), as in its 'qr_leverage' panel strategy, so every
-    prefix of the returned order is the selection for that budget.
-    """
-    from scipy.linalg import qr
-    n = H.shape[0]
-    table = np.hstack([H, D])
-    norms = np.linalg.norm(table, axis=0)
-    U, s, _ = np.linalg.svd(table[:, norms > 0]/norms[norms > 0], full_matrices=False)
-    rank = int((s > tol*s[0]).sum())
-    rows = U[:, :rank]*math.sqrt(n)                      # U^T U / n = I
-    chosen = list(qr(rows.T, pivoting=True, mode='economic')[2][:rank])
-    inverse = np.linalg.inv(rows[chosen].T@rows[chosen])
-    scores = np.einsum('ij,jk,ik->i', rows, inverse, rows)
-    taken = np.zeros(n, bool)
-    taken[chosen] = True
-    while len(chosen) < upto:
-        i = int(np.where(taken, -np.inf, scores).argmax())
-        v = inverse@rows[i]
-        den = 1+rows[i]@v
-        inverse -= np.outer(v, v)/den
-        scores -= (rows@v)**2/den
-        taken[i] = True
-        chosen.append(i)
-    return np.array(chosen), rows, rank
-
-
-def fig19c(z, a=0, frames=96):
-    """All layer-2 neurons at training input a: forward h, backward delta, frames uniform in the clock."""
-    t, r = z['t'], z['r']
-    H = z['h2'][:, :, a].T.astype(np.float64)          # (n, K)
-    D = z['d2'][:, :, a].T.astype(np.float64)
-    n = H.shape[0]
-    order, rows, rank = selection_order(H, D)
-    # Exact metric for each budget q >= dim E: M = I/q + (P/q)(G^-2 - G^-1)(P/q)^T, G = P^T P/q,
-    # so P^T M P = I and <u,v>_n = u_I^T M v_I on E. Record the worst pairing error over the run.
-    X = np.stack([H, D], 1)                               # (n, 2, K)
-    full = np.einsum('ick,idk->kcd', X, X)/n
-    sel_err = []
-    for q in range(rank, len(order)+1):
-        I = order[:q]
-        P = rows[I]
-        Gi = np.linalg.inv(P.T@P/q)
-        M = np.eye(q)/q+(P/q)@(Gi@Gi-Gi)@(P/q).T
-        XI = X[I]
-        approx = np.einsum('ick,ij,jdk->kcd', XI, M, XI)
-        err = np.linalg.norm(approx-full, axis=(1, 2))/np.linalg.norm(full, axis=(1, 2))
-        sel_err.append(float(err[1:].max()))
-    tau = clock(t, np.linalg.norm(r, axis=1)/math.sqrt(r.shape[1]))
-    grid = np.linspace(tau[1], tau[-1], frames)
-    idx = np.unique(np.searchsorted(tau, grid).clip(1, len(t)-1))
-    dmax = np.abs(D[:, idx]).max(0)
-    q8 = lambda v: np.round((np.clip(v, -1, 1)+1)*127.5).astype(np.uint8)
-    b64 =lambda A: base64.b64encode(np.ascontiguousarray(A.T).tobytes()).decode()   # frame-major
-    return dict(n=n, input=a, dimE=rank, t=sig(t[idx], 3), dmax=sig(dmax, 3),
-                h=b64(q8(H[:, idx])), d=b64(q8(D[:, idx]/dmax)), order=order.tolist(),
-                selErr=sig(sel_err, 2))
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--data', type=Path, required=True)
@@ -312,7 +247,6 @@ def main():
     dump('fig16c.json', d16c)
     dump('fig17c.json', d17c)
     dump('fig21c.json', fig21c(np.load(args.data/'rich_target'/'rich2.npz'), spec))
-    dump('fig19c.json', fig19c(np.load(args.data/'neuron_clouds'/'clouds.npz')))
     print('wrote', sorted(p.name for p in out.iterdir()))
 
 

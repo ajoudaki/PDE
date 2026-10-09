@@ -16,7 +16,7 @@ indexed, with a live preview in place of a thumbnail.
 | Path | Contents |
 |---|---|
 | `fragments/figNN_*.frag` | Exact widget code of each figure version, data inline. Source of truth. |
-| `templates/figNN_*.tpl` | The eight data-driven fragments with their payload replaced by `__DATA__`. |
+| `templates/figNN_*.tpl` | The seven data-driven fragments with their payload replaced by `__DATA__`. |
 | `scripts/` | Training and export scripts for the data-driven figures. |
 | `build_html.py` | Regenerates data-driven fragments from JSON (optional) and writes `html/`, `thumbs/` and `index.html`. |
 | `html/`, `index.html` | Built standalone pages and the thumbnail index. |
@@ -34,7 +34,7 @@ Large arrays live outside Git in `data/generated/explainer_figures_20261009/`
 | 16c The clock folds an infinite run into a finite interval (appendix) | Legendre | Real: dense run to t = 112 |
 | 17c Only like pairs with like | Legendre | Real normalized moments of three links; identity check against the direct integral |
 | 18b Pick and weigh, don't mix | Selection | Illustrative, twelve neurons |
-| 19c Random versus selected neurons | Selection (Logarithmic) | Real: all 1,024 layer-2 neurons of the sphere3 run at training input 1, forward hᵢ and backward δᵢ over t ≤ 32; selection is pivoted QR on E = span of these fields over time (dim 27), extended by greedy leverage; with its metric every q ≥ 27 pairs to within 0.05% |
+| 19c The price of random neurons | Selection (Harmonic, Logarithmic) | Illustrative 2-D source space |
 | 20c Every petal is spelled with the same few shapes | Harmonic, circle | Exact Fourier coefficients of tanh ridges |
 | 21c A real neuron, spelled in spherical harmonics | Harmonic, sphere | Real: network trained on a degree-3/5 target |
 
@@ -53,7 +53,6 @@ python $E/train_sphere3_t32.py $G/sphere3_t32/real.npz
 python $E/run_sphere3_moments.py $G/sphere3_t112/long.npz 112
 for t in 2 4 8; do python $E/run_legendre_restart.py $G/sphere3_t112/long.npz $t 32 $G/legendre_restarts/rs$t.npz; done
 python $E/train_rich_target.py $G/rich_target/rich2.npz 64
-python $E/record_neuron_clouds.py $G/neuron_clouds/clouds.npz
 python $E/export_data.py --data $G
 python paper/figures/explainers/build_html.py --json $G/json
 ```
@@ -64,7 +63,6 @@ python paper/figures/explainers/build_html.py --json $G/json
 | `run_sphere3_moments.py` | same network to t = 112; integrates the Legendre moment equations (order 8) driven by the dense histories; restart snapshots at t = 2, 4, 8 | ~86 s |
 | `run_legendre_restart.py` | the paper's moment model (A, w, moments, τ) restarted from a snapshot, orders 1, 2, 4, 8 batched, to t = 32 | ~25 s each |
 | `train_rich_target.py` | 128 points uniform on S² (seed 7), odd target 15xyz + 2.5(5z³ − 3z) + 0.7x + 3(y⁵ − 10y³x² + 5yx⁴), model seed 11, t ≤ 64 | ~86 s |
-| `record_neuron_clouds.py` | same network as `train_sphere3_t32.py`, t ≤ 32; layer-2 h and δ of all 1,024 neurons at the 8 training inputs every 32 steps | ~19 s |
 
 Check, 9 October 2026: `export_data.py` reproduces every embedded payload
 exactly, and `build_html.py --json` reproduces all 34 fragments byte for byte.
