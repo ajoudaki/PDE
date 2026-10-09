@@ -209,6 +209,25 @@ class DeepDense:
             scale/n*(deltas[layer]*deficit)@hs[layer-1].T
             for layer in range(1, self.depth)]
 
+    def euler_step(self, state, inputs, labels, step):
+        """Same dense Euler update without allocating n-by-n gradient tensors.
+
+        All forward/backward fields and small derivatives use the old state.
+        The integrator dispatches here only for exact DeepDense, never for a
+        subclass with different RHS dynamics. GEMM fusion can change rounding.
+        """
+        hs, gates = self.fields(state, inputs)
+        deltas = self.backward(state, hs, gates)
+        n, scale = len(state[1]), 2/len(labels)
+        deficit = labels-state[1]@hs[-1]/n
+        first = scale*(deltas[0]*deficit)@inputs
+        readout = scale*hs[-1]@deficit
+        state[0].add_(first, alpha=step)
+        state[1].add_(readout, alpha=step)
+        for layer in range(1, self.depth):
+            state[layer+1].addmm_(scale/n*(deltas[layer]*deficit), hs[layer-1].T,
+                                  beta=1., alpha=step)
+
     def predict(self, state, queries, inputs=None, labels=None):
         return state[1]@self.fields(state, queries)[0][-1]/len(state[1])
 
@@ -1980,15 +1999,18 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
     A prescribed ``horizon`` takes precedence over loss stopping and is reached
     with one shortened final Euler step if necessary. Without a horizon, stop
     at the first sampled training MSE strictly below ``loss_target``. MSE is
-    checked at most eight updates apart; queries are evaluated only every
-    ``observation_every`` updates and at the actual initial/terminal states.
+    checked at most eight updates apart when no horizon is prescribed. Fixed-
+    horizon runs check loss/full-state finiteness at observations and at most
+    256 updates apart; these checks cannot affect a finite fixed-horizon
+    trajectory. Queries are evaluated only every ``observation_every`` updates
+    and at the actual initial/terminal states.
 
     Return ``(state, predictions, report)``. Rows of ``predictions`` correspond
     to ``report['times']`` and ``report['observation_steps']``. A wall/step cap
     returns a partial trajectory with its actual terminal time and stop reason;
     it does not extrapolate to the requested horizon. The wall budget includes
-    observations and is capped at 300 seconds. A running device operation and
-    the required terminal observation cannot be interrupted, so any overrun is
+    observations and is capped at 300 seconds. An already queued update block
+    and the required terminal observation cannot be interrupted, so any overrun is
     reported. Only the current state/RHS and CPU query observations are retained.
     """
     step, seconds = float(step), float(seconds)
@@ -2032,7 +2054,8 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
 
     seconds = min(seconds, 300.)
     max_steps, observation_every = int(max_steps), int(observation_every)
-    check_every = min(8, observation_every)
+    check_every = min(256 if horizon_steps is not None else 8, observation_every)
+    dense_step = model.euler_step if type(model) is DeepDense else None
     synchronize(device)
     started = time.monotonic()
     baseline_bytes = torch.cuda.memory_allocated(device) if device.type == 'cuda' else None
@@ -2115,14 +2138,17 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
                 break
             last_step = (horizon-steps*step if horizon_steps is not None and steps+1 == horizon_steps
                          else step)
-            velocity = model.rhs(state, inputs, labels)
-            if len(velocity) != len(state) or any(
-                    derivative.shape != value.shape for value, derivative in zip(state, velocity)):
-                raise ValueError('Euler RHS must provide one matching derivative per state block')
-            # Finish every derivative before mutating any state block.
-            for value, derivative in zip(state, velocity):
-                value.add_(derivative, alpha=last_step)
-            del velocity, derivative
+            if dense_step is not None:
+                dense_step(state, inputs, labels, last_step)
+            else:
+                velocity = model.rhs(state, inputs, labels)
+                if len(velocity) != len(state) or any(
+                        derivative.shape != value.shape for value, derivative in zip(state, velocity)):
+                    raise ValueError('Euler RHS must provide one matching derivative per state block')
+                # Finish every derivative before mutating any state block.
+                for value, derivative in zip(state, velocity):
+                    value.add_(derivative, alpha=last_step)
+                del velocity, derivative
             steps += 1
             current = horizon if horizon_steps is not None and steps == horizon_steps else steps*step
         synchronize(device)
@@ -2139,7 +2165,8 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
     elapsed = time.monotonic()-started
     peak_bytes = torch.cuda.max_memory_allocated(device) if device.type == 'cuda' else None
     return state, np.stack(predictions), dict(
-        method='explicit_euler', dtype=str(inputs.dtype), step=step, last_step=last_step,
+        method='explicit_euler', update_kernel='dense_addmm' if dense_step is not None else 'generic_rhs',
+        dtype=str(inputs.dtype), step=step, last_step=last_step,
         requested_horizon=horizon, actual_horizon=current, steps=steps,
         times=times, observation_steps=observation_steps, losses=losses,
         final_training_mse=loss, loss_target=loss_target,
@@ -2216,7 +2243,27 @@ def euler_small_checks(device='cpu'):
     _, _, zero = integrate_euler(
         model, inputs, labels, queries, .01, 10., horizon=0., observation_every=100)
     assert zero['steps'] == 0 and zero['times'] == [0.] and zero['horizon_reached'], zero
+    fused_error = 0.
+    for depth in (1, 2, 5):
+        for activation in DEEP_ACTIVATIONS:
+            deep = DeepDense(11, 2, depth, activation, 17, device)
+            deep.initial_state[1].copy_(torch.linspace(-.1, .1, 11, device=device, dtype=dtype))
+            expected = [value.clone() for value in deep.initial_state]
+            for _ in range(16):
+                velocity = deep.rhs(expected, inputs, labels)
+                for value, derivative in zip(expected, velocity):
+                    value.add_(derivative, alpha=.003)
+            actual, _, info = integrate_euler(deep, inputs, labels, queries, .003, 10.,
+                                              horizon=.048, observation_every=5)
+            error = max(float((a-b).abs().max()) for a, b in zip(actual, expected))
+            fused_error = max(fused_error, error)
+            assert error < 1e-12 and info['update_kernel'] == 'dense_addmm', (depth, activation, error)
+            assert info['observation_steps'] == [0, 5, 10, 15, 16], info
+    _, _, fixed = integrate_euler(model, inputs, labels, queries, .001, 10.,
+                                  horizon=.32, observation_every=320)
+    assert fixed['loss_check_steps'] == [0, 256, 320], fixed
     return dict(manual_euler_max_abs=manual_error, terminal_query_max_abs=query_error,
+                fused_dense_max_abs=fused_error,
                 step_halving_state_differences=differences, step_halving_ratio=ratio,
                 threshold_stop_steps=stopped['steps'], step_cap_terminal_time=capped['actual_horizon'])
 

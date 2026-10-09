@@ -401,3 +401,37 @@ fit illustrates sensitivity to the measured threshold and selected budgets;
 neither fit establishes a logarithmic asymptotic exponent. All earlier finite
 panel, empirical-rank, full-rollout and no-independent-post-selection caveats
 continue to apply. No further numerical work is pending in this extension.
+
+## Targeted Euler performance correction
+
+The user requested a short code diagnosis/fix, not another scientific campaign.
+Two avoidable costs were found: DeepDense formed an n-by-n derivative and then
+performed a separate weight update; fixed-horizon integration also scanned the
+entire state and recomputed training loss every8 steps. The saved16384 reference
+timings were197.48s training,24.89s loss/finiteness checks and0.25s queries.
+
+Exact DeepDense instances now use a fused addmm_ Euler mixer update from saved
+pre-update fields. Subclasses retain their own RHS. Fixed-horizon diagnostics
+run at observations and at most256 updates apart, while loss-based stopping
+retains its8-step cadence. Full-state finiteness is still checked; detection
+can be delayed to the next check. Already queued GPU updates can overrun a wall
+cap by up to a block, recorded in the existing timing report. No step size,
+horizon, model precision, TF32 setting or mathematical dynamics was changed.
+
+The existing euler_small_checks now also compares fused updates to the original
+RHS for depths1,2,5 and all6 activations: maximum float64 state difference
+1.39e-17. Loss-stop, shortened final step, observation grid and unchanged initial
+state checks pass. One scoped code review checked old-state dependency ordering,
+exact-type dispatch and diagnostic cadence; no further audit campaign was run.
+
+One1024-step GPU comparison used the same16384 seed706 circle configuration,
+float32, TF32 off, h0.0015625,T1.6, record_every320 and a16-step untimed warmup.
+The old integrator came from the frozen n16384/source.py; both integrators used
+identical initial state and inputs. On RTX3090, elapsed time fell9.3784s to5.8981s
+(1.5901x), training8.1775s to5.8080s and checks1.1584s to0.0731s. Prediction
+maximum difference was7.45e-9; state maximum difference2.38e-7. Incremental
+peak memory was unchanged (2952986624 bytes); no peak-memory reduction is claimed.
+Full-horizon timing extrapolates to117.96s but was not measured again. The short
+check is under data/generated/circle_width_scaling_20261009/euler_performance_check/timing.json.
+No saved scientific trajectory or figure was replaced. Numerical implementation
+hashes change, so old and new runs must not silently be treated as identical code.
