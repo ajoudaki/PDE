@@ -8019,6 +8019,9 @@ def experiment_scaling_plot(argv):
         caption += (' Additional Harmonic candidates use the separately recorded spatial and temporal source orders. '
                     'Their compact widths were not bracket-refined; selected points are the smallest tested passing sizes. '
                     'Earlier budget-search brackets refer only to their original source setup.')
+    caption += (' Hollow storage markers identify construction-limited selected witnesses: '
+                'the nearby smaller candidate was inconclusive, not a measured accuracy failure. '
+                'Such passing witnesses remain included in descriptive fits.')
     if show_legendre_guide:
         caption += (' The dotted n^(5/4) guide is anchored at the first passing Legendre point '
                     'and is not a fitted exponent.')
@@ -8045,6 +8048,11 @@ def experiment_scaling_plot(argv):
             axis.loglog(widths, [selected(row, family)['moving'] if selected(row, family) else np.nan
                                 for row in records],
                         'o-', color=color, label=label)
+            for row in records:
+                if (selected(row, family) is not None and row['budget_search'].get(family, {})
+                        .get('bracket', {}).get('status') == 'inconclusive_lower'):
+                    axis.plot(row['width'], selected(row, family)['moving'], 'o',
+                              markerfacecolor='white', markeredgecolor=color, markeredgewidth=1.6, zorder=5)
         missing = []
         for row in records:
             if selected(row, family) is not None:
@@ -9840,6 +9848,8 @@ def _budget_search_worker(out, device_name, plan):
         raise RuntimeError('Budget-search source changed after launch')
     config = manifest['config']
     seed, n = config['seeds'][0], config['model']['width']
+    source_max_ranks = plan.get('source_max_ranks_by_width', {}).get(
+        str(n), plan.get('source_max_ranks', {}))
     path = out/manifest['repetitions'][str(seed)]
     report = json.loads((path/'report.json').read_text())
     if sha((path/'trajectories.npz').read_bytes()) != report['trajectories_sha256']:
@@ -9900,7 +9910,7 @@ def _budget_search_worker(out, device_name, plan):
         setup_dense, setup_inputs, setup_queries = dense, inputs, queries
         input_basis, panel_info = None, None
         expansion = plan.get('expansion', {}).get(family, {})
-        for _ in range(plan['max_new_per_family']):
+        for _ in range(plan.get('max_new_by_width', {}).get(str(n), plan['max_new_per_family'])):
             observations = observed(family)
             q, search['bracket'] = _budget_search_next(observations, plan['width_tolerance'], **expansion)
             search['evaluations'] = observations
@@ -9911,7 +9921,7 @@ def _budget_search_worker(out, device_name, plan):
             if family != 'legendre' and plan.get('rank_rule') == 'cap_at_source':
                 maximum_rank = max((v['source_rank'] for v in
                     config['methods']['non_oblivious'][family]['budgets']),
-                    default=plan.get('source_max_ranks', {}).get(family, 0))
+                    default=source_max_ranks.get(family, 0))
                 if maximum_rank < 1:
                     raise ValueError('Capped rank proposals require a frozen source maximum')
                 rank = min(rank, maximum_rank)
@@ -9935,7 +9945,7 @@ def _budget_search_worker(out, device_name, plan):
                         setup_dense, input_basis, panel_info = _panel_span_dense(dense, inputs, queries)
                         setup_inputs, setup_queries = inputs@input_basis, queries@input_basis
                     maximum = max((v['source_rank'] for v in method['budgets']),
-                                  default=plan.get('source_max_ranks', {}).get(family, 0))
+                                  default=source_max_ranks.get(family, 0))
                     if maximum < 1:
                         raise ValueError('Fresh spectral searches require a frozen source_max_ranks entry')
                     setup = _experiment_setup(config, family)
@@ -9981,6 +9991,9 @@ def _budget_search_worker(out, device_name, plan):
                                 else 'new source from hash-verified initialization; frozen maximum rank for all prefixes'),
                         source_hashes={key: [array_sha(v.cpu().numpy()) for v in values]
                                        for key, values in source.items()})
+                    if family == 'harmonic' and 'harmonic_source_replacement' in report:
+                        if search['source_reconstruction']['source_hashes'] != report['harmonic_source_replacement']['source_hashes']:
+                            raise AssertionError('Repaired Harmonic source hashes changed on reconstruction')
                 t0 = time.monotonic()
                 if family == 'legendre':
                     model = LegendreCompression(dense, inputs, labels, q)
@@ -10183,6 +10196,9 @@ def budget_search_main(argv):
     if not (0 < plan['width_tolerance'] < 1 and plan['factor'] > 0
             and 1 <= plan['max_new_per_family'] <= 8 and len(set(plan['runs'])) == len(plan['runs'])):
         raise ValueError('Invalid bounded refinement plan')
+    if any(not isinstance(value, int) or isinstance(value, bool) or not 1 <= value <= 8
+           for value in plan.get('max_new_by_width', {}).values()):
+        raise ValueError('Per-width request caps must be integers from1 to8')
     for family, expansion in plan.get('expansion', {}).items():
         if family not in ('legendre', 'harmonic', 'logarithmic') or not (
                 1 <= expansion['start'] <= expansion['maximum']):
@@ -10205,6 +10221,60 @@ def budget_search_main(argv):
                 or sha((old_root/'source.py').read_bytes()) != report['source_sha256']
                 or not all(report['runs'].get(key, {}).get('complete') for key in ('reference', f'dense_{n}'))):
             raise ValueError('Missing or inconsistent original paired trajectories')
+        replacement = plan.get('harmonic_probes', {}).get(str(n))
+        if replacement is not None:
+            # A changed spatial basis invalidates old width failures. Start this
+            # family's bracket from the checked repaired witness, not old orders.
+            probe_path = Path(replacement)
+            probe = json.loads((probe_path/'report.json').read_text())
+            probe_bytes = (probe_path/'trajectories.npz').read_bytes()
+            probe_config = json.loads((probe_path/'config.json').read_text())
+            if (Path(probe['reference_run']).resolve() != old_root.resolve()
+                    or probe['original_report_sha256'] != sha((old_path/'report.json').read_bytes())
+                    or probe['original_trajectories_sha256'] != sha(trajectory_bytes)
+                    or probe['trajectories_sha256'] != sha(probe_bytes)
+                    or probe['source_sha256'] != sha((probe_path/'source.py').read_bytes())
+                    or probe['request'] != probe_config['cases'][probe['case']]
+                    or probe['compact_width'] != probe_config['compact_width']
+                    or probe['initial_state_sha256'] != report['reference_initial_state_sha256']
+                    or probe['training'] != config['training'] or probe['architecture'] != config['model']
+                    or probe['seeds'] != {key: report['seeds'][key] for key in
+                                         ('reference', 'harmonic_source', 'harmonic_selector')}
+                    or probe['status'] != 'pass' or not probe.get('run', {}).get('complete')):
+                raise ValueError('Repaired Harmonic witness differs from its saved reference')
+            with np.load(old_path/'trajectories.npz', allow_pickle=False) as saved:
+                merged = {key: saved[key] for key in saved.files}
+            with np.load(probe_path/'trajectories.npz', allow_pickle=False) as saved:
+                for key in ('train_inputs', 'train_labels', 'query_inputs', 'reference',
+                            'times_reference', f'dense_{n}'):
+                    np.testing.assert_array_equal(merged[key], saved[key])
+                np.testing.assert_array_equal(merged['times_reference'], saved['times'])
+                prediction, times = saved['prediction'], saved['times']
+            removed = [name for name, model in report['models'].items() if model['family'] == 'harmonic']
+            for key in ('models', 'runs', 'errors', 'skipped'):
+                report[key] = {name: value for name, value in report.get(key, {}).items()
+                               if not name.startswith('harmonic_')}
+            report.get('budget_search', {}).pop('harmonic', None)
+            q, rank = probe['compact_width'], probe['request']['source_rank']
+            name = f'harmonic_{q}_r{rank}'
+            method = config['methods']['non_oblivious']['harmonic']
+            method.update(spatial_degree=probe['request']['spatial_degree'],
+                          budgets=[dict(width=q, source_rank=rank)])
+            if _experiment_setup(config, 'harmonic')['time_degree'] != probe['request']['time_degree']:
+                raise ValueError('Temporal setup replacement is not supported')
+            info = copy.deepcopy(probe['source'])
+            info['effective_setup'] = _experiment_setup(config, 'harmonic')
+            report['sources']['harmonic'] = info
+            model = copy.deepcopy(probe['model'])
+            model.update(family='harmonic', moving=model.pop('learned'), width=q, source_rank=rank,
+                         shared_source='harmonic')
+            report['models'][name], report['runs'][name] = model, probe['run']
+            merged[name], merged['times_'+name] = prediction, times
+            report['harmonic_source_replacement'] = dict(probe=str(probe_path.resolve()),
+                report_sha256=sha((probe_path/'report.json').read_bytes()), request=probe['request'],
+                source_hashes=probe['source_hashes'],
+                excluded_old_order_candidates=removed, old_archive_sha256=sha(trajectory_bytes),
+                scope='Old spatial-order failures are excluded from the new local width bracket')
         target = out/f'n{n}'
         relative = f'seed_{seed}/attempt_001'
         path = target/relative
@@ -10236,7 +10306,11 @@ def budget_search_main(argv):
         manifest = dict(config=config, identity=identity, fingerprint=fingerprint, source_sha256=source_hash,
             repetitions={str(seed): relative}, command=sys.argv, reused_from=reused, search_plan=plan)
         (target/'source.py').write_bytes(source_bytes)
-        (path/'trajectories.npz').write_bytes(trajectory_bytes)
+        if replacement is None:
+            (path/'trajectories.npz').write_bytes(trajectory_bytes)
+        else:
+            np.savez_compressed(path/'trajectories.npz', **merged)
+            report['trajectories_sha256'] = sha((path/'trajectories.npz').read_bytes())
         save_json(target/'run.json', manifest)
         save_json(target/'config.json', config)
         save_json(path/'report.json', report)

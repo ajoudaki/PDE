@@ -1,0 +1,28 @@
+{
+  "runs": [
+    "data/generated/paper_appendix_pilots_20261009/circle_strict/n512/n512",
+    "data/generated/paper_appendix_pilots_20261009/circle_strict/n1024/n1024",
+    "data/generated/paper_appendix_pilots_20261009/circle_strict/n2048/n2048",
+    "data/generated/paper_appendix_pilots_20261009/circle_strict/n4096/n4096",
+    "data/generated/paper_appendix_pilots_20261009/circle_strict/n8192/n8192",
+    "data/generated/paper_appendix_pilots_20261009/circle_strict/n16384/n16384"
+  ],
+  "output": "data/generated/paper_appendix_pilots_20261009/harmonic_width_5pct",
+  "devices": ["cuda:0", "cuda:1"],
+  "families": ["harmonic"],
+  "factor": 1,
+  "width_tolerance": 0.05,
+  "max_new_per_family": 8,
+  "max_new_by_width": {"512": 2, "1024": 2, "4096": 2},
+  "rank_rule": "cap_at_source",
+  "source_max_ranks_by_width": {
+    "512": {"harmonic": 27}, "1024": {"harmonic": 31},
+    "2048": {"harmonic": 35}, "4096": {"harmonic": 38},
+    "8192": {"harmonic": 42}, "16384": {"harmonic": 79}
+  },
+  "harmonic_probes": {
+    "2048": "data/generated/paper_appendix_pilots_20261009/harmonic_spatial_repair/n2048/spatial15",
+    "8192": "data/generated/paper_appendix_pilots_20261009/harmonic_spatial_repair/n8192/spatial25",
+    "16384": "data/generated/paper_appendix_pilots_20261009/harmonic_spatial_repair/n16384/spatial15"
+  }
+}

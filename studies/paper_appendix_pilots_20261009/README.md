@@ -1,5 +1,75 @@
 # Bounded appendix figure pilots
 
+## Harmonic width refinement to5 percent
+
+Completed: five accurate failing/passing brackets are narrower than5%; the
+sixth (n16384) stops at a conditioning-limited4.76% interval, NOT a measured
+accuracy lower bound. Every selected upper witness passes both1x metrics.
+
+| Dense width | Lower width | Passing width | Width gap | Learned | Endpoint ratio | Maximum-recorded ratio |
+|---:|---:|---:|---:|---:|---:|---:|
+|512|415 fails|431|3.86%|187,062|0.526423|0.162402|
+|1024|750 fails|778|3.73%|607,626|0.908805|0.156684|
+|2048|473 fails|489|3.38%|240,596|0.738063|0.538553|
+|4096|896 fails|928|3.57%|863,976|0.903092|0.371052|
+|8192|432 fails|448|3.70%|202,056|0.640507|0.507653|
+|16384|1344 inconclusive|1408|4.76% construction gap|1,986,696|0.178935|0.276618|
+
+At16384, widths1024/1280/1344 were rejected with layer1 conditions
+23.2610/17.1610/16.7405 against the unchanged limit16. Widths1536/1408 pass.
+No rejection is counted as evidence of poor prediction accuracy. The figure
+marks the1408 witness hollow; the descriptive fit includes this passing,
+construction-limited upper witness and is explicitly not a minimum-size law.
+
+Harmonic descriptive fit is `747.429 (log n)^3.110798`, replacing the previous
+selected-budget exponent5.487660. Its log-space RMS residual0.730515 is large:
+this is a noisy one-seed fit, not identification of an asymptotic exponent.
+Logarithmic is unchanged at `240.755 (log n)^3.167065`. The five narrow
+brackets are local sampled crossings, not global optimum certificates.
+
+New figure:
+`data/generated/paper_appendix_pilots_20261009/harmonic_width_5pct/figures/plots/plot_002/storage_vs_width.png`.
+PDF, caption, raw metrics and error plots sit beside it; plot001 is the
+initial rendering before marking the construction-limited point hollow.
+Reproduce with `refine-budgets --plan studies/paper_appendix_pilots_20261009/harmonic_width_5pct.json`
+using a fresh plan output, then `scaling-plot --factor 1 --families harmonic
+logarithmic --fit-log-powers --runs <six resulting nN directories> --out
+<fresh-figure-directory>`. Do not add old `--harmonic-probes`: repaired
+witnesses and their provenance are already included in these derived runs.
+
+23 requests yielded20 complete new Euler trajectories and3 constructor
+rejections; summed new Euler time232.65s across both GPUs. Source is compiled
+once per width; repaired maximum-rank source hashes reproduce exactly, and
+smaller ranks use column prefixes. No dense or Logarithmic trajectories were
+rerun. Final check recomputed all new RMS ratios, finite common65-time
+trajectories, counts and archive hashes, and verified old dense/data/Logarithmic
+arrays unchanged. All four branches of each old two-step bracket were tested
+deterministically. Scoped read-only inspection found no bracket/source
+replacement mismatch; plot validation and visual inspection completed.
+No half-step/extra-seed validation; no pending runs or further search.
+
+User requests tighter width estimates and refit, continuing Figure2. Only
+Harmonic gets new fits; all six saved dense pairs and Logarithmic stay fixed.
+Freeze per-width spatial orders5,5,15,5,25,15 for512--16384, time degree8,
+source maximum ranks27,31,35,38,42,79, original prefix rank schedule
+`min(maximum,max(1,floor((q/4-17)/3)))`, selector, precision, conditioning16,
+Euler1/160, horizon32 and both1x metrics. Source compiled once per width.
+
+For512,1024,4096 the compatible failing/passing brackets are383--447,
+667--778,896--1024: at most two extra bisections each. The repaired spatial
+orders at2048,8192,16384 have only passing upper witnesses978,1024,2048;
+discard old-order failures from their new brackets, halve from the upper
+until a failure then bisect. At most8 new requests each, stopping immediately
+at upper/lower<=1.05. A constructor failure is inconclusive, never a failing
+accuracy lower bound. Any such stopping limitation must be reported.
+No new source-order/seed/width grid, dense runs or other methods.120s per
+source/fit; two GPU queues,10-minute execution cap. Preserve every attempted
+candidate and original files, plot and descriptively refit after one final
+saved-array consistency check. These are local sampled brackets, not a proof
+of monotone accuracy or globally minimal width. Root owns implementation,
+config/runs/notes/Git; read-only scoped support reconstructs valid old brackets.
+Plan: `harmonic_width_5pct.json`; output uses the matching generated directory.
+
 ## Figure2 Harmonic spatial-resolution repair
 
 Completed: all three previously missing Harmonic witnesses now pass BOTH1x
