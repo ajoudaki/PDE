@@ -308,3 +308,96 @@ before each n* directory, setting --out to the adaptive/final directory, and
 retaining --factor3 (as separate CLI tokens: --factor 3) and --fit-log-powers.
 Progress figures omitted fitted curves; adaptive figures also omit the old
 theoretical n^(5/4) guide so a prescribed rate is not presented as measured.
+
+## One additional width:16384
+
+The user requested one additional point, not additional repetitions or a new
+campaign. Use reference seed706 and its role-hashed independent dense partner,
+the same data/architecture/Euler grid and3x endpoint-AND-maximum criterion above.
+The previous five runs remain unchanged. The512-update timing probe projected
+192s per dense fit; the user explicitly approved a300s cap for these two dense
+fits only. Source setup and compression fits remain capped at120s. The pair
+and subsequent search share a1500s outer wall-clock cap.
+
+The complete numerical configs are n16384.json and adaptive_16384.json here.
+First run the dense pair only. Then search Legendre from order1 up to8 and
+Harmonic/Logarithmic from width256 up to1024, doubling until a pass and then
+using the same local20% refinement. Allow at most8 evaluations per family;
+stop with an unresolved/inconclusive record if a cap or numerical gate prevents
+completion. Both spectral sources use a fixed maximum rank79 (the rank rule
+at width1024), with nested prefixes throughout the search; never recompute a
+new randomized source at each candidate width. Source settings/selection gates
+and empirical rank rule are unchanged. The new source maximum is fixed before
+seeing any16384 compression errors. No certified full-source claim is made.
+
+The runner now supports bounded doubling for a fresh dense pair and an explicit
+dense-only runtime cap. Numerical constructors, source algorithms, integrators,
+data and initialization helpers are unchanged. The plotter verifies each saved
+whole-file hash and recursively compares the numerical definitions across source
+versions, allowing these scheduling/plotting changes without pretending all
+runs used one file hash. Original hashes remain in the plot provenance.
+
+Run the new point with:
+
+```sh
+timeout --signal=TERM --kill-after=10s 1500 bash -c \
+  '/home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py run --config studies/circle_width_scaling_20261009/n16384.json && /home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py refine-budgets --plan studies/circle_width_scaling_20261009/adaptive_16384.json'
+```
+
+### Checked16384 result
+
+The combined batch exited0 within its wall-clock cap. Both stages used source
+SHA256727d11c2a0572ddfa173fad645a91b254ac17a5253c407b6dd37d8042bf9fdc5.
+Reference seed706 and independent partner83709591014928178 completed in222.68s
+and253.98s, with final training MSE0.00334687 and0.00331080. Their endpoint and
+maximum-recorded test RMSs are0.001536952691 and0.006051064310. The stricter
+endpoint benchmark is a measured property of this pair, not a changed threshold.
+
+| Method | Passing order/width | Learned | Fixed | Total | Endpoint RMS | Maximum-recorded RMS |
+|---|---:|---:|---:|---:|---:|---:|
+| Dense |16384|268484608|0|268484608|0.001536953|0.006051064|
+| Legendre |3|1097730|268435462|269533192|0.002524973|0.002673401|
+| Logarithmic |512|263688|786433|1050121|0.002540978|0.002540978|
+
+Legendre endpoint/maximum ratios are1.64284/0.44181. Order2 fails the endpoint
+test (4.88907x), resolving the integer-adjacent2/3 bracket. Logarithmic ratios
+are1.65326/0.41992. Width448 fails the endpoint test (4.32286x), resolving the
+448/512 bracket with ratio1.14286. Width384 also fails at3.83674x endpoint;
+errors are not monotone even among these failing points. The selected width512
+uses source rank37. Logarithmic compresses learned storage by1018.19x and total
+retained storage by255.67x. Legendre's fixed quadratic storage remains additional.
+
+Harmonic has **no passing point from this bounded search**. Width256 gives
+endpoint/maximum RMS0.020940546/0.031642383 (13.62472x/5.22923x); width512 gives
+0.022744556/0.022744556 (14.79847x/3.75877x). Both are completed accuracy failures.
+Width1024 is not an accuracy failure: its constructor condition21.6753085
+exceeds the unchanged limit16 after64 selections, so it is inconclusive.
+The search stops at its predeclared cap, without retries, a new selector seed,
+an altered rank rule or a relaxed conditioning gate. This does not establish
+that no other Harmonic budget can pass; the16384 Harmonic point is omitted.
+
+There were10 complete new compression fits (4 Legendre,2 Harmonic,4 Logarithmic)
+and one constructor failure. The compression search took883.86s; the dense-pair
+stage took480.26s including initialization/recording, approximately22min44s total.
+Legendre fits took98.63--111.13s, Harmonic50.69--51.45s and Logarithmic63.00--63.60s.
+Harmonic source setup took30.61s. All numerical fits respected their caps.
+
+One final read-only reconstruction checked the seeds, hashes, common65-point
+time grid, raw RMS metrics, exact storage counts and final brackets. Original
+16384 data/dense arrays were reused bit-for-bit. The combined figure's first
+five selected points and dense-pair metrics exactly match the previous figure.
+The numerical-definition fingerprint matches the two earlier source versions.
+
+The six-width plot is under
+data/generated/circle_width_scaling_20261009/adaptive_16384/final/plots/plot_001/,
+with PNG/PDF figures, metrics.json and captions.txt. Regenerate using the earlier
+scaling-plot command with the five adaptive/n* roots plus
+data/generated/circle_width_scaling_20261009/adaptive_16384/n16384,
+--out data/generated/circle_width_scaling_20261009/adaptive_16384/final,
+--factor 3 and --fit-log-powers. The Harmonic fit still uses only the original
+five passing widths (power3.50871). The descriptive six-point Logarithmic fit
+has power5.19661 and log-space RMS residual0.47683. Its change from the five-point
+fit illustrates sensitivity to the measured threshold and selected budgets;
+neither fit establishes a logarithmic asymptotic exponent. All earlier finite
+panel, empirical-rank, full-rollout and no-independent-post-selection caveats
+continue to apply. No further numerical work is pending in this extension.

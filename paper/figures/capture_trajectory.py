@@ -6740,6 +6740,7 @@ def unified_plot_main(argv):
 
 def experiment_scaling_plot(argv):
     """Audit and plot a one-seed-per-width sweep using saved predictions only."""
+    import ast
     import copy
     import io
     import matplotlib
@@ -6763,17 +6764,50 @@ def experiment_scaling_plot(argv):
         if not condition:
             raise ValueError(message)
 
+    def numerical_source(source):
+        """Compare numerical definitions without executing saved source files."""
+        definitions = {node.name: node for node in ast.parse(source).body
+                       if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))}
+        pending = ['DeepDense', 'DeepHarmonic', 'LegendreCompression',
+                   'unified_harmonic_sources', 'cubic_rollout_sources',
+                   'integrate_euler', 'integrate', 'validation_data',
+                   '_experiment_data', '_experiment_seed', '_experiment_move']
+        require(all(name in definitions for name in pending),
+                'Saved source is missing a required numerical definition')
+        checked = {}
+        while pending:
+            name = pending.pop()
+            if name in checked:
+                continue
+            node = definitions[name]
+            checked[name] = sha(ast.dump(node, include_attributes=False).encode())
+            pending.extend(item.id for item in ast.walk(node)
+                           if isinstance(item, ast.Name) and item.id in definitions
+                           and item.id not in checked)
+        return dict(sha256=sha(json.dumps(checked, sort_keys=True).encode()), definitions=checked)
+
     require(len(set(roots)) == len(roots), 'Duplicate input run')
     require(math.isfinite(args.factor) and args.factor > 0, '--factor must be finite and strictly positive')
     records, inputs, curves, common, seen = [], [], {}, None, set()
+    numerical_sources, common_numerical = {}, None
     for root in roots:
         manifest_bytes = (root/'run.json').read_bytes()
         manifest = json.loads(manifest_bytes)
         config_bytes = (root/'config.json').read_bytes()
         config, identity = manifest['config'], manifest['identity']
         require(json.loads(config_bytes) == config, f'Saved config mismatch: {root}')
-        require(sha((root/'source.py').read_bytes()) == manifest['source_sha256']
+        source_bytes = (root/'source.py').read_bytes()
+        require(sha(source_bytes) == manifest['source_sha256']
                 == identity['source_sha256'], f'Saved source hash mismatch: {root}')
+        source_hash = manifest['source_sha256']
+        if source_hash not in numerical_sources:
+            numerical_sources[source_hash] = numerical_source(source_bytes)
+        numerical = numerical_sources[source_hash]
+        if common_numerical is not None:
+            differing = sorted(name for name in set(numerical['definitions']) | set(common_numerical['definitions'])
+                               if numerical['definitions'].get(name) != common_numerical['definitions'].get(name))
+            require(not differing, f'Input runs differ in numerical definitions {differing}: {root}')
+        common_numerical = numerical
         require(sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode())
                 == manifest['fingerprint'], f'Identity fingerprint mismatch: {root}')
         contract = copy.deepcopy(config)
@@ -6790,7 +6824,7 @@ def experiment_scaling_plot(argv):
         architecture = {key: value for key, value in config['model'].items() if key != 'width'}
         comparison_contract = dict(dataset=config['dataset'], training=config['training'],
             architecture=architecture, data_sha256=identity['data_sha256'],
-            dataset_file_sha256=identity['dataset_file_sha256'], source_sha256=manifest['source_sha256'],
+            dataset_file_sha256=identity['dataset_file_sha256'], numerical_source_sha256=numerical['sha256'],
             tf32=config['execution']['tf32'])
         require(common is None or comparison_contract == common,
                 f'Input runs differ in source, dataset, training, depth or activation: {root}')
@@ -6816,6 +6850,7 @@ def experiment_scaling_plot(argv):
         records.append(row)
         provenance = dict(root=str(root), run_sha256=sha(manifest_bytes),
             config_sha256=sha(config_bytes), source_sha256=manifest['source_sha256'],
+            numerical_source_sha256=numerical['sha256'],
             fingerprint=manifest['fingerprint'], config=config)
         inputs.append(provenance)
         relative = manifest['repetitions'].get(str(seed))
@@ -7001,7 +7036,7 @@ def experiment_scaling_plot(argv):
         'after initialization are counted separately. Moving, fixed and total counts refer to retained model '
         'coordinates, excluding common data, integrator workspace and offline source construction. '
         'Logarithmic setup uses query inputs but not their labels. Candidate selection uses these query errors; '
-        'there is no independent post-selection test. Five selected or tuned width points are not asymptotic proof. '
+        f'there is no independent post-selection test. {len(roots)} selected or tuned width points are not asymptotic proof. '
         'Finite recorded Euler trajectories are not a gradient-flow refinement certificate.')
     if show_legendre_guide:
         caption += (' The dotted n^(5/4) guide is anchored at the first passing Legendre point '
@@ -7123,7 +7158,8 @@ def experiment_scaling_plot(argv):
                   anchor_moving=legendre_points[0][1]['moving'], fitted=False)
              if legendre_points and show_legendre_guide else None)
     summary = dict(scope=caption, factor=args.factor, plot_source_sha256=sha(Path(__file__).read_bytes()),
-        inputs=inputs, common_contract=common, widths=widths, expected_width_count=5,
+        inputs=inputs, common_contract=common, numerical_sources=numerical_sources,
+        widths=widths, expected_width_count=len(roots),
         available_width_count=len(records), complete_pair_width_count=len(curves),
         descriptive_log_power_fits=descriptive_fits,
         trajectory_figure_width=largest, records=records,
@@ -7438,7 +7474,7 @@ EXPERIMENT_DEFAULTS = {
                           selection_trials=64, condition_limit=16.),
             'harmonic': dict(budgets=[dict(width=424, source_rank=29)], spatial_degree=5),
             'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True)}},
-    'execution': dict(devices='auto', tf32=False, seconds_per_fit=120., reuse_completed=True,
+    'execution': dict(devices='auto', tf32=False, seconds_per_fit=120., dense_seconds_per_fit=120., reuse_completed=True,
                       stop_after_match=False,
                       output='data/generated/compression_experiments/default'),
     'plots': dict(metrics=['endpoint_rms', 'worst_recorded_rms'], aggregate='median', spread='range',
@@ -7592,6 +7628,8 @@ def _experiment_validate(config):
         raise ValueError('Training supports Euler with float32 or float64')
     if config['execution']['seconds_per_fit'] > 120:
         raise ValueError('seconds_per_fit must be <= 120, matching the existing source-setup cap')
+    if not 0 < config['execution']['dense_seconds_per_fit'] <= 300:
+        raise ValueError('dense_seconds_per_fit must be positive and <= 300')
     for name, key in (('dense', 'widths'), ('legendre', 'orders'), ('low_rank', 'ranks')):
         values = oblivious[name][key]
         if len(set(values)) != len(values) or any(v < 1 for v in values):
@@ -7744,8 +7782,9 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                           storage_basis='primal frozen dense features and width-n trained readout; equivalent dual Euler executed')
         report['models'][name] = record
         _experiment_move(model, device, dtype)
+        fit_seconds = config['execution']['dense_seconds_per_fit'] if family in ('reference', 'dense') else seconds
         state, prediction, info = integrate_euler(model, inputs.to(dtype), labels.to(dtype),
-            torch.cat((inputs, queries)).to(dtype), training['step'], seconds,
+            torch.cat((inputs, queries)).to(dtype), training['step'], fit_seconds,
             horizon=training['horizon'], max_steps=math.ceil(training['horizon']/training['step']),
             observation_every=training['record_every'])
         arrays[name], arrays['times_'+name] = prediction, np.asarray(info['times'])
@@ -7880,10 +7919,15 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
         persist()
 
 
-def _budget_search_next(observations, tolerance, minimum=1):
+def _budget_search_next(observations, tolerance, minimum=1, start=None, maximum=None):
     """A local sampled bracket, never a monotonicity or global-optimality claim."""
     passed = sorted(q for q, value in observations.items() if value['status'] == 'pass')
     if not passed:
+        if start is not None:
+            q = min(maximum, 2*max(observations) if observations else start)
+            bracket = dict(lower=None, upper=None, ratio=None,
+                           status='expanding' if q not in observations else 'no_passing_upper_at_cap')
+            return (q if q not in observations else None), bracket
         return None, dict(lower=None, upper=None, ratio=None, status='no_passing_upper')
     upper = passed[0]
     failed = [q for q, value in observations.items() if q < upper and value['status'] == 'fail']
@@ -7965,9 +8009,10 @@ def _budget_search_worker(out, device_name, plan):
     for family in ('legendre', 'harmonic', 'logarithmic'):
         search = report['budget_search'][family]
         source, floor, setup = None, None, None
+        expansion = plan.get('expansion', {}).get(family, {})
         for _ in range(plan['max_new_per_family']):
             observations = observed(family)
-            q, search['bracket'] = _budget_search_next(observations, plan['width_tolerance'])
+            q, search['bracket'] = _budget_search_next(observations, plan['width_tolerance'], **expansion)
             search['evaluations'] = observations
             persist()
             if q is None:
@@ -7982,29 +8027,49 @@ def _budget_search_worker(out, device_name, plan):
             try:
                 if family != 'legendre' and source is None:
                     method = config['methods']['non_oblivious'][family]
-                    maximum = max(v['source_rank'] for v in method['budgets'])
+                    maximum = max((v['source_rank'] for v in method['budgets']),
+                                  default=plan.get('source_max_ranks', {}).get(family, 0))
+                    if maximum < 1:
+                        raise ValueError('Fresh spectral searches require a frozen source_max_ranks entry')
                     setup = _experiment_setup(config, family)
                     options = dict(seconds=seconds, step=setup['rollout_step'], time_degree=setup['time_degree'],
                                    rollout_dtype=setup['rollout_dtype'], coefficient_dtype=setup['coefficient_dtype'])
+                    for role in ('source', 'selector'):
+                        key = family+'_'+role
+                        report['seeds'].setdefault(key, _experiment_seed(seed, key))
                     source_seed = report['seeds'][family+'_source']
+                    old_info = report['sources'].get(family)
                     if family == 'harmonic':
                         source, info = unified_harmonic_sources(dense, inputs, labels, training['horizon'],
                             maximum, source_seed, spatial_degree=method['spatial_degree'], **options)
-                        old_checks = report['sources'][family]['diagnostics']
+                        old_checks = old_info['diagnostics'] if old_info else None
                         new_checks = info['diagnostics']
                     else:
                         sources, info = cubic_rollout_sources(dense, inputs, labels, queries, training['horizon'],
                             seed=source_seed, ranks=(maximum,), partitions=('new',), **options)
                         source = sources['new'][maximum]
-                        floor = report['sources'][family]['readout_floor']
-                        old_checks = report['sources'][family]['partitions']['new']['diagnostics'][str(maximum)]
+                        if old_info:
+                            floor = old_info['readout_floor']
+                        else:
+                            features = dense.fields(dense.initial_state, inputs)[0][-1]
+                            gap = float(torch.linalg.eigvalsh(features.T@features/(n*len(labels)))[0])
+                            if gap <= 0:
+                                raise ArithmeticError('Initial normalized training feature Gram has no positive gap')
+                            floor = min(1e-4, gap/8)
+                        info['readout_floor'] = floor
+                        old_checks = old_info['partitions']['new']['diagnostics'][str(maximum)] if old_info else None
                         new_checks = info['partitions']['new']['diagnostics'][str(maximum)]
-                    for key in ('h', 'delta'):
-                        for old, new in zip(old_checks[key], new_checks[key]):
-                            np.testing.assert_allclose(new['residual_coefficient_relative_error'],
-                                old['residual_coefficient_relative_error'], rtol=1e-7, atol=1e-10)
+                    if old_checks is not None:
+                        for key in ('h', 'delta'):
+                            for old, new in zip(old_checks[key], new_checks[key]):
+                                np.testing.assert_allclose(new['residual_coefficient_relative_error'],
+                                    old['residual_coefficient_relative_error'], rtol=1e-7, atol=1e-10)
+                    info['effective_setup'] = setup
+                    if old_info is None:
+                        report['sources'][family] = info
                     search['source_reconstruction'] = dict(maximum_rank=maximum, report=info,
-                        checks='original initialization hashes and largest-rank source residuals match',
+                        checks=('original initialization hashes and largest-rank source residuals match' if old_info
+                                else 'new source from hash-verified initialization; frozen maximum rank for all prefixes'),
                         source_hashes={key: [array_sha(v.cpu().numpy()) for v in values]
                                        for key, values in source.items()})
                 t0 = time.monotonic()
@@ -8053,8 +8118,8 @@ def _budget_search_worker(out, device_name, plan):
             persist()
         if search['bracket']['status'] != 'source_inconclusive':
             search['evaluations'] = observed(family)
-            _, search['bracket'] = _budget_search_next(search['evaluations'], plan['width_tolerance'])
-            if search['bracket']['status'] == 'refining':
+            _, search['bracket'] = _budget_search_next(search['evaluations'], plan['width_tolerance'], **expansion)
+            if search['bracket']['status'] in ('refining', 'expanding'):
                 search['bracket']['status'] = 'evaluation_cap'
         print(json.dumps(dict(event='refinement_done', width=n, family=family, bracket=search['bracket'])), flush=True)
         persist()
@@ -8079,8 +8144,12 @@ def budget_search_main(argv):
         n = json.loads((Path(plan['runs'][index])/'config.json').read_text())['model']['width']
         return _budget_search_worker(out/f'n{n}', plan['devices'][index % len(plan['devices'])], plan)
     if not (0 < plan['width_tolerance'] < 1 and plan['factor'] > 0
-            and 1 <= plan['max_new_per_family'] <= 4 and len(set(plan['runs'])) == len(plan['runs'])):
+            and 1 <= plan['max_new_per_family'] <= 8 and len(set(plan['runs'])) == len(plan['runs'])):
         raise ValueError('Invalid bounded refinement plan')
+    for family, expansion in plan.get('expansion', {}).items():
+        if family not in ('legendre', 'harmonic', 'logarithmic') or not (
+                1 <= expansion['start'] <= expansion['maximum']):
+            raise ValueError('Invalid bounded doubling interval')
     out.mkdir(parents=True, exist_ok=False)
     source_bytes = Path(__file__).read_bytes()
     source_hash = sha(source_bytes)

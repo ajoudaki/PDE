@@ -1,0 +1,14 @@
+{
+  "runs": ["data/generated/circle_width_scaling_20261009/n16384"],
+  "output": "data/generated/circle_width_scaling_20261009/adaptive_16384",
+  "devices": ["cuda:0"],
+  "factor": 3,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 8,
+  "expansion": {
+    "legendre": {"start": 1, "maximum": 8},
+    "harmonic": {"start": 256, "maximum": 1024},
+    "logarithmic": {"start": 256, "maximum": 1024}
+  },
+  "source_max_ranks": {"harmonic": 79, "logarithmic": 79}
+}
