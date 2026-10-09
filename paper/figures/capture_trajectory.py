@@ -12600,6 +12600,32 @@ def budget_seed_plot(argv):
     for extension in ('png', 'pdf'):
         figure.savefig(args.out/f'learned_state_mean_median.{extension}', dpi=180)
     plt.close(figure)
+    if family == 'legendre' and not unresolved:
+        orders = np.asarray([[next(row['selected']['q'] for row in rows
+                                   if row['seed'] == seed and row['width'] == n)
+                              for n in widths] for seed in seeds])
+        figure, axis = plt.subplots(figsize=(7.3, 4.5))
+        if np.all(orders == orders[0]):
+            axis.plot(widths, orders[0], 'o-', color='#185b84', linewidth=2,
+                      markersize=7, label='All three seeds')
+        else:
+            for index, values in enumerate(orders):
+                axis.plot(widths, values, 'o-', color='#777777', alpha=.3,
+                          label='Individual seeds' if index == 0 else None)
+            axis.plot(widths, orders.mean(axis=0), 's-', color='#185b84', label='Mean')
+            axis.plot(widths, np.median(orders, axis=0), 'D--', color='#b75c22', label='Median')
+        axis.set(xscale='log', yscale='linear', xlabel='Dense width $n$',
+                 ylabel='Minimum order $q$', title='Legendre: minimum order',
+                 ylim=(max(0, orders.min()-.35), orders.max()+.35))
+        axis.set_xticks(widths, [str(n) for n in widths])
+        axis.set_yticks(range(int(orders.min()), int(orders.max())+1))
+        axis.xaxis.set_minor_formatter(NullFormatter())
+        axis.grid(alpha=.2)
+        axis.legend(frameon=False)
+        figure.tight_layout()
+        for extension in ('png', 'pdf'):
+            figure.savefig(args.out/f'minimum_order.{extension}', dpi=180)
+        plt.close(figure)
     print(json.dumps(dict(event='budget_seed_plot', output=str(args.out), unresolved=unresolved)), flush=True)
     return 0
 

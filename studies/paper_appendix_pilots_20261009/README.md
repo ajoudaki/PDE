@@ -67,6 +67,13 @@ The combined outputs are `digits_legendre_full_widths/figures/metrics.json`,
 `learned_state_by_seed.png/pdf`, `learned_state_mean_median.png/pdf`, and
 `captions.txt`. No further runs pending.
 
+User-requested order-only replot: `budget-seed-plot --family legendre` now
+also emits `minimum_order.png/pdf` when all cases are resolved, with log n
+on the x-axis and linear q on the y-axis. Repeating the above plot command
+with the same 18 roots and output `digits_legendre_full_widths/order_figure`
+produced that figure; its metrics.json equals the previous metrics exactly.
+All three seed curves coincide. No training or selection changes, no new fit.
+
 ### Frozen design
 
 User explicitly requests ALL remaining widths in the plot. Add exactly512,
