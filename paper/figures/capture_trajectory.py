@@ -6738,6 +6738,379 @@ def unified_plot_main(argv):
     print(json.dumps(dict(figures=str(args.out), case_reports=len(records), method_rows=len(rows))), flush=True)
 
 
+def experiment_scaling_plot(argv):
+    """Audit and plot a one-seed-per-width sweep using saved predictions only."""
+    import copy
+    import io
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import NullFormatter
+
+    parser = argparse.ArgumentParser(description=experiment_scaling_plot.__doc__)
+    parser.add_argument('--runs', nargs='+', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--factor', type=float, default=1.,
+                        help='Positive finite multiplier for both dense-pair accuracy thresholds (default: 1)')
+    parser.add_argument('--fit-log-powers', action='store_true',
+                        help='Overlay descriptive C(log n)^p fits for Harmonic/Logarithmic with >=3 passing widths')
+    args = parser.parse_args(argv)
+    roots = [path.resolve() for path in args.runs]
+    families = dict(legendre=('Legendre', '#d18624'), harmonic=('Harmonic', '#297c8e'),
+                    logarithmic=('Logarithmic', '#9768b0'))
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    require(len(set(roots)) == len(roots), 'Duplicate input run')
+    require(math.isfinite(args.factor) and args.factor > 0, '--factor must be finite and strictly positive')
+    records, inputs, curves, common, seen = [], [], {}, None, set()
+    for root in roots:
+        manifest_bytes = (root/'run.json').read_bytes()
+        manifest = json.loads(manifest_bytes)
+        config_bytes = (root/'config.json').read_bytes()
+        config, identity = manifest['config'], manifest['identity']
+        require(json.loads(config_bytes) == config, f'Saved config mismatch: {root}')
+        require(sha((root/'source.py').read_bytes()) == manifest['source_sha256']
+                == identity['source_sha256'], f'Saved source hash mismatch: {root}')
+        require(sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode())
+                == manifest['fingerprint'], f'Identity fingerprint mismatch: {root}')
+        contract = copy.deepcopy(config)
+        contract.pop('plots', None)
+        contract['methods']['oblivious']['frozen_features'].pop('plot', None)
+        for key in ('output', 'reuse_completed'):
+            contract['execution'].pop(key, None)
+        devices = contract['execution']['devices']
+        if devices != 'auto':
+            require((devices.split(',') if isinstance(devices, str) else devices)
+                    == identity['config']['execution']['devices'], f'Device mismatch: {root}')
+        contract['execution']['devices'] = identity['config']['execution']['devices']
+        require(contract == identity['config'], f'Saved identity/config mismatch: {root}')
+        architecture = {key: value for key, value in config['model'].items() if key != 'width'}
+        comparison_contract = dict(dataset=config['dataset'], training=config['training'],
+            architecture=architecture, data_sha256=identity['data_sha256'],
+            dataset_file_sha256=identity['dataset_file_sha256'], source_sha256=manifest['source_sha256'],
+            tf32=config['execution']['tf32'])
+        require(common is None or comparison_contract == common,
+                f'Input runs differ in source, dataset, training, depth or activation: {root}')
+        common = comparison_contract
+        n, seeds = config['model']['width'], config['seeds']
+        require(isinstance(n, int) and not isinstance(n, bool) and n > 0 and n not in seen,
+                f'Invalid or duplicate width: {n}')
+        require(len(seeds) == 1 and isinstance(seeds[0], int) and not isinstance(seeds[0], bool),
+                f'Exactly one seed per width is required: {root}')
+        seen.add(n)
+        seed, iid_name = seeds[0], f'dense_{n}'
+        require(n in config['methods']['oblivious']['dense']['widths'],
+                f'Missing requested independent width-{n} dense pair: {root}')
+        expected = {f'legendre_{q}': 'legendre'
+                    for q in config['methods']['oblivious']['legendre']['orders']}
+        for family in ('harmonic', 'logarithmic'):
+            expected.update({f"{family}_{budget['width']}_r{budget['source_rank']}": family
+                             for budget in config['methods']['non_oblivious'][family]['budgets']})
+        row = dict(width=n, seed=seed, root=str(root), status='inconclusive',
+            dense_learned=(config['model']['depth']-1)*n*n+n*(config['dataset']['dimension']+1),
+            candidates=[], selected={}, dense_pair=None, sources={}, errors={}, omissions=[])
+        records.append(row)
+        provenance = dict(root=str(root), run_sha256=sha(manifest_bytes),
+            config_sha256=sha(config_bytes), source_sha256=manifest['source_sha256'],
+            fingerprint=manifest['fingerprint'], config=config)
+        inputs.append(provenance)
+        relative = manifest['repetitions'].get(str(seed))
+        if relative is None:
+            row['omissions'].append('No saved repetition location')
+            row['candidates'] = [dict(name=name, family=family, factor=args.factor, status='inconclusive',
+                                     reason='No saved repetition', moving=None, fixed=None, total=None)
+                                 for name, family in expected.items()]
+            continue
+        path = (root/relative).resolve()
+        require(path != root and path.is_relative_to(root), f'Invalid repetition path: {relative}')
+        if not (path/'report.json').is_file() or not (path/'trajectories.npz').is_file():
+            row['omissions'].append('Missing report or trajectories')
+            row['candidates'] = [dict(name=name, family=family, factor=args.factor, status='inconclusive',
+                                     reason='Missing report or trajectories', moving=None, fixed=None, total=None)
+                                 for name, family in expected.items()]
+            continue
+        report_bytes, trajectory_bytes = (path/'report.json').read_bytes(), (path/'trajectories.npz').read_bytes()
+        report = json.loads(report_bytes)
+        require(report['seed'] == seed and report['seeds']['reference'] == seed
+                and report['fingerprint'] == manifest['fingerprint']
+                and report['source_sha256'] == manifest['source_sha256'], f'Run identity mismatch: {path}')
+        require(sha(trajectory_bytes) == report['trajectories_sha256'], f'Trajectory hash mismatch: {path}')
+        provenance.update(repetition=str(path), report_sha256=sha(report_bytes),
+                          trajectories_sha256=sha(trajectory_bytes), seeds=report['seeds'])
+        row['sources'], row['errors'] = report.get('sources', {}), report.get('errors', {})
+        with np.load(io.BytesIO(trajectory_bytes), allow_pickle=False) as saved:
+            arrays = {key: saved[key] for key in saved.files}
+
+        def array(name, ndim):
+            value = arrays[name]
+            require(value.ndim == ndim and value.dtype.kind in 'fiu' and np.isfinite(value).all(),
+                    f'Invalid array {name}: {path}')
+            return value.astype(float)
+
+        train, query = array('train_inputs', 2), array('query_inputs', 2)
+        targets, truth = array('train_labels', 1), array('query_labels', 1)
+        require(len(train) == len(targets) == config['dataset']['train_samples']
+                and len(query) == len(truth) == config['dataset']['test_samples']
+                and train.shape[1] == query.shape[1] == config['dataset']['dimension'],
+                f'Data shape mismatch: {path}')
+        require({key: array_sha(arrays[key]) for key in
+                 ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')}
+                == report['data_sha256'] == identity['data_sha256'], f'Data hash mismatch: {path}')
+        checked = {}
+        for name in ('reference', iid_name, *expected):
+            model = report['models'].get(name)
+            if model is None:
+                continue
+            require(all(isinstance(model.get(key), int) and not isinstance(model[key], bool)
+                        and model[key] >= 0 for key in ('moving', 'fixed', 'total'))
+                    and model['moving'] > 0 and model['total'] == model['moving']+model['fixed'],
+                    f'Invalid storage counts: {path}/{name}')
+            require(model['family'] == ('reference' if name == 'reference' else
+                    'dense' if name == iid_name else expected[name]), f'Wrong model family: {path}/{name}')
+            if name in ('reference', iid_name):
+                require(model['moving'] == row['dense_learned'] and model['fixed'] == 0,
+                        f'Dense storage mismatch: {path}/{name}')
+            run = report['runs'].get(name, {})
+            if run.get('complete') is not True:
+                continue
+            prediction, times = array(name, 2), array('times_'+name, 1)
+            require(len(times) > 1 and times[0] == 0 and np.all(np.diff(times) > 0)
+                    and np.isclose(times[-1], config['training']['horizon'], atol=1e-10, rtol=0)
+                    and prediction.shape == (len(times), len(targets)+len(truth)),
+                    f'Trajectory shape or time mismatch: {path}/{name}')
+            run_times, losses = np.asarray(run['times']), np.asarray(run['losses'])
+            require(run_times.shape == times.shape and np.allclose(run_times, times, atol=1e-10, rtol=0)
+                    and losses.shape == times.shape and np.isfinite(losses).all()
+                    and np.allclose(np.mean((prediction[:, :len(targets)]-targets)**2, axis=1),
+                                    losses, atol=1e-6, rtol=2e-5), f'Run metadata mismatch: {path}/{name}')
+            checked[name] = (prediction[:, len(targets):], times)
+        for family in ('harmonic', 'logarithmic'):
+            if family in row['sources']:
+                require(row['sources'][family]['effective_setup'] == _experiment_setup(config, family),
+                        f'Source setup mismatch: {path}/{family}')
+        paired = 'reference' in checked and iid_name in checked
+        if paired:
+            require(report['seeds'].get(iid_name) == _experiment_seed(seed, iid_name)
+                    and report['seeds'][iid_name] != seed,
+                    f'Independent dense-pair seed mismatch: {path}')
+            reference, reference_times = checked['reference']
+            for name, (prediction, times) in checked.items():
+                require(times.shape == reference_times.shape
+                        and np.allclose(times, reference_times, atol=1e-10, rtol=0),
+                        f'Paired time grids differ: {path}/{name}')
+            width_curves = {name: np.sqrt(np.mean((prediction-reference)**2, axis=1))
+                            for name, (prediction, _) in checked.items()}
+            require(all(np.isfinite(value).all() for value in width_curves.values()),
+                    f'Nonfinite query RMS: {path}')
+            curves[n] = (reference_times, width_curves)
+            iid = width_curves[iid_name]
+            row['dense_pair'] = dict(name=iid_name, endpoint_rms=float(iid[-1]),
+                worst_recorded_rms=float(iid.max()), reference_seed=seed,
+                independent_seed=report['seeds'][iid_name], moving=row['dense_learned'], fixed=0,
+                total=row['dense_learned'])
+            row['status'] = 'paired_reference_complete'
+        else:
+            row['omissions'].append('No complete reference and independent dense pair')
+        for name, family in expected.items():
+            model = report['models'].get(name, {})
+            candidate = dict(name=name, family=family, factor=args.factor, status='inconclusive',
+                **{key: model.get(key) for key in ('moving', 'fixed', 'total')}, model=model or None)
+            row['candidates'].append(candidate)
+            if name in report.get('skipped', {}):
+                candidate.update(status='skipped', reason=report['skipped'][name])
+                continue
+            if not paired or name not in checked:
+                candidate['reason'] = (report.get('errors', {}).get(name)
+                    or report.get('errors', {}).get(family+'_setup')
+                    or ('No complete paired benchmark' if not paired else 'Candidate not complete or not yet run'))
+                continue
+            curve = width_curves[name]
+            endpoint, worst = float(curve[-1]), float(curve.max())
+            endpoint_threshold, worst_threshold = args.factor*float(iid[-1]), args.factor*float(iid.max())
+            endpoint_pass, worst_pass = endpoint <= endpoint_threshold, worst <= worst_threshold
+            positive = (reference_times > 0) & (iid > 0)
+            zero_later = (reference_times > 0) & (iid == 0)
+            candidate.update(status='pass' if endpoint_pass and worst_pass else 'fail',
+                endpoint_rms=endpoint, worst_recorded_rms=worst,
+                endpoint_threshold=endpoint_threshold, worst_recorded_threshold=worst_threshold,
+                endpoint_pass=bool(endpoint_pass), worst_recorded_pass=bool(worst_pass),
+                endpoint_ratio=endpoint/float(iid[-1]) if iid[-1] > 0 else None,
+                worst_recorded_ratio=worst/float(iid.max()) if iid.max() > 0 else None,
+                pointwise_exceedance_fraction=float(np.mean(curve[positive] > iid[positive]))
+                    if np.any(positive) else None,
+                pointwise_factor_exceedance_fraction=float(np.mean(curve[positive] > args.factor*iid[positive]))
+                    if np.any(positive) else None,
+                pointwise_max_ratio=float(np.max(curve[positive]/iid[positive])) if np.any(positive) else None,
+                pointwise_positive_benchmark_count=int(positive.sum()),
+                pointwise_zero_benchmark_after_initial_count=int(zero_later.sum()),
+                pointwise_zero_benchmark_after_initial_exceedances=int(np.sum(curve[zero_later] > 0)))
+        for family in families:
+            passing = [item for item in row['candidates'] if item['family'] == family and item['status'] == 'pass']
+            if passing:
+                chosen = min(passing, key=lambda item: (item['moving'], item['total'], item['name']))
+                row['selected'][family] = chosen['name']
+            else:
+                row['omissions'].append(f'{family}: no complete candidate passes both {args.factor:g}x benchmark metrics')
+
+    records.sort(key=lambda item: item['width'])
+    parent = args.out.resolve()/'plots'
+    parent.mkdir(parents=True, exist_ok=True)
+    index = 1
+    while True:
+        destination = parent/f'plot_{index:03d}'
+        try:
+            destination.mkdir()
+            break
+        except FileExistsError:
+            index += 1
+    caption = ('Each width uses one independent dense pair and its own reference on the same held-out query inputs. '
+        'A candidate passes only when its endpoint RMS and maximum recorded RMS are each no larger than '
+        f'{args.factor:g} times the corresponding dense-pair metric. The smallest passing moving state among evaluated candidates '
+        'is selected per family; this is not a proven global minimum. Missing passing candidates are omitted. '
+        'Incomplete runs and constructor failures are inconclusive; skipped larger candidates are not failures. '
+        'Endpoint and maximum-error matching does not imply pointwise matching. The separately reported '
+        'pointwise exceedance fraction and maximum pointwise ratio use the unscaled (1x) positive dense-pair '
+        f'errors after the initial time; exceedance at {args.factor:g}x is also reported separately. Zero benchmarks '
+        'after initialization are counted separately. Moving, fixed and total counts refer to retained model '
+        'coordinates, excluding common data, integrator workspace and offline source construction. '
+        'Logarithmic setup uses query inputs but not their labels. Candidate selection uses these query errors; '
+        'there is no independent post-selection test. Five selected or tuned width points are not asymptotic proof. '
+        'The dotted n^(5/4) guide is anchored at the first passing Legendre point and is not a fitted exponent. '
+        'Finite recorded Euler trajectories are not a gradient-flow refinement certificate.')
+    colors = {key: value[1] for key, value in families.items()}
+    plt.rcParams.update({'font.size': 9, 'axes.spines.top': False, 'axes.spines.right': False,
+                         'pdf.fonttype': 42, 'savefig.facecolor': 'white'})
+    def save(figure, name):
+        for suffix in ('png', 'pdf'):
+            figure.savefig(destination/f'{name}.{suffix}', bbox_inches='tight', dpi=190)
+        plt.close(figure)
+
+    def selected(row, family):
+        return next((item for item in row['candidates']
+                     if item['name'] == row['selected'].get(family)), None)
+
+    widths = [row['width'] for row in records]
+    descriptive_fits = {}
+    figure, axis = plt.subplots(figsize=(7.8, 5.3))
+    axis.loglog(widths, [row['dense_learned'] for row in records], 'o-', color='#40566c', label='Dense')
+    for family, (label, color) in families.items():
+        points = [(row['width'], selected(row, family)) for row in records]
+        points = [(width, point) for width, point in points if point is not None]
+        if points:
+            axis.loglog([width for width, _ in points], [point['moving'] for _, point in points],
+                        'o-', color=color, label=label)
+        if family == 'legendre' and points:
+            anchor_width, anchor = points[0]
+            guide_widths = np.geomspace(min(widths), max(widths), 100)
+            axis.loglog(guide_widths, anchor['moving']*(guide_widths/anchor_width)**1.25,
+                        ':', color='#777777', label=r'$n^{5/4}$')
+        if args.fit_log_powers and family in ('harmonic', 'logarithmic'):
+            fit_points = [(width, point) for width, point in points if width > 1]
+            included = [width for width, _ in fit_points]
+            fit = dict(status='insufficient_passing_widths', count=len(fit_points), widths=included,
+                       omitted_widths=[width for width in widths if width not in included],
+                       model='moving = C * (natural_log(width)) ** p',
+                       criterion='unweighted least squares of log(moving) against log(log(width))',
+                       scope='Exploratory fit of selected candidates; neither unbiased scaling estimation nor asymptotic proof')
+            descriptive_fits[family] = fit
+            if len(fit_points) >= 3:
+                fit_widths = np.asarray(included, dtype=float)
+                fit_storage = np.asarray([point['moving'] for _, point in fit_points], dtype=float)
+                design = np.column_stack((np.ones(len(fit_points)), np.log(np.log(fit_widths))))
+                log_constant, exponent = np.linalg.lstsq(design, np.log(fit_storage), rcond=None)[0]
+                constant = float(np.exp(log_constant))
+                fit.update(status='fitted', C=constant, p=float(exponent), log_C=float(log_constant),
+                           log_space_rms=float(np.sqrt(np.mean((design@np.array([log_constant, exponent])
+                                                               -np.log(fit_storage))**2))))
+                fit_grid = np.geomspace(min(included), max(included), 150)
+                axis.loglog(fit_grid, np.exp(log_constant+exponent*np.log(np.log(fit_grid))),
+                            '--', color=color, alpha=.8,
+                            label=f'{label} fit p={exponent:.2g} ({len(fit_points)} widths)')
+    axis.set_xlabel('Dense width')
+    axis.set_ylabel('Learned state')
+    axis.set_xticks(widths, [str(width) for width in widths])
+    axis.xaxis.set_minor_formatter(NullFormatter())
+    dataset_label = ('Circle' if common['dataset']['name'] == 'sphere'
+                     and common['dataset']['dimension'] == 2 else 'Width scaling')
+    axis.set_title(f'{dataset_label} · {args.factor:g}× variability')
+    axis.grid(alpha=.15)
+    axis.legend(frameon=False)
+    fit_counts = ', '.join(f"{families[family][0]} {fit['count']}/{len(widths)} widths"
+                          for family, fit in descriptive_fits.items())
+    figure.tight_layout()
+    save(figure, 'storage_vs_width')
+    largest = max(curves) if curves else None
+    figure, axis = plt.subplots(figsize=(7.8, 5.1))
+    if largest is None:
+        axis.text(.5, .5, 'No complete reference and independent dense pair', transform=axis.transAxes, ha='center')
+    else:
+        times, width_curves = curves[largest]
+        row = next(item for item in records if item['width'] == largest)
+        axis.plot(times, width_curves[f'dense_{largest}'], '--', color='#40566c', label='Dense pair')
+        for family, (label, color) in families.items():
+            point = selected(row, family)
+            if point:
+                axis.plot(times, width_curves[point['name']], color=color, label=label)
+        axis.legend(frameon=False)
+        axis.set_title(f'n = {largest}')
+    axis.set_xlabel('Training time')
+    axis.set_ylabel('Test RMS')
+    axis.set_ylim(bottom=0)
+    axis.grid(alpha=.15)
+    figure.tight_layout()
+    save(figure, 'trajectory_errors')
+    figure, axes = plt.subplots(1, 2, figsize=(10, 4.4))
+    for axis, metric, label in zip(axes, ('endpoint_ratio', 'worst_recorded_ratio'),
+                                   ('Endpoint / dense pair', 'Maximum / dense pair')):
+        for family, (name, color) in families.items():
+            points = [(row['width'], selected(row, family)) for row in records]
+            points = [(width, point[metric]) for width, point in points
+                      if point is not None and point[metric] is not None]
+            if points:
+                axis.plot([p[0] for p in points], [p[1] for p in points], 'o-', color=color, label=name)
+        axis.axhline(1, color='#999999', ls=':', lw=1, label='Dense pair')
+        axis.axhline(args.factor, color='#555555', ls='--', lw=1,
+                     label=f'{args.factor:g}× threshold')
+        axis.set_xscale('log')
+        axis.set_xticks(widths, [str(width) for width in widths], rotation=30)
+        axis.xaxis.set_minor_formatter(NullFormatter())
+        axis.set_xlabel('Dense width')
+        axis.set_ylabel(label)
+        axis.set_ylim(bottom=0)
+        axis.grid(alpha=.15)
+    handles, labels = axes[0].get_legend_handles_labels()
+    if handles:
+        figure.legend(handles, labels, loc='upper center', ncol=3, frameon=False, fontsize=8)
+    figure.tight_layout(rect=(0, 0, 1, .85 if handles else 1))
+    save(figure, 'errors_vs_width')
+    caption += (' Optional dashed curves fit C(log n)^p by unweighted least squares of log(moving state) '
+        'against log(log n), with natural logarithms and at least three passing widths. '
+        'They are exploratory fits to selected candidates, not unbiased scaling estimates or asymptotic proof. '
+        'Missing passing widths are excluded. Fit eligibility: '+fit_counts+'.'
+        if args.fit_log_powers else ' No logarithmic-power trend law is fitted.')
+    legendre_points = [(row['width'], selected(row, 'legendre')) for row in records
+                       if selected(row, 'legendre') is not None]
+    guide = (dict(exponent=1.25, anchor_width=legendre_points[0][0],
+                  anchor_moving=legendre_points[0][1]['moving'], fitted=False)
+             if legendre_points else None)
+    summary = dict(scope=caption, factor=args.factor, plot_source_sha256=sha(Path(__file__).read_bytes()),
+        inputs=inputs, common_contract=common, widths=widths, expected_width_count=5,
+        available_width_count=len(records), complete_pair_width_count=len(curves),
+        descriptive_log_power_fits=descriptive_fits, legendre_slope_guide=guide,
+        trajectory_figure_width=largest, records=records,
+        figures={name: {suffix: str(destination/f'{name}.{suffix}') for suffix in ('png', 'pdf')}
+                 for name in ('storage_vs_width', 'trajectory_errors', 'errors_vs_width')})
+    save_json(destination/'metrics.json', summary)
+    (destination/'captions.txt').write_text(caption+'\n\n'+json.dumps(
+        {str(row['width']): row['omissions'] for row in records}, indent=2)+'\n')
+    print(json.dumps(dict(figures=str(destination), metrics=str(destination/'metrics.json'),
+                         widths=widths, complete_pairs=len(curves))), flush=True)
+    return 0
+
+
 def experiment_plot(config):
     """Validate saved runs and plot paired test errors without training."""
     import copy
@@ -7038,6 +7411,7 @@ EXPERIMENT_DEFAULTS = {
             'harmonic': dict(budgets=[dict(width=424, source_rank=29)], spatial_degree=5),
             'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True)}},
     'execution': dict(devices='auto', tf32=False, seconds_per_fit=120., reuse_completed=True,
+                      stop_after_match=False,
                       output='data/generated/compression_experiments/default'),
     'plots': dict(metrics=['endpoint_rms', 'worst_recorded_rms'], aggregate='median', spread='range',
                   runs=[], methods=['dense', 'legendre', 'harmonic', 'logarithmic', 'low_rank', 'frozen_features']),
@@ -7231,6 +7605,15 @@ def _experiment_validate(config):
             or (config['plots']['spread'] == 'sd' and config['plots']['aggregate'] != 'mean')
             or oblivious['frozen_features']['plot'] not in ('dashed', 'point')):
         raise ValueError('Unsupported plot metric, aggregation, spread or frozen-feature style')
+    if config['execution']['stop_after_match']:
+        if model['width'] not in oblivious['dense']['widths']:
+            raise ValueError('stop_after_match requires an independent dense comparator of the reference width')
+        if oblivious['legendre']['orders'] != sorted(oblivious['legendre']['orders']):
+            raise ValueError('stop_after_match requires ascending Legendre orders')
+        for name in ('harmonic', 'logarithmic'):
+            widths = [budget['width'] for budget in group[name]['budgets']]
+            if widths != sorted(widths):
+                raise ValueError('stop_after_match requires ascending compact widths')
 
 
 def _experiment_data(config):
@@ -7301,7 +7684,7 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
     seconds = config['execution']['seconds_per_fit']
     started = time.monotonic()
     report = dict(seed=seed, fingerprint=manifest['fingerprint'], source_sha256=manifest['source_sha256'],
-        complete=False, models={}, runs={}, sources={}, errors={}, seeds={'reference': seed},
+        complete=False, models={}, runs={}, sources={}, errors={}, skipped={}, seeds={'reference': seed},
         data_sha256={key: array_sha(value) for key, value in arrays.items()},
         device=device_name, hardware=torch.cuda.get_device_name(device) if device.type == 'cuda' else platform.processor(),
         scope=dict(initialization='Gaussian, zero readout; original canonical mean-field mobilities',
@@ -7360,6 +7743,24 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
             print(json.dumps(dict(event='model_error', seed=seed, model=name, error=str(error))), flush=True)
             persist()
 
+    def matched(name, remaining):
+        comparator = f'dense_{n}'
+        if not config['execution']['stop_after_match'] or not all(
+                report['runs'].get(key, {}).get('complete') for key in (name, comparator)):
+            return False
+        reference = arrays['reference'][:, len(labels):].astype(float)
+        error = np.sqrt(np.mean((arrays[name][:, len(labels):].astype(float)-reference)**2, axis=1))
+        baseline = np.sqrt(np.mean((arrays[comparator][:, len(labels):].astype(float)-reference)**2, axis=1))
+        passed = bool(error[-1] <= baseline[-1] and error.max() <= baseline.max())
+        if passed:
+            report['skipped'].update({key: f'Larger budget not needed after {name} matched both RMS criteria'
+                                      for key in remaining})
+            print(json.dumps(dict(event='budget_matched', seed=seed, model=name,
+                                  endpoint_ratio=float(error[-1]/baseline[-1]) if baseline[-1] else None,
+                                  worst_ratio=float(error.max()/baseline.max()) if baseline.max() else None)), flush=True)
+            persist()
+        return passed
+
     try:
         t0 = time.monotonic()
         dense = DeepDense(n, d, model_config['depth'], model_config['activation'], seed, device)
@@ -7379,9 +7780,11 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
             init_seed = role_seed(f'dense_{width}')
             build_fit(f'dense_{width}', 'dense', lambda: DeepDense(width, d, dense.depth,
                 dense.activation, init_seed, device), width=width, initialization_seed=init_seed)
-        for order in oblivious['legendre']['orders']:
+        for index, order in enumerate(oblivious['legendre']['orders']):
             build_fit(f'legendre_{order}', 'legendre',
                       lambda: LegendreCompression(dense, inputs, labels, order), order=order)
+            if matched(f'legendre_{order}', [f'legendre_{q}' for q in oblivious['legendre']['orders'][index+1:]]):
+                break
         for rank in oblivious['low_rank']['ranks']:
             adapter_seed = role_seed(f'low_rank_{rank}')
             budget = n+min(rank, n, d)*(n+d)+2*n*rank
@@ -7421,7 +7824,7 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                     info['readout_floor'] = floor
                 info['effective_setup'] = setup
                 report['sources'][family] = info
-                for budget in method['budgets']:
+                for index, budget in enumerate(method['budgets']):
                     width, rank = budget['width'], budget['source_rank']
                     name = f'{family}_{width}_r{rank}'
 
@@ -7435,6 +7838,9 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
 
                     build_fit(name, family, construct, width=width, source_rank=rank, shared_source=family,
                               source_seed=source_seed, selection_seed=selector_seed)
+                    if matched(name, [f"{family}_{v['width']}_r{v['source_rank']}"
+                                      for v in method['budgets'][index+1:]]):
+                        break
                 del sources
             except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
                 report['errors'][family+'_setup'] = f'{type(error).__name__}: {error}'
@@ -7548,6 +7954,8 @@ def experiment_main(argv, action='run'):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'scaling-plot':
+        sys.exit(experiment_scaling_plot(sys.argv[2:]))
     if len(sys.argv) == 1 or sys.argv[1] in ('run', 'plot'):
         sys.exit(experiment_main(sys.argv[2:] if len(sys.argv) > 1 else [],
                                  action=sys.argv[1] if len(sys.argv) > 1 else 'run'))

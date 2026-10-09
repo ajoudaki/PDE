@@ -63,6 +63,17 @@ own reference before aggregation. Median/mean and observed ranges are supported;
 ranges are not confidence intervals. Worst-time means worst *recorded* time.
 For mean plus/minus one sample standard deviation across repetitions, use
 `--plots.aggregate mean --plots.spread sd` (ddof=1, not standard error).
+For a bounded ascending-budget search, `--execution.stop_after_match` stops
+each compression family at its first candidate whose endpoint and maximum
+recorded RMS both match the independent dense comparator. Include the reference
+width in `methods.oblivious.dense.widths`; larger skipped budgets are recorded
+explicitly. This yields a smallest tested passing size, not a global optimum.
+For a one-pair-per-width pilot, `scaling-plot --runs RUN_DIRS --out OUTPUT
+--factor 2 --fit-log-powers` rescores existing trajectories and plots selected
+learned storage, endpoint/maximum errors and the largest-width time curves.
+`--factor 3` gives the relaxed comparison without rerunning models. The optional
+log-power fits are descriptive fits to selected budgets, not exponent estimates
+from independently tested data; fixed storage is retained in the metrics/caption.
 Figures, per-seed metrics and a caption/storage table are saved in fresh
 `plots/plot_NNN/` folders. Frozen features use an equivalent dual Euler computation;
 the displayed parameter count is the width-sized primal readout, with both storage
