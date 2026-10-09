@@ -2,6 +2,49 @@
 
 ## Scope and question
 
+### Config-runner maintenance, 2026-10-09
+
+The user approved a compact JSON interface with oblivious/non-oblivious method
+groups, shared source-setup options, generated CLI overrides, and independently
+rebuilt coupled compressions for every reference seed. This is implementation
+maintenance of the same experiments, not a new accuracy campaign. All executable
+code remains in `paper/figures/capture_trajectory.py`; the editable default is
+`paper/figures/compression_experiment.json`, with usage in `paper/scripts/README.md`.
+
+`run` uses defaults < JSON < CLI, with strict field/type checks and optional
+method-local setup overrides. `plot` reads saved trajectories, computes each
+model's error against its own repetition reference, and only then aggregates.
+Source/config/data identities protect reuse; failed attempts are preserved.
+Source snapshots, seeds, raw arrays, timings and both learned/fixed counts are
+retained. The full-rollout, empirical-rank and finite-time-grid qualifications
+are unchanged. No large training runs or paper figures were replaced.
+
+Bounded implementation checks passed: typed merge and empty-list overrides,
+per-method inheritance, deterministic distinct seed streams, existing Legendre/
+baseline/Harmonic algebra checks, and tiny end-to-end runs on CPU and both
+RTX3090 GPUs. Two reference seeds each rebuilt all three compressions and shared
+identical data; source seeds and reference initialization hashes differed.
+Additional tiny checks exercised raw 64-dimensional Digits, the NPZ loader, and
+three-layer GELU Logarithmic with float64 and a different temporal order.
+Saved-array plotting and exact-config reuse passed; a scoped read-only review
+found and prompted fixes for partial-config schema validation and damaged-cache
+recovery. Source helper defaults were checked for unchanged output; configuration
+options now expose temporal/spatial orders, rollout step/precision and selection
+condition limit without changing the default algorithms.
+
+Reproduction (use a fresh output override after source changes):
+
+```sh
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py run --config studies/cubic_log_comparison_20261008/runner_smoke.json
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py plot --config studies/cubic_log_comparison_20261008/runner_smoke.json
+```
+
+Evidence folders under `data/generated/cubic_log_comparison_20261008/` are
+`config_runner_smoke`, `config_runner_gpu`, `config_runner_digits`,
+`config_runner_deep`, `config_runner_npz`, and `config_runner_final`; each stores its exact executed
+source snapshot and configuration. These are short software checks, not
+scientific evidence of training convergence or compression asymptotics.
+
 New study for the user's request to compare the paper's new cubic-logarithmic
 construction with the previous practical Logarithmic implementation. Inputs
 are the current paper (especially methods.tex and the complete panel appendix),

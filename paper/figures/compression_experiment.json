@@ -1,0 +1,38 @@
+{
+  "dataset": {
+    "name": "sphere", "dimension": 3, "train_samples": 8, "test_samples": 30,
+    "seed": 47, "digit_pair": [1, 7], "file": null, "label_scale": 1.0
+  },
+  "model": {"width": 4096, "depth": 2, "activation": "tanh"},
+  "seeds": [601],
+  "training": {
+    "solver": "euler", "step": 0.0015625, "horizon": 32.0,
+    "record_every": 320, "dtype": "float32"
+  },
+  "methods": {
+    "oblivious": {
+      "dense": {"widths": [424, 4096]},
+      "legendre": {"orders": [3]},
+      "low_rank": {"ranks": [24]},
+      "frozen_features": {"enabled": true, "plot": "dashed"}
+    },
+    "non_oblivious": {
+      "setup": {
+        "initializer": "dense_rollout", "rollout_solver": "rk4", "rollout_step": 0.125,
+        "rollout_dtype": "float32", "coefficient_dtype": "float64", "time_degree": 8,
+        "selection_trials": 64, "condition_limit": 16.0
+      },
+      "harmonic": {
+        "budgets": [{"width": 424, "source_rank": 29}], "spatial_degree": 5
+      },
+      "logarithmic": {
+        "budgets": [{"width": 424, "source_rank": 29}], "test_inputs_at_setup": true
+      }
+    }
+  },
+  "execution": {
+    "devices": "auto", "tf32": false, "seconds_per_fit": 120.0,
+    "reuse_completed": true, "output": "data/generated/compression_experiments/default"
+  },
+  "plots": {"metrics": ["endpoint_rms", "worst_recorded_rms"], "aggregate": "median", "spread": "range"}
+}

@@ -11,7 +11,62 @@ See [the paper README](../README.md) for the maintained manuscript structure
 and current experiment suite. Unused figure exports remain available for
 reproduction and alternative layouts.
 
-## Fresh Harmonic and Logarithmic validation
+## Config-driven experiments
+
+The current runner is still the single `paper/figures/capture_trajectory.py`.
+Start from `paper/figures/compression_experiment.json`; defaults are identical
+when no JSON is supplied. Commands below run from the repository root, using
+a Python environment with PyTorch, NumPy, SciPy, scikit-learn and Matplotlib
+(`/home/amir/miniconda3/bin/python` on this host).
+
+```bash
+python -B paper/figures/capture_trajectory.py run --config paper/figures/compression_experiment.json
+python -B paper/figures/capture_trajectory.py plot --config paper/figures/compression_experiment.json
+
+# Preview only; all dotted options are generated from the configuration schema.
+python -B paper/figures/capture_trajectory.py run --print-config --seeds 601 602 603
+# Short implementation smoke test, not a scientific accuracy benchmark.
+python -B paper/figures/capture_trajectory.py run --config studies/cubic_log_comparison_20261008/runner_smoke.json
+```
+
+Precedence is defaults, then JSON, then CLI. Dictionaries merge; lists replace.
+Use `[]` to disable a width/order/budget list, and `--no-...enabled` for a boolean.
+For example, `--methods.non_oblivious.harmonic.budgets '[{"width":424,"source_rank":29}]'`.
+Shared initialization options live under `methods.non_oblivious.setup`; an
+optional method-local `setup` overrides individual fields. Add budgets for curves
+and seeds for independent repetitions. The dataset seed is separate and stays fixed.
+
+Each repetition rebuilds Legendre, Harmonic and Logarithmic from its own dense
+reference. Independent dense widths, low-rank factors, sources and selectors use
+recorded, deterministic role-specific seeds. `devices="auto"` schedules one
+repetition per available GPU; use `"cpu"`, `"cuda:0"`, or `["cuda:0","cuda:1"]`
+to select devices explicitly. A single repetition occupies one device.
+
+Datasets are `sphere` (dimension >= 2), raw 8x8 sklearn `digits` (dimension inferred
+as 64, no PCA), and `npz`. The latter requires `train_inputs`, `train_labels`,
+`query_inputs`, `query_labels`, disjoint supplied splits and scalar labels;
+configured row counts are sampled reproducibly and input rows normalized to unit
+length. Labels are multiplied by `label_scale`. Test labels are used only for
+scoring. For high-dimensional inputs disable Harmonic with `budgets=[]`.
+Current Legendre, low-rank, frozen-features and Harmonic implementations require
+two tanh hidden layers; other architectures are supported by dense and Logarithmic.
+Unsupported combinations fail explicitly. The current non-oblivious setup uses
+full-horizon RK4 rollouts and empirical source ranks, not the paper's jet compiler.
+Extra constructor truncation is rejected rather than silently changing a model.
+
+Outputs include `config.json`, the source snapshot, run identity, per-seed logs,
+timings, learned/fixed/total storage and raw trajectories. Exact completed runs
+can be reused; changed configurations/code/data need a fresh output directory.
+Failed attempts are retained and retried in new attempt directories. Plotting
+never trains: it verifies saved arrays and computes each model's RMS against its
+own reference before aggregation. Median/mean and observed ranges are supported;
+ranges are not confidence intervals. Worst-time means worst *recorded* time.
+Figures, per-seed metrics and a caption/storage table are saved in fresh
+`plots/plot_NNN/` folders. Frozen features use an equivalent dual Euler computation;
+the displayed parameter count is the width-sized primal readout, with both storage
+accounts retained. No numerical-refinement certificate is implied by this runner.
+
+## Earlier Harmonic and Logarithmic validation commands
 
 One implementation, `paper/figures/capture_trajectory.py`, contains both new
 closures, their numerical checks, dense/NTK/small-MLP/LoRA controls, capture

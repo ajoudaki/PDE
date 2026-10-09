@@ -8,6 +8,10 @@ algebra oracles; ``compression-sweep --protocol unified`` executes a frozen
 manifest on two GPUs; ``unified-plot`` renders its figures. Practical spectral
 source setup uses complete offline rollouts, not an initialization-only method.
 
+``run --config compression_experiment.json`` uses the compact grouped config
+and generated dotted CLI overrides. Each seed rebuilds its coupled models;
+``plot`` only reads saved trajectories. With no arguments, ``run`` uses defaults.
+
 ``validate`` runs fresh Dense, Harmonic and empirical Logarithmic experiments,
 with frozen-NTK, total-state-matched small-MLP and explicit LoRA controls. Its
 source approximations and finite-program backend substitutions are recorded;
@@ -220,9 +224,11 @@ class DeepHarmonic(DeepDense):
 
     @torch.no_grad()
     def __init__(self, dense, inputs, labels, source_coefficients, budget, selection_seed=501,
-                 readout_floor=None, selection_trials=4):
+                 readout_floor=None, selection_trials=4, condition_limit=16.):
         if not isinstance(selection_trials, int) or isinstance(selection_trials, bool) or selection_trials < 1:
             raise ValueError('Coordinate-selection trials must be a positive integer')
+        if not math.isfinite(condition_limit) or condition_limit < 1:
+            raise ValueError('Coordinate-selection condition limit must be finite and at least one')
         self.depth, self.activation = dense.depth, dense.activation
         runtime_dtype = dense.initial_state[0].dtype
         original = [value.to(dtype=torch.float64) for value in dense.initial_state]
@@ -276,9 +282,10 @@ class DeepHarmonic(DeepDense):
                     truncation.update(truncated=True, retained_rank=basis.shape[1],
                                       normalized_source_relative_error=omitted)
                 selection = _panel_coordinate_metric(basis, budget, selection_seed+layer, trials=selection_trials)
-                if selection[-1]['embedding_max'] > 16:
+                if selection[-1]['embedding_max'] > condition_limit:
                     raise ArithmeticError(f'DeepHarmonic layer {layer+1} source condition '
-                        f'{selection[-1]["embedding_max"]:.9g} exceeds 16 after {selection_trials} candidates')
+                        f'{selection[-1]["embedding_max"]:.9g} exceeds {condition_limit:g} '
+                        f'after {selection_trials} candidates')
                 bases.append(basis)
                 selected.append(basis[selection[0]])
                 selections.append(selection)
@@ -317,6 +324,7 @@ class DeepHarmonic(DeepDense):
         eigenvalues = torch.linalg.eigvalsh(gram)
         self.diagnostics.update(requested_budget=budget, activation=self.activation, depth=self.depth,
             certified_source_setup=False, source_assembly_dtype='torch.float64', runtime_dtype=str(runtime_dtype),
+            condition_limit=float(condition_limit),
             initial_feature_gram_min=float(eigenvalues[0]),
             initial_feature_gram_condition=(float(eigenvalues[-1]/eigenvalues[0])
                                            if float(eigenvalues[0]) > 0 else None),
@@ -1064,34 +1072,40 @@ def trajectory_rms(prediction, reference):
     return dict(max_time_rms=float(curve.max()), endpoint_rms=float(curve[-1]), curve=curve.tolist())
 
 
-def _unified_harmonic_geometry(dimension):
-    """Fixed degree-five real harmonics and probability-sphere quadrature."""
+def _unified_harmonic_geometry(dimension, spatial_degree=5):
+    """Real harmonics through the requested degree and probability-sphere quadrature."""
+    if (not isinstance(spatial_degree, (int, np.integer))
+            or isinstance(spatial_degree, bool) or spatial_degree < 0):
+        raise ValueError('Harmonic spatial degree must be a nonnegative integer')
     if dimension == 2:
-        angle = torch.arange(32, dtype=torch.float64)*2*math.pi/32
+        circle_count = max(32, 2*(spatial_degree+1))
+        angle = torch.arange(circle_count, dtype=torch.float64)*2*math.pi/circle_count
         nodes = torch.stack((angle.cos(), angle.sin()), 1)
-        weights = torch.full((32,), 1/32, dtype=torch.float64)
+        weights = torch.full((circle_count,), 1/circle_count, dtype=torch.float64)
         columns = [torch.ones_like(angle)]
-        for degree in range(1, 6):
+        for degree in range(1, spatial_degree+1):
             columns.extend((math.sqrt(2)*(degree*angle).cos(),
                             math.sqrt(2)*(degree*angle).sin()))
     elif dimension == 3:
-        polar, polar_weights = np.polynomial.legendre.leggauss(6)
-        z = torch.as_tensor(polar, dtype=torch.float64).repeat_interleave(12)
-        angle = (torch.arange(12, dtype=torch.float64)*2*math.pi/12).repeat(6)
+        polar_count, azimuth_count = spatial_degree+1, 2*(spatial_degree+1)
+        polar, polar_weights = np.polynomial.legendre.leggauss(polar_count)
+        z = torch.as_tensor(polar, dtype=torch.float64).repeat_interleave(azimuth_count)
+        angle = (torch.arange(azimuth_count, dtype=torch.float64)*2*math.pi/azimuth_count).repeat(polar_count)
         radius = (1-z.square()).sqrt()
         nodes = torch.stack((radius*angle.cos(), radius*angle.sin(), z), 1)
-        weights = torch.as_tensor(polar_weights, dtype=torch.float64).repeat_interleave(12)/24
+        weights = (torch.as_tensor(polar_weights, dtype=torch.float64)
+                   .repeat_interleave(azimuth_count)/(2*azimuth_count))
         associated = {(0, 0): torch.ones_like(z)}
-        for order in range(6):
+        for order in range(spatial_degree+1):
             if order:
                 associated[order, order] = -(2*order-1)*radius*associated[order-1, order-1]
-            if order < 5:
+            if order < spatial_degree:
                 associated[order+1, order] = (2*order+1)*z*associated[order, order]
-            for degree in range(order+2, 6):
+            for degree in range(order+2, spatial_degree+1):
                 associated[degree, order] = ((2*degree-1)*z*associated[degree-1, order]
                     -(degree+order-1)*associated[degree-2, order])/(degree-order)
         columns = []
-        for degree in range(6):
+        for degree in range(spatial_degree+1):
             columns.append(math.sqrt(2*degree+1)*associated[degree, 0])
             for order in range(1, degree+1):
                 normalizer = math.sqrt(2*(2*degree+1)*math.factorial(degree-order)
@@ -1104,12 +1118,14 @@ def _unified_harmonic_geometry(dimension):
 
 
 @torch.no_grad()
-def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds=120., step=.125):
+def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds=120., step=.125,
+                             *, time_degree=8, spatial_degree=5,
+                             rollout_dtype=torch.float32, coefficient_dtype=torch.float64):
     """Empirical time/sphere sources, independent of every scored input.
 
-    A float32 dense RK4 rollout supplies passive fields on fixed sphere nodes.
-    Each dyadic panel fits degree-eight Chebyshev coefficients on nine nodes
-    and checks the eight interleaved nodes. Spatial projection and batched
+    A dense RK4 rollout supplies passive fields on fixed sphere nodes, using
+    float32 by default. Each dyadic panel fits the requested Chebyshev degree
+    on degree+1 nodes and checks the degree interleaved nodes. Spatial projection and batched
     coefficient fitting use float64; neither fit has a continuum certificate.
     Returned source lists are ready for the unchanged DeepHarmonic runtime.
     """
@@ -1118,9 +1134,18 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
             or not math.isfinite(step) or step <= 0
             or not math.isfinite(seconds) or seconds <= 0 or int(rank) != rank or rank < 1):
         raise ValueError('Harmonic setup needs two tanh layers, d=2/3 and positive finite orders/times')
+    if (not isinstance(time_degree, (int, np.integer))
+            or isinstance(time_degree, bool) or time_degree < 1):
+        raise ValueError('Harmonic time degree must be a positive integer')
+    if rollout_dtype in ('float32', 'float64'):
+        rollout_dtype = getattr(torch, rollout_dtype)
+    if rollout_dtype not in (torch.float32, torch.float64):
+        raise ValueError('Harmonic rollout dtype must be float32 or float64')
+    if coefficient_dtype not in (torch.float64, 'float64'):
+        raise ValueError('Harmonic coefficient dtype currently supports only float64')
     started = time.monotonic()
     n, device, rank = len(dense.initial_state[1]), inputs.device, int(rank)
-    nodes, weights, spatial = _unified_harmonic_geometry(inputs.shape[1])
+    nodes, weights, spatial = _unified_harmonic_geometry(inputs.shape[1], spatial_degree)
     spatial_gram_error = float((spatial.T@(weights[:, None]*spatial)
                               -torch.eye(spatial.shape[1], dtype=spatial.dtype)).abs().max())
     if spatial_gram_error > 1e-12:
@@ -1128,20 +1153,20 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
     boundaries = [0., min(1., horizon)]
     while boundaries[-1] < horizon:
         boundaries.append(min(2*boundaries[-1], horizon))
-    coordinate = -np.cos(np.linspace(0, np.pi, 17))
+    coordinate = -np.cos(np.linspace(0, np.pi, 2*time_degree+1))
     intervals = [left+(right-left)*(coordinate+1)/2
                  for left, right in zip(boundaries[:-1], boundaries[1:])]
     times = np.unique(np.concatenate(intervals))
     panel_indices = [np.searchsorted(times, values) for values in intervals]
-    design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, 8), dtype=torch.float64)
+    design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, time_degree), dtype=torch.float64)
     temporal_inverse = torch.linalg.pinv(design[::2])
     weighted_spatial = weights[:, None]*spatial
     fields = {name: [[], []] for name in ('h', 'delta')}
     teacher = DeepDense.__new__(DeepDense)
     teacher.depth, teacher.activation, teacher.fixed_scalars = 2, 'tanh', 0
-    teacher.initial_state = [value.float() for value in dense.initial_state]
-    source_inputs, source_labels = inputs.float(), labels.float()
-    source_nodes = nodes.to(device=device, dtype=torch.float32)
+    teacher.initial_state = [value.to(dtype=rollout_dtype) for value in dense.initial_state]
+    source_inputs, source_labels = inputs.to(dtype=rollout_dtype), labels.to(dtype=rollout_dtype)
+    source_nodes = nodes.to(device=device, dtype=rollout_dtype)
 
     def observe(t, state):
         hs, gates = teacher.fields(state, source_nodes)
@@ -1159,7 +1184,7 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
     coefficients, checks = {name: [] for name in fields}, {name: [] for name in fields}
     for name in fields:
         for layer, observations in enumerate(fields[name]):
-            source = torch.empty(n, len(intervals)*9*spatial.shape[1], dtype=torch.float64)
+            source = torch.empty(n, len(intervals)*(time_degree+1)*spatial.shape[1], dtype=torch.float64)
             square, reference_square, count, maximum = 0., 0., 0, 0.
             for start in range(0, n, 64):
                 if time.monotonic()-started > seconds:
@@ -1213,14 +1238,15 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
     synchronize(device)
     return coefficients, dict(method='piecewise_chebyshev_real_spherical_harmonic_dense_rollout',
         source_contract='complete finite-horizon offline dense rollout; not a certified local-jet initializer',
-        horizon=horizon, rk4_step=step, rollout_dtype='torch.float32', coefficient_dtype='torch.float64',
-        chebyshev_degree=8, spatial_degree=5, spatial_modes=spatial.shape[1],
-        geometry=('32_equispaced_circle_nodes' if inputs.shape[1] == 2 else 'gauss_legendre_6_azimuth_12'),
+        horizon=horizon, rk4_step=step, rollout_dtype=str(rollout_dtype), coefficient_dtype='torch.float64',
+        chebyshev_degree=time_degree, spatial_degree=spatial_degree, spatial_modes=spatial.shape[1],
+        geometry=(f'{len(nodes)}_equispaced_circle_nodes' if inputs.shape[1] == 2 else
+                  f'gauss_legendre_{spatial_degree+1}_azimuth_{2*(spatial_degree+1)}'),
         geometry_count=len(nodes), geometry_sha256=array_sha(nodes.numpy()),
         geometry_weight_sum=float(weights.sum()), spatial_gram_max_abs=spatial_gram_error,
         source_geometry_uses_training_inputs=False, scored_inputs_used=False,
         passive_labels_used=False, source_certificate=False,
-        observation_count=len(times), panel_fit_nodes=9, panel_holdout_nodes=8,
+        observation_count=len(times), panel_fit_nodes=time_degree+1, panel_holdout_nodes=time_degree,
         boundaries=boundaries, fit_neuron_batch=64, requested_rank=rank,
         dense_rhs_calls=4*source_run['steps'], source_run_seconds=source_run['seconds'],
         seconds=time.monotonic()-started, training_count=len(inputs), diagnostics=checks,
@@ -4468,17 +4494,30 @@ def cubic_source_small_checks():
 
 @torch.no_grad()
 def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., seconds=120., seed=501,
-                          ranks=(12, 6), partitions=('old', 'new')):
-    """Paired empirical partitions, a shared float32 teacher, and nested source ranks.
+                          ranks=(12, 6), partitions=('old', 'new'), *, step=.125,
+                          time_degree=8, rollout_dtype=torch.float32,
+                          coefficient_dtype=torch.float64):
+    """Paired empirical partitions, a shared dense teacher, and nested source ranks.
 
     Sources are returned as sources[partition][rank][family][layer].  The common
     check measures each dense field after removing its initialized mandatory
     span and the retained directions.  No finite-jet or source certificate is
     asserted, and shared teacher time is not a native single-method setup cost.
+    Rollouts default to float32; all fitted coefficients use float64.
     """
     if (not math.isfinite(horizon) or horizon <= 0 or not math.isfinite(seconds)
-            or seconds <= 0 or len(labels) != len(inputs) or not len(labels)):
+            or seconds <= 0 or not math.isfinite(step) or step <= 0
+            or len(labels) != len(inputs) or not len(labels)):
         raise ValueError('Paired source setup needs positive finite limits and training data')
+    if (not isinstance(time_degree, (int, np.integer))
+            or isinstance(time_degree, bool) or time_degree < 1):
+        raise ValueError('Paired source time degree must be a positive integer')
+    if rollout_dtype in ('float32', 'float64'):
+        rollout_dtype = getattr(torch, rollout_dtype)
+    if rollout_dtype not in (torch.float32, torch.float64):
+        raise ValueError('Paired source rollout dtype must be float32 or float64')
+    if coefficient_dtype not in (torch.float64, 'float64'):
+        raise ValueError('Paired source coefficient dtype currently supports only float64')
     if (not ranks or any(not isinstance(rank, int) or rank < 1 for rank in ranks)
             or len(set(ranks)) != len(ranks) or not partitions
             or len(set(partitions)) != len(partitions) or set(partitions)-{'old', 'new'}):
@@ -4498,20 +4537,20 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
 
     teacher = DeepDense.__new__(DeepDense)
     teacher.depth, teacher.activation = dense.depth, dense.activation
-    teacher.initial_state = [value.float() for value in dense.initial_state]
+    teacher.initial_state = [value.to(dtype=rollout_dtype) for value in dense.initial_state]
     teacher.fixed_scalars = 0
-    source_inputs, source_labels = inputs.float(), labels.float()
-    source_panel = torch.cat((source_inputs, source_queries.float()))
-    trace_times = np.unique(np.r_[np.arange(0., horizon, .125), float(horizon)])
+    source_inputs, source_labels = inputs.to(dtype=rollout_dtype), labels.to(dtype=rollout_dtype)
+    source_panel = torch.cat((source_inputs, source_queries.to(dtype=rollout_dtype)))
+    trace_times = np.unique(np.r_[np.arange(0., horizon, step), float(horizon)])
     precursor_state, precursor_predictions, precursor_run = integrate(
-        teacher, source_inputs, source_labels, source_inputs[:1], trace_times, .125, remaining())
+        teacher, source_inputs, source_labels, source_inputs[:1], trace_times, step, remaining())
     del precursor_state, precursor_predictions
     residual_rms = np.sqrt(np.asarray(precursor_run['losses'], dtype=float))
     boundaries = {'old': [0., min(1., float(horizon))],
                   'new': _cubic_residual_partition(trace_times, residual_rms, horizon)}
     while boundaries['old'][-1] < horizon:
         boundaries['old'].append(min(2*boundaries['old'][-1], float(horizon)))
-    intervals = {name: [left+(right-left)*(1-np.cos(np.linspace(0, np.pi, 17)))/2
+    intervals = {name: [left+(right-left)*(1-np.cos(np.linspace(0, np.pi, 2*time_degree+1)))/2
                        for left, right in zip(edges[:-1], edges[1:])]
                  for name, edges in boundaries.items()}
     fitting_times = np.unique(np.concatenate([nodes[::2] for panels in intervals.values()
@@ -4519,8 +4558,14 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
     common_times = (np.arange(129, dtype=float)+.5)*horizon/129
     common_times = common_times[~np.isclose(common_times[:, None], fitting_times[None, :],
                                            rtol=0, atol=1e-12).any(axis=1)]
-    observation_times = np.unique(np.concatenate(
-        [common_times]+[nodes for panels in intervals.values() for nodes in panels]))
+    panel_times = np.unique(np.concatenate([nodes for panels in intervals.values() for nodes in panels]))
+    # Odd degrees place the midpoint among holdouts. Reuse that node when a
+    # common check coincides up to roundoff, avoiding a zero-length RK4 interval.
+    distances = np.abs(common_times[:, None]-panel_times[None, :])
+    nearest = distances.argmin(axis=1)
+    common_times = np.where(distances[np.arange(len(common_times)), nearest] <= 1e-12,
+                            panel_times[nearest], common_times)
+    observation_times = np.unique(np.concatenate([common_times, panel_times]))
     common_indices = np.searchsorted(observation_times, common_times)
     fields = {name: [[] for _ in range(dense.depth)] for name in ('h', 'delta')}
 
@@ -4535,7 +4580,7 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
 
     shared_state, shared_predictions, shared_run = integrate(
         teacher, source_inputs, source_labels, source_inputs[:1], observation_times,
-        .125, remaining(), observer=observe)
+        step, remaining(), observer=observe)
     del shared_state, shared_predictions, teacher, source_inputs, source_labels, source_panel
     remaining()
     original = [value.double() for value in dense.initial_state]
@@ -4547,14 +4592,14 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
     partition_reports = {}
     for name, panels in fit_intervals.items():
         partition_reports[name] = dict(
-            boundaries=boundaries[name], interval_count=len(panels), degree=8,
+            boundaries=boundaries[name], interval_count=len(panels), degree=time_degree,
             fitting_node_count=len(np.unique(np.concatenate([nodes[::2] for nodes in panels]))),
             interval_check_node_count=len(np.unique(np.concatenate([nodes[1::2] for nodes in panels]))),
             fitting_seconds=0., svd_seconds=0., checking_seconds=0., svd_calls=0,
             fit_blocks=0, fit_output_scalars=0, svd_input_scalars=0,
             diagnostics={str(rank): {family: [] for family in fields} for rank in ranks})
-    coordinate = -np.cos(np.linspace(0, np.pi, 17))
-    design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, 8),
+    coordinate = -np.cos(np.linspace(0, np.pi, 2*time_degree+1))
+    design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, time_degree),
                              device=device, dtype=torch.float64)
     fitting_inverse = torch.linalg.pinv(design[::2])
     devices = [device.index] if device.type == 'cuda' else []
@@ -4635,8 +4680,8 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
             del values, checked
     remaining()
     report = dict(
-        horizon=float(horizon), rk4_step=.125, source_flow_dtype='torch.float32',
-        coefficient_dtype='torch.float64', chebyshev_degree=8, svd_seed=int(seed),
+        horizon=float(horizon), rk4_step=step, source_flow_dtype=str(rollout_dtype),
+        coefficient_dtype='torch.float64', chebyshev_degree=time_degree, svd_seed=int(seed),
         randomized_svd_q=svd_order, randomized_svd_niter=2, nested_ranks=list(ranks),
         precursor_run=precursor_run, precursor_times=trace_times.tolist(),
         precursor_residual_rms=residual_rms.tolist(), shared_source_run=shared_run,
@@ -6693,7 +6738,718 @@ def unified_plot_main(argv):
     print(json.dumps(dict(figures=str(args.out), case_reports=len(records), method_rows=len(rows))), flush=True)
 
 
+def experiment_plot(config):
+    """Validate saved runs and plot paired test errors without training."""
+    import hashlib
+    import json
+    from pathlib import Path
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    root = Path(config['execution']['output']).resolve()
+    manifest = json.loads((root/'run.json').read_text())
+    options = config.get('plots', {})
+    metrics = options.get('metrics', ['endpoint_rms', 'worst_recorded_rms'])
+    aggregate, spread = options.get('aggregate', 'median'), options.get('spread', 'range')
+    labels = dict(endpoint_rms='Endpoint test RMS from paired reference',
+                  worst_recorded_rms='Worst recorded test RMS from paired reference',
+                  test_truth_mse='Endpoint test MSE against target')
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+    require(isinstance(metrics, list) and metrics and len(set(metrics)) == len(metrics)
+            and all(metric in ('endpoint_rms', 'worst_recorded_rms') for metric in metrics), 'Invalid plot metrics')
+    require(aggregate in ('mean', 'median') and spread in ('range', 'none'), 'Invalid plot aggregation')
+    frozen_style = config.get('methods', {}).get('oblivious', {}).get('frozen_features', {}).get('plot', 'dashed')
+    require(frozen_style in ('dashed', 'point'), 'Invalid frozen-features plot style')
+    require(hashlib.sha256((root/'source.py').read_bytes()).hexdigest() == manifest['source_sha256'],
+            'Saved source hash mismatch')
+    seeds, repetitions = manifest['config']['seeds'], manifest['repetitions']
+    require(isinstance(seeds, list) and seeds and len(seeds) == len(set(seeds))
+            and all(isinstance(seed, int) and not isinstance(seed, bool) and seed >= 0 for seed in seeds)
+            and isinstance(repetitions, dict) and set(repetitions) <= {str(seed) for seed in seeds},
+            'Invalid requested repetitions')
+    repetitions = {str(seed): repetitions.get(str(seed)) for seed in seeds}
+    rows, omissions, errors = [], [], {}
+    families = dict(dense=('Dense', '#40566c'), legendre=('Legendre', '#d18624'),
+                    harmonic=('Harmonic', '#297c8e'), logarithmic=('Logarithmic', '#9768b0'),
+                    low_rank=('Low rank', '#648d4f'), frozen_features=('Frozen features', '#777777'))
+    for seed, relative in repetitions.items():
+        if relative is None:
+            omissions.append(dict(seed=int(seed), reason='Missing repetition location'))
+            continue
+        path = (root/relative).resolve()
+        require(path.is_relative_to(root) and path != root, f'Invalid repetition path: {relative}')
+        if not (path/'report.json').is_file() or not (path/'trajectories.npz').is_file():
+            omissions.append(dict(seed=int(seed), reason='Missing report or trajectories'))
+            continue
+        report = json.loads((path/'report.json').read_text())
+        require(report['seed'] == int(seed) and report['fingerprint'] == manifest['fingerprint']
+                and report['source_sha256'] == manifest['source_sha256'], f'Run identity mismatch: {relative}')
+        require(hashlib.sha256((path/'trajectories.npz').read_bytes()).hexdigest()
+                == report['trajectories_sha256'], f'Trajectory hash mismatch: {relative}')
+        errors[seed] = report.get('errors', {})
+        with np.load(path/'trajectories.npz', allow_pickle=False) as saved:
+            arrays = {name: saved[name] for name in saved.files}
+        def array(name, dimensions):
+            value = arrays[name]
+            require(value.ndim == dimensions and value.dtype.kind in 'fiu'
+                    and np.isfinite(value).all(), f'Invalid {name}: {relative}')
+            return value.astype(float)
+        train, query = array('train_inputs', 2), array('query_inputs', 2)
+        targets, truth = array('train_labels', 1), array('query_labels', 1)
+        require(len(targets) > 0 and len(truth) > 0 and len(train) == len(targets)
+                and len(query) == len(truth) and train.shape[1] == query.shape[1] > 0,
+                f'Data shape mismatch: {relative}')
+        checked = {}
+        for name, model in report['models'].items():
+            run = report['runs'].get(name, {})
+            if run.get('complete') is not True:
+                omissions.append(dict(seed=int(seed), model=name, reason='Incomplete model run'))
+                continue
+            prediction, times = array(name, 2), array('times_'+name, 1)
+            require(len(times) > 0 and times[0] == 0 and np.all(np.diff(times) > 0)
+                    and np.isclose(times[-1], manifest['config']['training']['horizon'], atol=1e-10, rtol=0)
+                    and prediction.shape == (len(times), len(targets)+len(truth)),
+                    f'Trajectory shape or time mismatch: {relative}/{name}')
+            recorded_times, losses = np.asarray(run['times']), np.asarray(run['losses'])
+            require(recorded_times.shape == times.shape and np.isfinite(recorded_times).all()
+                    and np.allclose(times, recorded_times, atol=1e-10, rtol=0)
+                    and losses.shape == times.shape and np.isfinite(losses).all()
+                    and np.allclose(np.mean((prediction[:, :len(targets)]-targets)**2, axis=1),
+                                    losses, atol=1e-6, rtol=2e-5),
+                    f'Recorded times or training MSE mismatch: {relative}/{name}')
+            require(model['family'] in (*families, 'reference')
+                    and all(isinstance(model[key], int) and not isinstance(model[key], bool)
+                            and model[key] >= 0 for key in ('moving', 'fixed', 'total'))
+                    and model['moving'] > 0 and model['total'] == model['moving']+model['fixed'],
+                    f'Invalid storage counts: {relative}/{name}')
+            checked[name] = (prediction[:, len(targets):], times)
+        require(not set(report['runs'])-set(report['models']), f'Missing model metadata: {relative}')
+        omissions.extend(dict(seed=int(seed), model=name, reason=reason)
+                         for name, reason in report.get('errors', {}).items() if name not in report['models'])
+        if 'reference' not in checked:
+            omissions.append(dict(seed=int(seed), reason='No complete paired reference'))
+            continue
+        reference, reference_times = checked['reference']
+        require(report['models']['reference']['family'] == 'reference', f'Invalid reference: {relative}')
+        for name, (prediction, times) in checked.items():
+            require(times.shape == reference_times.shape
+                    and np.allclose(times, reference_times, atol=1e-10, rtol=0),
+                    f'Paired time grids differ: {relative}/{name}')
+            curve = np.sqrt(np.mean((prediction-reference)**2, axis=1))
+            scores = dict(endpoint_rms=float(curve[-1]), worst_recorded_rms=float(curve.max()),
+                          test_truth_mse=float(np.mean((prediction[-1]-truth)**2)))
+            require(all(np.isfinite(value) for value in scores.values()), f'Nonfinite metrics: {relative}/{name}')
+            rows.append(dict(seed=int(seed), name=name, model=report['models'][name], **scores))
+    groups = {}
+    for row in rows:
+        model = row['model']
+        if model['family'] != 'reference':
+            key = (row['name'], model['family'], model['moving'], model['fixed'], model['total'])
+            groups.setdefault(key, []).append(row)
+    require(bool(groups), 'No complete models with a complete paired reference to plot')
+    points = []
+    for (name, family, moving, fixed, total), values in groups.items():
+        point = dict(name=name, family=family, moving=moving, fixed=fixed, total=total,
+                     count=len(values), requested=len(repetitions), seeds=[row['seed'] for row in values])
+        for metric in labels:
+            scores = np.asarray([row[metric] for row in values])
+            point[metric] = dict(value=float(getattr(np, aggregate)(scores)),
+                                 minimum=float(scores.min()), maximum=float(scores.max()))
+        points.append(point)
+    parent = root/'plots'
+    parent.mkdir(exist_ok=True)
+    index = 1
+    while True:
+        destination = parent/f'plot_{index:03d}'
+        try:
+            destination.mkdir()
+            break
+        except FileExistsError:
+            index += 1
+    counts = [point['count'] for point in points]
+    caption = (f'{aggregate.capitalize()} of per-repetition scores; {min(counts)}–{max(counts)} of '
+               f'{len(repetitions)} requested repetitions per point. '
+               'Each model is compared with its own repetition reference on held-out query inputs. '
+               'Endpoint RMS uses the final recorded time; worst recorded RMS is the largest query RMS '
+               'over the saved time grid. Test truth MSE uses the final query predictions. '
+               + ('Bars show observed minimum–maximum ranges, not confidence intervals. ' if spread == 'range' else '')
+               + 'Zero scores and ranges touching zero are omitted from logarithmic plots. '
+               'Frozen-features learned state counts the primal readout; executed dual storage is '
+               'reported separately in each model record in metrics.json. Fixed storage is listed below.\n')
+    caption += '\nname | learned | fixed | total | repetitions\n'
+    caption += '\n'.join(f"{p['name']} | {p['moving']} | {p['fixed']} | {p['total']} | {p['count']}/{p['requested']}"
+                         for p in sorted(points, key=lambda p: (p['family'], p['moving'])))
+    caption += '\n\nOmissions: '+json.dumps(omissions)+'\n'
+    for metric in metrics:
+        figure, axis = plt.subplots(figsize=(7.2, 4.8))
+        for family, (label, color) in families.items():
+            selected = sorted((p for p in points if p['family'] == family and p[metric]['value'] > 0),
+                              key=lambda p: (p['moving'], p['name']))
+            if not selected:
+                continue
+            if family == 'frozen_features' and frozen_style == 'dashed':
+                score = selected[0][metric]
+                axis.axhline(score['value'], color=color, label=label, linestyle='--', linewidth=1.5)
+                if spread == 'range' and score['minimum'] > 0:
+                    axis.axhspan(score['minimum'], score['maximum'], color=color, alpha=.08)
+                continue
+            style = 'None' if family == 'frozen_features' else '-'
+            axis.plot([p['moving'] for p in selected], [p[metric]['value'] for p in selected],
+                      color=color, label=label, linestyle=style, marker='o', markersize=4, linewidth=1.5)
+            if spread == 'range':
+                for p in selected:
+                    score = p[metric]
+                    if score['minimum'] > 0:
+                        axis.errorbar(p['moving'], score['value'],
+                                      yerr=[[score['value']-score['minimum']], [score['maximum']-score['value']]],
+                                      fmt='none', color=color, capsize=2, linewidth=.8)
+        axis.set(xscale='log', yscale='log', xlabel='Learned state', ylabel='Test RMS',
+                 title='Endpoint' if metric == 'endpoint_rms' else 'Worst over time')
+        axis.grid(alpha=.17)
+        if axis.lines:
+            axis.legend(frameon=False, fontsize=9)
+        else:
+            axis.text(.5, .5, 'All recorded scores are zero', ha='center', transform=axis.transAxes)
+        figure.tight_layout()
+        for extension in ('png', 'pdf'):
+            figure.savefig(destination/f'{metric}.{extension}', dpi=180)
+        plt.close(figure)
+    (destination/'metrics.json').write_text(json.dumps(dict(
+        fingerprint=manifest['fingerprint'], source_sha256=manifest['source_sha256'],
+        aggregate=aggregate, spread=spread, requested_repetitions=len(repetitions),
+        points=points, runs=rows, omissions=omissions, errors=errors), indent=2, allow_nan=False)+'\n')
+    (destination/'caption.txt').write_text(caption)
+    print(json.dumps(dict(figures=str(destination), repetitions=len(repetitions), points=len(points))), flush=True)
+    return 0
+
+
+# The single configuration schema also supplies defaults and CLI options. Lists
+# are replaced, dictionaries are merged; an empty order/budget list disables a method.
+EXPERIMENT_DEFAULTS = {
+    'dataset': dict(name='sphere', dimension=3, train_samples=8, test_samples=30,
+                    seed=47, digit_pair=[1, 7], file=None, label_scale=1.),
+    'model': dict(width=4096, depth=2, activation='tanh'),
+    'seeds': [601],
+    'training': dict(solver='euler', step=.0015625, horizon=32., record_every=320, dtype='float32'),
+    'methods': {
+        'oblivious': dict(dense=dict(widths=[424, 4096]), legendre=dict(orders=[3]),
+                          low_rank=dict(ranks=[24]), frozen_features=dict(enabled=True, plot='dashed')),
+        'non_oblivious': {
+            'setup': dict(initializer='dense_rollout', rollout_solver='rk4', rollout_step=.125,
+                          rollout_dtype='float32', coefficient_dtype='float64', time_degree=8,
+                          selection_trials=64, condition_limit=16.),
+            'harmonic': dict(budgets=[dict(width=424, source_rank=29)], spatial_degree=5),
+            'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True)}},
+    'execution': dict(devices='auto', tf32=False, seconds_per_fit=120., reuse_completed=True,
+                      output='data/generated/compression_experiments/default'),
+    'plots': dict(metrics=['endpoint_rms', 'worst_recorded_rms'], aggregate='median', spread='range'),
+}
+
+
+def _experiment_merge(base, patch, path='', schema=None):
+    """Strict recursive merge; method-local setup overrides use the shared schema."""
+    import copy
+    if not isinstance(patch, dict):
+        raise ValueError(f'{path or "configuration"} must be an object')
+    schema = base if schema is None else schema
+    result = copy.deepcopy(base)
+    for key, value in patch.items():
+        name = f'{path}.{key}' if path else key
+        if key not in schema:
+            if key == 'setup' and path in ('methods.non_oblivious.harmonic',
+                                          'methods.non_oblivious.logarithmic'):
+                setup_schema = EXPERIMENT_DEFAULTS['methods']['non_oblivious']['setup']
+                result[key] = _experiment_merge(base.get(key, {}), value, name, schema=setup_schema)
+                continue
+            raise ValueError(f'Unknown configuration field: {name}')
+        expected = schema[key]
+        if isinstance(expected, dict):
+            result[key] = _experiment_merge(base.get(key, {}), value, name, schema=expected)
+            continue
+        if name == 'execution.devices' and isinstance(value, list):
+            valid = all(isinstance(v, str) for v in value) and bool(value)
+        elif expected is None:
+            valid = value is None or isinstance(value, str)
+        elif isinstance(expected, bool):
+            valid = isinstance(value, bool)
+        elif isinstance(expected, (int, float)):
+            valid = (not isinstance(value, bool) and isinstance(value, (int, float))
+                     and math.isfinite(value) and (not isinstance(expected, int) or isinstance(value, int)))
+        else:
+            valid = isinstance(value, type(expected))
+        if not valid:
+            raise ValueError(f'Invalid type/value for {name}: {value!r}')
+        if isinstance(expected, list):
+            for item in value:
+                if isinstance(expected[0], dict):
+                    if not isinstance(item, dict) or set(item) != set(expected[0]):
+                        raise ValueError(f'{name} entries require exactly {list(expected[0])}')
+                    _experiment_merge(expected[0], item, name)
+                elif type(item) is not type(expected[0]):
+                    raise ValueError(f'Wrong element type in {name}: {item!r}')
+        result[key] = copy.deepcopy(value)
+    return result
+
+
+def _experiment_leaves(tree, prefix=''):
+    for key, value in tree.items():
+        path = f'{prefix}.{key}' if prefix else key
+        if isinstance(value, dict):
+            yield from _experiment_leaves(value, path)
+        else:
+            yield path, value
+
+
+def _experiment_config(argv, validate_run=True):
+    """Generate overrides directly from the default tree, without a second argument list."""
+    parser = argparse.ArgumentParser(description='Coupled, independently repeated compression experiments')
+    parser.add_argument('--config', type=Path, help='Partial or complete JSON; paths are relative to cwd')
+    parser.add_argument('--print-config', action='store_true', help='Print the resolved config without running')
+    parser.add_argument('--worker-seed', type=int, help=argparse.SUPPRESS)
+    parser.add_argument('--worker-device', help=argparse.SUPPRESS)
+    parser.add_argument('--worker-out', type=Path, help=argparse.SUPPRESS)
+    leaves = dict(_experiment_leaves(EXPERIMENT_DEFAULTS))
+    for method in ('harmonic', 'logarithmic'):
+        leaves.update(_experiment_leaves(EXPERIMENT_DEFAULTS['methods']['non_oblivious']['setup'],
+                                        f'methods.non_oblivious.{method}.setup'))
+    for path, default in leaves.items():
+        options = dict(dest=path, default=argparse.SUPPRESS, help=f'default: {default!r}')
+        if isinstance(default, bool):
+            options['action'] = argparse.BooleanOptionalAction
+        elif isinstance(default, list):
+            options.update(nargs='*', metavar='VALUE')
+        else:
+            options['type'] = str if default is None or isinstance(default, str) else type(default)
+        parser.add_argument('--'+path, **options)
+    args = parser.parse_args(argv)
+    try:
+        config = _experiment_merge(EXPERIMENT_DEFAULTS,
+            json.loads(args.config.read_text()) if args.config else {})
+        overrides = {}
+        for path, value in vars(args).items():
+            if path not in leaves:
+                continue
+            default = leaves[path]
+            if isinstance(default, list):
+                if len(value) == 1 and value[0].lstrip().startswith('['):
+                    value = json.loads(value[0])
+                else:
+                    cast = json.loads if isinstance(default[0], dict) else type(default[0])
+                    value = [cast(item) for item in value]
+            if path == 'execution.devices' and value.lstrip().startswith('['):
+                value = json.loads(value)
+            target = overrides
+            parts = path.split('.')
+            for key in parts[:-1]:
+                target = target.setdefault(key, {})
+            target[parts[-1]] = value
+        config = _experiment_merge(config, overrides, schema=EXPERIMENT_DEFAULTS)
+        if validate_run:
+            _experiment_validate(config)
+    except (ValueError, TypeError, OSError) as error:
+        parser.error(str(error))
+    return config, args
+
+
+def _experiment_setup(config, method):
+    group = config['methods']['non_oblivious']
+    return _experiment_merge(group['setup'], group[method].get('setup', {}),
+                             schema=EXPERIMENT_DEFAULTS['methods']['non_oblivious']['setup'])
+
+
+def _experiment_validate(config):
+    data, model, training = (config[key] for key in ('dataset', 'model', 'training'))
+    oblivious, group = (config['methods'][key] for key in ('oblivious', 'non_oblivious'))
+    positive = [data['train_samples'], data['test_samples'], data['label_scale'], model['width'],
+                model['depth'], training['step'], training['horizon'], training['record_every'],
+                config['execution']['seconds_per_fit']]
+    if any(value <= 0 for value in positive):
+        raise ValueError('Counts, step, horizon, label scale and time limit must be positive')
+    if not config['seeds'] or len(set(config['seeds'])) != len(config['seeds']):
+        raise ValueError('seeds must be a nonempty list of distinct integers')
+    if any(seed < 0 or seed >= 2**63 for seed in config['seeds']) or not 0 <= data['seed'] < 2**32-1:
+        raise ValueError('Invalid seed (repetitions: [0,2^63); data: [0,2^32-1))')
+    if data['name'] not in ('sphere', 'digits', 'npz'):
+        raise ValueError('dataset.name must be sphere, digits (raw 8x8), or npz')
+    if data['name'] == 'digits':
+        data['dimension'] = 64
+        if len(set(data['digit_pair'])) != 2 or any(v < 0 or v > 9 for v in data['digit_pair']):
+            raise ValueError('Digits requires two different labels from 0 through 9')
+    elif data['name'] == 'npz':
+        if not data['file']:
+            raise ValueError('dataset.file is required for npz')
+        with np.load(data['file'], allow_pickle=False) as arrays:
+            if arrays['train_inputs'].ndim != 2:
+                raise ValueError('NPZ train_inputs must have shape (samples, dimension)')
+            data['dimension'] = int(arrays['train_inputs'].shape[1])
+    if data['dimension'] < (2 if data['name'] == 'sphere' else 1):
+        raise ValueError('Invalid input dimension (sphere toy requires dimension >= 2)')
+    if model['activation'] not in DEEP_ACTIVATIONS:
+        raise ValueError(f'activation must be one of {DEEP_ACTIVATIONS}')
+    if training['solver'] != 'euler' or training['dtype'] not in ('float32', 'float64'):
+        raise ValueError('Training supports Euler with float32 or float64')
+    if config['execution']['seconds_per_fit'] > 120:
+        raise ValueError('seconds_per_fit must be <= 120, matching the existing source-setup cap')
+    for name, key in (('dense', 'widths'), ('legendre', 'orders'), ('low_rank', 'ranks')):
+        values = oblivious[name][key]
+        if len(set(values)) != len(values) or any(v < 1 for v in values):
+            raise ValueError(f'{name}.{key} must be distinct positive integers')
+    if any(rank > model['width'] for rank in oblivious['low_rank']['ranks']):
+        raise ValueError('Low-rank ranks cannot exceed the dense width')
+    restricted = (oblivious['legendre']['orders'] or oblivious['low_rank']['ranks']
+                  or oblivious['frozen_features']['enabled'] or group['harmonic']['budgets'])
+    if restricted and (model['depth'] != 2 or model['activation'] != 'tanh'):
+        raise ValueError('Current Legendre, low_rank, frozen_features and Harmonic implementations require '
+                         'depth=2, activation=tanh. Disable them to use other architectures.')
+    if group['harmonic']['budgets'] and data['dimension'] not in (2, 3):
+        raise ValueError('Harmonic currently supports dimension 2 or 3; disable it with budgets=[]')
+    if group['harmonic']['spatial_degree'] < 0:
+        raise ValueError('Harmonic spatial_degree must be nonnegative')
+    if group['logarithmic']['budgets'] and not group['logarithmic']['test_inputs_at_setup']:
+        raise ValueError('The current Logarithmic construction requires declared test inputs (never labels)')
+    for name in ('harmonic', 'logarithmic'):
+        method = group[name]
+        budgets = [(v['width'], v['source_rank']) for v in method['budgets']]
+        if len(set(budgets)) != len(budgets) or any(min(v) < 1 for v in budgets):
+            raise ValueError(f'{name} requires distinct positive (width, source_rank) budgets')
+        if any(width >= model['width'] or rank > model['width'] for width, rank in budgets):
+            raise ValueError(f'{name} requires compact width < dense width and source_rank <= dense width')
+        setup = _experiment_setup(config, name)
+        if (setup['initializer'] != 'dense_rollout' or setup['rollout_solver'] != 'rk4'
+                or setup['rollout_dtype'] not in ('float32', 'float64')
+                or setup['coefficient_dtype'] != 'float64'):
+            raise ValueError('Setup supports dense_rollout/RK4, float32/float64 rollout, float64 coefficients')
+        if min(setup['rollout_step'], setup['time_degree'], setup['selection_trials']) <= 0 or setup['condition_limit'] < 1:
+            raise ValueError('Setup orders/step/trials must be positive and condition_limit >= 1')
+    if (not config['plots']['metrics'] or set(config['plots']['metrics'])-{'endpoint_rms', 'worst_recorded_rms'}
+            or config['plots']['aggregate'] not in ('mean', 'median')
+            or config['plots']['spread'] not in ('range', 'none')
+            or oblivious['frozen_features']['plot'] not in ('dashed', 'point')):
+        raise ValueError('Unsupported plot metric, aggregation, spread or frozen-feature style')
+
+
+def _experiment_data(config):
+    data = config['dataset']
+    keys = ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')
+    if data['name'] == 'npz':
+        with np.load(data['file'], allow_pickle=False) as archive:
+            arrays = [np.array(archive[key], dtype=np.float64) for key in keys]
+        for start, count in ((0, data['train_samples']), (2, data['test_samples'])):
+            x, y = arrays[start:start+2]
+            if x.ndim != 2 or y.shape != (len(x),) or len(x) < count:
+                raise ValueError('NPZ needs enough rows and one scalar label per input in each split')
+            rows = np.random.default_rng(data['seed']+start//2).permutation(len(x))[:count]
+            arrays[start:start+2] = [x[rows], y[rows]]
+        for index in (0, 2):
+            norms = np.linalg.norm(arrays[index], axis=1, keepdims=True)
+            if (arrays[index].shape[1] != data['dimension'] or np.any(norms == 0)):
+                raise ValueError('NPZ inputs must have matching dimensions and nonzero norms')
+            arrays[index] /= norms
+    else:
+        tensors = validation_data(data['dimension'], data['train_samples'], data['test_samples'],
+            data['seed'], 'cpu', task='digits' if data['name'] == 'digits' else 'toy',
+            raw_images=True, tuning_samples=0, digit_pair=tuple(data['digit_pair']))
+        arrays = [value.numpy().astype(np.float64) for value in tensors]
+        if len(arrays[2]) < data['test_samples']:
+            raise ValueError('Requested test_samples exceeds the held-out dataset')
+        if data['name'] == 'digits':
+            rows = np.random.default_rng(data['seed']+1).permutation(len(arrays[2]))[:data['test_samples']]
+            arrays[2:] = [v[rows] for v in arrays[2:]]
+    arrays[1] *= data['label_scale']
+    arrays[3] *= data['label_scale']
+    if not all(np.isfinite(v).all() for v in arrays):
+        raise ValueError('Dataset contains nonfinite values')
+    return dict(zip(keys, arrays))
+
+
+def _experiment_seed(seed, role):
+    # Stable under changes to method order, budgets, process scheduling, or Python's hash salt.
+    value = int(sha(f'{seed}:{role}'.encode())[:15], 16)
+    return value if value != seed else value+1
+
+
+def _experiment_move(model, device, dtype):
+    for key in ('initial_state', 'metrics', 'metric_inverses'):
+        if hasattr(model, key):
+            setattr(model, key, [v.to(device=device, dtype=dtype) for v in getattr(model, key)])
+    for key in ('first', 'matrix', 'degrees', 'weights', 'kernel', 'cross', 'train_inputs', 'query_inputs'):
+        if hasattr(model, key):
+            setattr(model, key, getattr(model, key).to(device=device, dtype=dtype))
+    return model
+
+
+@torch.no_grad()
+def _experiment_repetition(config, seed, device_name, out, manifest):
+    """One dense reference and freshly coupled models; no cross-repetition teacher reuse."""
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = config['execution']['tf32']
+    torch.backends.cudnn.allow_tf32 = config['execution']['tf32']
+    device, dtype = torch.device(device_name), getattr(torch, config['training']['dtype'])
+    arrays = _experiment_data(config)
+    if {key: array_sha(value) for key, value in arrays.items()} != manifest['identity']['data_sha256']:
+        raise RuntimeError('Dataset changed after launch; refusing inconsistent repetitions')
+    inputs, labels, queries = [torch.as_tensor(arrays[key], device=device) for key in
+                              ('train_inputs', 'train_labels', 'query_inputs')]
+    model_config, training = config['model'], config['training']
+    n, d = model_config['width'], inputs.shape[1]
+    seconds = config['execution']['seconds_per_fit']
+    started = time.monotonic()
+    report = dict(seed=seed, fingerprint=manifest['fingerprint'], source_sha256=manifest['source_sha256'],
+        complete=False, models={}, runs={}, sources={}, errors={}, seeds={'reference': seed},
+        data_sha256={key: array_sha(value) for key, value in arrays.items()},
+        device=device_name, hardware=torch.cuda.get_device_name(device) if device.type == 'cuda' else platform.processor(),
+        scope=dict(initialization='Gaussian, zero readout; original canonical mean-field mobilities',
+            comparisons='each model versus its own repetition dense reference, fixed dataset',
+            accuracy='finite held-out RMS at common recorded Euler times; no GF refinement certificate',
+            source_setup='full-horizon RK4 rollouts, empirical source-rank truncation, not initialization jets',
+            queries='Harmonic geometry independent of scored inputs; Logarithmic sees their inputs, never labels',
+            storage='retained model coordinates, common data/integrator/temporary setup excluded'))
+
+    def persist():
+        np.savez_compressed(out/'trajectories.npz', **arrays)
+        report['trajectories_sha256'] = sha((out/'trajectories.npz').read_bytes())
+        report['seconds'] = time.monotonic()-started
+        save_json(out/'report.json', report)
+
+    def role_seed(role):
+        report['seeds'][role] = _experiment_seed(seed, role)
+        return report['seeds'][role]
+
+    def fit(name, model, family, setup_seconds=0., **details):
+        print(json.dumps(dict(event='fit', seed=seed, model=name, device=device_name)), flush=True)
+        moving, fixed = sum(v.numel() for v in model.initial_state), int(model.fixed_scalars)
+        record = dict(family=family, moving=moving, fixed=fixed, total=moving+fixed,
+            setup_seconds=setup_seconds, diagnostics=getattr(model, 'diagnostics', {}), **details)
+        if family == 'frozen_features':
+            record.update(moving=n, fixed=n*d+(model_config['depth']-1)*n*n,
+                          total=n+n*d+(model_config['depth']-1)*n*n,
+                          executed_dual_state=dict(moving=moving, fixed=fixed, data=model.data_scalars),
+                          storage_basis='primal frozen dense features and width-n trained readout; equivalent dual Euler executed')
+        report['models'][name] = record
+        _experiment_move(model, device, dtype)
+        state, prediction, info = integrate_euler(model, inputs.to(dtype), labels.to(dtype),
+            torch.cat((inputs, queries)).to(dtype), training['step'], seconds,
+            horizon=training['horizon'], max_steps=math.ceil(training['horizon']/training['step']),
+            observation_every=training['record_every'])
+        arrays[name], arrays['times_'+name] = prediction, np.asarray(info['times'])
+        report['runs'][name] = info
+        if not info['complete']:
+            report['errors'][name] = 'Inconclusive: '+info['stop_reason']
+        print(json.dumps(dict(event='fit_done', seed=seed, model=name, seconds=info['seconds'],
+                              complete=info['complete'], training_mse=info['final_training_mse'])), flush=True)
+        del state
+        persist()
+
+    def build_fit(name, family, constructor, **details):
+        t0 = time.monotonic()
+        try:
+            model = constructor()
+            synchronize(device)
+            elapsed = time.monotonic()-t0
+            if elapsed > seconds:
+                raise TimeoutError('Model assembly exceeded seconds_per_fit')
+            fit(name, model, family, elapsed, **details)
+        except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
+            report['errors'][name] = f'{type(error).__name__}: {error}'
+            print(json.dumps(dict(event='model_error', seed=seed, model=name, error=str(error))), flush=True)
+            persist()
+
+    try:
+        t0 = time.monotonic()
+        dense = DeepDense(n, d, model_config['depth'], model_config['activation'], seed, device)
+        synchronize(device)
+        dense_seconds = time.monotonic()-t0
+        report['reference_initial_state_sha256'] = [array_sha(v.cpu().numpy()) for v in dense.initial_state]
+        # Keep the untouched float64 initialization for every source/constructor.
+        runtime = DeepDense.__new__(DeepDense)
+        runtime.depth, runtime.activation, runtime.fixed_scalars = dense.depth, dense.activation, 0
+        runtime.initial_state = [v.to(dtype=dtype) for v in dense.initial_state]
+        fit('reference', runtime, 'reference', dense_seconds, width=n)
+        del runtime
+        if not report['runs']['reference']['complete']:
+            return 1
+        oblivious = config['methods']['oblivious']
+        for width in oblivious['dense']['widths']:
+            init_seed = role_seed(f'dense_{width}')
+            build_fit(f'dense_{width}', 'dense', lambda: DeepDense(width, d, dense.depth,
+                dense.activation, init_seed, device), width=width, initialization_seed=init_seed)
+        for order in oblivious['legendre']['orders']:
+            build_fit(f'legendre_{order}', 'legendre',
+                      lambda: LegendreCompression(dense, inputs, labels, order), order=order)
+        for rank in oblivious['low_rank']['ranks']:
+            adapter_seed = role_seed(f'low_rank_{rank}')
+            budget = n+min(rank, n, d)*(n+d)+2*n*rank
+            build_fit(f'low_rank_{rank}', 'low_rank', lambda: BudgetLoRA(dense, budget, adapter_seed),
+                      rank=rank, initialization_seed=adapter_seed)
+        if oblivious['frozen_features']['enabled']:
+            build_fit('frozen_features', 'frozen_features', lambda: FrozenNTK(dense, inputs, queries))
+        for family in ('harmonic', 'logarithmic'):
+            method = config['methods']['non_oblivious'][family]
+            if not method['budgets']:
+                continue
+            setup = _experiment_setup(config, family)
+            ranks = sorted({v['source_rank'] for v in method['budgets']}, reverse=True)
+            source_seed = role_seed(f'{family}_source')
+            selector_seed = role_seed(f'{family}_selector')
+            print(json.dumps(dict(event='source_setup', seed=seed, method=family)), flush=True)
+            try:
+                options = dict(seconds=seconds, step=setup['rollout_step'], time_degree=setup['time_degree'],
+                    rollout_dtype=setup['rollout_dtype'], coefficient_dtype=setup['coefficient_dtype'])
+                if family == 'harmonic':
+                    source, info = unified_harmonic_sources(dense, inputs, labels,
+                        training['horizon'], ranks[0], source_seed, spatial_degree=method['spatial_degree'], **options)
+                    sources = {rank: {key: [v[:, :rank] for v in values] for key, values in source.items()}
+                               for rank in ranks}
+                    del source
+                    info['prefix_diagnostics_scope'] = 'Source checks describe largest rank; smaller prefixes are not separately checked'
+                    floor = None
+                else:
+                    sources, info = cubic_rollout_sources(dense, inputs, labels, queries,
+                        training['horizon'], seed=source_seed, ranks=tuple(ranks), partitions=('new',), **options)
+                    sources = sources['new']
+                    features = dense.fields(dense.initial_state, inputs)[0][-1]
+                    gap = float(torch.linalg.eigvalsh(features.T@features/(n*len(labels)))[0])
+                    if gap <= 0:
+                        raise ArithmeticError('Initial normalized training feature Gram has no positive gap')
+                    floor = min(1e-4, gap/8)
+                    info['readout_floor'] = floor
+                info['effective_setup'] = setup
+                report['sources'][family] = info
+                for budget in method['budgets']:
+                    width, rank = budget['width'], budget['source_rank']
+                    name = f'{family}_{width}_r{rank}'
+
+                    def construct():
+                        model = DeepHarmonic(dense, inputs, labels, sources[rank], width,
+                            selection_seed=selector_seed, readout_floor=floor,
+                            selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'])
+                        if any(item['truncated'] for item in model.diagnostics['source_truncations']):
+                            raise ArithmeticError('Budget requires extra constructor truncation; result inconclusive, not silently substituted')
+                        return model
+
+                    build_fit(name, family, construct, width=width, source_rank=rank, shared_source=family,
+                              source_seed=source_seed, selection_seed=selector_seed)
+                del sources
+            except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
+                report['errors'][family+'_setup'] = f'{type(error).__name__}: {error}'
+                print(json.dumps(dict(event='source_error', seed=seed, method=family, error=str(error))), flush=True)
+                persist()
+        report['complete'] = not report['errors']
+        return 0 if report['complete'] else 1
+    finally:
+        persist()
+
+
+def experiment_main(argv, action='run'):
+    """Run or plot from defaults < JSON < generated CLI overrides."""
+    import copy
+    import fcntl
+    from concurrent.futures import ThreadPoolExecutor
+    config, args = _experiment_config(argv, validate_run=action != 'plot')
+    if args.print_config:
+        print(json.dumps(config, indent=2))
+        return 0
+    out = Path(config['execution']['output']).resolve()
+    config['execution']['output'] = str(out)
+    if action == 'plot':
+        return experiment_plot(config)
+    if args.worker_seed is not None:
+        manifest = json.loads((out/'run.json').read_text())
+        if sha(Path(__file__).read_bytes()) != manifest['source_sha256']:
+            raise RuntimeError('Executable changed after launch; refusing mixed-source experiments')
+        return _experiment_repetition(config, args.worker_seed, args.worker_device, args.worker_out, manifest)
+    devices = config['execution']['devices']
+    if devices == 'auto':
+        devices = [f'cuda:{i}' for i in range(torch.cuda.device_count())] or ['cpu']
+    elif isinstance(devices, str):
+        devices = devices.split(',')
+    if not devices or len(set(devices)) != len(devices):
+        raise ValueError('execution.devices must name distinct devices')
+    for name in devices:
+        device = torch.device(name)
+        if device.type not in ('cpu', 'cuda') or (device.type == 'cuda' and
+                (not torch.cuda.is_available() or device.index is None or device.index >= torch.cuda.device_count())):
+            raise ValueError(f'Unavailable or unsupported device: {name}')
+    source_hash = sha(Path(__file__).read_bytes())
+    contract = copy.deepcopy(config)
+    contract.pop('plots')
+    contract['methods']['oblivious']['frozen_features'].pop('plot')
+    for key in ('output', 'reuse_completed'):
+        contract['execution'].pop(key)
+    contract['execution']['devices'] = devices
+    file_hash = sha(Path(config['dataset']['file']).read_bytes()) if config['dataset']['name'] == 'npz' else None
+    identity = dict(config=contract, source_sha256=source_hash, dataset_file_sha256=file_hash,
+                    data_sha256={key: array_sha(value) for key, value in _experiment_data(config).items()},
+                    python=platform.python_version(), torch=torch.__version__, numpy=np.__version__)
+    fingerprint = sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode())
+    out.mkdir(parents=True, exist_ok=True)
+    with (out/'.runner.lock').open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        if (out/'run.json').exists():
+            manifest = json.loads((out/'run.json').read_text())
+            if not config['execution']['reuse_completed'] or manifest['fingerprint'] != fingerprint:
+                raise ValueError('Output contains a different experiment or reuse is disabled; choose a fresh execution.output')
+        else:
+            if set(p.name for p in out.iterdir())-{'.runner.lock'}:
+                raise ValueError('Output is not empty and has no matching run.json; choose a fresh directory')
+            manifest = dict(fingerprint=fingerprint, config=config, source_sha256=source_hash,
+                identity=identity, repetitions={}, command=sys.argv, cwd=str(Path.cwd()),
+                seed_policy='listed seed initializes the reference; role-hashed independent seeds; source rebuilt per repetition')
+            (out/'source.py').write_bytes(Path(__file__).read_bytes())
+            save_json(out/'config.json', config)
+        jobs = []
+        for seed in config['seeds']:
+            previous = manifest['repetitions'].get(str(seed))
+            if previous:
+                try:
+                    report = json.loads((out/previous/'report.json').read_text())
+                    reusable = (report['complete'] and report['seed'] == seed
+                        and report['fingerprint'] == fingerprint and report['source_sha256'] == source_hash
+                        and report['trajectories_sha256'] == sha((out/previous/'trajectories.npz').read_bytes()))
+                except (OSError, ValueError, KeyError):
+                    reusable = False
+                if reusable:
+                    print(json.dumps(dict(event='reused', seed=seed, path=previous)), flush=True)
+                    continue
+            parent = out/f'seed_{seed}'
+            parent.mkdir(exist_ok=True)
+            attempt = parent/f'attempt_{len(list(parent.iterdir()))+1:03d}'
+            attempt.mkdir(exist_ok=False)
+            manifest['repetitions'][str(seed)] = str(attempt.relative_to(out))
+            jobs.append((seed, attempt))
+        save_json(out/'run.json', manifest)
+
+        def worker(device_name, assigned):
+            results = []
+            for seed, attempt in assigned:
+                command = [sys.executable, '-B', '-u', str(Path(__file__).resolve()), 'run',
+                    '--config', str(out/'config.json'), '--worker-seed', str(seed),
+                    '--worker-device', device_name, '--worker-out', str(attempt)]
+                with (attempt/'run.log').open('w') as log:
+                    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                               text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
+                    for line in process.stdout:
+                        log.write(line)
+                        log.flush()
+                        print(line, end='', flush=True)
+                    results.append(process.wait())
+            return results
+
+        with ThreadPoolExecutor(max_workers=len(devices)) as pool:
+            results = list(pool.map(lambda item: worker(*item),
+                          [(device, jobs[i::len(devices)]) for i, device in enumerate(devices)]))
+        return int(any(code != 0 for codes in results for code in codes))
+
+
 if __name__ == '__main__':
+    if len(sys.argv) == 1 or sys.argv[1] in ('run', 'plot'):
+        sys.exit(experiment_main(sys.argv[2:] if len(sys.argv) > 1 else [],
+                                 action=sys.argv[1] if len(sys.argv) > 1 else 'run'))
     if len(sys.argv) > 1 and sys.argv[1] == 'compression-pilot':
         compression_pilot_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'validate':
