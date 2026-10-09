@@ -1,5 +1,92 @@
 # Bounded appendix figure pilots
 
+## Three-seed 1-versus-7 Legendre minimum orders
+
+### Outcome
+
+All nine cases have exact resolved minimum orders under BOTH1x criteria;
+the three seeds agree at every width:
+
+| Dense width | q, seed1901 | q, seed1902 | q, seed1903 | Mean/median q | Learned storage |
+|---:|---:|---:|---:|---:|---:|
+|1024|1|1|1|1|99330|
+|2048|1|1|1|1|198658|
+|4096|2|2|2|2|462850|
+
+Order1 passes endpoint RMS alone in ALL9 cases. At4096 its maximum-recorded
+RMS ratios are1.376243896,1.344231034,1.011956458; these are the three reasons
+q2 is needed under the joint test. The third miss is only1.2% and has no new
+half-step certificate. The selected q2 endpoint/maximum ratios at4096 are
+0.050866/0.105323,0.048081/0.103560,0.068270/0.077454 respectively.
+No numerical or construction failures occurred. The raw8x8 input dimension
+is64, NOT MNIST784 and NOT a PCA-reduced dataset.
+
+Learned storage is n(16q+81)+2; additional fixed storage is n^2+2q.
+Mean and median learned-storage fits coincide: C*n^p with C44.07880799,
+p1.110121653,log-space RMS0.035987295. This describes only three widths;
+it neither establishes an asymptotic storage exponent nor logarithmic growth
+of q. Mean orders are simply1,1,2 on this measured range.
+
+Executed12 new dense trajectories (47.86s summed;3.84--4.19s each), and8 new
+Legendre trajectories (89.91s summed;10.99--11.66s each), concurrently across
+two GPUs. Reused the three seed1901 dense pairs and all nine saved Legendre
+trajectories. No dense source rollout, other compression or control ran.
+Sums exclude construction/driver overhead and are not elapsed batch times.
+
+Root checked identical data hashes across all nine cases, unchanged inherited
+arrays bitwise, finite complete5120-step trajectories, matching65 time grids,
+and exact minima from raw declared-panel predictions. Scoped support
+independently recomputed all seed1901 ratios and verified numerical/data
+call-graph compatibility. The existing plot checks hashes, source compatibility,
+paired seed roles and exact storage. Figures inspected. No code changes,
+time-step refinement or continuous-time claim; the bounded-experiment
+workflow retained the marginal q1 miss instead of changing the threshold.
+
+Reproduce with `digits_legendre_dense.json`, overriding `--seeds '[1902]'`
+(or1903), `--model.width N`, `--methods.oblivious.dense.widths '[N]'`,
+`--execution.devices cuda:0` (or1), and a fresh output directory for each
+of1024/2048/4096. Then `refine-budgets --plan
+studies/paper_appendix_pilots_20261009/digits_legendre_seedS_search.json`
+for each seed, updating paths to those fresh outputs. Each new-seed queue
+used `timeout 600`, Python `/home/amir/miniconda3/bin/python -B -u` and
+the unchanged `paper/figures/capture_trajectory.py` at commit5c00918.
+Figures/metrics are in `digits_legendre_three_seeds/figures/` beneath the
+study generated root. Replot with `budget-seed-plot --family legendre
+--fit-width-powers --runs <nine seedS/search/nN roots> --out <fresh directory>`.
+No further runs pending.
+
+### Frozen design
+
+User requests the same1x minimum-order comparison on the existing digits
+task. Freeze raw8x8 digits1/7 (no PCA), dataset seed47, d64,m8,p30 declared
+test inputs plus the existing30 extra inputs retained only as unused extra
+scores. Reuse seed1901 dense pairs and all compatible Legendre trajectories
+at1024,2048,4096 from `figure2_replication/digits_adaptive/nN`. This is the
+existing digits width range, not an added16k campaign. Add references1902
+and1903 with their own independently role-seeded same-width dense comparators
+at those SAME three widths; no shared reference across repetitions.
+
+Keep L2 tanh, zero readout, canonical initialization/mobilities, float32,
+TF32off, Euler step1/160,T32 and65 saved times. Legendre uses initialization
+and training data only; no dense source rollout or test-label use. Scan
+q=1,...,8 sequentially, stop on the first order passing BOTH endpoint query
+RMS and maximum-recorded query RMS against that pair's corresponding1x
+benchmarks. All lower integer orders must be completed accuracy failures;
+stop a case as inconclusive on numerical/construction failure. Scores use
+the30 original test inputs only, not the separate extra panel. Same finite
+Euler scope as the circle comparison; no new GF/half-step claim.
+
+Bound:12 new dense trajectories (six independent pairs), at most8 new
+Legendre fits per width/seed,120s per trajectory, two GPU queues with a
+10-minute cap each; no new widths/seeds, activation or order-rule tuning.
+Reuse old trajectories without silently treating the old3x selection as1x.
+Plot exact minimum orders and mean/median learned storage; any C*n^p fit
+over only three widths is descriptive, not an asymptotic exponent. Fixed
+storage n^2+2q remains separately charged. The bounded-experiment workflow
+keeps these thresholds and stopping rules fixed. Root owns configs/runs/notes/
+Git; scoped support independently recomputes the saved1901 metrics read-only.
+Products: `data/generated/paper_appendix_pilots_20261009/digits_legendre_three_seeds/`.
+
 ## Three-seed Legendre minimum-order comparison
 
 ### Outcome
