@@ -960,7 +960,8 @@ def integrate(model, inputs, labels, queries, times, step, seconds, observer=Non
     if device.type == 'cuda':
         torch.cuda.reset_peak_memory_stats(device)
     state = [value.clone() for value in model.initial_state]
-    predictions, losses, current, steps, query_seconds, training_seconds, refresh_seconds = [], [], 0., 0, 0., 0., 0.
+    predictions, losses, finite_checks = [], [], []
+    current, steps, query_seconds, training_seconds, refresh_seconds = 0., 0, 0., 0., 0.
     for target in times:
         synchronize(device)
         training_started = time.monotonic()
@@ -990,24 +991,34 @@ def integrate(model, inputs, labels, queries, times, step, seconds, observer=Non
         synchronize(device)
         query_seconds += time.monotonic() - query_started
         train = model.predict(state, inputs, inputs, labels)
-        if not bool(torch.isfinite(prediction).all() and torch.isfinite(train).all()):
-            raise FloatingPointError(f"nonfinite {type(model).__name__} at t={target}")
-        predictions.append(prediction.cpu().numpy())
-        losses.append(float((train-labels).square().mean()))
+        finite_checks.append(torch.isfinite(prediction).all() & torch.isfinite(train).all())
+        predictions.append(prediction.detach().clone())
+        losses.append((train-labels).square().mean().detach())
         if observer is not None:
             observer(float(target), state)
         synchronize(device)
         if time.monotonic() - started > seconds:
             raise TimeoutError(f"{type(model).__name__} exceeded cap including query/observer at t={target}")
+    # Observations stay on the simulation device; export only after the rollout.
+    export_started = time.monotonic()
+    host_checks = torch.stack(finite_checks).cpu().numpy()
+    if not host_checks.all():
+        raise FloatingPointError(f'nonfinite {type(model).__name__} at t={times[np.flatnonzero(~host_checks)[0]]}')
+    host_predictions = torch.stack(predictions).cpu().numpy()
+    host_losses = torch.stack(losses).cpu().tolist()
     synchronize(device)
+    export_seconds = time.monotonic()-export_started
     elapsed = time.monotonic() - started
-    return state, np.stack(predictions), dict(
+    if elapsed > seconds:
+        raise TimeoutError(f'{type(model).__name__} exceeded cap including final export')
+    return state, host_predictions, dict(
         seconds=elapsed, query_seconds=query_seconds, query_refresh_seconds=refresh_seconds,
+        observation_storage='simulation device until final export', export_seconds=export_seconds,
         query_timing_scope='whole query batch, after readout refresh; amortized, not single-query latency',
         training_seconds=training_seconds, steps=steps,
         seconds_per_step=training_seconds/max(1, steps),
         moving_scalars=sum(v.numel() for v in state),
-        fixed_scalars=int(model.fixed_scalars), losses=losses,
+        fixed_scalars=int(model.fixed_scalars), losses=host_losses,
         process_peak_cuda_bytes=(torch.cuda.max_memory_allocated(device) if device.type == 'cuda' else None),
         incremental_peak_cuda_bytes=(torch.cuda.max_memory_allocated(device)-baseline_bytes if device.type == 'cuda' else None),
         peak_scope='whole process, including other resident references; not isolated model memory')
@@ -1165,10 +1176,13 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
     started = time.monotonic()
     n, device, rank = len(dense.initial_state[1]), inputs.device, int(rank)
     nodes, weights, spatial = _unified_harmonic_geometry(inputs.shape[1], spatial_degree)
+    geometry_hash = array_sha(nodes.numpy())
+    geometry_weight_sum = float(weights.sum())
     spatial_gram_error = float((spatial.T@(weights[:, None]*spatial)
                               -torch.eye(spatial.shape[1], dtype=spatial.dtype)).abs().max())
     if spatial_gram_error > 1e-12:
         raise ArithmeticError('Harmonic geometry lost discrete orthonormality')
+    weights, spatial = weights.to(device), spatial.to(device)
     boundaries = [0., min(1., horizon)]
     while boundaries[-1] < horizon:
         boundaries.append(min(2*boundaries[-1], horizon))
@@ -1176,8 +1190,9 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
     intervals = [left+(right-left)*(coordinate+1)/2
                  for left, right in zip(boundaries[:-1], boundaries[1:])]
     times = np.unique(np.concatenate(intervals))
-    panel_indices = [np.searchsorted(times, values) for values in intervals]
-    design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, time_degree), dtype=torch.float64)
+    panel_indices = [torch.as_tensor(np.searchsorted(times, values), device=device) for values in intervals]
+    design = torch.as_tensor(np.polynomial.chebyshev.chebvander(coordinate, time_degree),
+                             dtype=torch.float64, device=device)
     temporal_inverse = torch.linalg.pinv(design[::2])
     weighted_spatial = weights[:, None]*spatial
     fields = {name: [[], []] for name in ('h', 'delta')}
@@ -1192,7 +1207,7 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
         deltas = teacher.backward(state, hs, gates)
         for name, values in (('h', hs), ('delta', deltas)):
             for layer, value in enumerate(values):
-                fields[name][layer].append(value.cpu())
+                fields[name][layer].append(value.detach())
 
     _, _, source_run = integrate(teacher, source_inputs, source_labels, source_inputs[:1],
                                  times, step, seconds, observer=observe)
@@ -1203,12 +1218,15 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
     coefficients, checks = {name: [] for name in fields}, {name: [] for name in fields}
     for name in fields:
         for layer, observations in enumerate(fields[name]):
-            source = torch.empty(n, len(intervals)*(time_degree+1)*spatial.shape[1], dtype=torch.float64)
-            square, reference_square, count, maximum = 0., 0., 0, 0.
-            for start in range(0, n, 64):
+            source = torch.empty(n, len(intervals)*(time_degree+1)*spatial.shape[1],
+                                 dtype=torch.float64, device=device)
+            square, reference_square, maximum = [source.new_zeros(()) for _ in range(3)]
+            count = 0
+            batch = 512 if device.type == 'cuda' else 64
+            for start in range(0, n, batch):
                 if time.monotonic()-started > seconds:
                     raise TimeoutError('Harmonic source setup exceeded its complete setup budget')
-                values = torch.stack([value[start:start+64] for value in observations]).double()
+                values = torch.stack([value[start:start+batch] for value in observations]).double()
                 projected = values@weighted_spatial
                 blocks = []
                 for indices in panel_indices:
@@ -1216,14 +1234,14 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
                     fitted = torch.einsum('tk,bks,ps->tbp', design[1::2], block, spatial)
                     reference = values[indices[1::2]]
                     error = fitted-reference
-                    square += float((error.square()*weights).sum())
-                    reference_square += float((reference.square()*weights).sum())
+                    square += (error.square()*weights).sum()
+                    reference_square += (reference.square()*weights).sum()
                     count += error.shape[0]*error.shape[1]
-                    maximum = max(maximum, float(error.abs().max()))
+                    maximum = torch.maximum(maximum, error.abs().max())
                     blocks.append(block.flatten(1))
                 source[start:start+len(values[0])] = torch.cat(blocks, 1)
             observations.clear()
-            source = source.to(device=device)
+            square, reference_square, maximum = torch.stack((square, reference_square, maximum)).cpu().tolist()
             # Remove only directions whose initialized images are already mandatory.
             mandatory = source[:, :0]
             if name == 'h':
@@ -1261,12 +1279,13 @@ def unified_harmonic_sources(dense, inputs, labels, horizon, rank, seed, seconds
         chebyshev_degree=time_degree, spatial_degree=spatial_degree, spatial_modes=spatial.shape[1],
         geometry=(f'{len(nodes)}_equispaced_circle_nodes' if inputs.shape[1] == 2 else
                   f'gauss_legendre_{spatial_degree+1}_azimuth_{2*(spatial_degree+1)}'),
-        geometry_count=len(nodes), geometry_sha256=array_sha(nodes.numpy()),
-        geometry_weight_sum=float(weights.sum()), spatial_gram_max_abs=spatial_gram_error,
+        geometry_count=len(nodes), geometry_sha256=geometry_hash,
+        geometry_weight_sum=geometry_weight_sum, spatial_gram_max_abs=spatial_gram_error,
         source_geometry_uses_training_inputs=False, scored_inputs_used=False,
         passive_labels_used=False, source_certificate=False,
         observation_count=len(times), panel_fit_nodes=time_degree+1, panel_holdout_nodes=time_degree,
-        boundaries=boundaries, fit_neuron_batch=64, requested_rank=rank,
+        boundaries=boundaries, fit_neuron_batch=batch, requested_rank=rank,
+        source_observation_storage=str(device), coefficient_fitting_device=str(device),
         dense_rhs_calls=4*source_run['steps'], source_run_seconds=source_run['seconds'],
         seconds=time.monotonic()-started, training_count=len(inputs), diagnostics=checks,
         diagnostic_scope='weighted errors only at withheld temporal nodes on the fixed sphere grid')
@@ -2011,7 +2030,9 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
     it does not extrapolate to the requested horizon. The wall budget includes
     observations and is capped at 300 seconds. An already queued update block
     and the required terminal observation cannot be interrupted, so any overrun is
-    reported. Only the current state/RHS and CPU query observations are retained.
+    reported. Prediction snapshots and reporting scalars stay on the simulation
+    device until final export. Fixed-horizon finiteness flags are accumulated on
+    device and checked before returning; RHS validity gates remain immediate.
     """
     step, seconds = float(step), float(seconds)
     if not math.isfinite(step) or step <= 0:
@@ -2065,6 +2086,7 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
     if not all(bool(torch.isfinite(value).all()) for value in (inputs, labels, queries)):
         raise FloatingPointError('Euler data contain nonfinite entries')
     predictions, times, observation_steps, losses = [], [], [], []
+    finite_checks, finite_locations = [], []
     observed_gram_minima = []
     loss_check_steps, loss_check_times, loss_checks = [], [], []
     steps, current, last_step = 0, 0., 0.
@@ -2073,13 +2095,15 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
     def check_training_loss():
         nonlocal loss_seconds
         check_started = time.monotonic()
-        if not all(bool(torch.isfinite(value).all()) for value in state):
-            raise FloatingPointError(f'Nonfinite Euler state at step {steps}, t={current:.9g}')
+        state_finite = torch.stack([torch.isfinite(value).all() for value in state]).all()
         prediction = model.predict(state, inputs, inputs, labels)
         if prediction.shape != labels.shape:
             raise ValueError('Euler training prediction must have the label shape')
-        loss = float((prediction-labels).square().mean())
-        if not math.isfinite(loss):
+        loss = (prediction-labels).square().mean().detach()
+        valid = state_finite & torch.isfinite(loss)
+        finite_checks.append(valid)
+        finite_locations.append(f'state/loss at step {steps}, t={current:.9g}')
+        if horizon_steps is None and not bool(valid):
             raise FloatingPointError(f'Nonfinite Euler training MSE at step {steps}, t={current:.9g}')
         synchronize(device)
         loss_seconds += time.monotonic()-check_started
@@ -2101,9 +2125,12 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
                       else model.predict(state, queries, inputs, labels))
         if prediction.shape != (len(queries),):
             raise ValueError('Euler query prediction must have shape (number_of_queries,)')
-        if not bool(torch.isfinite(prediction).all()):
+        query_valid = torch.isfinite(prediction).all()
+        if horizon_steps is None and not bool(query_valid):
             raise FloatingPointError(f'Nonfinite Euler query prediction at step {steps}, t={current:.9g}')
-        predictions.append(prediction.detach().cpu().numpy().copy())
+        finite_checks.append(query_valid)
+        finite_locations.append(f'query prediction at step {steps}, t={current:.9g}')
+        predictions.append(prediction.detach().clone())
         synchronize(device)
         query_seconds += time.monotonic()-query_started
         times.append(current)
@@ -2111,14 +2138,14 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
         losses.append(loss)
         if getattr(model, 'readout_floor', None) is not None:
             gram = model._readout(state, inputs, labels)[-1]
-            observed_gram_minima.append(float(torch.linalg.eigvalsh(gram)[0]))
+            observed_gram_minima.append(torch.linalg.eigvalsh(gram)[0].detach())
 
     def stopping_reason(loss):
         if time.monotonic()-started >= seconds:
             return 'wall_time_cap'
         if horizon_steps is not None and steps == horizon_steps:
             return 'horizon'
-        if horizon is None and loss_target is not None and loss < loss_target:
+        if horizon is None and loss_target is not None and bool(loss < loss_target):
             return 'loss_target'
         if steps == max_steps:
             return 'max_steps'
@@ -2161,11 +2188,25 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
         if time.monotonic()-started >= seconds:
             reason = 'wall_time_cap'
     observe(loss)
+    export_started = time.monotonic()
+    host_checks = torch.stack(finite_checks).cpu().numpy()
+    if not host_checks.all():
+        raise FloatingPointError('Nonfinite Euler '+finite_locations[np.flatnonzero(~host_checks)[0]])
+    host_predictions = torch.stack(predictions).cpu().numpy()
+    loss_checks = torch.stack(loss_checks).cpu().tolist()
+    losses = torch.stack(losses).cpu().tolist()
+    observed_gram_minima = (torch.stack(observed_gram_minima).cpu().tolist()
+                           if observed_gram_minima else [])
+    loss = loss_checks[-1]
     synchronize(device)
+    export_seconds = time.monotonic()-export_started
     elapsed = time.monotonic()-started
+    if elapsed >= seconds:
+        reason = 'wall_time_cap'
     peak_bytes = torch.cuda.max_memory_allocated(device) if device.type == 'cuda' else None
-    return state, np.stack(predictions), dict(
+    return state, host_predictions, dict(
         method='explicit_euler', update_kernel='dense_addmm' if dense_step is not None else 'generic_rhs',
+        observation_storage='simulation device until final export', export_seconds=export_seconds,
         dtype=str(inputs.dtype), step=step, last_step=last_step,
         requested_horizon=horizon, actual_horizon=current, steps=steps,
         times=times, observation_steps=observation_steps, losses=losses,
@@ -2180,7 +2221,7 @@ def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
         seconds=elapsed, wall_time_cap_seconds=seconds, within_wall_time_cap=elapsed <= seconds,
         training_seconds=training_seconds, training_loss_seconds=loss_seconds,
         query_seconds=query_seconds, query_refresh_seconds=refresh_seconds,
-        query_timing_scope='whole sparse query batches plus CPU copies, after readout refresh',
+        query_timing_scope='whole sparse query batches after readout refresh; final CPU export timed separately',
         seconds_per_step=training_seconds/max(1, steps),
         moving_scalars=sum(value.numel() for value in state),
         fixed_scalars=int(model.fixed_scalars), process_peak_cuda_bytes=peak_bytes,
@@ -2262,6 +2303,20 @@ def euler_small_checks(device='cpu'):
     _, _, fixed = integrate_euler(model, inputs, labels, queries, .001, 10.,
                                   horizon=.32, observation_every=320)
     assert fixed['loss_check_steps'] == [0, 256, 320], fixed
+    class AliasingModel:
+        fixed_scalars = 0
+        initial_state = [torch.zeros_like(labels)]
+
+        def rhs(self, state, inputs, labels):
+            return [torch.ones_like(state[0])]
+
+        def predict(self, state, queries, inputs, labels):
+            return state[0]  # Reporting must snapshot this mutable state alias.
+
+    _, snapshots, _ = integrate_euler(AliasingModel(), inputs, labels, inputs, .01, 10.,
+                                      horizon=.03, observation_every=1)
+    np.testing.assert_allclose(snapshots, np.arange(4)[:, None]*np.ones((1, len(labels)))*.01,
+                               rtol=0, atol=1e-14)
     return dict(manual_euler_max_abs=manual_error, terminal_query_max_abs=query_error,
                 fused_dense_max_abs=fused_error,
                 step_halving_state_differences=differences, step_halving_ratio=ratio,
@@ -4623,7 +4678,7 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
                                   [g[:, :len(labels)] for g in gates])
         for family, values in (('h', hs), ('delta', deltas)):
             for layer, value in enumerate(values):
-                fields[family][layer].append(value.cpu())
+                fields[family][layer].append(value.detach())
 
     shared_state, shared_predictions, shared_run = integrate(
         teacher, source_inputs, source_labels, source_inputs[:1], observation_times,
@@ -4654,6 +4709,7 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
         for layer, observations in enumerate(fields[family]):
             remaining()
             values = torch.stack(observations).to(device=device, dtype=torch.float64)
+            observations.clear()
             fields[family][layer] = []
             mandatory = values.new_empty((n, 0))
             if family == 'h':
@@ -4740,6 +4796,7 @@ def cubic_rollout_sources(dense, inputs, labels, source_queries, horizon=32., se
         partitions=partition_reports, training_count=len(inputs), passive_count=len(source_queries),
         passive_labels_used=False, scored_inputs_used=True, source_certificate=False,
         source_provenance='full-horizon dense RK4 rollout plus disposable residual precursor',
+        source_observation_storage=str(device), coefficient_fitting_device=str(device),
         timing_scope='paired shared setup; not native single-method preprocessing latency',
         total_setup_seconds=time.monotonic()-started, seconds_cap=min(float(seconds), 120.))
     return sources, report
@@ -4770,7 +4827,7 @@ def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed
                                   [g[:, :len(labels)] for g in gates])
         for name, values in (('h', hs), ('delta', deltas)):
             for layer, value in enumerate(values):
-                fields[name][layer].append(value.cpu())
+                fields[name][layer].append(value.detach())
     _, _, source_run = integrate(teacher, source_inputs, source_labels, source_inputs[:1],
                                  times, step, seconds, observer=observe)
     del teacher, source_inputs, source_labels, source_panel
@@ -4781,6 +4838,7 @@ def deep_rollout_sources(dense, inputs, labels, calibration, horizon, rank, seed
     for name in fields:
         for layer, observations in enumerate(fields[name]):
             values = torch.stack(observations).to(device=device, dtype=torch.float64)
+            observations.clear()
             blocks, square, count = [], 0., 0
             for nodes in intervals:
                 indices = np.searchsorted(times, nodes)

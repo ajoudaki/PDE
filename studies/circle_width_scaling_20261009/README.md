@@ -435,3 +435,40 @@ Full-horizon timing extrapolates to117.96s but was not measured again. The short
 check is under data/generated/circle_width_scaling_20261009/euler_performance_check/timing.json.
 No saved scientific trajectory or figure was replaced. Numerical implementation
 hashes change, so old and new runs must not silently be treated as identical code.
+
+### GPU-resident observations and source fitting
+
+The next user-requested correction removes avoidable device/host transfers.
+Training inputs and weights were already GPU-resident, but Euler/RK4 copied
+each recorded prediction to CPU; source observers copied dense fields to CPU,
+Harmonic fitted coefficients there, and Logarithmic later copied fields back.
+Predictions/report scalars are now buffered on the simulation device and
+exported at the end. Source snapshots remain on device; Harmonic fitting uses
+GPU batches of512 neurons rather than CPU batches of64. Logarithmic no longer
+round-trips its source observations. Source buffers therefore consume VRAM,
+not host RAM; no claim of reduced peak setup memory is made.
+
+Fixed-horizon intermediate finiteness flags are accumulated on device and all
+validated before results return; failures are not silently accepted. Loss-stop
+decisions still read a scalar, and model-internal Cholesky/domain/zero-clock
+gates remain immediate. Wall-clock GPU synchronizations remain. One-off
+CPU initialization/source hashing also remains for coupled-run provenance;
+this is outside the training loop, not repeated dataset/weight streaming.
+Small prediction snapshots use clone to protect against mutable state aliases.
+Euler/geometry checks and a scoped device/aliasing review passed.
+
+A single short comparison against commit764ae21 (so both sides already have
+the fused Euler update) is saved at
+data/generated/circle_width_scaling_20261009/gpu_transfer_check/timing.json.
+The same16384 seed706 dense run,1024 steps toT1.6, took5.8320s before and5.8865s
+after: no demonstrated training speedup. States and predictions were bitwise
+identical; final training MSE0.9621078968. The5 recorded38-input predictions
+occupy only760 bytes, consistent with reporting copies not being the dense
+runtime bottleneck. This was not another complete training run.
+
+At width2048,8 training points and the same circle data, T32 RK4 step0.125,
+degree8 and source rank14, complete Harmonic setup fell1.9057s to1.3242s
+(1.439x); new-partition Logarithmic setup fell4.8995s to3.7431s (1.309x).
+Source-subspace relative differences were4.61e-15 and5.61e-15. These are
+single short implementation comparisons, not repeated timing estimates or
+new compression-accuracy evidence. No old result array or figure was changed.
