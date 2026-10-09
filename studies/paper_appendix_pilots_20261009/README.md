@@ -1,5 +1,123 @@
 # Bounded appendix figure pilots
 
+## Three-seed Logarithmic width scaling
+
+### Outcome
+
+All18 width/seed cases have a tested model passing BOTH1x criteria.17 searches
+resolve the20% local accuracy bracket; n16384/seed1703 stops with a passing
+q2048 but an unresolved lower bracket because smaller constructors fail the
+unchanged condition16 limit. Do not confuse a passing feasible model with a
+resolved minimum-budget search. No further fits are pending or authorized by
+this batch.
+
+| Dense width | Passing q, seed1701 | Passing q, seed1702 | Passing q, seed1703 |
+|---:|---:|---:|---:|
+|512|256|256|192|
+|1024|347|256|448|
+|2048|448|384|576|
+|4096|384|512|448|
+|8192|576|576|640|
+|16384|512|3072|2048 (lower bracket unresolved)|
+
+For this d2,L2,m8 setup, learned storage is q^2+3q+8 and additional fixed
+storage is3q^2+1. At16384 the passing learned states are263688,9446408,4200456:
+the new seeds show a real large-budget jump, not a missing plotted pass.
+Seed1702 resolves q2560(fail)/3072(pass), with endpoint ratio0.943553 and
+maximum-recorded ratio0.104443 at3072. Seed1703 passes at2048 with ratios
+0.170464/0.128571; q1024,1536,1792 fail construction (condition numbers
+43.9988703,19.7561546,16.6705085 after64 candidates). Its last measured
+accuracy failure is q512, so a20% accuracy bracket is NOT established.
+Seed1702 also has a preserved q1024 construction failure. These four cases
+are inconclusive, not scored accuracy failures.
+
+Full-range plots/metrics retain all18 cases in
+`logarithmic_three_seeds/figures/`; full six-width exponent fits are withheld.
+The separate explicitly COMPLETE-CASE fit on512,1024,2048,4096,8192 gives:
+
+| Learned-state aggregate | C in C(log n)^p | p | Log-space RMS residual |
+|---|---:|---:|---:|
+|Arithmetic mean|15.94398152|4.570877858|0.195617013|
+|Median|40.31404820|4.100444824|0.126003531|
+
+These plots/metrics are in `logarithmic_three_seeds/figures_complete_widths/`.
+Median storage is nondecreasing, with a plateau at2048/4096; the mean dips
+10.2% there. This is a descriptive finite-range empirical fit, NOT a proof
+of logarithmic asymptotics, a fitted three-power law, or a fit covering16384.
+The omitted high-width budget jump must remain visible when reporting it.
+
+Execution:55 completed new compressed Euler trajectories,4 constructor
+failures,12 source compilations,0 new dense-reference runs. Summed source
+time169.92s and compressed trajectory time863.54s across two parallel GPUs;
+individual completed trajectories14.49--30.85s. These sums are not wall-clock
+elapsed time and exclude miscellaneous construction/driver overhead.
+
+Checks: root verified ALL12 inherited dense/data archives bitwise unchanged,
+all55 finite trajectories reaching T32 in5120 Euler updates within the time
+cap, and only `budget_seed_plot` changed among code definitions. The plot
+recomputes errors, storage counts, selected brackets and source/data hashes.
+Scoped plot support additionally reproduced the18 prior Harmonic rows exactly
+and checked old/new numerical-source call-graph equivalence. Visual rendering
+was inspected. These are saved-array/implementation consistency checks, not
+a new Euler refinement certificate or independent full-campaign reproduction.
+The bounded-experiment workflow preserved preregistered settings and negative
+outcomes. No theorem, source order, threshold or construction was repaired to
+improve this result.
+
+Reproduce new searches with `refine-budgets --plan` and the two plans below,
+changing only their output directories for a fresh reproduction. The actual
+queues used the frozen numerical executable from
+`harmonic_low_width_seeds/seed1702/dense/n512/source.py` (SHA256
+`cf5a789e1d7ca5f77c23893d46283d8763db5465aa8679b550f82fb5bc667015`),
+`/home/amir/miniconda3/bin/python -B -u`, and `timeout 1200`, one queue per GPU.
+Plot via `paper/figures/capture_trajectory.py budget-seed-plot --family
+logarithmic --fit-log-powers --runs <roots> --out <fresh directory>`: roots
+are the six `circle_strict/nN/nN` seed1701 runs plus all twelve
+`logarithmic_three_seeds/seed1702/nN` and `seed1703/nN` runs. The complete-case
+plot uses the identical command with ALL THREE16384 roots explicitly omitted.
+Every generated path above is relative to
+`data/generated/paper_appendix_pilots_20261009/`.
+
+### Frozen design
+
+User requests the Logarithmic analogue of the full-width Harmonic mean/median
+plots and descriptive exponents. Reuse the strict20% seed1701 Logarithmic
+searches at512,1024,2048,4096,8192,16384 in `circle_strict/nN/nN`, and ALL saved
+dense pairs for reference seeds1702/1703. Rebuild only the12 missing Logarithmic
+source/model searches; no dense or Harmonic fits. Model/data/precision/clock
+remain d2 circle, dataset47,m8,p30,L2 tanh, Euler1/160,T32,65 observations,
+float32/TF32off. Both endpoint and maximum-recorded query RMS must meet their
+OWN independent dense-pair benchmarks (1x). No pointwise/GF certificate implied.
+
+Preserve the ORIGINAL Logarithmic source schedule at each dense width:
+maximum ranks25,30,36,42,48,79 respectively, same for all three seeds. Compile
+once per width/seed; candidate rank is the smaller of its frozen maximum and
+`max(1,floor((q/4-17)/3))`. These are intentionally width-dependent caps,
+including the original larger16384 source, NOT a uniform-rank family. Do not
+retune them per seed or substitute Harmonic's fixed42 source. Temporal degree8,
+RK4h0.125,float32 rollouts/float64 coefficients, new residual-based partition,
+uniform64-candidate selector, condition16, original readout-floor rule unchanged.
+All30 query INPUTS are declared at setup; their labels are withheld. Panel-span
+projection is disabled. This practical compiler uses full-horizon dense sources
+and empirical source-rank truncation, not certified initialization jets.
+
+Start compact width256, double to at mostmin(8192,n-1), and bisect to20% local
+width brackets. At most8 requests per new width/seed (96 total),120s per
+source/fit and20-minute cap for each of two GPU queues. Preserve every miss
+and construction/numerical failure; no rescue seed/order/grid. Existing seed1
+had smaller resource caps and inherited earlier candidates, which remain
+disclosed; these brackets are local sampled crossings, not global optima.
+
+Compare all individual learned states, arithmetic means and medians on the
+same complete widths. Fit log(aggregate learned state) against log(log n),
+equal weight per width; report both descriptive powers and residuals. No
+monotonicity is imposed; incomplete groups cannot silently enter aggregate
+fits. Any complete-case subset fit must explicitly name omitted widths.
+Root owns plans/runs/README/Git; scoped support checks original protocol and
+generalizes only `budget-seed-plot --family logarithmic`. Plans:
+`logarithmic_seed1702_search.json`,1703 counterpart. Generated outputs:
+`data/generated/paper_appendix_pilots_20261009/logarithmic_three_seeds/`.
+
 ## Full-width three-seed Harmonic continuation
 
 ### Final outcome after the approved cap extension
