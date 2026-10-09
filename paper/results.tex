@@ -2,23 +2,33 @@
 \label{sec:alltime}
 
 The theorem prescribes the compressed sizes; internal orders have already
-been chosen. Its benchmark is the actual dense-law quantile in
-\eqref{eq:intrinsic-benchmark}, not a potentially loose upper bound for it.
+been chosen. Its benchmark is the realized discrepancy of independent
+dense runs in the norm \eqref{eq:test-norm}, not an upper bound or a
+fixed-confidence quantile of that discrepancy.
 
-\begin{theorem}[Compression below dense-run variability]
+\begin{theorem}[Compression with negligible relative error]
 \label{thm:compression}
 Fix the admissible data, activations and depth of \Cref{sec:setting}, with
-$m\ge2$, $Y>0$ and $m/\gamma\ge1$. For every sufficiently large individual
-width $n$, each construction below satisfies
+$m\ge2$, $Y>0$ and $m/\gamma\ge1$. Each construction below can be
+chosen with the stated storage so that, as $n\to\infty$,
 \begin{equation}
- \norm{f_{\mathrm{model}}-f_n}_{\mathcal X}
- \le 3b_n(\mathcal X)
- \qquad\text{with probability at least }99\%.
+ \frac{\norm{f_{\mathrm{model}}-f_n}_{\mathcal X}}
+      {\norm{f_n-\widetilde f_n}_{\mathcal X}}
+ \xrightarrow{\mathbb P}0.
  \label{eq:common-compression}
 \end{equation}
-Here $f_n$ is its coupled ordinary dense reference, and $\mathcal X$ is
-the query domain specified below. The comparison holds simultaneously
-over that domain, all physical training times and the fitted endpoint.
+Here $f_n$ is its coupled ordinary dense reference, $\widetilde f_n$
+is an independent dense run, and $\mathcal X$ is the query domain
+specified below. Both norms cover that entire domain, all physical
+training times and the fitted endpoint. In addition, Harmonic and
+Logarithmic attain
+\begin{equation}
+ \norm{f_{\mathrm{model}}-f_n}_{\mathcal X}\le\frac Yn
+ \qquad\text{with probability at least }1-\delta
+ \label{eq:selected-absolute-accuracy}
+\end{equation}
+for every fixed $0<\delta<1$ and sufficiently large individual width,
+with the same storage orders below.
 
 The following are sufficient real-coordinate bounds. Legendre and Harmonic
 cover the whole sphere; their learned and total states, respectively, satisfy
@@ -52,10 +62,7 @@ These are real-coordinate, not bit-complexity, bounds.
 The $n^{o(1)}$ in \eqref{eq:headline-legendre} can be taken as
 $[\log(en)]^2\exp(\sqrt{\log(en)}/2)$, up to $C$.
 
-In fact, each construction can achieve error negligible in probability
-relative to an independent dense pair's discrepancy on its own query
-domain. Harmonic and Logarithmic can both attain absolute error $Y/n$
-with the displayed storage orders. No dense training trajectory or later
+No dense training trajectory or later
 trained weight is an input to their theoretical initialization procedure.
 \end{theorem}
 
@@ -69,12 +76,18 @@ exponent is $5/4$, not $1$.
 
 \paragraph{The qualification is shared, not hidden.}
 Sufficiently large means a finite threshold for each fixed admissible
-problem and confidence. It covers the source event, stability and tail
+problem, confidence and, for a finite-width relative comparison, chosen
+positive relative-error tolerance. It covers the source event, stability and tail
 bounds, internal-order overheads, and dense lower-bound onset; no
 polynomial bound on that threshold is proved. The theorem does not assert
 one event over infinitely many independently initialized widths or a
 uniform limit with growing data. Its small-label hypothesis is fixed
-as $n$ grows. The more general recurrence-defined label allowance and
+as $n$ grows. In particular, the onset depends on the positive label size
+$Y$; the displayed $Y$-dependence is not uniform as $Y\downarrow0$.
+The explicit source gates can require astronomically large widths,
+and the dimension-count gates are also eventual. These certificates
+are asymptotic, not practical width predictions. The more general
+recurrence-defined label allowance and
 the exact finite-width statements remain in the appendix.
 
 For the last construction, availability of the passive inputs is
@@ -100,8 +113,8 @@ fluctuating initial prediction velocity. Analytic-time estimates transfer
 it to an actual, positive-time prediction difference. This is not an
 endpoint lower bound; fitted trajectories agree on the training labels.
 
-The compressed errors are made smaller than this lower scale without
-using its unknown quantile as an algorithmic input. Thus the theorem is
+The compressed errors are made asymptotically smaller than this lower
+scale without measuring dense variability as an algorithmic input. Thus the theorem is
 not certified by comparing two upper bounds. The panel lower-bound
 transfer and the assembly of all three optimized-size claims are given
 in \Cref{sec:panel-headline-proof}; the full dense upper and lower

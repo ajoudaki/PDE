@@ -104,16 +104,21 @@ source-event onsets, the numerical gates used below are
  \sqrt\ell\ge \frac{a}{64YSU}
        \max\{8,\lambda,4\mathcal K/\log2,32YSD_W\},
  \label{eq:panel-old-gates}\\
- \max\left\{4\mathcal K r_n,
-     \frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n\right\}<\log(3/2),
+ 4\mathcal K r_n+
+     \frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n<\log(3/2),
  \qquad B_n=1+\frac{S^2}{\eta_{\rm src}}\log(e+\ell),
  \label{eq:panel-new-gate}
 \end{gather}
 where the finite coefficient \(C_g\) is given in
 \eqref{eq:panel-gradient-derivative} below.  The fitted-tail and degree
 gates are \eqref{eq:panel-tolerance} and \eqref{eq:panel-degree-gate}.
-Every displayed gate holds eventually at fixed parameters.  The
-probability onset is qualitative: no effective polynomial threshold,
+Every displayed gate holds eventually at fixed parameters.  Already
+\(\ell\ge2\mathcal B\) requires
+\(n\ge\exp(2048e^2L-1)\), which exceeds \(10^{13143}\) at
+the minimum depth \(L=2\).  This deterministic requirement is far
+beyond practical widths; the remaining gates and the probability onset
+may require still larger widths.  The probability onset is qualitative:
+no effective polynomial threshold,
 uniform growing-panel statement, or simultaneous event over infinitely
 many independent widths is asserted.
 
@@ -288,8 +293,15 @@ Products on ordered disjoint subsegments have the same bound: use the
 same frozen generator and add their nonnegative growth integrals.
 Forward real segments contract.  The negative-real corner instead has
 length at most \(2r_n\) and costs at most \(e^{4\mathcal K r_n}\).
-Thus \eqref{eq:panel-new-gate} supplies a product bound below \(3/2\),
-strictly within the factor two required in
+A common bound for the resulting products is therefore
+\begin{equation}
+ e^{4\mathcal K r_n}
+ \exp\left(\frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n\right)
+ =\exp\left(4\mathcal K r_n+
+              \frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n\right)<\frac32,
+ \label{eq:panel-product-bound}
+\end{equation}
+by \eqref{eq:panel-new-gate}.  This is strictly within the factor two required in
 \eqref{int:eq-0126-ic-8} and \eqref{int:eq-0169-ic-51}.
 This is established \emph{before} Gaussian insertion.
 
@@ -298,8 +310,11 @@ The extra activity is at most \(8Yr_n\).  The original gates give
 cap \(S\), strict operator margins inside ten, and
 \(\rho/S\le\lambda/8\).  These are all the physical hypotheses
 of \eqref{int:eq-0121-ic-4}.  Since
-\(B_nr_n=O(\log(e+\ell)/\sqrt\ell)\), the added propagator gate
-is eventual without a new label restriction.
+\(r_n=O(\ell^{-1/2})\) and
+\(B_nr_n=O(\log(e+\ell)/\sqrt\ell)\), both exponents in
+\eqref{eq:panel-product-bound} tend to zero at fixed parameters.
+The summed propagator gate is therefore eventual without a new label
+restriction.
 
 \subsection{Transfer of the source proof to the larger domain}
 \label{sec:panel-source-transfer}
@@ -354,7 +369,7 @@ independent reverse operator.
 Fourth, the trace expansion
 \eqref{int:eq-0166-ic-48}--\eqref{int:eq-0175-ic-57} requires products
 over ordered disjoint base-propagator segments, exactly as verified in
-\eqref{eq:panel-unitary-bound}.  Its ordered residual integrals remain
+\eqref{eq:panel-product-bound}.  Its ordered residual integrals remain
 bounded by \(S^h/h!\).  Thus its Schatten coefficients, direct exterior
 trace, learned row/column terms, and sample-RMS factors are unchanged.
 In particular the scalar absorption \eqref{int:eq-0190-s-16} and
@@ -733,15 +748,25 @@ fixed \(0<\delta_0<1\), eventually
 \]
 for the declared panel \(\mathcal X\), with exactly the positive
 coefficient in \S\ref{int:dense-trajectory-lower}.  This is not an
-endpoint lower bound.  In particular, taking \(\delta_0=1/2\)
-puts the displayed lower scale below the fixed \(99.99\%\) quantile
-\(b_n(\mathcal X)\): every smaller threshold has cumulative
-probability at most \(1/2\).  The error \(Y/n\) proved above is
-eventually below that scale and hence below \(3b_n(\mathcal X)\).
-More strongly its ratio to realized independent-dense panel discrepancy
-tends to zero in probability, by first fixing arbitrary \(\delta_0\)
-and then letting \(n\) grow.  Independence between the compressed
-construction and the lower event is unnecessary; a union bound suffices.
+endpoint lower bound.  Apply the absolute-error theorem above with
+failure probability \(\delta_0\) as well.  On the intersection of
+the upper and lower events, whose probability is at least
+\(1-2\delta_0\),
+\[
+ \frac{\|f_C-f_n\|_{\mathcal X}}
+      {\|f_n-\widetilde f_n\|_{\mathcal X}}
+ \le\frac{[\log(en)]^{5/2}}
+ {c_{\phi,L,\delta_0}\sqrt{\gamma n}}
+ \longrightarrow0.
+\]
+For every fixed positive ratio tolerance, the limsup of its failure
+probability is therefore at most \(2\delta_0\).  Since
+\(\delta_0\) is arbitrary, this proves convergence in probability,
+not merely a constant-factor comparison.  The successful source events
+also supply the fitted limits, and the lower event excludes a zero
+denominator, so the stated failure convention causes no extra term.
+Independence between the compressed construction and the lower event
+is unnecessary; a union bound suffices.
 
 This proves the Logarithmic row and its all-time comparison in
 Theorem~\ref{thm:compression}.  The other two rows use their unchanged
@@ -754,7 +779,14 @@ source count and inverse are in
 inverse \eqref{int:eq-0021-harmonic-inverse} rather than its optional
 small-label simplification.  Their full-sphere errors also become
 negligible relative to the corresponding dense-pair discrepancy at
-the displayed orders.  Fixed-confidence intersections cost only a
+the displayed orders.  More explicitly, Legendre's error bound
+\eqref{int:eq-0397-joint-legendre-accuracy} divided by the dense lower
+scale is at most a fixed-problem, fixed-confidence multiple of
+\([\log(en)]^{-1/2}\); Harmonic's \(Y/n\) bound gives the same
+ratio estimate as above.  Their upper events attain every fixed
+confidence at eventual width, so the same arbitrary-failure-budget
+argument proves \eqref{eq:common-compression} for both sphere models.
+These intersections cost only a
 change in the qualitative sufficient width, not in the storage powers.
 The query domains remain distinct: a declared-panel certificate is not
 an unseen-input theorem.  No input-span condition, passive-label use,

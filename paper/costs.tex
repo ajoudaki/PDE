@@ -38,10 +38,16 @@ must then be reported as setup. Such an implementation is not evidence
 for a cheap initialization-only algorithm.
 
 \paragraph{Which efficient setup bounds are already available.}
-Harmonic has two separately certified implementations. At fixed problem
-parameters, explicit dense continuation costs near-quadratic arithmetic
-work; implicit Gaussian continuation costs near-linear work by revealing
-only the random matrix actions actually needed. The latter samples a fresh
+Harmonic has two separately certified implementations. For the exact
+absolute target $Y/n$, the inverse certificate prescribes a longer source
+horizon and a tighter source tolerance; \Cref{app:execution-costs} gives
+their substitution into both setup bounds. At fixed positive label size
+and other problem parameters, the arithmetic work is $n^2$ times a
+polylogarithm in $n$ for explicit dense continuation, and $n$ times a
+polylogarithm in $n$ for implicit Gaussian continuation. The latter reveals
+only the random matrix actions actually needed. These rates inherit the
+source and dimension width gates; they
+are not uniform as labels shrink or dimension grows. The latter samples a fresh
 coupled dense reference: it cannot read a supplied dense matrix in
 subquadratic time. Their temporary arrays are discarded before deployment.
 

@@ -10,7 +10,8 @@ builders. It is a working paper, not promotion into the maintained Quarto book.
 
 - `main.tex`: canonical network setup, motivation, discussion and appendix guide.
 - `results.tex`: one prescribed-size compression theorem for all three methods,
-  actual dense variability and the theoretical consequences.
+  negligible error relative to actual dense variability and the theoretical
+  consequences.
 - `methods.tex`: retained states, update rules and the core theoretical ideas.
 - `costs.tex`: interpretation of setup, runtime and query resources;
   initialization-only information is distinct from cheap initialization.
@@ -22,10 +23,15 @@ builders. It is a working paper, not promotion into the maintained Quarto book.
   earlier experimental illustrations, preserved with their original scope.
 - `references.bib`: literature bibliography.
 
-Main-text constants depend only on activation and fixed depth. Error is
-absolute. The benchmark is the 99.99% quantile of actual independent-dense
-discrepancy on the promised query domain, with compression success at least 99%; structural parameters
-remain distinct. The appendix retains label factors, arbitrary
+Main-text constants depend only on activation and fixed depth. All three
+headline constructions have compression error divided by actual independent
+dense-run discrepancy tending to zero in probability, on the same promised
+query domain and over the entire training trajectory including its endpoint.
+Harmonic and Logarithmic additionally attain absolute error `Y/n` at every
+fixed confidence for sufficiently large width, with the displayed storage
+orders unchanged. The older quantile/factor-three comparison belongs only
+to the separate supplementary seeded decoder and historical experiments.
+Structural parameters remain distinct. The appendix retains label factors, arbitrary
 confidence, full label allowance, width gates, internal setup orders, and
 finite-word evaluator/access costs. Its notation correspondence and a linked
 page guide precede the detailed material.
@@ -71,6 +77,17 @@ The current unified-framing integration and its bounded checks are recorded in
 The new panel appendix was read against its complete flaring/adaptive sources;
 the inherited proof library was not freshly re-reviewed in its entirety.
 
+The subsequent targeted feedback revision corrects the panel propagator's
+summed-exponent gate, explicitly specializes both Harmonic setup bounds to
+the exact `Y/n` target, and makes label-sensitive eventual-width qualifications
+prominent. It also separates `Seed` from the finite-panel Logarithmic model,
+disambiguates proof-local radii, thresholds and quantiles, states the source
+event formally, and repairs identified proof-interface and cross-reference
+omissions. The headline storage orders and error conclusions are unchanged.
+These are scoped checks of the supplied feedback, not a fresh independent
+review of the entire manuscript. Decisions and verification are recorded in
+the framing study linked above.
+
 ## Build
 
 From `paper/`, use a fresh study-owned output directory to keep auxiliary
@@ -78,7 +95,7 @@ files out of the manuscript folder. The current integration build is:
 
 ```bash
 latexmk -pdf -interaction=nonstopmode -halt-on-error \
-  -outdir=/home/amir/Codes/PDE/data/generated/response_compression_framework_20261008/paper_kvJ010 \
+  -outdir=/home/amir/Codes/PDE/data/generated/response_compression_framework_20261008/paper_polylog_wording_mCvoqI \
   main.tex
 ```
 

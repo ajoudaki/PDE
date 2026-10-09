@@ -25,13 +25,13 @@
 This appendix contains the full dense, Legendre and Harmonic certificates,
 their common source and stability machinery, and a separate seeded
 finite-word decoder. The latter is supplementary: it is not the finite-panel
-Logarithmic construction of \Cref{thm:compression}. Its local notation
-$f_{\rm Log}$ and its word counts are retained in its own proof only.
-The new construction and the assembly of the current theorem appear in
+Logarithmic construction of \Cref{thm:compression}. Its notation
+$f_{\rm Seed}$ and its word counts refer only to that supplementary decoder.
+The finite-panel construction and the assembly of the current theorem appear in
 \Cref{sec:panel-proof,sec:panel-headline-proof}, which invoke the shared
 lemmas below and prove the additional flaring-domain estimates in full.
 Unless explicitly qualified otherwise, the norm $\norm{\cdot}_*$ in this
-library is the whole-sphere norm. In the new appendix it is replaced by
+library is the whole-sphere norm. In the panel appendix it is replaced by
 the declared-panel norm. Decoder-local $p$ is a moment order, not the
 number of passive inputs in the main theorem.
 
@@ -42,6 +42,14 @@ exactly \(W^{(1)}\) in the main text. The hidden matrices
 normalizations are unchanged. In particular, \(h^{(0)}=x/\sqrt d\),
 and the prediction is \(w^\top h^{(L)}/n\). This correspondence avoids
 changing proof-local notation or introducing a second model.
+
+Symbols introduced inside a proof or execution ledger are local to that
+section. In particular, \(\ell=\log(en)\) is a logarithmic shorthand
+only where explicitly defined; it is not a layer index there.
+The horizon \(T_n\), Legendre absorption threshold \(q_{\rm abs}\),
+extension radius \(b_{\rm ext}\), numerical restart radius
+\(r_{\rm tube}\), and variability quantile \(b_n(\alpha)\) have
+distinct roles and retain these distinct names throughout.
 
 
 % SOURCE 353--353: heading
@@ -327,7 +335,7 @@ The original construction at source tolerance \(1/n\) remains valid with its sha
 
 % SOURCE 568--568: heading
 \subsubsection{Seeded decoder versus an independent dense reference}
-\label{int:logarithmic-forward-interface}
+\label{int:seeded-forward-interface}
 
 % SOURCE 570--571: paragraph
 
@@ -345,7 +353,7 @@ p=\max\left\{1,\left\lceil
 Z=\log(en)+\log\left(e+
 \frac{(m+d+2)\beta^{100L}(1+m/\gamma)}\delta\right).
 }
-\label{int:eq-0007-logarithmic-decoder-orders}
+\label{int:eq-0007-seeded-decoder-orders}
 \end{equation}
 \endgroup
 
@@ -362,7 +370,7 @@ p_{\rm ref}=\max\left\{1,\left\lceil
 \frac{\log(2^{22}emL/\delta)}{\log(64e^2)}
 \right\rceil\right\}.
 }
-\label{int:eq-0008-logarithmic-reference-order}
+\label{int:eq-0008-seeded-reference-order}
 \end{equation}
 \endgroup
 
@@ -382,7 +390,7 @@ C_*\left[
 \right]^{1100},\;Y^{-1},\;C_{\rm num}
 \right\}.
 }
-\label{int:eq-0009-logarithmic-explicit-width}
+\label{int:eq-0009-seeded-explicit-width}
 \end{equation}
 \endgroup
 
@@ -409,7 +417,7 @@ e^{c_1Y^2\sqrt{\log(en)}}
 C\beta^{4L}(1+m/\gamma).
 \end{aligned}
 }
-\label{int:eq-0010-logarithmic-dense-certificate}
+\label{int:eq-0010-seeded-dense-certificate}
 \end{equation}
 \endgroup
 
@@ -422,9 +430,9 @@ The positive coefficients \(c_0,\allowbreak c_1\) are the inherited fixed-proble
 \begingroup\renewcommand{\theHequation}{intdisplay.14}
 \begin{equation}
 \intdisplay{
-\|f_{\rm Log,n}-f_n^{\rm ind}\|_*\le3B_n
+\|f_{\rm Seed,n}-f_n^{\rm ind}\|_*\le3B_n
 }
-\label{int:eq-0011-logarithmic-forward}
+\label{int:eq-0011-seeded-forward}
 \end{equation}
 \endgroup
 
@@ -445,7 +453,7 @@ Its learned and total retained storage are both at most a universal multiple of
 p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
 \bigl[d+1+\log(e+(d+1)Z)\bigr]
 }
-\label{int:eq-0012-logarithmic-word-storage}
+\label{int:eq-0012-seeded-word-storage}
 \end{equation}
 \endgroup
 
@@ -456,7 +464,7 @@ numerical words, each of sufficient length \(C\beta^{110L}Z\) bits. This include
 
 % SOURCE 642--647: paragraph
 
-The independent intrinsic certificate, with exactly the same construction, is \(2b_n(\delta)+A_{\rm num}Yn^{-10}\); see \hyperref[int:intrinsic-variability-comparison]{its complete proof}. For \(m\ge2,\allowbreak Y>0\) it is at most \(3b_n(\delta)\) eventually. Neither this nor the additional analytic bound \(3B_n\) asserts Harmonic's stronger matched-reference \(n^{-1+o(1)}\) error or a vanishing random-discrepancy ratio.
+The independent intrinsic certificate, with exactly the same construction, is \(2b_n(\delta/32)+A_{\rm num}Yn^{-10}\); see \hyperref[int:intrinsic-variability-comparison]{its complete proof}. For \(m\ge2,\allowbreak Y>0\) it is at most \(3b_n(\delta/32)\) eventually. Neither this nor the additional analytic bound \(3B_n\) asserts Harmonic's stronger matched-reference \(n^{-1+o(1)}\) error or a vanishing random-discrepancy ratio.
 
 
 % SOURCE 650--650: heading
@@ -529,7 +537,7 @@ For each certificate choose the smallest permitted integer size/order whose righ
 
 % SOURCE 698--706: paragraph
 
-The following simpler prescriptions describe polynomial accuracy \(\varepsilon=n^{-\Theta(1)}\), with structural parameters and confidence fixed and \(n\) sufficiently large: the accuracy may lie between two different fixed negative powers of \(n\), not necessarily \(1/n\). This does not identify or order \(m,\allowbreak d,\allowbreak L,\allowbreak 1/\gamma\). The common eventual convention absorbs fixed coefficients inside logarithms. For the user's large-parameter simplification use \(m/\gamma\ge1\); otherwise replace that ratio by \(1+m/\gamma\) in the dense/Legendre prescriptions.
+The following simpler prescriptions describe polynomial accuracy \(\varepsilon=n^{-\Theta(1)}\), with structural parameters and confidence fixed and \(n\) sufficiently large: the accuracy may lie between two different fixed negative powers of \(n\), not necessarily \(1/n\). This does not identify or order \(m,\allowbreak d,\allowbreak L,\allowbreak 1/\gamma\). The common eventual convention absorbs fixed coefficients inside logarithms. For the large-parameter simplification use \(m/\gamma\ge1\); otherwise replace that ratio by \(1+m/\gamma\) in the dense/Legendre prescriptions.
 
 
 % SOURCE 708--708: heading
@@ -752,13 +760,13 @@ There is no order to optimize after choosing \(n\). For a requested \(\varepsilo
 \intdisplay{
 3B_n\le\varepsilon
 }
-\label{int:eq-0024-logarithmic-inverse-error-test}
+\label{int:eq-0024-seeded-inverse-error-test}
 \end{equation}
 \endgroup
 
 % SOURCE 832--834: paragraph
 
-together with \eqref{int:eq-0009-logarithmic-explicit-width}, and then run the prescribed finite-source construction. At fixed admissible problem parameters and confidence,
+together with \eqref{int:eq-0009-seeded-explicit-width}, and then run the prescribed finite-source construction. At fixed admissible problem parameters and confidence,
 
 
 % SOURCE 835--838: display
@@ -767,24 +775,24 @@ together with \eqref{int:eq-0009-logarithmic-explicit-width}, and then run the p
 \intdisplay{
 n(\varepsilon)=\varepsilon^{-2+o(1)}
 }
-\label{int:eq-0025-logarithmic-inverse-width-rate}
+\label{int:eq-0025-seeded-inverse-width-rate}
 \end{equation}
 \endgroup
 
 % SOURCE 839--839: paragraph
 
-suffices. Substitution into \eqref{int:eq-0012-logarithmic-word-storage} gives
+suffices. Substitution into \eqref{int:eq-0012-seeded-word-storage} gives
 
 
 % SOURCE 840--845: display
 \begingroup\renewcommand{\theHequation}{intdisplay.29}
 \begin{equation}
 \intdisplay{
-\operatorname{storage}_{\rm Log}
+\operatorname{storage}_{\rm Seed}
 =O\!\left([\log(1/\varepsilon)]^6
 \log\log(e^e+1/\varepsilon)\right)
 }
-\label{int:eq-0026-logarithmic-inverse-word-storage}
+\label{int:eq-0026-seeded-inverse-word-storage}
 \end{equation}
 \endgroup
 
@@ -800,7 +808,7 @@ numerical words and
 O\!\left([\log(1/\varepsilon)]^7
 \log\log(e^e+1/\varepsilon)\right)
 }
-\label{int:eq-0027-logarithmic-inverse-bit-storage}
+\label{int:eq-0027-seeded-inverse-bit-storage}
 \end{equation}
 \endgroup
 
@@ -882,14 +890,14 @@ The full-width exact fallback uses the dense row. Legendre rows use streamed cor
 
 % SOURCE 902--904: paragraph
 
-The Seeded decoder uses finite-word rather than unit-cost real arithmetic, so its costs are stated separately. With \(p,\allowbreak Z\) as in \eqref{int:eq-0007-logarithmic-decoder-orders}, put
+The Seeded decoder uses finite-word rather than unit-cost real arithmetic, so its costs are stated separately. With \(p,\allowbreak Z\) as in \eqref{int:eq-0007-seeded-decoder-orders}, put
 
 
 % SOURCE 905--908: display
 \begingroup\renewcommand{\theHequation}{intdisplay.31}
 \begin{equation*}
 \intdisplay{
-M_{\rm Log}=p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+M_{\rm Seed}=p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
 \bigl[d+1+\log(e+(d+1)Z)\bigr].
 }
 \end{equation*}
@@ -910,15 +918,15 @@ Up to universal multiplicative constants:
 \endhead
 \multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Seeded decoder phase: Initialization}} \\
 Word operations & \inttablemath{n(d+1)p^5\beta^{1115L}(m+d+2)^5(1+m/\gamma)^5Z^{29/2}} \\
-Peak numerical words & \inttablemath{M_{\rm Log}+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2}+p^3\beta^{603L}(m+d+2)^3(1+m/\gamma)^3Z^{15/2}} \\
+Peak numerical words & \inttablemath{M_{\rm Seed}+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2}+p^3\beta^{603L}(m+d+2)^3(1+m/\gamma)^3Z^{15/2}} \\
 \addlinespace[0.45em]
 \multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Seeded decoder phase: Complete compact training}} \\
 Word operations & \inttablemath{(d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4Z^{12}\log(e+p\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2})} \\
-Peak numerical words & \inttablemath{M_{\rm Log}} \\
+Peak numerical words & \inttablemath{M_{\rm Seed}} \\
 \addlinespace[0.45em]
 \multicolumn{2}{@{}p{0.96\linewidth}@{}}{\textbf{Seeded decoder phase: One unseen-input query}} \\
 Word operations & \inttablemath{(d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4[(L+1)nZ^{12}+Z^{14}]} \\
-Peak numerical words & \inttablemath{M_{\rm Log}} \\
+Peak numerical words & \inttablemath{M_{\rm Seed}} \\
 \addlinespace[0.45em]
 \bottomrule
 \end{longtable}
@@ -1061,7 +1069,7 @@ n\log(en)^5\gtrsim_{\phi,L,\delta}\frac{Y^2\gamma}{\varepsilon^2}.
 
 % SOURCE 1004--1006: paragraph
 
-Thus its parameter count is \(\Omega(\varepsilon^{-4}/\log(1/\varepsilon)^{10})\) at fixed problem. This is not a lower bound against arbitrary compressed representations.
+Thus, among widths meeting the lower theorem's onset, its parameter count is \(\Omega(\varepsilon^{-4}/\log(1/\varepsilon)^{10})\) at fixed problem. This argument does not exclude exceptional widths below that onset and is not a lower bound against arbitrary compressed representations.
 
 
 % SOURCE 1008--1008: heading
@@ -1090,7 +1098,7 @@ Harmonic can target \(n^{-1}\), or use its original \(n^{-1+o(1)}\) specializati
 
 % SOURCE 1026--1028: paragraph
 
-This compares complete trajectory norms, not endpoint errors or pointwise-in-time ratios. Confidence dependence of the lower coefficient is retained in this probability argument.
+This compares complete trajectory norms, not endpoint errors or pointwise-in-time ratios. Confidence dependence of the lower coefficient is retained; the arbitrary-failure-budget argument is given in \Cref{sec:panel-headline-proof}.
 
 
 % SOURCE 1033--1033: heading
@@ -1178,7 +1186,7 @@ The remaining common gates have exactly these origins:
 
 % SOURCE 1108--1116: paragraph
 
-These finitely many eventual conditions have a common finite threshold for every fixed admissible problem and confidence. This assertion does not give a numerical value for its stochastic portion, or prove that the threshold is polynomial in sample count, gap or depth. The exact deterministic gates are listed and derived below; none is silently put inside an error constant. At a width satisfying these gates, the same event covers every permitted Legendre order and Harmonic budget. The arbitrary-accuracy Harmonic construction introduces no extra stochastic event depending on its internal horizon or source tolerance.
+These finitely many eventual conditions have a common finite threshold for every fixed admissible problem and confidence, including the fixed positive label size. This assertion does not give a numerical value for its stochastic portion, or prove that the threshold is polynomial in sample count, gap or depth. The exact deterministic gates are listed and derived below; none is silently put inside an error constant. For a common canonical dense initialization at a width satisfying these gates, the same event covers every permitted Legendre order and Harmonic budget. The arbitrary-accuracy Harmonic construction introduces no extra stochastic event depending on its internal horizon or source tolerance. The implicit initializer transfers this statement to each prescribed coupled execution; independently restarted initializers do not share one success event.
 
 
 % SOURCE 1118--1122: paragraph
@@ -2239,7 +2247,7 @@ S_D(n)\ge
 
 % SOURCE 1671--1674: paragraph
 
-The proof below establishes the resulting fixed-task storage order \(\varepsilon^{-4}/\log(1/\varepsilon)^{10}\) up to a positive fixed-task coefficient. This is a statement about independent canonical dense runs, not arbitrary alternative representations.
+The proof below establishes the resulting fixed-task storage order \(\varepsilon^{-4}/\log(1/\varepsilon)^{10}\) up to a positive fixed-task coefficient, among widths beyond that onset. This is a statement about independent canonical dense runs, not arbitrary alternative representations or exceptional smaller widths.
 
 
 % SOURCE 1677--1677: heading
@@ -2852,7 +2860,7 @@ The local scalar \(d_1\) here is a gradient coefficient, not the input dimension
 \begingroup\renewcommand{\theHequation}{intdisplay.135}
 \begin{equation}
 \intdisplay{
-T_n=4(L-1)F_hB_d\sqrt{a_0}\,\mathcal A_n,
+q_{\rm abs}=4(L-1)F_hB_d\sqrt{a_0}\,\mathcal A_n,
 \qquad C_n=4(L-1)C_f\mathcal A_nF_h(b_0+b_1),
 \qquad U=12HY\sqrt{m/\gamma}.
 }
@@ -2871,7 +2879,7 @@ Then, simultaneously for every integer \(q\ge1\),
 \intdisplay{
 \|f_{{\rm Leg},n,q}-f_n\|_*
 \le C_n\frac{\sqrt{\log(eq)}}{q^2}
-+U\left(\frac{T_n}{q}\right)^4.
++U\left(\frac{q_{\rm abs}}{q}\right)^4.
 }
 \label{int:eq-0045-legendre-full-forward}
 \end{equation}
@@ -2984,7 +2992,7 @@ For the full label allowance, define the exact least integer inverse
 q_{\min}^{\rm full}(n,\varepsilon)=
 \min\left\{q\ge1:\
 C_n\frac{\sqrt{\log(eq)}}{q^2}
-+U\left(\frac{T_n}{q}\right)^4\le\varepsilon\right\}.
++U\left(\frac{q_{\rm abs}}{q}\right)^4\le\varepsilon\right\}.
 }
 \label{int:eq-0050-legendre-full-inverse}
 \end{equation}
@@ -2992,7 +3000,7 @@ C_n\frac{\sqrt{\log(eq)}}{q^2}
 
 % SOURCE 2099--2103: paragraph
 
-The braces here range over integers; this minimum exists. It equals one whenever \(C_n+UT_n^4\le\varepsilon\). For a direct sufficient formula apply \eqref{int:eq-0047-legendre-simple-sufficient-order} with \(r=2C_n/\varepsilon\), call the resulting integer \(q_1\), and choose
+The braces here range over integers; this minimum exists. It equals one whenever \(C_n+Uq_{\rm abs}^4\le\varepsilon\). For a direct sufficient formula apply \eqref{int:eq-0047-legendre-simple-sufficient-order} with \(r=2C_n/\varepsilon\), call the resulting integer \(q_1\), and choose
 
 
 % SOURCE 2104--2108: display
@@ -3000,7 +3008,7 @@ The braces here range over integers; this minimum exists. It equals one whenever
 \begin{equation}
 \intdisplay{
 q=\max\left\{q_1,1,
-\left\lceil T_n(2U/\varepsilon)^{1/4}\right\rceil\right\}.
+\left\lceil q_{\rm abs}(2U/\varepsilon)^{1/4}\right\rceil\right\}.
 }
 \label{int:eq-0051-legendre-full-sufficient-order}
 \end{equation}
@@ -3008,7 +3016,7 @@ q=\max\left\{q_1,1,
 
 % SOURCE 2109--2114: paragraph
 
-Both summands are then at most \(\varepsilon/2\). The second entry is an accuracy allocation, not an absorption gate; before rounding it is below \(T_n\) when \(\varepsilon>2U\). If using the additional uniform cap is desired, \(\varepsilon\ge U\) already permits \(q=1\) in either range. This optional improvement is separate from the least integer inverse of the displayed decreasing envelope.
+Both summands are then at most \(\varepsilon/2\). The second entry is an accuracy allocation, not an absorption gate; before rounding it is below \(q_{\rm abs}\) when \(\varepsilon>2U\). If using the additional uniform cap is desired, \(\varepsilon\ge U\) already permits \(q=1\) in either range. This optional improvement is separate from the least integer inverse of the displayed decreasing envelope.
 
 
 % SOURCE 2116--2118: paragraph
@@ -3062,7 +3070,7 @@ Here \(Q_n\) is only an auxiliary expression for selecting the one runtime order
 
 % SOURCE 2152--2162: paragraph
 
-At fixed admissible positive labels and other structural parameters, \(M_n\) is proportional to \(\sqrt{\log(en)}\), and \(\log C_n,\allowbreak \log T_n=o(\log n)\). For a polynomial target \(\varepsilon=Yn^{-\alpha}\) with fixed \(\alpha>0\), the sufficient orders are \(n^{\alpha/2+o(1)}\) in both label ranges; the second full-range entry is only \(n^{\alpha/4+o(1)}\). In particular \(\varepsilon=Y/\sqrt n\) gives \(q=n^{1/4+o(1)}\) and moving state \(n^{5/4+o(1)}\), while the retained initialized mixers still have \((L-1)n^2\) entries. These are sufficient fixed-problem storage rates, with the probability and exact-real qualifications already stated.
+At fixed admissible positive labels and other structural parameters, \(M_n\) is proportional to \(\sqrt{\log(en)}\), and \(\log C_n,\allowbreak \log q_{\rm abs}=o(\log n)\). For a polynomial target \(\varepsilon=Yn^{-\alpha}\) with fixed \(\alpha>0\), the sufficient orders are \(n^{\alpha/2+o(1)}\) in both label ranges; the second full-range entry is only \(n^{\alpha/4+o(1)}\). In particular \(\varepsilon=Y/\sqrt n\) gives \(q=n^{1/4+o(1)}\) and moving state \(n^{5/4+o(1)}\), while the retained initialized mixers still have \((L-1)n^2\) entries. These are sufficient fixed-problem storage rates, with the probability and exact-real qualifications already stated.
 
 
 % SOURCE 2167--2167: heading
@@ -3295,7 +3303,11 @@ with a separate coordinate-error bound \(\eta\) for each member of each pair. Th
 
 % SOURCE 2325--2326: paragraph
 
-At layer \(j\), selection supplies \(q_j\) coordinates and a positive metric \(M_j\), with a positive diagonal comparison metric \(\mathsf D_j\):
+At layer \(j\), selection supplies an index set \(I_j\) of \(q_j\) coordinates and a positive metric \(M_j\), with a positive diagonal comparison metric \(\mathsf D_j\). In addition to the bounds below, selection preserves the source inner product exactly:
+\[
+ u_{I_j}^{T}M_jv_{I_j}=\frac{u^Tv}{n}
+ \qquad(u,v\in E_j).
+\]
 
 
 % SOURCE 2327--2332: display
@@ -3432,7 +3444,7 @@ These directions are specified by the optimizer. A coordinate gate need not be s
 
 % SOURCE 2392--2394: paragraph
 
-To specify the initialized matrices, choose a basis matrix \(U_j\) of the source space with \(U_j^TU_j/n=I\), let \(I_j\) be the selected indices, and write \(P_j=(U_j)_{I_j}\). Initialize
+To specify the initialized matrices, choose a basis matrix \(U_j\) of the source space with \(U_j^TU_j/n=I\), and write \(P_j=(U_j)_{I_j}\). The exact source isometry gives \(P_j^TM_jP_j=I\). Initialize
 
 
 % SOURCE 2395--2397: display
@@ -3944,6 +3956,16 @@ D_W=\max\{\tau_1^{\rm src},\max_{j\ge2}\tau_j^{\rm src}H_{j-1}^{\rm src}\}.
 \end{equation}
 \endgroup
 
+Since \(c_t=a\gamma/(1024UmY^2)\), even the first entry in this
+maximum requires
+\[
+ n\ge\exp\!\left\{\left(\frac{a\gamma}{128UmY^2}\right)^2-1\right\}.
+\]
+This is a sufficient-width qualification of the certificate, not a
+necessary width for compression. In particular, its label-dependent
+storage coefficient is not a bound uniform as \(Y\downarrow0\).
+The following dimension gates likewise remain part of the certificate.
+
 % SOURCE 2673--2673: paragraph
 
 For \(d\ge2\), write
@@ -4000,7 +4022,7 @@ Finally put
 \begingroup\renewcommand{\theHequation}{intdisplay.199}
 \begin{equation*}
 \intdisplay{
-b_n=\min\left\{\frac14,\frac{SH_L^{\rm src}}4,
+b_{\rm ext}=\min\left\{\frac14,\frac{SH_L^{\rm src}}4,
                  \frac{a}{8\sqrt n\max_jP_j^{\rm src}}\right\},
 }
 \end{equation*}
@@ -4027,7 +4049,7 @@ and impose
 \begin{equation}
 \intdisplay{
 \left(2Y/\sqrt\lambda+8Y\sqrt{\mathcal K}\,r_t\right)(en)^{-16}
-          <b_n/2,
+          <b_{\rm ext}/2,
 \qquad
 \frac{2C_{\rm carrier}Y}{\sqrt\lambda}\,n(en)^{-16}
           \le K_{\rm src}S\sqrt{\log(en)}.
@@ -4038,12 +4060,12 @@ and impose
 
 % SOURCE 2709--2712: paragraph
 
-These inequalities are eventual at every fixed admissible problem. They are independent of \(q\), \(T\), and target accuracy. Thus one event at a fixed width supports all the Harmonic budgets and tolerances above; there is no union over new horizon-dependent Gaussian events.
+These inequalities are eventual at every fixed admissible problem. They are independent of \(q\), \(T\), and target accuracy. Thus one event for a common dense initialization at a fixed width supports all the Harmonic budgets and tolerances above; there is no union over new horizon-dependent Gaussian events. The implicit sampler gives the same probability guarantee for each prescribed execution, not a shared success event for independently restarted samplers.
 
 
 % SOURCE 2715--2715: heading
 \subsection{Seeded decoder compression: explicit finite theorem}
-\label{int:logarithmic-decoder-detailed}
+\label{int:seeded-decoder-detailed}
 
 % SOURCE 2717--2722: paragraph
 
@@ -4069,7 +4091,7 @@ No test input or test label is supplied during initialization or training. The c
 
 % SOURCE 2746--2749: paragraph
 
-For \(0<\delta<1/4\), define \(p,\allowbreak Z,\allowbreak p_{\rm ref}\) by \eqref{int:eq-0007-logarithmic-decoder-orders}--\allowbreak \eqref{int:eq-0008-logarithmic-reference-order}. The clean finite-word branch requires \(nY\ge1\). With a fixed absolute numerical allocation, it is sufficient that
+For \(0<\delta<1/4\), define \(p,\allowbreak Z,\allowbreak p_{\rm ref}\) by \eqref{int:eq-0007-seeded-decoder-orders}--\allowbreak \eqref{int:eq-0008-seeded-reference-order}. The clean finite-word branch requires \(nY\ge1\). With a fixed absolute numerical allocation, it is sufficient that
 
 
 % SOURCE 2750--2758: display
@@ -4083,7 +4105,7 @@ C_*\left[
 \right]^{1100},\;Y^{-1},\;C_{\rm num}
 \right\}.
 }
-\label{int:eq-0087-logarithmic-complete-enclosing-gate}
+\label{int:eq-0087-seeded-complete-enclosing-gate}
 \end{equation}
 \endgroup
 
@@ -4131,7 +4153,7 @@ n\ge\max\left\{
 \frac{64mL}{\rho}
 \right\}.
 }
-\label{int:eq-0088-logarithmic-factorized-source-gate}
+\label{int:eq-0088-seeded-factorized-source-gate}
 \end{equation}
 \endgroup
 
@@ -4149,7 +4171,7 @@ n\ge\max\{1,e^{-1}\sqrt{1+66\beta^{100L}m/\gamma}\},
 \qquad
 n\ge\max\{1,(\beta^{23L}/8)^{1/15}\},
 }
-\label{int:eq-0089-logarithmic-physical-gates}
+\label{int:eq-0089-seeded-physical-gates}
 \end{equation}
 \endgroup
 
@@ -4162,7 +4184,7 @@ n\ge C_0\left[
 \right]^2,\qquad
 n\ge\max\{1,(A_{\rm num}/32)^{1/9}\}.
 }
-\label{int:eq-0090-logarithmic-implementation-gates}
+\label{int:eq-0090-seeded-implementation-gates}
 \end{equation}
 \endgroup
 
@@ -4186,13 +4208,13 @@ c_{2,\rm mesh}=
 \frac{4(9s)^L}{\sqrt\lambda},\qquad
 32\le c_{2,\rm mesh}\le C\beta^{4L}(1+m/\gamma).
 }
-\label{int:eq-0091-logarithmic-mesh-coefficient}
+\label{int:eq-0091-seeded-mesh-coefficient}
 \end{equation}
 \endgroup
 
 % SOURCE 2815--2817: paragraph
 
-With the inherited positive fixed-problem leading coefficients \(c_0,\allowbreak c_1\), let \(B_n\) be \eqref{int:eq-0010-logarithmic-dense-certificate}. The additional absolute certificate is
+With the inherited positive fixed-problem leading coefficients \(c_0,\allowbreak c_1\), let \(B_n\) be \eqref{int:eq-0010-seeded-dense-certificate}. The additional absolute certificate is
 
 
 % SOURCE 2818--2824: display
@@ -4201,16 +4223,16 @@ With the inherited positive fixed-problem leading coefficients \(c_0,\allowbreak
 \intdisplay{
 \mathbb P\left\{
 \sup_{t\in[0,\infty]}\sup_{\|x\|_2=\sqrt d}
-|f_{\rm Log,n}(t,x)-f_n^{\rm ind}(t,x)|\le3B_n
+|f_{\rm Seed,n}(t,x)-f_n^{\rm ind}(t,x)|\le3B_n
 \right\}\ge1-\delta.
 }
-\label{int:eq-0092-logarithmic-complete-comparison}
+\label{int:eq-0092-seeded-complete-comparison}
 \end{equation}
 \endgroup
 
 % SOURCE 2825--2833: paragraph
 
-The event includes unseen and adaptively chosen inputs and the fitted endpoint. In addition, without using this analytic envelope, the same finite construction has error at most \(2b_n(\delta)+A_{\rm num}Yn^{-10}\) at confidence \(1-\delta\). The definition and full proof are in \hyperref[int:intrinsic-variability-comparison]{the intrinsic comparison}. The original explicit gates suffice for the additive statement. The eventual pure factor-three conclusion for \(m\ge2,\allowbreak Y>0\) inherits the lower theorem's unquantified onset; it is not a new explicit-width claim.
+The event includes unseen and adaptively chosen inputs and the fitted endpoint. In addition, without using this analytic envelope, the same finite construction has error at most \(2b_n(\delta/32)+A_{\rm num}Yn^{-10}\) at confidence \(1-\delta\). The definition and full proof are in \hyperref[int:intrinsic-variability-comparison]{the intrinsic comparison}. The original explicit gates suffice for the additive statement. The eventual pure factor-three conclusion for \(m\ge2,\allowbreak Y>0\) inherits the lower theorem's unquantified onset; it is not a new explicit-width claim.
 
 
 % SOURCE 2835--2835: paragraph
@@ -4222,10 +4244,10 @@ The retained model uses at most a universal multiple of
 \begingroup\renewcommand{\theHequation}{intdisplay.210}
 \begin{equation}
 \intdisplay{
-M_{\rm Log}=p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+M_{\rm Seed}=p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
 \bigl[d+1+\log(e+(d+1)Z)\bigr]
 }
-\label{int:eq-0093-logarithmic-retained-words}
+\label{int:eq-0093-seeded-retained-words}
 \end{equation}
 \endgroup
 
@@ -4241,7 +4263,7 @@ numerical words of sufficient length
 w=\left\lceil C_{\rm word}\beta^{110L}Z\right\rceil
 \quad\text{bits}.
 }
-\label{int:eq-0094-logarithmic-word-length}
+\label{int:eq-0094-seeded-word-length}
 \end{equation}
 \endgroup
 
@@ -4263,21 +4285,21 @@ Up to universal multiplicative constants, the complete internal costs are
 \text{phase}:\ \text{initialization}\quad(\text{word operations})\\[3pt]
 n(d+1)p^5\beta^{1115L}(m+d+2)^5(1+m/\gamma)^5Z^{29/2}\\[3pt]
 \text{phase}:\ \text{initialization}\quad(\text{peak words})\\[3pt]
-M_{\rm Log}+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2}\\
+M_{\rm Seed}+np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2}\\
 +p^3\beta^{603L}(m+d+2)^3(1+m/\gamma)^3Z^{15/2}\\[3pt]
 \text{phase}:\ \text{complete training}\quad(\text{word operations})\\[3pt]
 (d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4Z^{12}\\
 {}\times \log(e+p\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2})\\[3pt]
 \text{phase}:\ \text{complete training}\quad(\text{peak words})\\[3pt]
-M_{\rm Log}\\[3pt]
+M_{\rm Seed}\\[3pt]
 \text{phase}:\ \text{one query}\quad(\text{word operations})\\[3pt]
 (d+1)p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4
 [(L+1)nZ^{12}+Z^{14}]\\[3pt]
 \text{phase}:\ \text{one query}\quad(\text{peak words})\\[3pt]
-M_{\rm Log}.
+M_{\rm Seed}.
 \end{gathered}
 }
-\label{int:eq-0095-logarithmic-complete-costs}
+\label{int:eq-0095-seeded-complete-costs}
 \end{equation}
 \endgroup
 
@@ -4303,7 +4325,7 @@ np\beta^{201L}(m+d+2)(1+m/\gamma)Z^{7/2}\\
 \bigr].
 \end{aligned}
 }
-\label{int:eq-0096-logarithmic-activation-calls}
+\label{int:eq-0096-seeded-activation-calls}
 \end{equation}
 \endgroup
 
@@ -4319,7 +4341,7 @@ For tanh, the supplied finite evaluator is included. For a general analytic acti
 w+\lceil\log_2(16\sqrt m)\rceil+
 \lceil\log_2\max(1,1/Y)\rceil
 }
-\label{int:eq-0097-logarithmic-raw-label-precision}
+\label{int:eq-0097-seeded-raw-label-precision}
 \end{equation}
 \endgroup
 
@@ -4850,7 +4872,16 @@ N,R,r,q,k_*=O(\log(en)^{3d/2+1}).
 
 % SOURCE 3301--3307: paragraph
 
-Use the two-point convention at \(d=1\); for \(d\ge2\), \(\ell_*=O(\log(en)^{3/2})\). These are sufficient orders, not optimality claims. Substitution proves the headline near-quadratic and near-linear bounds, including all temporary state. For the latter, the conservative \(Lnr^3\) selector bounds the remaining width-proportional work. The full finite envelopes, not these specializations, apply to arbitrarily enlarged horizons, orders or accuracies.
+Use the two-point convention at \(d=1\); for \(d\ge2\), \(\ell_*=O(\log(en)^{3/2})\). These are sufficient orders, not optimality claims. Substitution proves the near-quadratic and near-linear bounds, including all temporary state. For the latter, the conservative \(Lnr^3\) selector bounds the remaining width-proportional work. The full finite envelopes, not these specializations, apply to arbitrarily enlarged horizons, orders or accuracies.
+
+The same setup exponents hold at the exact absolute target \(Y/n\).
+Use \eqref{eq:harmonic-setup-exact-target}; the bound
+\eqref{eq:harmonic-setup-target-overhead} gives \(u=O(\log(en))\),
+\(T=O(\log(en))\), and \(\log(1/\eta)=O(\log(en))\) at fixed
+positive problem parameters. Substitution into the full supplied-order
+certificates gives the same source cutoffs, quadratures, nodal tolerance
+and continuation orders, as calculated in \Cref{app:execution-costs}.
+This is distinct from the baseline \(n^{-1+o(1)}\) error specialization.
 
 
 % SOURCE 3309--3316: paragraph
@@ -5009,7 +5040,7 @@ Z_n=(2Y/\sqrt\lambda+8Y\sqrt{\mathcal K}\,r_t)(en)^{-16}.
 
 % SOURCE 3460--3464: paragraph
 
-The extension requires \(Z_n<b_{\rm ext}/2\), where \(b_{\rm ext}\) is the radius denoted \(b_n\) in that earlier proof; this is distinct from the numerical restart radius \(b_n\) defined below. Its second carrier gate is also retained. The source amplitude and dimension coefficients used for the exact mode count are
+The extension requires \(Z_n<b_{\rm ext}/2\), with the extension radius defined in \hyperref[int:harmonic-storage-count]{the construction gates}. It is distinct from the numerical restart radius \(r_{\rm tube}\) defined below. The second carrier gate is also retained. The source amplitude and dimension coefficients used for the exact mode count are
 
 
 % SOURCE 3465--3468: display
@@ -5379,7 +5410,7 @@ M_c=M_0+\sqrt n\kappa_*(M_0)Z_n,
 \begingroup\renewcommand{\theHequation}{intdisplay.263}
 \begin{equation*}
 \intdisplay{
-b_n=\min\{1/4,a/(16\sqrt nP_*),1/(\sqrt n\kappa_*(M_c))\},
+r_{\rm tube}=\min\{1/4,a/(16\sqrt nP_*),1/(\sqrt n\kappa_*(M_c))\},
 }
 \end{equation*}
 \endgroup
@@ -5397,7 +5428,7 @@ V_{\rm loc}=2G(2Y+G),\quad
 
 % SOURCE 3659--3660: paragraph
 
-The symbols \(b_n,\allowbreak V_{\rm loc}\) here are the backend's local tube radius and velocity coefficient; they are not \(b_{\rm ext}\) or \(V_{\rm qry}\).
+The symbols \(r_{\rm tube},\allowbreak V_{\rm loc}\) here are the backend's local tube radius and velocity coefficient; they are not \(b_{\rm ext}\) or \(V_{\rm qry}\).
 
 
 % SOURCE 3663--3663: heading
@@ -5416,7 +5447,7 @@ For the strong source-jet interface use \(\delta_*=\delta_{\rm node}/(32\sqrt n)
 \intdisplay{
 e_d=e^{-A_n}\min\left\{
 \frac14,\frac1{\sqrt8(C^{\rm r}+J^{\rm r})\sqrt T},
-\frac{\delta_*}{4C_{\rm src}n},\frac{b_n}{16}\right\},
+\frac{\delta_*}{4C_{\rm src}n},\frac{r_{\rm tube}}{16}\right\},
 }
 \end{equation*}
 \endgroup
@@ -5425,7 +5456,7 @@ e_d=e^{-A_n}\min\left\{
 \begingroup\renewcommand{\theHequation}{intdisplay.266}
 \begin{equation*}
 \intdisplay{
-\zeta_F=\min\{e_d/(2T),b_nL_n/4,V_{\rm loc}/2\}.
+\zeta_F=\min\{e_d/(2T),r_{\rm tube}L_n/4,V_{\rm loc}/2\}.
 }
 \end{equation*}
 \endgroup
@@ -5589,7 +5620,7 @@ Finally set \(C_g=\max_j\{H_j+1,\allowbreak B_j+1\}\) and choose
 \begin{aligned}
 K=\max\bigg\{&8,
 \left\lceil2\log_2\max\{1,16TV_{\rm loc}/e_d\}\right\rceil,
-\left\lceil\log_2\max\{1,8V_{\rm loc}\widehat R_n/b_n\}\right\rceil,\\
+\left\lceil\log_2\max\{1,8V_{\rm loc}\widehat R_n/r_{\rm tube}\}\right\rceil,\\
 &\left\lceil\log_2\max\left\{1,
 \frac{128V_{\rm loc}\widehat R_n C_{\rm src}n^{3/2}}
      {\delta_{\rm node}}\right\}\right\rceil,
@@ -5934,7 +5965,7 @@ The initialization-only baseline branch can skip source expansions that it does 
 
 % SOURCE 4040--4051: paragraph
 
-Insert the inverse interface's prescribed \(n\) or \(q\) into the forward cost table; no other substitution is licensed automatically. For Harmonic, the setup orders must additionally satisfy the time/spatial-tail, initial-jet and quadrature accuracy conditions in the source construction, and the resulting source rank must fit the budget. The original origin-jet argument proves finiteness, not an efficient joint order choice. The local-continuation alternatives below supply a complete deterministic recipe and certified work/peak-memory bounds. Their finite formulas apply to the actual inverse horizon/tolerance; the simpler width and epsilon exponents use the explicitly specified original-tolerance specialization. No near-linear or near-quadratic cost is inferred merely by renaming the origin-jet order as \(q\).
+Insert the inverse interface's prescribed \(n\) or \(q\) into the forward cost table; no other substitution is licensed automatically. For Harmonic, the setup orders must additionally satisfy the time/spatial-tail, initial-jet and quadrature accuracy conditions in the source construction, and the resulting source rank must fit the budget. The origin-jet argument proves finiteness, not an efficient joint order choice. The local-continuation alternatives below supply a complete deterministic recipe and certified work/peak-memory bounds. Their finite formulas apply to the actual inverse horizon/tolerance. The baseline specialization proves the simpler width and epsilon exponents; \eqref{eq:harmonic-setup-exact-target}--\eqref{eq:harmonic-setup-target-overhead} also establish them at the exact \(Y/n\) target. No near-linear or near-quadratic cost is inferred merely by renaming the origin-jet order as \(q\).
 
 
 % SOURCE 4053--4059: paragraph
@@ -5989,7 +6020,7 @@ There is an unavoidable distinction between an explicit error coefficient and an
 
 % SOURCE 4114--4119: paragraph
 
-The first conclusion has fixed deletion count and the original complex query tube; its width onset is qualitative. The second conclusion concerns only the finitely many training queries and has the explicit power-1100 width gate. These scopes must not be interchanged. Throughout, retain the complete common label allowance, including \eqref{int:eq-0184-s-10}. No restriction depending on a deletion count or on a confidence is added to that allowance.
+The local finite-deletion comparison below is proved on independently stopped complex query domains, for each fixed deletion count, with an eventual qualitative width onset. Its source-event closure is stated in Lemma~\ref{int:source-event} and proved in \S\ref{int:source-explicit-recurrences}. The separate training-only specialization in \S\ref{int:decoder-finite-source} has the explicit power-1100 width gate; it does not quantify the complex query-tube event. Throughout, retain the complete common label allowance, including \eqref{int:eq-0184-s-10}. No restriction depending on deletion count or confidence is added.
 
 
 % SOURCE 4121--4121: heading
@@ -6124,7 +6155,7 @@ Each reference is the zero-source cavity with its own initialization test, real 
 
 % SOURCE 4196--4198: paragraph
 
-For the original qualitative source, the short-contour conditions in \eqref{int:eq-0205-s-31} give \eqref{int:eq-0121-ic-4}. For the quantitative training source, they will be proved directly in Section 7 at a smaller radius.
+For the original qualitative source, the short-contour conditions in \eqref{int:eq-0205-s-31} give \eqref{int:eq-0121-ic-4}. For the quantitative training source, they will be proved directly in \hyperref[int:source-quantitative-ledger]{the quantitative training-source ledger} at a smaller radius.
 
 
 % SOURCE 4200--4219: paragraph
@@ -6874,6 +6905,7 @@ At the top, \(|\bar d_a|\le pM_nA_n/n\), and its multiplication of both retained
 
 % SOURCE 4686--4686: heading
 \paragraph{4. Passive-query derivatives and the uniform Gaussian event}
+\label{int:source-passive-local}
 
 \mbox{}\par\smallskip
 
@@ -7065,6 +7097,10 @@ The missing feature-pairing term is at most \(pA_n^2/n\); the learned response a
 
 
 % SOURCE 4804--4822: paragraph
+
+The doubled caps in the next estimate refer to full-network stops.
+For independently stopped cavities use their fourfold caps instead;
+these are fixed multipliers in the same polynomial bounds.
 
 For fixed \(p,\allowbreak m,\allowbreak d,\allowbreak L\), use the temporary query preactivation cap in S.6 and doubled response/angular caps from \eqref{int:eq-0199-s-25}. Equations \eqref{int:eq-0128-ic-10}--\allowbreak \eqref{int:eq-0135-ic-17}, \eqref{int:eq-0156-ic-38}, and the product rule give operator bounds \(n^\kappa\) times fixed polynomials in \(\ell\) for all the listed linear maps. For completeness, each differentiated gate is \(\phi''z_{[1]}\), each differentiated carrier gate is \(\phi'''z_t z_{[1]}\bar k+\phi''z_{[1]}\bar k_t +\phi''\bar k z_{[1],\allowbreak t}\), and the response/angular gate has the same three terms with \(\bar R\) or \(J\). At most one raw reference coordinate derivative is used in each term. Its bound is \(\sqrt n\) times a fixed polynomial in \(\ell\). All homogeneous propagated derivatives have multiplier \(10s\). This proves terminal and frame derivative bounds \(\sqrt n n^\kappa\operatorname{poly}(\ell)\), with no power of \(n\) depending on depth. Frame derivatives of the input and of \(q'\) are bounded on a fixed tubular neighborhood of the orthonormal-frame manifold. Differentiating \eqref{int:eq-0156-ic-38} in those variables uses the same gate terms just listed. Polar normalization provides bounded local frame-coordinate derivatives.
 
@@ -7441,7 +7477,7 @@ sK_{\rm src}H_{j-1}^2,\quad
 
 % SOURCE 5097--5107: paragraph
 
-For \eqref{int:eq-0155-ic-37} there are the mixed endpoint and learned row, with coefficients \(sK_{\rm src}S^2T_J\) and \(sK_{\rm src}S^2H_{j-1}b_{j-1}\). The incoming-root Gaussian reference contributes \(G_dq_{j-1}\) or \(G_db_{j-1}\). Every forward-source pairing uses one incoming and one outgoing root and is centered; the training reverse source supplies the same incoming root twice. This proves the enumeration and the coefficients \eqref{int:eq-0199-s-25}, including the lower direct reverse term. Its factor two leaves strict margin for the uniform errors in Section 4. The Gaussian mesh count there and \(G_d=16\sqrt{d+3}\) give \eqref{int:eq-0200-s-26}. No exponential query budget has been added.
+For \eqref{int:eq-0155-ic-37} there are the mixed endpoint and learned row, with coefficients \(sK_{\rm src}S^2T_J\) and \(sK_{\rm src}S^2H_{j-1}b_{j-1}\). The incoming-root Gaussian reference contributes \(G_dq_{j-1}\) or \(G_db_{j-1}\). Every forward-source pairing uses one incoming and one outgoing root and is centered; the training reverse source supplies the same incoming root twice. This proves the enumeration and the coefficients \eqref{int:eq-0199-s-25}, including the lower direct reverse term. Its factor two leaves strict margin for the uniform errors in \hyperref[int:source-passive-local]{the passive-query insertion argument}. The Gaussian mesh count there and \(G_d=16\sqrt{d+3}\) give \eqref{int:eq-0200-s-26}. No exponential query budget has been added.
 
 
 % SOURCE 5111--5111: heading
@@ -7802,7 +7838,7 @@ The negative-Gram variational base contracts along the real solution. All short 
 
 % SOURCE 5297--5299: paragraph
 
-Condition \eqref{int:eq-0184-s-10} gives \(D_*S^2/\eta\le1/4000\), leaving the inherited \(n^{1/1000}\) variational cap at sufficiently large width. This coefficient of \(\log n\) has not been moved into a width threshold.
+Condition \eqref{int:eq-0184-s-10} gives \(D_*S^2/\eta\le1/4000\), leaving the \(n^{1/1000}\) variational cap at sufficiently large width: the coefficient \(J_0\) in \eqref{int:eq-0126-ic-8} is fixed, so \(J_0n^{1/4000}\le n^{1/1000}\) eventually. This coefficient of \(\log n\) has not been moved into a width threshold.
 
 
 % SOURCE 5301--5312: paragraph
@@ -8399,7 +8435,7 @@ D_n=(\lambda c_tJ_*^{\rm time}/4)[\log(en)]^{-1/2}
 
 % SOURCE 5679--5686: paragraph
 
-The two time-parameter Lipschitz coefficients have the same bracket times fixed constants. Their parameter interval has length \(O(\log(en))\). Dyadic Gaussian nets therefore have mean \(O([\log(en)]^{-1/2}[\log(e+\log(en))]^{3/2})\) and tail scale \(O([\log(en)]^{-1/2}\log(e+\log(en)))\). Both vanish. Their exponential moments at every fixed order tend to one, as do fixed squared-exponential moments; the latter also transfer to RMS sample corrections by the Jensen argument of §S.5.
+The two time-parameter Lipschitz coefficients have the same bracket times fixed constants. Their parameter interval has length \(O(\log(en))\). The Gaussian rectangle estimate \eqref{int:eq-0292-ic-77}, including its sample-RMS form, is proved independently below from finite Gaussian nets and \eqref{int:eq-0274-ic-59}; its proof does not use the source event being established here. These nets therefore have mean \(O([\log(en)]^{-1/2}[\log(e+\log(en))]^{3/2})\) and tail scale \(O([\log(en)]^{-1/2}\log(e+\log(en)))\). Both vanish. Their exponential moments at every fixed order tend to one, as do fixed squared-exponential moments; the latter also transfer to RMS sample corrections by the Jensen argument of §S.5.
 
 
 % SOURCE 5688--5697: paragraph
@@ -8555,6 +8591,70 @@ The radius coefficient \(c_t\) need not be at most one: its actual radius shrink
 % SOURCE 5787--5788: paragraph
 
 Thus the label-sensitive statement is not uniform as \(Y\downarrow0\). No large fixed radius coefficient is used at an unchanged width.
+
+\begin{lemma}[Qualitative complex query-tube source event]
+\label{int:source-event}
+Consider the canonical Gaussian model of \S\ref{sec:setting}, with
+fixed admissible data, activation functions and depth, population Gram
+gap \(\gamma>0\), and \(\lambda=\gamma/m\). Suppose
+\[
+ 0<Y/\lambda\le
+ \min\{(8H_D\sqrt{F_D})^{-1},S_*^{\rm src}/16\}.
+\]
+Use the source coefficients defined above, put
+\(S=16Y/\lambda\), \(\ell=\log(en)\) and \(T=32\ell/\lambda\), and take
+\(r_t,r_q\) from \eqref{int:eq-0204-s-30}. Define
+\[
+ K_n=[-r_t,T+r_t]+i[-r_t,r_t].
+\]
+For \(d\ge2\), let
+\[
+ \mathcal Q_{r_q}
+ =\{q\in\mathbb C^d:q^\top q=1,\,
+                   \|\operatorname{Im}q\|_2\le\sinh r_q\};
+\]
+for \(d=1\), use the two queries \(\{-1,1\}\).
+
+For every fixed \(0<\delta<1\), at every sufficiently large width,
+with probability at least \(1-\delta\), the dense trajectory and its
+training fields extend holomorphically to a neighborhood of \(K_n\),
+and its passive forward fields extend jointly to a neighborhood of
+\(K_n\times\mathcal Q_{r_q}\), relative to the complex quadric
+when \(d\ge2\). On these domains the normalized first-weight and
+hidden-matrix operator norms are at most ten. The forward, training
+carrier and training response RMS bounds are respectively
+\[
+ \frac{\|h^{(j)}\|_2}{\sqrt n}\le H_j,\qquad
+ \frac{\|k_a^{(j)}\|_2}{\sqrt n}\le Sk_j,\qquad
+ \frac{\|\delta_a^{(j)}\|_2}{\sqrt n}\le S\tau_j,
+\]
+with coefficients from
+\eqref{int:eq-0179-s-5}--\eqref{int:eq-0180-s-6}.
+The training-coordinate bounds \eqref{int:eq-0197-s-23} and the
+response and angular bounds \eqref{int:eq-0200-s-26} hold.
+Every training budget \eqref{int:eq-0185-s-11} is at most
+\(\mathcal B\). The real trajectory has the global fitting and
+endpoint properties of \S\ref{int:dense-fitting}.
+
+The sufficient width includes \eqref{int:eq-0205-s-31} and
+\(\ell\ge\max(e^2,2\mathcal B)\); its stochastic part is qualitative.
+\end{lemma}
+
+\begin{proof}
+Dense fitting is independent of the source construction.
+The independently stopped finite-deletion comparison and Gaussian
+insertion are proved in \S\ref{int:source-local-insertion}.
+The recurrences and scalar absorption above give
+\eqref{int:eq-0197-s-23} and \eqref{int:eq-0200-s-26}.
+The complex correction bounds
+\eqref{int:eq-0201-s-27}--\eqref{int:eq-0202-s-28} and the
+fixed-moment argument \eqref{int:eq-0203-s-29} remove the budgets.
+Their failure probabilities, and those of the initialization and local
+events, tend to zero, giving the stated fixed-confidence quantifier.
+Finally, \eqref{int:eq-0205-s-31}--\eqref{int:eq-0206-s-32}
+give strict operator, activity and pole margins, hence continuation
+across the closed domain.
+\end{proof}
 
 
 % SOURCE 5792--5792: heading
@@ -9433,7 +9533,7 @@ Insert the remainder identity into the first pairing and use \(\|v^{\rm err}\|_m
 
 % SOURCE 6288--6289: paragraph
 
-The negative prediction-difference square is retained before applying Gronwall. Both residual integrals are at most \(Y/\kappa\), hence
+Discard the nonpositive prediction-difference square for the upper bound. The remaining Taylor-remainder and Jacobian-variation terms are weighted by residuals. Both residual integrals are at most \(Y/\kappa\), hence
 
 
 % SOURCE 6290--6292: display
@@ -10493,13 +10593,7 @@ P_j(\cos\theta)=\frac1\pi\int_0^\pi
 
 % SOURCE 7005--7009: paragraph
 
-the identity follows by comparing its geometric-series generating function with \((1-2tx+t^2)^{-1/2}\), and the integrand has modulus at most one. Reflection around \(\pi/2\) now proves \({\rm Var}_{[-1,\allowbreak 1]}P_k\le36\sqrt k\). The endpoint kernel formula has \(L^1\) norm at most \(36\sqrt q\), which is below the stated
-
-
-% SOURCE 7010--7012: list
-\begin{enumerate}
-\item[64.] The case \(q=1\) is the constant averaging kernel. This proves \eqref{int:eq-0219-legendre-endpoint-kernel}, including vector-valued histories.
-\end{enumerate}
+the identity follows by comparing its geometric-series generating function with \((1-2tx+t^2)^{-1/2}\), and the integrand has modulus at most one. Reflection around \(\pi/2\) now proves \({\rm Var}_{[-1,\allowbreak 1]}P_k\le36\sqrt k\). The endpoint kernel formula has \(L^1\) norm at most \(36\sqrt q\le64\sqrt q\). The case \(q=1\) is the constant averaging kernel. This proves \eqref{int:eq-0219-legendre-endpoint-kernel}, including vector-valued histories.
 
 % SOURCE 7013--7016: paragraph
 
@@ -10892,7 +10986,7 @@ To control the integral of the absolute defect, not merely its signed integral, 
 
 % SOURCE 7325--7328: paragraph
 
-If \(q\ge T_n\), substituting \eqref{int:eq-0225-legendre-signed-stability} absorbs the last term with factor at most one half. Whole-sphere forward and readout subtraction give prediction discrepancy at most \(C_fD\). Thus
+If \(q\ge q_{\rm abs}\), substituting \eqref{int:eq-0225-legendre-signed-stability} absorbs the last term with factor at most one half. Whole-sphere forward and readout subtraction give prediction discrepancy at most \(C_fD\). Thus
 
 
 % SOURCE 7329--7336: display
@@ -10903,7 +10997,7 @@ If \(q\ge T_n\), substituting \eqref{int:eq-0225-legendre-signed-stability} abso
 \le\frac{4(L-1)C_f\mathcal A_nF_h}{q^2}
 (b_0+b_1\sqrt{\log q})
 \le C_n\frac{\sqrt{\log(eq)}}{q^2}
-\quad(q\ge T_n).
+\quad(q\ge q_{\rm abs}).
 }
 \label{int:eq-0227-legendre-large-order}
 \end{equation}
@@ -10911,7 +11005,7 @@ If \(q\ge T_n\), substituting \eqref{int:eq-0225-legendre-signed-stability} abso
 
 % SOURCE 7337--7343: paragraph
 
-The finite-horizon constants are independent of \(T\); taking its increasing supremum and then the physical limits proves the stated norm. For every order, \eqref{int:eq-0037-legendre-physical-bounds} and Cauchy--Schwarz give \(\|f_{{\rm Leg},\allowbreak n,\allowbreak q}-f_n\|_*\le U\). When \(q<T_n\), the second term in \eqref{int:eq-0045-legendre-full-forward} exceeds \(U\); when \(q\ge T_n\), its first term suffices by \eqref{int:eq-0227-legendre-large-order}. This proves the full-range all-order certificate without an order gate.
+The finite-horizon constants are independent of \(T\); taking its increasing supremum and then the physical limits proves the stated norm. For every order, \eqref{int:eq-0037-legendre-physical-bounds} and Cauchy--Schwarz give \(\|f_{{\rm Leg},\allowbreak n,\allowbreak q}-f_n\|_*\le U\). When \(q<q_{\rm abs}\), the second term in \eqref{int:eq-0045-legendre-full-forward} exceeds \(U\); when \(q\ge q_{\rm abs}\), its first term suffices by \eqref{int:eq-0227-legendre-large-order}. This proves the full-range all-order certificate without an order gate.
 
 
 % SOURCE 7346--7346: heading
@@ -11032,19 +11126,19 @@ X^{75}z^2\chi(1+zu)\Xi_n\sqrt{\log(eq)}.
 
 % SOURCE 7441--7444: paragraph
 
-Since \((1+zu)(1+X^{100}z)\le3(1+X^{100}zu)\), this is at most \(P_n\sqrt{\log(eq)}\). Thus the unchanged coefficient works whenever \(q\ge T_n\).
+Since \((1+zu)(1+X^{100}z)\le3(1+X^{100}zu)\), this is at most \(P_n\sqrt{\log(eq)}\). Thus the unchanged coefficient works whenever \(q\ge q_{\rm abs}\).
 
 
 % SOURCE 7446--7447: paragraph
 
-It remains to cover \(1\le q<T_n\) with this same coefficient. Retain the factor \(\sqrt{a_0}=2\sqrt z\) in the exact threshold:
+It remains to cover \(1\le q<q_{\rm abs}\) with this same coefficient. Retain the factor \(\sqrt{a_0}=2\sqrt z\) in the exact threshold:
 
 
 % SOURCE 7448--7451: display
 \begingroup\renewcommand{\theHequation}{intdisplay.547}
 \begin{equation*}
 \intdisplay{
-T_n\le2X^{60}z^{5/2}(1+zu)
+q_{\rm abs}\le2X^{60}z^{5/2}(1+zu)
 \exp\{X^{10}z+X^{36}z^2u\}.
 }
 \end{equation*}
@@ -11075,7 +11169,7 @@ Indeed expand \((1+zu)^2\le2+2z^2u^2\), apply convexity to \(e^{2\vartheta u}\),
 \begingroup\renewcommand{\theHequation}{intdisplay.549}
 \begin{equation*}
 \intdisplay{
-12H\sqrt{m/\gamma}\,T_n^2
+12H\sqrt{m/\gamma}\,q_{\rm abs}^2
 \le16X^{123}z^5\sqrt\chi[1+X^{100}z^2(e^u-1)]
 \le P_n.
 }
@@ -11084,7 +11178,7 @@ Indeed expand \((1+zu)^2\le2+2z^2u^2\), apply convexity to \(e^{2\vartheta u}\),
 
 % SOURCE 7469--7471: paragraph
 
-The final comparison is exactly \(16X^{23}z^3\le16X^{-67}\le3\le 3\sqrt\chi(1+X^{100}zu)\). Therefore, if \(q<T_n\),
+The final comparison is exactly \(16X^{23}z^3\le16X^{-67}\le3\le 3\sqrt\chi(1+X^{100}zu)\). Therefore, if \(q<q_{\rm abs}\),
 
 
 % SOURCE 7472--7476: display
@@ -11092,7 +11186,7 @@ The final comparison is exactly \(16X^{23}z^3\le16X^{-67}\le3\le 3\sqrt\chi(1+X^
 \begin{equation*}
 \intdisplay{
 \|f_{{\rm Leg},n,q}-f_n\|_*
-\le U\le YP_n/T_n^2
+\le U\le YP_n/q_{\rm abs}^2
 \le YP_n\sqrt{\log(eq)}/q^2.
 }
 \end{equation*}
@@ -11100,7 +11194,7 @@ The final comparison is exactly \(16X^{23}z^3\le16X^{-67}\le3\le 3\sqrt\chi(1+X^
 
 % SOURCE 7477--7478: paragraph
 
-If \(T_n<1\), the already proved large-order case covers every admissible integer. This completes \eqref{int:eq-0040-legendre-simple-forward}.
+If \(q_{\rm abs}<1\), the already proved large-order case covers every admissible integer. This completes \eqref{int:eq-0040-legendre-simple-forward}.
 
 
 % SOURCE 7480--7486: paragraph
@@ -11124,7 +11218,7 @@ For \(r>1\), let \(\ell=\log(e+r)>1\). The chosen order lies between \(2\sqrt r\
 
 % SOURCE 7504--7515: paragraph
 
-In the full-range certificate the other summand is \(UT_n^4/q^4\), which is decreasing and tends to zero. Thus its sum with \(C_ng(q)\) has a finite least integer inverse. Allocating \(\varepsilon/2\) to each summand gives \eqref{int:eq-0051-legendre-full-sufficient-order} directly, including ratios at most one. Storage is affine and strictly increasing in \(q\), so the floor in \eqref{int:eq-0052-legendre-storage-inverse} is the largest feasible order. At fixed positive labels, all finite recurrence coefficients except \(M_n\) and \(\mathcal A_n\) are bounded by polynomials in \(\sqrt{\log(en)}\), and \(\log\mathcal A_n\) is affine in that quantity. Therefore \(C_n,\allowbreak T_n=n^{o(1)}\). Substitution in the two sufficient inverse branches gives the stated polynomial-accuracy orders and the exact storage formula gives their moving-state powers.
+In the full-range certificate the other summand is \(Uq_{\rm abs}^4/q^4\), which is decreasing and tends to zero. Thus its sum with \(C_ng(q)\) has a finite least integer inverse. Allocating \(\varepsilon/2\) to each summand gives \eqref{int:eq-0051-legendre-full-sufficient-order} directly, including ratios at most one. Storage is affine and strictly increasing in \(q\), so the floor in \eqref{int:eq-0052-legendre-storage-inverse} is the largest feasible order. At fixed positive labels, all finite recurrence coefficients except \(M_n\) and \(\mathcal A_n\) are bounded by polynomials in \(\sqrt{\log(en)}\), and \(\log\mathcal A_n\) is affine in that quantity. Therefore \(C_n,\allowbreak q_{\rm abs}=n^{o(1)}\). Substitution in the two sufficient inverse branches gives the stated polynomial-accuracy orders and the exact storage formula gives their moving-state powers.
 
 
 % SOURCE 7517--7522: paragraph
@@ -11292,7 +11386,7 @@ For \(d=2\), averaging the two tangent directions has multiplier \(\cosh(jr)\ge 
 
 % SOURCE 7631--7636: paragraph
 
-For a coordinate of any source family, substitute \(t=T(1+\cos u)/2\). The resulting function is even and periodic in \(u\). If \(|\operatorname{Im}u|\le\alpha_T\le1\), its imaginary time displacement is at most \(T\alpha_T=r_t/4\) and its real overshoot is at most \(T\alpha_T^2/2\le r_t\). Fourier contour translation, first in time and then the proved harmonic estimate, gives
+For a coordinate of any source family, substitute \(t=T(1+\cos u)/2\). The resulting function is even and periodic in \(u\). Since \(T\ge T_0\), the counting gate \eqref{int:eq-0084-harmonic-original-counting-gates} gives \(0<\alpha_T\le\alpha_{T_0}\le1\). If \(|\operatorname{Im}u|\le\alpha_T\), its imaginary time displacement is at most \(T\alpha_T=r_t/4\) and its real overshoot is at most \(T\alpha_T^2/2\le r_t\). Fourier contour translation, first in time and then the proved harmonic estimate, gives
 
 
 % SOURCE 7637--7640: display
@@ -12576,7 +12670,7 @@ This is the same pointwise bound \(\|\dot\theta\|\le2(-\dot\rho_n)/\sqrt\lambda\
 
 % SOURCE 8505--8519: paragraph
 
-Consider the complex parameter ball of radius \(b_n\) around \(\theta(T_0)\). The dense real operator bounds improve below \(8+1/8\), so the ball stays inside cap ten. The real readout is at most \(2\alpha\le SH_L^{\rm src}/8\), and the ball keeps it below \(SH_L^{\rm src}\). On a straight parameter segment stopped at a first query-strip exit, the source forward derivative recurrence bounds preactivation RMS differentials by \(P_j^{\rm src}\|d\theta\|_{\rm par}\): the first direct map costs at most two, later direct maps at most \(H_{j-1}^{\rm src}\), and propagation at most \(10s\). Coordinate differentials are bounded by \(\sqrt nP_j^{\rm src}\|d\theta\|_{\rm par}\). The radius definition limits the change to \(a/8\), so all query preactivations stay below imaginary part \(3a/8\). This strictly improves the stopped boundary. Linear growth now gives the original complex RMS source bounds throughout the ball.
+Consider the complex parameter ball of radius \(b_{\rm ext}\) around \(\theta(T_0)\). The dense real operator bounds improve below \(8+1/8\), so the ball stays inside cap ten. The real readout is at most \(2\alpha\le SH_L^{\rm src}/8\), and the ball keeps it below \(SH_L^{\rm src}\). On a straight parameter segment stopped at a first query-strip exit, the source forward derivative recurrence bounds preactivation RMS differentials by \(P_j^{\rm src}\|d\theta\|_{\rm par}\): the first direct map costs at most two, later direct maps at most \(H_{j-1}^{\rm src}\), and propagation at most \(10s\). Coordinate differentials are bounded by \(\sqrt nP_j^{\rm src}\|d\theta\|_{\rm par}\). The radius definition limits the change to \(a/8\), so all query preactivations stay below imaginary part \(3a/8\). This strictly improves the stopped boundary. Linear growth now gives the original complex RMS source bounds throughout the ball.
 
 
 % SOURCE 8521--8527: paragraph
@@ -12639,7 +12733,7 @@ The second extension gate and the late parameter tail make this at most \(K_{\rm
 
 % SOURCE 8579--8583: paragraph
 
-This proves the value of \(M\) used in the comparison. The first extension gate is eventual because its left side is a fixed multiple of \(n^{-16}\), whereas \(b_n\) is bounded below by a fixed positive multiple of \(n^{-1/2}\). The second is eventual by the same comparison of powers. Neither changes the label interval.
+This proves the value of \(M\) used in the comparison. The first extension gate is eventual because its left side is a fixed multiple of \(n^{-16}\), whereas \(b_{\rm ext}\) is bounded below by a fixed positive multiple of \(n^{-1/2}\). The second is eventual by the same comparison of powers. Neither changes the label interval.
 
 
 % SOURCE 8587--8587: heading
@@ -12881,7 +12975,7 @@ The resulting deterministic Harmonic implication is complete relative to the sha
 
 % SOURCE 8776--8776: heading
 \subsection{Seeded decoder proofs}
-\label{int:logarithmic-decoder-proofs}
+\label{int:seeded-decoder-proofs}
 
 % SOURCE 8778--8785: paragraph
 
@@ -13064,7 +13158,7 @@ The two one-quarter operator nets have scalar threshold exponent \(-8n\) and car
 
 % SOURCE 8917--8922: paragraph
 
-The deterministic fitting proof already in RESULT applies to this stronger event with its unchanged condition \(Y\le\lambda/(8H_D\sqrt{F_D})\). Its stop improvements use only the initial operator/RMS/Gram bounds just proved. In particular \(\rho(t)\le Ye^{-\lambda t/2}\), and the weaker decay \eqref{int:eq-0177-s-3} is available. Direct finite-sum estimates give
+The deterministic fitting proof in \S\ref{int:dense-fitting} applies to this stronger event with its unchanged condition \(Y\le\lambda/(8H_D\sqrt{F_D})\). Its stop improvements use only the initial operator/RMS/Gram bounds just proved. In particular \(\rho(t)\le Ye^{-\lambda t/2}\), and the weaker decay \eqref{int:eq-0177-s-3} is available. Direct finite-sum estimates give
 
 
 % SOURCE 8923--8927: display
@@ -13113,6 +13207,7 @@ This gate replaces, rather than assumes domination of, the older exponential-in-
 
 % SOURCE 8942--8942: heading
 \paragraph{7. Quantitative training-source coefficient and width ledger}
+\label{int:source-quantitative-ledger}
 
 \mbox{}\par\smallskip
 
@@ -13452,12 +13547,12 @@ For initial coordinate localization at a layer above the deletion, condition on 
 
 % SOURCE 9227--9236: paragraph
 
-The negative exponent is at least \(n^{.799}/2\), while the logarithm of the prefactor is at most \(10n^{1/4000}\ell\), by \eqref{int:eq-0283-ic-68}. At the deleted layer retained coordinates agree. Hence each cavity starts with budget at most \(e^{\eta n^{-1/10}}8L+p/n<\mathcal B/2\). These initial failure allocations sum to less than \(\rho/4\). Each cavity nevertheless uses its own initialization test (including the just specified initial Gram margin), with the zero-reference convention of Section 1. This is needed when the full initial-event indicator is subsequently dropped.
+The negative exponent is at least \(n^{.799}/2\), while the logarithm of the prefactor is at most \(10n^{1/4000}\ell\), by \eqref{int:eq-0283-ic-68}. At the deleted layer retained coordinates agree. Hence each cavity starts with budget at most \(e^{\eta n^{-1/10}}8L+p/n<\mathcal B/2\). These initial failure allocations sum to less than \(\rho/4\). Each cavity nevertheless uses its own initialization test (including the just specified initial Gram margin), with the zero-reference convention preceding \eqref{int:eq-0122-ic-stop}. This is needed when the full initial-event indicator is subsequently dropped.
 
 
 % SOURCE 9238--9239: paragraph
 
-On the local uniform event in Section 7, \eqref{int:eq-0173-ic-55} and the unchanged scalar absorption \eqref{int:eq-0190-s-16} give
+On the local uniform event in \hyperref[int:source-quantitative-ledger]{the quantitative training-source ledger}, \eqref{int:eq-0173-ic-55} and the unchanged scalar absorption \eqref{int:eq-0190-s-16} give
 
 
 % SOURCE 9240--9246: display
@@ -13593,7 +13688,7 @@ p\mu_n+p^2v_n^2
 
 % SOURCE 9344--9346: paragraph
 
-We also need finite moments for complex-minus-real corrections, rather than a limit at fixed moment degree. The sharp derivative calculation in S.7, now using \eqref{int:eq-0291-ic-76}, gives
+We also need finite moments for complex-minus-real corrections, rather than a limit at fixed moment degree. The sharp derivative calculation yielding \eqref{int:eq-0201-s-27}, now using \eqref{int:eq-0291-ic-76}, gives
 
 
 % SOURCE 9347--9353: display
@@ -13617,7 +13712,7 @@ To see that the constant is finite with this power, interpolate the RMS and maxi
 
 % SOURCE 9370--9374: paragraph
 
-Call the bracket in \eqref{int:eq-0295-ic-80} \(A_\ell\). The unchanged condition \(S^2\Lambda/\eta\le1\) gives \(A_\ell\le8[1+\log(e+\ell)]\). Subtract the coefficient at the nearest real anchor. With \(c\) from Section 7, its normalized radius, Lipschitz coefficient, and rectangle side are bounded by
+Call the bracket in \eqref{int:eq-0295-ic-80} \(A_\ell\). The unchanged condition \(S^2\Lambda/\eta\le1\) gives \(A_\ell\le8[1+\log(e+\ell)]\). Subtract the coefficient at the nearest real anchor. With \(c=[p\beta^{100L}(1+\lambda)]^{-1}\), the radius coefficient in \eqref{int:eq-0278-ic-63}, its normalized radius, Lipschitz coefficient, and rectangle side are bounded by
 
 
 % SOURCE 9375--9380: display
@@ -14269,6 +14364,7 @@ To check the small scales, \(S\ge16\beta^{-6L}/n\), \(q_T^{-1}\le2e^{T\log2/4}\)
 
 % SOURCE 9807--9807: heading
 \paragraph{3. Causal coefficients, real activation values, and physical forcing}
+\label{int:decoder-physical-forcing}
 
 \mbox{}\par\smallskip
 
@@ -14404,7 +14500,7 @@ In the following bounds \(R\) is the deterministic enclosing field/call count ex
 
 % SOURCE 9900--9907: paragraph
 
-Every positive tolerance specified by an upper bound here is chosen as the largest dyadic below the stated minimum, after the fixed budget fractions. The precision upper bounds refer to those choices, not arbitrary smaller numbers. The common noise level is refined in Section 5 before setup. The probability of a raw-noise RMS violation is at most \(Re^{-n/2}\). Indeed exponential Markov with parameter \(3/8\) gives \(\Pr(\|\zeta\|_2^2>4n)\le \exp[-(3-\log4)n/2]\le e^{-n/2}\).
+Every positive tolerance specified by an upper bound here is chosen as the largest dyadic below the stated minimum, after the fixed budget fractions. The precision upper bounds refer to those choices, not arbitrary smaller numbers. The common noise level is refined in \hyperref[int:decoder-precision-coupling]{the precision schedule} before setup. The probability of a raw-noise RMS violation is at most \(Re^{-n/2}\). Indeed exponential Markov with parameter \(3/8\) gives \(\Pr(\|\zeta\|_2^2>4n)\le \exp[-(3-\log4)n/2]\le e^{-n/2}\).
 
 
 % SOURCE 9909--9913: paragraph
@@ -14528,6 +14624,7 @@ Uniform real prediction subtraction and the original fitting tail at \(T\) now g
 
 % SOURCE 10012--10012: heading
 \paragraph{4. Actual named fields and the finite Gaussian law}
+\label{int:decoder-gaussian-law}
 
 \mbox{}\par\smallskip
 
@@ -14570,7 +14667,7 @@ There are \(O(mLHK^2)\) rank weights, at most \(CR^2\); there are not that many 
 
 % SOURCE 10048--10048: paragraph
 
-One fully explicit oversized local cap in Section 3 is
+One fully explicit oversized local cap for \hyperref[int:decoder-physical-forcing]{the physical forcing construction} is
 
 
 % SOURCE 10049--10054: display
@@ -14801,6 +14898,7 @@ These coefficient maps have fixed polynomial local sensitivity. For a checkable 
 
 % SOURCE 10201--10201: heading
 \paragraph{5. One finite pre-setup precision schedule and chronological coupling}
+\label{int:decoder-precision-coupling}
 
 \mbox{}\par\smallskip
 
@@ -14904,7 +15002,7 @@ Therefore the entire finite call \eqref{int:eq-0343-fc-38}, including every fini
 
 % SOURCE 10269--10275: paragraph
 
-Let \(Q_H(dy,\allowbreak dt)\) be the shadow kernel. Couple it to the physical call \(y=W_0q+\sigma\zeta\), with hidden fresh noise, by attaching \(t\mid(H,\allowbreak y,\allowbreak W_0)\sim Q_H(dt\mid y)\), then applying the same \(J_H\). This attachment is conditionally independent of every initialized matrix given \((H,\allowbreak y)\); its likelihood cancels in Bayes' formula. Consequently the Gaussian posterior derived in Section 4 remains valid at the next complete call, even if the finite marks are reused. Moreover
+Let \(Q_H(dy,\allowbreak dt)\) be the shadow kernel. Couple it to the physical call \(y=W_0q+\sigma\zeta\), with hidden fresh noise, by attaching \(t\mid(H,\allowbreak y,\allowbreak W_0)\sim Q_H(dt\mid y)\), then applying the same \(J_H\). This attachment is conditionally independent of every initialized matrix given \((H,\allowbreak y)\); its likelihood cancels in Bayes' formula. Consequently the Gaussian posterior derived in \hyperref[int:decoder-gaussian-law]{the finite Gaussian law} remains valid at the next complete call, even if the finite marks are reused. Moreover
 
 
 % SOURCE 10276--10280: display
@@ -14962,7 +15060,7 @@ e_{\rm mom}=C\{(b+1)h_y+h_y^2+\eta(T_G+1)+h_s\}.
 
 % SOURCE 10309--10316: paragraph
 
-Both queries are the same actual finite vectors at this history; there is no comparison with recomputed queries at a different history. If finite coefficient error is \(\epsilon_c\), put \(e_c=e_{\rm mom}+z^{10}\epsilon_c\). Section 4's local estimates give \(\|\widetilde m-m\|_2\le\sqrt n z^{110}e_c\) and \(\|\widetilde S-S\|_{\rm op}\le z^{110}e_c\), including the old answer-to-finite-answer change in the row combinations. Also \(\|B_cB_c^\top\|_F\le nRb^2z^{200}\).
+Both queries are the same actual finite vectors at this history; there is no comparison with recomputed queries at a different history. If finite coefficient error is \(\epsilon_c\), put \(e_c=e_{\rm mom}+z^{10}\epsilon_c\). The local estimates in \hyperref[int:decoder-gaussian-law]{the finite Gaussian law} give \(\|\widetilde m-m\|_2\le\sqrt n z^{110}e_c\) and \(\|\widetilde S-S\|_{\rm op}\le z^{110}e_c\), including the old answer-to-finite-answer change in the row combinations. Also \(\|B_cB_c^\top\|_F\le nRb^2z^{200}\).
 
 
 % SOURCE 10318--10318: paragraph
@@ -15003,7 +15101,7 @@ For \(\|E\|\le1/2\), diagonalization and \(x-\log(1+x)\le x^2\) bound this by ha
 
 % SOURCE 10344--10345: paragraph
 
-Make the choices once, before generating any source or metric. A passive answer tolerance sufficient for Section 7 is
+Make the choices once, before generating any source or metric. A passive answer tolerance sufficient for \hyperref[int:decoder-passive-query]{the unseen-query construction} is
 
 
 % SOURCE 10346--10348: display
@@ -15091,7 +15189,7 @@ bits per word, including integer ranges, coefficient scratch and counters. This 
 
 % SOURCE 10392--10403: paragraph
 
-At complete-call boundaries maximally couple the shadow and physical raw answers. On equality attach the same conditional augmentation and use the same finite postprocessing. The finite tapes then agree literally until failure. Summing \eqref{int:eq-0349-fc-44} over at most \(R\) calls costs at most \(\rho_0/64\). Sampler failure is charged on the iid-packet marginal, and raw-noise/source failure on the physical marginal. Before a mismatch, both histories are identical, so these probabilities add. On the surviving event, finite answers have form \(W_0q+\sigma\zeta+d\) with \(\|d\|_{2,\allowbreak n}\le h_y\), current-operand pairs meet \eqref{int:eq-0326-fc-21}, and the strict-slack physical proof in Section 3 applies. This proves the finite physical-source coupling without a global row-history Lipschitz assumption and without changing the scientific Gaussian initialization.
+At complete-call boundaries maximally couple the shadow and physical raw answers. On equality attach the same conditional augmentation and use the same finite postprocessing. The finite tapes then agree literally until failure. Summing \eqref{int:eq-0349-fc-44} over at most \(R\) calls costs at most \(\rho_0/64\). Sampler failure is charged on the iid-packet marginal, and raw-noise/source failure on the physical marginal. Before a mismatch, both histories are identical, so these probabilities add. On the surviving event, finite answers have form \(W_0q+\sigma\zeta+d\) with \(\|d\|_{2,\allowbreak n}\le h_y\), current-operand pairs meet \eqref{int:eq-0326-fc-21}, and the strict-slack proof in \hyperref[int:decoder-physical-forcing]{the physical forcing construction} applies. This proves the finite physical-source coupling without a global row-history Lipschitz assumption and without changing the scientific Gaussian initialization.
 
 
 % SOURCE 10405--10405: heading
@@ -15255,6 +15353,7 @@ This proof conditions on the packet array, not on the privately chosen metric. I
 
 % SOURCE 10533--10533: heading
 \paragraph{7. An unseen query streams the original empirical contractions}
+\label{int:decoder-passive-query}
 
 \mbox{}\par\smallskip
 
@@ -15312,12 +15411,12 @@ Each query starts its own local transcript at the current training prefix. The r
 
 % SOURCE 10585--10592: paragraph
 
-For a fixed input/time code, run the iid source only through that acquired prefix and append the passive calls just described. Do not reveal the discarded future training answers first. Section 5's coupling applies to this chronological source-plus-query computation with the same pre-setup precision, because the old training moments and new query moments satisfy the same tolerances. Refining only the new query would not justify that step. The private selected metric is not added to the Gaussian posterior filtration. Metric replay is used afterward to identify the actual retained prefix.
+For a fixed input/time code, run the iid source only through that acquired prefix and append the passive calls just described. Do not reveal the discarded future training answers first. The \hyperref[int:decoder-precision-coupling]{chronological coupling} applies to this chronological source-plus-query computation with the same pre-setup precision, because the old training moments and new query moments satisfy the same tolerances. Refining only the new query would not justify that step. The private selected metric is not added to the Gaussian posterior filtration. Metric replay is used afterward to identify the actual retained prefix.
 
 
 % SOURCE 10594--10597: paragraph
 
-In the physical coupled process, the finite parameter state is within the all-sphere bound from Section 3. On its operator/feature event, forward subtraction for an additional answer/arithmetic defect of RMS at most \(a_{\rm qry}\) gives
+In the physical coupled process, the finite parameter state is within the all-sphere bound from \hyperref[int:decoder-physical-forcing]{the physical forcing construction}. On its operator/feature event, forward subtraction for an additional answer/arithmetic defect of RMS at most \(a_{\rm qry}\) gives
 
 
 % SOURCE 10598--10602: display
@@ -15334,7 +15433,7 @@ e_j\le\beta(11e_{j-1}+Ca_{\rm qry}),
 
 % SOURCE 10603--10620: paragraph
 
-The first-layer input/initial-root arithmetic has its own allocated fraction of the same tolerance. Since \(11\beta\le\beta^{5/2}\), the geometric sum in \eqref{int:eq-0361-fc-56} is at most \(C\beta^{3L}a_{\rm qry}\). The readout RMS is at most \(CY\beta^{3L}(1+r)\), so the choice in Section 5 makes the query-only prediction change at most \(CYn^{-10}\), with an absolute total allocation after increasing the fixed constant in \(a_{\rm qry}\). Fresh physical noise RMS failures have total probability at most \(CL e^{-n/2}\), already included when \(R\) counts the appended calls. For one member impose \(Re^{-n/2}\le2^{-20}\); the clean branch's stated implementation gate is a stronger sufficient bound. The source failure at \(2^{-20}\), this noise failure, the coupling at \(\rho_0/64\), the sampler at \(\rho_0/512\), and metric replay at \(2^{-12}\) total less than \(1/1024\). Thus allocating at most \(1/64\) each to the internal dense-center and inner-generator errors still leaves the combined failure strictly below \(1/16\). These allocations give the fixed-code one-member physical conclusion required by the internal dense-center and short-seed lemmas. There is no passive bias of size \(R/n\) or \(\sqrt{R/n}\): \eqref{int:eq-0360-fc-55} has computed its exact finite empirical target.
+The first-layer input/initial-root arithmetic has its own allocated fraction of the same tolerance. Since \(11\beta\le\beta^{5/2}\), the geometric sum in \eqref{int:eq-0361-fc-56} is at most \(C\beta^{3L}a_{\rm qry}\). The readout RMS is at most \(CY\beta^{3L}(1+r)\), so the choice in \hyperref[int:decoder-precision-coupling]{the precision schedule} makes the query-only prediction change at most \(CYn^{-10}\), with an absolute total allocation after increasing the fixed constant in \(a_{\rm qry}\). Fresh physical noise RMS failures have total probability at most \(CL e^{-n/2}\), already included when \(R\) counts the appended calls. For one member impose \(Re^{-n/2}\le2^{-20}\); the clean branch's stated implementation gate is a stronger sufficient bound. The source failure at \(2^{-20}\), this noise failure, the coupling at \(\rho_0/64\), the sampler at \(\rho_0/512\), and metric replay at \(2^{-12}\) total less than \(1/1024\). Thus allocating at most \(1/64\) each to the internal dense-center and inner-generator errors still leaves the combined failure strictly below \(1/16\). These allocations give the fixed-code one-member physical conclusion required by the internal dense-center and short-seed lemmas. There is no passive bias of size \(R/n\) or \(\sqrt{R/n}\): \eqref{int:eq-0360-fc-55} has computed its exact finite empirical target.
 
 
 % SOURCE 10622--10622: heading
@@ -15401,7 +15500,7 @@ k_{\rm ext}=\left\lceil
 
 % SOURCE 10653--10662: paragraph
 
-For a unit \(v\), approximate its coordinates by a lattice vector \(z\) of step \(2^{-k_{\rm ext}-6-\lceil\log_2(d+1)\rceil}\), then use the mathematical sphere point \(z/\|z\|_2\). The lattice approximation can ensure \(\|z-v\|_2\le2^{-k_{\rm ext}-3}\); consequently \(\|z\|_2\ge1/2\) and \(\|z/\|z\|_2-v\|_2\le2^{-k_{\rm ext}-2}\). Its code is the finite integer vector \(z\); normalization is evaluated to the finer internal precision, with that error allocated in Section 5. Approximate input access may choose any qualifying code; no exact rounding tie on an arbitrary real input must be decided.
+For a unit \(v\), approximate its coordinates by a lattice vector \(z\) of step \(2^{-k_{\rm ext}-6-\lceil\log_2(d+1)\rceil}\), then use the mathematical sphere point \(z/\|z\|_2\). The lattice approximation can ensure \(\|z-v\|_2\le2^{-k_{\rm ext}-3}\); consequently \(\|z\|_2\ge1/2\) and \(\|z/\|z\|_2-v\|_2\le2^{-k_{\rm ext}-2}\). Its code is the finite integer vector \(z\); normalization is evaluated to the finer internal precision, with that error allocated in \hyperref[int:decoder-precision-coupling]{the precision schedule}. Approximate input access may choose any qualifying code; no exact rounding tie on an arbitrary real input must be decided.
 
 
 % SOURCE 10664--10671: paragraph
@@ -15429,7 +15528,7 @@ Equations \eqref{int:eq-0362-fc-57}--\allowbreak \eqref{int:eq-0364-fc-59} make 
 
 % SOURCE 10684--10693: paragraph
 
-The internal dense-center lemma and Section 7 therefore give, for each fixed code, a one-member bad-output probability at most \(1/16\), after the fixed source/coupling/replay/generator allocations. The internal whole-member amplification lemma makes all coded median outputs accurate simultaneously with the specified confidence. To transfer to an arbitrary query, compare its returned coded value with the physical value at that code, then use \eqref{int:eq-0362-fc-57}--\allowbreak \eqref{int:eq-0364-fc-59} and the tail. No continuity estimate for the finite decoder is used. Because this is one event for every code, queries may be chosen after inspecting the retained model and previous answers. Their dependence creates no new union bound or posterior premise.
+The internal dense-center lemma and \hyperref[int:decoder-passive-query]{the unseen-query construction} therefore give, for each fixed code, a one-member bad-output probability at most \(1/16\), after the fixed source/coupling/replay/generator allocations. The internal whole-member amplification lemma makes all coded median outputs accurate simultaneously with the specified confidence. To transfer to an arbitrary query, compare its returned coded value with the physical value at that code, then use \eqref{int:eq-0362-fc-57}--\allowbreak \eqref{int:eq-0364-fc-59} and the tail. No continuity estimate for the finite decoder is used. Because this is one event for every code, queries may be chosen after inspecting the retained model and previous answers. Their dependence creates no new union bound or posterior premise.
 
 
 % SOURCE 10695--10700: paragraph
@@ -15537,7 +15636,7 @@ If the transcript has at most \(B\) bits, apply the finite-space generator prove
 \|\operatorname{Law}(T_{\rm seed})-
   \operatorname{Law}(T_{\rm iid})\|_{\rm TV}\le\varepsilon.
 }
-\label{int:eq-0368-logarithmic-transcript-transfer}
+\label{int:eq-0368-seeded-transcript-transfer}
 \end{equation}
 \endgroup
 
@@ -15559,7 +15658,7 @@ R\le Cp\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2},
 \qquad
 w=\lceil C_{\rm word}\beta^{110L}Z\rceil.
 }
-\label{int:eq-0369-logarithmic-local-resources}
+\label{int:eq-0369-seeded-local-resources}
 \end{equation}
 \endgroup
 
@@ -15600,7 +15699,7 @@ For an unseen input the decoder regenerates rows and streams the actual empirica
 \widehat y=Q_{h_y}
 (\widetilde m+U\widetilde T\widehat t+c\widehat g).
 }
-\label{int:eq-0370-logarithmic-conditional-query}
+\label{int:eq-0370-seeded-conditional-query}
 \end{equation}
 \endgroup
 
@@ -15651,7 +15750,7 @@ Use the smallest odd integer \(J\) at least \(\lceil\log_2(16N_{\rm ext}/\delta)
 \begingroup\renewcommand{\theHequation}{intdisplay.775}
 \begin{equation*}
 \intdisplay{
-\|f_{\rm Log,n}-f_n^{\rm ind}\|_*
+\|f_{\rm Seed,n}-f_n^{\rm ind}\|_*
 \le2B_n+A_{\rm num}Yn^{-10}.
 }
 \end{equation*}
@@ -15659,7 +15758,7 @@ Use the smallest odd integer \(J\) at least \(\lceil\log_2(16N_{\rm ext}/\delta)
 
 % SOURCE 10893--10898: paragraph
 
-The explicit mesh term satisfies \(B_n\ge32Y/n\). Hence the numerical gate \(n\ge(A_{\rm num}/32)^{1/9}\) absorbs the last term and proves \eqref{int:eq-0092-logarithmic-complete-comparison}. This also proves the statement for a query chosen adaptively after seeing the retained model, because the final event is simultaneous over the complete external code set before the query is chosen.
+The explicit mesh term satisfies \(B_n\ge32Y/n\). Hence the numerical gate \(n\ge(A_{\rm num}/32)^{1/9}\) absorbs the last term and proves \eqref{int:eq-0092-seeded-complete-comparison}. This also proves the statement for a query chosen adaptively after seeing the retained model, because the final event is simultaneous over the complete external code set before the query is chosen.
 
 
 % SOURCE 10900--10900: heading
@@ -15696,7 +15795,7 @@ where \(a_{\rm blk}\) is the inner generator block length and \(b_{\rm mem}\) is
 C\left\{JR^2+
 \left\lceil\frac{b_{\rm mem}}w\right\rceil\log(J+2)\right\}
 }
-\label{int:eq-0371-logarithmic-modular-memory}
+\label{int:eq-0371-seeded-modular-memory}
 \end{equation}
 \endgroup
 
@@ -15724,7 +15823,7 @@ W_{\rm query}\le{}&CJ(L+1)\{n[a_{\rm blk}\lceil a_{\rm blk}/w\rceil
 &+W_{\rm outer}+CJ\log(J+2),
 \end{aligned}
 }
-\label{int:eq-0372-logarithmic-modular-work}
+\label{int:eq-0372-seeded-modular-work}
 \end{equation}
 \endgroup
 
@@ -15735,7 +15834,7 @@ with \(W_{\rm outer}=CJb_{\rm mem}\lceil b_{\rm mem}/w\rceil\). Every generator 
 
 % SOURCE 10942--10952: paragraph
 
-Substitute \eqref{int:eq-0369-logarithmic-local-resources} and \(\log N_{\rm ext}\le C(d+1)Z\). The two leading memory terms become \(JR^2\) and \(R^2\log(en)\log(J+2)\), which give exactly \eqref{int:eq-0093-logarithmic-retained-words}. The leading initialization term is \(JnR^5w\); the leading complete-training term is \(JR^4w\log(R+2)\); and the two leading query terms are the streamed inner and outer hashes. Their substitutions are precisely the three rows of \eqref{int:eq-0095-logarithmic-complete-costs}. This proves six powers of \(Z\), with one outer logarithm, in numerical words. Multiplying by the word length adds one power of \(Z\) in bits. It does not turn the bit bound into a sixth-power claim.
+Substitute \eqref{int:eq-0369-seeded-local-resources} and \(\log N_{\rm ext}\le C(d+1)Z\). The two leading memory terms become \(JR^2\) and \(R^2\log(en)\log(J+2)\), which give exactly \eqref{int:eq-0093-seeded-retained-words}. The leading initialization term is \(JnR^5w\); the leading complete-training term is \(JR^4w\log(R+2)\); and the two leading query terms are the streamed inner and outer hashes. Their substitutions are precisely the three rows of \eqref{int:eq-0095-seeded-complete-costs}. This proves six powers of \(Z\), with one outer logarithm, in numerical words. Multiplying by the word length adds one power of \(Z\) in bits. It does not turn the bit bound into a sixth-power claim.
 
 
 % SOURCE 10954--10959: paragraph
@@ -16284,7 +16383,7 @@ Cp^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
 
 % SOURCE 11404--11411: paragraph
 
-The leading setup term \(JnR^5w\) gives the exponents \(1115L\) and \(29/2\). The leading training term \(JR^4w\log(R+2)\) gives \(914L\) and \(12\). Inner and outer query hashing give, respectively, \((L+1)nZ^{12}\) and \(Z^{14}\) with the same \(p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4(d+1)\) coefficient. These are exactly the existing headline bounds. Word length is separate: multiplying \eqref{int:eq-0389-wb-17} by \(w\) adds one logarithmic power to the retained bit count.
+The leading setup term \(JnR^5w\) gives the exponents \(1115L\) and \(29/2\). The leading training term \(JR^4w\log(R+2)\) gives \(914L\) and \(12\). Inner and outer query hashing give, respectively, \((L+1)nZ^{12}\) and \(Z^{14}\) with the same \(p^4\beta^{914L}(m+d+2)^4(1+m/\gamma)^4(d+1)\) coefficient. These are the supplementary Seeded decoder's resource bounds. Word length is separate: multiplying \eqref{int:eq-0389-wb-17} by \(w\) adds one logarithmic power to the retained bit count.
 
 
 % SOURCE 11413--11416: paragraph
@@ -16306,10 +16405,10 @@ The conclusion is
 \begin{equation}
 \intdisplay{
 \begin{gathered}
-\Pr\!\left\{\|f_{\rm Log,n}-f_n^{\rm ind}\|_*
- \le 2b_n(\delta)+A_{\rm num}Yn^{-10}\right\}\ge1-\delta,\\
-b_n(\delta)=\inf\!\left\{b\ge0:
- \Pr(\|f_n-\widetilde f_n\|_*\le b)\ge1-\delta/32\right\}.
+\Pr\!\left\{\|f_{\rm Seed,n}-f_n^{\rm ind}\|_*
+ \le 2b_n(\delta/32)+A_{\rm num}Yn^{-10}\right\}\ge1-\delta,\\
+b_n(\alpha)=\inf\!\left\{b\ge0:
+ \Pr(\|f_n-\widetilde f_n\|_*\le b)\ge1-\alpha\right\},\quad 0<\alpha<1.
 \end{gathered}
 }
 \tag{VD.1}
@@ -16319,12 +16418,12 @@ b_n(\delta)=\inf\!\left\{b\ge0:
 
 % SOURCE 11434--11438: paragraph
 
-Here the two dense trajectories in the definition are independent, ordinary width-\(n\) dense runs. Thus \(b_n(\delta)\) is an actual variability quantile, with confidence fixed as width changes. It is not an analytic upper certificate. Neither this quantile nor the deterministic center used in the proof is an input to the implemented decoder.
+Here the two dense trajectories in the definition are independent, ordinary width-\(n\) dense runs. Thus \(b_n(\delta/32)\) is an actual variability quantile, with confidence fixed as width changes. It is not an analytic upper certificate. Neither this quantile nor the deterministic center used in the proof is an input to the implemented decoder.
 
 
 % SOURCE 11440--11443: paragraph
 
-The additive numerical term is necessary in the original admissible class. In particular the former argument using \(b_n\ge32Y/n\) cannot be reused after changing the definition of \(b_n\). A verified example below has positive labels and zero actual dense variability.
+The additive numerical term is necessary in the full admissible class. The analytic envelope satisfies \(B_n\ge32Y/n\), but this does not imply the same lower bound for the actual quantile \(b_n(\delta/32)\). A verified example below has positive labels and zero actual dense variability.
 
 
 % SOURCE 11445--11445: heading
@@ -16418,7 +16517,7 @@ where \(H_D\) is the existing dense population feature RMS envelope. Consequentl
 
 % SOURCE 11519--11522: paragraph
 
-The quantile \(b=b_n(\delta)\) is therefore finite without using any dense concentration rate. By continuity of probability along decreasing events, its definition implies \(\Pr\{\|F-F'\|_*>b\}\le\alpha\), including when \(b=0\).
+The quantile \(b=b_n(\delta/32)\) is therefore finite without using any dense concentration rate. By continuity of probability along decreasing events, its definition implies \(\Pr\{\|F-F'\|_*>b\}\le\alpha\), including when \(b=0\).
 
 
 % SOURCE 11524--11524: paragraph
@@ -16569,7 +16668,7 @@ The outer generator fools this fixed-code bad-member-counter test with error at 
 \begingroup\renewcommand{\theHequation}{intdisplay.811}
 \begin{equation}
 \intdisplay{
-|f_{\rm Log,n}(c)-f_{\rm c}(c)|\le b+e_{\rm loc}
+|f_{\rm Seed,n}(c)-f_{\rm c}(c)|\le b+e_{\rm loc}
 \quad\hbox{for every external code }c.
 }
 \tag{VD.4}
@@ -16600,7 +16699,7 @@ This holds also for \(t=\infty\), and for either permitted acquired panel at a b
 \begingroup\renewcommand{\theHequation}{intdisplay.813}
 \begin{equation*}
 \intdisplay{
-\|f_{\rm Log,n}-f_{\rm c}\|_*
+\|f_{\rm Seed,n}-f_{\rm c}\|_*
  \le b+A_{\rm num}Yn^{-10}.
 }
 \end{equation*}
@@ -16632,7 +16731,7 @@ w\le C\beta^{110L}Z,\qquad J\le C(d+1)Z.
 
 % SOURCE 11689--11690: paragraph
 
-Nothing in these choices depends on \(b_n(\delta)\) or on the chosen center. Thus the retained/live word count remains
+Nothing in these choices depends on \(b_n(\delta/32)\) or on the chosen center. Thus the retained/live word count remains
 
 
 % SOURCE 11692--11695: display
@@ -16647,7 +16746,7 @@ Cp^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
 
 % SOURCE 11697--11704: paragraph
 
-the initialization work retains its \(1115L\) activation power and \(Z^{29/2}\) factor, the training work retains \(914L\) and \(Z^{12}\) times its displayed logarithm, and query work retains \(914L\) with \((L+1)nZ^{12}+Z^{14}\). Every interface cost and setup peak inventory in the original theorem remains charged. The old explicit width gates suffice; their numerical absorption gate can simply be retained even though this new proof does not use it to absorb the additive error.
+the initialization work retains its \(1115L\) activation power and \(Z^{29/2}\) factor, the training work retains \(914L\) and \(Z^{12}\) times its displayed logarithm, and query work retains \(914L\) with \((L+1)nZ^{12}+Z^{14}\). Every interface cost and setup peak inventory remains charged. The explicit decoder width gates suffice; their numerical absorption gate is retained as a sufficient condition, although the additive intrinsic comparison does not need it for absorption.
 
 
 % SOURCE 11706--11710: paragraph
@@ -16678,12 +16777,12 @@ f_n(t)=y(1-e^{-2t}).
 
 % SOURCE 11734--11739: paragraph
 
-Every dense realization is the same nonconstant path, so \(b_n(\delta)=0\). The prescribed finite time-code decoder has finitely many scalar output values through its finite horizon and cannot equal this nonconstant continuous function at every time. A pure bound \(C b_n(\delta)\) would require exact equality and is therefore false for this decoder over the complete original admissible class.
+Every dense realization is the same nonconstant path, so \(b_n(\delta/32)=0\). The prescribed finite time-code decoder has finitely many scalar output values through its finite horizon and cannot equal this nonconstant continuous function at every time. A pure bound \(C b_n(\delta/32)\) would require exact equality and is therefore false for this decoder over the complete original admissible class.
 
 
 % SOURCE 11741--11751: paragraph
 
-Whenever a separately justified lower bound gives \(b_n(\delta)\ge A_{\rm num}Yn^{-10}\), \eqref{int:eq-0390-vd-1} does imply the pure factor-three bound. The existing actual-trajectory lower theorem for fixed admissible problems with \(m\ge2\) and \(Y>0\) eventually supplies such domination: its \(cY\sqrt\gamma/(\sqrt n\log^{5/2}(en))\) lower scale dominates \(Yn^{-10}\). This consequence inherits that theorem's unquantified eventual width. It must not be substituted into the explicit finite decoder gate or asserted for the \(m=1\) case. Refining numerical precision to an arbitrary unknown quantile would instead introduce a new dependence on its scale and would require fresh resource accounting.
+Whenever a separately justified lower bound gives \(b_n(\delta/32)\ge A_{\rm num}Yn^{-10}\), \eqref{int:eq-0390-vd-1} does imply the pure factor-three bound. The existing actual-trajectory lower theorem for fixed admissible problems with \(m\ge2\) and \(Y>0\) eventually supplies such domination: its \(cY\sqrt\gamma/(\sqrt n\log^{5/2}(en))\) lower scale dominates \(Yn^{-10}\). This consequence inherits that theorem's unquantified eventual width. It must not be substituted into the explicit finite decoder gate or asserted for the \(m=1\) case. Refining numerical precision to an arbitrary unknown quantile would instead introduce a new dependence on its scale and would require fresh resource accounting.
 
 
 % SOURCE 11755--11755: heading
@@ -16706,7 +16805,7 @@ No label inequality is used to reduce a displayed sample/gap power.
 
 % SOURCE 11766--11770: paragraph
 
-Let \(b_n=\inf\{b\ge0:\Pr(\|f_n-\widetilde f_n\|_*\le b)\ge0.9999\}\), the actual independent-dense discrepancy quantile. The source-good amplitude bound in the preceding proof makes it finite at qualifying widths. The dense lower theorem, used with failure \(1/200\), gives
+Let \(b_n(10^{-4})=\inf\{b\ge0:\Pr(\|f_n-\widetilde f_n\|_*\le b)\ge0.9999\}\), the actual independent-dense discrepancy quantile. The source-good amplitude bound in the preceding proof makes it finite at qualifying widths. The dense lower theorem, used with failure \(1/200\), gives
 
 
 % SOURCE 11771--11775: display
@@ -16722,14 +16821,14 @@ a_n=\frac{cY\sqrt\gamma}{\sqrt n[\log(en)]^{5/2}},
 
 % SOURCE 11776--11779: paragraph
 
-If \(b<a_n\), then \(\Pr(\|f_n-\widetilde f_n\|_*\le b)\le1/200\), so such a \(b\) cannot attain confidence \(0.9999\). Consequently \(b_n\ge a_n\). Applying the dense upper theorem at failure \(10^{-4}\) also gives
+If \(b<a_n\), then \(\Pr(\|f_n-\widetilde f_n\|_*\le b)\le1/200\), so such a \(b\) cannot attain confidence \(0.9999\). Consequently \(b_n(10^{-4})\ge a_n\). Applying the dense upper theorem at failure \(10^{-4}\) also gives
 
 
 % SOURCE 11780--11784: display
 \begingroup\renewcommand{\theHequation}{intdisplay.818}
 \begin{equation}
 \intdisplay{
-b_n\le CY(m/\gamma)^5\sqrt{d/n}\,
+b_n(10^{-4})\le CY(m/\gamma)^5\sqrt{d/n}\,
 \log(en)e^{\sqrt{\log(en)}}.
 }
 \label{int:eq-0395-joint-upper-quantile-scale}
@@ -16759,7 +16858,7 @@ q=\left\lceil C(m/\gamma)^3n^{1/4}
 
 % SOURCE 11797--11799: paragraph
 
-At fixed structural parameters, \(\log(eq)\le C\log(en)\) eventually. The all-order forward certificate therefore yields, at confidence at least \(99\%\),
+At fixed structural parameters, \(\log(eq)\le C\log(en)\) eventually. The all-order forward certificate therefore yields, at every fixed confidence \(1-\delta\) for sufficiently large width,
 
 
 % SOURCE 11800--11808: display
@@ -16779,7 +16878,7 @@ At fixed structural parameters, \(\log(eq)\le C\log(en)\) eventually. The all-or
 
 % SOURCE 11809--11819: paragraph
 
-The ratio of this last bound to \(a_n\) is at most \(C/(\sqrt\gamma\sqrt{\log(en)})\), and hence is at most one eventually. The exact learned count is \(n(d+1)+1+2(L-1)mnq\). Substitution gives the stated \(Cm(m/\gamma)^3 n^{5/4}[\log(en)]^2 e^{\sqrt{\log(en)}/2}\) bound, since the \(nd\) and rounding terms are absorbed at a sufficiently large width for each fixed problem. This absorption needs no assumption \(m\ge d\). The additional fixed inventory is exactly \((L-1)n^2\). The extra logarithmic accuracy margin retains the older negligible-relative-error theorem; no assertion that this logarithmic margin is minimal for the weaker constant-factor contract is made.
+The ratio of this last bound to \(a_n\) is at most \(C/(\sqrt\gamma\sqrt{\log(en)})\), and hence tends to zero. The exact learned count is \(n(d+1)+1+2(L-1)mnq\). Substitution gives the stated \(Cm(m/\gamma)^3 n^{5/4}[\log(en)]^2 e^{\sqrt{\log(en)}/2}\) bound, since the \(nd\) and rounding terms are absorbed at a sufficiently large width for each fixed problem. This absorption needs no assumption \(m\ge d\). The additional fixed inventory is exactly \((L-1)n^2\). The logarithmic margin supplies the main theorem's negligible-relative-error conclusion via the arbitrary-confidence argument in \Cref{sec:panel-headline-proof}; no optimality of that margin is asserted.
 
 
 % SOURCE 11821--11825: paragraph
@@ -16837,8 +16936,8 @@ For Seeded use the existing finite construction at failure \(\delta=1/100\), wit
 \begingroup\renewcommand{\theHequation}{intdisplay.823}
 \begin{equation}
 \intdisplay{
-\Pr\left\{\|f_{\rm Log,n}-f_n^{\rm ind}\|_*
-\le2b_n+A_{\rm num}Yn^{-10}\right\}
+\Pr\left\{\|f_{\rm Seed,n}-f_n^{\rm ind}\|_*
+\le2b_n(10^{-4})+A_{\rm num}Yn^{-10}\right\}
 \ge1-\frac1{5000}-\frac1{800}>0.99.
 }
 \label{int:eq-0400-joint-decoder-confidence}
@@ -16864,7 +16963,7 @@ n^{-19/2}[\log(en)]^{5/2}\longrightarrow0.
 
 % SOURCE 11874--11877: paragraph
 
-It is thus at most \(b_n\) eventually, proving the same \(3b_n\) contract. No computed quantile, center values, or new precision rule is required. The extra eventual threshold is only for this pure multiplicative conclusion, not for \eqref{int:eq-0400-joint-decoder-confidence}.
+It is thus at most \(b_n(10^{-4})\) eventually, proving the supplementary Seeded decoder's \(3b_n(10^{-4})\) comparison, not the main theorem's negligible-error conclusion. No computed quantile, center values, or new precision rule is required. The extra eventual threshold is only for this pure multiplicative conclusion, not for \eqref{int:eq-0400-joint-decoder-confidence}.
 
 
 % SOURCE 11879--11884: paragraph
@@ -16885,12 +16984,12 @@ d+1+\log(e+(d+1)Z)
 
 % SOURCE 11890--11896: paragraph
 
-Indeed the logarithm splits into a numerical constant, \(\log(d+1)\) and \(\log(e+Z)\), with \(\log(d+1)\le d\). Inserting these inequalities in \eqref{int:eq-0093-logarithmic-retained-words} yields the stated \(Cm^2(m/\gamma)^2[\log(em)]^2[\log(en)]^6 [d+\log\log(e^e+n)]\) complete word bound. Word length is at most \(C\log(en)\). All ensemble members, seed levels, data, metrics, caches and live query workspace remain counted.
+Indeed the logarithm splits into a numerical constant, \(\log(d+1)\) and \(\log(e+Z)\), with \(\log(d+1)\le d\). Inserting these inequalities in \eqref{int:eq-0093-seeded-retained-words} yields the stated \(Cm^2(m/\gamma)^2[\log(em)]^2[\log(en)]^6 [d+\log\log(e^e+n)]\) complete word bound. Word length is at most \(C\log(en)\). All ensemble members, seed levels, data, metrics, caches and live query workspace remain counted.
 
 
 % SOURCE 11898--11903: paragraph
 
-These arguments establish the confidence claim for each construction. Taking smaller fixed numerical failure budgets would also give a joint event for any specified finite collection of them without changing any displayed order. They do not assert a uniform event over infinitely many widths. For \(Y=0\), the zero predictor is exact; for \(m=1\), use the additive intrinsic theorem rather than the nondegenerate lower argument.
+These arguments establish the sphere models' size bounds and the supplementary decoder's fixed-confidence comparison. Legendre and Harmonic attain arbitrary fixed confidence at eventual width; their negligible-error assembly with finite-panel Logarithmic is in \Cref{sec:panel-headline-proof}. A specified finite collection uses split failure budgets without changing the displayed orders. No uniform event over infinitely many widths is asserted. For \(Y=0\), the zero predictor is exact; for \(m=1\), use the additive intrinsic theorem rather than the nondegenerate lower argument.
 
 
 % SOURCE 11906--11906: heading
@@ -16962,7 +17061,7 @@ The last step uses \(d\le2^d\); it does not set the structural parameters equal.
 
 % SOURCE 11977--11990: paragraph
 
-For the dense necessary-storage statement, choose lower confidence strictly below one half, and use the positive coefficient in \hyperref[int:dense-trajectory-lower]{the actual-trajectory theorem}. If \(n\log(en)^5\) is below its displayed necessary bound, the success event at accuracy \(\varepsilon\) and the strict lower event are disjoint while their probabilities sum to more than one. This gives the scalar necessity. To obtain the storage consequence, split into \(n\ge\varepsilon^{-2}\), where the claim is immediate, and \(n<\varepsilon^{-2}\), where \(\log(en)\le1+2\log(1/\varepsilon)\). Thus \(n^2\) is bounded below by a positive fixed-problem multiple of \(\varepsilon^{-4}/\log(1/\varepsilon)^{10}\) eventually. This argument applies only inside the independently initialized dense family.
+For the dense necessary-storage statement, restrict to widths beyond the lower theorem's onset, choose lower confidence strictly below one half, and use the positive coefficient in \hyperref[int:dense-trajectory-lower]{the actual-trajectory theorem}. If \(n\log(en)^5\) is below its displayed necessary bound, the success event at accuracy \(\varepsilon\) and the strict lower event are disjoint while their probabilities sum to more than one. This gives the scalar necessity. To obtain the storage consequence, split into \(n\ge\varepsilon^{-2}\), where the claim is immediate, and \(n<\varepsilon^{-2}\), where \(\log(en)\le1+2\log(1/\varepsilon)\). Thus \(n^2\) is bounded below by a positive fixed-problem multiple of \(\varepsilon^{-4}/\log(1/\varepsilon)^{10}\) eventually. This argument applies only inside the independently initialized dense family above that onset; it does not rule out exceptional smaller widths.
 
 
 % SOURCE 11992--12006: paragraph
@@ -19294,7 +19393,7 @@ Define the parameter tube radius, Lipschitz coefficient, disk radius, and veloci
 \begingroup\renewcommand{\theHequation}{intdisplay.936}
 \begin{equation*}
 \intdisplay{
-b_n=\min\left\{\frac14,\frac{a}{16\sqrt nP_*},
+r_{\rm tube}=\min\left\{\frac14,\frac{a}{16\sqrt nP_*},
                     \frac1{\sqrt n\kappa_*(M_c)}\right\},
 }
 \end{equation*}
@@ -19316,7 +19415,7 @@ R_n=\min\{r_t/2,(4L_n)^{-1}\},\qquad V=2G(2Y+G).
 
 % SOURCE 13689--13690: paragraph
 
-The use of \(b_n\) here is local to this component; it is not the differently defined late-extension radius in \hyperref[int:harmonic-construction]{the preceding Harmonic construction}. At fixed parameters,
+The numerical restart radius \(r_{\rm tube}\) is distinct from the late-extension radius \(b_{\rm ext}\) in \hyperref[int:harmonic-construction]{the Harmonic construction}. At fixed parameters,
 
 
 % SOURCE 13693--13698: display
@@ -19325,7 +19424,7 @@ The use of \(b_n\) here is local to this component; it is not the differently de
 \begingroup\renewcommand{\theHequation}{intdisplay.938}
 \begin{equation}
 \intdisplay{
-b_n^{-1}=O(\sqrt{n\log(en)}),\quad
+r_{\rm tube}^{-1}=O(\sqrt{n\log(en)}),\quad
 L_n=O(\sqrt{\log(en)}),\quad
 R_n^{-1}=O(\sqrt{\log(en)}).
 }
@@ -19336,12 +19435,12 @@ R_n^{-1}=O(\sqrt{\log(en)}).
 
 % SOURCE 13700--13708: paragraph
 
-Fix a real time \(t\ge0\). On \( |\zeta|\le R_n\), consider the moving parameter balls centered at \(\theta(t+\zeta)\) with radius \(b_n\). Every such ball lies in the activation domain. To prove this, follow a straight parameter segment from its center, stopped at first half-strip exit. The forward bounds \hyperref[int:eq-setup-c-8]{\eqref{int:eq-0464-setup-c-8}} apply before that exit, and each coordinate changes by at most \(\sqrt nP_*b_n\le a/16\). Its center has imaginary parts at most \(3a/8\), so the result stays below \(7a/16<a/2\) and the alleged first exit cannot occur. Operator caps eleven and readout cap \(R\) also hold since the change is at most \(1/4\).
+Fix a real time \(t\ge0\). On \( |\zeta|\le R_n\), consider the moving parameter balls centered at \(\theta(t+\zeta)\) with radius \(r_{\rm tube}\). Every such ball lies in the activation domain. To prove this, follow a straight parameter segment from its center, stopped at first half-strip exit. The forward bounds \hyperref[int:eq-setup-c-8]{\eqref{int:eq-0464-setup-c-8}} apply before that exit, and each coordinate changes by at most \(\sqrt nP_*r_{\rm tube}\le a/16\). Its center has imaginary parts at most \(3a/8\), so the result stays below \(7a/16<a/2\) and the alleged first exit cannot occur. Operator caps eleven and readout cap \(R\) also hold since the change is at most \(1/4\).
 
 
 % SOURCE 13710--13717: paragraph
 
-Equation \hyperref[int:eq-setup-c-9]{\eqref{int:eq-0465-setup-c-9}} and \hyperref[int:eq-setup-c-13]{\eqref{int:eq-0469-setup-c-13}} show that every state in each moving ball has carrier maximum at most \(M_c+\sqrt n\kappa_*(M_c)b_n\le M_c+1\). The segment between any two states in the ball remains in it. Their residual RMS is at most \(2Y+Gb_n\le2Y+G\). Hence \hyperref[int:eq-setup-c-11]{\eqref{int:eq-0467-setup-c-11}} proves the uniform, genuine pairwise Lipschitz bound \(L_n\) throughout each ball. This is where control at the exact complex endpoint is converted into a usable neighborhood for numerical restarts.
+Equation \hyperref[int:eq-setup-c-9]{\eqref{int:eq-0465-setup-c-9}} and \hyperref[int:eq-setup-c-13]{\eqref{int:eq-0469-setup-c-13}} show that every state in each moving ball has carrier maximum at most \(M_c+\sqrt n\kappa_*(M_c)r_{\rm tube}\le M_c+1\). The segment between any two states in the ball remains in it. Their residual RMS is at most \(2Y+Gr_{\rm tube}\le2Y+G\). Hence \hyperref[int:eq-setup-c-11]{\eqref{int:eq-0467-setup-c-11}} proves the uniform, genuine pairwise Lipschitz bound \(L_n\) throughout each ball. This is where control at the exact complex endpoint is converted into a usable neighborhood for numerical restarts.
 
 
 % SOURCE 13719--13719: paragraph
@@ -19355,7 +19454,7 @@ Let the real restart value \(u_0\) satisfy
 \begingroup\renewcommand{\theHequation}{intdisplay.939}
 \begin{equation}
 \intdisplay{
-\|u_0-\theta(t)\|_2\le b_n/4.
+\|u_0-\theta(t)\|_2\le r_{\rm tube}/4.
 }
 \tag{Setup-C.16}
 \label{int:eq-0472-setup-c-16}
@@ -19364,7 +19463,7 @@ Let the real restart value \(u_0\) satisfy
 
 % SOURCE 13727--13728: paragraph
 
-On the Banach space of vector functions continuous on the closed disk and holomorphic inside it, with supremum norm at most \(b_n\), define
+On the Banach space of vector functions continuous on the closed disk and holomorphic inside it, with supremum norm at most \(r_{\rm tube}\), define
 
 
 % SOURCE 13731--13736: display
@@ -19391,7 +19490,7 @@ The integrand is holomorphic, so its integral is independent of path in the disk
 \begingroup\renewcommand{\theHequation}{intdisplay.941}
 \begin{equation*}
 \intdisplay{
-\|\mathcal Te\|_\infty\le b_n/4+L_nR_nb_n\le b_n/2,
+\|\mathcal Te\|_\infty\le r_{\rm tube}/4+L_nR_nr_{\rm tube}\le r_{\rm tube}/2,
 \quad
 \|\mathcal Te-\mathcal T\widetilde e\|_\infty
 \le\tfrac14\|e-\widetilde e\|_\infty.
@@ -19411,7 +19510,7 @@ Iteration is Cauchy, converges uniformly on the disk, and its limit remains holo
 \begin{equation}
 \intdisplay{
 \|v_t-\theta(t+\cdot)\|_\infty
-\le\frac43\|u_0-\theta(t)\|_2\le b_n/3,
+\le\frac43\|u_0-\theta(t)\|_2\le r_{\rm tube}/3,
 \qquad \|v_t'\|_\infty\le V.
 }
 \tag{Setup-C.18}
@@ -19451,7 +19550,7 @@ Let \(p_t\) be the degree-\(K\) Taylor polynomial of \(v_t\) about zero. Since \
 
 % SOURCE 13786--13788: paragraph
 
-If \(VR_n2^{-K}\le b_n/3\), the polynomial and the exact restarted solution stay in the same moving ball, so \hyperref[int:eq-setup-c-11]{\eqref{int:eq-0467-setup-c-11}} applies to them. Since \(L_nR_n\le1/4\), their continuous ODE defect satisfies
+If \(VR_n2^{-K}\le r_{\rm tube}/3\), the polynomial and the exact restarted solution stay in the same moving ball, so \hyperref[int:eq-setup-c-11]{\eqref{int:eq-0467-setup-c-11}} applies to them. Since \(L_nR_n\le1/4\), their continuous ODE defect satisfies
 
 
 % SOURCE 13791--13795: display
@@ -19593,7 +19692,7 @@ For \(T>0\), choose the following total allowed defect:
 \intdisplay{
 \varepsilon_d=e^{-A_n}\min\left\{
 \frac14,\ \frac1{\sqrt8(C^{\rm r}+J^{\rm r})\sqrt T},
-\frac{\delta_{\rm node}}{2C_{\rm src}n},\ \frac{b_n}{8}\right\}.
+\frac{\delta_{\rm node}}{2C_{\rm src}n},\ \frac{r_{\rm tube}}{8}\right\}.
 }
 \tag{Setup-C.24}
 \label{int:eq-0480-setup-c-24}
@@ -19613,7 +19712,7 @@ Choose the explicit integer
 \intdisplay{
 K=\max\left\{8,
 \left\lceil2\log_2\max\{1,4TV/\varepsilon_d\}\right\rceil,
-\left\lceil\log_2\max\{1,3VR_n/b_n\}\right\rceil\right\}.
+\left\lceil\log_2\max\{1,3VR_n/r_{\rm tube}\}\right\rceil\right\}.
 }
 \tag{Setup-C.25}
 \label{int:eq-0481-setup-c-25}
@@ -19632,7 +19731,7 @@ For \(K\ge8\), \(2K+5\le4\,\allowbreak 2^{K/2}\): it holds at eight, and the rat
 \begin{equation}
 \intdisplay{
 TV(2K+5)2^{-K}\le\varepsilon_d,
-\qquad VR_n2^{-K}\le b_n/3.
+\qquad VR_n2^{-K}\le r_{\rm tube}/3.
 }
 \tag{Setup-C.26}
 \label{int:eq-0482-setup-c-26}
@@ -19655,7 +19754,7 @@ This procedure is well defined through the whole horizon. Inductively, all alrea
 \begingroup\renewcommand{\theHequation}{intdisplay.956}
 \begin{equation}
 \intdisplay{
-\|u(t)-\theta(t)\|_2\le2e^{A_n}\varepsilon_d\le b_n/4
+\|u(t)-\theta(t)\|_2\le2e^{A_n}\varepsilon_d\le r_{\rm tube}/4
 }
 \tag{Setup-C.27}
 \label{int:eq-0483-setup-c-27}
@@ -19776,7 +19875,7 @@ The numerical path need not itself be globally analytic across restart points. Q
 
 % SOURCE 13984--13987: paragraph
 
-Use \(P_*,\allowbreak G,\allowbreak L_n,\allowbreak b_n,\allowbreak V,\allowbreak M_c,\allowbreak Z_n\) from equations \hyperref[int:eq-setup-c-6]{\eqref{int:eq-0462-setup-c-6}}--\allowbreak \hyperref[int:eq-setup-c-14]{\eqref{int:eq-0470-setup-c-14}} of \hyperref[int:setup-core]{the local-continuation proof}, with the \(b_n\le a/(16\sqrt nP_*)\). Thus the exact network throughout every moving parameter ball has preactivation imaginary parts at most \(7a/16\).
+Use \(P_*,\allowbreak G,\allowbreak L_n,\allowbreak r_{\rm tube},\allowbreak V,\allowbreak M_c,\allowbreak Z_n\) from equations \hyperref[int:eq-setup-c-6]{\eqref{int:eq-0462-setup-c-6}}--\allowbreak \hyperref[int:eq-setup-c-14]{\eqref{int:eq-0470-setup-c-14}} of \hyperref[int:setup-core]{the local-continuation proof}, with the \(r_{\rm tube}\le a/(16\sqrt nP_*)\). Thus the exact network throughout every moving parameter ball has preactivation imaginary parts at most \(7a/16\).
 
 
 % SOURCE 13989--13993: paragraph
@@ -20254,7 +20353,7 @@ Keep the real signed-stability constants \(A_n,\allowbreak C^{\rm r},\allowbreak
 \intdisplay{
 e_d=e^{-A_n}\min\left\{\frac14,
  \frac1{\sqrt8(C^{\rm r}+J^{\rm r})\sqrt T},
- \frac{\delta_{\rm node}}{4C_{\rm src}n},\frac{b_n}{16}\right\},
+ \frac{\delta_{\rm node}}{4C_{\rm src}n},\frac{r_{\rm tube}}{16}\right\},
 }
 \end{equation*}
 \endgroup
@@ -20265,7 +20364,7 @@ e_d=e^{-A_n}\min\left\{\frac14,
 \begingroup\renewcommand{\theHequation}{intdisplay.984}
 \begin{equation}
 \intdisplay{
-\zeta_F=\min\{e_d/(2T),b_nL_n/4,V/2\},\qquad
+\zeta_F=\min\{e_d/(2T),r_{\rm tube}L_n/4,V/2\},\qquad
 \widehat R_n=\min\{r_t/2,(8L_n)^{-1}\}.
 }
 \tag{Setup-A.19}
@@ -20280,7 +20379,7 @@ Choose \(\epsilon\) satisfying \hyperref[int:eq-setup-a-13]{\eqref{int:eq-0500-s
 
 % SOURCE 14301--14302: paragraph
 
-There is a uniform derivative bound for the field perturbation in each ball of radius \(b_n/2\) about the exact complex reference:
+There is a uniform derivative bound for the field perturbation in each ball of radius \(r_{\rm tube}/2\) about the exact complex reference:
 
 
 % SOURCE 14305--14308: display
@@ -20289,7 +20388,7 @@ There is a uniform derivative bound for the field perturbation in each ball of r
 \begingroup\renewcommand{\theHequation}{intdisplay.985}
 \begin{equation}
 \intdisplay{
-\|D(\widetilde F-F)\|_{\rm op}\le2\zeta_F/b_n.
+\|D(\widetilde F-F)\|_{\rm op}\le2\zeta_F/r_{\rm tube}.
 }
 \tag{Setup-A.20}
 \label{int:eq-0507-setup-a-20}
@@ -20298,27 +20397,27 @@ There is a uniform derivative bound for the field perturbation in each ball of r
 
 % SOURCE 14310--14315: paragraph
 
-For a unit complex parameter direction, the disk of radius \(b_n/2\) about any such state remains in the original ball of radius \(b_n\). Apply the vector-valued Cauchy integral formula to \(\widetilde F-F\), using \hyperref[int:eq-setup-a-18]{\eqref{int:eq-0505-setup-a-18}}. This proves \hyperref[int:eq-setup-a-20]{\eqref{int:eq-0507-setup-a-20}} without a dimension-dependent conversion of coordinate derivatives. The polynomial field is therefore \(2L_n\)-Lipschitz on that smaller ball.
+For a unit complex parameter direction, the disk of radius \(r_{\rm tube}/2\) about any such state remains in the original ball of radius \(r_{\rm tube}\). Apply the vector-valued Cauchy integral formula to \(\widetilde F-F\), using \hyperref[int:eq-setup-a-18]{\eqref{int:eq-0505-setup-a-18}}. This proves \hyperref[int:eq-setup-a-20]{\eqref{int:eq-0507-setup-a-20}} without a dimension-dependent conversion of coordinate derivatives. The polynomial field is therefore \(2L_n\)-Lipschitz on that smaller ball.
 
 
 % SOURCE 14317--14324: paragraph
 
-The exact restarted solution of \(\dot v=\widetilde F(v)\) exists on the complex disk of radius \(\widehat R_n\) whenever its real initial anchor has distance at most \(b_n/8\) from the true original trajectory. Repeat the core Picard map for the error, now with integrand \(\widetilde F(\theta+e)-F(\theta)\) and error ball of radius \(b_n/2\). Its contraction factor is at most \(2L_n\widehat R_n\le1/4\). Its forcing at \(e=0\) is at most \(\zeta_F\). The map sends that ball to radius at most
+The exact restarted solution of \(\dot v=\widetilde F(v)\) exists on the complex disk of radius \(\widehat R_n\) whenever its real initial anchor has distance at most \(r_{\rm tube}/8\) from the true original trajectory. Repeat the core Picard map for the error, now with integrand \(\widetilde F(\theta+e)-F(\theta)\) and error ball of radius \(r_{\rm tube}/2\). Its contraction factor is at most \(2L_n\widehat R_n\le1/4\). Its forcing at \(e=0\) is at most \(\zeta_F\). The map sends that ball to radius at most
 
 
 % SOURCE 14326--14329: display
 \begingroup\renewcommand{\theHequation}{intdisplay.986}
 \begin{equation*}
 \intdisplay{
-b_n/8+\widehat R_n\zeta_F+(1/4)(b_n/2)
-\le9b_n/32<b_n/2.
+r_{\rm tube}/8+\widehat R_n\zeta_F+(1/4)(r_{\rm tube}/2)
+\le9r_{\rm tube}/32<r_{\rm tube}/2.
 }
 \end{equation*}
 \endgroup
 
 % SOURCE 14331--14339: paragraph
 
-The fixed point has error at most \((b_n/8+b_n/32)/(1-1/4)=5b_n/24<b_n/4\). Its velocity is at most \(V+\zeta_F\le2V\). Thus its degree-\(K\) Taylor polynomial, on a half-radius real panel, has tail at most \(2V\widehat R_n2^{-K}\). If this is at most \(b_n/4\), the polynomial remains inside the smaller ball. Its defect against the polynomial field is at most \(2V(2K+5)2^{-K}\), by the same differentiated geometric series as the core proof. Its defect against the original field is therefore at most
+The fixed point has error at most \((r_{\rm tube}/8+r_{\rm tube}/32)/(1-1/4)=5r_{\rm tube}/24<r_{\rm tube}/4\). Its velocity is at most \(V+\zeta_F\le2V\). Thus its degree-\(K\) Taylor polynomial, on a half-radius real panel, has tail at most \(2V\widehat R_n2^{-K}\). If this is at most \(r_{\rm tube}/4\), the polynomial remains inside the smaller ball. Its defect against the polynomial field is at most \(2V(2K+5)2^{-K}\), by the same differentiated geometric series as the core proof. Its defect against the original field is therefore at most
 
 
 % SOURCE 14342--14345: display
@@ -20347,7 +20446,7 @@ Choose
 \intdisplay{
 K=\max\left\{8,
 \left\lceil2\log_2\max\{1,16TV/e_d\}\right\rceil,
-\left\lceil\log_2\max\{1,8V\widehat R_n/b_n\}\right\rceil\right\}.
+\left\lceil\log_2\max\{1,8V\widehat R_n/r_{\rm tube}\}\right\rceil\right\}.
 }
 \tag{Setup-A.22}
 \label{int:eq-0509-setup-a-22}
@@ -20372,7 +20471,7 @@ The prefix induction from the core proof now gives
 \intdisplay{
 \sup_{[0,T]}\|u(t)-\theta(t)\|_2
 \le2e^{A_n}e_d
-\le\min\{b_n/8,\delta_{\rm node}/(2C_{\rm src}n)\}.
+\le\min\{r_{\rm tube}/8,\delta_{\rm node}/(2C_{\rm src}n)\}.
 }
 \tag{Setup-A.23}
 \label{int:eq-0510-setup-a-23}
@@ -21099,12 +21198,13 @@ Caching all \(H_k^TX_c\) first gives the same causal operation bound as the init
 
 % SOURCE 14849--14852: display
 \begingroup\renewcommand{\theHequation}{intdisplay.1020}
-\begin{equation*}
+\begin{equation}
 \intdisplay{
 T_{\rm train}
 =O\bigl(J[PmK+Lm^2K^2(n+K)]\bigr),
 }
-\end{equation*}
+\label{int:eq-setup-e-training-work}
+\end{equation}
 \endgroup
 
 % SOURCE 14854--14858: display
@@ -21185,7 +21285,7 @@ T_{\rm advance}=O\bigl(J[PmK+LnmK^2]\bigr).
 
 % SOURCE 14894--14896: paragraph
 
-This is absorbed by \hyperref[int:eq-setup-e-17]{\eqref{int:eq-0532-setup-e-17}}, but \hyperref[int:eq-setup-e-19]{\eqref{int:eq-0534-setup-e-19}} shows why it does not require an omitted \(O(Jn^2mK^2)\) materialization. One can form one \(V_i\), update the anchor, and discard it after the panel's source processing is complete.
+This is absorbed by \eqref{int:eq-setup-e-training-work}, but \hyperref[int:eq-setup-e-19]{\eqref{int:eq-0534-setup-e-19}} shows why it does not require an omitted \(O(Jn^2mK^2)\) materialization. One can form one \(V_i\), update the anchor, and discard it after the panel's source processing is complete.
 
 
 % SOURCE 14898--14900: paragraph
@@ -21208,7 +21308,7 @@ O(JP(m+N_x)K^2),\qquad O(PK+LmnK)
 
 % SOURCE 14908--14910: paragraph
 
-for time and live jet memory, with anchor evaluation included. Formula \hyperref[int:eq-setup-e-17]{\eqref{int:eq-0532-setup-e-17}} is the more economical construction used below; \hyperref[int:eq-setup-e-21]{\eqref{int:eq-0536-setup-e-21}} is not needed to establish its validity.
+for time and live jet memory, with anchor evaluation included. Equations \eqref{int:eq-setup-e-training-work} and \eqref{int:eq-0532-setup-e-17} give the more economical training and passive-query construction used below; \hyperref[int:eq-setup-e-21]{\eqref{int:eq-0536-setup-e-21}} is not needed to establish its validity.
 
 
 % SOURCE 14912--14916: paragraph
@@ -21250,7 +21350,7 @@ Maxima over layer-specific backends suffice. Fixed-size differential recurrences
 
 % SOURCE 14936--14942: paragraph
 
-Save the exact initialized training features and their initialized forward images during the first training pass at \(\tau_0=0\). Include the constant vector and initial first-weight columns. These additions are exact; later approximate anchors cannot replace them. Their direct work is at most \(O(mP)\), absorbed by the training term in \hyperref[int:eq-setup-e-17]{\eqref{int:eq-0532-setup-e-17}}, plus the already charged scalar activations. These initial values use the inherited exact-real activation primitives; finite-precision exact initialization is a separate issue.
+Save the exact initialized training features and their initialized forward images during the first training pass at \(\tau_0=0\). Include the constant vector and initial first-weight columns. These additions are exact; later approximate anchors cannot replace them. Their direct work is at most \(O(mP)\), absorbed by \eqref{int:eq-setup-e-training-work}, plus the already charged scalar activations. These initial values use the inherited exact-real activation primitives; finite-precision exact initialization is a separate issue.
 
 
 % SOURCE 14944--14947: paragraph
@@ -22697,7 +22797,7 @@ O(nk^2)\ \text{arithmetic},\qquad O(nk)\ \text{words},\qquad
 
 % SOURCE 15991--15996: paragraph
 
-It suffices to draw at most \(n\) normals for each newly exposed independent direction and none for dependent requests. Square roots used by normalization are accounted for separately below. The coupling must apply to globally interleaved adaptive requests, not just predetermined query vectors. The \hyperref[int:setup-sampler]{adaptive Gaussian theorem proved above} supplies this contract, including its deterministic bounded-stopping and global-interleaving hypotheses.
+It suffices to draw at most \(n\) normals for each newly exposed independent direction and none for dependent requests. Square roots used by normalization are accounted for separately below. The coupling must apply to globally interleaved adaptive requests, not just predetermined query vectors. The \hyperref[int:setup-sampler]{adaptive Gaussian theorem proved above} supplies this contract, including its deterministic bounded-stopping and global-interleaving hypotheses. Apply it to the hidden-matrix family indexed by \(j=2,\ldots,L\), and include the independently generated first-layer matrix \(W_0^{(1)}\) in the independent auxiliary randomness \(\xi\). Thus queries depending on first-layer responses preserve the required conditional Gaussian law.
 
 
 % SOURCE 15998--16001: paragraph

@@ -1,8 +1,10 @@
 \section{Detailed execution costs and supplementary decoder costs}
 \label{app:execution-costs}
 
-We cost the prescribed models in the sphere compression certificates, at the same dense
-width $n$ and their common dense-variability guarantee. Initialization
+We cost the prescribed sphere models at dense width $n$: Legendre and
+Harmonic use the negligible-relative-error choices in
+\Cref{thm:compression}, whereas the supplementary Seeded decoder retains
+its separate fixed-quantile certificate. Initialization
 includes every one-off operation needed to build a model. For the neural
 constructions, a training stage means one full-batch vector-field
 evaluation; a numerical update pays for all its stages. Initialization and
@@ -72,13 +74,81 @@ the number, precision, or accuracy of subsequent numerical training steps.
 
 \subsection{Two ways to initialize Harmonic compression}
 
-Both certified initializers support the Harmonic model chosen to have
-error at most $Y/n$. At fixed problem parameters, its exact construction
-has a source horizon $O(\log(en))$ and logarithm of inverse source tolerance
-$O(\log(en))$. Substituting these into the certified local-order recipe
-gives $O([\log(en)]^{3/2})$ time panels, Taylor degree $O(\log(en))$,
-and source rank $O([\log(en)]^{3d/2+1})$. The resulting rates are below.
-For this table all problem parameters are fixed; its constants may
+For $Y>0$, both certified initializers support the Harmonic model chosen to have
+error at most $Y/n$. This needs the exact inverse substitution: the
+original choice $T=T_0$, $\eta=1/n$ alone gives only
+$n^{-1+o(1)}$ error. Write $\ell=\log(en)$,
+$\lambda=\gamma/m$, $T_0=32\ell/\lambda$, and
+$\eta_0=\min(1,Y,16Y/\lambda)$. The explicit comparison coefficients
+$\mathcal A_n,\mathcal D$ in
+\eqref{int:eq-0068-harmonic-exact-error-coefficient} and
+\eqref{int:eq-0057-harmonic-tail-coefficient} give the all-time bound
+$\mathcal A_n\eta+\mathcal D e^{-\lambda T/4}$. Therefore set
+\begin{align}
+ \mathcal E_1&=\mathcal A_n\eta_0+\mathcal D e^{-8\ell},
+ &u&=\max\{0,\log(n\mathcal E_1/Y)\},\nonumber\\
+ T&=\frac{32\ell+4u}{\lambda},
+ &\eta&=\eta_0e^{-u}.
+ \label{eq:harmonic-setup-exact-target}
+\end{align}
+Then $\mathcal A_n\eta+\mathcal D e^{-\lambda T/4}
+=\mathcal E_1e^{-u}\le Y/n$. Use the exact inverse's integer
+budget and its full-width fallback when required. For activation strip
+$|\operatorname{Im}z|<a$, recall the activation envelope
+\[
+ \beta=\max\left\{10,1+\max_j|\phi_j(0)|,16/a,
+ \max_{j,\,k\in\{1,2\}}\sup_{|\operatorname{Im}z|\le a/2}
+ |\phi_j^{(k)}(z)|\right\}.
+\]
+The numerical envelope
+in the \hyperref[int:harmonic-budget-inversion-proof]{inverse proof}
+also gives the explicit estimate
+\begin{equation}
+ u\le\log n+65\sqrt\ell+
+ \log\max\!\left\{1,4096e^{44}\beta^{42L}
+ \frac m\gamma\left(1+\sqrt{\frac m\gamma}\right)\right\}.
+ \label{eq:harmonic-setup-target-overhead}
+\end{equation}
+Thus $u=O(\ell)$, $T=O(\ell)$, and
+$\log(1/\eta)=\log(1/\eta_0)+u=O(\ell)$ when the positive problem
+parameters are fixed. No factor involving $m/\gamma$ is omitted from
+the displayed substitutions.
+
+For completeness, the source radii are
+$r_t=c_t/\sqrt\ell$, $r_q=c_q/\sqrt\ell$, with
+$c_t=a\gamma/(1024UmY^2)$ and $c_q=\min\{1/8,a/(8V)\}$;
+$U,V$ are the source coefficients in \eqref{int:eq-0199-s-25}.
+For $d\ge2$, the inverse's exact mode cutoff obeys
+\begin{align*}
+ \alpha_T^{-1}&=\frac{4T}{r_t}
+ =4096\frac Ua\left(\frac{Ym}{\gamma}\right)^2
+       (32\ell+4u)\sqrt\ell,\\
+ H(T,\eta)&=H(T_0,\eta_0)+2u+
+                2\log\left(1+\frac{u}{8\ell}\right).
+\end{align*}
+Consequently $\alpha_T^{-1}=O(\ell^{3/2})$ and $H(T,\eta)=O(\ell)$.
+Use the setup-local temporal and spherical degrees $p,\ell_*$,
+node counts $N_t,N_x$, spatial basis size $H_{\rm sph}$, joint mode
+count $N$, source-generator bound $R$, and actual rank $r$ from the
+\hyperref[int:harmonic-efficient-supplied-orders]{finite setup inventory}.
+Here $p$ is unrelated to the passive-panel size elsewhere in the paper.
+The exact mode counts and positive quadratures give
+\begin{align*}
+ p+1,N_t&=O(\ell^{5/2}),
+ &\ell_*&=O(\ell^{3/2}),\\
+ N_x,H_{\rm sph}&=O(\ell^{3(d-1)/2}),
+ &N,R,r,q&=O(\ell^{3d/2+1}).
+\end{align*}
+At $d=1$, use the certified two-point convention $N_x=H_{\rm sph}=2$;
+there is no spherical degree $\ell_*$. The other displayed orders still hold.
+The nodal tolerance has $\log(1/\delta_{\rm node})=O(\ell)$.
+In the local-continuation recipe the distinct signed-stability coefficient
+$A_n=4J^{\rm r}Y/\lambda$ is $O(\sqrt\ell)$; its factor $e^{-A_n}$
+in the defect allowance is retained. The recipe therefore gives panel
+count and activation-polynomial degree $J,D=O(\ell^{3/2})$ and Taylor
+degree $K=O(\ell)$. Substitution in the supplied-order work and memory
+envelopes proves the following rates at the exact target $Y/n$.
+All problem parameters are fixed in this table; its constants may
 depend on them. The
 \hyperref[int:harmonic-efficient-orders]{complete setup recipe and costs}
 retain every structural parameter and internal order.
@@ -109,6 +179,10 @@ problem parameters. The displayed work rates include these draws only
 under unit-cost sampling. The explicit execution accepts a supplied dense
 realization. The implicit execution samples a fresh coupled reference and
 has no subquadratic conversion guarantee for a supplied dense array.
+Elementary scalar primitives (square roots, trigonometric functions,
+logarithms and exponentials) use the detailed inventory's separate
+primitive-cost convention; unit-cost evaluation includes them in the
+displayed rates. For $Y=0$, use the exact zero-predictor branch instead.
 
 \subsection{The finite-word decoder}
 

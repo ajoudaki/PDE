@@ -61,7 +61,9 @@ Logarithmic compression uses residual-adapted temporal approximation and
 retains $O((\log n)^3)$ real coordinates on any fixed panel of inputs declared
 at initialization. Passive labels are not used. Each tracks a coupled dense
 trajectory, uniformly over all physical times including the fitted limit,
-to accuracy finer than independent dense-run variability. The proof retains
+with error negligible in probability relative to independent dense-run
+variability. Harmonic and Logarithmic attain absolute error $Y/n$, where
+$Y$ is the fixed RMS label scale. The proof retains
 Gram dissipation and finite residual activity; a readout correction cancels
 the feedback that would otherwise give a poor stability estimate. We expose
 the trade between query scope, moving memory and retained state, and separate
@@ -89,12 +91,13 @@ labels are never supplied.
 
 \paragraph{An intrinsic accuracy benchmark.}
 Independent initializations already produce different dense trajectories.
-Our common compression theorem uses a high-confidence quantile of this
-actual discrepancy, not an analytic upper envelope. A constant factor is
-the success criterion. All three constructions below additionally attain
-negligible relative error in their respective query domains, but that
-stronger property is not required. The benchmark need not be calculated
-to initialize a compressed model. The dense lower
+Our common compression theorem makes the ratio of compression error to
+this actual discrepancy tend to zero in probability. All three methods
+therefore track their dense reference more closely than independent dense
+runs track one another, in their respective query domains. This compares
+to realized variability, not an analytic upper envelope or a fixed-factor
+target. No measurement of dense variability is needed to initialize the
+compressed model. The dense lower
 bound is witnessed during early training; it is not an endpoint lower bound.
 
 \paragraph{One object to compress, two reduction mechanisms.}
@@ -195,34 +198,30 @@ For the promised query set $\mathcal X$, write
 \end{equation}
 Take $\mathcal X$ to be the whole sphere for Legendre and Harmonic, and the
 declared panel for Logarithmic. This includes fitted limits. Let
-$f_n,\widetilde f_n$ be two independently
-initialized ordinary dense runs, and define their high-confidence
-variability by
-\begin{equation}
- b_n(\mathcal X)=\inf\{b\ge0:
- \Pr(\norm{f_n-\widetilde f_n}_{\mathcal X}\le b)\ge0.9999\}.
- \label{eq:intrinsic-benchmark}
-\end{equation}
-The $99.99\%$ quantile is deterministic but need not be known. We seek
-compression error at most $3b_n(\mathcal X)$ with $99\%$ confidence. Both
-confidence levels are fixed numerical conventions; other fixed confidence
-levels are permitted. Discrepancy is assigned $+\infty$ on a
-trajectory lacking the required fitted limit, so the definition does not
-silently condition on a successful run. The qualifying width makes this
-quantile finite. All errors are absolute, with no implicit division by $Y$.
+$f_n$ be the compressed model's coupled ordinary dense reference and
+$\widetilde f_n$ an independently initialized ordinary dense run.
+Their discrepancy $\norm{f_n-\widetilde f_n}_{\mathcal X}$ is the
+random benchmark in the theorem. Compression error divided by this
+discrepancy tends to zero in probability. Thus every fixed positive
+relative-error tolerance is met with probability tending to one.
+For this ratio, declare failure (value $+\infty$) if a required fitted
+limit does not exist or the denominator vanishes; these exceptional
+events have probability tending to zero under the theorem's assumptions.
+All errors are absolute, with no implicit division by $Y$.
 We do not spend the label cap to reduce powers of
 $m/\gamma$: the learned-storage envelopes remain cubic for Legendre and
 quartic for Harmonic and in the leading Logarithmic term.
-The panel and sphere quantiles need not agree: both sides of a comparison
+The panel and sphere discrepancies need not agree: both sides of a comparison
 always use the same query set. In the detailed sphere proofs,
 $\norm{\cdot}_*$ denotes the sphere instance of this norm.
 
 \paragraph{Constants, confidence and limits.}
 Main-text $c,C>0$ depend only on activations and fixed depth and can change
 between occurrences. They hide no dependence on $m,n,d,\gamma$.
-To keep the headlines short, confidence is fixed at $99\%$; the appendix
-retains arbitrary failure probability $\delta$, including its effect on
-the lower coefficient and width gates.
+The relative-error conclusion is convergence in probability. Finite-width
+absolute-error bounds hold at any fixed confidence $1-\delta$ once the
+width is sufficiently large; the appendix retains the dependence on
+$\delta$ in the lower coefficient and width gates.
 At each sufficiently large individual width the stated comparisons hold,
 not on one event over infinitely many independent widths.
 The stochastic width thresholds are not quantified.
@@ -352,8 +351,8 @@ Detailed component & Page\\
 & \pageref{int:legendre-proofs}\\
 \hyperref[int:harmonic-proofs]{Harmonic geometry, stability and budget inversion}
 & \pageref{int:harmonic-proofs}\\
-\hyperref[int:logarithmic-decoder-proofs]{Supplementary seeded decoder and confidence bounds}
-& \pageref{int:logarithmic-decoder-proofs}\\
+\hyperref[int:seeded-decoder-proofs]{Supplementary seeded decoder and confidence bounds}
+& \pageref{int:seeded-decoder-proofs}\\
 \hyperref[int:decoder-finite-construction]{Finite source, numerical execution and word backend}
 & \pageref{int:decoder-finite-construction}\\
 \hyperref[int:harmonic-efficient-setup-proofs]{Explicit and implicit Harmonic initialization}

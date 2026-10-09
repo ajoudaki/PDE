@@ -836,6 +836,11 @@ class FrozenNTK:
             return self.kernel@state[0]
         if queries.shape == self.query_inputs.shape and torch.equal(queries, self.query_inputs):
             return self.cross@state[0]
+        m = len(self.train_inputs)
+        if (queries.shape == (m+len(self.query_inputs), self.train_inputs.shape[1])
+                and torch.equal(queries[:m], self.train_inputs)
+                and torch.equal(queries[m:], self.query_inputs)):
+            return torch.cat((self.kernel@state[0], self.cross@state[0]))
         raise ValueError('FrozenNTK only predicts on its registered training and scored panels')
 
 
@@ -5376,7 +5381,7 @@ def cubic_case_main(argv):
 
 @torch.no_grad()
 def cubic_budget_main(argv):
-    """Requested circle fits at approximately 2x/4x retained storage."""
+    """Requested low-dimensional sphere fits at approximately 2x/4x retained storage."""
     from concurrent.futures import ThreadPoolExecutor
     parser = argparse.ArgumentParser(description=cubic_budget_main.__doc__)
     parser.add_argument('--reference', type=Path, required=True)
@@ -5398,7 +5403,9 @@ def cubic_budget_main(argv):
     baseline = json.loads((args.reference/'report.json').read_text())
     with np.load(args.reference/'trajectories.npz') as saved:
         reference = {key: saved[key] for key in saved.files}
-    assert baseline['config']['dataset'] == 'sphere2' and baseline['config']['seed'] == 601
+    assert baseline['config']['dataset'] in ('sphere2', 'sphere3') and baseline['config']['seed'] == 601
+    dimension = baseline['scope']['dimension']
+    assert dimension in (2, 3) and baseline['config']['dataset'] == f'sphere{dimension}'
     for name, digest in baseline['data_sha256'].items():
         assert array_sha(reference[name]) == digest
     report = dict(source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
@@ -5416,7 +5423,7 @@ def cubic_budget_main(argv):
         device = torch.device(args.devices[0])
         inputs, labels, queries = [torch.as_tensor(reference[name], device=device)
                                   for name in ('train_inputs', 'train_labels', 'query_inputs')]
-        dense = DeepDense(4096, 2, 2, 'tanh', 601, device)
+        dense = DeepDense(4096, dimension, 2, 'tanh', 601, device)
         sources, report['sources'] = cubic_rollout_sources(dense, inputs, labels, queries,
             ranks=(29, 19), partitions=(args.partition,))
         np.testing.assert_allclose(report['sources']['observation_times'],
@@ -5434,7 +5441,7 @@ def cubic_budget_main(argv):
             assert all(v.shape[1] == rank for family in sources[args.partition][rank].values() for v in family)
             moving = sum(v.numel() for v in model.initial_state)
             total = moving+model.fixed_scalars
-            assert total == 4*width**2+3*width+9
+            assert total == 4*width**2+(dimension+1)*width+9
             report['models'][str(factor)] = dict(compact_width=width, source_rank=rank,
                 moving=moving, fixed=model.fixed_scalars, total=total,
                 storage_multiple=total/baseline['models']['old_full']['total'],
@@ -5494,6 +5501,758 @@ def cubic_budget_main(argv):
         save_json(args.out/'report.json', report)
         np.savez_compressed(args.out/'trajectories.npz', **arrays)
     return 0 if report['complete'] else 1
+
+
+@torch.no_grad()
+def sphere_points_main(argv):
+    """Bounded sphere3 additions, reusing the saved dense and Logarithmic runs."""
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+    parser = argparse.ArgumentParser(description=sphere_points_main.__doc__)
+    parser.add_argument('--reference', type=Path, required=True)
+    parser.add_argument('--logarithmic', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--devices', nargs=2, default=['cuda:0', 'cuda:1'])
+    parser.add_argument('--tradeoff', action='store_true', help='Three dense sizes, Legendre orders, and Logarithmic budgets')
+    parser.add_argument('--seed-check', action='store_true', help='Two more width-1446 dense seeds and one NTK fit')
+    parser.add_argument('--harmonic-curve', action='store_true', help='Three smaller Harmonic budgets')
+    parser.add_argument('--compression-larger', action='store_true',
+                        help='Two larger learned-state budgets each for Harmonic and Logarithmic')
+    parser.add_argument('--lowrank-curve', action='store_true', help='Width-4096 low-rank adapters at ranks 1, 4, 8, 20')
+    parser.add_argument('--lowrank-legendre', action='store_true', help='Match Legendre ranks: reuse rank8, add ranks16/24/96')
+    parser.add_argument('--dense-smaller', action='store_true', help='Two dense sizes within half/quarter of width1446 parameter count')
+    parser.add_argument('--smallest-seed-check', action='store_true', help='Two more seeds for the width722 dense point')
+    parser.add_argument('--dense-width', type=int, help='Add three dense seeds at one specified width')
+    parser.add_argument('--dense-extra-seeds', type=int, nargs='+',
+                        help='Add seeds10602/10603 at existing single-seed dense widths')
+    parser.add_argument('--reference-seeds', action='store_true',
+                        help='Only two new width4096 references, seeds602/603; reuse all other trajectories')
+    parser.add_argument('--previous-points', type=Path, help='Previously measured Legendre/Harmonic points')
+    args = parser.parse_args(argv)
+    continuations = (args.tradeoff, args.seed_check, args.harmonic_curve, args.lowrank_curve,
+                     args.lowrank_legendre, args.dense_smaller, args.smallest_seed_check,
+                     args.dense_width is not None, args.dense_extra_seeds is not None,
+                     args.compression_larger, args.reference_seeds)
+    if sum(continuations) > 1:
+        parser.error('Choose only one continuation mode')
+    if any(continuations) and args.previous_points is None:
+        parser.error('The requested continuation requires --previous-points')
+    if args.dense_width is not None and not 1 <= args.dense_width <= 4096:
+        parser.error('--dense-width must be between 1 and 4096')
+    if args.dense_extra_seeds is not None and (len(set(args.dense_extra_seeds)) != len(args.dense_extra_seeds)
+            or any(not 1 <= width < 4096 for width in args.dense_extra_seeds)):
+        parser.error('--dense-extra-seeds requires distinct widths between 1 and 4095')
+    args.out.mkdir(parents=True, exist_ok=False)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    baseline = json.loads((args.reference/'report.json').read_text())
+    logarithmic = json.loads((args.logarithmic/'report.json').read_text())
+    with np.load(args.reference/'trajectories.npz') as saved:
+        reference = {key: saved[key] for key in saved.files}
+    assert baseline['config']['dataset'] == 'sphere3' and baseline['config']['seed'] == 601
+    assert baseline['scope']['width'] == 4096 and baseline['scope']['samples'] == 8
+    assert baseline['scope']['queries'] == 30 and baseline['scope']['depth'] == 2
+    assert baseline['scope']['activation'] == 'tanh' and baseline['scope']['horizon'] == 32.
+    assert baseline['scope']['fine_step'] == .0015625
+    for name, digest in baseline['data_sha256'].items():
+        assert array_sha(reference[name]) == digest
+    assert logarithmic['complete'] and logarithmic['source_partition'] == 'new'
+    assert logarithmic['reference_arrays_sha256'] == sha((args.reference/'trajectories.npz').read_bytes())
+    benchmark = trajectory_rms(reference['iid'][:, 8:].astype(float),
+                               reference['dense'][:, 8:].astype(float))['endpoint_rms']
+    assert benchmark > 0
+    report = dict(source_sha256=sha(Path(__file__).read_bytes()), command=sys.argv,
+        python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+        reference=str(args.reference), logarithmic=str(args.logarithmic),
+        reference_arrays_sha256=sha((args.reference/'trajectories.npz').read_bytes()),
+        logarithmic_report_sha256=sha((args.logarithmic/'report.json').read_bytes()),
+        scope={key: baseline['scope'][key] for key in ('width', 'samples', 'queries', 'dimension', 'depth',
+            'activation', 'horizon', 'fine_step', 'observation_spacing', 'accuracy_scope')},
+        tradeoff=args.tradeoff, seed_check=args.seed_check, harmonic_curve=args.harmonic_curve,
+        compression_larger=args.compression_larger,
+        lowrank_curve=args.lowrank_curve,
+        lowrank_legendre=args.lowrank_legendre,
+        dense_smaller=args.dense_smaller,
+        smallest_seed_check=args.smallest_seed_check,
+        dense_width=args.dense_width,
+        dense_extra_seeds=args.dense_extra_seeds,
+        reference_seeds=args.reference_seeds,
+        dense_pair_endpoint_rms=benchmark,
+        numerical_qualification='finite Euler comparison; no new order/budget-specific refinement',
+        complete=False, models={}, runs={}, errors={}, points={})
+    arrays = {name: reference[name] for name in ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')}
+    if args.previous_points is not None:
+        previous = json.loads((args.previous_points/'report.json').read_text())
+        assert previous['complete'] and previous['reference_arrays_sha256'] == report['reference_arrays_sha256']
+        report['previous_points'] = str(args.previous_points)
+        report['previous_report_sha256'] = sha((args.previous_points/'report.json').read_bytes())
+        report['previous_arrays_sha256'] = sha((args.previous_points/'trajectories.npz').read_bytes())
+        report['points'].update(previous['points'])
+        if 'dense_seed_summary' in previous:
+            report['dense_seed_summary'] = previous['dense_seed_summary']
+        if 'dense_seed_summaries' in previous:
+            report['dense_seed_summaries'] = previous['dense_seed_summaries']
+        if 'lowrank_legendre_orders' in previous:
+            report['lowrank_legendre_orders'] = previous['lowrank_legendre_orders']
+    extra_seed_bases = {}
+    if args.dense_extra_seeds is not None:
+        prior_models, ancestor, seen = {}, previous, set()
+        while True:
+            prior_models.update(ancestor['models'])
+            if not ancestor.get('previous_points'):
+                break
+            path = Path(ancestor['previous_points'])
+            assert str(path.resolve()) not in seen
+            seen.add(str(path.resolve()))
+            assert sha((path/'report.json').read_bytes()) == ancestor['previous_report_sha256']
+            ancestor = json.loads((path/'report.json').read_text())
+        for width in args.dense_extra_seeds:
+            matches = [name for name, point in report['points'].items()
+                       if name.split('_')[0] == 'dense' and point['moving'] == width**2+4*width]
+            assert len(matches) == 1, f'Expected one existing seed at width{width}'
+            name = matches[0]
+            assert prior_models[name]['width'] == width and prior_models[name]['seed'] == 10601
+            extra_seed_bases[width] = name
+    if args.lowrank_legendre:
+        assert previous['models']['lowrank_8']['rank'] == 8
+        assert previous['models']['lowrank_8']['seed'] == 30601
+        report['lowrank_legendre_orders'] = {f'lowrank_{8*order}': order for order in (1, 2, 3, 12)}
+    started = time.monotonic()
+
+    def move(model, destination):
+        for key in ('initial_state', 'metrics', 'metric_inverses'):
+            if hasattr(model, key):
+                setattr(model, key, [v.to(device=destination, dtype=torch.float32) for v in getattr(model, key)])
+        for key in ('first', 'matrix', 'degrees', 'weights'):
+            if hasattr(model, key):
+                setattr(model, key, getattr(model, key).to(device=destination, dtype=torch.float32))
+        for key in ('kernel', 'cross', 'train_inputs', 'query_inputs'):
+            if hasattr(model, key):
+                setattr(model, key, getattr(model, key).to(device=destination, dtype=torch.float32))
+
+    def persist():
+        report['seconds'] = time.monotonic()-started
+        save_json(args.out/'report.json', report)
+        np.savez_compressed(args.out/'trajectories.npz', **arrays)
+
+    def run(name, model, device_name):
+        device = torch.device(device_name)
+        move(model, device)
+        inputs, labels, queries = [torch.as_tensor(reference[key], device=device, dtype=torch.float32)
+                                  for key in ('train_inputs', 'train_labels', 'query_inputs')]
+        print(json.dumps(dict(event='point_run_start', method=name, device=device_name)), flush=True)
+        state, prediction, info = integrate_euler(model, inputs, labels, torch.cat((inputs, queries)),
+            .0015625, 120., horizon=32., max_steps=20480, observation_every=320)
+        info['device'] = torch.cuda.get_device_name(device)
+        if info['complete']:
+            assert prediction.shape == (65, 38) and np.isfinite(prediction).all()
+            np.testing.assert_allclose(info['times'], reference['times_dense'], atol=1e-10, rtol=0)
+            np.testing.assert_allclose(np.mean((prediction[:, :8].astype(float)-reference['train_labels'])**2, axis=1),
+                                       info['losses'], atol=1e-6, rtol=2e-5)
+            error = trajectory_rms(prediction[:, 8:].astype(float), reference['dense'][:, 8:].astype(float))
+            error.pop('curve')
+            error['endpoint_over_dense_pair'] = error['endpoint_rms']/benchmark
+            info['comparison'] = error
+            if isinstance(model, LegendreCompression):
+                info['lift_drift'] = model.lift_diagnostics(state, inputs, labels)
+        print(json.dumps(dict(event='point_run_done', method=name, seconds=info['seconds'],
+            complete=info['complete'], comparison=info.get('comparison'))), flush=True)
+        return prediction, info
+
+    try:
+        device = torch.device(args.devices[0])
+        inputs, labels = [torch.as_tensor(reference[key], device=device) for key in ('train_inputs', 'train_labels')]
+        dense = DeepDense(4096, 3, 2, 'tanh', 601, device)
+        models = {}
+        if args.reference_seeds:
+            specs = [dict(name=f'dense_reference{seed}', family='dense', width=4096, seed=seed)
+                     for seed in (602, 603)]
+            assert all(spec['name'] not in report['points'] for spec in specs)
+            report['independent_references'] = {str(spec['seed']): spec['name'] for spec in specs}
+        elif args.compression_larger:
+            assert report['points']['harmonic']['moving'] == report['points']['logarithmic']['moving'] == 181480
+            specs = []
+            for factor in (2, 4):
+                target = factor*181480
+                width = math.isqrt(target-4)-2
+                assert width**2+4*width+8 <= target < (width+1)**2+4*(width+1)+8
+                rank = math.floor((width/4-17)/3)
+                specs += [dict(name=f'{family}_n{width}', family=family, width=width, rank=rank,
+                               target_moving_budget=target) for family in ('harmonic', 'logarithmic')]
+            assert all(spec['name'] not in report['points'] for spec in specs)
+            ranks = sorted({spec['rank'] for spec in specs}, reverse=True)
+            try:
+                harmonic_sources, report['harmonic_sources'] = unified_harmonic_sources(
+                    dense, inputs, labels, 32., ranks[0], 601)
+                assert all(v.shape == (4096, ranks[0]) for values in harmonic_sources.values() for v in values)
+            except Exception as error:
+                harmonic_sources = None
+                report['errors']['harmonic_source_setup'] = f'{type(error).__name__}: {error}'
+            try:
+                queries = torch.as_tensor(reference['query_inputs'], device=device)
+                log_sources, report['logarithmic_sources'] = cubic_rollout_sources(
+                    dense, inputs, labels, queries, ranks=tuple(ranks), partitions=('new',))
+                np.testing.assert_allclose(report['logarithmic_sources']['observation_times'],
+                    baseline['sources']['observation_times'], atol=1e-12, rtol=0)
+                del queries
+            except Exception as error:
+                log_sources = None
+                report['errors']['logarithmic_source_setup'] = f'{type(error).__name__}: {error}'
+        elif args.dense_extra_seeds is not None:
+            specs = [dict(name=f'dense_n{width}_seed{seed}', family='dense', width=width, seed=seed)
+                     for width in args.dense_extra_seeds for seed in (10602, 10603)]
+            assert all(spec['name'] not in report['points'] for spec in specs)
+        elif args.dense_width is not None:
+            specs = [dict(name=f'dense_n{args.dense_width}_seed{seed}', family='dense',
+                          width=args.dense_width, seed=seed) for seed in (10601, 10602, 10603)]
+            assert all(spec['name'] not in report['points'] for spec in specs)
+        elif args.smallest_seed_check:
+            assert previous['models']['dense_32']['width'] == 722
+            assert previous['models']['dense_32']['seed'] == 10601
+            specs = [dict(name=f'dense_n722_seed{seed}', family='dense', width=722, seed=seed)
+                     for seed in (10602, 10603)]
+        elif args.dense_smaller:
+            budget = previous['points']['dense_8']['moving']
+            assert budget == 1446**2+4*1446
+            assert min(v['moving'] for name, v in previous['points'].items()
+                       if name.split('_')[0] == 'dense') == budget
+            specs = [dict(name=f'dense_{8*divisor}', family='dense', seed=10601,
+                          width=math.isqrt(budget//divisor+4)-2, divisor=8*divisor,
+                          target_moving_budget=budget//divisor) for divisor in (2, 4)]
+            for spec in specs:
+                width, target = spec['width'], spec['target_moving_budget']
+                assert width**2+4*width <= target < (width+1)**2+4*(width+1)
+        elif args.lowrank_legendre:
+            specs = [dict(name=f'lowrank_{rank}', family='lowrank', rank=rank) for rank in (16, 24, 96)]
+        elif args.lowrank_curve:
+            specs = [dict(name=f'lowrank_{rank}', family='lowrank', rank=rank) for rank in (1, 4, 8, 20)]
+        elif args.harmonic_curve:
+            specs = [dict(name=f'harmonic_{divisor}', family='harmonic', width=width, rank=rank)
+                     for divisor, width, rank in ((2, 299, 19), (4, 210, 11), (8, 148, 6))]
+            try:
+                harmonic_sources, report['harmonic_sources'] = unified_harmonic_sources(
+                    dense, inputs, labels, 32., 29, 601)
+                assert all(v.shape == (4096, 29) for family in harmonic_sources.values() for v in family)
+            except Exception as error:
+                harmonic_sources = None
+                report['errors']['harmonic_source_setup'] = f'{type(error).__name__}: {error}'
+        elif args.seed_check:
+            assert previous['models']['dense_8']['width'] == 1446
+            assert previous['models']['dense_8']['seed'] == 10601
+            specs = [dict(name=f'dense_seed{seed}', family='dense', width=1446, seed=seed)
+                     for seed in (10602, 10603)]
+            specs.append(dict(name='ntk', family='ntk'))
+        elif args.tradeoff:
+            specs = [dict(name=f'dense_{divisor}', family='dense', divisor=divisor,
+                          width=math.isqrt(16793600//divisor+4)-2) for divisor in (2, 4, 8)]
+            specs += [dict(name=f'legendre_{order}', family='legendre', order=order) for order in (1, 2, 3)]
+            for divisor in (2, 4, 8):
+                width = math.isqrt(181480//divisor-4)-2
+                specs.append(dict(name=f'logarithmic_{divisor}', family='logarithmic', divisor=divisor,
+                                  width=width, rank=math.floor((width/4-17)/3)))
+            try:
+                queries = torch.as_tensor(reference['query_inputs'], device=device)
+                log_sources, report['logarithmic_sources'] = cubic_rollout_sources(dense, inputs, labels,
+                    queries, ranks=(29, 19, 11, 6), partitions=('new',))
+                np.testing.assert_allclose(report['logarithmic_sources']['observation_times'],
+                    baseline['sources']['observation_times'], atol=1e-12, rtol=0)
+                del queries
+            except Exception as error:
+                log_sources = None
+                report['errors']['logarithmic_source_setup'] = f'{type(error).__name__}: {error}'
+        else:
+            specs = [dict(name='legendre', family='legendre', order=12),
+                     dict(name='harmonic', family='harmonic', width=424, rank=29)]
+        report['requested_models'] = specs
+        for spec in specs:
+            name, family = spec['name'], spec['family']
+            t0 = time.monotonic()
+            try:
+                if family == 'dense':
+                    model = DeepDense(spec['width'], 3, 2, 'tanh', spec.get('seed', 10601), device)
+                    extra = dict(width=spec['width'], seed=spec.get('seed', 10601), divisor=spec.get('divisor'))
+                    expected = (spec['width']**2+4*spec['width'], 0)
+                elif family == 'ntk':
+                    queries = torch.as_tensor(reference['query_inputs'], device=device)
+                    model = FrozenNTK(dense, inputs, queries)
+                    extra = dict(diagnostics=model.diagnostics, data_scalars=model.data_scalars,
+                                 source_contract='initial dense kernel on the declared panel; no rollout')
+                    expected = (8, 304)
+                elif family == 'lowrank':
+                    rank = spec['rank']
+                    budget = 4096+min(rank, 3)*(4096+3)+2*4096*rank
+                    model = BudgetLoRA(dense, budget, 30601)
+                    assert model.rank_hidden == rank and model.rank_first == min(rank, 3)
+                    extra = dict(width=4096, rank=rank, seed=30601, diagnostics=model.diagnostics,
+                                 source_contract='coupled dense initialization only; zero low-rank increments')
+                    expected = (budget, 16789504)
+                elif family == 'legendre':
+                    model = LegendreCompression(dense, inputs, labels, spec['order'])
+                    extra = dict(order=spec['order'], source_contract='dense initialization only')
+                    expected = (81922+65536*spec['order'], 16777216+2*spec['order'])
+                else:
+                    if family == 'harmonic':
+                        if args.harmonic_curve or args.compression_larger:
+                            if harmonic_sources is None:
+                                raise RuntimeError('Shared Harmonic source setup failed')
+                            sources = {key: [v[:, :spec['rank']] for v in values]
+                                       for key, values in harmonic_sources.items()}
+                            source_info = dict(shared_source='harmonic_sources', prefix_rank=spec['rank'],
+                                diagnostics_scope=f"shared fit diagnostics concern rank{report['harmonic_sources']['requested_rank']}; "
+                                                  'prefix source error not separately measured')
+                        else:
+                            sources, source_info = unified_harmonic_sources(dense, inputs, labels, 32., spec['rank'], 601)
+                    else:
+                        if log_sources is None:
+                            raise RuntimeError('Shared Logarithmic source setup failed')
+                        sources = log_sources['new'][spec['rank']]
+                        source_info = dict(shared_source='logarithmic_sources', source_seed=501,
+                            source_contract='full-horizon rollout, declared passive inputs, labels withheld')
+                    model = DeepHarmonic(dense, inputs, labels, sources, spec['width'], selection_trials=64,
+                        readout_floor=baseline['readout_floor'] if family == 'logarithmic' else None)
+                    assert all(v.shape[1] == spec['rank'] for values in sources.values() for v in values)
+                    del sources
+                    assert model.diagnostics['widths'] == [spec['width']]*2
+                    assert not any(v['truncated'] for v in model.diagnostics['source_truncations'])
+                    extra = dict(compact_width=spec['width'], source_rank=spec['rank'], selection_trials=64, source=source_info,
+                                 diagnostics=model.diagnostics, diagnostics_scope='float64 assembly; runtime float32')
+                    expected = (spec['width']**2+4*spec['width']+8,
+                                3*spec['width']**2+int(family == 'logarithmic'))
+                synchronize(device)
+                elapsed = time.monotonic()-t0
+                if elapsed > 120.:
+                    raise TimeoutError(f'{name} setup exceeded 120s')
+                moving = sum(v.numel() for v in model.initial_state)
+                assert (moving, model.fixed_scalars) == expected
+                report['models'][name] = dict(moving=moving, fixed=model.fixed_scalars,
+                    total=moving+model.fixed_scalars, setup_seconds=elapsed, **extra)
+                move(model, 'cpu')
+                models[name] = model
+                print(json.dumps(dict(event='point_setup_done', method=name, seconds=elapsed)), flush=True)
+            except Exception as error:
+                report['errors'][name+'_setup'] = f'{type(error).__name__}: {error}'
+            persist()
+        del dense, inputs, labels
+        if args.tradeoff or args.compression_larger:
+            del log_sources
+        if args.harmonic_curve or args.compression_larger:
+            del harmonic_sources
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            pending, remaining = {}, iter(models.items())
+            def submit_next(device_name):
+                item = next(remaining, None)
+                if item is not None:
+                    name, model = item
+                    pending[pool.submit(run, name, model, device_name)] = (name, device_name)
+            for device_name in args.devices:
+                submit_next(device_name)
+            while pending:
+                finished, _ = wait(pending, return_when=FIRST_COMPLETED)
+                for future in finished:
+                    name, device_name = pending.pop(future)
+                    try:
+                        prediction, info = future.result()
+                        arrays[name], arrays['times_'+name] = prediction, np.asarray(info['times'])
+                        report['runs'][name] = info
+                        if info['complete']:
+                            report['points'][name] = {key: report['models'][name][key] for key in ('moving', 'fixed', 'total')}
+                            report['points'][name].update(info['comparison'])
+                    except Exception as error:
+                        report['errors'][name] = f'{type(error).__name__}: {error}'
+                    persist()
+                    submit_next(device_name)
+        report['points']['logarithmic'] = {key: logarithmic['models']['4'][key] for key in ('moving', 'fixed', 'total')}
+        report['points']['logarithmic'].update(logarithmic['runs']['4']['comparison'])
+        report['points']['dense'] = dict(moving=16793600, fixed=0, total=16793600,
+                                        endpoint_rms=benchmark, endpoint_over_dense_pair=1.)
+        report['complete'] = len(report['runs']) == len(specs) and all(v['complete'] for v in report['runs'].values())
+        if args.seed_check and report['complete']:
+            names = ['dense_8', 'dense_seed10602', 'dense_seed10603']
+            errors = np.asarray([report['points'][name]['endpoint_rms'] for name in names])
+            report['dense_seed_summary'] = dict(width=1446, seeds=[10601, 10602, 10603],
+                names=names, endpoint_rms=errors.tolist(), mean_endpoint_rms=float(errors.mean()),
+                sample_standard_deviation=float(errors.std(ddof=1)),
+                standard_error=float(errors.std(ddof=1)/math.sqrt(len(errors))),
+                scope='mean of per-seed RMS values; uncertainty over initialization only, conditional on fixed data and dense reference')
+        summary_widths = (args.dense_extra_seeds or ([722] if args.smallest_seed_check else
+                          [args.dense_width] if args.dense_width is not None else []))
+        for width in summary_widths if report['complete'] else []:
+            names = (['dense_32', 'dense_n722_seed10602', 'dense_n722_seed10603'] if args.smallest_seed_check
+                     else [f'dense_n{width}_seed{seed}' for seed in (10601, 10602, 10603)])
+            if args.dense_extra_seeds is not None:
+                names[0] = extra_seed_bases[width]
+            errors = np.asarray([report['points'][name]['endpoint_rms'] for name in names])
+            summary = dict(width=width, seeds=[10601, 10602, 10603], names=names,
+                endpoint_rms=errors.tolist(), mean_endpoint_rms=float(errors.mean()),
+                sample_standard_deviation=float(errors.std(ddof=1)),
+                standard_error=float(errors.std(ddof=1)/math.sqrt(len(errors))),
+                scope='mean of per-seed RMS values; uncertainty over initialization only, conditional on fixed data and dense reference')
+            inherited = report.get('dense_seed_summaries',
+                                   [report['dense_seed_summary']] if 'dense_seed_summary' in report else [])
+            assert all(group['width'] != width for group in inherited)
+            report['dense_seed_summaries'] = inherited+[summary]
+    finally:
+        persist()
+    print(json.dumps(dict(complete=report['complete'], points=report['points'], errors=report['errors'])), flush=True)
+    return 0 if report['complete'] else 1
+
+
+def sphere_points_plot_main(argv):
+    """Check saved predictions and plot endpoint or maximum-recorded-time RMS."""
+    parser = argparse.ArgumentParser(description=sphere_points_plot_main.__doc__)
+    parser.add_argument('--run', type=Path, required=True)
+    parser.add_argument('--metric', choices=('endpoint', 'max-time'), default='endpoint')
+    parser.add_argument('--seed-statistic', choices=('mean', 'median'), default='mean',
+                        help='Mean with SE bars, or median with observed min–max bars')
+    parser.add_argument('--thin-dense', action='store_true',
+                        help='Show alternate dense sizes, keeping both endpoints')
+    parser.add_argument('--clean', action='store_true',
+                        help='Short labels, no point annotations or footer; export a separate caption')
+    parser.add_argument('--frozen-point', action='store_true',
+                        help='Plot frozen features at the full-width trained-readout parameter count')
+    parser.add_argument('--independent-references', action='store_true',
+                        help='Pair the three stored dense seeds with references601/602/603')
+    args = parser.parse_args(argv)
+    metric = 'endpoint_rms' if args.metric == 'endpoint' else 'max_time_rms'
+    figure_name = 'endpoint_points' if args.metric == 'endpoint' else 'max_time_points'
+    if args.seed_statistic == 'median':
+        figure_name += '_median'
+    if args.thin_dense:
+        figure_name += '_thinned'
+    if args.clean:
+        figure_name += '_clean'
+    if args.frozen_point:
+        figure_name += '_frozen_point'
+    if args.independent_references:
+        figure_name += '_paired'
+    report = json.loads((args.run/'report.json').read_text())
+    assert report['complete'] and not report['errors']
+    reference_path, logarithmic_path = Path(report['reference']), Path(report['logarithmic'])
+    assert sha((reference_path/'trajectories.npz').read_bytes()) == report['reference_arrays_sha256']
+    def load_arrays(path):
+        with np.load(path/'trajectories.npz') as saved:
+            return {key: saved[key] for key in saved.files}
+    reference, current, logarithmic = [load_arrays(path) for path in (reference_path, args.run, logarithmic_path)]
+    chain, seen = [(report, current)], {str(args.run.resolve())}
+    while chain[-1][0].get('previous_points'):
+        parent = chain[-1][0]
+        previous = Path(parent['previous_points'])
+        assert str(previous.resolve()) not in seen
+        seen.add(str(previous.resolve()))
+        assert sha((previous/'trajectories.npz').read_bytes()) == parent['previous_arrays_sha256']
+        assert sha((previous/'report.json').read_bytes()) == parent['previous_report_sha256']
+        chain.append((json.loads((previous/'report.json').read_text()), load_arrays(previous)))
+    model_info, run_arrays = {}, {}
+    for earlier_report, earlier_arrays in reversed(chain):
+        model_info.update(earlier_report['models'])
+        run_arrays.update({name: earlier_arrays for name in earlier_report['runs']})
+    model_info.update(dense=dict(width=4096), logarithmic=dict(compact_width=424))
+    computed, predictions = {}, {}
+    for name, point in report['points'].items():
+        saved, key = ((reference, 'iid') if name == 'dense' else
+                      (logarithmic, 'budget_4') if name == 'logarithmic' else
+                      (run_arrays[name], name))
+        prediction = saved[key]
+        predictions[name] = prediction
+        assert prediction.shape == (65, 38) and np.isfinite(prediction).all()
+        times = saved['times_iid' if name == 'dense' else 'times_4' if name == 'logarithmic' else 'times_'+name]
+        np.testing.assert_allclose(times, reference['times_dense'], atol=1e-10, rtol=0)
+        for field in ('train_inputs', 'train_labels', 'query_inputs', 'query_labels'):
+            np.testing.assert_array_equal(saved[field], reference[field])
+        rms = trajectory_rms(prediction[:, 8:].astype(float), reference['dense'][:, 8:].astype(float))
+        np.testing.assert_allclose(rms['endpoint_rms'], point['endpoint_rms'], atol=1e-14, rtol=1e-12)
+        if 'max_time_rms' in point:
+            np.testing.assert_allclose(rms['max_time_rms'], point['max_time_rms'], atol=1e-14, rtol=1e-12)
+        computed[name] = dict(point, max_time_rms=rms['max_time_rms'])
+        np.testing.assert_allclose(point['endpoint_over_dense_pair'],
+            rms['endpoint_rms']/report['dense_pair_endpoint_rms'], atol=1e-14, rtol=1e-12)
+        family, model = name.split('_')[0], model_info[name]
+        if family == 'dense':
+            width = model['width']
+            expected = (width*width+4*width, 0)
+        elif family == 'legendre':
+            expected = (81922+65536*model['order'], 16777216+2*model['order'])
+        elif family == 'ntk':
+            expected = (8, 304)
+        elif family == 'lowrank':
+            rank = model['rank']
+            expected = (4096+min(rank, 3)*(4096+3)+2*4096*rank, 16789504)
+        else:
+            width = model['compact_width']
+            expected = (width*width+4*width+8, 3*width*width+int(family == 'logarithmic'))
+        assert (point['moving'], point['fixed']) == expected
+        assert point['total'] == point['moving']+point['fixed']
+        if name in report['runs']:
+            losses = np.mean((prediction[:, :8].astype(float)-reference['train_labels'])**2, axis=1)
+            np.testing.assert_allclose(losses, report['runs'][name]['losses'], atol=1e-6, rtol=2e-5)
+    summaries = report.get('dense_seed_summaries',
+                           [report['dense_seed_summary']] if 'dense_seed_summary' in report else [])
+    paired_scores, extra_reference_names, new_dense_pair = {}, set(), None
+    if args.independent_references:
+        if report.get('independent_references') != {'602': 'dense_reference602', '603': 'dense_reference603'}:
+            parser.error('--independent-references requires the two saved reference-seed runs')
+        references = {601: reference['dense']}
+        for seed, name in report['independent_references'].items():
+            assert model_info[name]['width'] == 4096 and model_info[name]['seed'] == int(seed)
+            references[int(seed)] = predictions[name]
+            extra_reference_names.add(name)
+        for summary in summaries:
+            for name, seed, reference_seed in zip(summary['names'], summary['seeds'], (601, 602, 603)):
+                assert seed == reference_seed+10000
+                score = trajectory_rms(predictions[name][:, 8:].astype(float),
+                                       references[reference_seed][:, 8:].astype(float))
+                score.pop('curve')
+                paired_scores[name] = dict(score, candidate_seed=seed, reference_seed=reference_seed)
+        new_dense_pair = trajectory_rms(references[602][:, 8:].astype(float),
+                                        references[603][:, 8:].astype(float))
+        new_dense_pair.pop('curve')
+    plot_summaries, seed_replicates = {}, set()
+    for summary in summaries:
+        values = np.array([report['points'][name]['endpoint_rms'] for name in summary['names']])
+        assert len(values) == 3 and summary['seeds'] == [10601, 10602, 10603]
+        assert all(model_info[name]['width'] == summary['width'] for name in summary['names'])
+        assert [model_info[name]['seed'] for name in summary['names']] == summary['seeds']
+        np.testing.assert_allclose(values, summary['endpoint_rms'], atol=1e-14, rtol=1e-12)
+        np.testing.assert_allclose(values.mean(), summary['mean_endpoint_rms'], atol=1e-14, rtol=1e-12)
+        np.testing.assert_allclose(values.std(ddof=1)/math.sqrt(3), summary['standard_error'], atol=1e-14, rtol=1e-12)
+        metric_values = np.array([paired_scores.get(name, computed[name])[metric] for name in summary['names']])
+        plot_summaries[summary['names'][0]] = dict(width=summary['width'], metric=metric,
+                            values=metric_values.tolist(), mean=float(metric_values.mean()),
+                            median=float(np.median(metric_values)),
+                            minimum=float(metric_values.min()), maximum=float(metric_values.max()),
+                            standard_error=float(metric_values.std(ddof=1)/math.sqrt(3)),
+                            names=summary['names'], seeds=summary['seeds'],
+                            reference_seeds=[601, 602, 603] if args.independent_references else [601]*3,
+                            scope=args.seed_statistic+(' of independent initialization-pair scores, conditional on fixed data'
+                                if args.independent_references else
+                                ' of individual-seed scores, conditional on fixed data and dense reference'))
+        seed_replicates.update(summary['names'][1:])
+    if args.independent_references:
+        values = np.asarray([computed['dense'][metric], new_dense_pair[metric]])
+        plot_summaries['dense'] = dict(width=4096, metric=metric, values=values.tolist(),
+            mean=float(values.mean()), median=float(np.median(values)),
+            minimum=float(values.min()), maximum=float(values.max()),
+            standard_error=float(values.std(ddof=1)/math.sqrt(2)),
+            seed_pairs=[[601, 10601], [602, 603]],
+            scope=args.seed_statistic+' of two disjoint initialization pairs, conditional on fixed data')
+    displayed = {name: dict(point) for name, point in computed.items()
+                 if name not in seed_replicates and name not in extra_reference_names}
+    if args.independent_references:
+        for name, point in displayed.items():
+            point.update(paired_scores.get(name, {}))
+            point.pop('endpoint_over_dense_pair', None)
+    for name, plot_summary in plot_summaries.items():
+        displayed[name][metric] = plot_summary[args.seed_statistic]
+    matched_orders = report.get('lowrank_legendre_orders')
+    if matched_orders is not None:
+        assert matched_orders == {f'lowrank_{8*order}': order for order in (1, 2, 3, 12)}
+        for name, order in matched_orders.items():
+            assert name in displayed and model_info[name]['rank'] == 8*order
+            legendre_name = 'legendre' if order == 12 else f'legendre_{order}'
+            assert model_info[legendre_name]['order'] == order
+        displayed = {name: point for name, point in displayed.items()
+                     if not name.startswith('lowrank_') or name in matched_orders}
+    if args.thin_dense:
+        dense_names = sorted((name for name in displayed if name.split('_')[0] == 'dense'),
+                             key=lambda name: model_info[name]['width'])
+        kept_dense = set(dense_names[::2] + dense_names[-1:])
+        displayed = {name: point for name, point in displayed.items()
+                     if name.split('_')[0] != 'dense' or name in kept_dense}
+    shown_summaries = {name: summary for name, summary in plot_summaries.items() if name in displayed}
+    if args.frozen_point:
+        if 'ntk' not in displayed:
+            parser.error('--frozen-point requires an existing frozen-features baseline')
+        width = model_info['dense']['width']
+        fixed_backbone = width*width+width*reference['train_inputs'].shape[1]
+        displayed['ntk'].update(moving=width, fixed=fixed_backbone, total=width+fixed_backbone,
+                                storage_representation='full frozen backbone and trained primal readout; predictions from dual Euler')
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False, 'pdf.fonttype': 42})
+    figure, axis = plt.subplots(figsize=(8, 5.2) if args.clean else (10, 6.3))
+    styles = dict(dense=('#666666', 'D'), legendre=('#4477AA', 's'),
+                  logarithmic=('#228833', 'o'), harmonic=('#EE7733', '^'), lowrank=('#CC6677', 'v'))
+    for family, (color, marker) in styles.items():
+        points = sorted(((name, point) for name, point in displayed.items() if name.split('_')[0] == family),
+                        key=lambda item: item[1]['moving'])
+        if not points:
+            continue
+        target = axis
+        label = 'Low rank' if family == 'lowrank' else family.capitalize()
+        target.plot([point['moving'] for _, point in points], [point[metric] for _, point in points],
+            color=color, marker=marker, ms=6, lw=1.2, label=label, zorder=3)
+        for name, point in points:
+            model = model_info[name]
+            label_y = point[metric]
+            label = (f"q={model['order']}" if family == 'legendre' else
+                     f"n={model['width']}" if family == 'dense' else
+                     f"rank {model['rank']}" if family == 'lowrank' else f"width {model['compact_width']}")
+            if family == 'lowrank' and matched_orders is not None:
+                label += f"\n(q={matched_orders[name]})"
+            if name in plot_summaries:
+                stats = plot_summaries[name]
+                spread = ([[stats['median']-stats['minimum']], [stats['maximum']-stats['median']]]
+                          if args.seed_statistic == 'median' else stats['standard_error'])
+                target.errorbar(point['moving'], point[metric], yerr=spread,
+                                color=color, fmt='none', capsize=4, lw=1.3, zorder=4)
+                if len(shown_summaries) <= 2:
+                    label += ('\nmedian, 3 seeds' if args.seed_statistic == 'median' else '\nmean ± SE, 3 seeds')
+                if args.seed_statistic == 'median':
+                    label_y = stats['maximum']
+            if args.clean:
+                continue
+            offset = (0, -17) if family == 'logarithmic' else (0, 9)
+            alignment = 'center'
+            if family == 'logarithmic' and model['compact_width'] in (424, 600):
+                offset, alignment = (10, 9), 'left'
+            if family == 'lowrank' and matched_orders is not None:
+                offset = (0, -30) if model['rank'] in (24, 96) else (0, 12)
+            target.annotate(label, (point['moving'], label_y), xytext=offset,
+                          textcoords='offset points', ha=alignment, fontsize=8, color=color)
+    benchmark = displayed['dense'][metric]
+    axis.axhline(benchmark, color='#777777', lw=1.1, ls=':', zorder=1,
+                label='Dense–dense')
+    if 'ntk' in displayed:
+        if args.frozen_point:
+            axis.plot(displayed['ntk']['moving'], displayed['ntk'][metric], color='#AA4499',
+                      marker='o', ms=7, ls='none', zorder=3, label='Frozen features')
+        else:
+            axis.axhline(displayed['ntk'][metric], color='#AA4499', lw=1.3, ls='--', zorder=1,
+                         label='Frozen features')
+    xs = [v['moving'] for name, v in displayed.items() if name != 'ntk' or args.frozen_point]
+    ys = [v[metric] for v in displayed.values()]
+    axis.set(xscale='log', yscale='log', xlim=(min(xs)*.65, max(xs)*1.6),
+             ylim=(min(ys)*.55, max(ys)*(1.5 if args.clean else 2.5)),
+             xlabel='Learned state' if args.clean else 'Moving / learned scalars (including auxiliary state)')
+    axis.set_ylabel(('Test RMS' if args.metric == 'endpoint' else 'Worst-time RMS') if args.clean else
+                    'Endpoint test RMS versus the width-4096 reference' if args.metric == 'endpoint'
+                    else 'Worst recorded-time test RMS vs. dense reference')
+    figure.suptitle('3D sphere' if args.clean else
+                   '3D sphere · width 4096 · 8 train / 30 test · two tanh layers', fontsize=12)
+    axis.grid(which='major', alpha=.15)
+    handles, labels = axis.get_legend_handles_labels()
+    axis.legend(handles, labels, loc='best', fontsize=9 if args.clean else 8, framealpha=.95)
+    caption_summaries = {name: value for name, value in shown_summaries.items()
+                         if not args.independent_references or name != 'dense'}
+    seeded_widths = ', '.join(str(v['width']) for v in sorted(caption_summaries.values(), key=lambda v: v['width']))
+    seeded_groups = f'n={seeded_widths}' if len(caption_summaries) <= 3 else f'{len(caption_summaries)} dense sizes'
+    caption = (f'3 seeds at {seeded_groups}; others have one. Error bars: SE conditional on the fixed data/reference.'
+               if shown_summaries else 'Same Euler step and horizon; one initialization per size. Lines connect measurements, not fitted scaling laws.')
+    if shown_summaries and args.seed_statistic == 'median':
+        caption = f'Medians of 3 seeds: {seeded_groups}; others have one. Bars: observed min–max, not confidence intervals.'
+    if args.independent_references:
+        caption = (f'Dense: 3 independent initialization pairs at {seeded_groups}; width4096: 2 disjoint pairs. '
+                   f'Centers: {args.seed_statistic}; other methods unchanged against reference601.')
+    fixed_notes = []
+    for family in styles:
+        fixed = [point['fixed'] for name, point in displayed.items() if name.split('_')[0] == family]
+        if fixed:
+            amount = (str(max(fixed)) if max(fixed) < 10000 else
+                      f'{min(fixed)/1e6:.3f}–{max(fixed)/1e6:.3f}M'
+                      if round(min(fixed)/1e6, 3) != round(max(fixed)/1e6, 3) else f'{max(fixed)/1e6:.3f}M')
+            fixed_notes.append(f'{"Low-rank" if family == "lowrank" else family.capitalize()} {amount}')
+    caption += '\nAdditional fixed scalars: ' + '; '.join(fixed_notes) + '.'
+    if 'ntk' in displayed:
+        caption += ('\nFrozen features: 4,096 trained readout weights plus 16,789,504 frozen backbone weights; equivalent dual-Euler predictions.'
+                    if args.frozen_point else
+                    '\nDashed: equivalent to 4,096 trained readout weights on frozen dense features; accuracy reference, not a storage claim.')
+    if matched_orders is not None:
+        caption += '\nLow-rank controls match Legendre hidden-increment rank capacity: r = 8q; x shows actual moving storage.'
+    if args.metric == 'max-time':
+        caption += '\nMaximum over 65 saved times in [0, 32], not a continuous-time supremum; seed summaries use per-seed maxima.'
+    if args.clean:
+        detail = ['Compression of two-hidden-layer tanh networks on the unit sphere in three input dimensions, '
+                  'with a width-4096 dense reference, 8 training points and 30 test inputs.',
+                  ('Test RMS is measured at training time 32 against width-4096 references.'
+                   if args.metric == 'endpoint' else
+                   'Test RMS is maximized over 65 saved times in [0,32] against width-4096 references; '
+                   'this is not a continuous-time supremum.'),
+                  'All compared models use explicit Euler with step 0.0015625.',
+                  'Learned state counts moving scalar coordinates, including auxiliary state, but excludes fixed coefficients.']
+        order_fields = dict(dense='width', harmonic='compact_width', logarithmic='compact_width',
+                            legendre='order', lowrank='rank')
+        for family, field in order_fields.items():
+            values = sorted(model_info[name][field] for name in displayed if name.split('_')[0] == family)
+            if values:
+                detail.append(f'{"Low-rank control" if family == "lowrank" else family.capitalize()} '
+                              f'{"widths" if "width" in field else field+"s"}: '+', '.join(map(str, values))+'.')
+        if args.independent_references:
+            detail += [f'Dense widths {seeded_widths} pair stored seeds 10601,10602,10603 with large references '
+                       f'601,602,603 respectively; centers are {args.seed_statistic}s of the three pair scores.',
+                       f'The width-4096 point and dotted benchmark use the {args.seed_statistic} of exactly two disjoint '
+                       'large-dense pairs: (601,10601) and (602,603).',
+                       ('Bars show observed min--max, not confidence intervals.' if args.seed_statistic == 'median' else
+                        'Bars show standard errors across pair scores.'),
+                       'Only two large reference trajectories were newly trained. All other trajectories are reused. '
+                       'Single-run compression and control scores retain their original coupled reference601. '
+                       'Repetitions are independent conditional on the fixed data, but different widths reuse references '
+                       'within each repetition and are not independent of each other.',
+                       'Each pair score is computed before aggregation, including its temporal maximum for the worst-time plot.']
+        elif shown_summaries:
+            detail.append(f'Dense widths {seeded_widths} show '+
+                          ('medians over three initializations with observed min--max bars, not confidence intervals.'
+                           if args.seed_statistic == 'median' else
+                           'means over three initializations with standard-error bars conditional on the fixed data and reference.'))
+        detail += ['All other points use one initialization; lines connect measurements, not fitted scaling laws.',
+                   f'The dotted dense--dense reference is {benchmark:.8g}.']
+        if 'ntk' in displayed:
+            detail.append('The frozen-features dot counts 4096 trained readout weights and retains the full frozen dense '
+                          'backbone with 16789504 additional weights. Its unchanged predictions were computed using the '
+                          'equivalent finite-panel dual Euler implementation, not a new primal training run.'
+                          if args.frozen_point else
+                          'The dashed frozen-features baseline is equivalent to training 4096 readout weights on the '
+                          'frozen dense backbone; it is an accuracy reference without a horizontal storage coordinate.')
+        fixed_details = []
+        for family in styles:
+            values = [point['fixed'] for name, point in displayed.items() if name.split('_')[0] == family]
+            if values:
+                count = str(min(values)) if min(values) == max(values) else f'{min(values)}--{max(values)}'
+                fixed_details.append(f'{"low rank" if family == "lowrank" else family} {count}')
+        detail.append('Additional fixed scalar counts: '+', '.join(fixed_details)+'.')
+        if matched_orders is not None:
+            detail.append('Low-rank hidden-increment capacities match Legendre via rank = 8 times order; '
+                          'their actual learned-state counts are plotted.')
+        detail += ['Harmonic and Logarithmic use empirical full-horizon dense-rollout initialization, not the certified '
+                   'initialization-jet compiler. Harmonic uses 72 fixed sphere quadrature nodes independent of the scored inputs; '
+                   'Logarithmic setup sees the test inputs, never their labels.',
+                   'These are finite-step measurements without a new per-budget numerical refinement certificate.']
+        caption = '\n'.join(detail)
+        (args.run/(figure_name+'.caption.txt')).write_text(caption+'\n')
+        (args.run/(figure_name+'.caption.tex')).write_text('\\caption{\n'+caption+'\n}\n')
+        figure.tight_layout(rect=(0, 0, 1, 1))
+    else:
+        figure.text(.5, .02, caption, ha='center', fontsize=8)
+        figure.tight_layout(rect=(0, .155 if args.metric == 'max-time' else .13 if matched_orders is not None else .105, 1, 1))
+    for suffix in ('png', 'pdf'):
+        figure.savefig(args.run/(figure_name+'.'+suffix), dpi=180, bbox_inches='tight')
+    plt.close(figure)
+    check_name = 'point_check.json' if args.metric == 'endpoint' else 'max_time_point_check.json'
+    if args.seed_statistic == 'median':
+        check_name = check_name.replace('.json', '_median.json')
+    if args.thin_dense:
+        check_name = check_name.replace('.json', '_thinned.json')
+    if args.clean:
+        check_name = check_name.replace('.json', '_clean.json')
+    if args.frozen_point:
+        check_name = check_name.replace('.json', '_frozen_point.json')
+    if args.independent_references:
+        check_name = check_name.replace('.json', '_paired.json')
+    save_json(args.run/check_name, dict(status='PASS', points=computed, metric=metric,
+        seed_statistic=args.seed_statistic, thin_dense=args.thin_dense, clean=args.clean,
+        frozen_point=args.frozen_point,
+        independent_references=args.independent_references,
+        paired_comparisons=paired_scores, new_dense_pair=new_dense_pair,
+        error_bars='observed minimum–maximum' if args.seed_statistic == 'median' else 'standard error of mean',
+        dense_pair_rms=benchmark, dense_seed_summary=plot_summaries.get('dense_8'),
+        dense_seed_summaries=plot_summaries,
+        displayed_points=displayed, displayed_dense_seed_summaries=shown_summaries,
+        legend_labels=labels, caption=caption, lowrank_legendre_orders=matched_orders,
+        source_sha256=sha(Path(__file__).read_bytes()),
+        trajectory_sha256=sha((args.run/'trajectories.npz').read_bytes()),
+        scope='saved-array consistency, not a new numerical refinement certificate'))
+    print(json.dumps(dict(status='PASS', output=str(args.run/(figure_name+'.png')))), flush=True)
 
 
 def cubic_summary_main(argv):
@@ -5963,6 +6722,10 @@ if __name__ == '__main__':
         cubic_summary_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'cubic-budget':
         sys.exit(cubic_budget_main(sys.argv[2:]))
+    elif len(sys.argv) > 1 and sys.argv[1] == 'sphere-points':
+        sys.exit(sphere_points_main(sys.argv[2:]))
+    elif len(sys.argv) > 1 and sys.argv[1] == 'sphere-points-plot':
+        sphere_points_plot_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'unified-check':
         torch.set_num_threads(1)
         torch.set_default_dtype(torch.float64)

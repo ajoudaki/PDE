@@ -4,7 +4,16 @@ finite-word decoder. The latter is not the finite-panel Logarithmic model
 of \Cref{thm:compression}; none of the decoder measurements below validates
 the new cubic-logarithmic theorem. We preserve the original measurements,
 controls and failures without reinterpreting their scope. In this appendix,
-$b_n$ abbreviates the whole-sphere quantile $b_n(\mathcal X)$. The label
+$b_n(10^{-4})$ denotes the historical whole-sphere quantile
+\begin{equation}
+ b_n(10^{-4})=\inf\{b\ge0:\Pr(\norm{f_n-\widetilde f_n}_*\le b)\ge0.9999\}.
+ \label{eq:intrinsic-benchmark}
+\end{equation}
+Here $\norm{\cdot}_*$ is the whole-sphere instance of
+\eqref{eq:test-norm}, with discrepancy $+\infty$ on a run lacking a
+required fitted limit. This quantile belongs to the supplementary seeded
+decoder comparison, not the main theorem's negligible-relative-error claim.
+The label
 ``Logarithmic'' inside the preserved figures refers to the seeded decoder.
 
 \subsection{Trajectory fidelity and retained state}
@@ -12,8 +21,8 @@ $b_n$ abbreviates the whole-sphere quantile $b_n(\mathcal X)$. The label
 Earlier experiments test empirical Harmonic and seeded decoder implementations
 against independent dense-run variability. Error is the largest unseen-input
 RMS discrepancy at recorded common times; the practical threshold is three
-times the corresponding dense-pair discrepancy, not the theorem's quantile
-$b_n$. Harmonic meets this threshold in all nine held-out circle cases
+times the corresponding dense-pair discrepancy, not the historical quantile
+$b_n(10^{-4})$. Harmonic meets this threshold in all nine held-out circle cases
 ($n=1024,2048,4096$, three seeds), with ratios $0.159$--$1.617$.
 At $n=4096$ it uses $11.7$--$11.8$ times fewer model-tensor scalars.
 Single-seed checks in dimensions $3,5,10$ also meet the threshold.
@@ -88,7 +97,7 @@ For recorded physical times $\mathcal T$ and unseen inputs $\mathcal Q$, use
 The denominator uses independent dense initializations. A practical pass
 requires $R_{\rm emp}\le3$ and resolved reference numerics; Harmonic's
 combined coarse--fine sensitivity must also be at most $10\%$ of that
-denominator. This is neither a confidence estimate for $b_n$ nor a
+denominator. This is neither a confidence estimate for $b_n(10^{-4})$ nor a
 continuous-time, whole-sphere or asymptotic guarantee. Pilots use seeds
 101--102; settings were frozen before seeds 201--203. Setup nodes are
 separate from test queries. Digits uses 32 training images, training-only

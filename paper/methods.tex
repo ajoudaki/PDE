@@ -574,9 +574,11 @@ For the final comparison, put the parameters in physical coordinates:
 Subtracting the dense and reconstructed gradient fields produces a
 negative squared residual-difference term in
 $\tfrac12\mathrm d\|\widehat\theta-\theta_n\|^2/\mathrm dt$.
-Keeping that term leaves nonlinear growth proportional to
-$\rho_n+3\widehat\rho$, plus the forcing $\mathcal E$.
-Its integrated coefficient is finite even as physical time tends to
+Once its nonpositive sign is identified, that term is dropped for the
+upper bound. The Taylor remainder and Jacobian variation carry residual
+factors, leaving growth proportional to $\rho_n+3\widehat\rho$, plus
+the forcing $\mathcal E$. The residual-weighted growth coefficient has
+finite integral even as physical time tends to
 infinity. This signed parameter-energy argument is distinct from the
 selected model's readout-deficit cancellation. Both use the training
 flow's damping to control feedback, but they close different error variables.
