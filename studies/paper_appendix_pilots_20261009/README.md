@@ -24,6 +24,11 @@ They fit worse than the free exponent, particularly6, but these finite data
 do not exclude either asymptotic law. Data, selections and free fits are
 unchanged; scalar cross-check and rendered-figure inspection passed.
 
+For the requested linear-y view without Legendre, add `--hide-legendre
+--y-scale linear`. The x-axis remains logarithmic, and all observations and
+log-space fits are unchanged. The zero-based linear-y PNG/PDF and provenance
+are in `trajectory_rms_polylog_linear/`; the rendered figure was inspected.
+
 ### Outcome
 
 The reporting correction is implemented; an algorithmic storage improvement

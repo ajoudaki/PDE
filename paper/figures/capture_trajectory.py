@@ -12815,6 +12815,8 @@ def trajectory_budget_plot(argv):
                         help='Overlay descriptive C*(log n)^a fits to Logarithmic mean/median storage')
     parser.add_argument('--compare-exponents', nargs='+', type=float, default=[],
                         help='Overlay fixed polylog exponents with independently fitted prefactors')
+    parser.add_argument('--hide-legendre', action='store_true', help='Show only Logarithmic storage')
+    parser.add_argument('--y-scale', choices=('log', 'linear'), default='log')
     args = parser.parse_args(argv)
     if args.compare_exponents and (not args.fit_polylog
             or any(not math.isfinite(a) or a <= 0 for a in args.compare_exponents)):
@@ -13016,6 +13018,9 @@ def trajectory_budget_plot(argv):
                 f'log-space R^2={fit["log_space_r2"]:.6f}'
                 for statistic, values in fits.items()
                 for fit in values['fixed_exponent_comparisons']) + '.\n')
+    caption += (f'The x-axis is logarithmic and the y-axis is {args.y_scale}. '
+                f'Legendre is {"hidden" if args.hide_legendre else "shown"}; '
+                'axis choices do not change data, selection or fit objectives.\n')
     args.out.mkdir(parents=True, exist_ok=False)
     source = Path(__file__).read_bytes()
     (args.out/'source.py').write_bytes(source)
@@ -13049,6 +13054,8 @@ def trajectory_budget_plot(argv):
     figure, axes = plt.subplots(1, 2, figsize=(10.5, 4.6), sharex=True, sharey=True)
     for axis, statistic in zip(axes, ('mean', 'median')):
         for family, color, marker in (('legendre', '#185b84', 's'), ('logarithmic', '#228833', 'o')):
+            if args.hide_legendre and family == 'legendre':
+                continue
             points = {(row['width'], row['seed']): row['selected'] for row in rows if row['family'] == family}
             for seed in seeds:
                 axis.plot(widths, [points[n, seed]['learned'] if points[n, seed] else np.nan for n in widths],
@@ -13067,7 +13074,10 @@ def trajectory_budget_plot(argv):
                           color=('#d97706', '#9b4897')[i % 2],
                           linestyle=(0, (6, 3)) if i % 2 == 0 else (0, (2, 2)), linewidth=1.6,
                           label=rf'Fixed: $(\log n)^{{{comparison["exponent"]:g}}}$', zorder=3)
-        axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=statistic.capitalize())
+        axis.set(xscale='log', yscale=args.y_scale, xlabel='Dense width n', title=statistic.capitalize())
+        if args.y_scale == 'linear':
+            axis.set_ylim(bottom=0)
+            axis.yaxis.set_major_formatter('{x:,.0f}')
         axis.set_xticks(widths, [str(n) for n in widths])
         axis.xaxis.set_minor_formatter(NullFormatter())
         axis.tick_params(axis='x', labelsize=8)
