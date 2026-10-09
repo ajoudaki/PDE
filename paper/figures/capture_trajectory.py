@@ -6811,7 +6811,8 @@ def experiment_scaling_plot(argv):
                              for budget in config['methods']['non_oblivious'][family]['budgets']})
         row = dict(width=n, seed=seed, root=str(root), status='inconclusive',
             dense_learned=(config['model']['depth']-1)*n*n+n*(config['dataset']['dimension']+1),
-            candidates=[], selected={}, dense_pair=None, sources={}, errors={}, omissions=[])
+            candidates=[], selected={}, selected_minimum={}, budget_search={},
+            dense_pair=None, sources={}, errors={}, omissions=[])
         records.append(row)
         provenance = dict(root=str(root), run_sha256=sha(manifest_bytes),
             config_sha256=sha(config_bytes), source_sha256=manifest['source_sha256'],
@@ -6840,6 +6841,26 @@ def experiment_scaling_plot(argv):
         require(sha(trajectory_bytes) == report['trajectories_sha256'], f'Trajectory hash mismatch: {path}')
         provenance.update(repetition=str(path), report_sha256=sha(report_bytes),
                           trajectories_sha256=sha(trajectory_bytes), seeds=report['seeds'])
+        if 'reused_from' in report:
+            provenance['reused_from'] = copy.deepcopy(report['reused_from'])
+        search = report.get('budget_search', {})
+        require(isinstance(search, dict), f'Invalid budget search metadata: {path}')
+        row['budget_search'] = copy.deepcopy(search)
+        for family in families:
+            if family not in search:
+                continue
+            require(isinstance(search[family], dict)
+                    and isinstance(search[family].get('requested', []), list),
+                    f'Invalid requested budget list: {path}/{family}')
+            for budget in search[family].get('requested', []):
+                keys = ('order',) if family == 'legendre' else ('width', 'source_rank')
+                require(isinstance(budget, dict)
+                        and all(isinstance(budget.get(key), int)
+                                and not isinstance(budget[key], bool) and budget[key] > 0
+                                for key in keys), f'Invalid requested budget: {path}/{family}')
+                name = (f"legendre_{budget['order']}" if family == 'legendre'
+                        else f"{family}_{budget['width']}_r{budget['source_rank']}")
+                expected[name] = family
         row['sources'], row['errors'] = report.get('sources', {}), report.get('errors', {})
         with np.load(io.BytesIO(trajectory_bytes), allow_pickle=False) as saved:
             arrays = {key: saved[key] for key in saved.files}
@@ -6952,10 +6973,13 @@ def experiment_scaling_plot(argv):
             if passing:
                 chosen = min(passing, key=lambda item: (item['moving'], item['total'], item['name']))
                 row['selected'][family] = chosen['name']
+                row['selected_minimum'][family] = {
+                    key: chosen[key] for key in ('name', 'moving', 'fixed', 'total')}
             else:
                 row['omissions'].append(f'{family}: no complete candidate passes both {args.factor:g}x benchmark metrics')
 
     records.sort(key=lambda item: item['width'])
+    show_legendre_guide = not any(row['budget_search'] for row in records)
     parent = args.out.resolve()/'plots'
     parent.mkdir(parents=True, exist_ok=True)
     index = 1
@@ -6978,8 +7002,10 @@ def experiment_scaling_plot(argv):
         'coordinates, excluding common data, integrator workspace and offline source construction. '
         'Logarithmic setup uses query inputs but not their labels. Candidate selection uses these query errors; '
         'there is no independent post-selection test. Five selected or tuned width points are not asymptotic proof. '
-        'The dotted n^(5/4) guide is anchored at the first passing Legendre point and is not a fitted exponent. '
         'Finite recorded Euler trajectories are not a gradient-flow refinement certificate.')
+    if show_legendre_guide:
+        caption += (' The dotted n^(5/4) guide is anchored at the first passing Legendre point '
+                    'and is not a fitted exponent.')
     colors = {key: value[1] for key, value in families.items()}
     plt.rcParams.update({'font.size': 9, 'axes.spines.top': False, 'axes.spines.right': False,
                          'pdf.fonttype': 42, 'savefig.facecolor': 'white'})
@@ -7002,7 +7028,7 @@ def experiment_scaling_plot(argv):
         if points:
             axis.loglog([width for width, _ in points], [point['moving'] for _, point in points],
                         'o-', color=color, label=label)
-        if family == 'legendre' and points:
+        if family == 'legendre' and points and show_legendre_guide:
             anchor_width, anchor = points[0]
             guide_widths = np.geomspace(min(widths), max(widths), 100)
             axis.loglog(guide_widths, anchor['moving']*(guide_widths/anchor_width)**1.25,
@@ -7095,14 +7121,16 @@ def experiment_scaling_plot(argv):
                        if selected(row, 'legendre') is not None]
     guide = (dict(exponent=1.25, anchor_width=legendre_points[0][0],
                   anchor_moving=legendre_points[0][1]['moving'], fitted=False)
-             if legendre_points else None)
+             if legendre_points and show_legendre_guide else None)
     summary = dict(scope=caption, factor=args.factor, plot_source_sha256=sha(Path(__file__).read_bytes()),
         inputs=inputs, common_contract=common, widths=widths, expected_width_count=5,
         available_width_count=len(records), complete_pair_width_count=len(curves),
-        descriptive_log_power_fits=descriptive_fits, legendre_slope_guide=guide,
+        descriptive_log_power_fits=descriptive_fits,
         trajectory_figure_width=largest, records=records,
         figures={name: {suffix: str(destination/f'{name}.{suffix}') for suffix in ('png', 'pdf')}
                  for name in ('storage_vs_width', 'trajectory_errors', 'errors_vs_width')})
+    if show_legendre_guide:
+        summary['legendre_slope_guide'] = guide
     save_json(destination/'metrics.json', summary)
     (destination/'captions.txt').write_text(caption+'\n\n'+json.dumps(
         {str(row['width']): row['omissions'] for row in records}, indent=2)+'\n')
@@ -7852,6 +7880,273 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
         persist()
 
 
+def _budget_search_next(observations, tolerance, minimum=1):
+    """A local sampled bracket, never a monotonicity or global-optimality claim."""
+    passed = sorted(q for q, value in observations.items() if value['status'] == 'pass')
+    if not passed:
+        return None, dict(lower=None, upper=None, ratio=None, status='no_passing_upper')
+    upper = passed[0]
+    failed = [q for q, value in observations.items() if q < upper and value['status'] == 'fail']
+    lower = max(failed, default=minimum-1)
+    bracket = dict(lower=lower if failed else None, upper=upper,
+                   ratio=upper/lower if failed else None, status='refining',
+                   nonmonotone=any(q > upper and v['status'] == 'fail' for q, v in observations.items()))
+    if upper == minimum or (failed and (upper <= lower+1 or upper/lower <= 1+tolerance)):
+        bracket['status'] = 'minimum_order' if upper == minimum else 'resolved_local'
+        return None, bracket
+    midpoint = (lower+upper)//2
+    available = [q for q in range(max(minimum, lower+1), upper) if q not in observations]
+    if not available:
+        bracket['status'] = 'inconclusive_gap'
+        return None, bracket
+    return min(available, key=lambda q: (abs(q-midpoint), q)), bracket
+
+
+@torch.no_grad()
+def _budget_search_worker(out, device_name, plan):
+    """Refine existing brackets, preserving the old source SVD maximum and seeds."""
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    manifest = json.loads((out/'run.json').read_text())
+    if sha(Path(__file__).read_bytes()) != manifest['source_sha256']:
+        raise RuntimeError('Budget-search source changed after launch')
+    config = manifest['config']
+    seed, n = config['seeds'][0], config['model']['width']
+    path = out/manifest['repetitions'][str(seed)]
+    report = json.loads((path/'report.json').read_text())
+    if sha((path/'trajectories.npz').read_bytes()) != report['trajectories_sha256']:
+        raise RuntimeError('Reused trajectory hash mismatch')
+    with np.load(path/'trajectories.npz', allow_pickle=False) as saved:
+        arrays = {key: saved[key] for key in saved.files}
+    torch.backends.cuda.matmul.allow_tf32 = config['execution']['tf32']
+    torch.backends.cudnn.allow_tf32 = config['execution']['tf32']
+    device = torch.device(device_name)
+    dtype = getattr(torch, config['training']['dtype'])
+    inputs, labels, queries = [torch.as_tensor(arrays[key], device=device) for key in
+                              ('train_inputs', 'train_labels', 'query_inputs')]
+    training, seconds = config['training'], config['execution']['seconds_per_fit']
+    reference = arrays['reference'][:, len(labels):].astype(float)
+    baseline = np.sqrt(np.mean((arrays[f'dense_{n}'][:, len(labels):].astype(float)-reference)**2, axis=1))
+    thresholds = plan['factor']*np.array([baseline[-1], baseline.max()])
+    started = time.monotonic()
+    dense = DeepDense(n, inputs.shape[1], config['model']['depth'], config['model']['activation'], seed, device)
+    if [array_sha(v.cpu().numpy()) for v in dense.initial_state] != report['reference_initial_state_sha256']:
+        raise RuntimeError('Regenerated dense initialization differs from saved reference')
+
+    def persist():
+        np.savez_compressed(path/'trajectories.npz', **arrays)
+        report['trajectories_sha256'] = sha((path/'trajectories.npz').read_bytes())
+        report['seconds'] = time.monotonic()-started
+        save_json(path/'report.json', report)
+
+    def observed(family):
+        values = {}
+        for name, model in report['models'].items():
+            if model['family'] != family:
+                continue
+            q = model['order' if family == 'legendre' else 'width']
+            value = dict(name=name, status='inconclusive')
+            if report['runs'].get(name, {}).get('complete'):
+                if not np.array_equal(arrays['times_'+name], arrays['times_reference']):
+                    raise RuntimeError('Candidate/reference time grids differ')
+                error = np.sqrt(np.mean((arrays[name][:, len(labels):].astype(float)-reference)**2, axis=1))
+                metrics = np.array([error[-1], error.max()])
+                value.update(status='pass' if np.all(metrics <= thresholds) else 'fail',
+                             endpoint_rms=float(metrics[0]), worst_recorded_rms=float(metrics[1]),
+                             endpoint_ratio=float(metrics[0]/baseline[-1]),
+                             worst_recorded_ratio=float(metrics[1]/baseline.max()))
+            values[q] = value
+        # Constructor failures may precede the creation of a model record.
+        for request in report['budget_search'][family]['requested']:
+            q = request.get('order', request.get('width'))
+            values.setdefault(q, dict(status='inconclusive', name=request['name']))
+        return values
+
+    for family in ('legendre', 'harmonic', 'logarithmic'):
+        search = report['budget_search'][family]
+        source, floor, setup = None, None, None
+        for _ in range(plan['max_new_per_family']):
+            observations = observed(family)
+            q, search['bracket'] = _budget_search_next(observations, plan['width_tolerance'])
+            search['evaluations'] = observations
+            persist()
+            if q is None:
+                break
+            rank = max(1, math.floor((q/4-17)/3))
+            name = f'legendre_{q}' if family == 'legendre' else f'{family}_{q}_r{rank}'
+            request = dict(name=name, order=q) if family == 'legendre' else dict(name=name, width=q, source_rank=rank)
+            search['requested'].append(request)
+            report['skipped'].pop(name, None)
+            persist()
+            print(json.dumps(dict(event='refine_fit', width=n, family=family, q=q, device=device_name)), flush=True)
+            try:
+                if family != 'legendre' and source is None:
+                    method = config['methods']['non_oblivious'][family]
+                    maximum = max(v['source_rank'] for v in method['budgets'])
+                    setup = _experiment_setup(config, family)
+                    options = dict(seconds=seconds, step=setup['rollout_step'], time_degree=setup['time_degree'],
+                                   rollout_dtype=setup['rollout_dtype'], coefficient_dtype=setup['coefficient_dtype'])
+                    source_seed = report['seeds'][family+'_source']
+                    if family == 'harmonic':
+                        source, info = unified_harmonic_sources(dense, inputs, labels, training['horizon'],
+                            maximum, source_seed, spatial_degree=method['spatial_degree'], **options)
+                        old_checks = report['sources'][family]['diagnostics']
+                        new_checks = info['diagnostics']
+                    else:
+                        sources, info = cubic_rollout_sources(dense, inputs, labels, queries, training['horizon'],
+                            seed=source_seed, ranks=(maximum,), partitions=('new',), **options)
+                        source = sources['new'][maximum]
+                        floor = report['sources'][family]['readout_floor']
+                        old_checks = report['sources'][family]['partitions']['new']['diagnostics'][str(maximum)]
+                        new_checks = info['partitions']['new']['diagnostics'][str(maximum)]
+                    for key in ('h', 'delta'):
+                        for old, new in zip(old_checks[key], new_checks[key]):
+                            np.testing.assert_allclose(new['residual_coefficient_relative_error'],
+                                old['residual_coefficient_relative_error'], rtol=1e-7, atol=1e-10)
+                    search['source_reconstruction'] = dict(maximum_rank=maximum, report=info,
+                        checks='original initialization hashes and largest-rank source residuals match',
+                        source_hashes={key: [array_sha(v.cpu().numpy()) for v in values]
+                                       for key, values in source.items()})
+                t0 = time.monotonic()
+                if family == 'legendre':
+                    model = LegendreCompression(dense, inputs, labels, q)
+                    details = dict(order=q)
+                else:
+                    if rank > maximum:
+                        raise ValueError('Refinement would change original source SVD maximum')
+                    prefix = {key: [v[:, :rank] for v in values] for key, values in source.items()}
+                    model = DeepHarmonic(dense, inputs, labels, prefix, q,
+                        selection_seed=report['seeds'][family+'_selector'], readout_floor=floor,
+                        selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'])
+                    if any(item['truncated'] for item in model.diagnostics['source_truncations']):
+                        raise ArithmeticError('Extra constructor truncation is not permitted')
+                    details = dict(width=q, source_rank=rank, shared_source=family,
+                                   source_seed=report['seeds'][family+'_source'],
+                                   selection_seed=report['seeds'][family+'_selector'])
+                synchronize(device)
+                elapsed = time.monotonic()-t0
+                if elapsed > seconds:
+                    raise TimeoutError('Assembly exceeded per-fit cap')
+                moving, fixed = sum(v.numel() for v in model.initial_state), int(model.fixed_scalars)
+                report['models'][name] = dict(family=family, moving=moving, fixed=fixed, total=moving+fixed,
+                    setup_seconds=elapsed, diagnostics=getattr(model, 'diagnostics', {}), **details)
+                _experiment_move(model, device, dtype)
+                state, prediction, info = integrate_euler(model, inputs.to(dtype), labels.to(dtype),
+                    torch.cat((inputs, queries)).to(dtype), training['step'], seconds,
+                    horizon=training['horizon'], max_steps=math.ceil(training['horizon']/training['step']),
+                    observation_every=training['record_every'])
+                arrays[name], arrays['times_'+name] = prediction, np.asarray(info['times'])
+                report['runs'][name] = info
+                if not info['complete']:
+                    report['errors'][name] = 'Inconclusive: '+info['stop_reason']
+                del state, model
+            except (ValueError, RuntimeError, ArithmeticError, TimeoutError, AssertionError) as error:
+                report['errors'][name] = f'{type(error).__name__}: {error}'
+                # A failed common source check invalidates this family, not just q.
+                if source is None or isinstance(error, AssertionError):
+                    search['bracket']['status'] = 'source_inconclusive'
+                    persist()
+                    break
+            observations = observed(family)
+            print(json.dumps(dict(event='refine_result', width=n, family=family, q=q,
+                                  **observations[q], error=report['errors'].get(name))), flush=True)
+            persist()
+        if search['bracket']['status'] != 'source_inconclusive':
+            search['evaluations'] = observed(family)
+            _, search['bracket'] = _budget_search_next(search['evaluations'], plan['width_tolerance'])
+            if search['bracket']['status'] == 'refining':
+                search['bracket']['status'] = 'evaluation_cap'
+        print(json.dumps(dict(event='refinement_done', width=n, family=family, bracket=search['bracket'])), flush=True)
+        persist()
+        del source
+    report['search_complete'] = True
+    persist()
+    return 0
+
+
+def budget_search_main(argv):
+    """Reuse dense pairs and adaptively refine one-seed compression budgets."""
+    import copy
+    from concurrent.futures import ThreadPoolExecutor
+    parser = argparse.ArgumentParser(description=budget_search_main.__doc__)
+    parser.add_argument('--plan', type=Path, required=True)
+    parser.add_argument('--worker-index', type=int)
+    args = parser.parse_args(argv)
+    plan = json.loads(args.plan.read_text())
+    out = Path(plan['output']).resolve()
+    if args.worker_index is not None:
+        index = args.worker_index
+        n = json.loads((Path(plan['runs'][index])/'config.json').read_text())['model']['width']
+        return _budget_search_worker(out/f'n{n}', plan['devices'][index % len(plan['devices'])], plan)
+    if not (0 < plan['width_tolerance'] < 1 and plan['factor'] > 0
+            and 1 <= plan['max_new_per_family'] <= 4 and len(set(plan['runs'])) == len(plan['runs'])):
+        raise ValueError('Invalid bounded refinement plan')
+    out.mkdir(parents=True, exist_ok=False)
+    source_bytes = Path(__file__).read_bytes()
+    source_hash = sha(source_bytes)
+    (out/'source.py').write_bytes(source_bytes)
+    save_json(out/'plan.json', plan)
+    for index, old_root in enumerate(map(Path, plan['runs'])):
+        previous = json.loads((old_root/'run.json').read_text())
+        config = copy.deepcopy(previous['config'])
+        seed, n = config['seeds'][0], config['model']['width']
+        old_path = old_root/previous['repetitions'][str(seed)]
+        report = json.loads((old_path/'report.json').read_text())
+        trajectory_bytes = (old_path/'trajectories.npz').read_bytes()
+        if (sha(trajectory_bytes) != report['trajectories_sha256']
+                or sha((old_root/'source.py').read_bytes()) != report['source_sha256']
+                or not all(report['runs'].get(key, {}).get('complete') for key in ('reference', f'dense_{n}'))):
+            raise ValueError('Missing or inconsistent original paired trajectories')
+        target = out/f'n{n}'
+        relative = f'seed_{seed}/attempt_001'
+        path = target/relative
+        path.mkdir(parents=True)
+        config['execution']['output'] = str(target)
+        config['execution']['devices'] = plan['devices'][index % len(plan['devices'])]
+        contract = copy.deepcopy(config)
+        contract.pop('plots')
+        contract['methods']['oblivious']['frozen_features'].pop('plot')
+        for key in ('output', 'reuse_completed'):
+            contract['execution'].pop(key)
+        contract['execution']['devices'] = [config['execution']['devices']]
+        identity = dict(config=contract, source_sha256=source_hash,
+            dataset_file_sha256=previous['identity']['dataset_file_sha256'], data_sha256=report['data_sha256'],
+            python=platform.python_version(), torch=torch.__version__, numpy=np.__version__)
+        fingerprint = sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode())
+        reused = dict(root=str(old_root.resolve()), source_sha256=report['source_sha256'],
+            report_sha256=sha((old_path/'report.json').read_bytes()), trajectories_sha256=sha(trajectory_bytes),
+            names=list(report['runs']), previous_seconds=report['seconds'])
+        report.update(source_sha256=source_hash, fingerprint=fingerprint, reused_from=reused,
+            search_complete=False, budget_search={family: dict(requested=[], evaluations={}, bracket={},
+                factor=plan['factor'], width_tolerance=plan['width_tolerance'])
+                for family in ('legendre', 'harmonic', 'logarithmic')})
+        manifest = dict(config=config, identity=identity, fingerprint=fingerprint, source_sha256=source_hash,
+            repetitions={str(seed): relative}, command=sys.argv, reused_from=reused, search_plan=plan)
+        (target/'source.py').write_bytes(source_bytes)
+        (path/'trajectories.npz').write_bytes(trajectory_bytes)
+        save_json(target/'run.json', manifest)
+        save_json(target/'config.json', config)
+        save_json(path/'report.json', report)
+    def worker(slot):
+        codes = []
+        for index in range(slot, len(plan['runs']), len(plan['devices'])):
+            command = [sys.executable, '-B', '-u', str(out/'source.py'), 'refine-budgets',
+                       '--plan', str(out/'plan.json'), '--worker-index', str(index)]
+            with (out/f'worker_{index}.log').open('w') as log:
+                process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+                for line in process.stdout:
+                    log.write(line)
+                    log.flush()
+                    print(line, end='', flush=True)
+                code = process.wait()
+                codes.append(code)
+                print(json.dumps(dict(event='refinement_width_done', index=index, exit_code=code)), flush=True)
+        return codes
+    with ThreadPoolExecutor(max_workers=len(plan['devices'])) as pool:
+        results = list(pool.map(worker, range(len(plan['devices']))))
+    return int(any(code != 0 for codes in results for code in codes))
+
+
 def experiment_main(argv, action='run'):
     """Run or plot from defaults < JSON < generated CLI overrides."""
     import copy
@@ -7954,6 +8249,8 @@ def experiment_main(argv, action='run'):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'refine-budgets':
+        sys.exit(budget_search_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'scaling-plot':
         sys.exit(experiment_scaling_plot(sys.argv[2:]))
     if len(sys.argv) == 1 or sys.argv[1] in ('run', 'plot'):

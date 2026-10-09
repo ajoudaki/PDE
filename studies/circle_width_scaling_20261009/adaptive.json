@@ -1,0 +1,14 @@
+{
+  "runs": [
+    "data/generated/circle_width_scaling_20261009/n512",
+    "data/generated/circle_width_scaling_20261009/n1024",
+    "data/generated/circle_width_scaling_20261009/n2048",
+    "data/generated/circle_width_scaling_20261009/n4096",
+    "data/generated/circle_width_scaling_20261009/n8192"
+  ],
+  "output": "data/generated/circle_width_scaling_20261009/adaptive",
+  "devices": ["cuda:0", "cuda:1"],
+  "factor": 3,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 4
+}

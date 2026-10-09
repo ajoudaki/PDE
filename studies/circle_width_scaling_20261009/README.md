@@ -204,3 +204,107 @@ Regenerate without numerical work (change factor3 to2 in both places for2x):
   --out data/generated/circle_width_scaling_20261009/factor3 \
   --factor 3 --fit-log-powers
 ```
+
+## Authorized adaptive continuation (frozen before new fits)
+
+The user requested measure-first budget refinement on the same five dense pairs,
+then plotting and only then descriptive fitting. Reuse all old trajectories;
+do not retrain either dense reference or change seeds, data, time grids, numerical
+gates or the3x endpoint-AND-maximum criterion. Refine Harmonic and Logarithmic
+network width; test Legendre order1 where only order2 has passed so far.
+
+Use the smallest known passing upper width and largest completed accuracy-failing
+width below it. Refine the midpoint until upper/lower<=1.2, or integer adjacency
+for Legendre. If there is no failing lower observation, halve the passing width
+until one is found or the minimum allowed order passes. Existing upper brackets
+make a doubling phase unnecessary for this continuation. At most4 new candidate
+evaluations per family/width,40 new spectral evaluations and4 new Legendre fits,
+120s per fit/setup,25min total numerical batch; no retries or extra seeds.
+On a numerical/constructor failure, retain it as inconclusive and select the
+nearest untested midpoint within the same valid bracket; never treat it as an
+accuracy-failing lower bound. At the cap, report the unresolved bracket.
+
+Preserve the original rank rule max(1,floor((q/4-17)/3)) and each family's original
+largest source rank. Rebuild that source once from the hash-verified Gaussian
+initialization and original seed, then slice its nested prefixes. Increasing the
+source maximum changes the randomized SVD, so no such extension is allowed here.
+This measures the existing implementation's one-parameter width/rank family,
+not separately optimized source orders. Original dense and reused candidate
+outputs retain their explicit old-source provenance; new fits are separately
+identified. Every newly requested budget is persisted before evaluation.
+
+Errors need not be monotone (Harmonic241 passes but289 fails at8192). The20%
+criterion is therefore a local sampled fail/pass bracket, not a global optimality
+guarantee. Preserve all contrary observations.20% in width also allows up to
+roughly44% in quadratic storage. Plot smallest tested passing states, show raw
+budgets and failures in the accompanying metrics, and fit powers only afterward.
+No new proof, independently validated scaling exponent, paper edit or broad
+baseline campaign is part of this continuation.
+
+Run the continuation from its single plan:
+
+```sh
+timeout --signal=TERM --kill-after=10s 1500 /home/amir/miniconda3/bin/python -B -u \
+  paper/figures/capture_trajectory.py refine-budgets \
+  --plan studies/circle_width_scaling_20261009/adaptive.json
+```
+
+The frozen numerical source is
+data/generated/circle_width_scaling_20261009/adaptive/source.py,
+SHA25628b37d9d7a569eddae30ca0e26265f642cfe583b61d43d21e245c05d27e2f4ab.
+Before launch, synthetic tests covered20% brackets, integer/minimum orders,
+inconclusive midpoint handling and nonmonotonic observations. AST comparison
+confirmed that dense/compact constructors, both source builders, Legendre,
+integrator and initialization helpers were unchanged from the original pilot.
+A scoped read-only check found no scoring/reuse blocker. The frozen launcher's
+aggregate exit code does not propagate child failures, so each child exit and
+each per-family final bracket is checked explicitly; search_complete alone
+means execution finished, not that every local bracket is resolved.
+
+### Adaptive results (supersede the pilot's smallest-tested budget table)
+
+All five width jobs exited0. The continuation took approximately812s (13min32s),
+with24 new completed fits:4 Legendre,7 Harmonic,13 Logarithmic. No new source,
+constructor or fit failure occurred. The old pilot's failures remain recorded.
+All dense trajectories and data were reused bit-for-bit. The earlier sufficient
+schedules remain valid; they were not measurements of minimum required storage.
+
+| Dense width | Legendre order | Harmonic fail/pass width | Logarithmic fail/pass width | Legendre learned | Harmonic learned | Logarithmic learned |
+|---:|---:|---:|---:|---:|---:|---:|
+|512|1|150/175|140/163|17922|31158|27066|
+|1024|1|125/150|110/123|35842|22958|15506|
+|2048|1|200/222|158/174|71682|49958|30806|
+|4096|1|400/467|252/288|143362|219498|83816|
+|8192|2|200/220|223/244|417794|49068|60276|
+
+All spectral brackets are within20% in width. For Legendre, order1 is minimal
+at the first four widths; the last is resolved by integer adjacency (order1
+fails maximum-time accuracy, order2 passes), not by a20% ratio. Nonmonotonicity
+at8192 Harmonic remains recorded, so these are local sampled brackets, not
+global-optimum certificates. The source rank/width rule and all other source
+settings stayed fixed; this is not a joint optimization of hidden orders.
+
+Only after completing the searches, unweighted least squares of log learned
+state against log(log n) gives Harmonic43.0916*(log n)^3.50871 and
+Logarithmic29.2349*(log n)^3.52513. Log-space RMS residuals are0.62762 and
+0.38574 respectively. Both fits are descriptive over five independent dense
+pairs, not asymptotic exponents or evidence that the minimum power is3.5.
+The small log-width range and noisy budgets do not resolve quadratic versus
+cubic logarithmic growth. Logarithmic uses less learned state at four of the
+five widths. At8192, Harmonic has49068 learned+145200 fixed=194268 total;
+Logarithmic has60276 learned+178609 fixed=238885 total, versus67133440 dense.
+
+The final saved-array check reconstructed all classifications/counts/brackets,
+verified hashes and unchanged dense/data/time arrays, and confirmed24 complete
+new fits without errors. A scoped read-only agent independently checked the
+same facts. No new Euler refinement, repeated-seed validation or promotion is
+claimed. The maintained launcher's child-exit propagation was fixed after the
+frozen numerical launch; no running source or numerical function was changed.
+
+Final figures and their full metrics/captions are under
+data/generated/circle_width_scaling_20261009/adaptive/final/plots/plot_001/.
+Regenerate them with the same scaling-plot command above, inserting adaptive/
+before each n* directory, setting --out to the adaptive/final directory, and
+retaining --factor3 (as separate CLI tokens: --factor 3) and --fit-log-powers.
+Progress figures omitted fitted curves; adaptive figures also omit the old
+theoretical n^(5/4) guide so a prescribed rate is not presented as measured.

@@ -74,6 +74,12 @@ learned storage, endpoint/maximum errors and the largest-width time curves.
 `--factor 3` gives the relaxed comparison without rerunning models. The optional
 log-power fits are descriptive fits to selected budgets, not exponent estimates
 from independently tested data; fixed storage is retained in the metrics/caption.
+`refine-budgets --plan studies/circle_width_scaling_20261009/adaptive.json`
+reuses that pilot's dense pairs and refines existing passing budgets to a 20%
+local width bracket. The plan sets input runs, output, devices, threshold and
+maximum new evaluations; source maximum ranks and seeds remain unchanged.
+Constructor failures are inconclusive, and nonmonotone errors prevent a global
+minimum guarantee. Plot the resulting run directories with `scaling-plot`.
 Figures, per-seed metrics and a caption/storage table are saved in fresh
 `plots/plot_NNN/` folders. Frozen features use an equivalent dual Euler computation;
 the displayed parameter count is the width-sized primal readout, with both storage
