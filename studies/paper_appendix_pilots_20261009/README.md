@@ -1,5 +1,56 @@
 # Bounded appendix figure pilots
 
+## Uniform Harmonic setup,5 percent refinement
+
+Completed: all six genuine accuracy brackets are below5%, with no conditioning
+exceptions and no configuration changes. Exactly12 additional fits completed.
+
+| Dense width | Failing / passing compact width | Width gap | Learned | Fixed | Endpoint ratio | Maximum-recorded ratio |
+|---:|---:|---:|---:|---:|---:|---:|
+|512|232 /240|3.45%|58,328|172,800|0.643032|0.553327|
+|1024|512 /527|2.93%|279,318|833,187|0.491514|0.083667|
+|2048|544 /560|2.94%|315,288|940,800|0.959408|0.482168|
+|4096|352 /368|4.55%|136,536|406,272|0.656346|0.318306|
+|8192|432 /448|3.70%|202,056|602,112|0.640507|0.507653|
+|16384|496 /512|3.23%|263,688|786,432|0.413982|0.933902|
+
+Updated descriptive Harmonic fit:
+`3140.03 (log n)^1.968625`, log-space RMS residual0.497098. Logarithmic
+remains `240.755 (log n)^3.167065`. These are one-seed finite-range fits;
+neither the fitted exponent nor a5% local sampled width bracket certifies
+asymptotic scaling or a global minimum. All selected witnesses pass BOTH1x
+metrics. The common spatial25/time8/source-cap42 setup and prefix rule remain
+exactly unchanged, including quadrature, selector, initialization and clocks.
+
+Latest figure:
+`data/generated/paper_appendix_pilots_20261009/harmonic_uniform_5pct/figures/plots/plot_001/storage_vs_width.png`.
+PDF, captions, metrics and error plots accompany it. Reproduce with
+`refine-budgets --plan studies/paper_appendix_pilots_20261009/harmonic_uniform_5pct.json`
+using a fresh output, then `scaling-plot --factor 1 --families harmonic
+logarithmic --fit-log-powers --runs <six resulting nN directories> --out
+<fresh-figure-directory>`.
+
+Final check: new12 complete finite65-time trajectories, RMS ratios, storage
+and archive hashes verified; every inherited array remained bitwise unchanged.
+All six reconstructed source hash sets exactly match the uniform20% sources.
+All possible two-bisection pass/fail branches were checked deterministically.
+New summed Euler time140.48s across both GPUs; no dense/Logarithmic reruns.
+The plot's numerical/provenance checks passed and the figure was inspected.
+No pending runs, extra seeds, order changes or numerical-refinement campaign.
+
+User requests two further bisections at each of the six widths. Continue
+the common spatial25/time8/source-cap42 configuration without changes.
+Inherit only the immediately preceding uniform20% run, recompile the SAME
+maximum-rank sources with existing checks, and use the unchanged capped
+prefix-rank rule. The two requested bisections narrow each existing genuine
+failing/passing bracket below5%, unless a numerical gate is inconclusive.
+At most12 fits total,120s per source/fit,6-minute batch execution cap across
+two GPUs. Both1x metrics, data, paired references, precision and all seeds
+are fixed; no new orders, grids, seeds, dense or Logarithmic training.
+Final raw-array check, render and descriptive refit only. Plan:
+`harmonic_uniform_5pct.json`; generated output has the same name. Root owns
+these configurations/runs/notes; no additional subagent campaign is needed.
+
 ## Uniform Harmonic setup,20 percent width refinement
 
 Completed: one common setup passed BOTH1x criteria at all six dense widths,
