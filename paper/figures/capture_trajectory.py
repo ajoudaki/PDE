@@ -12176,9 +12176,12 @@ def budget_seed_plot(argv):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    from matplotlib.ticker import NullFormatter
     parser = argparse.ArgumentParser(description=budget_seed_plot.__doc__)
     parser.add_argument('--runs', nargs='+', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--fit-log-powers', action='store_true',
+                        help='Fit mean and median learned storage to C(log n)^p when all >=3 widths are complete')
     args = parser.parse_args(argv)
     roots = [root.resolve() for root in args.runs]
 
@@ -12186,7 +12189,8 @@ def budget_seed_plot(argv):
         if not condition:
             raise ValueError(message)
 
-    require(len(roots) == len(set(roots)) == 6, 'Supply six distinct run roots: two widths, three seeds')
+    require(len(roots) == len(set(roots)) and len(roots) >= 6,
+            'Supply distinct run roots: at least two widths, three seeds per width')
     rows, common, common_source, common_times, seen = [], None, None, None, set()
     for root in roots:
         manifest = json.loads((root/'run.json').read_text())
@@ -12278,8 +12282,9 @@ def budget_seed_plot(argv):
             row['status'] = 'search_incomplete'
         rows.append(row)
     widths, seeds = sorted({row['width'] for row in rows}), sorted({row['seed'] for row in rows})
-    require(len(widths) == 2 and len(seeds) == 3 and len(seen) == len(widths)*len(seeds),
-            'Expected the same three seeds at each of two widths')
+    require(len(widths) >= 2 and len(seeds) == 3 and len(seen) == len(widths)*len(seeds),
+            'Expected the same three seeds at every width, with at least two widths')
+    require(all(n > 1 for n in widths), 'Dense widths must exceed one for logarithmic axes and fits')
     groups = []
     for n in widths:
         selected = [row for row in rows if row['width'] == n]
@@ -12288,14 +12293,47 @@ def budget_seed_plot(argv):
         groups.append(dict(width=n, expected=3, available=len(values), complete=complete, learned_values=values,
             mean=float(np.mean(values)) if complete else None, sample_sd=float(np.std(values, ddof=1)) if complete else None,
             median=float(np.median(values)) if complete else None))
+    unresolved = [f"n={row['width']}, seed {row['seed']}: {row['status']}" for row in rows
+                  if row['selected'] is None or row['status'] != 'resolved_local']
+    descriptive_fits = {}
+    for statistic in ('mean', 'median'):
+        fit = dict(status='not_requested', model='learned_storage = C * (natural_log(width)) ** p',
+            criterion='unweighted least squares of log(aggregated learned storage) against log(log(width))',
+            aggregation='arithmetic mean' if statistic == 'mean' else 'median',
+            requested_widths=widths, fitted_widths=[],
+            incomplete_widths=[group['width'] for group in groups if not group['complete']],
+            scope='Descriptive finite-range fit; no uncertainty or asymptotic scaling claim')
+        descriptive_fits[statistic] = fit
+        if not args.fit_log_powers:
+            continue
+        fit['status'] = 'incomplete_widths' if unresolved else 'insufficient_widths'
+        if unresolved or len(widths) < 3:
+            continue
+        storage = np.asarray([group[statistic] for group in groups], dtype=float)
+        require(np.isfinite(storage).all() and np.all(storage > 0), 'Invalid aggregated learned storage')
+        design = np.column_stack((np.ones(len(widths)), np.log(np.log(np.asarray(widths, dtype=float)))))
+        log_constant, exponent = np.linalg.lstsq(design, np.log(storage), rcond=None)[0]
+        residuals = np.log(storage)-design@np.array([log_constant, exponent])
+        fit.update(status='fitted', fitted_widths=widths, count=len(widths),
+            C=float(np.exp(log_constant)), p=float(exponent), log_C=float(log_constant),
+            log_space_rms=float(np.sqrt(np.mean(residuals**2))), log_residuals=residuals.tolist())
     args.out.mkdir(parents=True, exist_ok=False)
     scope = ('Smallest tested passing Harmonic models; 20% local width brackets, not confidence intervals or global minima. '
-             'Three initialization seeds on fixed data; finite Euler trajectories. No exponent fitted.')
+             'Three initialization seeds on fixed data; finite Euler trajectories. '
+             + ('Descriptive C(log n)^p fits use natural logs and require all supplied widths complete; '
+                'no uncertainty or asymptotic scaling claim.' if args.fit_log_powers else 'No exponent fitted.'))
     save_json(args.out/'metrics.json', dict(scope=scope, common=common, compiled_source=common_source,
-        recorded_times=common_times.tolist(), individuals=rows, groups=groups))
+        recorded_times=common_times.tolist(), individuals=rows, groups=groups,
+        descriptive_log_power_fits=descriptive_fits, unresolved=unresolved))
     (args.out/'captions.txt').write_text(scope+'\nCommon spatial degree 25, temporal degree 8, source rank cap 42.\n'
         'Faint curves: individual seeds. Blue squares: arithmetic mean. Orange diamonds: median.\n'
-        'Sample SD is recorded in metrics.json; group summaries require all three resolved crossings.\n')
+        'Mean and median are computed from learned storage, not compact widths. '
+        'Sample SD is recorded in metrics.json; group summaries require all three resolved crossings.\n'
+        'The companion mean/median panels use logarithmic width and learned-storage axes. '
+        'Dashed curves, when available, are descriptive fits, not uncertainty bands.\n'
+        + ''.join(f"{statistic} fit: "+(f"C={fit['C']:.9g}, p={fit['p']:.9g}, "
+            f"log-space RMS residual={fit['log_space_rms']:.9g}" if fit['status'] == 'fitted'
+            else fit['status'])+'\n' for statistic, fit in descriptive_fits.items()))
     figure, axis = plt.subplots(figsize=(7.3, 4.8))
     for seed in seeds:
         samples = sorted((row for row in rows if row['seed'] == seed), key=lambda row: row['width'])
@@ -12305,10 +12343,10 @@ def budget_seed_plot(argv):
               's-', color='#185b84', linewidth=2.5, markersize=7, label='Arithmetic mean')
     axis.plot(widths, [group['median'] if group['complete'] else np.nan for group in groups],
               'D--', color='#b75c22', linewidth=2, markersize=6, label='Median')
-    unresolved = [f"n={row['width']}, seed {row['seed']}: {row['status']}" for row in rows
-                  if row['selected'] is None or row['status'] != 'resolved_local']
-    axis.set(xlabel='Dense width n', ylabel='Learned state', title='Harmonic: three seeds', xticks=widths)
-    axis.ticklabel_format(axis='y', style='plain')
+    axis.set(xscale='log', yscale='log', xlabel='Dense width n', ylabel='Learned state',
+             title='Harmonic: three seeds')
+    axis.set_xticks(widths, [str(n) for n in widths])
+    axis.xaxis.set_minor_formatter(NullFormatter())
     axis.grid(alpha=.2)
     axis.legend(fontsize=8)
     figure.text(.02, .02, '20% local width brackets.'
@@ -12316,6 +12354,40 @@ def budget_seed_plot(argv):
     figure.tight_layout(rect=(0, .08 if unresolved else .05, 1, 1))
     for extension in ('png', 'pdf'):
         figure.savefig(args.out/f'learned_state_by_seed.{extension}', dpi=180)
+    plt.close(figure)
+    figure, axes = plt.subplots(1, 2, figsize=(11.2, 4.6), sharey=True)
+    for axis, statistic, label, color, marker in zip(axes, ('mean', 'median'),
+            ('Arithmetic mean', 'Median'), ('#185b84', '#b75c22'), ('s', 'D')):
+        for index, seed in enumerate(seeds):
+            samples = sorted((row for row in rows if row['seed'] == seed), key=lambda row: row['width'])
+            axis.plot(widths, [row['selected']['learned'] if row['selected'] else np.nan for row in samples],
+                'o-', color='#777777', alpha=.25, linewidth=1, markersize=3,
+                label='Individual seeds' if index == 0 else None)
+        axis.plot(widths, [group[statistic] if group['complete'] else np.nan for group in groups],
+                  marker+'-', color=color, linewidth=2, markersize=6, label=f'Observed {label.lower()}')
+        fit = descriptive_fits[statistic]
+        if fit['status'] == 'fitted':
+            fit_grid = np.geomspace(min(widths), max(widths), 150)
+            axis.plot(fit_grid, fit['C']*np.log(fit_grid)**fit['p'], '--', color=color, linewidth=1.8,
+                      label=rf"Fit: $(\log n)^{{{fit['p']:.3f}}}$")
+        axis.set(xscale='log', yscale='log', xlabel='Dense width n',
+                 title='Mean' if statistic == 'mean' else 'Median')
+        axis.set_xticks(widths, [str(n) for n in widths])
+        axis.xaxis.set_minor_formatter(NullFormatter())
+        axis.tick_params(axis='x', labelsize=9)
+        axis.grid(alpha=.2)
+        axis.legend(fontsize=8, frameon=False)
+    axes[0].set_ylabel('Learned state')
+    figure.suptitle('Harmonic: three seeds')
+    footer = '20% local width brackets; descriptive finite-range summaries.'
+    if args.fit_log_powers and descriptive_fits['mean']['status'] != 'fitted':
+        footer += ' Fits withheld: '+descriptive_fits['mean']['status'].replace('_', ' ')+'.'
+    if unresolved:
+        footer += '\nIncomplete groups have no mean or median; see metrics.json for every unresolved run.'
+    figure.text(.02, .02, footer, fontsize=8)
+    figure.tight_layout(rect=(0, .10 if unresolved else .06, 1, .96))
+    for extension in ('png', 'pdf'):
+        figure.savefig(args.out/f'learned_state_mean_median.{extension}', dpi=180)
     plt.close(figure)
     print(json.dumps(dict(event='budget_seed_plot', output=str(args.out), unresolved=unresolved)), flush=True)
     return 0

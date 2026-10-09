@@ -1,0 +1,18 @@
+{
+  "runs": [
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n2048",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n4096",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n8192",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n16384"
+  ],
+  "output": "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/search",
+  "devices": ["cuda:1"],
+  "families": ["harmonic"],
+  "factor": 1,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 8,
+  "rank_rule": "cap_at_source",
+  "cap_below_dense": true,
+  "expansion": {"harmonic": {"start": 256, "maximum": 2048}},
+  "restart_harmonic": {"spatial_degree": 25, "time_degree": 8, "source_max_rank": 42}
+}

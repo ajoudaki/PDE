@@ -1,5 +1,67 @@
 # Bounded appendix figure pilots
 
+## Full-width three-seed Harmonic continuation
+
+Initial bounded stage completed:16 new dense fits and42 Harmonic fits, with
+all finite trajectories complete and no constructor/runtime errors. Seven
+new searches resolve20% brackets. Seed1702 atn16384 does not pass byq2048:
+endpoint RMS0.001472748 is2.437128 times dense-pair0.000604297; its maximum
+RMS ratio0.290738 passes. This is an observed accuracy miss at the search cap,
+not a constructor failure or theorem counterexample. No unsuccessful model
+is substituted into the mean/median. Root requested user direction for at
+most five more width-only fits up to8192, with all source settings unchanged.
+No additional fit is authorized by this record itself.
+
+| Dense width | Seed1701 passingq (reused) | Seed1702 passingq | Seed1703 passingq | Mean learned | Median learned |
+|---:|---:|---:|---:|---:|---:|
+|512|256|224|192|51,538.67|50,856|
+|1024|575|224|384|177,276.67|148,616|
+|2048|576|768|576|419,720|333,512|
+|4096|384|576|896|429,213.33|333,512|
+|8192|448|1280|512|702,664|263,688|
+|16384|512|none by2048|1024|incomplete|incomplete|
+
+The mean is increasing on the five complete widths; the median has a20.9%
+dip from4096 to8192. Full six-width exponent fits are withheld rather than
+silently dropping the difficult seed/width. Current intermediate artifacts:
+`harmonic_full_width_seeds/figures_capped/` in this study's generated namespace.
+They preserve every candidate and unresolved group. Summed new Euler time
+185.53s dense +502.12s Harmonic; total source compilation58.76s across two
+GPUs. Dense models fit below0.004 MSE; largest dense fits take28.8--34.1s.
+Final saved-array check for this stage recomputes all RMSs, storage, hashes,
+finite65-time trajectories, common settings and unchanged inherited dense/data
+arrays. No numerical-model code changed. Mean/median plotting generalized
+to balanced six-width data; the original low-width summaries reproduce exactly.
+
+User requests the same two added seeds at ALL remaining widths2048,4096,8192,
+16384, then separate mean/median plots and descriptive logarithmic powers.
+Reuse original uniform20% seed1701 at all six widths and already completed
+1702/1703 low-width runs. New reference seeds1702/1703 each get a fresh
+independent role-hashed dense partner and independently rebuilt Harmonic.
+No reused-reference cross-comparisons. Fixed dataset, source geometry,
+spatial25/time8/rank-cap42 prefix rule, selector64/condition16, Euler1/160,T32,
+65 observations, float32/TF32off and both1x criteria remain unchanged.
+Practical sources still consume full-horizon RK4h0.125 dense rollouts.
+
+At most16 new dense fits and64 Harmonic requests;120s per fit/source,20min
+queue cap on each of two GPUs. Startq256, double to at most2048, then refine
+to20% local width brackets, at most8 requests per width/seed. No rescue
+orders, extra seeds, methods or step-refinement. Keep inconclusive outcomes
+explicit; unresolved groups cannot silently supply three-seed means/medians.
+Question: does aggregation smooth the observed storage curve, and what
+descriptive powers result? Fit log(mean learned state) and log(median learned
+state) separately against log(log n), with equal weight per measured width.
+Report both exponents and residuals, with raw individual points; no enforced
+monotonicity, global-optimum, asymptotic-rate or confidence-interval claim.
+
+Root owns plans/runs/README/Git; scoped helper only extends `budget-seed-plot`
+to the balanced six-width design and optional fits. Existing numerical
+functions and frozen executable cf5a789e1d7ca5f77c23893d46283d8763db5465aa8679b550f82fb5bc667015
+remain unchanged. Use the prior `harmonic_low_width_seeds.json` dense-only
+config with seed/width/device/output overrides, then
+`harmonic_full_width_seed1702_search.json` and1703 counterpart. Products in
+`data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/`.
+
 ## Low-width Harmonic seed replication (bounded continuation)
 
 Completed: BOTH arithmetic mean and median learned state increase from512 to
