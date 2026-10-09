@@ -1,5 +1,189 @@
 # Bounded appendix figure pilots
 
+## Latest completed figures
+
+- **Figure2, genuinely new repetition:**
+  `data/generated/paper_appendix_pilots_20261009/figure2_replication/figures/figure2_storage.png`.
+  All dense pairs and compressions were newly computed, with seed1701 for
+  circle and1901 for digits. Both tasks use the user-approved Euler1/160.
+- **Figure3, digits dense controls with three initializations:**
+  `data/generated/paper_appendix_pilots_20261009/digits_dense_repeats/figures/figure3_accuracy.png`.
+  Digits dense points show mean and sample SD; the original reference903,
+  compression curves and sphere panel remain unchanged.
+
+### Fresh Figure2 results
+
+Every listed model passes BOTH endpoint and maximum-recorded query RMS at3x
+its fresh independent dense-pair benchmark. Counts below are learned scalars.
+
+| Circle dense width | Legendre | Harmonic | Logarithmic |
+|---:|---:|---:|---:|
+|512|17,922|16,776|37,448|
+|1024|52,226|123,558|91,512|
+|2048|71,682|82,088|66,312|
+|4096|143,362|37,448|50,856|
+|8192|417,794|148,616|83,816|
+|16384|835,586|No tested pass|103,368|
+
+All passing circle spectral budgets have local fail/pass brackets within20%
+in compact width. These are not global minima or statistical confidence bars.
+At16384, Harmonic256/512 fail accuracy and1024 fails the unchanged condition16
+gate (observed30.223). No rescue was attempted. Logarithmic320 passes with
+endpoint/maximum ratios2.11256/2.45610; its total retained size is410,569 versus
+268,484,608 dense:2597x learned-state and654x total-storage reduction.
+
+Descriptive post-search circle fits give Harmonic `C(log n)^3.53982` over five
+passing widths and Logarithmic `C(log n)^1.47858` over six. The changed exponent
+relative to the earlier seed is evidence of fit sensitivity, not a sharper
+asymptotic theorem. Do not pool old fine-grid observations into this curve.
+
+On digits1/7, Legendre order1 passes at all three widths1024/2048/4096.
+Logarithmic width256/rank8 passes at all three with82,184 learned,196,609 fixed
+and278,793 total scalars. Its endpoint/maximum ratios are0.45308/0.69698,
+0.65848/1.03968 and1.12077/1.27431. All nine smaller-constructor requests fail
+conditioning, not measured accuracy: these remain sufficient-size upper
+bounds, and no image scaling exponent is fitted.
+
+### Additional digits dense seeds
+
+Fourteen new dense models completed: two seeds at each existing width, all
+versus the unchanged original reference903. Each fit took3.92--4.12s on the
+two GPUs; all reached5120 steps and the common65 observation times. Endpoint
+query RMS mean and sample SD (three initializations including the original):
+
+| Width | Mean | Sample SD |
+|---:|---:|---:|
+|256|0.039276|0.010081|
+|384|0.026069|0.010035|
+|512|0.026096|0.010944|
+|598|0.024942|0.007212|
+|648|0.027551|0.010980|
+|738|0.021626|0.005725|
+|4096|0.012371|0.003496|
+
+The original598-to648 rise shrinks from62.59% to10.46%; the residual rise is
+smaller than the observed seed spread. The curve is not strictly monotone,
+and three conditional samples do not establish a population trend. The
+horizontal digits dense benchmark is also the mean of the three4096 controls,
+not the old single comparator. No reference or compression was retrained for
+this Figure3 update; it is separate from the fresh Figure2 repetition.
+
+### Reproduction and final check
+
+All implementation remains in `paper/figures/capture_trajectory.py`.
+`replicate_fast_circle_n*.json` generate new dense pairs and corresponding
+`replicate_fast_circle_search_n*.json` run the adaptive searches. Digits use
+`replicate_digits_n*.json` then `replicate_digits_refinement.json`. Plot with:
+
+```sh
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py restored-paper-plot --scaling-only --config studies/paper_appendix_pilots_20261009/replicate_figures.json --out <fresh-root>/figures
+```
+
+For dense repeats, `dense-control-repeats --config .../digits_dense_repeats.json`
+prepares an immutable generated `source.py` and config; run its `--seed904`
+and `--seed905` workers (separate CLI tokens) on distinct GPUs, then its
+`--summarize` action. Config `digits_dense_repeats_figures.json` rebuilds the
+updated Figure3 via `restored-paper-plot`, with a fresh output directory.
+The generated summary retains each individual seed's error, loss, timing,
+initialization and input/source hashes. No generated array is overwritten.
+
+Final checks reconstructed plotted RMS and dense mean/SD from saved arrays,
+verified source/data/time-grid consistency, syntax and JSON parsing, and
+visually inspected both figures. AST comparison confirms that no pre-existing
+numerical definition changed (only the restored plotting function, plus the
+new repeat orchestration). These are finite-Euler empirical results, not a new
+time-step convergence or initialization-only certificate. No further runs
+remain active; the earlier fine-step interruption remains archived separately.
+
+## Fresh Figure2 replication (current user priority)
+
+The user clarified that Figure2 should be a NEW-seed experiment, not a redraw
+of historical measurements. The preceding restoration is explicitly only a
+replot/revalidation. The Figure3 two-seed request below was paused before any
+new fit or implementation. It was subsequently completed as reported above.
+
+Frozen replication: circle widths512,1024,2048,4096,8192,16384 with new reference
+seed1701 throughout, and raw8x8 digits1/7 widths1024,2048,4096 with new reference
+seed1901 throughout. Each width gets a freshly initialized reference and
+role-hashed independent same-width dense comparator; all compression sources
+and models are rebuilt from its own new reference. Dataset seed47 and all
+original data, architecture, runtime steps/horizon and source settings remain
+unchanged. No historical prediction array contributes a new observation.
+Only the dense pair and Legendre/Harmonic/Logarithmic methods in the original
+task's scope run; no matched small dense, low-rank or frozen-feature controls.
+
+Use the existing paper script and copied explicit configs `replicate_*.json`.
+First run the original budget ladders, then the same bounded adaptive search:
+3x endpoint AND maximum-recorded RMS,20% local width bracket, at most4 new
+candidate requests per family/width after the ladders. Circle16384 retains its
+original fresh doubling/search plan (at most8 requests per family). Preserve
+each width's original maximum source rank and prefix rule. Failure of a
+constructor or numerical gate is inconclusive, not an accuracy-failing lower
+bound. No new seed, larger source space or extra search is allowed to rescue
+an adverse result. Fit any descriptive log-power curves only after measurement.
+
+Circle uses GPU0, digits GPU1. Per-fit/source caps120s, circle16384 dense fits
+retain the original300s cap; circle queue wall cap25minutes, digits12minutes.
+Stop with partial results at the caps. Report the new points separately from
+old observations, including missing crossings, not a pooled or selected-seed
+curve. Generated outputs are under `figure2_replication/`. Parent owns circle
+execution, plot assembly, this record and Git; helper owns only digit configs
+and execution. No numerical code change is needed for this replication.
+
+Scheduling update: after the digits queue completed, GPU1 was reassigned to
+the already planned circle8192/16384 jobs and their same bounded refinements.
+The original circle shell launcher was paused between children, without
+interrupting its active1024 fit, to prevent duplicate width jobs. The original
+25-minute cumulative circle deadline remains unchanged. A question about using
+the coarser pilot step was sent to the user; until answered, the exact old
+1/640 circle step remains in force. This is scheduling only, not a numerical
+change or added experiment.
+
+User-authorized supersession: the user selected Euler1/160 for a fast first
+replication. Fine-step circle jobs were stopped; their partial arrays stay
+archived and are not mixed into the new curve. Fresh `replicate_fast_circle_*`
+configs restart every circle width with seed1701, step0.00625 and record_every80
+(same65 physical observation times). Sources, maximum source ranks and all
+other mathematical settings are unchanged. Digits already used this step.
+To avoid redundant initial candidates trained under the old1x early-stop rule,
+the fast circle runs generate the fresh dense pair first, then directly use
+the existing3x adaptive search. Start spectral width256, cap at each original
+source family's largest width, preserve its original maximum source rank, and
+halve/refine after passing. At most7 requests per family at the first five
+widths (no larger than the old ladder-plus-refinement budget),8 at16384.
+GPU0 handles512/2048/8192; GPU1 handles1024/4096/16384. Fast-stage cap600s per
+GPU queue,120s per fit/setup; stop and label any remaining cases incomplete.
+The fast run is a new-seed/coarser-step replication, not an exact fine-grid
+reproduction or a new GF numerical certificate.
+
+## Digits dense-curve replication (two additional seeds)
+
+The user requested two more seeds to test whether Figure3's nonmonotone
+digits1/7 dense curve stabilizes. Frozen scope: the existing seven widths
+256,384,512,598,648,738,4096; two new initialization seeds per width, derived
+by the existing role hash from repetition labels904 and905. Keep the SAME
+saved reference903, eight training and thirty declared query inputs, all
+labels, two tanh hidden layers, float64 Gaussian initialization converted to
+float32, TF32 off, Euler step0.00625, horizon32 and65 recorded times. No new
+reference, compression, task, width, tuning or resolution study is authorized.
+
+Primary output is endpoint query RMS versus that fixed dense reference,
+reported as mean and sample SD over the original plus two new models at each
+width. Also retain the individual values, maximum-recorded RMS, training loss,
+times and raw predictions. This estimates conditional initialization spread,
+not variability across datasets or independently rebuilt compressions. A
+monotone mean would support seed variation as an explanation for the original
+bend; a remaining bend is reported as such, without forcing a fitted trend.
+Three observations are not a significance test or a monotonicity guarantee.
+
+Budget: fourteen new dense fits, at most120s each, split across both available
+GPUs with a10-minute batch cap. Stop after this batch; no retries or additional
+seeds. Incomplete/nonfinite or mismatched-time runs remain inconclusive. Parent
+owns this record, plot aggregation and Git; scoped helper owns only the lean
+saved-reference repetition entry point/config and its execution. Generated
+products live in this study's `digits_dense_repeats/` namespace. Old figures
+and arrays remain unchanged; the revised Figure3 gets a fresh destination.
+
 ## Figure 2/3 restoration requested by the user
 
 The user has restored the primary constant-comparability criterion to 3x and

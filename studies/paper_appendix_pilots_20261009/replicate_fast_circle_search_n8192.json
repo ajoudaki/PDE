@@ -1,0 +1,30 @@
+{
+  "runs": [
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast/n8192"
+  ],
+  "output": "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast_adaptive/n8192",
+  "devices": [
+    "cuda:0"
+  ],
+  "factor": 3,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 7,
+  "expansion": {
+    "legendre": {
+      "start": 1,
+      "maximum": 8
+    },
+    "harmonic": {
+      "start": 256,
+      "maximum": 578
+    },
+    "logarithmic": {
+      "start": 256,
+      "maximum": 650
+    }
+  },
+  "source_max_ranks": {
+    "harmonic": 42,
+    "logarithmic": 48
+  }
+}

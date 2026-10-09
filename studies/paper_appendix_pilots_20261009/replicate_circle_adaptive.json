@@ -1,0 +1,16 @@
+{
+  "runs": [
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle/n512",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle/n1024",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle/n2048",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle/n4096",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle/n8192"
+  ],
+  "output": "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_adaptive",
+  "devices": [
+    "cuda:0"
+  ],
+  "factor": 3,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 4
+}

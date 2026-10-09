@@ -1,0 +1,13 @@
+{
+  "original_run": "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/digits17_n4096/run.json",
+  "original_repetition": "/home/amir/Codes/PDE/data/generated/paper_figure_drafts_20261009/digits17_n4096/seed_903/attempt_001",
+  "original_sha256": {
+    "run": "061f2f9e1d03b72ec59ecf114640f4c58cadb9b6cc14c293763797983b68cc48",
+    "report": "f50e8d8244af7008d0d501649b43ffe89759dc157f61db37f8f5bc0719dc8c59",
+    "trajectories": "9e1cba4f38376629e354c0f3abf9e5f0c802a5fc36d5021ee8ba872219f45ab6"
+  },
+  "output": "/home/amir/Codes/PDE/data/generated/paper_appendix_pilots_20261009/digits_dense_repeats",
+  "seeds": [904, 905],
+  "widths": [256, 384, 512, 598, 648, 738, 4096],
+  "seconds_per_fit": 120
+}

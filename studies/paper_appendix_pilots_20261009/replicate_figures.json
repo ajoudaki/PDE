@@ -1,0 +1,18 @@
+{
+  "output": "data/generated/paper_appendix_pilots_20261009/figure2_replication/figures",
+  "circle_runs": [
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast_adaptive/n512/n512",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast_adaptive/n1024/n1024",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast_adaptive/n2048/n2048",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast_adaptive/n4096/n4096",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast_adaptive/n8192/n8192",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast_adaptive/n16384/n16384"
+  ],
+  "digits_runs": [
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/digits_adaptive/n1024",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/digits_adaptive/n2048",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/digits_adaptive/n4096"
+  ],
+  "scope": "Fresh-seed first replication: reference seed1701 on circle,1901 on digits1/7; new independent role-hashed width-matched dense partner and freshly rebuilt compressions at every width. Same original data, eight training and thirty declared query inputs, two tanh hidden layers, T=32. User-approved Euler step1/160,65 recorded times on both tasks; not an exact fine-step reproduction or a GF numerical certificate. Full-horizon offline sources remain. Both endpoint and maximum-recorded query RMS must be at most3x the corresponding fresh dense-pair metric. Smallest tested passing budgets, local20% brackets when resolved, constructor gates inconclusive. Fits descriptive, not asymptotic laws.",
+  "reproduce": "/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py restored-paper-plot --scaling-only --config studies/paper_appendix_pilots_20261009/replicate_figures.json --out <fresh-root>/figures"
+}

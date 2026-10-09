@@ -11369,6 +11369,7 @@ def restored_paper_plot(argv):
     parser = argparse.ArgumentParser(description=restored_paper_plot.__doc__)
     parser.add_argument('--config', type=Path, required=True)
     parser.add_argument('--out', type=Path, help='Fresh figure destination; validators use its sibling directory')
+    parser.add_argument('--scaling-only', action='store_true', help='Plot a fresh width-scaling repetition without Figure 3 inputs')
     args = parser.parse_args(argv)
     plan_bytes = args.config.read_bytes()
     plan = json.loads(plan_bytes)
@@ -11384,22 +11385,23 @@ def restored_paper_plot(argv):
         path = output/'plots'/'plot_001'/'metrics.json'
         metrics[task] = json.loads(path.read_text())
         provenance[task] = dict(path=str(path), sha256=sha(path.read_bytes()))
-    sphere_points_plot_main(['--run', plan['sphere_run'], '--out', str(validation/'sphere3'),
-                            '--seed-statistic', 'median', '--thin-dense', '--clean', '--frozen-point'])
-    path = validation/'sphere3'/'point_check_median_thinned_clean_frozen_point.json'
-    sphere = json.loads(path.read_text())
-    provenance['sphere3'] = dict(run=plan['sphere_run'], path=str(path), sha256=sha(path.read_bytes()))
-    path = Path(plan['image_metrics'])
-    assert sha(path.read_bytes()) == plan['image_metrics_sha256'], 'Saved image metrics changed'
-    image_task = next(t for t in json.loads(path.read_text())['tasks'] if t['name'] == 'digits17')
-    image_row = next(row for row in image_task['records'] if row['width'] == 4096)
-    saved = image_row['provenance']
-    for file, expected in ((Path(image_row['root'])/'run.json', saved['run_sha256']),
-                           (Path(image_row['root'])/'source.py', saved['source_sha256']),
-                           (Path(saved['repetition'])/'report.json', saved['report_sha256']),
-                           (Path(saved['repetition'])/'trajectories.npz', saved['trajectories_sha256'])):
-        assert sha(file.read_bytes()) == expected, f'Saved image input changed: {file}'
-    provenance['image'] = dict(path=str(path), sha256=sha(path.read_bytes()), inputs=saved)
+    if not args.scaling_only:
+        sphere_points_plot_main(['--run', plan['sphere_run'], '--out', str(validation/'sphere3'),
+                                '--seed-statistic', 'median', '--thin-dense', '--clean', '--frozen-point'])
+        path = validation/'sphere3'/'point_check_median_thinned_clean_frozen_point.json'
+        sphere = json.loads(path.read_text())
+        provenance['sphere3'] = dict(run=plan['sphere_run'], path=str(path), sha256=sha(path.read_bytes()))
+        path = Path(plan['image_metrics'])
+        assert sha(path.read_bytes()) == plan['image_metrics_sha256'], 'Saved image metrics changed'
+        image_task = next(t for t in json.loads(path.read_text())['tasks'] if t['name'] == 'digits17')
+        image_row = next(row for row in image_task['records'] if row['width'] == 4096)
+        saved = image_row['provenance']
+        for file, expected in ((Path(image_row['root'])/'run.json', saved['run_sha256']),
+                               (Path(image_row['root'])/'source.py', saved['source_sha256']),
+                               (Path(saved['repetition'])/'report.json', saved['report_sha256']),
+                               (Path(saved['repetition'])/'trajectories.npz', saved['trajectories_sha256'])):
+            assert sha(file.read_bytes()) == expected, f'Saved image input changed: {file}'
+        provenance['image'] = dict(path=str(path), sha256=sha(path.read_bytes()), inputs=saved)
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -11462,28 +11464,67 @@ def restored_paper_plot(argv):
                                       textcoords='offset points', color=color, fontsize=10)
                 if task == 'circle' and index == 0 and family in ('harmonic', 'logarithmic'):
                     fit = metrics[task]['descriptive_log_power_fits'][family]
-                    grid = np.geomspace(min(fit['widths']), max(fit['widths']), 150)
-                    axis.plot(grid, fit['C']*np.log(grid)**fit['p'], '--', color=color, lw=1,
-                              label=f"{label} fit: p={fit['p']:.2f}")
+                    if fit['status'] == 'fitted':
+                        grid = np.geomspace(min(fit['widths']), max(fit['widths']), 150)
+                        axis.plot(grid, fit['C']*np.log(grid)**fit['p'], '--', color=color, lw=1,
+                                  label=f"{label} fit: p={fit['p']:.2f}")
             axis.set_xticks(ns, labels=[str(n) for n in ns], rotation=20 if task == 'circle' else 0)
             axis.minorticks_off()
             axis.set_xlim(min(ns)*.82, max(ns)*1.22)
             axis.set_ylim(min(p['point'][field] for p in selections[task])*.55,
                           max(row['dense_learned'] for row in rows)*1.8)
-            axis.text(.03, .94,
-                      'Harmonic: no pass at 16384' if task == 'circle' else '≤  Logarithmic: lower budgets inconclusive',
+            missing = [str(row['width']) for row in rows if 'harmonic' not in row['selected']]
+            note = ('Harmonic: no pass at '+', '.join(missing) if task == 'circle' and missing else
+                    '≤  Logarithmic: lower budgets inconclusive' if task == 'digits' else '')
+            axis.text(.03, .94, note,
                       transform=axis.transAxes, fontsize=7, va='top', color='#555555')
     finish(fig, axes, 'figure2_storage')
+
+    if args.scaling_only:
+        captions = [plan['scope'],
+            'Figure 2: top row counts learned scalars, bottom row learned plus fixed retained scalars. '
+            'Dense storage is (L-1)n²+n(d+1). Vertical bars are measured local failing/passing budget '
+            'brackets, not statistical error bars; ≤ denotes an unresolved smaller-budget crossing. '
+            'Nonmonotone and missing passing candidates remain recorded. The criterion compares '
+            'endpoint RMS and maximum-recorded RMS separately, not their pointwise ratio at every time. '
+            'Dashed circle curves fit C(log n)^p to measured passing learned budgets after the search; '
+            'these single-repetition fits are descriptive, not established asymptotic exponents. '
+            'No fit is inferred for the image points with unresolved lower budgets. Common data, '
+            'temporary source assembly and solver workspace are excluded from retained model counts.']
+        (destination/'captions.txt').write_text('\n\n'.join(captions)+'\n')
+        save_json(destination/'metrics.json', dict(config=str(args.config), config_sha256=sha(plan_bytes),
+            plot_source_sha256=sha(Path(__file__).read_bytes()), factor=3, provenance=provenance,
+            figure2=selections, circle_fits=metrics['circle']['descriptive_log_power_fits'],
+            image_fit=None, captions=captions, scope=plan['scope']))
+        print(json.dumps(dict(figures=str(destination), validated_metrics=str(validation))), flush=True)
+        return 0
 
     sphere_points = []
     for name, point in sphere['displayed_points'].items():
         family = {'lowrank': 'low_rank', 'ntk': 'frozen_features'}.get(name.split('_')[0], name.split('_')[0])
         sphere_points.append(dict(point, name=name, family=family))
-    image_points = [p for p in image_row['models'] if p.get('endpoint_rms', 0) > 0]
+    image_points = [dict(p) for p in image_row['models'] if p.get('endpoint_rms', 0) > 0]
+    image_dense_summaries = {}
+    if plan.get('image_dense_repeats'):
+        path = Path(plan['image_dense_repeats'])
+        assert sha(path.read_bytes()) == plan['image_dense_repeats_sha256'], 'Dense-repeat summary changed'
+        repeated = json.loads(path.read_text())
+        assert repeated['complete'] and repeated['provenance']['original_sha256']['trajectories'] == saved['trajectories_sha256']
+        image_dense_summaries = repeated['models']
+        for point in image_points:
+            if point['family'] != 'dense':
+                continue
+            summary = image_dense_summaries[point['name']]
+            assert summary['count'] == 3 and summary['moving'] == point['moving']
+            for metric in ('endpoint_rms', 'worst_recorded_rms', 'extra_endpoint_rms', 'extra_worst_recorded_rms'):
+                point[metric] = summary[metric]['mean']
+        provenance['image_dense_repeats'] = dict(path=str(path), sha256=sha(path.read_bytes()),
+                                               provenance=repeated['provenance'])
+    image_pair = next(p['endpoint_rms'] for p in image_points if p['name'] == 'dense_4096')
     fig, axes = plt.subplots(2, 2, figsize=(9.6, 6.9), squeeze=False)
     for column, (title, points, pair) in enumerate((
             ('3D sphere · n = 4096', sphere_points, sphere['dense_pair_rms']),
-            ('8×8 digits 1 / 7 · n = 4096', image_points, image_row['dense_pair']['endpoint_rms']))):
+            ('8×8 digits 1 / 7 · n = 4096', image_points, image_pair))):
         for index, field in enumerate(('moving', 'total')):
             axis = axes[index, column]
             axis.set(xscale='log', yscale='log', ylabel='Endpoint query RMS',
@@ -11511,6 +11552,11 @@ def restored_paper_plot(argv):
                     extra = [p for p in values if p.get('extra_endpoint_rms', 0) > 0]
                     axis.plot([p[field] for p in extra], [p['extra_endpoint_rms'] for p in extra],
                               ':', marker=marker, mfc='white', color=color, ms=5, lw=.9, label='Log., undeclared')
+                if column == 1 and family == 'dense' and image_dense_summaries:
+                    for point in values:
+                        deviation = image_dense_summaries[point['name']]['endpoint_rms']['sd']
+                        axis.errorbar(point[field], point['endpoint_rms'], yerr=deviation,
+                                      fmt='none', color=color, capsize=3, lw=1)
             axis.axhline(pair, color='#333333', ls=':', lw=1, label='Dense pair')
             if column == 1:
                 extra_pair = next(p['extra_endpoint_rms'] for p in points if p['name'] == 'dense_4096')
@@ -11566,18 +11612,209 @@ def restored_paper_plot(argv):
         'Selection uses declared query errors, not an independent post-selection test. Retained storage '
         'excludes common data, solver workspace and temporary offline source construction. These are '
         'finite recorded Euler results without a new continuous-time or per-budget refinement certificate.']
+    if image_dense_summaries:
+        captions.append('Figure 3 image-panel update: each dense point and the horizontal dense benchmark '
+            'use mean endpoint RMS across the original model and two new independent initializations '
+            '(repetition labels 903,904,905), all compared with the SAME saved reference903 and dataset. '
+            'Bars show sample SD, not standard error. Compression curves are unchanged single runs; '
+            'the sphere panel retains its previous median/min–max display. No new reference or '
+            'compression training is implied by this conditional dense-only replication.')
     (destination/'captions.txt').write_text('\n\n'.join(captions)+'\n')
     save_json(destination/'metrics.json', dict(status='PASS', config=str(args.config),
         config_sha256=sha(plan_bytes), plot_source_sha256=sha(Path(__file__).read_bytes()), factor=3,
         provenance=provenance, figure2=selections, circle_fits=metrics['circle']['descriptive_log_power_fits'],
         image_fit=None, figure3=dict(sphere=sphere_points, sphere_dense_summaries=sphere['displayed_dense_seed_summaries'],
-                                    images=image_points), captions=captions,
+                                    images=image_points, image_dense_summaries=image_dense_summaries), captions=captions,
         scope='saved-array/hash checks and restored figures; no new training or numerical certificate'))
     print(json.dumps(dict(status='PASS', figures=str(destination), validated_metrics=str(validation))), flush=True)
     return 0
 
 
+@torch.no_grad()
+def dense_control_repeats_main(argv=None):
+    """Repeat only dense controls against one unchanged saved image reference.
+
+    First call with --config only to freeze a fresh output. Run its source.py
+    with --seed/--device in separate workers, then call --summarize on CPU.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    action = parser.add_mutually_exclusive_group()
+    action.add_argument('--seed', type=int)
+    action.add_argument('--summarize', action='store_true')
+    parser.add_argument('--device', default='cuda:0')
+    args = parser.parse_args(argv)
+    config_bytes = args.config.read_bytes()
+    config = json.loads(config_bytes)
+    out, original = Path(config['output']), Path(config['original_repetition'])
+    if config['widths'] != [256, 384, 512, 598, 648, 738, 4096] or config['seeds'] != [904, 905]:
+        raise ValueError('This bounded repeat plan requires the seven saved widths and seeds 904/905')
+    if config['seconds_per_fit'] != 120:
+        raise ValueError('The repeat plan requires a 120-second cap per fit')
+    paths = dict(run=Path(config['original_run']), report=original/'report.json',
+                 trajectories=original/'trajectories.npz')
+    for name, path in paths.items():
+        if sha(path.read_bytes()) != config['original_sha256'][name]:
+            raise ValueError(f'Changed original input: {path}')
+    old_manifest = json.loads(paths['run'].read_text())
+    old_report = json.loads(paths['report'].read_text())
+    with np.load(paths['trajectories'], allow_pickle=False) as archive:
+        saved = {key: archive[key] for key in archive.files}
+    training, model_config = old_manifest['config']['training'], old_manifest['config']['model']
+    expected_training = dict(solver='euler', step=.00625, horizon=32, record_every=80, dtype='float32')
+    if training != expected_training or model_config != dict(width=4096, depth=2, activation='tanh'):
+        raise ValueError('Original model or training settings differ from the bounded plan')
+    if (old_report['seed'] != 903 or not old_report['complete']
+            or not old_report['runs']['reference']['complete']
+            or old_manifest['config']['execution']['tf32']):
+        raise ValueError('Expected complete seed-903 reference with TF32 disabled')
+    data_hashes = {key: array_sha(saved[key]) for key in old_report['data_sha256']}
+    if data_hashes != old_report['data_sha256'] or data_hashes != old_manifest['identity']['data_sha256']:
+        raise ValueError('Original saved data hashes disagree')
+    reference_times = saved['times_reference']
+    if (not np.isfinite(reference_times).all() or len(reference_times) != 65
+            or reference_times[0] != 0 or reference_times[-1] != 32
+            or not np.array_equal(reference_times, old_report['runs']['reference']['times'])):
+        raise ValueError('Unexpected original observation times')
+    reference_hashes = {key: array_sha(saved[key]) for key in
+                        ('reference', 'extra_reference', 'times_reference')}
+    if not all(np.isfinite(saved[key]).all() for key in reference_hashes):
+        raise ValueError('Nonfinite saved reference')
+    source_hash = sha(Path(__file__).read_bytes())
+    provenance = dict(original_sha256=config['original_sha256'], reference_seed=903,
+        reference_array_sha256=reference_hashes, data_sha256=data_hashes,
+        reference_initial_state_sha256=old_report['reference_initial_state_sha256'],
+        config_sha256=sha(config_bytes), source_sha256=source_hash)
+    if args.seed is None and not args.summarize:
+        out.mkdir(parents=True, exist_ok=False)
+        (out/'config.json').write_bytes(config_bytes)
+        (out/'source.py').write_bytes(Path(__file__).read_bytes())
+        save_json(out/'run.json', dict(config=config, **provenance,
+            scope='Two additional dense initializations per width; fixed original data/reference; no new reference or compression training'))
+        print(json.dumps(dict(event='prepared', output=str(out))), flush=True)
+        return 0
+    manifest = json.loads((out/'run.json').read_text())
+    if manifest['config'] != config or any(manifest[key] != value for key, value in provenance.items()):
+        raise ValueError('Config, source, or original provenance differs from the prepared run')
+    if sha((out/'source.py').read_bytes()) != source_hash:
+        raise ValueError('Prepared source snapshot changed')
+    m, q = len(saved['train_labels']), len(saved['query_inputs'])
+
+    def score(arrays, report, width, seed):
+        name = f'dense_{width}'
+        runtime = report['runs'][name]
+        prediction, extra = arrays[name], arrays['extra_'+name]
+        times = arrays['times_'+name]
+        if (not runtime['complete'] or runtime['stop_reason'] != 'horizon'
+                or runtime['steps'] != 5120 or runtime['step'] != .00625
+                or runtime['dtype'] != 'torch.float32' or runtime['actual_horizon'] != 32
+                or not np.array_equal(times, reference_times)
+                or not np.array_equal(times, runtime['times'])
+                or prediction.shape != saved['reference'].shape
+                or extra.shape != saved['extra_reference'].shape
+                or not np.isfinite(prediction).all() or not np.isfinite(extra).all()):
+            raise ValueError(f'Incomplete or incompatible dense trajectory: seed={seed}, width={width}')
+        initialization_seed = _experiment_seed(seed, name)
+        if report['models'][name]['initialization_seed'] != initialization_seed:
+            raise ValueError(f'Dense initialization seed mismatch: {seed}/{name}')
+        declared = np.sqrt(np.mean((prediction[:, m:].astype(float)-saved['reference'][:, m:])**2, axis=1))
+        undeclared = np.sqrt(np.mean((extra.astype(float)-saved['extra_reference'])**2, axis=1))
+        values = dict(endpoint_rms=float(declared[-1]), worst_recorded_rms=float(declared.max()),
+            extra_endpoint_rms=float(undeclared[-1]), extra_worst_recorded_rms=float(undeclared.max()),
+            training_mse=runtime['final_training_mse'], seconds=runtime['seconds'],
+            training_seconds=runtime['training_seconds'], setup_seconds=report['models'][name]['setup_seconds'])
+        if not all(math.isfinite(value) for value in values.values()):
+            raise ValueError(f'Nonfinite dense metric: {seed}/{name}')
+        return dict(seed=seed, initialization_seed=initialization_seed, **values)
+
+    if args.summarize:
+        repetitions = [(903, saved, old_report)]
+        worker_hashes = {}
+        for seed in config['seeds']:
+            folder = out/f'seed_{seed}'
+            report = json.loads((folder/'report.json').read_text())
+            payload = (folder/'trajectories.npz').read_bytes()
+            if (not report['complete'] or report['errors'] or report['seed'] != seed
+                    or report['provenance'] != provenance or sha(payload) != report['trajectories_sha256']):
+                raise ValueError(f'Incomplete or changed worker: {folder}')
+            with np.load(folder/'trajectories.npz', allow_pickle=False) as archive:
+                arrays = {key: archive[key] for key in archive.files}
+            repetitions.append((seed, arrays, report))
+            worker_hashes[str(seed)] = dict(report_sha256=sha((folder/'report.json').read_bytes()),
+                                           trajectories_sha256=sha(payload))
+        models = {}
+        for width in config['widths']:
+            values = [score(arrays, report, width, seed) for seed, arrays, report in repetitions]
+            statistics = {}
+            for key in values[0].keys()-{'seed', 'initialization_seed'}:
+                observations = np.asarray([row[key] for row in values], dtype=float)
+                statistics[key] = dict(mean=float(observations.mean()), sd=float(observations.std(ddof=1)),
+                                       values=observations.tolist())
+            models[f'dense_{width}'] = dict(width=width, moving=width*(width+65), fixed=0,
+                count=len(values), samples=values, **statistics)
+        save_json(out/'summary.json', dict(complete=True, provenance=provenance,
+            worker_sha256=worker_hashes, models=models, recorded_times=reference_times.tolist(),
+            scope='Original plus two independent dense controls, conditional on one fixed reference and dataset; sample SD, not uncertainty over references; finite Euler results without a new refinement certificate'))
+        print(json.dumps(dict(event='summarized', output=str(out/'summary.json'))), flush=True)
+        return 0
+
+    if args.seed not in config['seeds']:
+        raise ValueError('Worker seed is outside the frozen plan')
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    device = torch.device(args.device)
+    inputs = torch.as_tensor(saved['train_inputs'], device=device, dtype=torch.float32)
+    labels = torch.as_tensor(saved['train_labels'], device=device, dtype=torch.float32)
+    queries = torch.as_tensor(np.concatenate((saved['train_inputs'], saved['query_inputs'],
+                                              saved['extra_query_inputs'])), device=device, dtype=torch.float32)
+    folder = out/f'seed_{args.seed}'
+    folder.mkdir(exist_ok=False)
+    arrays = {}
+    report = dict(seed=args.seed, complete=False, provenance=provenance, models={}, runs={}, errors={},
+        device=str(device), hardware=torch.cuda.get_device_name(device) if device.type == 'cuda' else platform.processor())
+
+    def persist():
+        np.savez_compressed(folder/'trajectories.npz', **arrays)
+        report['trajectories_sha256'] = sha((folder/'trajectories.npz').read_bytes())
+        save_json(folder/'report.json', report)
+
+    persist()
+    for width in config['widths']:
+        name, started = f'dense_{width}', time.monotonic()
+        initialization_seed = _experiment_seed(args.seed, name)
+        try:
+            model = DeepDense(width, inputs.shape[1], 2, 'tanh', initialization_seed, device)
+            synchronize(device)
+            setup_seconds = time.monotonic()-started
+            initial_hashes = [array_sha(value.cpu().numpy()) for value in model.initial_state]
+            _experiment_move(model, device, torch.float32)
+            report['models'][name] = dict(width=width, family='dense', moving=width*(width+65), fixed=0,
+                initialization_seed=initialization_seed, initial_float64_sha256=initial_hashes,
+                setup_seconds=setup_seconds)
+            state, prediction, runtime = integrate_euler(model, inputs, labels, queries, .00625,
+                config['seconds_per_fit'], horizon=32, max_steps=5120, observation_every=80)
+            arrays[name], arrays['extra_'+name] = prediction[:, :m+q], prediction[:, m+q:]
+            arrays['times_'+name] = np.asarray(runtime['times'])
+            report['runs'][name] = runtime
+            metrics = score(arrays, report, width, args.seed)
+            report['models'][name]['metrics'] = metrics
+            del state, model
+            print(json.dumps(dict(event='dense_repeat_done', width=width, **metrics)), flush=True)
+        except (ValueError, RuntimeError, ArithmeticError) as error:
+            report['errors'][name] = f'{type(error).__name__}: {error}'
+            persist()
+            raise
+        persist()
+    report['complete'] = not report['errors']
+    persist()
+    return int(not report['complete'])
+
+
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'dense-control-repeats':
+        sys.exit(dense_control_repeats_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'restored-paper-plot':
         sys.exit(restored_paper_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'feedback-pooled-transfer':

@@ -1,0 +1,14 @@
+{
+  "runs": [
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/digits/n1024",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/digits/n2048",
+    "data/generated/paper_appendix_pilots_20261009/figure2_replication/digits/n4096"
+  ],
+  "output": "data/generated/paper_appendix_pilots_20261009/figure2_replication/digits_adaptive",
+  "devices": [
+    "cuda:1"
+  ],
+  "factor": 3,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 4
+}

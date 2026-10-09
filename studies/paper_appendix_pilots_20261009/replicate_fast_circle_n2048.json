@@ -1,0 +1,83 @@
+{
+  "dataset": {
+    "name": "sphere",
+    "dimension": 2,
+    "train_samples": 8,
+    "test_samples": 30,
+    "seed": 47,
+    "label_scale": 1
+  },
+  "model": {
+    "width": 2048,
+    "depth": 2,
+    "activation": "tanh"
+  },
+  "seeds": [
+    1701
+  ],
+  "training": {
+    "solver": "euler",
+    "step": 0.00625,
+    "horizon": 32,
+    "record_every": 80,
+    "dtype": "float32"
+  },
+  "methods": {
+    "oblivious": {
+      "dense": {
+        "widths": [
+          2048
+        ],
+        "match_compressions": false
+      },
+      "legendre": {
+        "orders": []
+      },
+      "low_rank": {
+        "ranks": [],
+        "match_compressions": false
+      },
+      "frozen_features": {
+        "enabled": false,
+        "plot": "dashed"
+      }
+    },
+    "non_oblivious": {
+      "setup": {
+        "initializer": "dense_rollout",
+        "rollout_solver": "rk4",
+        "rollout_step": 0.125,
+        "rollout_dtype": "float32",
+        "coefficient_dtype": "float64",
+        "time_degree": 8,
+        "selection_trials": 64,
+        "condition_limit": 16
+      },
+      "harmonic": {
+        "budgets": [],
+        "spatial_degree": 5
+      },
+      "logarithmic": {
+        "budgets": [],
+        "test_inputs_at_setup": true
+      }
+    }
+  },
+  "execution": {
+    "devices": "cuda:0",
+    "seconds_per_fit": 120,
+    "tf32": false,
+    "reuse_completed": false,
+    "stop_after_match": false,
+    "output": "data/generated/paper_appendix_pilots_20261009/figure2_replication/circle_fast/n2048",
+    "dense_seconds_per_fit": 120
+  },
+  "plots": {
+    "metrics": [
+      "endpoint_rms",
+      "worst_recorded_rms"
+    ],
+    "aggregate": "mean",
+    "spread": "none"
+  }
+}
