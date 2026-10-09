@@ -6816,6 +6816,7 @@ def sphere_points_plot_main(argv):
     """Check saved predictions and plot endpoint or maximum-recorded-time RMS."""
     parser = argparse.ArgumentParser(description=sphere_points_plot_main.__doc__)
     parser.add_argument('--run', type=Path, required=True)
+    parser.add_argument('--out', type=Path, help='Optional fresh destination; leave saved inputs unchanged')
     parser.add_argument('--metric', choices=('endpoint', 'max-time'), default='endpoint')
     parser.add_argument('--seed-statistic', choices=('mean', 'median'), default='mean',
                         help='Mean with SE bars, or median with observed min–max bars')
@@ -6828,6 +6829,9 @@ def sphere_points_plot_main(argv):
     parser.add_argument('--independent-references', action='store_true',
                         help='Pair the three stored dense seeds with references601/602/603')
     args = parser.parse_args(argv)
+    destination = args.out if args.out is not None else args.run
+    if args.out is not None:
+        destination.mkdir(parents=True, exist_ok=False)
     metric = 'endpoint_rms' if args.metric == 'endpoint' else 'max_time_rms'
     figure_name = 'endpoint_points' if args.metric == 'endpoint' else 'max_time_points'
     if args.seed_statistic == 'median':
@@ -7133,14 +7137,14 @@ def sphere_points_plot_main(argv):
                    'Logarithmic setup sees the test inputs, never their labels.',
                    'These are finite-step measurements without a new per-budget numerical refinement certificate.']
         caption = '\n'.join(detail)
-        (args.run/(figure_name+'.caption.txt')).write_text(caption+'\n')
-        (args.run/(figure_name+'.caption.tex')).write_text('\\caption{\n'+caption+'\n}\n')
+        (destination/(figure_name+'.caption.txt')).write_text(caption+'\n')
+        (destination/(figure_name+'.caption.tex')).write_text('\\caption{\n'+caption+'\n}\n')
         figure.tight_layout(rect=(0, 0, 1, 1))
     else:
         figure.text(.5, .02, caption, ha='center', fontsize=8)
         figure.tight_layout(rect=(0, .155 if args.metric == 'max-time' else .13 if matched_orders is not None else .105, 1, 1))
     for suffix in ('png', 'pdf'):
-        figure.savefig(args.run/(figure_name+'.'+suffix), dpi=180, bbox_inches='tight')
+        figure.savefig(destination/(figure_name+'.'+suffix), dpi=180, bbox_inches='tight')
     plt.close(figure)
     check_name = 'point_check.json' if args.metric == 'endpoint' else 'max_time_point_check.json'
     if args.seed_statistic == 'median':
@@ -7153,7 +7157,7 @@ def sphere_points_plot_main(argv):
         check_name = check_name.replace('.json', '_frozen_point.json')
     if args.independent_references:
         check_name = check_name.replace('.json', '_paired.json')
-    save_json(args.run/check_name, dict(status='PASS', points=computed, metric=metric,
+    save_json(destination/check_name, dict(status='PASS', points=computed, metric=metric,
         seed_statistic=args.seed_statistic, thin_dense=args.thin_dense, clean=args.clean,
         frozen_point=args.frozen_point,
         independent_references=args.independent_references,
@@ -7166,7 +7170,7 @@ def sphere_points_plot_main(argv):
         source_sha256=sha(Path(__file__).read_bytes()),
         trajectory_sha256=sha((args.run/'trajectories.npz').read_bytes()),
         scope='saved-array consistency, not a new numerical refinement certificate'))
-    print(json.dumps(dict(status='PASS', output=str(args.run/(figure_name+'.png')))), flush=True)
+    print(json.dumps(dict(status='PASS', output=str(destination/(figure_name+'.png')))), flush=True)
 
 
 def cubic_summary_main(argv):
@@ -7781,8 +7785,12 @@ def experiment_scaling_plot(argv):
                 and len(query) == len(truth) == config['dataset']['test_samples']
                 and train.shape[1] == query.shape[1] == config['dataset']['dimension'],
                 f'Data shape mismatch: {path}')
-        require({key: array_sha(arrays[key]) for key in
-                 ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')}
+        hash_keys = set(identity['data_sha256'])
+        base_keys = {'train_inputs', 'train_labels', 'query_inputs', 'query_labels'}
+        require(base_keys.issubset(hash_keys)
+                and hash_keys.issubset(base_keys | {'extra_query_inputs', 'extra_query_labels'}),
+                f'Unexpected dataset hash keys: {path}')
+        require({key: array_sha(arrays[key]) for key in hash_keys}
                 == report['data_sha256'] == identity['data_sha256'], f'Data hash mismatch: {path}')
         checked = {}
         for name in ('reference', iid_name, *expected):
@@ -7814,7 +7822,11 @@ def experiment_scaling_plot(argv):
             checked[name] = (prediction[:, len(targets):], times)
         for family in ('harmonic', 'logarithmic'):
             if family in row['sources']:
-                require(row['sources'][family]['effective_setup'] == _experiment_setup(config, family),
+                saved_setup = dict(row['sources'][family]['effective_setup'])
+                expected_setup = dict(_experiment_setup(config, family))
+                saved_setup.setdefault('selection_strategy', 'uniform')
+                expected_setup.setdefault('selection_strategy', 'uniform')
+                require(saved_setup == expected_setup,
                         f'Source setup mismatch: {path}/{family}')
         paired = 'reference' in checked and iid_name in checked
         if paired:
@@ -11352,7 +11364,222 @@ def paper_draft_plot(argv):
     return 0
 
 
+def restored_paper_plot(argv):
+    """Restore Figures 2/3 from the named, validated saved trajectories; no training."""
+    parser = argparse.ArgumentParser(description=restored_paper_plot.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    parser.add_argument('--out', type=Path, help='Fresh figure destination; validators use its sibling directory')
+    args = parser.parse_args(argv)
+    plan_bytes = args.config.read_bytes()
+    plan = json.loads(plan_bytes)
+    destination = args.out or Path(plan['output'])
+    destination.mkdir(parents=True, exist_ok=False)
+    validation = destination.parent/'validated_metrics'/destination.name
+    validation.mkdir(parents=True, exist_ok=False)
+    metrics, provenance = {}, {}
+    for task in ('circle', 'digits'):
+        output = validation/task
+        options = ['--runs', *plan[task+'_runs'], '--out', str(output), '--factor', '3']
+        experiment_scaling_plot(options+(['--fit-log-powers'] if task == 'circle' else []))
+        path = output/'plots'/'plot_001'/'metrics.json'
+        metrics[task] = json.loads(path.read_text())
+        provenance[task] = dict(path=str(path), sha256=sha(path.read_bytes()))
+    sphere_points_plot_main(['--run', plan['sphere_run'], '--out', str(validation/'sphere3'),
+                            '--seed-statistic', 'median', '--thin-dense', '--clean', '--frozen-point'])
+    path = validation/'sphere3'/'point_check_median_thinned_clean_frozen_point.json'
+    sphere = json.loads(path.read_text())
+    provenance['sphere3'] = dict(run=plan['sphere_run'], path=str(path), sha256=sha(path.read_bytes()))
+    path = Path(plan['image_metrics'])
+    assert sha(path.read_bytes()) == plan['image_metrics_sha256'], 'Saved image metrics changed'
+    image_task = next(t for t in json.loads(path.read_text())['tasks'] if t['name'] == 'digits17')
+    image_row = next(row for row in image_task['records'] if row['width'] == 4096)
+    saved = image_row['provenance']
+    for file, expected in ((Path(image_row['root'])/'run.json', saved['run_sha256']),
+                           (Path(image_row['root'])/'source.py', saved['source_sha256']),
+                           (Path(saved['repetition'])/'report.json', saved['report_sha256']),
+                           (Path(saved['repetition'])/'trajectories.npz', saved['trajectories_sha256'])):
+        assert sha(file.read_bytes()) == expected, f'Saved image input changed: {file}'
+    provenance['image'] = dict(path=str(path), sha256=sha(path.read_bytes()), inputs=saved)
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({'font.size': 9, 'axes.spines.top': False, 'axes.spines.right': False,
+                         'pdf.fonttype': 42, 'savefig.facecolor': 'white'})
+    styles = dict(legendre=('Legendre', '#4477AA', 's'), harmonic=('Harmonic', '#EE7733', '^'),
+                  logarithmic=('Logarithmic', '#228833', 'o'), dense=('Dense', '#666666', 'D'),
+                  low_rank=('Low rank', '#CC6677', 'v'), frozen_features=('Frozen features', '#AA4499', '*'))
+
+    def finish(figure, axes, name):
+        handles = {}
+        for axis in axes.flat:
+            axis.grid(which='major', alpha=.14)
+            hs, labels = axis.get_legend_handles_labels()
+            handles.update(zip(labels, hs))
+        figure.legend(handles.values(), handles.keys(), loc='upper center', ncol=4,
+                      frameon=False, fontsize=8, bbox_to_anchor=(.5, 1))
+        figure.tight_layout(rect=(0, 0, 1, .90), h_pad=2, w_pad=2)
+        for suffix in ('png', 'pdf'):
+            figure.savefig(destination/f'{name}.{suffix}', dpi=200, bbox_inches='tight')
+        plt.close(figure)
+
+    selections = {}
+    fig, axes = plt.subplots(2, 2, figsize=(9.6, 6.9), squeeze=False)
+    for column, (task, title) in enumerate((('circle', 'Circle'), ('digits', '8×8 digits 1 / 7'))):
+        rows = metrics[task]['records']
+        selections[task] = []
+        for row in rows:
+            for family, name in row['selected'].items():
+                point = next(p for p in row['candidates'] if p['name'] == name)
+                bracket = row['budget_search'].get(family, {}).get('bracket', {})
+                selections[task].append(dict(width=row['width'], family=family, point=point, bracket=bracket))
+        for index, field in enumerate(('moving', 'total')):
+            axis = axes[index, column]
+            axis.set(xscale='log', yscale='log', xlabel='Dense reference width',
+                     ylabel='Learned scalars' if index == 0 else 'Total retained scalars')
+            if index == 0:
+                axis.set_title(title+' · 3× criterion')
+            ns = [row['width'] for row in rows]
+            axis.plot(ns, [row['dense_learned'] for row in rows], ':', color='#666666', label='Dense formula')
+            for family in ('legendre', 'harmonic', 'logarithmic'):
+                points = [p for p in selections[task] if p['family'] == family]
+                if not points:
+                    continue
+                label, color, marker = styles[family]
+                axis.plot([p['width'] for p in points], [p['point'][field] for p in points],
+                          color=color, marker=marker, ms=4.5, lw=1.1, label=label)
+                for item in points:
+                    point, bracket = item['point'], item['bracket']
+                    lower = bracket.get('lower')
+                    candidates = next(row['candidates'] for row in rows if row['width'] == item['width'])
+                    failed = [p for p in candidates if p['family'] == family and p['status'] == 'fail'
+                              and p.get('model', {}).get('order' if family == 'legendre' else 'width') == lower]
+                    if bracket.get('status') == 'resolved_local' and failed:
+                        axis.errorbar(item['width'], point[field],
+                                      yerr=[[max(0, point[field]-failed[0][field])], [0]],
+                                      fmt='none', color=color, capsize=3, lw=1)
+                    elif bracket.get('status') != 'minimum_order':
+                        axis.annotate('≤', (item['width'], point[field]), xytext=(-11, -3),
+                                      textcoords='offset points', color=color, fontsize=10)
+                if task == 'circle' and index == 0 and family in ('harmonic', 'logarithmic'):
+                    fit = metrics[task]['descriptive_log_power_fits'][family]
+                    grid = np.geomspace(min(fit['widths']), max(fit['widths']), 150)
+                    axis.plot(grid, fit['C']*np.log(grid)**fit['p'], '--', color=color, lw=1,
+                              label=f"{label} fit: p={fit['p']:.2f}")
+            axis.set_xticks(ns, labels=[str(n) for n in ns], rotation=20 if task == 'circle' else 0)
+            axis.minorticks_off()
+            axis.set_xlim(min(ns)*.82, max(ns)*1.22)
+            axis.set_ylim(min(p['point'][field] for p in selections[task])*.55,
+                          max(row['dense_learned'] for row in rows)*1.8)
+            axis.text(.03, .94,
+                      'Harmonic: no pass at 16384' if task == 'circle' else '≤  Logarithmic: lower budgets inconclusive',
+                      transform=axis.transAxes, fontsize=7, va='top', color='#555555')
+    finish(fig, axes, 'figure2_storage')
+
+    sphere_points = []
+    for name, point in sphere['displayed_points'].items():
+        family = {'lowrank': 'low_rank', 'ntk': 'frozen_features'}.get(name.split('_')[0], name.split('_')[0])
+        sphere_points.append(dict(point, name=name, family=family))
+    image_points = [p for p in image_row['models'] if p.get('endpoint_rms', 0) > 0]
+    fig, axes = plt.subplots(2, 2, figsize=(9.6, 6.9), squeeze=False)
+    for column, (title, points, pair) in enumerate((
+            ('3D sphere · n = 4096', sphere_points, sphere['dense_pair_rms']),
+            ('8×8 digits 1 / 7 · n = 4096', image_points, image_row['dense_pair']['endpoint_rms']))):
+        for index, field in enumerate(('moving', 'total')):
+            axis = axes[index, column]
+            axis.set(xscale='log', yscale='log', ylabel='Endpoint query RMS',
+                     xlabel='Learned scalars' if index == 0 else 'Total retained scalars')
+            if index == 0:
+                axis.set_title(title)
+            for family, (label, color, marker) in styles.items():
+                values = sorted([p for p in points if p['family'] == family], key=lambda p: p[field])
+                if not values:
+                    continue
+                if family == 'frozen_features':
+                    axis.axhline(values[0]['endpoint_rms'], color=color, ls='--', lw=1, label=label)
+                    axis.plot(values[0][field], values[0]['endpoint_rms'], marker=marker, color=color, ms=5)
+                else:
+                    axis.plot([p[field] for p in values], [p['endpoint_rms'] for p in values],
+                              color=color, marker=marker, ms=4.5, lw=1.1, label=label)
+                if column == 0:
+                    for point in values:
+                        summary = sphere['displayed_dense_seed_summaries'].get(point['name'])
+                        if summary:
+                            axis.errorbar(point[field], point['endpoint_rms'], fmt='none', color=color,
+                                          yerr=[[summary['median']-summary['minimum']],
+                                                [summary['maximum']-summary['median']]], capsize=3, lw=1)
+                if column == 1 and family == 'logarithmic':
+                    extra = [p for p in values if p.get('extra_endpoint_rms', 0) > 0]
+                    axis.plot([p[field] for p in extra], [p['extra_endpoint_rms'] for p in extra],
+                              ':', marker=marker, mfc='white', color=color, ms=5, lw=.9, label='Log., undeclared')
+            axis.axhline(pair, color='#333333', ls=':', lw=1, label='Dense pair')
+            if column == 1:
+                extra_pair = next(p['extra_endpoint_rms'] for p in points if p['name'] == 'dense_4096')
+                axis.axhline(extra_pair, color='#999999', ls='-.', lw=.7, label='Dense, undeclared')
+            axis.set_xlim(min(p[field] for p in points)*.65, max(p[field] for p in points)*1.6)
+            axis.set_ylim(min(p['endpoint_rms'] for p in points)*.55,
+                          max(p['endpoint_rms'] for p in points)*1.7)
+    finish(fig, axes, 'figure3_accuracy')
+    captions = [
+        'Figure 2. Smallest TESTED passing budgets under the restored 3× criterion. At each dense width n, '
+        'E(t) is the RMS prediction difference on the declared query inputs from its coupled dense reference; '
+        'E_iid(t) compares that reference with the independent width-n dense network. Passing requires both '
+        'E(T) ≤ 3 E_iid(T) and max_t E(t) ≤ 3 max_t E_iid(t), with T=32 and 65 recorded times. '
+        'Top: learned scalars; bottom: learned plus fixed retained scalars. The dense formula is '
+        '(L−1)n²+n(d+1), with L=2 hidden layers and input dimension d=2 (circle) or 64 (images). '
+        'Vertical bars span a measured failing lower candidate and the selected passing candidate; '
+        'they are local tested brackets, not confidence intervals or global minima. Circle Harmonic/Logarithmic '
+        'passing width brackets have upper/lower ratio ≤1.2. Harmonic at n=8192 is nonmonotone across budgets; '
+        'no Harmonic pass is available at n=16384, and all failed/incomplete runs remain recorded. '
+        'Legendre order 1 is the lowest allowed order; higher-order brackets remain discrete.',
+        'Circle points reuse the original adaptive six-width measurements (n=512–16384, reference seeds '
+        '701–706, Euler step 1/640). Dashed curves are descriptive fits of learned storage '
+        'C(log n)^p to measured passing budgets only: Harmonic p=3.50871 from five widths, '
+        'Logarithmic p=5.19661 from six. They are selected-budget summaries, not identified asymptotic laws; '
+        'no interpolated budget is a measured model. Image points reuse dense seeds 901–903 at n=1024,2048,4096 '
+        'and Euler step 0.00625. Refinement tried Logarithmic widths 128,192,224 with source ranks 5,10,13 '
+        'using prefixes of each original maximum-rank source; every new constructor failed condition cap 16 '
+        'before training. These are inconclusive gates, not accuracy failures. The passing width-256/rank-8 '
+        'models retain 82,184 learned scalars each; ≤ marks upper bounds on unresolved minima. '
+        'The image crossing is NOT resolved to 20%, and no exponent is fitted from the three image widths. '
+        'Harmonic was outside this image pilot scope.',
+        'Figure 3. Endpoint declared-query RMS against the coupled dense width-4096 reference versus '
+        'learned scalars (top) and total retained scalars (bottom). The 3D-sphere panel restores exactly the '
+        'saved screenshot trajectory chain: Legendre orders 1,2,3,12; Harmonic and Logarithmic widths '
+        '148,210,299,424,600,850 (the last two source ranks are 44,65); low-rank capacities 8,16,24,96; '
+        'the thinned small-dense controls; and frozen features. Sphere Euler step remains 1/640, '
+        'reference seed 601. Small-dense medians and observed min–max bars use seeds 10601,10602,10603 '
+        'against that SAME fixed reference and data; the width-4096 dense pair is a single pair. '
+        'All compression points remain single saved runs: these are not three independently rebuilt '
+        'compression repetitions, and no new higher-order training was performed. The image panel retains '
+        'all saved width-4096 raw-image points and controls, including hollow Logarithmic markers for inputs '
+        'entirely undeclared at setup; their dense comparison uses the same undeclared panel. '
+        'Hollows encode query scope, not storage. Dotted dense-pair lines show actual RMS, without the 3× '
+        'selection multiplier. Dashed frozen-feature lines retain their actual errors; markers count the '
+        'primal readout and frozen backbone, with equivalent executed dual storage in the source records.',
+        'Provenance: circle_width_scaling_20261009/adaptive and adaptive_16384; '
+        'cubic_log_comparison_20261008/sphere3_compression_larger and its recorded dependencies; '
+        'paper_figure_drafts_20261009/digits17_n4096 via the hash-checked feedback figure metrics; '
+        'paper_appendix_pilots_20261009/restored/digits_budget for the bounded image refinement. '
+        'All tasks use eight training and thirty declared query inputs. Harmonic/Logarithmic setup uses '
+        'offline full-horizon dense-rollout source construction; Logarithmic setup sees declared inputs '
+        'but never query labels. Circle/images use RK4 source step 0.125 with float64 coefficient setup. '
+        'Selection uses declared query errors, not an independent post-selection test. Retained storage '
+        'excludes common data, solver workspace and temporary offline source construction. These are '
+        'finite recorded Euler results without a new continuous-time or per-budget refinement certificate.']
+    (destination/'captions.txt').write_text('\n\n'.join(captions)+'\n')
+    save_json(destination/'metrics.json', dict(status='PASS', config=str(args.config),
+        config_sha256=sha(plan_bytes), plot_source_sha256=sha(Path(__file__).read_bytes()), factor=3,
+        provenance=provenance, figure2=selections, circle_fits=metrics['circle']['descriptive_log_power_fits'],
+        image_fit=None, figure3=dict(sphere=sphere_points, sphere_dense_summaries=sphere['displayed_dense_seed_summaries'],
+                                    images=image_points), captions=captions,
+        scope='saved-array/hash checks and restored figures; no new training or numerical certificate'))
+    print(json.dumps(dict(status='PASS', figures=str(destination), validated_metrics=str(validation))), flush=True)
+    return 0
+
+
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'restored-paper-plot':
+        sys.exit(restored_paper_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'feedback-pooled-transfer':
         sys.exit(feedback_pooled_transfer_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'feedback-scope-pilot':

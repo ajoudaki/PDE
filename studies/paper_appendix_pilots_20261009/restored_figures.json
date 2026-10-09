@@ -1,0 +1,20 @@
+{
+  "output": "data/generated/paper_appendix_pilots_20261009/restored/figures",
+  "circle_runs": [
+    "data/generated/circle_width_scaling_20261009/adaptive/n512",
+    "data/generated/circle_width_scaling_20261009/adaptive/n1024",
+    "data/generated/circle_width_scaling_20261009/adaptive/n2048",
+    "data/generated/circle_width_scaling_20261009/adaptive/n4096",
+    "data/generated/circle_width_scaling_20261009/adaptive/n8192",
+    "data/generated/circle_width_scaling_20261009/adaptive_16384/n16384"
+  ],
+  "digits_runs": [
+    "data/generated/paper_appendix_pilots_20261009/restored/digits_budget/n1024",
+    "data/generated/paper_appendix_pilots_20261009/restored/digits_budget/n2048",
+    "data/generated/paper_appendix_pilots_20261009/restored/digits_budget/n4096"
+  ],
+  "sphere_run": "data/generated/cubic_log_comparison_20261008/sphere3_compression_larger",
+  "image_metrics": "data/generated/paper_appendix_pilots_20261009/feedback/figures/metrics.json",
+  "image_metrics_sha256": "a7f095d46b6e4c074ebdba1bcbe7f149bd02b453ab1c2594b0ddf0daeed252d2",
+  "reproduce": "/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py restored-paper-plot --config studies/paper_appendix_pilots_20261009/restored_figures.json --out <fresh-output-root>/figures"
+}

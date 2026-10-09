@@ -1,0 +1,12 @@
+{
+  "runs": [
+    "data/generated/paper_figure_drafts_20261009/digits17_n1024",
+    "data/generated/paper_figure_drafts_20261009/digits17_n2048",
+    "data/generated/paper_figure_drafts_20261009/digits17_n4096"
+  ],
+  "devices": ["cuda:0", "cuda:1"],
+  "factor": 3.0,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 4,
+  "output": "data/generated/paper_appendix_pilots_20261009/restored/digits_budget"
+}

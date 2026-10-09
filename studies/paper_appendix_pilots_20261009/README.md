@@ -1,12 +1,101 @@
 # Bounded appendix figure pilots
 
-## Current status after the feedback fixes
+## Figure 2/3 restoration requested by the user
+
+The user has restored the primary constant-comparability criterion to 3x and
+asked for fine-grained budget measurement in Figure 2 and the original 3D-sphere
+task with higher-order compressions in Figure 3. The feedback attachment asked
+for finer, not coarser, budget measurement; the coarse grid was our pilot shortcut.
+The 1x feedback figures below remain a separately qualified stricter analysis.
+
+This is a correction/continuation of the same figure investigation. Explicitly
+authorized restoration inputs are the measured circle adaptive-search results
+under `circle_width_scaling_20261009` and the screenshot's exact sphere3 results
+under `cubic_log_comparison_20261008/sphere3_compression_larger`, including their
+recorded dependency chain, in addition to the existing assigned pilot inputs.
+No other study is an input. Root owns this record, bounded image-budget fits
+and Git; a scoped helper owns only the restored-figure rendering entry point
+in the existing paper script and its JSON manifest.
+
+Frozen plan: reuse the original adaptive circle measurements at widths512--16384
+and the saved sphere3 width4096 trajectories, including Legendre order12 and
+Harmonic/Logarithmic widths600/850 with source ranks44/65. Do not rerun or alter
+their seeds, query panels or resolution, and do not describe replotting as new
+replication. Preserve the absent Harmonic16384 crossing and every old failure.
+Figure3 keeps the image panel, all existing controls, and both learned and total
+storage disclosures; the sphere's dense medians remain conditional on its
+original fixed reference, not independently rebuilt compression repetitions.
+
+For the image Figure2 panel only, refine the existing raw8x8-digits1/7 runs at
+widths1024/2048/4096 using their exact saved dense pair, data and horizon. Keep
+Euler0.00625, sourceRK4 0.125, float32/float64 settings and selector condition16.
+Use factor3 for endpoint AND maximum-recorded RMS, width tolerance20%, at most
+four new candidates per family/width (no new dense fits, seeds or widths), and
+the existing refinement width-to-source-rank rule with the original maximum
+source basis. Failed numerical/constructor gates remain inconclusive, not
+accuracy failures. No budget interpolation is presented as a measured model.
+Per-fit/source cap120s, combined two-GPU queue cap10min. Stop at the cap or the
+local bracket; do not rescue an adverse result. Outputs go under `restored/`.
+Any logarithmic-power curve is an exploratory fit to measured passing budgets;
+three image widths alone do not identify an exponent. No theory or main-paper
+claim is changed by this plotting correction.
+
+### Bounded image refinement result
+
+The image refinement is complete. All nine requests at compact widths128,192,224
+failed the unchanged condition16 constructor before training; none is counted
+as an accuracy failure. Each width's source/reconstruction queue took4.7--6.1s.
+The original width256/rank8 Logarithmic witness remains the smallest constructed
+passing candidate, with82,184 learned and196,609 fixed scalars at all three
+dense widths. Endpoint/dense-pair ratios are0.64870,1.12383,2.15862; maximum-
+recorded ratios are0.88383,0.92967,2.75641. All meet the requested3x criterion.
+These are sufficient-size upper bounds, not resolved accuracy crossings, and
+no image exponent is fitted. Arrays from all three original runs are preserved
+bitwise, including their dense pairs and controls. No new dense training ran.
+
+This does not affect the original circle adaptive crossings: all available
+Harmonic/Logarithmic circle crossings were already bracketed to within20% in
+compact width (except the absent Harmonic16384 pass). Original raw arrays and
+protocols, including the failed Harmonic16384 candidates, remain unmodified.
+
+### Restored figures and reproduction
+
+Completed outputs are `restored/figures/figure2_storage.png` and
+`restored/figures/figure3_accuracy.png` in this study's generated-data directory,
+with PDF companions, full captions and hash-linked metrics. Figure2 restores
+the six-width adaptive circle measurements and the 3x criterion. Its descriptive
+learned-storage fits are `(log n)^3.50871` for Harmonic over five widths and
+`(log n)^5.19661` for Logarithmic over six; these are not asymptotic certificates.
+The image panel marks the unresolved lower-budget construction gates explicitly.
+
+Figure3 restores the original 3D-sphere task, Legendre order12 and compact
+widths600/850, preserving the original controls and conditional dense medians.
+At the largest plotted budgets, endpoint RMS is0.0000593923 for Legendre,
+0.000400495 for Logarithmic and0.00349048 for Harmonic, versus0.00338088 for
+the independent dense pair. Harmonic width600 has RMS0.00337697. Both figures
+show learned and total retained storage; fixed mixers are not omitted.
+Saved circle/sphere data were revalidated, not regenerated. These experiments
+still use full-horizon source rollouts, as the captions disclose.
+
+Reproduce the plots from the saved inputs with:
+
+```sh
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py restored-paper-plot --config studies/paper_appendix_pilots_20261009/restored_figures.json --out <fresh-output-root>/figures
+```
+
+The bounded image-refinement plan is `restored_digits_budget.json`. Final
+checks covered saved-array/hash consistency, syntax, manifest parsing and
+visual inspection of both figures. No numerical method or training routine
+was changed in this restoration.
+
+## Earlier feedback round (1x; retained separately)
 
 The feedback continuation below supersedes the original pilot's presentation,
 not its saved observations. Revised figures use a strict 1x dense-pair criterion,
 show learned AND total retained storage, distinguish censored minima and failures,
 and disclose the offline full-horizon source rollout. The original 3x choice was
-user-authorized, not a hidden implementation error; 1x is the new stricter test.
+user-authorized, not a hidden implementation error; 1x was that round's stricter
+test and is not the restored primary criterion above.
 
 Panel-span reduction now permits raw MNIST and dimension784 Logarithmic pilots.
 At dense width2048, the smallest tested passing MNIST model has58,920 learned
