@@ -1,5 +1,75 @@
 # Bounded appendix figure pilots
 
+## Uniform Harmonic setup,20 percent width refinement
+
+Completed: one common setup passed BOTH1x criteria at all six dense widths,
+with genuine failing/passing width brackets between12.3% and20%. No source,
+constructor, conditioning or runtime failures occurred. No per-width settings
+were changed after starting; all six Harmonic families were rebuilt fresh.
+
+| Dense width | Failing / passing compact width | Learned state | Fixed state | Endpoint ratio | Maximum-recorded ratio |
+|---:|---:|---:|---:|---:|---:|
+|512|224 /256|66,312|196,608|0.770137|0.305305|
+|1024|512 /575|332,358|991,875|0.499716|0.099797|
+|2048|512 /576|333,512|995,328|0.923844|0.475521|
+|4096|320 /384|148,616|442,368|0.944507|0.388069|
+|8192|384 /448|202,056|602,112|0.640507|0.507653|
+|16384|448 /512|263,688|786,432|0.413982|0.933902|
+
+Harmonic's descriptive learned-storage fit is
+`7169.20 (log n)^1.604529`, log-space RMS residual0.508307. Logarithmic remains
+`240.755 (log n)^3.167065`. Remaining nonmonotonic observations are retained;
+uniform configuration does not imply monotone single-seed sampled thresholds.
+The fit is not an asymptotic exponent or globally minimum-budget certificate.
+At16384 the Harmonic learned state is1018x smaller than dense learned state;
+including its fixed state the saving is256x. The plot reports learned state.
+
+Current figure:
+`data/generated/paper_appendix_pilots_20261009/harmonic_uniform_20pct/figures/plots/plot_001/storage_vs_width.png`.
+PDF, full metrics, captions and trajectory/error plots accompany it. Reproduce
+with `refine-budgets --plan studies/paper_appendix_pilots_20261009/harmonic_uniform_20pct.json`
+using a fresh output, followed by `scaling-plot --factor 1 --families harmonic
+logarithmic --fit-log-powers --runs <all six resulting nN directories> --out
+<fresh-figure-directory>`. No old repaired candidates are injected.
+
+28 requested compact fits completed; summed Euler time327.78s across both
+GPUs, about3.5 minutes batch wall time including one source compilation per
+width. Dense and Logarithmic trajectories were not rerun. Final check verified
+identical effective source settings, rank cap42, geometry hash/52 nodes,
+all new finite complete65-time trajectories, RMS ratios, storage and hashes;
+old non-Harmonic arrays were unchanged. The four repeated8192 trajectories
+are bitwise identical to the matching prior spatial25/rank42 setup. The plot's
+source/provenance checks passed and the figure was visually inspected.
+No extra seeds/step-refinement or further runs are pending.
+
+User requests correction of the mixed-order curve with ONE cheap common
+configuration. Freeze spatial25, temporal8, maximum source rank42 at EVERY
+dense width512--16384. This is the cheapest already demonstrated successful
+spatial choice at8192, not a claim of global setup optimality or guaranteed
+success everywhere. Sources use the same52 quadrature points, six dyadic
+time panels,97 observations, RK4 step0.125, float32 rollout/float64 fit,
+uniform64-candidate selector and condition cap16. Source is compiled once
+per width at rank42; use the same prefix rule
+`min(42,max(1,floor((q/4-17)/3)))` throughout. All other data/seeds/precision,
+Euler1/160,T32,65 recorded times and BOTH1x accuracy criteria stay fixed.
+
+Restart Harmonic independently at each width; do not inherit mixed-order
+failures, passing widths or constructor limits. This deliberately reexecutes
+8192 under the same common plan rather than mixing its finer old bracket.
+Reuse dense/Logarithmic predictions unchanged. Start compact width256,
+double until passing up to `min(n-1,2048)`, then bisect to a local20% width
+bracket. At most8 requests per width,120s per source/fit,10-minute batch
+cap across two GPUs. Stop and report any missing/construction-limited bracket,
+without per-width source tuning, seed changes, relaxing1x, or adding a grid.
+The uniform setup removes a specific comparison confound; monotonicity or
+success is not imposed on the observations. Render the actual outcomes and
+descriptively refit; no additional campaign. Root owns code/config/runs/notes,
+with scoped read-only support checking the common configuration.
+
+Plan: `harmonic_uniform_20pct.json`; generated output uses the same name.
+This uniform run supersedes mixed-order fits as the current Harmonic width
+scaling comparison, while preserving all earlier evidence below.
+
 ## Harmonic width refinement to5 percent
 
 Completed: five accurate failing/passing brackets are narrower than5%; the

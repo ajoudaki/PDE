@@ -9850,6 +9850,8 @@ def _budget_search_worker(out, device_name, plan):
     seed, n = config['seeds'][0], config['model']['width']
     source_max_ranks = plan.get('source_max_ranks_by_width', {}).get(
         str(n), plan.get('source_max_ranks', {}))
+    if plan.get('restart_harmonic'):
+        source_max_ranks = dict(source_max_ranks, harmonic=plan['restart_harmonic']['source_max_rank'])
     path = out/manifest['repetitions'][str(seed)]
     report = json.loads((path/'report.json').read_text())
     if sha((path/'trajectories.npz').read_bytes()) != report['trajectories_sha256']:
@@ -9909,7 +9911,10 @@ def _budget_search_worker(out, device_name, plan):
         source, floor, setup = None, None, None
         setup_dense, setup_inputs, setup_queries = dense, inputs, queries
         input_basis, panel_info = None, None
-        expansion = plan.get('expansion', {}).get(family, {})
+        expansion = dict(plan.get('expansion', {}).get(family, {}))
+        if expansion and plan.get('cap_below_dense', False):
+            expansion['maximum'] = min(expansion['maximum'], n-1)
+            expansion['start'] = min(expansion['start'], expansion['maximum'])
         for _ in range(plan.get('max_new_by_width', {}).get(str(n), plan['max_new_per_family'])):
             observations = observed(family)
             q, search['bracket'] = _budget_search_next(observations, plan['width_tolerance'], **expansion)
@@ -10199,6 +10204,13 @@ def budget_search_main(argv):
     if any(not isinstance(value, int) or isinstance(value, bool) or not 1 <= value <= 8
            for value in plan.get('max_new_by_width', {}).values()):
         raise ValueError('Per-width request caps must be integers from1 to8')
+    fresh_harmonic = plan.get('restart_harmonic')
+    if fresh_harmonic is not None:
+        if (plan.get('harmonic_probes') or plan.get('source_max_ranks_by_width')
+                or set(fresh_harmonic) != {'spatial_degree', 'time_degree', 'source_max_rank'}
+                or any(not isinstance(value, int) or isinstance(value, bool) or value < 1
+                       for value in fresh_harmonic.values())):
+            raise ValueError('Fresh Harmonic setup must specify one positive common order/rank configuration')
     for family, expansion in plan.get('expansion', {}).items():
         if family not in ('legendre', 'harmonic', 'logarithmic') or not (
                 1 <= expansion['start'] <= expansion['maximum']):
@@ -10222,6 +10234,20 @@ def budget_search_main(argv):
                 or not all(report['runs'].get(key, {}).get('complete') for key in ('reference', f'dense_{n}'))):
             raise ValueError('Missing or inconsistent original paired trajectories')
         replacement = plan.get('harmonic_probes', {}).get(str(n))
+        if fresh_harmonic is not None:
+            removed = [name for name, model in report['models'].items() if model['family'] == 'harmonic']
+            for key in ('models', 'runs', 'errors', 'skipped'):
+                report[key] = {name: value for name, value in report.get(key, {}).items()
+                               if not name.startswith('harmonic_')}
+            report.get('budget_search', {}).pop('harmonic', None)
+            report.get('sources', {}).pop('harmonic', None)
+            report.pop('harmonic_source_replacement', None)
+            method = config['methods']['non_oblivious']['harmonic']
+            method.update(spatial_degree=fresh_harmonic['spatial_degree'], budgets=[])
+            method.setdefault('setup', {})['time_degree'] = fresh_harmonic['time_degree']
+            report['harmonic_fresh_setup'] = dict(settings=fresh_harmonic,
+                excluded_old_candidates=removed,
+                scope='Fresh common source configuration; no inherited Harmonic accuracy or constructor brackets')
         if replacement is not None:
             # A changed spatial basis invalidates old width failures. Start this
             # family's bracket from the checked repaired witness, not old orders.
