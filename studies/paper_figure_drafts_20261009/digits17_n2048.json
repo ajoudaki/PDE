@@ -1,0 +1,99 @@
+{
+  "dataset": {
+    "name": "digits",
+    "dimension": 64,
+    "train_samples": 8,
+    "test_samples": 30,
+    "undeclared_samples": 30,
+    "seed": 47,
+    "digit_pair": [
+      1,
+      7
+    ]
+  },
+  "model": {
+    "width": 2048,
+    "depth": 2,
+    "activation": "tanh"
+  },
+  "seeds": [
+    902
+  ],
+  "training": {
+    "step": 0.00625,
+    "horizon": 32,
+    "record_every": 80,
+    "dtype": "float32"
+  },
+  "methods": {
+    "oblivious": {
+      "dense": {
+        "widths": [
+          2048
+        ],
+        "match_compressions": false
+      },
+      "legendre": {
+        "orders": [
+          1,
+          2,
+          4
+        ]
+      },
+      "low_rank": {
+        "ranks": [],
+        "match_compressions": false
+      },
+      "frozen_features": {
+        "enabled": false,
+        "plot": "dashed"
+      }
+    },
+    "non_oblivious": {
+      "setup": {
+        "initializer": "dense_rollout",
+        "rollout_solver": "rk4",
+        "rollout_step": 0.125,
+        "rollout_dtype": "float32",
+        "coefficient_dtype": "float64",
+        "time_degree": 8,
+        "selection_trials": 64,
+        "condition_limit": 16
+      },
+      "harmonic": {
+        "budgets": [],
+        "spatial_degree": 5
+      },
+      "logarithmic": {
+        "budgets": [
+          {
+            "width": 256,
+            "source_rank": 8
+          },
+          {
+            "width": 384,
+            "source_rank": 16
+          },
+          {
+            "width": 512,
+            "source_rank": 32
+          }
+        ],
+        "test_inputs_at_setup": true
+      }
+    }
+  },
+  "execution": {
+    "devices": "cuda:1",
+    "seconds_per_fit": 120,
+    "dense_seconds_per_fit": 120,
+    "reuse_completed": true,
+    "stop_after_match": false,
+    "tf32": false,
+    "output": "data/generated/paper_figure_drafts_20261009/digits17_n2048"
+  },
+  "plots": {
+    "aggregate": "mean",
+    "spread": "none"
+  }
+}
