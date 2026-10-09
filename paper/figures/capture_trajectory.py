@@ -419,7 +419,7 @@ class DeepHarmonic(DeepDense):
                 if selection[-1]['embedding_max'] > condition_limit:
                     raise ArithmeticError(f'DeepHarmonic layer {layer+1} source condition '
                         f'{selection[-1]["embedding_max"]:.9g} exceeds {condition_limit:g} '
-                        f'after {selection_trials} candidates')
+                        f'after {selection[-1]["selection_trials"]} {selection_strategy} candidates')
                 bases.append(basis)
                 selected.append(basis[selection[0]])
                 selections.append(selection)
@@ -10195,6 +10195,153 @@ def harmonic_order_probe_main(argv):
     return 0
 
 
+@torch.no_grad()
+def logarithmic_order_probe_main(argv):
+    """Bounded source/selector repair against a saved coupled dense pair."""
+    parser = argparse.ArgumentParser(description=logarithmic_order_probe_main.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    parser.add_argument('--case', required=True)
+    parser.add_argument('--device', default='cuda:0')
+    args = parser.parse_args(argv)
+    config = json.loads(args.config.read_text())
+    request = config['cases'][args.case]
+    if (not 1 <= len(request['widths']) <= 2 or len(set(request['widths'])) != len(request['widths'])
+            or any(not isinstance(q, int) or q < 1 for q in request['widths'])
+            or request['widths'] != sorted(request['widths'], reverse=True)
+            or not isinstance(request['source_rank'], int) or request['source_rank'] < 1):
+        raise ValueError('Expected one or two decreasing positive widths and a positive source rank')
+    root = Path(config['reference_run'])
+    manifest = json.loads((root/'run.json').read_text())
+    original = manifest['config']
+    seed, architecture, training = original['seeds'][0], original['model'], original['training']
+    path = root/manifest['repetitions'][str(seed)]
+    old = json.loads((path/'report.json').read_text())
+    archive = (path/'trajectories.npz').read_bytes()
+    if sha(archive) != old['trajectories_sha256']:
+        raise ValueError('Saved dense-pair archive hash mismatch')
+    dense_name = f"dense_{architecture['width']}"
+    with np.load(path/'trajectories.npz', allow_pickle=False) as saved:
+        arrays = {key: saved[key] for key in ('train_inputs', 'train_labels', 'query_inputs',
+            'reference', 'times_reference', dense_name, 'times_'+dense_name)}
+    for name in ('reference', dense_name):
+        if not old['runs'][name]['complete'] or not np.array_equal(arrays['times_'+name], arrays['times_reference']):
+            raise ValueError('Incomplete or mismatched dense pair')
+    out = Path(config['output'])/args.case
+    out.mkdir(parents=True, exist_ok=False)
+    (out/'source.py').write_bytes(Path(__file__).read_bytes())
+    save_json(out/'config.json', config)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = original['execution']['tf32']
+    torch.backends.cudnn.allow_tf32 = original['execution']['tf32']
+    device = torch.device(args.device)
+    setup = _experiment_setup(original, 'logarithmic')
+    setup.update(time_degree=config['time_degree'], selection_strategy=config['selection_strategy'])
+    report = dict(case=args.case, request=request, config=config, source_sha256=sha(Path(__file__).read_bytes()),
+        reference_run=str(root.resolve()), original_report_sha256=sha((path/'report.json').read_bytes()),
+        original_trajectories_sha256=sha(archive), training=training, architecture=architecture,
+        seeds={key: old['seeds'][key] for key in ('reference', 'logarithmic_source', 'logarithmic_selector')},
+        setup=setup, candidates=[], status='inconclusive', command=sys.argv, cwd=str(Path.cwd()),
+        environment=dict(python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+            device=str(device), hardware=torch.cuda.get_device_name(device), threads=1,
+            tf32=original['execution']['tf32']),
+        scope='Finite Euler pilot; full-horizon empirical rollout sources; declared query inputs only; '
+              'pass requires worst-recorded test RMS AND sampled full-panel maximum ratios <=1; '
+              'endpoint is diagnostic; no certified compiler or all-time claim')
+    started = time.monotonic()
+
+    def persist():
+        np.savez_compressed(out/'trajectories.npz', **arrays)
+        report.update(seconds=time.monotonic()-started,
+                      trajectories_sha256=sha((out/'trajectories.npz').read_bytes()))
+        save_json(out/'report.json', report)
+
+    persist()
+    try:
+        inputs, labels, queries = [torch.as_tensor(arrays[key], device=device) for key in
+                                  ('train_inputs', 'train_labels', 'query_inputs')]
+        dense = DeepDense(architecture['width'], inputs.shape[1], architecture['depth'],
+                          architecture['activation'], seed, device)
+        hashes = [array_sha(v.cpu().numpy()) for v in dense.initial_state]
+        if hashes != old['reference_initial_state_sha256']:
+            raise ArithmeticError('Regenerated dense initialization differs')
+        report['initial_state_sha256'] = hashes
+        sources, info = cubic_rollout_sources(dense, inputs, labels, queries, training['horizon'],
+            seconds=config['seconds_per_fit'], seed=old['seeds']['logarithmic_source'],
+            ranks=(request['source_rank'],), partitions=('new',), step=setup['rollout_step'],
+            time_degree=setup['time_degree'], rollout_dtype=setup['rollout_dtype'],
+            coefficient_dtype=setup['coefficient_dtype'])
+        source = sources['new'][request['source_rank']]
+        report['source'] = info
+        report['source_hashes'] = {key: [array_sha(v.cpu().numpy()) for v in values]
+                                   for key, values in source.items()}
+        reference = arrays['reference'].astype(float)
+        dense_error = arrays[dense_name].astype(float)-reference
+        m = len(labels)
+        dense_rms = np.sqrt(np.mean(dense_error[:, m:]**2, axis=1))
+        dense_max = float(np.abs(dense_error).max())
+        if min(dense_rms[-1], dense_rms.max(), dense_max) <= 0:
+            raise ArithmeticError('Zero dense-pair denominator')
+        report['dense_pair'] = dict(endpoint_rms=float(dense_rms[-1]),
+            worst_recorded_rms=float(dense_rms.max()), panel_max=dense_max)
+        for q in request['widths']:
+            result = dict(width=q, source_rank=request['source_rank'], status='inconclusive')
+            report['candidates'].append(result)
+            try:
+                t0 = time.monotonic()
+                model = DeepHarmonic(dense, inputs, labels, source, q,
+                    selection_seed=old['seeds']['logarithmic_selector'],
+                    readout_floor=old['sources']['logarithmic']['readout_floor'],
+                    selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'],
+                    selection_strategy=setup['selection_strategy'])
+                if any(v['truncated'] for v in model.diagnostics['source_truncations']):
+                    raise ArithmeticError('Extra constructor source truncation is not allowed')
+                synchronize(device)
+                result.update(learned=sum(v.numel() for v in model.initial_state), fixed=int(model.fixed_scalars),
+                    assembly_seconds=time.monotonic()-t0, diagnostics=model.diagnostics)
+                result['total'] = result['learned']+result['fixed']
+                if result['assembly_seconds'] > config['seconds_per_fit']:
+                    raise TimeoutError('Assembly exceeded the per-fit cap')
+                dtype = getattr(torch, training['dtype'])
+                _experiment_move(model, device, dtype)
+                state, prediction, run = integrate_euler(model, inputs.to(dtype), labels.to(dtype),
+                    torch.cat((inputs, queries)).to(dtype), training['step'], config['seconds_per_fit'],
+                    horizon=training['horizon'], max_steps=math.ceil(training['horizon']/training['step']),
+                    observation_every=training['record_every'])
+                del model, state
+                arrays[f'q{q}'], arrays[f'times_q{q}'] = prediction, np.asarray(run['times'])
+                result['run'] = run
+                if (not run['complete'] or not np.isfinite(prediction).all()
+                        or prediction.shape != reference.shape
+                        or not np.array_equal(arrays[f'times_q{q}'], arrays['times_reference'])):
+                    raise ArithmeticError('Incomplete/nonfinite trajectory or mismatched observation grid')
+                error = prediction.astype(float)-reference
+                rms = np.sqrt(np.mean(error[:, m:]**2, axis=1))
+                result['metrics'] = dict(endpoint_rms=float(rms[-1]), worst_recorded_rms=float(rms.max()),
+                    endpoint_ratio=float(rms[-1]/dense_rms[-1]),
+                    worst_recorded_ratio=float(rms.max()/dense_rms.max()),
+                    panel_max=float(np.abs(error).max()), panel_max_ratio=float(np.abs(error).max()/dense_max))
+                result['status'] = ('pass' if max(result['metrics']['worst_recorded_ratio'],
+                                                 result['metrics']['panel_max_ratio']) <= 1 else 'fail')
+            except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
+                result['reason'] = f'{type(error).__name__}: {error}'
+            persist()
+            print(json.dumps(dict(event='logarithmic_probe', case=args.case, width=q, status=result['status'],
+                metrics=result.get('metrics'), reason=result.get('reason'))), flush=True)
+            if result['status'] != 'pass':
+                break
+        passing = [v for v in report['candidates'] if v['status'] == 'pass']
+        report['selected'] = min(passing, key=lambda v: v['learned']) if passing else None
+        report['status'] = 'pass' if passing else report['candidates'][-1]['status']
+    except (ValueError, RuntimeError, ArithmeticError, TimeoutError, AssertionError) as error:
+        report.update(status='inconclusive', reason=f'{type(error).__name__}: {error}')
+    finally:
+        persist()
+    print(json.dumps(dict(event='logarithmic_probe_done', case=args.case, status=report['status'],
+                         seconds=report['seconds'], reason=report.get('reason'))), flush=True)
+    return 0
+
+
 def budget_search_main(argv):
     """Reuse dense pairs and adaptively refine one-seed compression budgets."""
     import copy
@@ -12653,6 +12800,236 @@ def budget_seed_plot(argv):
     return 0
 
 
+def trajectory_budget_plot(argv):
+    """Rescore saved paired Digits trajectories with no separate endpoint test."""
+    import csv
+    import shlex
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import NullFormatter
+    parser = argparse.ArgumentParser(description=trajectory_budget_plot.__doc__)
+    parser.add_argument('--metrics', nargs=2, type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    inputs = [json.loads(path.read_text()) for path in args.metrics]
+    require({item['family'] for item in inputs} == {'legendre', 'logarithmic'},
+            'Supply one Legendre and one Logarithmic audit')
+    audits = {item['family']: item for item in inputs}
+    indexed = {family: {(row['width'], row['seed']): row for row in audit['individuals']}
+               for family, audit in audits.items()}
+    keys = set(indexed['legendre'])
+    widths, seeds = sorted({n for n, _ in keys}), sorted({seed for _, seed in keys})
+    require(len(widths) == 6 and len(seeds) == 3 and len(keys) == 18
+            and keys == {(n, seed) for n in widths for seed in seeds}
+            and keys == set(indexed['logarithmic'])
+            and all(len(audit['individuals']) == 18 for audit in inputs),
+            'Expected the same six widths and three seeds without duplicate rows')
+    left, right = audits['legendre'], audits['logarithmic']
+    require(all(left['common'][key] == right['common'][key]
+                for key in ('dataset', 'training', 'model', 'data_sha256', 'tf32'))
+            and left['recorded_times'] == right['recorded_times'],
+            'Data, model, precision, training or recorded times differ')
+    require(left['common']['dataset']['name'] == 'digits'
+            and left['common']['dataset']['digit_pair'] == [1, 7]
+            and left['common']['dataset']['train_samples'] == 8
+            and left['common']['dataset']['test_samples'] == 30
+            and len(left['recorded_times']) == 65,
+            'Expected Digits 1 vs 7, eight training and thirty query inputs, 65 times')
+    require(all(order == dict(time_degree=8, source_max_rank=32)
+                for order in right['source_orders_by_width'].values()),
+            'Expected the unchanged Logarithmic degree-eight, rank-32 source cap')
+    for key in sorted(keys):
+        a, b = indexed['legendre'][key], indexed['logarithmic'][key]
+        require(all(field in a and field in b and a[field] == b[field] for field in
+                    ('reference_initial_state_sha256', 'paired_trajectory_sha256', 'dense_pair')),
+                f'Paired initialization, trajectory hashes or dense benchmarks differ: {key}')
+
+    rows = []
+    for family in ('legendre', 'logarithmic'):
+        for key in sorted(keys):
+            old = indexed[family][key]
+            n, seed = key
+            root = Path(old['root'])
+            manifest = json.loads((root/'run.json').read_text())
+            path = (root/manifest['repetitions'][str(seed)]).resolve()
+            require(path.is_relative_to(root.resolve()) and path != root.resolve(),
+                    f'Invalid repetition path: {root}')
+            report = json.loads((path/'report.json').read_text())
+            archive = path/'trajectories.npz'
+            require(sha(archive.read_bytes()) == old['trajectories_sha256']
+                    == report['trajectories_sha256'], f'Changed trajectory archive: {root}')
+            require(sha((root/'source.py').read_bytes()) == old['source_sha256']
+                    == manifest['source_sha256'] == report['source_sha256']
+                    and report['reference_initial_state_sha256'] == old['reference_initial_state_sha256'],
+                    f'Changed producer or initialization: {root}')
+            row = dict(family=family, width=n, seed=seed, root=str(root),
+                trajectories_sha256=old['trajectories_sha256'], source_sha256=old['source_sha256'],
+                paired_trajectory_sha256=old['paired_trajectory_sha256'],
+                reference_initial_state_sha256=old['reference_initial_state_sha256'],
+                prior_search_status=old['status'], prior_joint_selected=old['selected'],
+                candidates=[])
+            with np.load(archive, allow_pickle=False) as arrays:
+                require(all(array_sha(arrays[name]) == value
+                            for name, value in left['common']['data_sha256'].items()),
+                        f'Changed data arrays: {root}')
+                times = arrays['times_reference']
+                require(np.array_equal(times, left['recorded_times']), f'Changed time grid: {root}')
+                m = len(arrays['train_labels'])
+                shape = (len(times), m+len(arrays['query_inputs']))
+                require(m == 8 and shape == (65, 38), f'Unexpected scored panel: {root}')
+
+                def prediction(name):
+                    require(report['runs'].get(name, {}).get('complete')
+                            and arrays[name].shape == shape and np.isfinite(arrays[name]).all()
+                            and np.array_equal(arrays['times_'+name], times),
+                            f'Incomplete or invalid trajectory: {root}/{name}')
+                    return arrays[name].astype(float)
+
+                require(all(array_sha(arrays[name]) == value
+                            for name, value in old['paired_trajectory_sha256'].items()),
+                        f'Changed paired trajectories: {root}')
+                reference = prediction('reference')
+                dense_error = prediction(f'dense_{n}')-reference
+                dense_rms = np.sqrt(np.mean(dense_error[:, m:]**2, axis=1))
+                dense_panel_max = float(np.abs(dense_error).max())
+                require(dense_rms[-1] > 0 and dense_rms.max() > 0 and dense_panel_max > 0,
+                        f'Zero dense benchmark: {root}')
+                require(np.allclose([dense_rms[-1], dense_rms.max()],
+                    [old['dense_pair']['endpoint_rms'], old['dense_pair']['worst_recorded_rms']],
+                    rtol=1e-12, atol=0), f'Changed dense RMS benchmark: {root}')
+                row['dense_pair'] = dict(old['dense_pair'], panel_max_abs=dense_panel_max)
+                require({name for name, model in report['models'].items() if model['family'] == family}
+                        <= {point['name'] for point in old['candidates']},
+                        f'Prior audit omitted a saved candidate: {root}')
+                for point in old['candidates']:
+                    candidate = dict(point, prior_joint_status=point['status'],
+                        status='inconclusive', panel_status='inconclusive')
+                    if report['runs'].get(point['name'], {}).get('complete'):
+                        error = prediction(point['name'])-reference
+                        errors = np.sqrt(np.mean(error[:, m:]**2, axis=1))
+                        metrics = np.array([errors[-1], errors.max()])
+                        require(np.allclose(metrics, [point['endpoint_rms'], point['worst_recorded_rms']],
+                                            rtol=1e-12, atol=0),
+                                f'Prior candidate RMS differs: {root}/{point["name"]}')
+                        require(point['status'] == ('pass' if np.all(
+                            metrics <= [dense_rms[-1], dense_rms.max()]) else 'fail'),
+                            f'Prior joint status differs: {root}/{point["name"]}')
+                        model = report['models'][point['name']]
+                        require(point['learned'] == model['moving']
+                                and point['fixed'] == model['fixed']
+                                and point['total'] == point['learned']+point['fixed'] == model['total'],
+                                f'Prior storage differs: {root}/{point["name"]}')
+                        panel_max = float(np.abs(error).max())
+                        candidate.update(status='pass' if errors.max() <= dense_rms.max() else 'fail',
+                            endpoint_rms=float(errors[-1]), worst_recorded_rms=float(errors.max()),
+                            endpoint_ratio=float(errors[-1]/dense_rms[-1]),
+                            worst_recorded_ratio=float(errors.max()/dense_rms.max()),
+                            panel_max_abs=panel_max, panel_max_ratio=panel_max/dense_panel_max,
+                            panel_status='pass' if panel_max <= dense_panel_max else 'fail')
+                    else:
+                        require(point['status'] == 'inconclusive',
+                                f'Previously scored trajectory is incomplete: {root}/{point["name"]}')
+                    row['candidates'].append(candidate)
+            for field, status in (('selected', 'status'), ('panel_selected', 'panel_status')):
+                passing = [point for point in row['candidates'] if point[status] == 'pass']
+                row[field] = min(passing, key=lambda point: (point['learned'], point['q'], point['name'])) if passing else None
+            prior = row['prior_joint_selected']
+            joint = [point for point in row['candidates'] if point['prior_joint_status'] == 'pass']
+            require(prior is not None and joint and prior['name'] == min(
+                joint, key=lambda point: (point['learned'], point['q'], point['name']))['name'],
+                f'Prior joint selection differs: {root}')
+            row['deltas_from_prior_joint'] = {field: dict(
+                q=row[field]['q']-prior['q'], learned=row[field]['learned']-prior['learned'],
+                learned_fraction=row[field]['learned']/prior['learned']-1)
+                if row[field] else None for field in ('selected', 'panel_selected')}
+            rows.append(row)
+    groups = {}
+    for selection in ('prior_joint_selected', 'selected', 'panel_selected'):
+        groups[selection] = {}
+        for family in ('legendre', 'logarithmic'):
+            groups[selection][family] = []
+            for n in widths:
+                values = [row[selection]['learned'] for row in rows
+                          if row['family'] == family and row['width'] == n and row[selection]]
+                groups[selection][family].append(dict(width=n, available=len(values), learned_values=values,
+                    mean=float(np.mean(values)) if len(values) == len(seeds) else None,
+                    median=float(np.median(values)) if len(values) == len(seeds) else None))
+    caption = ('Digits 1 vs 7, six dense widths, three initialization seeds and unchanged paired dense '
+        'trajectories. Selection minimizes learned storage among saved completed candidates whose maximum '
+        'over 65 recorded times of RMS error on 30 query inputs is at most the corresponding dense-pair '
+        'maximum RMS. There is no separate endpoint test. Solid curves show arithmetic mean and median '
+        'of selected learned storage; faint curves show individual seeds. These are smallest tested '
+        'passing states, not new searches or certified global minima. Fixed storage and offline source '
+        'costs are additional. Logarithmic sources retain temporal degree 8 and maximum rank 32. '
+        'No model was retrained and no exponent was fitted. The separately recorded panel diagnostic '
+        'compares maximum absolute error over all 65 times and 38 training-plus-query inputs to the '
+        'same dense-pair maximum; its independently normalized criterion is not equivalent to RMS. '
+        'Neither recorded-grid criterion certifies continuous time or unseen inputs.\n')
+    args.out.mkdir(parents=True, exist_ok=False)
+    source = Path(__file__).read_bytes()
+    (args.out/'source.py').write_bytes(source)
+    provenance = dict(argv=['trajectory-budget-plot', *argv], cwd=os.getcwd(),
+        source_path=str(Path(__file__).resolve()), source_sha256=sha(source), python=sys.version,
+        numpy=np.__version__, matplotlib=matplotlib.__version__,
+        command=shlex.join([sys.executable, '-B', str(Path(__file__).resolve()), 'trajectory-budget-plot', *argv]))
+    save_json(args.out/'config.json', provenance)
+    save_json(args.out/'metrics.json', dict(scope=caption.strip(), widths=widths, seeds=seeds,
+        primary_criterion='max_time query_RMS / max_time dense_pair_query_RMS <= 1; no endpoint test',
+        diagnostic_criterion='max_time_and_panel absolute_error / max_time_and_panel dense_pair_absolute_error <= 1',
+        inputs=[dict(path=str(path.resolve()), sha256=sha(path.read_bytes())) for path in args.metrics],
+        common=left['common'], recorded_times=left['recorded_times'],
+        logarithmic_source_orders_by_width=right['source_orders_by_width'],
+        paired_checks='Exact paired trajectory and initialization hashes, data/model/training/time contracts; '
+            'every archive/producer hash and every completed candidate RMS recomputed against prior audit',
+        individuals=rows, groups=groups, provenance=provenance, exponent_fit=None, training_rerun=False))
+    (args.out/'captions.txt').write_text(caption)
+    with (args.out/'selection_table.csv').open('w', newline='') as stream:
+        writer = csv.writer(stream)
+        writer.writerow(['family', 'width', 'seed', 'prior_joint_q', 'prior_joint_learned',
+            'trajectory_rms_q', 'trajectory_rms_learned', 'trajectory_rms_ratio',
+            'selected_panel_max_ratio', 'panel_max_q', 'panel_max_learned', 'learned_delta'])
+        for row in rows:
+            prior, selected, panel = row['prior_joint_selected'], row['selected'], row['panel_selected']
+            writer.writerow([row['family'], row['width'], row['seed'], prior['q'], prior['learned'],
+                *([selected['q'], selected['learned'], selected['worst_recorded_ratio'],
+                   selected['panel_max_ratio']] if selected else [None]*4),
+                *([panel['q'], panel['learned']] if panel else [None]*2),
+                selected['learned']-prior['learned'] if selected else None])
+    figure, axes = plt.subplots(1, 2, figsize=(10.5, 4.6), sharex=True, sharey=True)
+    for axis, statistic in zip(axes, ('mean', 'median')):
+        for family, color, marker in (('legendre', '#185b84', 's'), ('logarithmic', '#228833', 'o')):
+            points = {(row['width'], row['seed']): row['selected'] for row in rows if row['family'] == family}
+            for seed in seeds:
+                axis.plot(widths, [points[n, seed]['learned'] if points[n, seed] else np.nan for n in widths],
+                          color=color, alpha=.20, linewidth=.9)
+            axis.plot(widths, [group[statistic] if group[statistic] is not None else np.nan
+                for group in groups['selected'][family]], color=color, marker=marker,
+                linewidth=2, markersize=5, label=family.capitalize())
+        axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=statistic.capitalize())
+        axis.set_xticks(widths, [str(n) for n in widths])
+        axis.xaxis.set_minor_formatter(NullFormatter())
+        axis.tick_params(axis='x', labelsize=8)
+        axis.grid(alpha=.2)
+        axis.legend(fontsize=9, frameon=False)
+    axes[0].set_ylabel('Learned scalars')
+    figure.suptitle('Digits 1 vs 7')
+    figure.text(.02, .02, 'Trajectory RMS only; smallest tested passing states. Fixed storage excluded.', fontsize=9)
+    figure.tight_layout(rect=(0, .06, 1, .95))
+    for extension in ('png', 'pdf'):
+        figure.savefig(args.out/f'learned_state_comparison.{extension}', dpi=180)
+    plt.close(figure)
+    print(json.dumps(dict(event='trajectory_budget_plot', output=str(args.out),
+        changed_selections=sum(row['selected']['name'] != row['prior_joint_selected']['name']
+                               for row in rows if row['selected']))), flush=True)
+    return 0
+
+
 def budget_comparison_plot(argv):
     """Compare paired six-width, three-seed Legendre and Logarithmic audits."""
     import matplotlib
@@ -12770,6 +13147,10 @@ def budget_comparison_plot(argv):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'logarithmic-order-probe':
+        sys.exit(logarithmic_order_probe_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'trajectory-budget-plot':
+        sys.exit(trajectory_budget_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'budget-comparison-plot':
         sys.exit(budget_comparison_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'budget-seed-plot':

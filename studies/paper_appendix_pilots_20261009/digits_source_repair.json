@@ -1,0 +1,11 @@
+{
+  "reference_run": "data/generated/paper_appendix_pilots_20261009/digits_logarithmic_three_seeds/seed1903/n16384",
+  "output": "data/generated/paper_appendix_pilots_20261009/digits_trajectory_repair/pilots",
+  "seconds_per_fit": 120,
+  "time_degree": 8,
+  "selection_strategy": "qr_leverage",
+  "cases": {
+    "rank32": {"source_rank": 32, "widths": [384, 320]},
+    "rank64": {"source_rank": 64, "widths": [512, 384]}
+  }
+}

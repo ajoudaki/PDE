@@ -1,5 +1,121 @@
 # Bounded appendix figure pilots
 
+## Strategic trajectory-contract and source repair
+
+### Outcome
+
+The reporting correction is implemented; an algorithmic storage improvement
+is **not established**. No further runs remain in this bounded pilot.
+
+Re-scoring all saved candidates against maximum-recorded test RMS alone
+changes four of eighteen Logarithmic selections. At n16384, mean learned
+storage drops from688882.667 to320029.333 and median from369224 to295432.
+This is a changed benchmark, not an improved initializer. The selected widths
+are576,512,512 for seeds1901,1902,1903; Legendre selections do not change.
+The independently scored full-panel maximum criterion selects640,512,1024,
+with mean620594.667 and median451208 learned scalars. In particular, two of
+the smaller RMS-selected models miss that panel criterion (ratios1.223279
+and1.227561); RMS must not be presented as the paper's supremum guarantee.
+All counts are learned state; fixed storage3q^2+1 is additional.
+
+Both source-repair pilots terminated at the unchanged condition16 constructor
+gate, before compressed training:
+
+| Source rank | Compact width | First-layer condition | Source seconds | Total seconds |
+|---:|---:|---:|---:|---:|
+|32|384|38.1231155|43.98|48.72|
+|64|512|116.53022|43.79|49.18|
+
+The two cases ran concurrently on the two GPUs, taking about one minute,
+with no new scored dense trajectories. Each used one deterministic
+QR/leverage selection, not64 random attempts: the inherited exception text
+incorrectly printed the uniform-selector trial setting64. The reporting-only
+message is now corrected; original reports/source snapshots are preserved.
+Neither conditional smaller-width branch nor either confirmation branch
+was triggered. These are inconclusive accuracy tests, not observed RMS
+failures. Increasing source rank did reduce source holdout RMS (activation
+fields roughly0.034 to0.011--0.012, backward fields0.005--0.008 to
+0.00032--0.00062), but that alone did not produce a usable smaller model.
+Coordinate conditioning remains a bottleneck of these attempted initializers.
+No gate was relaxed, no extra source truncation used, and no rescue sweep run.
+
+Root checked persisted outcomes, raw source diagnostics, counts and plot;
+scoped support checked exact paired hashes, labels, Euler grid, ratios and
+actual retained-array counts. An independent scalar arithmetic check agrees
+with all105 completed saved candidates and both re-selection rules. Syntax,
+CLI and scoped whitespace checks pass. These checks do not reproduce a
+successful repair: none was obtained. The bounded-experiment workflow kept
+benchmark changes separate from algorithm changes and stopped the failed
+branches. Full-horizon rollout sources remain empirical, not init-only
+certified sources; no new asymptotic claim or exponent fit is made.
+
+Evidence: the re-scored PNG/PDF, `metrics.json`, `selection_table.csv`, exact
+command and source snapshot are in
+`data/generated/paper_appendix_pilots_20261009/digits_logarithmic_three_seeds/trajectory_rms_only/`.
+The two repair reports, source diagnostics, source snapshots, configs and
+unchanged dense arrays are in `digits_trajectory_repair/pilots/rank32/` and
+`digits_trajectory_repair/pilots/rank64/` under the same generated-study root.
+Reproduce scoring with `capture_trajectory.py trajectory-budget-plot
+--metrics <legendre_figures/metrics.json> <logarithmic_figures/metrics.json>
+--out <fresh-directory>`. Reproduce a pilot with `capture_trajectory.py
+logarithmic-order-probe --config
+studies/paper_appendix_pilots_20261009/digits_source_repair.json
+--case rank32 --device cuda:0` (or rank64/cuda:1), changing its output to a
+fresh directory. Actual commands used `/home/amir/miniconda3/bin/python -B -u`
+and `timeout240`; both exited0 with status explicitly inconclusive.
+
+### Frozen design
+
+User asks for the highest storage reduction per effort, not another sweep.
+Continue the same digits comparison. First rescore ALL saved Legendre and
+Logarithmic candidates against maximum-recorded TEST RMS alone, dropping the
+extra separately normalized endpoint requirement. Keep old joint results
+intact, record the endpoint as a diagnostic, and independently report the
+maximum absolute discrepancy over ALL38 panel inputs and65 times. The latter
+is the finite-grid proxy closer to the paper's norm; neither is an all-time
+GF certificate. Reselect only among already tested candidates, not new minima.
+This separates a changed reporting contract from an algorithmic improvement.
+
+Source diagnostics at n16384/seed1903 show degree8 temporal holdout RMS
+2.2e-7--1.2e-6, versus rank32 source-holdout RMS roughly0.005--0.034. Thus
+freeze temporal degree8 and target spatial/source truncation and coordinate
+selection, rather than increasing every order. Use the existing deterministic
+`qr_leverage` selector (pivoted QR plus greedy leverage additions), preserving
+the condition16 gate, exact metric runtime, readout floor and no-extra-truncation
+rule. This is not the theorem's certified sparsifier. Its existing CPU QR
+transfer is offline only; all training remains on GPU.
+
+Two bounded pilot cases on the hard n16384/seed1903 reference:
+rank32 at q384, followed by q320 ONLY if both maximum-recorded test RMS
+and sampled full-panel maximum ratios are <=1; rank64 at q512, followed by
+q384 under the same branch condition. Recompile one source per rank and use
+the same source within that case. Rank32 keeps the old source maximum and
+seed, isolating the changed coordinate selection at a smaller deployed size.
+Rank64 changes the randomized-SVD maximum and its source approximation; do
+not claim its rank32 prefix would be bitwise the old rank32 source.
+Completed accuracy misses and constructor failures remain explicit.
+
+At most4 pilot fits and2 source builds. If any pilot passes BOTH trajectory
+criteria, choose the passing candidate of smallest learned storage (tie:
+lower rank), and test that SAME rank/q/selector at n16384 for seeds1901/1902
+once each, without tuning. Thus at most6 fits and4 source builds total,
+120s per source and per fit, 8-minute GPU campaign cap; no new dense
+reference/comparator trajectories, widths, dataset or seeds. Preserve the
+original model/data/Euler settings, data47, raw8x8 digits1vs7,m8,p30,
+L2tanh, Euler1/160 toT32, float32/TF32off, full-horizon RK4 source0.125,
+float64 coefficients, labels withheld for passive inputs. Degree8 is fixed.
+
+Decision: a smaller passing model supports this practical initializer repair;
+a source/constructor/runtime failure is inconclusive; no smaller passing
+model leaves the source-repair hypothesis unsupported. A successful pilot
+is selected evidence, not a scaling validation. Report confirmation results
+separately; do not splice changed-source pilot points into the uniform old
+scaling curve. The exact paper theorem still requires its own certified
+source orders, initialization and assumptions. Root owns probe/config/notes/
+GPU/Git; scoped support owns only the saved-data trajectory plot function.
+The bounded-experiment skill freezes these branches before runs.
+Outputs: `data/generated/paper_appendix_pilots_20261009/digits_trajectory_repair/`.
+
 ## Three-seed full-width digits Logarithmic comparison
 
 ### Outcome
