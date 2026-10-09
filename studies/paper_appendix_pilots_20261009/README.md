@@ -1,5 +1,105 @@
 # Bounded appendix figure pilots
 
+## Figure3 independent coupled repetitions
+
+### Outcome
+
+Completed the bounded batch without changing any budgets, orders, seeds,
+selection rules or Euler steps. There are65 completed new trajectories out
+of 66 requests, including all 4 fresh dense references. All 53 successfully
+initialized compressions reached time32; their maximum final training MSE
+is0.001235 on sphere and0.000375 on digits. The frozen-feature controls are
+not included in those fitting-loss maxima.
+
+The one exception is sphere seed602, Taylor width850/rank65: its first-layer
+source condition21.5179902 exceeds16 after64 uniform coordinate candidates.
+This is an initialization-gate failure, not a measured prediction error.
+No rescue selection or replacement seed was run. That budget has two valid
+scores,0.0004004948 and0.0008782354, and has NO three-member mean or SD.
+The figure explicitly marks this incomplete budget and does not draw its
+mean point. All other26 compression budgets have three independent coupled
+repetitions, preserving the original run as the first member.
+
+Selected endpoint query RMS summaries (mean +/-sample SD; fixed retained
+storage remains additional and is recorded for every model in the metrics):
+
+| Panel / model | Learned scalars | Mean RMS | Sample SD |
+|---|---:|---:|---:|
+|Sphere dense pair|16793600|0.00540351|0.00268987|
+|Sphere Legendre order12|868354|0.000061630|0.000003002|
+|Sphere Harmonic width850|725908|0.00282315|0.00058560|
+|Sphere Taylor width600 (largest complete group)|362408|0.00138507|0.00009727|
+|Digits dense pair|17043456|0.01382063|0.00475257|
+|Digits Legendre order12|1118210|0.000073456|0.000002219|
+|Digits Taylor width1024|1115144|0.00169543|0.00032639|
+
+Sphere queues took816.91/867.78s; digits166.06/163.32s, using both GPUs
+concurrently. No individual Euler run exceeded64s. These are fixed-data
+initialization repetitions and endpoint numerical comparisons, not new
+asymptotic or continuous-time certificates. In particular the old single-seed
+curves are superseded for these paired summaries, but the untouched small-dense
+and low-rank controls remain conditional on the old reference. The original
+digits dense benchmark member is the single saved independent comparator,
+not the earlier mean of three controls sharing reference903.
+
+Root checked all65 raw trajectories for complete common time grids, finite
+predictions, exact storage and raw RMS, fixed data and distinct initial-state
+hashes. Scoped provenance support checked the original source-group and seed
+rules. Scoped plot support independently checked all61 non-reference new
+trajectory scores and88 summaries, incomplete-group handling, and the figure.
+The renderer also passed a synthetic complete/incomplete aggregation test;
+these checks are distinct from the retained constructor failure and are not
+an Euler-refinement audit. Syntax and scoped whitespace checks passed.
+
+Reproduction: prepare with `capture_trajectory.py figure3-paired --config
+studies/paper_appendix_pilots_20261009/figure3_paired_seeds.json --prepare`.
+Run that generated `source.py` with the same command minus `--prepare`, adding
+`--panel digits --seed 904 --device cuda:0` and seed 905 on cuda:1; then
+sphere seeds 602/603 on the same two GPUs. Digits workers used `timeout 600`,
+sphere workers `timeout 1000`. Actual interpreter:
+`/home/amir/miniconda3/bin/python -B -u`. Worker commands, immutable source,
+configuration, raw arrays, source diagnostics, timing and failure records
+are saved under `data/generated/paper_appendix_pilots_20261009/figure3_paired_seeds/`.
+Render with `capture_trajectory.py figure3-paired-plot --config <config>
+--out <fresh-directory>`; the final PNG/PDF, metrics, caption and exact render
+command are in `figures_final/`. The earlier `figures/` contains the same
+measurements with the initial incomplete-budget wording. Use a fresh output
+root to repeat training. The authorized batch is closed; no further runs.
+
+### Frozen design
+
+Frozen before execution (2026-10-10): repeat every displayed compression
+budget under two additional independent width4096 references in each panel.
+Sphere reference seeds602/603 complement601; digits904/905 complement903.
+Every source and compact initial state must be rebuilt from its own reference,
+not compared post hoc with a different teacher. Keep data, budgets, two tanh
+hidden layers, source approximation orders, selection rules, and original
+Euler grids unchanged: sphere1/640, digits1/160, horizon32,65 observations.
+The original sphere max-rank29 and65 source groups remain distinct; do not
+replace them with one new source family. Digits retain the common rank64 family.
+
+Primary outcome is endpoint query RMS, summarized as arithmetic mean and
+sample SD of three coupled repetitions, including the original. This tests
+initialization sensitivity at fixed budgets, not a new scaling theorem.
+All measured finite errors are retained without pass-driven tuning; matching
+the paired dense benchmark is a descriptive per-repetition comparison.
+Nonfinite/incomplete trajectories, changed inputs/time grids, extra source
+truncation or constructor condition-gate failures are inconclusive; do not
+silently average only successful repetitions. No new sizes, seeds, searches,
+step refinements or rescue branches. Source setup remains full-horizon RK4
+rollout and is not an initialization-jet compiler.
+
+At most66 Euler trajectories (54 compression,4 reference,4 independent dense
+comparators,4 frozen-feature baselines) and10 source builds,120s per operation,
+20min wall cap per GPU queue. Two GPUs run the two repetition indices in
+parallel. Existing small-dense/low-rank controls remain unchanged and explicitly
+conditional on their old reference; only the requested compression curves and
+their dense/frozen benchmarks receive this paired-seed update. A final raw-array
+score/count/pairing check and a refreshed learned-state-only figure end the batch.
+Configuration: `figure3_paired_seeds.json`; products stay under this study's
+`figure3_paired_seeds/` generated namespace. Root owns runner/config/notes;
+scoped support reconstructs original provenance and adds only the paired plot.
+
 ## Figure3 digits budget-range repair
 
 ### Outcome

@@ -1,0 +1,75 @@
+{
+  "previous_figure": "data/generated/paper_appendix_pilots_20261009/figure3_digits_extend/figures/metrics.json",
+  "output": "data/generated/paper_appendix_pilots_20261009/figure3_paired_seeds",
+  "seconds_per_fit": 120,
+  "panels": {
+    "sphere": {
+      "original_seed": 601,
+      "seeds": [602, 603],
+      "step": 0.0015625,
+      "record_every": 320,
+      "data_report": "data/generated/cubic_log_comparison_20261008/paired_run/sphere3_seed601/report.json",
+      "original_pair": {
+        "archive": "data/generated/cubic_log_comparison_20261008/paired_run/sphere3_seed601/trajectories.npz",
+        "name": "iid", "reference_key": "dense", "times_key": "times_dense"
+      },
+      "legendre": [
+        {"name": "legendre_1", "order": 1},
+        {"name": "legendre_2", "order": 2},
+        {"name": "legendre_3", "order": 3},
+        {"name": "legendre", "order": 12}
+      ],
+      "source_groups": [
+        {"family": "harmonic", "maximum_rank": 29, "budgets": [
+          {"name": "harmonic_8", "width": 148, "source_rank": 6},
+          {"name": "harmonic_4", "width": 210, "source_rank": 11},
+          {"name": "harmonic_2", "width": 299, "source_rank": 19},
+          {"name": "harmonic", "width": 424, "source_rank": 29}
+        ]},
+        {"family": "harmonic", "maximum_rank": 65, "budgets": [
+          {"name": "harmonic_n600", "width": 600, "source_rank": 44},
+          {"name": "harmonic_n850", "width": 850, "source_rank": 65}
+        ]},
+        {"family": "logarithmic", "maximum_rank": 29, "budgets": [
+          {"name": "logarithmic_8", "width": 148, "source_rank": 6},
+          {"name": "logarithmic_4", "width": 210, "source_rank": 11},
+          {"name": "logarithmic_2", "width": 299, "source_rank": 19},
+          {"name": "logarithmic", "width": 424, "source_rank": 29}
+        ]},
+        {"family": "logarithmic", "maximum_rank": 65, "budgets": [
+          {"name": "logarithmic_n600", "width": 600, "source_rank": 44},
+          {"name": "logarithmic_n850", "width": 850, "source_rank": 65}
+        ]}
+      ]
+    },
+    "digits": {
+      "original_seed": 903,
+      "seeds": [904, 905],
+      "step": 0.00625,
+      "record_every": 80,
+      "data_report": "data/generated/paper_appendix_pilots_20261009/restored/digits_budget/n4096/seed_903/attempt_001/report.json",
+      "original_pair": {
+        "archive": "data/generated/paper_appendix_pilots_20261009/restored/digits_budget/n4096/seed_903/attempt_001/trajectories.npz",
+        "name": "dense_4096", "reference_key": "reference", "times_key": "times_reference",
+        "extra_reference_key": "extra_reference", "extra_name": "extra_dense_4096"
+      },
+      "legendre": [
+        {"name": "legendre_1", "order": 1},
+        {"name": "legendre_2", "order": 2},
+        {"name": "legendre_4", "order": 4},
+        {"name": "legendre_8", "order": 8},
+        {"name": "legendre_12", "order": 12}
+      ],
+      "source_groups": [
+        {"family": "logarithmic", "maximum_rank": 64, "budgets": [
+          {"name": "logarithmic_192_r1", "width": 192, "source_rank": 1},
+          {"name": "logarithmic_256_r8", "width": 256, "source_rank": 8},
+          {"name": "logarithmic_384_r16", "width": 384, "source_rank": 16},
+          {"name": "logarithmic_512_r32", "width": 512, "source_rank": 32},
+          {"name": "logarithmic_768_r48", "width": 768, "source_rank": 48},
+          {"name": "logarithmic_1024_r64", "width": 1024, "source_rank": 64}
+        ]}
+      ]
+    }
+  }
+}
