@@ -1,5 +1,101 @@
 # Bounded appendix figure pilots
 
+## Circle strict1x Harmonic/Logarithmic continuation
+
+Completed. Logarithmic has a passing1x witness at all six dense widths;
+Harmonic has one at512/1024/4096 only. Every passing compact-width bracket
+is within20%. No missing pass is replaced by an interpolation or fitted size.
+
+| Dense width | Method | Compact width/rank | Learned | Fixed | Total | Endpoint ratio | Maximum-recorded ratio |
+|---:|---|---:|---:|---:|---:|---:|---:|
+|512|Harmonic|447/27|201,158|599,427|800,585|0.659195|0.203362|
+|512|Logarithmic|256/15|66,312|196,609|262,921|0.618593|0.248513|
+|1024|Harmonic|778/31|607,626|1,815,852|2,423,478|0.908805|0.156684|
+|1024|Logarithmic|347/23|121,458|361,228|482,686|0.716320|0.166114|
+|2048|Harmonic|No tested pass|—|—|—|—|—|
+|2048|Logarithmic|448/31|202,056|602,113|804,169|0.551964|0.247569|
+|4096|Harmonic|1024/38|1,051,656|3,145,728|4,197,384|0.660386|0.289138|
+|4096|Logarithmic|384/26|148,616|442,369|590,985|0.735655|0.410056|
+|8192|Harmonic|No tested pass|—|—|—|—|—|
+|8192|Logarithmic|576/42|333,512|995,329|1,328,841|0.934590|0.756339|
+|16384|Harmonic|No tested pass|—|—|—|—|—|
+|16384|Logarithmic|512/37|263,688|786,433|1,050,121|0.924088|0.974536|
+
+Missing Harmonic outcomes are completed accuracy failures, not missing compute:
+at2048, width978/r35 endpoint ratio1.012139; at8192, largest1156/r42 endpoint/
+maximum ratios1.955955/1.179562 (width1024 is better but still1.434379 at endpoint);
+at16384, width2048/r79 ratios2.673337/2.529563. The inherited width1024/r79
+constructor failure at16384 remains separately recorded. None of these bounds
+rules out other budgets/source choices. Small-width Harmonic learned-state
+savings must not be confused with total savings: its total storage exceeds
+dense storage at512 and1024.
+
+Logarithmic learned-storage descriptive fit across ALL six widths is
+`240.755 (log n)^3.16707`, log-space residual RMS0.232208. This is a noisy
+single-seed local-budget fit, not an asymptotic exponent certificate. No
+Harmonic exponent is fitted because three widths lack passing candidates.
+The plot leaves gaps and marks the largest completed failing budgets with
+crosses; crosses are not lower bounds on an unknown global optimum.
+
+Twenty-six new compact fits completed,11.49--16.06s each (342.40s summed GPU
+fit time across both devices, excluding source setup). No dense training ran.
+Root verified original arrays bitwise preserved at every width, hashes,
+65 common observation times, finite complete new trajectories, RMS and counts,
+and no Legendre requests. The scoped checker independently reconstructed the
+first four completed widths and checked all plans/inherited rank choices.
+The plot validator checked all six runs. AST comparison confirms unchanged
+numerical models/source/integrator definitions; figure visually inspected.
+These checks do not replace the intentionally deferred half-step/seed audits.
+
+Figure and full metrics:
+`data/generated/paper_appendix_pilots_20261009/circle_strict/figures/plots/plot_001/`.
+Reproduce searches via the existing paper script's `refine-budgets --plan
+studies/paper_appendix_pilots_20261009/replicate_circle_strict_n<width>.json`.
+Render with `scaling-plot --factor 1 --families harmonic logarithmic
+--fit-log-powers --runs` followed by the six generated
+`circle_strict/n<width>/n<width>` paths, and `--out <fresh-output>`.
+Source/config snapshots and exact commands are retained. Previous3x and
+digits figures remain untouched; no further runs are pending.
+
+User requested the analogue of the strict digits search for the sphere data.
+Use the existing Figure2 circle (d2) scaling experiment, not the fixed-width
+Figure3 d3 task. Reuse all fresh seed1701 dense pairs at512/1024/2048/4096/8192/
+16384 and their generated compression observations. Only Harmonic and
+Logarithmic may get new fits. No new dataset, seed, dense training or Legendre
+fit. Existing3x and digits figures remain unchanged.
+
+Frozen before runs: same8 training/30 declared query inputs, L2 tanh, T32,
+Euler1/160,65 physical observation times, float32 execution, TF32off,
+full-horizon offline RK4 sources at step0.125, degree8, float64 coefficients,
+Harmonic spatial degree5, uniform selector64trials and condition cap16. Pass
+requires BOTH endpoint and maximum-recorded query RMS <= the respective
+independent dense-pair RMS. This is not pointwise domination or a GF certificate.
+
+Refine each family's smallest passing compact width to a local20% bracket;
+when no current pass exists, double width within a fixed cap. At most5 new
+requests per family/width. Caps are twice the previous width caps, but below
+dense width. Keep each original source maximum and prefix basis: propose
+`min(original_maximum,max(1,floor((q/4-17)/3)))`. Unlike raising source rank,
+enlarging the compact width beyond that maximum's usual budget only allocates
+more selected coordinates to the SAME source span. No rank/selector/spatial
+order search. This preserves existing candidates' rank choices and allows
+a bounded larger-width probe for the previously missing strict crossings.
+
+Each fit/source keeps120s cap; two GPU queues each have a12-minute wall cap.
+GPU0 handles512/2048/8192, GPU1 handles1024/4096/16384. Stop at local brackets,
+caps or numerical failures; no added rescue round. Missing passes stay missing,
+construction failures remain inconclusive, and descriptive fits exclude and
+explicitly disclose missing widths. Six JSON plans `replicate_circle_strict_n*`
+record exact rank/width caps and fresh destinations under `circle_strict/`.
+
+Root owns code/configs/README/Git/execution. A scoped read-only checker may
+inspect only this study's specified saved circle inputs and relevant paper
+runner code. Minimal runner changes: optional source-rank cap, and include
+inherited adaptive candidates in plot validation/selection (essential when a
+new1x pass is already present in the earlier3x search). Numerical models,
+source construction and integration equations are unchanged. One final
+saved-array check and figure inspection; no additional campaign implied.
+
 ## Digits-only strict Logarithmic continuation
 
 Completed: all three selected witnesses pass BOTH1x metrics. The original3x

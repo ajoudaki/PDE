@@ -7627,7 +7627,7 @@ def experiment_scaling_plot(argv):
     parser.add_argument('--factor', type=float, default=1.,
                         help='Positive finite multiplier for both dense-pair accuracy thresholds (default: 1)')
     parser.add_argument('--fit-log-powers', action='store_true',
-                        help='Overlay descriptive C(log n)^p fits for Harmonic/Logarithmic with >=3 passing widths')
+                        help='Overlay descriptive C(log n)^p fits with >=3 widths and no missing passing width')
     parser.add_argument('--families', nargs='+', choices=('legendre', 'harmonic', 'logarithmic'),
                         default=['legendre', 'harmonic', 'logarithmic'])
     args = parser.parse_args(argv)
@@ -7763,7 +7763,8 @@ def experiment_scaling_plot(argv):
             require(isinstance(search[family], dict)
                     and isinstance(search[family].get('requested', []), list),
                     f'Invalid requested budget list: {path}/{family}')
-            for budget in search[family].get('requested', []):
+            for budget in (search[family].get('inherited_requested', [])
+                           + search[family].get('requested', [])):
                 keys = ('order',) if family == 'legendre' else ('width', 'source_rank')
                 require(isinstance(budget, dict)
                         and all(isinstance(budget.get(key), int)
@@ -7945,8 +7946,19 @@ def experiment_scaling_plot(argv):
         points = [(row['width'], selected(row, family)) for row in records]
         points = [(width, point) for width, point in points if point is not None]
         if points:
-            axis.loglog([width for width, _ in points], [point['moving'] for _, point in points],
+            axis.loglog(widths, [selected(row, family)['moving'] if selected(row, family) else np.nan
+                                for row in records],
                         'o-', color=color, label=label)
+        missing = []
+        for row in records:
+            if selected(row, family) is not None:
+                continue
+            completed = [p for p in row['candidates'] if p['family'] == family and p['status'] == 'fail']
+            if completed:
+                missing.append((row['width'], max(p['moving'] for p in completed)))
+        if missing:
+            axis.scatter([p[0] for p in missing], [p[1] for p in missing], marker='x', color=color,
+                         label=f'{label}: no tested pass')
         if family == 'legendre' and points and show_legendre_guide:
             anchor_width, anchor = points[0]
             guide_widths = np.geomspace(min(widths), max(widths), 100)
@@ -7961,7 +7973,9 @@ def experiment_scaling_plot(argv):
                        criterion='unweighted least squares of log(moving) against log(log(width))',
                        scope='Exploratory fit of selected candidates; neither unbiased scaling estimation nor asymptotic proof')
             descriptive_fits[family] = fit
-            if len(fit_points) >= 3:
+            if len(fit_points) >= 3 and len(fit_points) < len(widths):
+                fit['status'] = 'missing_passing_widths'
+            if len(fit_points) >= 3 and len(fit_points) == len(widths):
                 fit_widths = np.asarray(included, dtype=float)
                 fit_storage = np.asarray([point['moving'] for _, point in fit_points], dtype=float)
                 design = np.column_stack((np.ones(len(fit_points)), np.log(np.log(fit_widths))))
@@ -8033,10 +8047,12 @@ def experiment_scaling_plot(argv):
         figure.legend(handles, labels, loc='upper center', ncol=3, frameon=False, fontsize=8)
     figure.tight_layout(rect=(0, 0, 1, .85 if handles else 1))
     save(figure, 'errors_vs_width')
+    caption += (' Crosses mark the largest completed failing budget where no passing candidate was found; '
+        'they are not passing sizes or lower bounds on a global optimum. Lines do not bridge missing passes. ')
     caption += (' Optional dashed curves fit C(log n)^p by unweighted least squares of log(moving state) '
-        'against log(log n), with natural logarithms and at least three passing widths. '
+        'against log(log n), with natural logarithms, at least three widths and a pass at every included width. '
         'They are exploratory fits to selected candidates, not unbiased scaling estimates or asymptotic proof. '
-        'Missing passing widths are excluded. Fit eligibility: '+fit_counts+'.'
+        'No exponent is fitted for a family with a missing passing width. Fit eligibility: '+fit_counts+'.'
         if args.fit_log_powers else ' No logarithmic-power trend law is fitted.')
     legendre_points = [(row['width'], selected(row, 'legendre')) for row in records
                        if selected(row, 'legendre') is not None]
@@ -9796,6 +9812,13 @@ def _budget_search_worker(out, device_name, plan):
             if q is None:
                 break
             rank = max(1, math.floor((q/4-17)/3))
+            if family != 'legendre' and plan.get('rank_rule') == 'cap_at_source':
+                maximum_rank = max((v['source_rank'] for v in
+                    config['methods']['non_oblivious'][family]['budgets']),
+                    default=plan.get('source_max_ranks', {}).get(family, 0))
+                if maximum_rank < 1:
+                    raise ValueError('Capped rank proposals require a frozen source maximum')
+                rank = min(rank, maximum_rank)
             if family != 'legendre' and plan.get('rank_rule') == 'interpolate_budgets':
                 knots = sorted(config['methods']['non_oblivious'][family]['budgets'],
                                key=lambda value: value['width'])
@@ -9935,7 +9958,7 @@ def budget_search_main(argv):
     if (not isinstance(families, list) or not families or len(set(families)) != len(families)
             or any(family not in ('legendre', 'harmonic', 'logarithmic') for family in families)):
         raise ValueError('families must be a nonempty unique list of compression families')
-    if plan.get('rank_rule', 'legacy') not in ('legacy', 'interpolate_budgets'):
+    if plan.get('rank_rule', 'legacy') not in ('legacy', 'interpolate_budgets', 'cap_at_source'):
         raise ValueError('Unknown source-rank proposal rule')
     out = Path(plan['output']).resolve()
     if args.worker_index is not None:
