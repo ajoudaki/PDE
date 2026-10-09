@@ -523,3 +523,58 @@ were run after the user's stop instruction. The benchmark harness initially
 called the legacy autograd oracle under
 no_grad; rerunning that oracle outside no_grad passed. No saved scientific
 trajectory, accuracy comparison or figure was replaced.
+
+### Bounded dense Euler-step calibration (2026-10-09)
+
+User requested checking whether Euler is overconservative at widths1024 and
+4096. Keep their existing circle data/initialization seeds702 and704, two tanh
+hidden layers, float32 runtime, float64 Gaussian initialization, TF32 off,
+canonical mobilities and fixed horizon32. One width per GPU. Using the current
+executable for all runs, compare steps0.00078125,0.0015625 (current),0.00625,
+0.025 and0.1, with the same65 observation times0,0.5,...,32 and30 test inputs.
+The finest run is a numerical reference, not exact gradient flow. Test both
+endpoint and worst-recorded test RMS differences against that reference;
+report final training MSE and full-horizon elapsed time. The practical threshold
+is10% of the corresponding existing independent-dense endpoint/worst RMS,
+respectively, not10% of labels or training loss. Existing dense variability
+is a scale reference, not a claim that its older source matches bitwise.
+Hash-match data to the original reports. No new seeds, widths, compression
+setups or paper changes; at most120s per run, six minutes per width. A timeout,
+nonfinite result or failed refinement remains inconclusive; do not silently
+enlarge steps for any compression based on this dense-only test.
+Results will be retained under
+data/generated/circle_width_scaling_20261009/euler_step_calibration/.
+The initial ladder passed at4x for both widths, whereas16x passed only at1024.
+One targeted midpoint,8x (step0.0125), is therefore added at each existing width
+with the same fixed threshold, reference, seeds and horizon; no wider search.
+
+All twelve runs completed their full horizon. With step0.0125 (8x current),
+the worst-recorded numerical query RMS was0.00104587 at1024 and0.00105156
+at4096, respectively2.776% and6.903% of observed dense-pair worst RMS.
+Endpoint numerical RMS was0.000165912 and0.000218579, respectively1.203%
+and3.399% of the corresponding dense-pair endpoint RMS. Both criteria pass
+the fixed10% budget. Final training MSE was0.00351676 and0.00308261, versus
+0.00351567 and0.00308107 at the current step. Full-horizon runtime decreased
+15.3588s to2.03544s at1024 and15.6120s to2.06265s at4096 (about7.5x), with
+20480 updates reduced to2560. Each finest-step reference took about31s;
+the first five candidates together took about52s per width on separate GPUs.
+
+At16x (step0.025), worst numerical RMS was5.762%/14.479% of the1024/4096
+dense-pair worst discrepancy, so only1024 passes. At64x (step0.1), both runs
+remain finite and reach training MSE below0.00353, but worst numerical RMS
+is23.630%/59.833% of dense variability: low final loss is not a sufficient
+trajectory-fidelity test. The finest/current discrepancy is small, but this
+float32 refinement exercise remains empirical, not a certified GF error bound.
+The practical common dense-step recommendation is0.0125 for these two cases;
+no defaults, previous runs, or compression-specific step sizes were changed.
+
+To reproduce, merge the existing n1024.json/n4096.json with EXPERIMENT_DEFAULTS,
+generate the unchanged dataset via _experiment_data, initialize DeepDense with
+seeds702/704 on cuda:0/cuda:1, then cast once with _experiment_move to float32.
+For each recorded step, call integrate_euler on that same initial model with
+horizon=32, seconds=120 and observation_every=round(0.5/step); score only the
+30 query inputs. This uses the maintained script at commite2aa88c, whose exact
+source hash and full per-run timing/grid/loss reports are saved with the arrays.
+Initialization hashes match the original dense references. One scoped read-only
+reconstruction checks raw-array RMSs, hashes, grids and threshold decisions;
+no additional numerical campaign is required.
