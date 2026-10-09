@@ -1,5 +1,143 @@
 # Bounded appendix figure pilots
 
+## Three-seed full-width digits Logarithmic comparison
+
+### Outcome
+
+All 18 cases have a Logarithmic model passing BOTH 1x RMS criteria against
+the exact same dense pairs as Legendre. Thirteen local width brackets resolve
+to20%; five retain passing witnesses but unresolved lower budgets because
+smaller constructors exceed the unchanged condition16 gate. These are
+n512/seeds1901,1902 and n1024/all three seeds. They are hollow markers, not
+missing passing models or accuracy failures. No further runs are pending.
+
+| Dense width | Passing q, seed1901 | seed1902 | seed1903 | Mean learned | Median learned |
+|---:|---:|---:|---:|---:|---:|
+|512|192*|192*|224|54482.667|49352|
+|1024|224*|224*|224*|64744|64744|
+|2048|288|320|288|108850.667|101672|
+|4096|384|384|448|191560|172424|
+|8192|384|576|384|238024|172424|
+|16384|576|512|1152|688882.667|369224|
+
+Here q is compact network width, not the Legendre temporal order. Stars
+denote unresolved lower brackets; all listed models meet the accuracy test.
+Learned storage is q^2+65q+8; fixed storage3q^2+1 is additional. The unchanged
+Legendre learned states are49666,99330,198658,462850,925698,1851394.
+At16384 Logarithmic endpoint/maximum-recorded RMS ratios are
+0.989041/0.922973,0.855322/0.847671,0.788490/0.471663.
+The third seed needs a notably larger budget: q1024 misses endpoint1x
+(ratio1.072392), while1152 passes. This variability remains visible in the
+individual-seed curves and mean/median separation. No monotonicity imposed.
+
+The combined figure shows arithmetic mean and median learned storage with
+faint individual-seed curves. All passing witnesses contribute; hollow
+aggregate markers mean at least one constituent lower bracket is unresolved.
+The full-range Logarithmic minimum-budget exponent fit is withheld because
+of those five unresolved searches; no complete-case fit was added. The
+unchanged descriptive Legendre fit n^1.056629 is retained. These finite-range
+results neither establish polylogarithmic asymptotics nor certify the
+initialization-only compiler. The practical source uses full-horizon RK4
+rollouts, declared query inputs and empirical randomized-SVD truncation,
+with source_certificate=false; query labels are not used.
+
+Executed75 new candidate requests:64 completed compressed Euler trajectories
+and11 conditioning failures before training. Reused9 compatible original
+Logarithmic models and all18 dense pairs; no dense comparator/reference was
+retrained. All18 source bases were compiled/reconstructed once. Summed
+compressed trajectory time970.73s (14.53--20.08s per completed fit); summed
+source time213.41s (3.43--43.63s each), using both GPUs within the20-minute
+search cap. Sums are not elapsed batch time; constructor/driver overhead is
+additional. All new completed models reach5120 steps/T32, with final
+training MSE0.00010207--0.00039855. No time-step refinement is claimed.
+
+Checks: root verified every inherited array bitwise unchanged, matching
+data and initial-state hashes, finite65-time trajectories, exact storage,
+and one frozen producer throughout all three seed plans. Existing plot
+checks recompute raw RMS and brackets. The comparison requires exact
+reference/comparator trajectory hashes and identical data/model/time/seed
+contracts across methods. All previous Legendre groups/fits are unchanged.
+Scoped support verified all12 reachable numerical definitions against the
+three original seed1901 producers (graph SHA256
+85c2f53b87f65fe4da0ce3b8f781217593ce22fcdf052fc6fa3b8b1a8ba8e2fb).
+Syntax/CLI and whitespace checks passed; the combined figure was inspected.
+The bounded-experiment workflow preserved the fixed rank schedule, failed
+constructors and larger third-seed budget instead of adding rescue searches.
+
+Reproduce with `refine-budgets --plan
+studies/paper_appendix_pilots_20261009/digits_logarithmic_seedS_search.json`
+for S1901,1902,1903, updating each output to a fresh directory. The actual
+queue used `timeout1200` around all three plans, two GPUs per plan, and
+`/home/amir/miniconda3/bin/python -B -u`; after seed1901 it executed that
+plan's frozen `source.py` for the other seeds. Producer SHA256:
+32abae1406910b60d90cb354e524db85d965b7f13222e943115ab17468b99611.
+Only rank-schedule/plot interfaces changed, not model/compiler/Euler or
+bracket numerics. Source snapshots, plans, commands, worker logs, every
+candidate and raw trajectory are under `digits_logarithmic_three_seeds/`
+in the study generated namespace.
+
+For the figure, run `budget-seed-plot --family logarithmic --fit-log-powers
+--runs <all18 seedS/nN roots> --out <fresh Logarithmic audit directory>`.
+Regenerate the unchanged Legendre audit from the18 roots listed in the
+next section, adding paired trajectory hashes. Then run
+`budget-comparison-plot --metrics <Legendre metrics.json> <Logarithmic
+metrics.json> --out <fresh comparison directory>`. Current audited outputs
+are `legendre_figures/metrics.json`, `logarithmic_figures/metrics.json`,
+and `comparison_final/learned_state_comparison.png/pdf` with `comparison.json`
+and `captions.txt`, all beneath `digits_logarithmic_three_seeds/`.
+
+### Frozen design
+
+User requests adding Logarithmic to the preceding 1-versus-7 Legendre plot
+at all six widths (512,1024,2048,4096,8192,16384), with the same reference
+seeds 1901,1902,1903. Reuse all 18 paired dense trajectories and all Legendre
+results. Test whether modest Logarithmic learned budgets continue to meet
+the paired 1x accuracy benchmark as width grows; persistent misses or large
+budget increases remain adverse evidence, not grounds to retune the method.
+
+Keep normalized raw8x8 digits (d64, no PCA), m8, p30 declared scored query
+inputs, unchanged 30 extra unscored inputs, dataset47, L2 tanh, zero readout,
+Euler1/160, T32, 65 observations, float32/TF32off. Both endpoint query RMS
+and maximum-recorded query RMS must be at most their respective paired
+dense-dense values. This ratio-of-maxima criterion is not pointwise temporal
+domination or a continuous-time certificate. Query labels never enter setup.
+This remains the practical full-horizon RK4 rollout initializer (step0.125),
+temporal degree8, float64 coefficients, residual-clock partition, empirical
+source truncation, uniform64-candidate selector, condition limit16 and original
+readout-floor rule. It is not an initialization-jet-only experiment.
+
+Freeze maximum source rank32 at EVERY width and seed, retaining the original
+digits rank knots (256,8),(384,16),(512,32). Extend this same piecewise-linear
+schedule with knots (1,1) and (8192,32), floor interpolated ranks, and use
+prefixes of one common rank32 source per width/seed. This agrees with the
+original/interpolated digits candidates within256--512, but deliberately does
+not import the old circle-oriented ranks below256. Reuse compatible original
+seed1901 models at1024/2048/4096 from `figure2_replication/digits/nN`, NOT
+the later adaptive roots containing incompatible rank/constructor failures.
+Old strict runs remain unchanged. At other cases, compile fresh sources from
+the saved pair's hash-verified initialization. Learned storage is q^2+65q+8;
+additional fixed storage is3q^2+1, with q the Logarithmic compact width.
+
+Start q256, double if needed to at most min(8192,n-1), then bisect to20%
+local width brackets. At most8 new requests per case,120s per source/fit,
+20-minute total search cap across three sequential per-seed plans using both
+GPUs. Constructor/numerical failures stay inconclusive, not accuracy failures;
+no source-order, selector, threshold or precision rescue. No new dense
+reference/comparator trajectories (source rollout work is separate), other
+methods, data, widths or seeds. Stop at bracket resolution or the stated caps.
+
+Combine existing audited Legendre metrics with the new Logarithmic metrics
+in mean/median learned-storage panels; count fixed storage separately.
+Incomplete brackets may show passing witnesses as hollow upper-bound markers,
+but cannot enter an unqualified minimum-budget exponent fit. Any complete
+log-power fit is descriptive and cannot establish asymptotic scaling.
+The bounded-experiment skill fixes this protocol and preserves adverse results;
+canonical-notation guidance keeps Legendre order distinct from compact width.
+Root owns rank-schedule support, configs/runs/README/Git; scoped support checks
+the old protocol and adds only the common comparison plot to the existing
+script. Outputs: `data/generated/paper_appendix_pilots_20261009/
+digits_logarithmic_three_seeds/`; plans `digits_logarithmic_seedS_search.json`.
+
 ## Full-width 1-versus-7 Legendre continuation
 
 ### Outcome

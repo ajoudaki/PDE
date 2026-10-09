@@ -1,0 +1,56 @@
+{
+  "runs": [
+    "data/generated/paper_appendix_pilots_20261009/digits_legendre_full_widths/seed1902/dense/n512",
+    "data/generated/paper_appendix_pilots_20261009/digits_legendre_three_seeds/seed1902/dense/n1024",
+    "data/generated/paper_appendix_pilots_20261009/digits_legendre_three_seeds/seed1902/dense/n2048",
+    "data/generated/paper_appendix_pilots_20261009/digits_legendre_three_seeds/seed1902/dense/n4096",
+    "data/generated/paper_appendix_pilots_20261009/digits_legendre_full_widths/seed1902/dense/n8192",
+    "data/generated/paper_appendix_pilots_20261009/digits_legendre_full_widths/seed1902/dense/n16384"
+  ],
+  "output": "data/generated/paper_appendix_pilots_20261009/digits_logarithmic_three_seeds/seed1902",
+  "devices": [
+    "cuda:0",
+    "cuda:1"
+  ],
+  "families": [
+    "logarithmic"
+  ],
+  "factor": 1,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 8,
+  "rank_rule": "interpolate_budgets",
+  "rank_knots": {
+    "logarithmic": [
+      {
+        "width": 1,
+        "source_rank": 1
+      },
+      {
+        "width": 256,
+        "source_rank": 8
+      },
+      {
+        "width": 384,
+        "source_rank": 16
+      },
+      {
+        "width": 512,
+        "source_rank": 32
+      },
+      {
+        "width": 8192,
+        "source_rank": 32
+      }
+    ]
+  },
+  "source_max_ranks": {
+    "logarithmic": 32
+  },
+  "cap_below_dense": true,
+  "expansion": {
+    "logarithmic": {
+      "start": 256,
+      "maximum": 8192
+    }
+  }
+}

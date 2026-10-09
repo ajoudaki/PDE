@@ -9947,7 +9947,8 @@ def _budget_search_worker(out, device_name, plan):
                     raise ValueError('Capped rank proposals require a frozen source maximum')
                 rank = min(rank, maximum_rank)
             if family != 'legendre' and plan.get('rank_rule') == 'interpolate_budgets':
-                knots = sorted(config['methods']['non_oblivious'][family]['budgets'],
+                knots = sorted(plan.get('rank_knots', {}).get(family,
+                    config['methods']['non_oblivious'][family]['budgets']),
                                key=lambda value: value['width'])
                 if not knots or not knots[0]['width'] <= q <= knots[-1]['width']:
                     raise ValueError('Interpolated source ranks require a bracketing original budget ladder')
@@ -10209,6 +10210,17 @@ def budget_search_main(argv):
         raise ValueError('families must be a nonempty unique list of compression families')
     if plan.get('rank_rule', 'legacy') not in ('legacy', 'interpolate_budgets', 'cap_at_source'):
         raise ValueError('Unknown source-rank proposal rule')
+    for family, knots in plan.get('rank_knots', {}).items():
+        if (plan.get('rank_rule') != 'interpolate_budgets' or family not in ('harmonic', 'logarithmic')
+                or len(knots) < 2 or any(set(knot) != {'width', 'source_rank'}
+                    or any(not isinstance(v, int) or isinstance(v, bool) or v < 1
+                           for v in knot.values()) for knot in knots)
+                or any(a['width'] >= b['width'] or a['source_rank'] > b['source_rank']
+                       for a, b in zip(knots, knots[1:]))):
+            raise ValueError('Rank knots must be increasing positive widths with nondecreasing positive ranks')
+        expansion = plan.get('expansion', {}).get(family, {})
+        if not knots[0]['width'] <= expansion.get('start', 0) <= expansion.get('maximum', 0) <= knots[-1]['width']:
+            raise ValueError('Rank knots must cover the planned expansion interval')
     out = Path(plan['output']).resolve()
     if args.worker_index is not None:
         index = args.worker_index
@@ -12312,6 +12324,8 @@ def budget_seed_plot(argv):
                              if family == 'harmonic' or key != 'source_max_rank'}
             search_contract = dict(source_orders=common_orders, rank_rule=plan['rank_rule'],
                 expansion={key: value for key, value in plan['expansion'][family].items() if key != 'maximum'})
+            if family in plan.get('rank_knots', {}):
+                search_contract['rank_knots'] = plan['rank_knots'][family]
         contract = dict(dataset=config['dataset'], training=config['training'],
             numerical_source_sha256=numerical['sha256'],
             model={key: value for key, value in config['model'].items() if key != 'width'},
@@ -12332,7 +12346,8 @@ def budget_seed_plot(argv):
                     'coefficient_dtype', 'chebyshev_degree', 'spatial_degree', 'geometry_sha256', 'geometry_count',
                     'observation_count', 'boundaries', 'requested_rank', 'effective_setup')}
             else:
-                require(source['nested_ranks'] == [source_rank]
+                require(bool(source['nested_ranks']) and max(source['nested_ranks']) == source_rank
+                        and all(0 < rank <= source_rank for rank in source['nested_ranks'])
                         and source['chebyshev_degree'] == source['partitions']['new']['degree'] == setup['time_degree']
                         and source['horizon'] == config['training']['horizon']
                         and source['rk4_step'] == setup['rollout_step']
@@ -12392,6 +12407,9 @@ def budget_seed_plot(argv):
                 return arrays[name][:, m:].astype(float)
 
             reference = prediction('reference')
+            row['reference_initial_state_sha256'] = report['reference_initial_state_sha256']
+            row['paired_trajectory_sha256'] = {key: array_sha(arrays[key])
+                                               for key in ('reference', f'dense_{n}')}
             require(report['seeds'][f'dense_{n}'] == _experiment_seed(seed, f'dense_{n}')
                     and report['seeds'][f'dense_{n}'] != seed, f'Dense-pair seed mismatch: {root}')
             baseline = np.sqrt(np.mean((prediction(f'dense_{n}')-reference)**2, axis=1))
@@ -12415,6 +12433,11 @@ def budget_seed_plot(argv):
                 else:
                     candidate['rank'] = model['source_rank']
                     q = min(model['width'], n)
+                    if family in plan.get('rank_knots', {}):
+                        knots = plan['rank_knots'][family]
+                        require(candidate['rank'] == max(1, math.floor(np.interp(model['width'],
+                            [k['width'] for k in knots], [k['source_rank'] for k in knots]))),
+                            f'Candidate differs from the frozen rank schedule: {root}/{name}')
                     require(candidate['learned'] == (depth-1)*q*q+q*(dimension+1)+m
                             and candidate['fixed'] == (2*depth-1)*q*q+int(family == 'logarithmic')
                             and 0 < candidate['rank'] <= source_rank,
@@ -12630,7 +12653,125 @@ def budget_seed_plot(argv):
     return 0
 
 
+def budget_comparison_plot(argv):
+    """Compare paired six-width, three-seed Legendre and Logarithmic audits."""
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import NullFormatter
+    parser = argparse.ArgumentParser(description=budget_comparison_plot.__doc__)
+    parser.add_argument('--metrics', nargs=2, type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    inputs = [json.loads(path.read_text()) for path in args.metrics]
+    require({item['family'] for item in inputs} == {'legendre', 'logarithmic'},
+            'Supply one Legendre and one Logarithmic metrics file')
+    audits = {item['family']: item for item in inputs}
+    indexed = {family: {(row['width'], row['seed']): row for row in audit['individuals']}
+               for family, audit in audits.items()}
+    keys = set(indexed['legendre'])
+    widths, seeds = sorted({n for n, _ in keys}), sorted({seed for _, seed in keys})
+    require(len(widths) == 6 and len(seeds) == 3 and len(keys) == 18
+            and keys == {(n, seed) for n in widths for seed in seeds}
+            and keys == set(indexed['logarithmic'])
+            and all(len(audit['individuals']) == 18 for audit in inputs),
+            'Expected identical six widths and three seeds without duplicate rows')
+    left, right = audits['legendre'], audits['logarithmic']
+    require(all(left['common'][key] == right['common'][key]
+                for key in ('dataset', 'training', 'model', 'data_sha256', 'tf32'))
+            and left['recorded_times'] == right['recorded_times'],
+            'Data, model, precision, training or recorded times differ')
+    for key in sorted(keys):
+        a, b = indexed['legendre'][key], indexed['logarithmic'][key]
+        require(all(field in a and field in b and a[field] == b[field] for field in
+                    ('reference_initial_state_sha256', 'paired_trajectory_sha256', 'dense_pair')),
+                f'Reference initialization, paired trajectory hashes or benchmarks differ: {key}')
+    groups, fits = {}, {}
+    for family, audit in audits.items():
+        groups[family] = []
+        for n in widths:
+            rows = [indexed[family][n, seed] for seed in seeds]
+            selected = [row['selected'] for row in rows if row['selected'] is not None]
+            require(all(point['status'] == 'pass' and np.isfinite(point['learned'])
+                        and point['learned'] > 0 for point in selected), 'Invalid passing learned state')
+            complete = len(selected) == 3 and all(
+                row['status'] in (('minimum_order', 'resolved_local') if family == 'legendre'
+                                  else ('resolved_local',))
+                and (family != 'legendre' or row['minimum_order_certified']) for row in rows)
+            values = [point['learned'] for point in selected]
+            groups[family].append(dict(width=n, available=len(values), complete=complete,
+                mean=float(np.mean(values)) if len(values) == 3 else None,
+                median=float(np.median(values)) if len(values) == 3 else None,
+                interpretation='resolved' if complete else 'passing witnesses; lower budgets unresolved'))
+        fit_key = 'descriptive_width_power_fits' if family == 'legendre' else 'descriptive_log_power_fits'
+        fits[family] = audit.get(fit_key, {})
+    caption = ('Same six dense widths and three paired seeds; both endpoint and maximum-recorded query RMS '
+        'meet their own 1x dense-pair benchmarks. Solid curves summarize learned storage; faint curves show '
+        'individual smallest tested passing witnesses. Filled markers require three resolved searches; '
+        'hollow markers summarize three passing witnesses with unresolved lower budgets. Groups missing a '
+        'passing witness have no mean or median. Legendre uses exact integer minima; Logarithmic uses 20% '
+        'local width brackets, not global minima. Fixed retained storage and offline source costs are additional. '
+        'Dashed fits, when available, are descriptive and require all six groups resolved.\n')
+    figure, axes = plt.subplots(1, 2, figsize=(11.2, 4.8), sharex=True, sharey=True)
+    for axis, statistic in zip(axes, ('mean', 'median')):
+        for family, color, marker in (('legendre', '#185b84', 's'), ('logarithmic', '#228833', 'o')):
+            for seed in seeds:
+                axis.plot(widths, [indexed[family][n, seed]['selected']['learned']
+                    if indexed[family][n, seed]['selected'] else np.nan for n in widths],
+                    color=color, alpha=.18, linewidth=.9)
+            values = [group[statistic] if group[statistic] is not None else np.nan for group in groups[family]]
+            axis.plot(widths, values, color=color, linewidth=2, label=family.capitalize())
+            for complete in (True, False):
+                points = [group for group in groups[family]
+                          if group['complete'] == complete and group[statistic] is not None]
+                axis.plot([group['width'] for group in points], [group[statistic] for group in points],
+                    linestyle='none', marker=marker, color=color, markersize=6,
+                    markerfacecolor=color if complete else 'white', markeredgewidth=1.5,
+                    label='Lower budget unresolved' if points and not complete else None)
+            fit = fits[family].get(statistic, {})
+            if fit.get('status') == 'fitted' and all(group['complete'] for group in groups[family]):
+                require(fit['fitted_widths'] == widths, 'Descriptive fit does not cover all six widths')
+                grid = np.geomspace(min(widths), max(widths), 150)
+                coordinate = grid if family == 'legendre' else np.log(grid)
+                axis.plot(grid, fit['C']*coordinate**fit['p'], '--', color=color, alpha=.75, linewidth=1.2,
+                          label=(rf"Legendre fit: $n^{{{fit['p']:.3f}}}$" if family == 'legendre'
+                                 else rf"Logarithmic fit: $(\log n)^{{{fit['p']:.3f}}}$"))
+        axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=statistic.capitalize())
+        axis.set_xticks(widths, [str(n) for n in widths])
+        axis.xaxis.set_minor_formatter(NullFormatter())
+        axis.tick_params(axis='x', labelsize=9)
+        axis.grid(alpha=.2)
+        axis.legend(fontsize=8, frameon=False)
+    axes[0].set_ylabel('Learned scalars')
+    dataset = left['common']['dataset']
+    title = (f"Digits {dataset['digit_pair'][0]} vs {dataset['digit_pair'][1]}"
+             if dataset['name'] == 'digits' else 'Legendre and Logarithmic')
+    figure.suptitle(title+': three seeds')
+    figure.text(.02, .02, 'Both 1x RMS criteria; fixed storage excluded. Hollow markers: unresolved lower budgets.', fontsize=8)
+    figure.tight_layout(rect=(0, .06, 1, .95))
+    args.out.mkdir(parents=True, exist_ok=False)
+    for extension in ('png', 'pdf'):
+        figure.savefig(args.out/f'learned_state_comparison.{extension}', dpi=180)
+    plt.close(figure)
+    save_json(args.out/'comparison.json', dict(scope=caption.strip(), widths=widths, seeds=seeds,
+        inputs=[dict(path=str(path.resolve()), sha256=sha(path.read_bytes())) for path in args.metrics],
+        paired_checks='data/model/training/time grids, initialization and trajectory hashes, dense RMS benchmarks',
+        groups=groups, source_descriptive_fits=fits,
+        fit_drawn={family: all(group['complete'] for group in groups[family]) and
+            any(fit.get('status') == 'fitted' for fit in fits[family].values()) for family in audits}))
+    (args.out/'captions.txt').write_text(caption)
+    print(json.dumps(dict(event='budget_comparison_plot', output=str(args.out))), flush=True)
+    return 0
+
+
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'budget-comparison-plot':
+        sys.exit(budget_comparison_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'budget-seed-plot':
         sys.exit(budget_seed_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'harmonic-order-probe':
