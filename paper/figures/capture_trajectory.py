@@ -12171,7 +12171,159 @@ def dense_control_repeats_main(argv=None):
     return int(not report['complete'])
 
 
+def budget_seed_plot(argv):
+    """Audit saved Harmonic seed replications and plot tested passing storage."""
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    parser = argparse.ArgumentParser(description=budget_seed_plot.__doc__)
+    parser.add_argument('--runs', nargs='+', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+    roots = [root.resolve() for root in args.runs]
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    require(len(roots) == len(set(roots)) == 6, 'Supply six distinct run roots: two widths, three seeds')
+    rows, common, common_source, common_times, seen = [], None, None, None, set()
+    for root in roots:
+        manifest = json.loads((root/'run.json').read_text())
+        config = manifest['config']
+        require(json.loads((root/'config.json').read_text()) == config, f'Config mismatch: {root}')
+        require(len(config['seeds']) == 1, f'Expected one seed per root: {root}')
+        n, seed = config['model']['width'], config['seeds'][0]
+        require((n, seed) not in seen, f'Duplicate width/seed: {n}/{seed}')
+        seen.add((n, seed))
+        path = (root/manifest['repetitions'][str(seed)]).resolve()
+        require(path.is_relative_to(root) and path != root, f'Invalid repetition path: {root}')
+        report = json.loads((path/'report.json').read_text())
+        source_hash = sha((root/'source.py').read_bytes())
+        archive_hash = sha((path/'trajectories.npz').read_bytes())
+        require(source_hash == manifest['source_sha256'] == report['source_sha256']
+                and archive_hash == report['trajectories_sha256'], f'Source/archive hash mismatch: {root}')
+        require(report['seed'] == report['seeds']['reference'] == seed
+                and report['fingerprint'] == manifest['fingerprint'], f'Run identity mismatch: {root}')
+        search, plan = report['budget_search']['harmonic'], manifest['search_plan']
+        require(search['factor'] == plan['factor'] == 1
+                and search['width_tolerance'] == plan['width_tolerance'] == .2,
+                f'Expected strict 1x criteria and 20% local width brackets: {root}')
+        contract = dict(dataset=config['dataset'], training=config['training'], source_sha256=source_hash,
+            model={key: value for key, value in config['model'].items() if key != 'width'},
+            data_sha256=report['data_sha256'], tf32=config['execution']['tf32'],
+            spatial_degree=config['methods']['non_oblivious']['harmonic']['spatial_degree'],
+            setup=_experiment_setup(config, 'harmonic'),
+            search={key: plan[key] for key in ('restart_harmonic', 'rank_rule', 'cap_below_dense', 'expansion')})
+        require(common is None or contract == common, f'Data/model/training/source settings differ: {root}')
+        common = contract
+        source = report.get('sources', {}).get('harmonic')
+        if source is not None:
+            settings = {key: source[key] for key in ('method', 'horizon', 'rk4_step', 'rollout_dtype',
+                'coefficient_dtype', 'chebyshev_degree', 'spatial_degree', 'geometry_sha256', 'geometry_count',
+                'observation_count', 'boundaries', 'requested_rank', 'effective_setup')}
+            require(common_source is None or settings == common_source, f'Compiled source settings differ: {root}')
+            common_source = settings
+        row = dict(width=n, seed=seed, root=str(root), source_sha256=source_hash,
+            trajectories_sha256=archive_hash, bracket=search['bracket'], errors=report.get('errors', {}),
+            candidates=[], selected=None, status=search['bracket']['status'])
+        with np.load(path/'trajectories.npz', allow_pickle=False) as arrays:
+            require(report['data_sha256'] == manifest['identity']['data_sha256']
+                    and all(array_sha(arrays[key]) == value for key, value in report['data_sha256'].items()),
+                    f'Data hash mismatch: {root}')
+            times, m = arrays['times_reference'], len(arrays['train_labels'])
+            require(np.isfinite(times).all() and times[0] == 0 and np.all(np.diff(times) > 0)
+                    and np.isclose(times[-1], config['training']['horizon']), f'Invalid time grid: {root}')
+            require(common_times is None or np.array_equal(times, common_times), f'Time grids differ: {root}')
+            common_times = times.copy()
+            shape = (len(times), m+len(arrays['query_inputs']))
+
+            def prediction(name):
+                require(report['runs'].get(name, {}).get('complete')
+                        and arrays[name].shape == shape and np.isfinite(arrays[name]).all()
+                        and np.array_equal(arrays['times_'+name], times), f'Incomplete/invalid {name}: {root}')
+                return arrays[name][:, m:].astype(float)
+
+            reference = prediction('reference')
+            baseline = np.sqrt(np.mean((prediction(f'dense_{n}')-reference)**2, axis=1))
+            thresholds = np.array([baseline[-1], baseline.max()])
+            require(np.all(thresholds > 0), f'Zero dense-pair benchmark: {root}')
+            row['dense_pair'] = dict(endpoint_rms=float(thresholds[0]), worst_recorded_rms=float(thresholds[1]))
+            for name, model in report['models'].items():
+                if model['family'] != 'harmonic':
+                    continue
+                candidate = dict(name=name, q=model['width'], rank=model['source_rank'],
+                    learned=model['moving'], fixed=model['fixed'], total=model['total'], status='inconclusive')
+                require(candidate['total'] == candidate['learned']+candidate['fixed'], f'Storage mismatch: {root}/{name}')
+                if report['runs'].get(name, {}).get('complete'):
+                    errors = np.sqrt(np.mean((prediction(name)-reference)**2, axis=1))
+                    metrics = np.array([errors[-1], errors.max()])
+                    candidate.update(status='pass' if np.all(metrics <= thresholds) else 'fail',
+                        endpoint_rms=float(metrics[0]), worst_recorded_rms=float(metrics[1]),
+                        endpoint_ratio=float(metrics[0]/thresholds[0]), worst_recorded_ratio=float(metrics[1]/thresholds[1]))
+                row['candidates'].append(candidate)
+        recorded = {candidate['name'] for candidate in row['candidates']}
+        row['candidates'] += [dict(name=request['name'], q=request['width'], rank=request['source_rank'],
+            status='inconclusive', reason=report.get('errors', {}).get(request['name'], 'No completed model'))
+            for request in search.get('inherited_requested', [])+search['requested'] if request['name'] not in recorded]
+        passing = [candidate for candidate in row['candidates'] if candidate['status'] == 'pass']
+        row['selected'] = min(passing, key=lambda candidate: candidate['q']) if passing else None
+        require(search['bracket'].get('upper') == (row['selected']['q'] if passing else None),
+                f'Selected passing width differs from recorded bracket: {root}')
+        lower = search['bracket'].get('lower')
+        if row['status'] == 'resolved_local':
+            require(lower is not None and any(c['q'] == lower and c['status'] == 'fail' for c in row['candidates'])
+                    and row['selected']['q']/lower <= 1.2, f'Invalid local accuracy bracket: {root}')
+        if not report.get('search_complete'):
+            row['status'] = 'search_incomplete'
+        rows.append(row)
+    widths, seeds = sorted({row['width'] for row in rows}), sorted({row['seed'] for row in rows})
+    require(len(widths) == 2 and len(seeds) == 3 and len(seen) == len(widths)*len(seeds),
+            'Expected the same three seeds at each of two widths')
+    groups = []
+    for n in widths:
+        selected = [row for row in rows if row['width'] == n]
+        complete = all(row['selected'] is not None and row['status'] == 'resolved_local' for row in selected)
+        values = [row['selected']['learned'] for row in selected if row['selected'] is not None]
+        groups.append(dict(width=n, expected=3, available=len(values), complete=complete, learned_values=values,
+            mean=float(np.mean(values)) if complete else None, sample_sd=float(np.std(values, ddof=1)) if complete else None,
+            median=float(np.median(values)) if complete else None))
+    args.out.mkdir(parents=True, exist_ok=False)
+    scope = ('Smallest tested passing Harmonic models; 20% local width brackets, not confidence intervals or global minima. '
+             'Three initialization seeds on fixed data; finite Euler trajectories. No exponent fitted.')
+    save_json(args.out/'metrics.json', dict(scope=scope, common=common, compiled_source=common_source,
+        recorded_times=common_times.tolist(), individuals=rows, groups=groups))
+    (args.out/'captions.txt').write_text(scope+'\nCommon spatial degree 25, temporal degree 8, source rank cap 42.\n'
+        'Faint curves: individual seeds. Blue squares: arithmetic mean. Orange diamonds: median.\n'
+        'Sample SD is recorded in metrics.json; group summaries require all three resolved crossings.\n')
+    figure, axis = plt.subplots(figsize=(7.3, 4.8))
+    for seed in seeds:
+        samples = sorted((row for row in rows if row['seed'] == seed), key=lambda row: row['width'])
+        axis.plot(widths, [row['selected']['learned'] if row['selected'] else np.nan for row in samples],
+                  'o-', alpha=.35, linewidth=1.2, label=f'Seed {seed}')
+    axis.plot(widths, [group['mean'] if group['complete'] else np.nan for group in groups],
+              's-', color='#185b84', linewidth=2.5, markersize=7, label='Arithmetic mean')
+    axis.plot(widths, [group['median'] if group['complete'] else np.nan for group in groups],
+              'D--', color='#b75c22', linewidth=2, markersize=6, label='Median')
+    unresolved = [f"n={row['width']}, seed {row['seed']}: {row['status']}" for row in rows
+                  if row['selected'] is None or row['status'] != 'resolved_local']
+    axis.set(xlabel='Dense width n', ylabel='Learned state', title='Harmonic: three seeds', xticks=widths)
+    axis.ticklabel_format(axis='y', style='plain')
+    axis.grid(alpha=.2)
+    axis.legend(fontsize=8)
+    figure.text(.02, .02, '20% local width brackets.'
+                + ('\nUnresolved (group summaries withheld): '+ '; '.join(unresolved) if unresolved else ''), fontsize=8)
+    figure.tight_layout(rect=(0, .08 if unresolved else .05, 1, 1))
+    for extension in ('png', 'pdf'):
+        figure.savefig(args.out/f'learned_state_by_seed.{extension}', dpi=180)
+    plt.close(figure)
+    print(json.dumps(dict(event='budget_seed_plot', output=str(args.out), unresolved=unresolved)), flush=True)
+    return 0
+
+
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'budget-seed-plot':
+        sys.exit(budget_seed_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'harmonic-order-probe':
         sys.exit(harmonic_order_probe_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'dense-control-repeats':

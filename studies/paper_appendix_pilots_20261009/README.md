@@ -1,5 +1,87 @@
 # Bounded appendix figure pilots
 
+## Low-width Harmonic seed replication (bounded continuation)
+
+Completed: BOTH arithmetic mean and median learned state increase from512 to
+1024 across seeds1701/1702/1703. The two added seeds each use a new paired dense
+reference and independently rebuilt Harmonic sources. All four new searches
+resolved20% local accuracy brackets, without constructor/runtime failures.
+
+| Dense width | Seed | Failing / passing compact width | Learned | Fixed | Endpoint ratio | Maximum-recorded ratio |
+|---:|---:|---:|---:|---:|---:|---:|
+|512|1701 (reused)|224 /256|66,312|196,608|0.770137|0.305305|
+|512|1702|192 /224|50,856|150,528|0.436043|0.761062|
+|512|1703|160 /192|37,448|110,592|0.864591|0.627614|
+|1024|1701 (reused)|512 /575|332,358|991,875|0.499716|0.099797|
+|1024|1702|192 /224|50,856|150,528|0.664547|0.942698|
+|1024|1703|320 /384|148,616|442,368|0.934786|0.603331|
+
+Learned-state arithmetic mean +/- sample SD is51,538.67 +/-14,444.10 at512,
+and177,276.67 +/-142,922.77 at1024. Medians are50,856 and148,616. Thus seed
+variability is much larger than the extra precision of the old5% search,
+especially at1024;20% is sufficient for this bounded diagnostic, not a proven
+optimal tolerance. These two points do not resolve the midwidth dip in the
+six-width curve or establish any asymptotic exponent. The original seed's
+20% results, not its5% refinement, are used in these aggregates.
+
+Eight new dense fits and16 Harmonic fits completed. Summed Euler runtimes
+are32.21s and186.01s respectively across two RTX3090 GPUs; each of the four
+source compilations takes1.59--1.64s. Dense final training MSEs are below0.004.
+The saved-array check verified finite common65-point grids, recomputed both
+RMS criteria, exact learned/fixed counts, archive/source/data hashes, distinct
+reference/partner seeds and bitwise preservation of dense/data arrays through
+refinement. No half-step reruns; this remains the agreed coarse Euler pilot.
+Original numerical executable SHA256 is
+`cf5a789e1d7ca5f77c23893d46283d8763db5465aa8679b550f82fb5bc667015` throughout.
+
+Figure and full metrics:
+`data/generated/paper_appendix_pilots_20261009/harmonic_low_width_seeds/figures/learned_state_by_seed.png`
+(PDF,`metrics.json`,caption alongside). The existing paper script's new
+plot-only `budget-seed-plot` command shows all individual results, arithmetic
+mean and median; no exponent is fitted and incomplete groups are not silently
+averaged. Scientific training/source code is unchanged. The experiment skill
+kept replication, stopping and claim limits fixed; canonical notation kept
+width and learned storage distinct. No further runs are pending.
+
+Reproduce dense runs with `run --config
+studies/paper_appendix_pilots_20261009/harmonic_low_width_seeds.json`, overriding
+`--seeds '[1702]'` (or1703),`--model.width 512` (or1024),
+`--methods.oblivious.dense.widths '[512]'` (or1024),`--execution.devices cuda:0`
+(or1), and a fresh per-seed/per-width `--execution.output`. Each command is
+also retained verbatim in its generated `run.json`. Then run
+`refine-budgets --plan <harmonic_low_width_seed1702_search.json>` (and1703)
+with the study-relative path and fresh plan output paths. Numerical runs used
+the frozen source from seed1702's initial dense root to preserve exact code.
+Plot via `budget-seed-plot --runs <uniform20 n512,n1024> <seed1702 search
+n512,n1024> <seed1703 search n512,n1024> --out <fresh directory>` using
+`/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py`.
+
+User requests two more seeds at the existing low widths512 and1024, with20%
+local width brackets and mean/median summaries. Freeze reference seeds1702/1703,
+independent role-hashed dense partners, and unchanged dataset seed47. Rebuild
+Harmonic independently from each new dense reference. Keep spatial25,time8,
+maximum source rank42, capped prefix rank rule, selector64/condition16,
+Euler1/160,T32,65 observations and BOTH1x RMS criteria exactly as in the
+uniform20% experiment. Practical sources still use full-horizon RK4h0.125;
+no initialization-only or GF certificate is claimed.
+
+Question: do three-seed means/medians of smallest observed passing learned
+states increase from512 to1024, or does irregularity survive replication?
+Reuse seed1701's ORIGINAL20% search, not its later5% refinement, to equalize
+search precision. No new dataset, order, method, or higher-width fits. The
+20% tolerance concerns compact width, not storage/statistical uncertainty or
+a proven global minimum; construction failures remain inconclusive.
+
+At most8 dense fits and32 Harmonic requests,120s each,10-minute execution cap
+on two GPUs. Stop on the existing bounded-search terminal condition; no rescue
+orders/seeds. Recompute all reported ratios/storage from saved arrays, check
+data/time/source provenance, then plot the three individual learned-state
+curves plus mean and median (no exponent from two widths). Report either
+direction without forcing monotonicity. Root owns configs/runs/notes; scoped
+read-only support checks configuration. Plans: `harmonic_low_width_seeds.json`
+plus `harmonic_low_width_seed1702_search.json` and1703 counterpart. Products:
+`data/generated/paper_appendix_pilots_20261009/harmonic_low_width_seeds/`.
+
 ## Uniform Harmonic setup,5 percent refinement
 
 Completed: all six genuine accuracy brackets are below5%, with no conditioning
