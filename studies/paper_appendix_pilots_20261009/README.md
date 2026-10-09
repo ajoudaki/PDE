@@ -1,5 +1,101 @@
 # Bounded appendix figure pilots
 
+## Full-width 1-versus-7 Legendre continuation
+
+### Outcome
+
+All 18 width/seed cases resolve exact minimum positive integer orders under
+both 1x tests. The three seeds agree at every width; the nine original rows
+are unchanged.
+
+| Dense width | q, seed1901 | q, seed1902 | q, seed1903 | Learned storage |
+|---:|---:|---:|---:|---:|
+|512|1|1|1|49666|
+|1024|1|1|1|99330|
+|2048|1|1|1|198658|
+|4096|2|2|2|462850|
+|8192|2|2|2|925698|
+|16384|2|2|2|1851394|
+
+Order 1 passes endpoint RMS alone in all 18 cases. Its maximum-recorded
+RMS fails at all three larger widths, which is why the joint criterion
+requires order 2. At 16384 the selected order-2 endpoint/maximum RMS ratios
+are 0.089865/0.181230, 0.100442/0.216887, and 0.149145/0.190512 for the
+three seeds. No numerical or construction failures occurred. Each maximum
+ratio divides the maximum compressed-reference RMS by the maximum
+dense-dense RMS over the 65 recorded times; it is not a pointwise ratio
+bound at every time, nor a continuous-time gradient-flow certificate.
+
+Mean and median learned-storage curves coincide. Across all six widths,
+the descriptive log-log fit is C*n^p with C=66.66360592, p=1.056629323,
+and log-space RMS residual 0.036497729. This is close to linear learned
+storage on this range, not an asymptotic exponent or evidence that q must
+grow logarithmically: the observed orders are simply 1,1,1,2,2,2.
+Learned storage remains n(16q+81)+2; the fixed n^2+2q storage is additional.
+
+Executed exactly 18 new dense trajectories (249.11s summed, 3.90--30.78s
+each) and 15 new Legendre trajectories (221.82s summed, 11.25--22.73s
+each), using both GPUs. These are summed trajectory times, not elapsed
+batch time; construction/driver overhead is additional. Every new run
+completed 5120 Euler steps to T=32; final training MSE ranged from
+0.00022981 to 0.00040266. No solver, source, threshold, or code changes.
+
+The final consistency check verified unchanged old metrics, identical data
+hashes, bitwise preservation of every reused dense/data array, matching
+initial-state hashes and 65 time grids, finite complete trajectories, raw
+query RMS ratios, exact integer minima, and moving/fixed storage counts.
+The existing plot audit also checks source compatibility and seed pairing.
+Scoped support checked the extension plans independently. Both figures
+were generated; the mean/median figure was visually inspected. The bounded
+experiment workflow kept the selection rule fixed and required every
+smaller order to fail the same accuracy test.
+
+Reproduce the added dense pairs with `digits_legendre_dense.json`, overriding
+`--seeds '[S]'`, `--model.width N`, `--methods.oblivious.dense.widths '[N]'`,
+`--execution.devices cuda:0` (or cuda:1), and `--execution.output` to a fresh
+`digits_legendre_full_widths/seedS/dense/nN` directory, for S=1901,1902,1903
+and N=512,8192,16384. Then run `refine-budgets --plan
+studies/paper_appendix_pilots_20261009/digits_legendre_full_seedS_search.json`
+for each seed. Producer: `/home/amir/miniconda3/bin/python -B -u
+paper/figures/capture_trajectory.py` at commit 5c4acba, unchanged throughout.
+Replot with `budget-seed-plot --family legendre --fit-width-powers --runs
+<18 roots> --out <fresh figures directory>`: for each seed, use the new
+`digits_legendre_full_widths/seedS/search/nN` roots at 512/8192/16384 and
+the preserved `digits_legendre_three_seeds/seedS/search/nN` roots at
+1024/2048/4096. All roots are under this study's generated directory.
+The combined outputs are `digits_legendre_full_widths/figures/metrics.json`,
+`learned_state_by_seed.png/pdf`, `learned_state_mean_median.png/pdf`, and
+`captions.txt`. No further runs pending.
+
+### Frozen design
+
+User explicitly requests ALL remaining widths in the plot. Add exactly512,
+8192,16384 for reference seeds1901/1902/1903, completing the same six-width
+grid as the circle experiment. Preserve every old1024/2048/4096 result.
+At each new width/seed, train the reference and its independently role-hashed
+same-width dense comparator, then scan Legendre orders1,...,8 consecutively.
+Stop at the first order passing BOTH1x endpoint and maximum-recorded RMS;
+every lower order must be a completed accuracy failure. Do not tune thresholds
+or numerical settings, assume monotonicity, or rerun old points.
+
+Same `digits_legendre_dense.json` data/model/time contract: normalized raw8x8
+digits1/7 (no PCA), dataset47,d64,m8,p30 scored test inputs,30 unchanged
+extra inputs never included in this criterion; L2 tanh, zero readout,
+float32/TF32off, Euler1/160,T32,5120 updates and65 observations. No source
+rollout or test labels are used by the Legendre initializer. Learned storage
+remains n(16q+81)+2 and fixed storage n^2+2q. Preserve finite-Euler rather
+than GF claims. Postmeasurement mean/median storage fits remain descriptive.
+
+Bounded extension:9 new width/seed cases,18 dense trajectories, at most8
+Legendre fits per case,120s per fit. Two dense GPU queues capped at15min
+each, followed by the three per-seed search plans with two GPUs and a15min
+combined search cap. No added widths/seeds/source settings or numerical rescue.
+Incomplete/nonfinite cases remain inconclusive. The bounded-experiment
+workflow preserves this contract and the original raw outputs. Root owns
+configs/runs/notes/Git; scoped support checks configuration compatibility
+read-only. New generated root:
+`data/generated/paper_appendix_pilots_20261009/digits_legendre_full_widths/`.
+
 ## Three-seed 1-versus-7 Legendre minimum orders
 
 ### Outcome
