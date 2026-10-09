@@ -7623,6 +7623,8 @@ def experiment_scaling_plot(argv):
 
     parser = argparse.ArgumentParser(description=experiment_scaling_plot.__doc__)
     parser.add_argument('--runs', nargs='+', type=Path, required=True)
+    parser.add_argument('--harmonic-probes', nargs='+', type=Path, default=[],
+                        help='Include saved harmonic-order-probe candidates without modifying their reference runs')
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--factor', type=float, default=1.,
                         help='Positive finite multiplier for both dense-pair accuracy thresholds (default: 1)')
@@ -7664,6 +7666,15 @@ def experiment_scaling_plot(argv):
 
     require(len(set(roots)) == len(roots), 'Duplicate input run')
     require(math.isfinite(args.factor) and args.factor > 0, '--factor must be finite and strictly positive')
+    probe_paths = [value.resolve() for value in args.harmonic_probes]
+    require(len(set(probe_paths)) == len(probe_paths), 'Duplicate Harmonic probe')
+    probes, used_probes = [], set()
+    for probe_path in probe_paths:
+        probe_bytes = (probe_path/'report.json').read_bytes()
+        probe = json.loads(probe_bytes)
+        require(Path(probe['reference_run']).resolve() in roots,
+                f'Harmonic probe reference is not an input run: {probe_path}')
+        probes.append((probe_path, probe_bytes, probe))
     records, inputs, curves, common, seen = [], [], {}, None, set()
     numerical_sources, common_numerical = {}, None
     for root in roots:
@@ -7796,6 +7807,86 @@ def experiment_scaling_plot(argv):
                 f'Unexpected dataset hash keys: {path}')
         require({key: array_sha(arrays[key]) for key in hash_keys}
                 == report['data_sha256'] == identity['data_sha256'], f'Data hash mismatch: {path}')
+        for probe_path, probe_bytes, probe in probes:
+            if Path(probe['reference_run']).resolve() != root:
+                continue
+            probe_config_bytes = (probe_path/'config.json').read_bytes()
+            probe_config = json.loads(probe_config_bytes)
+            command_config = Path(probe['command'][probe['command'].index('--config')+1])
+            if not command_config.is_absolute():
+                command_config = Path(probe['cwd'])/command_config
+            original_probe_config = command_config.read_bytes()
+            require(sha(original_probe_config) == probe['config_sha256']
+                    and json.loads(original_probe_config) == probe_config,
+                    f'Harmonic probe config mismatch: {probe_path}')
+            config_reference = Path(probe_config['reference_run'])
+            if not config_reference.is_absolute():
+                config_reference = Path(probe['cwd'])/config_reference
+            request = probe['request']
+            require(config_reference.resolve() == root
+                    and probe_config['cases'][probe['case']] == request
+                    and probe_config['compact_width'] == probe['compact_width']
+                    and all(isinstance(value, int) and not isinstance(value, bool) and value > 0
+                            for value in (probe['compact_width'], request['source_rank'],
+                                          request['spatial_degree'], request['time_degree'])),
+                    f'Harmonic probe request mismatch: {probe_path}')
+            require(probe['original_report_sha256'] == sha(report_bytes)
+                    and probe['original_trajectories_sha256'] == sha(trajectory_bytes)
+                    and probe['training'] == config['training']
+                    and probe['architecture'] == config['model']
+                    and probe['environment']['tf32'] == config['execution']['tf32']
+                    and probe['seeds'] == {key: report['seeds'][key] for key in
+                                          ('reference', 'harmonic_source', 'harmonic_selector')},
+                    f'Harmonic probe reference identity mismatch: {probe_path}')
+            probe_source_bytes = (probe_path/'source.py').read_bytes()
+            probe_source_hash = sha(probe_source_bytes)
+            require(probe_source_hash == probe['source_sha256'],
+                    f'Harmonic probe source hash mismatch: {probe_path}')
+            if probe_source_hash not in numerical_sources:
+                numerical_sources[probe_source_hash] = numerical_source(probe_source_bytes)
+            require(numerical_sources[probe_source_hash] == numerical,
+                    f'Harmonic probe numerical definitions differ: {probe_path}')
+            probe_trajectory_bytes = (probe_path/'trajectories.npz').read_bytes()
+            require(sha(probe_trajectory_bytes) == probe['trajectories_sha256'],
+                    f'Harmonic probe trajectory hash mismatch: {probe_path}')
+            with np.load(io.BytesIO(probe_trajectory_bytes), allow_pickle=False) as saved:
+                probe_arrays = {key: saved[key] for key in saved.files}
+            for key in ('train_inputs', 'train_labels', 'query_inputs', 'reference',
+                        'times_reference', iid_name, probe_config['baseline_model']):
+                require(key in arrays and key in probe_arrays
+                        and array_sha(probe_arrays[key]) == array_sha(arrays[key]),
+                        f'Harmonic probe changed reference array {key}: {probe_path}')
+            name = (f"harmonic_{probe['compact_width']}_r{request['source_rank']}"
+                    f"_s{request['spatial_degree']}_t{request['time_degree']}_{sha(probe_bytes)[:12]}")
+            require(name not in expected, f'Duplicate Harmonic probe candidate: {probe_path}')
+            expected[name] = 'harmonic'
+            probe_provenance = dict(path=str(probe_path), name=name, case=probe['case'], request=request,
+                report_sha256=sha(probe_bytes), config_sha256=probe['config_sha256'],
+                config_snapshot_sha256=sha(probe_config_bytes), source_sha256=probe_source_hash,
+                numerical_source_sha256=numerical['sha256'], trajectories_sha256=probe['trajectories_sha256'],
+                reference_run=str(root), original_report_sha256=probe['original_report_sha256'],
+                original_trajectories_sha256=probe['original_trajectories_sha256'],
+                status=probe['status'], source=probe.get('source'), source_hashes=probe.get('source_hashes'))
+            provenance.setdefault('harmonic_probes', []).append(probe_provenance)
+            row.setdefault('harmonic_probes', []).append(name)
+            used_probes.add(probe_path)
+            if 'model' in probe:
+                require(probe['initial_state_sha256'] == report['reference_initial_state_sha256']
+                        and not any(item['truncated'] for item in probe['model']['diagnostics']['source_truncations']),
+                        f'Harmonic probe initialization or truncation mismatch: {probe_path}')
+                model = copy.deepcopy(probe['model'])
+                model['moving'] = model.pop('learned')
+                model.update(family='harmonic', width=probe['compact_width'],
+                             source_rank=request['source_rank'], spatial_degree=request['spatial_degree'],
+                             time_degree=request['time_degree'], provenance=probe_provenance)
+                report['models'][name] = model
+            if probe.get('run', {}).get('complete') is True and probe['status'] in ('pass', 'fail'):
+                require('model' in probe and np.array_equal(probe_arrays['times'], arrays['times_reference']),
+                        f'Harmonic probe completion or time mismatch: {probe_path}')
+                report['runs'][name] = probe['run']
+                arrays[name], arrays['times_'+name] = probe_arrays['prediction'], probe_arrays['times']
+            else:
+                report.setdefault('errors', {})[name] = probe.get('reason', 'Harmonic probe incomplete')
         checked = {}
         for name in ('reference', iid_name, *expected):
             model = report['models'].get(name)
@@ -7898,6 +7989,7 @@ def experiment_scaling_plot(argv):
             else:
                 row['omissions'].append(f'{family}: no complete candidate passes both {args.factor:g}x benchmark metrics')
 
+    require(used_probes == set(probe_paths), 'Some Harmonic probes lacked a complete saved reference run')
     records.sort(key=lambda item: item['width'])
     show_legendre_guide = not any(row['budget_search'] for row in records)
     parent = args.out.resolve()/'plots'
@@ -7912,7 +8004,7 @@ def experiment_scaling_plot(argv):
             index += 1
     caption = ('Each width uses one independent dense pair and its own reference on the same held-out query inputs. '
         'A candidate passes only when its endpoint RMS and maximum recorded RMS are each no larger than '
-        f'{args.factor:g} times the corresponding dense-pair metric. The smallest passing moving state among evaluated candidates '
+        f'{args.factor:g} times the corresponding dense-pair metric. The smallest tested passing moving state '
         'is selected per family; this is not a proven global minimum. Missing passing candidates are omitted. '
         'Incomplete runs and constructor failures are inconclusive; skipped larger candidates are not failures. '
         'Endpoint and maximum-error matching does not imply pointwise matching. The separately reported '
@@ -7923,6 +8015,10 @@ def experiment_scaling_plot(argv):
         'Logarithmic setup uses query inputs but not their labels. Candidate selection uses these query errors; '
         f'there is no independent post-selection test. {len(roots)} selected or tuned width points are not asymptotic proof. '
         'Finite recorded Euler trajectories are not a gradient-flow refinement certificate.')
+    if probe_paths:
+        caption += (' Additional Harmonic candidates use the separately recorded spatial and temporal source orders. '
+                    'Their compact widths were not bracket-refined; selected points are the smallest tested passing sizes. '
+                    'Earlier budget-search brackets refer only to their original source setup.')
     if show_legendre_guide:
         caption += (' The dotted n^(5/4) guide is anchored at the first passing Legendre point '
                     'and is not a fitted exponent.')

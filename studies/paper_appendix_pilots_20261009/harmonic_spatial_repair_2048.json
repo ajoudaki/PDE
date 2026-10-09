@@ -1,0 +1,11 @@
+{
+  "reference_run": "data/generated/paper_appendix_pilots_20261009/circle_strict/n2048/n2048",
+  "baseline_model": "harmonic_978_r35",
+  "compact_width": 978,
+  "seconds_per_fit": 120,
+  "output": "data/generated/paper_appendix_pilots_20261009/harmonic_spatial_repair/n2048",
+  "cases": {
+    "spatial15": {"spatial_degree": 15, "time_degree": 8, "source_rank": 35},
+    "spatial25": {"spatial_degree": 25, "time_degree": 8, "source_rank": 35}
+  }
+}

@@ -1,5 +1,67 @@
 # Bounded appendix figure pilots
 
+## Figure2 Harmonic spatial-resolution repair
+
+Completed: all three previously missing Harmonic witnesses now pass BOTH1x
+metrics. Only spatial order was refined; compact widths, source ranks,
+retained storage, dense pairs and condition cap16 were unchanged.
+
+| Dense width | Compact width / rank | Spatial degree | Endpoint ratio | Maximum-recorded ratio | Learned | Fixed | Setup + fit seconds |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+|2048|978 /35|15|0.467988|0.202063|959,426|2,869,452|14.08|
+|8192|1024 /42|25|0.379794|0.476353|1,051,656|3,145,728|19.44|
+|16384|2048 /79|15|0.134673|0.127548|4,200,456|12,582,912|37.26|
+
+The first8192 attempt at spatial15 completed but missed at endpoint
+(1.274100; maximum ratio0.906206,19.41s). It remains in the plotted candidate
+evidence; the one permitted spatial25 fallback passed. Four fits total;
+no dense retraining, width/rank/seed search or extra fits. Spatial15 uses the
+same32 sphere nodes as the original; spatial25 uses52 independent geometry
+nodes. Temporal degree remains8 throughout. These results establish practical
+fixed-budget repairs on the saved cases, not spatial monotonicity or newly
+minimized widths. The old failed-order results remain valid for their orders.
+
+New Figure2 output:
+`data/generated/paper_appendix_pilots_20261009/harmonic_spatial_repair/figures/plots/plot_001/`.
+It selects among existing circle candidates and the four new candidates,
+preserving failed runs and original files. Harmonic now has a passing witness
+at all six widths512--16384; Logarithmic observations are unchanged. The
+selected Harmonic budgets at the repaired widths have NOT been minimized
+under their higher spatial orders. Any displayed power fit is descriptive
+of tested budgets only, not an optimized scaling estimate.
+
+Configurations are `harmonic_spatial_repair_<width>.json`. Execute with
+`paper/figures/capture_trajectory.py harmonic-order-probe --config <config>
+--case spatial15 --device cuda:0`, then only the8192 fallback `--case spatial25`.
+For plotting use `scaling-plot --factor 1 --families harmonic logarithmic
+--fit-log-powers --runs <six circle_strict/nN/nN directories>
+--harmonic-probes <four new probe directories> --out <fresh-directory>`.
+All requests retain source/configuration/raw predictions/hashes/timings.
+
+Final check: all four raw trajectories are finite/complete on the same65
+saved times; hashes, both RMS ratios, pass labels and storage sums were
+recomputed. Existing plot validation additionally verified source numerical
+definitions, reference/data/init identity and preserved baselines. Rendered
+figure inspected; six complete dense pairs and all six passing witnesses
+per family. Exploratory log-power fits are5.487660 for Harmonic and3.167065
+for Logarithmic. No half-step, independent-seed or new minimum-budget claim.
+Runs are finished; no pending continuation.
+
+User requests the finished figure, not another diagnostic grid. Reuse the
+six saved circle dense pairs and all earlier passing candidates. Correct only
+the three missing Harmonic witnesses: n2048/q978/r35, n8192/q1024/r42 and
+n16384/q2048/r79. Use spatial degree15, time degree8, all other construction
+and Euler settings unchanged. If a witness still fails, increase only its
+spatial degree to25 once. No width, rank, selector, seed or temporal search;
+at most6 fits,120s per source/fit,8-minute execution cap. Stop and plot actual
+outcomes even if a crossing remains missing. Both endpoint and maximum-recorded
+RMS must pass the SAME1x dense benchmarks; conditioning cap16 unchanged.
+These are selected-budget repairs, not newly minimized widths. Persist every
+attempt; keep the prior figures unchanged and render a new figure. One final
+raw-array consistency check; no additional numerical-refinement campaign.
+Root owns configurations/runs/notes; scoped read-only support checks how the
+existing plot consumes corrected candidates. No new theorem claim.
+
 ## Harmonic source-order bottleneck diagnostic
 
 Completed bounded diagnostic: spatial degree is a demonstrated useful lever
