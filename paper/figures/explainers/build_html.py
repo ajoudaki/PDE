@@ -17,6 +17,7 @@ index.html also lists, when served over HTTP, any page in html/ that this
 script has not indexed yet, with a live preview in place of a thumbnail.
 """
 import argparse
+import hashlib
 import html
 import json
 import queue
@@ -238,7 +239,9 @@ def main():
         make_thumbs(pages, args.force_thumbs)
     for entry in manifest:
         thumb = HERE/'thumbs'/entry['file'].replace('.html', '.webp')
-        entry['thumb'] = f"thumbs/{thumb.name}?v={int(thumb.stat().st_mtime)}" if thumb.exists() else ''
+        # Content hash, not mtime, so a checkout or revert rebuilds the same index.
+        entry['thumb'] = (f"thumbs/{thumb.name}?v={hashlib.sha1(thumb.read_bytes()).hexdigest()[:10]}"
+                          if thumb.exists() else '')
     body = INDEX_BODY.replace('__MANIFEST__', json.dumps(manifest, ensure_ascii=False).replace('</', '<\\/'))
     write_if_changed(HERE/'index.html', HEAD.format(title='Explainer figures', width=1100) + body + TAIL)
     print('wrote', len(pages), 'pages and index.html')
