@@ -7628,10 +7628,13 @@ def experiment_scaling_plot(argv):
                         help='Positive finite multiplier for both dense-pair accuracy thresholds (default: 1)')
     parser.add_argument('--fit-log-powers', action='store_true',
                         help='Overlay descriptive C(log n)^p fits for Harmonic/Logarithmic with >=3 passing widths')
+    parser.add_argument('--families', nargs='+', choices=('legendre', 'harmonic', 'logarithmic'),
+                        default=['legendre', 'harmonic', 'logarithmic'])
     args = parser.parse_args(argv)
     roots = [path.resolve() for path in args.runs]
     families = dict(legendre=('Legendre', '#d18624'), harmonic=('Harmonic', '#297c8e'),
                     logarithmic=('Logarithmic', '#9768b0'))
+    families = {key: value for key, value in families.items() if key in args.families}
 
     def require(condition, message):
         if not condition:
@@ -7976,7 +7979,9 @@ def experiment_scaling_plot(argv):
     axis.set_xticks(widths, [str(width) for width in widths])
     axis.xaxis.set_minor_formatter(NullFormatter())
     dataset_label = ('Circle' if common['dataset']['name'] == 'sphere'
-                     and common['dataset']['dimension'] == 2 else 'Width scaling')
+                     and common['dataset']['dimension'] == 2 else
+                     'Digits '+ ' / '.join(map(str, common['dataset']['digit_pair']))
+                     if common['dataset']['name'] == 'digits' else 'Width scaling')
     axis.set_title(f'{dataset_label} · {args.factor:g}× variability')
     axis.grid(alpha=.15)
     axis.legend(frameon=False)
@@ -9776,6 +9781,9 @@ def _budget_search_worker(out, device_name, plan):
 
     for family in ('legendre', 'harmonic', 'logarithmic'):
         search = report['budget_search'][family]
+        if family not in plan.get('families', ('legendre', 'harmonic', 'logarithmic')):
+            search['bracket'] = dict(status='not_requested')
+            continue
         source, floor, setup = None, None, None
         setup_dense, setup_inputs, setup_queries = dense, inputs, queries
         input_basis, panel_info = None, None
@@ -9788,6 +9796,13 @@ def _budget_search_worker(out, device_name, plan):
             if q is None:
                 break
             rank = max(1, math.floor((q/4-17)/3))
+            if family != 'legendre' and plan.get('rank_rule') == 'interpolate_budgets':
+                knots = sorted(config['methods']['non_oblivious'][family]['budgets'],
+                               key=lambda value: value['width'])
+                if not knots or not knots[0]['width'] <= q <= knots[-1]['width']:
+                    raise ValueError('Interpolated source ranks require a bracketing original budget ladder')
+                rank = max(1, math.floor(np.interp(q, [v['width'] for v in knots],
+                                                   [v['source_rank'] for v in knots])))
             name = f'legendre_{q}' if family == 'legendre' else f'{family}_{q}_r{rank}'
             request = dict(name=name, order=q) if family == 'legendre' else dict(name=name, width=q, source_rank=rank)
             search['requested'].append(request)
@@ -9916,6 +9931,12 @@ def budget_search_main(argv):
     parser.add_argument('--worker-index', type=int)
     args = parser.parse_args(argv)
     plan = json.loads(args.plan.read_text())
+    families = plan.get('families', ['legendre', 'harmonic', 'logarithmic'])
+    if (not isinstance(families, list) or not families or len(set(families)) != len(families)
+            or any(family not in ('legendre', 'harmonic', 'logarithmic') for family in families)):
+        raise ValueError('families must be a nonempty unique list of compression families')
+    if plan.get('rank_rule', 'legacy') not in ('legacy', 'interpolate_budgets'):
+        raise ValueError('Unknown source-rank proposal rule')
     out = Path(plan['output']).resolve()
     if args.worker_index is not None:
         index = args.worker_index

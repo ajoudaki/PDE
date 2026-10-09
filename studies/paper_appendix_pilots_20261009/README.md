@@ -1,5 +1,103 @@
 # Bounded appendix figure pilots
 
+## Digits-only strict Logarithmic continuation
+
+Completed: all three selected witnesses pass BOTH1x metrics. The original3x
+figures and every other method/task are unchanged. New figure:
+`data/generated/paper_appendix_pilots_20261009/digits_strict_log_figures/plots/plot_001/storage_vs_width.png`.
+
+| Dense width | Compact width / source rank | Learned | Fixed | Total | Endpoint ratio | Maximum-recorded ratio |
+|---:|---:|---:|---:|---:|---:|---:|
+|1024|256 /8|82,184|196,609|278,793|0.453079|0.696984|
+|2048|288 /10|101,672|248,833|350,505|0.680046|0.604719|
+|4096|384 /16|172,424|442,369|614,793|0.929160|0.929160|
+
+At2048,320/r12 passes (endpoint/maximum ratios0.542502/0.467774), then288/r10
+passes, yielding the local256fail--288pass bracket. At4096,320/r12 fails
+maximum-recorded accuracy (endpoint0.795346, maximum1.215318); the retained
+384/r16 witness passes, giving320fail--384pass. These width ratios are1.125
+and1.2, not global optimality statements. The1024 lower bound is still
+unresolved because224 failed construction. Only three new models actually
+trained, taking14.61--14.86s each; two earlier rank21 constructor failures
+are archived separately. No dense model was retrained.
+
+Descriptive learned-storage fit: `31.4624 (log n)^4.03519`, log-space RMS
+residual0.082265. Three selected widths, one reference seed per width and an
+unresolved1024 minimum cannot identify an asymptotic exponent or distinguish
+logarithmic from small-power laws. The useful finite-range observation is
+that learned storage grows2.098x as dense width grows4x (dense storage grows
+15.284x). The strict curve supersedes only the earlier3x comparison when
+the desired criterion is1x; it does not invalidate the3x witnesses.
+
+Reproduce the bounded searches with `refine-budgets --plan` on
+`replicate_digits_strict_log.json`, then
+`replicate_digits_strict_log_interpolated.json` (choose fresh output directories).
+Plot using the existing paper script's `scaling-plot --factor 1 --families
+logarithmic --fit-log-powers --runs` with generated `digits_strict_log/n1024`,
+`digits_strict_log_interpolated/n2048`, `digits_strict_log_interpolated/n4096`
+and `--out <fresh-directory>`. Full argv, source snapshots/hashes, raw arrays,
+all rejected candidates and metrics are retained beside the generated runs.
+
+Final check verified original arrays remain bitwise identical, new trajectories
+are finite/complete with matching65 time points and recomputed RMS, storage
+totals add correctly, and no other family was requested. The existing plot
+validator checked hashes, data, source definitions, initialization pairing
+and time grids. A deterministic bracket test passed; AST comparison confirms
+no numerical model/source/integrator definition changed. Figure inspected.
+No half-step, additional-seed or asymptotic validation is claimed. All runs
+are finished; no further search is pending.
+
+Bounded order-rule correction before further fits: the first attempt requested
+width320/rank21 at2048 and4096, even though the original upper witness384
+uses rank16. Both requests failed conditioning (17.5029 and18.8043 versus16)
+before training; they remain archived in `digits_strict_log/`. The inherited
+circle-oriented rank rule does not interpolate this digits ladder. For the
+user's requested more careful order calculation, freeze the optional
+`interpolate_budgets` rule: floor of linear interpolation of source rank between
+the original `(256,8),(384,16),(512,32)` knots. Thus the first new request is
+320/rank12, followed by the same adaptive width bracket. Source maximum32,
+prefix basis, selector seed and condition gate are unchanged; no rank grid.
+This is an explicit parameter-schedule correction, not a numerical solver change.
+
+`replicate_digits_strict_log_interpolated.json` uses the same saved inputs for
+2048/4096, with at most3 further requests each (at most4 including the archived
+failed request), within the original8-minute execution cap. The1024 point is
+unchanged and construction-limited. The first plan's stopping rule is superseded
+only for this declared order-rule correction; all failed attempts are retained.
+Do not claim brackets from the two rank schedules are one accuracy hierarchy.
+
+User-requested follow-up: switch only the digits1/7 Logarithmic storage curve
+to1x, reusing the fresh seed1901 dense pairs at1024/2048/4096. No new dense
+runs, seeds, tasks or other compression families. Existing3x figures remain
+unchanged. Question: does a finer compact-width search provide smaller1x
+witnesses than the existing256/384/512 ladder?
+
+Before new fits, freeze `replicate_digits_strict_log.json`: both endpoint and
+maximum-over-the-same65-recorded-times query RMS must be <= the respective
+dense-pair RMS (not pointwise domination). Keep8 training/30 declared queries,
+d64, L2 tanh, T32, Euler1/160, float32 execution, TF32off, full-horizon RK4
+source step0.125, degree8, float64 coefficients, uniform selector64trials and
+condition cap16. Reconstruct the unchanged maximum-rank32 source and its
+prefixes; retain the existing intermediate-width rank rule
+`max(1,floor((q/4-17)/3))`. This is the same empirical source truncation, not
+a new certified full-source compiler. Input labels for queries remain unused.
+
+At most4 new candidate requests per width; stop at20% local width brackets
+or an unresolved construction floor. At1024 the inherited224 constructor
+failure already stops refinement below the passing256 witness; do not retry
+with a new selector. At2048/4096 the initial accuracy bracket is256fail to
+384pass. Two GPUs,120s per fit/source,8-minute total execution cap. Incomplete,
+nonfinite and constructor failures remain inconclusive. Preserve old arrays
+bitwise; generated copies/new models live under `digits_strict_log/`.
+Root owns code/config/record and execution. A scoped read-only helper was
+requested but unavailable because the agent service's thread limit was reached.
+
+Runner changes are optional family and rank-proposal filters; plotting gets
+the family filter. Numerical model/source/integrator definitions are unchanged. Any
+post-measurement log-power fit is descriptive across just three widths, with
+the unresolved1024 minimum explicitly qualified. No continuum/refinement or
+asymptotic theorem follows. Stop after the saved-array check and plot.
+
 ## Latest completed figures
 
 - **Figure2, genuinely new repetition:**
