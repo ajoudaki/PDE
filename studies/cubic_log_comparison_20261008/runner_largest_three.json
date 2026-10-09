@@ -1,0 +1,52 @@
+{
+  "dataset": {
+    "name": "sphere", "dimension": 3, "train_samples": 8,
+    "test_samples": 30, "seed": 47, "label_scale": 1.0
+  },
+  "model": {"width": 4096, "depth": 2, "activation": "tanh"},
+  "seeds": [601],
+  "training": {
+    "solver": "euler", "step": 0.0015625, "horizon": 32.0,
+    "record_every": 320, "dtype": "float32"
+  },
+  "methods": {
+    "oblivious": {
+      "dense": {"widths": [4096, 2895, 2047, 1446]},
+      "legendre": {"orders": [12, 3, 2]},
+      "low_rank": {"ranks": [96, 24, 16]},
+      "frozen_features": {"enabled": true, "plot": "dashed"}
+    },
+    "non_oblivious": {
+      "setup": {
+        "initializer": "dense_rollout", "rollout_solver": "rk4", "rollout_step": 0.125,
+        "rollout_dtype": "float32", "coefficient_dtype": "float64", "time_degree": 8,
+        "selection_trials": 64, "condition_limit": 16.0
+      },
+      "harmonic": {
+        "budgets": [
+          {"width": 850, "source_rank": 65},
+          {"width": 600, "source_rank": 44},
+          {"width": 424, "source_rank": 29}
+        ],
+        "spatial_degree": 5
+      },
+      "logarithmic": {
+        "budgets": [
+          {"width": 850, "source_rank": 65},
+          {"width": 600, "source_rank": 44},
+          {"width": 424, "source_rank": 29}
+        ],
+        "test_inputs_at_setup": true
+      }
+    }
+  },
+  "execution": {
+    "devices": "cuda:0", "seconds_per_fit": 120.0, "tf32": false,
+    "reuse_completed": true,
+    "output": "data/generated/cubic_log_comparison_20261008/runner_largest_three"
+  },
+  "plots": {
+    "metrics": ["endpoint_rms", "worst_recorded_rms"],
+    "aggregate": "median", "spread": "none"
+  }
+}

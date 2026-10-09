@@ -2,6 +2,72 @@
 
 ## Scope and question
 
+### One-seed largest-three runner check, 2026-10-09
+
+The user requests one production-scale check of the new configuration runner,
+not another sweep: three largest sizes on the current curves per method and live
+plot updates. Frozen configuration: `runner_largest_three.json`. Same sphere3
+task, m8/p30, width4096, two tanh hidden layers, data47/reference601, zero
+readout and canonical MSE mobilities; float32 Euler step0.0015625 through T32,
+65 recorded times. Dense smaller widths1446/2047/2895, Legendre orders2/3/12,
+low-rank ranks16/24/96, Harmonic and Logarithmic widths424/600/850 with source
+ranks29/44/65. One independent width4096 comparator and frozen features are
+retained as anchors. All auxiliary seeds use the runner's recorded deterministic
+role streams; those differ from the older hand-launched seed choices.
+
+Primary output is endpoint test RMS against the coupled reference; also save
+worst-recorded-time RMS, training loss, storage and timing. A successful software
+check requires completed finite trajectories on identical data/time grids and
+reconstructed scores/counts, not a predetermined accuracy ranking. Record
+selection/runtime failures as inconclusive. No new numerical-refinement
+certificate or asymptotic conclusion is claimed. Full-horizon rollout source
+setup and declared Logarithmic test inputs remain explicit. One repetition on
+one GPU, <=120s per source setup/fit, 20min command cap, 18 fits total including
+reference/comparators. No retries, new sizes, seeds, tuning or replacement runs.
+Root owns the config/record; a read-only scoped check verifies sizes and final
+saved-array consistency. Stop when this batch and its check finish.
+
+Outcome: all18 fits completed, no setup/runtime failures or omitted points,
+717.78s total on one RTX3090. Per-fit times were2.93–69.83s; shared Harmonic
+and Logarithmic source construction took4.21s and5.75s. Every fit reached
+20480 Euler steps and the common65-time grid. Reference, all three Legendre
+trajectories and frozen features reproduce the historical same-reference
+predictions bit-for-bit. Auxiliary stochastic seeds differ by design, so the
+other curves are fresh realizations rather than exact-repeat targets.
+
+| Method | Orders/widths/ranks, ascending | Endpoint test RMS, same order |
+|---|---|---|
+| Dense smaller | 1446 / 2047 / 2895 | 0.0168676 / 0.00951770 / 0.00628602 |
+| Legendre | 2 / 3 / 12 | 0.000915328 / 0.000617116 / 0.0000593923 |
+| Low rank | 16 / 24 / 96 | 0.213900 / 0.188131 / 0.155279 |
+| Harmonic | 424 / 600 / 850 | 0.00413241 / 0.00338363 / 0.00278934 |
+| Logarithmic | 424 / 600 / 850 | 0.00265481 / 0.00103306 / 0.000743328 |
+
+Independent dense endpoint/worst-recorded RMS is0.00826425/0.0103911;
+frozen features give0.218863/0.552208. Thus all nine compression points lie
+below the measured independent-dense discrepancy in both displayed metrics
+for this one seed. This is not an asymptotic or multi-seed conclusion.
+The x-axis is learned scalar state; all fixed storage remains charged in
+the accompanying caption/table. Source/trajectory SHA256:
+`294643221e28f3a2fa32267ffd29f2a585da624416c1183e775a7451826a83fd` /
+`66436993eb5a5c7a3126bc45ab0728c18014ac28e71b5dea2a1031dba965a003`.
+Final plots, caption, per-seed metrics and full storage counts are under
+`data/generated/cubic_log_comparison_20261008/runner_largest_three/plots/plot_010/`.
+Progress plots001–009 and raw data remain retained. No executable changes,
+new orders, replacement seeds, reruns or numerical-refinement batch were used.
+The scoped saved-array check passed all18 runs: data/time grids, losses,
+source/version hashes, learned/fixed counts and absence of constructor
+truncation. Largest selected source condition was14.9753, below16.
+One metadata caveat is retained: constructor diagnostics' `runtime_dtype`
+still denotes float64 assembly before deployment casting; the executed-run
+dtype and saved predictions correctly record float32. This affects no
+trajectory or score and was not used to infer training precision.
+
+```sh
+timeout --signal=TERM --kill-after=10s 1200 /home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py run --config studies/cubic_log_comparison_20261008/runner_largest_three.json
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py plot --config studies/cubic_log_comparison_20261008/runner_largest_three.json
+```
+
 ### Config-runner maintenance, 2026-10-09
 
 The user approved a compact JSON interface with oblivious/non-oblivious method
