@@ -1,0 +1,27 @@
+{
+  "runs": [
+    "data/generated/paper_appendix_pilots_20261009/harmonic_low_width_seeds/seed1703/dense/n512",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_low_width_seeds/seed1703/dense/n1024",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n2048",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n4096",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n8192",
+    "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1703/dense/n16384"
+  ],
+  "output": "data/generated/paper_appendix_pilots_20261009/legendre_three_seeds/seed1703",
+  "devices": [
+    "cuda:1"
+  ],
+  "families": [
+    "legendre"
+  ],
+  "factor": 1,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 8,
+  "expansion": {
+    "legendre": {
+      "start": 1,
+      "maximum": 8,
+      "sequential": true
+    }
+  }
+}

@@ -1,5 +1,87 @@
 # Bounded appendix figure pilots
 
+## Three-seed Legendre minimum-order comparison
+
+### Outcome
+
+All18 cases resolve exact smallest positive integer orders under BOTH1x
+criteria. q1 passes the joint test in0/18 cases (it passes endpoint alone in
+two cases, seed1702 at512 and1024, but misses maximum-recorded RMS there).
+Every smaller integer below the selected order is a completed accuracy miss;
+there are no constructor/runtime failures or unresolved cases.
+
+| Dense width | Minimum q, seed1701 | Minimum q, seed1702 | Minimum q, seed1703 |
+|---:|---:|---:|---:|
+|512|2|2|2|
+|1024|3|2|3|
+|2048|3|3|3|
+|4096|2|3|3|
+|8192|3|3|3|
+|16384|3|5|3|
+
+The tight n16384/seed1702 endpoint benchmark is0.000604297. q4 has endpoint
+RMS0.001103113 (ratio1.825450), while q5 has0.000462989 (ratio0.766161)
+and maximum-recorded RMS0.000473941 (ratio0.067560). This is why that case
+needs5; the threshold is unchanged, not relaxed to make it pass.
+
+Here learned storage is n(16q+19)+2 and additional fixed storage is n^2+2q.
+Across ALL SIX widths, unweighted log-log fits of learned storage to C*n^p
+give mean C30.29149824,p1.093504569,log-RMS0.061073768; median
+C40.89901007,p1.056218828,log-RMS0.076858714. Both aggregate curves are
+monotone. These are finite-range descriptive fits, not new asymptotic
+exponents or total-storage compression: the fixed dense mixer remains.
+
+Executed42 new Legendre trajectories, reused9 saved Legendre trajectories
+and all18 dense pairs, with0 new dense runs. New trajectories total594.10s
+summed over concurrent execution,11.16--24.95s each; no new source rollout.
+This sum is not elapsed batch time or an isolated speed benchmark. Root
+checked all inherited arrays bitwise unchanged, all trajectories finite
+and complete at5120 updates, and exact minima from raw prediction arrays.
+The plot additionally validates source/hash consistency, exact state counts,
+paired benchmarks and every smaller integer. Six deterministic search-helper
+tests cover order1, missing lower orders, nonmonotonicity, inconclusive
+orders and cap exhaustion. Scoped support reproduced all prior18 Logarithmic
+plot metrics exactly. No model or Euler update code changed; only search
+selection/validation and the existing plotting command were extended.
+Figure rendering was inspected. No new half-step/GF certificate is claimed.
+
+Plans are `legendre_seed1701_search.json`,1702 and1703 counterparts. Actual
+command: `timeout 1200 /home/amir/miniconda3/bin/python -B -u
+paper/figures/capture_trajectory.py refine-budgets --plan <plan>`; change
+only output directories for a fresh repetition. Regenerate figures with
+`budget-seed-plot --family legendre --fit-width-powers --runs <18 roots>
+--out <fresh directory>`, where roots are
+`data/generated/paper_appendix_pilots_20261009/legendre_three_seeds/seedS/nN`
+for the three listed seeds and six widths. Final figures, captions, q1/raw
+ratios, selected states and fit residuals are in that directory's `figures/`.
+The bounded-experiment workflow kept settings fixed and checked consecutive
+orders, rather than assuming monotone accuracy. No further runs pending.
+
+### Frozen design
+
+User requests the same six dense widths and seeds1701/1702/1703, asking
+specifically whether order q=1 always suffices and, if not, the smallest
+passing integer order. Reuse the identical circle dense pairs from the
+Logarithmic/Harmonic comparisons; no dense reruns. Scope remains dataset47,
+d2,m8,p30,L2 tanh, zero readout, Euler1/160 through T32 with65 saved times,
+float32/TF32off. Test BOTH endpoint query RMS and maximum-recorded query RMS
+against their own dense-pair1x benchmarks. This is not pointwise domination
+or a certified gradient-flow comparison.
+
+Precommitted bounded scan: q=1,2,...,8, stopping at the first passing order.
+Reuse all compatible saved Legendre candidates for seed1701, but fill EVERY
+untested smaller order before claiming minimality; do not assume monotonicity.
+On a constructor/runtime/numerical failure stop that case as inconclusive.
+Maximum8 new fits per case (144 total),120s per fit and20 minutes per GPU
+queue; two GPUs, no source tuning, no new widths/seeds or dense fits. Legendre
+is initialized from initial dense weights and training data, with no source
+rollout and no test-input dependence. Learned storage is
+n(d+1)+2qnm+2nm+2, additional fixed storage n^2+2q, charged explicitly.
+The bounded-experiment workflow separates accuracy failures, numerical
+inconclusiveness and exact discrete minima. Root owns plans/runs/notes/Git;
+scoped support checks the existing implementation/protocol read-only.
+Generated outputs: `data/generated/paper_appendix_pilots_20261009/legendre_three_seeds/`.
+
 ## Three-seed Logarithmic width scaling
 
 ### Outcome
