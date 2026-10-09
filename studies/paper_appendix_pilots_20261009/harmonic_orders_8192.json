@@ -1,0 +1,15 @@
+{
+  "reference_run": "data/generated/paper_appendix_pilots_20261009/circle_strict/n8192/n8192",
+  "baseline_model": "harmonic_1024_r42",
+  "compact_width": 1024,
+  "seconds_per_fit": 120,
+  "output": "data/generated/paper_appendix_pilots_20261009/harmonic_orders/n8192",
+  "cases": {
+    "baseline": {"spatial_degree": 5, "time_degree": 8, "source_rank": 42, "reproduction": true},
+    "spatial": {"spatial_degree": 10, "time_degree": 8, "source_rank": 42},
+    "rank": {"spatial_degree": 5, "time_degree": 8, "source_rank": 84},
+    "temporal": {"spatial_degree": 5, "time_degree": 16, "source_rank": 42},
+    "combined": {"spatial_degree": 10, "time_degree": 8, "source_rank": 84},
+    "all_orders": {"spatial_degree": 10, "time_degree": 16, "source_rank": 84}
+  }
+}

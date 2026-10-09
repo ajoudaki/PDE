@@ -9945,6 +9945,125 @@ def _budget_search_worker(out, device_name, plan):
     return 0
 
 
+@torch.no_grad()
+def harmonic_order_probe_main(argv):
+    """Change one source order against a saved dense pair, keeping compact size fixed."""
+    parser = argparse.ArgumentParser(description=harmonic_order_probe_main.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    parser.add_argument('--case', required=True)
+    parser.add_argument('--device', default='cuda:0')
+    args = parser.parse_args(argv)
+    config = json.loads(args.config.read_text())
+    request = config['cases'][args.case]
+    root = Path(config['reference_run'])
+    manifest = json.loads((root/'run.json').read_text())
+    original_config = manifest['config']
+    seed = original_config['seeds'][0]
+    old_path = root/manifest['repetitions'][str(seed)]
+    old = json.loads((old_path/'report.json').read_text())
+    archive_bytes = (old_path/'trajectories.npz').read_bytes()
+    if sha(archive_bytes) != old['trajectories_sha256']:
+        raise ValueError('Saved reference trajectory hash mismatch')
+    with np.load(old_path/'trajectories.npz', allow_pickle=False) as saved:
+        arrays = {key: saved[key] for key in ('train_inputs', 'train_labels', 'query_inputs',
+            'reference', 'times_reference', config['baseline_model'],
+            f"dense_{original_config['model']['width']}")}
+    out = Path(config['output'])/args.case
+    out.mkdir(parents=True, exist_ok=False)
+    (out/'source.py').write_bytes(Path(__file__).read_bytes())
+    save_json(out/'config.json', config)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = original_config['execution']['tf32']
+    torch.backends.cudnn.allow_tf32 = original_config['execution']['tf32']
+    device = torch.device(args.device)
+    training, architecture = original_config['training'], original_config['model']
+    setup = _experiment_setup(original_config, 'harmonic')
+    report = dict(case=args.case, request=request, compact_width=config['compact_width'],
+        source_sha256=sha(Path(__file__).read_bytes()), config_sha256=sha(args.config.read_bytes()),
+        reference_run=str(root.resolve()), original_report_sha256=sha((old_path/'report.json').read_bytes()),
+        original_trajectories_sha256=sha(archive_bytes), status='inconclusive',
+        command=sys.argv, cwd=str(Path.cwd()), training=training, architecture=architecture,
+        seeds={k: old['seeds'][k] for k in ('reference', 'harmonic_source', 'harmonic_selector')},
+        environment=dict(python=platform.python_version(), torch=torch.__version__, numpy=np.__version__,
+            device=str(device), hardware=torch.cuda.get_device_name(device), threads=1,
+            tf32=original_config['execution']['tf32']),
+        scope='Finite Euler fixed-budget source-order diagnostic; offline full-horizon sources; '
+              'no dense retraining or query-label use; not a theorem or all-time certificate')
+    started = time.monotonic()
+    save_json(out/'report.json', report)
+    try:
+        inputs, labels, queries = [torch.as_tensor(arrays[k], device=device) for k in
+                                   ('train_inputs', 'train_labels', 'query_inputs')]
+        dense = DeepDense(architecture['width'], inputs.shape[1], architecture['depth'],
+                          architecture['activation'], seed, device)
+        initial_hashes = [array_sha(v.cpu().numpy()) for v in dense.initial_state]
+        if initial_hashes != old['reference_initial_state_sha256']:
+            raise ArithmeticError('Regenerated initialization differs from saved reference')
+        report['initial_state_sha256'] = initial_hashes
+        source, info = unified_harmonic_sources(dense, inputs, labels, training['horizon'],
+            request['source_rank'], old['seeds']['harmonic_source'], seconds=config['seconds_per_fit'],
+            step=setup['rollout_step'], time_degree=request['time_degree'],
+            spatial_degree=request['spatial_degree'], rollout_dtype=setup['rollout_dtype'],
+            coefficient_dtype=setup['coefficient_dtype'])
+        report['source'] = info
+        report['source_hashes'] = {k: [array_sha(v.cpu().numpy()) for v in values]
+                                   for k, values in source.items()}
+        t0 = time.monotonic()
+        model = DeepHarmonic(dense, inputs, labels, source, config['compact_width'],
+            selection_seed=old['seeds']['harmonic_selector'], readout_floor=None,
+            selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'],
+            selection_strategy=setup['selection_strategy'])
+        if any(v['truncated'] for v in model.diagnostics['source_truncations']):
+            raise ArithmeticError('Extra source truncation is not allowed')
+        synchronize(device)
+        report['model'] = dict(learned=sum(v.numel() for v in model.initial_state),
+            fixed=int(model.fixed_scalars), setup_seconds=time.monotonic()-t0,
+            diagnostics=model.diagnostics)
+        report['model']['total'] = report['model']['learned']+report['model']['fixed']
+        dtype = getattr(torch, training['dtype'])
+        _experiment_move(model, device, dtype)
+        del source, dense
+        state, prediction, run = integrate_euler(model, inputs.to(dtype), labels.to(dtype),
+            torch.cat((inputs, queries)).to(dtype), training['step'], config['seconds_per_fit'],
+            horizon=training['horizon'], observation_every=training['record_every'])
+        del state, model
+        report['run'] = run
+        arrays.update(prediction=prediction, times=np.asarray(run['times']))
+        if not run['complete'] or not np.array_equal(arrays['times'], arrays['times_reference']):
+            raise ArithmeticError('Incomplete trajectory or mismatched reference time grid')
+        m = len(labels)
+        reference = arrays['reference'][:, m:].astype(float)
+        baseline = np.sqrt(np.mean((arrays[f"dense_{architecture['width']}"][:, m:].astype(float)-reference)**2, axis=1))
+        error = np.sqrt(np.mean((prediction[:, m:].astype(float)-reference)**2, axis=1))
+        if not np.isfinite(error).all() or min(baseline[-1], baseline.max()) <= 0:
+            raise ArithmeticError('Invalid error or dense-pair denominator')
+        report['metrics'] = dict(endpoint_rms=float(error[-1]), worst_recorded_rms=float(error.max()),
+            endpoint_ratio=float(error[-1]/baseline[-1]), worst_recorded_ratio=float(error.max()/baseline.max()),
+            dense_endpoint_rms=float(baseline[-1]), dense_worst_recorded_rms=float(baseline.max()),
+            final_training_mse=float(run['losses'][-1]))
+        report['status'] = 'pass' if error[-1] <= baseline[-1] and error.max() <= baseline.max() else 'fail'
+        if request.get('reproduction'):
+            difference = np.sqrt(np.mean((prediction[:, m:].astype(float)-
+                arrays[config['baseline_model']][:, m:].astype(float))**2, axis=1))
+            report['reproduction'] = dict(bitwise_equal=bool(np.array_equal(prediction, arrays[config['baseline_model']])),
+                endpoint_ratio=float(difference[-1]/baseline[-1]),
+                worst_recorded_ratio=float(difference.max()/baseline.max()), threshold=0.01)
+            if max(report['reproduction']['endpoint_ratio'], report['reproduction']['worst_recorded_ratio']) > 0.01:
+                raise ArithmeticError('Baseline reproduction exceeded1% of the dense benchmark')
+    except (ValueError, RuntimeError, ArithmeticError, TimeoutError, AssertionError) as error:
+        report.update(status='inconclusive', reason=f'{type(error).__name__}: {error}')
+    finally:
+        np.savez_compressed(out/'trajectories.npz', **arrays)
+        report['trajectories_sha256'] = sha((out/'trajectories.npz').read_bytes())
+        report['seconds'] = time.monotonic()-started
+        save_json(out/'report.json', report)
+    print(json.dumps(dict(case=args.case, status=report['status'], metrics=report.get('metrics'),
+                         reproduction=report.get('reproduction'), reason=report.get('reason'),
+                         seconds=report['seconds'])), flush=True)
+    return 0
+
+
 def budget_search_main(argv):
     """Reuse dense pairs and adaptively refine one-seed compression budgets."""
     import copy
@@ -11857,6 +11976,8 @@ def dense_control_repeats_main(argv=None):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'harmonic-order-probe':
+        sys.exit(harmonic_order_probe_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'dense-control-repeats':
         sys.exit(dense_control_repeats_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'restored-paper-plot':

@@ -1,5 +1,99 @@
 # Bounded appendix figure pilots
 
+## Harmonic source-order bottleneck diagnostic
+
+Completed bounded diagnostic: spatial degree is a demonstrated useful lever
+on this instance, but no strict1x pass was obtained. No n16384 confirmation
+was authorized by the success-triggered branch, so none was run.
+
+| Spatial degree | Time degree | Source rank | Endpoint ratio | Maximum-recorded ratio | Outcome |
+|---:|---:|---:|---:|---:|---|
+|5|8|42|1.434379|0.865020|Baseline reproduced bitwise|
+|10|8|42|1.010546|0.816363|Completed; endpoint misses by1.05%|
+|5|16|42|1.434403|0.865034|Completed; essentially unchanged|
+|5|8|84|—|—|Constructor condition39.4593>16|
+|10|8|84|—|—|Constructor condition25.1758>16|
+|10|16|84|—|—|Constructor condition25.2329>16|
+
+All completed models use the same1,051,656 learned+3,145,728 fixed scalars
+(4,197,384 total), compact width1024 and dense width8192. Spatial refinement
+reduces endpoint RMS0.00838171 to0.00590507; dense-pair RMS is0.00584344.
+Its final training MSE is0.00317722. Actual fit times are around12s, and
+successful setup+fit totals19.3--20.4s; rejected constructor cases took
+7.4--8.9s. None hit a wall-clock cap. Six source/constructor requests,
+three completed compact training runs; no dense training and no larger q.
+
+The spatial intervention keeps identical geometry hashes,32 quadrature
+nodes,97 source observations and1208 RK4 RHS calls. It changes spatial modes
+11->21; relative source-check errors drop from0.432600/0.223192 to
+0.158560/0.063183 for the backward fields. Higher source complexity increases
+rank42 coefficient residuals, so spectral resolution and rank are interacting
+approximations. Temporal16 uses193 observations/1496 RHS calls but produces
+almost identical prediction error. Rank84 reduces coefficient residuals but
+cannot pass the fixed-budget constructor gate; its prediction accuracy is
+unknown, not demonstrated ineffective. These facts do not identify a unique
+universal bottleneck or a2x-versus1x barrier.
+
+Checker reconstructed first four cases from saved arrays: original data and
+dense/reference predictions bitwise preserved; baseline trajectory exactly
+reproduced; hashes,65 common times, finite predictions and reported ratios
+agree. Root checked the two remaining constructor failures and numerical
+definition identity. No existing model/compiler/integrator function changed;
+only the new source-order probe entry point was added. No numerical-resolution
+or independent-seed validation is claimed. No paper theorem or earlier plot
+was changed. Further fixed-rank spatial refinement is a suggested next test,
+not a result or a pending authorized run from this completed batch.
+
+All evidence is under
+`data/generated/paper_appendix_pilots_20261009/harmonic_orders/n8192/<case>/`.
+Each case contains immutable source/config snapshots, source diagnostics,
+model geometry, raw predictions, hashes, exact command and timings. Reproduce
+with the paper script's `harmonic-order-probe --config
+studies/paper_appendix_pilots_20261009/harmonic_orders_8192.json --case <case>
+--device cuda:0` using a fresh output root. Cases are `baseline`, `spatial`,
+`rank`, `temporal`, `combined`, `all_orders`; the conditional branch order
+below is retained rather than presenting this as an unconditional grid.
+
+User authorized a targeted test of which frozen source order prevents1x
+matching. Continue the same empirical investigation; no theorem change.
+Primary case: existing circle n8192, seed1701, compact width1024, with saved
+dense pair and baseline Harmonic1024/r42. Baseline endpoint/maximum ratios
+are1.434379/0.865020. Hold data, labels, n, compact width, seeds, source step,
+selector/condition cap, all retained-state counts and Euler settings fixed.
+Only source construction orders change; no new dense training.
+
+Preregistered first batch in `harmonic_orders_8192.json`: reproduce5/8/42
+(spatial degree / temporal degree / source rank), then one-factor10/8/42,
+5/16/42 and5/8/84. Spatial5->10 keeps the same32 circle quadrature nodes and
+RK4 observation times, changing modes11->21. Rank doubling also changes
+the randomized SVD sketch width; it is a compiler-rank intervention, not a
+guaranteed nested-basis experiment. Temporal doubling changes the observation
+schedule and may alter shortened RK4 steps; record RHS counts and do not
+attribute a small change purely to polynomial degree. Query labels remain
+unused, and source spatial nodes remain independent of scored queries.
+
+Pass requires both endpoint and maximum-recorded query RMS <= the saved
+dense-pair benchmarks. Baseline reproduction must differ by at most0.01
+of those benchmarks; otherwise results are inconclusive and stop. Complete,
+finite trajectories on the same65 observation times and condition<=16 with
+no additional constructor truncation are required. No fixed-kernel or other
+method substitution. The existing forward/source diagnostics and all errors
+are saved, including adverse outcomes.
+
+Conditional branches frozen now: if no single-factor case passes, try10/8/84;
+if still no pass, try10/16/84, then stop. If a setting passes, make at most
+one confirmation on n16384, compact width2048, preserving its original rank79
+unless rank doubling was needed (then158), and applying the smallest successful
+set of order changes. No selector search or compact-size search. At most7
+new fits including baseline and optional confirmation,120s per source/fit,
+10-minute cumulative wall cap across both GPUs. No half-step/multi-seed audit.
+
+This directly tests practical source-resolution versus retained-rank bottlenecks;
+it cannot establish a universal limiting error floor or theorem validity.
+Implementation remains in the single paper script via `harmonic-order-probe`.
+Root owns implementation/configs/execution/notes/Git; a scoped read-only
+checker inspects only the named sources, order confounds and final saved data.
+
 ## Circle strict1x Harmonic/Logarithmic continuation
 
 Completed. Logarithmic has a passing1x witness at all six dense widths;
