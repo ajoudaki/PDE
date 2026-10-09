@@ -1,0 +1,11 @@
+{
+  "width": 1024, "depth": 2, "activation": "tanh",
+  "samples": 8, "queries": 30, "dataset_seed": 47, "seed": 901,
+  "budget": 256, "source_rank": 15,
+  "step": 0.00625, "horizon": 32, "record_every": 80,
+  "rollout_step": 0.125, "time_degree": 8,
+  "selection_trials": 64, "condition_limit": 16, "seconds": 120,
+  "target": "cos(theta) + 0.5*sin(5*theta), normalized by training RMS",
+  "device": "cuda:0",
+  "output": "data/generated/paper_appendix_pilots_20261009/transfer"
+}

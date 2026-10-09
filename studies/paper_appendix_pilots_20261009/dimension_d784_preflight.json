@@ -1,0 +1,25 @@
+{
+  "case": "dimension_d784",
+  "dimension": 784,
+  "reference_width": 2048,
+  "method": "logarithmic",
+  "status": "inconclusive_constructor_infeasible",
+  "budgets": [
+    {
+      "width": 256,
+      "source_rank": 15,
+      "status": "infeasible",
+      "reason": "Mandatory first-layer span contains all 784 Gaussian input-weight columns. Their almost-sure rank 784 exceeds the compact width. The existing runner rejects extra constructor truncation."
+    },
+    {
+      "width": 512,
+      "source_rank": 37,
+      "status": "infeasible",
+      "reason": "Mandatory first-layer span contains all 784 Gaussian input-weight columns. Their almost-sure rank 784 exceeds the compact width. The existing runner rejects extra constructor truncation."
+    }
+  ],
+  "minimum_mandatory_rank": 784,
+  "source": "paper/figures/capture_trajectory.py:287-300 and 8102-8103",
+  "action": "Run dense reference and independent dense comparator only; no source rollout or model constructor for these analytically infeasible budgets.",
+  "claim_scope": "Restriction of this mandatory-coordinate constructor, not impossibility of other representations."
+}
