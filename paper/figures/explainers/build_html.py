@@ -61,7 +61,7 @@ STATUS = {
     'fig18b': ('current', 'pick and weigh, do not mix (four steps)'),
     'fig19': ('superseded by 19c', 'random vs selected, width chart'),
     'fig19b': ('superseded by 19c', 'sampling slider restored'),
-    'fig19c': ('current', 'price of random neurons by width'),
+    'fig19c': ('current', 'random vs selected neurons as training plays (real, all 1,024 neurons)'),
     'fig20': ('superseded by 20c', 'rotated petals with kernel check'),
     'fig20b': ('superseded by 20c', 'decluttered petals'),
     'fig20c': ('current', 'petals spelled with Fourier shapes'),
