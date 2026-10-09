@@ -16,6 +16,14 @@ All groups, candidates and selections match the un-fitted figure exactly;
 an independent scalar fit agrees, and the rendered overlay was inspected.
 No new training or source construction was performed.
 
+The requested exponent5/6 comparison adds `--compare-exponents 5 6` to that
+command, with outputs in `trajectory_rms_polylog_5_6/`. Each fixed exponent
+gets its own least-squares prefactor under the same log-space objective.
+Mean R^2 is0.940180/0.792430 for exponents5/6; median R^2 is0.911387/0.733491.
+They fit worse than the free exponent, particularly6, but these finite data
+do not exclude either asymptotic law. Data, selections and free fits are
+unchanged; scalar cross-check and rendered-figure inspection passed.
+
 ### Outcome
 
 The reporting correction is implemented; an algorithmic storage improvement

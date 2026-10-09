@@ -12813,7 +12813,12 @@ def trajectory_budget_plot(argv):
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--fit-polylog', action='store_true',
                         help='Overlay descriptive C*(log n)^a fits to Logarithmic mean/median storage')
+    parser.add_argument('--compare-exponents', nargs='+', type=float, default=[],
+                        help='Overlay fixed polylog exponents with independently fitted prefactors')
     args = parser.parse_args(argv)
+    if args.compare_exponents and (not args.fit_polylog
+            or any(not math.isfinite(a) or a <= 0 for a in args.compare_exponents)):
+        parser.error('--compare-exponents requires --fit-polylog and positive finite exponents')
 
     def require(condition, message):
         if not condition:
@@ -12979,6 +12984,14 @@ def trajectory_budget_plot(argv):
                 widths=widths, storage=values, model='C*(log(n))^a',
                 objective='unweighted least squares in log(storage) versus log(log(n))',
                 scope='Descriptive finite-range fit to smallest tested passing budgets; not an asymptotic claim')
+            if args.compare_exponents:
+                fits[statistic]['fixed_exponent_comparisons'] = []
+                for fixed in args.compare_exponents:
+                    fixed_intercept = float(np.mean(y-fixed*x))
+                    residual = y-(fixed_intercept+fixed*x)
+                    fits[statistic]['fixed_exponent_comparisons'].append(dict(
+                        exponent=fixed, coefficient=float(np.exp(fixed_intercept)),
+                        log_space_r2=1-float(residual@residual)/variance if variance > 0 else None))
     caption = ('Digits 1 vs 7, six dense widths, three initialization seeds and unchanged paired dense '
         'trajectories. Selection minimizes learned storage among saved completed candidates whose maximum '
         'over 65 recorded times of RMS error on 30 query inputs is at most the corresponding dense-pair '
@@ -12995,6 +13008,14 @@ def trajectory_budget_plot(argv):
         'or minimum-budget guarantees. ' + '; '.join(
             f'{statistic}: a={fit["exponent"]:.6f}, log-space R^2={fit["log_space_r2"]:.6f}'
             for statistic, fit in fits.items()) + '.\n') if fits else 'No exponent was fitted.\n'
+    if args.compare_exponents:
+        caption += ('Additional dashed curves fix the exponent and independently optimize each '
+            'prefactor under the same log-space least-squares objective; they are not anchored '
+            'arbitrarily to an endpoint. ' + '; '.join(
+                f'{statistic}, a={fit["exponent"]:g}: C={fit["coefficient"]:.9g}, '
+                f'log-space R^2={fit["log_space_r2"]:.6f}'
+                for statistic, values in fits.items()
+                for fit in values['fixed_exponent_comparisons']) + '.\n')
     args.out.mkdir(parents=True, exist_ok=False)
     source = Path(__file__).read_bytes()
     (args.out/'source.py').write_bytes(source)
@@ -13041,6 +13062,11 @@ def trajectory_budget_plot(argv):
             axis.plot(grid, fit['coefficient']*np.log(grid)**fit['exponent'],
                       color='#333333', linestyle='--', linewidth=1.7,
                       label=rf'Fit: $(\log n)^{{{fit["exponent"]:.2f}}}$', zorder=4)
+            for i, comparison in enumerate(fit.get('fixed_exponent_comparisons', [])):
+                axis.plot(grid, comparison['coefficient']*np.log(grid)**comparison['exponent'],
+                          color=('#d97706', '#9b4897')[i % 2],
+                          linestyle=(0, (6, 3)) if i % 2 == 0 else (0, (2, 2)), linewidth=1.6,
+                          label=rf'Fixed: $(\log n)^{{{comparison["exponent"]:g}}}$', zorder=3)
         axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=statistic.capitalize())
         axis.set_xticks(widths, [str(n) for n in widths])
         axis.xaxis.set_minor_formatter(NullFormatter())
