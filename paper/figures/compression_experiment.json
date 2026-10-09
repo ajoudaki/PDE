@@ -34,5 +34,9 @@
     "devices": "auto", "tf32": false, "seconds_per_fit": 120.0,
     "reuse_completed": true, "output": "data/generated/compression_experiments/default"
   },
-  "plots": {"metrics": ["endpoint_rms", "worst_recorded_rms"], "aggregate": "median", "spread": "range"}
+  "plots": {
+    "runs": [],
+    "methods": ["dense", "legendre", "harmonic", "logarithmic", "low_rank", "frozen_features"],
+    "metrics": ["endpoint_rms", "worst_recorded_rms"], "aggregate": "median", "spread": "range"
+  }
 }

@@ -66,6 +66,17 @@ Figures, per-seed metrics and a caption/storage table are saved in fresh
 the displayed parameter count is the width-sized primal readout, with both storage
 accounts retained. No numerical-refinement certificate is implied by this runner.
 
+To combine completed batches without rerunning them, use `plot` with
+`plots.runs` listing their output directories and `plots.methods` selecting
+the families to show. Set `execution.output` to a fresh analysis directory.
+The plotter checks compatible producer/data/training/method settings, rejects
+duplicate repetition seeds, and keeps each original reference pairing and
+run provenance. For the three-seed Dense/Legendre/Logarithmic comparison:
+
+```bash
+python -B paper/figures/capture_trajectory.py plot --config studies/cubic_log_comparison_20261008/runner_three_seeds_plot.json
+```
+
 ## Earlier Harmonic and Logarithmic validation commands
 
 One implementation, `paper/figures/capture_trajectory.py`, contains both new

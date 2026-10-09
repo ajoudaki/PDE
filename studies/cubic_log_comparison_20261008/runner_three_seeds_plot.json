@@ -1,0 +1,14 @@
+{
+  "execution": {
+    "output": "data/generated/cubic_log_comparison_20261008/runner_three_seeds"
+  },
+  "plots": {
+    "runs": [
+      "data/generated/cubic_log_comparison_20261008/runner_largest_three",
+      "data/generated/cubic_log_comparison_20261008/runner_two_more_seeds"
+    ],
+    "methods": ["dense", "legendre", "logarithmic"],
+    "metrics": ["endpoint_rms", "worst_recorded_rms"],
+    "aggregate": "median", "spread": "range"
+  }
+}

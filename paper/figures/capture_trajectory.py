@@ -6740,7 +6740,9 @@ def unified_plot_main(argv):
 
 def experiment_plot(config):
     """Validate saved runs and plot paired test errors without training."""
+    import copy
     import hashlib
+    import io
     import json
     from pathlib import Path
     import matplotlib
@@ -6748,8 +6750,7 @@ def experiment_plot(config):
     import matplotlib.pyplot as plt
     import numpy as np
 
-    root = Path(config['execution']['output']).resolve()
-    manifest = json.loads((root/'run.json').read_text())
+    output_root = Path(config['execution']['output']).resolve()
     options = config.get('plots', {})
     metrics = options.get('metrics', ['endpoint_rms', 'worst_recorded_rms'])
     aggregate, spread = options.get('aggregate', 'median'), options.get('spread', 'range')
@@ -6764,19 +6765,69 @@ def experiment_plot(config):
     require(aggregate in ('mean', 'median') and spread in ('range', 'none'), 'Invalid plot aggregation')
     frozen_style = config.get('methods', {}).get('oblivious', {}).get('frozen_features', {}).get('plot', 'dashed')
     require(frozen_style in ('dashed', 'point'), 'Invalid frozen-features plot style')
-    require(hashlib.sha256((root/'source.py').read_bytes()).hexdigest() == manifest['source_sha256'],
-            'Saved source hash mismatch')
-    seeds, repetitions = manifest['config']['seeds'], manifest['repetitions']
-    require(isinstance(seeds, list) and seeds and len(seeds) == len(set(seeds))
-            and all(isinstance(seed, int) and not isinstance(seed, bool) and seed >= 0 for seed in seeds)
-            and isinstance(repetitions, dict) and set(repetitions) <= {str(seed) for seed in seeds},
-            'Invalid requested repetitions')
-    repetitions = {str(seed): repetitions.get(str(seed)) for seed in seeds}
-    rows, omissions, errors = [], [], {}
     families = dict(dense=('Dense', '#40566c'), legendre=('Legendre', '#d18624'),
                     harmonic=('Harmonic', '#297c8e'), logarithmic=('Logarithmic', '#9768b0'),
                     low_rank=('Low rank', '#648d4f'), frozen_features=('Frozen features', '#777777'))
-    for seed, relative in repetitions.items():
+    methods = options.get('methods', list(families))
+    run_paths = options.get('runs', [])
+    require(isinstance(methods, list) and methods and len(set(methods)) == len(methods)
+            and all(method in families for method in methods), 'Invalid plot methods')
+    require(isinstance(run_paths, list) and all(isinstance(path, str) and path for path in run_paths),
+            'plots.runs must be a list of nonempty paths')
+    roots = [Path(path).resolve() for path in run_paths] if run_paths else [output_root]
+    require(len(set(roots)) == len(roots), 'Duplicate input run')
+    repetitions, inputs, common_contract = {}, [], None
+    for root in roots:
+        manifest_bytes = (root/'run.json').read_bytes()
+        manifest = json.loads(manifest_bytes)
+        saved_config = manifest['config']
+        config_bytes = (root/'config.json').read_bytes()
+        require(json.loads(config_bytes) == saved_config, f'Saved config mismatch: {root}')
+        identity = manifest['identity']
+        require(sha((root/'source.py').read_bytes()) == manifest['source_sha256']
+                == identity['source_sha256'], f'Saved source hash mismatch: {root}')
+        require(sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode()) == manifest['fingerprint'],
+                f'Identity fingerprint mismatch: {root}')
+        # Execution placement and plotting options are not scientific settings.
+        saved_contract = copy.deepcopy(saved_config)
+        saved_contract.pop('plots')
+        saved_contract['methods']['oblivious']['frozen_features'].pop('plot')
+        for key in ('output', 'reuse_completed'):
+            saved_contract['execution'].pop(key)
+        devices = saved_contract['execution']['devices']
+        if devices != 'auto':
+            require((devices.split(',') if isinstance(devices, str) else devices)
+                    == identity['config']['execution']['devices'], f'Saved device config mismatch: {root}')
+        saved_contract['execution']['devices'] = identity['config']['execution']['devices']
+        require(saved_contract == identity['config'], f'Saved identity/config mismatch: {root}')
+        selected_settings = {}
+        for method in methods:
+            if method in ('harmonic', 'logarithmic'):
+                settings = dict(saved_config['methods']['non_oblivious'][method])
+                settings['setup'] = _experiment_setup(saved_config, method)
+            else:
+                settings = dict(saved_config['methods']['oblivious'][method])
+                settings.pop('plot', None)
+            selected_settings[method] = settings
+        contract = dict(source_sha256=manifest['source_sha256'],
+            **{key: saved_config[key] for key in ('dataset', 'model', 'training')},
+            methods=selected_settings,
+            execution={key: saved_config['execution'][key] for key in ('tf32', 'seconds_per_fit')},
+            identity={key: identity[key] for key in ('dataset_file_sha256', 'data_sha256', 'python', 'torch', 'numpy')})
+        require(common_contract is None or contract == common_contract,
+                f'Input runs differ in source, data, training or selected method settings: {root}')
+        common_contract = contract
+        seeds, locations = saved_config['seeds'], manifest['repetitions']
+        require(isinstance(seeds, list) and seeds and len(seeds) == len(set(seeds))
+                and all(isinstance(seed, int) and not isinstance(seed, bool) and seed >= 0 for seed in seeds)
+                and isinstance(locations, dict) and set(locations) <= {str(seed) for seed in seeds},
+                f'Invalid requested repetitions: {root}')
+        require(not set(map(str, seeds)) & set(repetitions), f'Duplicate repetition seeds across input runs: {root}')
+        repetitions.update({str(seed): (root, manifest, locations.get(str(seed))) for seed in seeds})
+        inputs.append(dict(root=str(root), run_sha256=sha(manifest_bytes), config_sha256=sha(config_bytes),
+            source_sha256=manifest['source_sha256'], fingerprint=manifest['fingerprint'], seeds=seeds))
+    rows, omissions, errors, provenance = [], [], {}, {}
+    for seed, (root, manifest, relative) in repetitions.items():
         if relative is None:
             omissions.append(dict(seed=int(seed), reason='Missing repetition location'))
             continue
@@ -6785,13 +6836,19 @@ def experiment_plot(config):
         if not (path/'report.json').is_file() or not (path/'trajectories.npz').is_file():
             omissions.append(dict(seed=int(seed), reason='Missing report or trajectories'))
             continue
-        report = json.loads((path/'report.json').read_text())
+        report_bytes = (path/'report.json').read_bytes()
+        report = json.loads(report_bytes)
         require(report['seed'] == int(seed) and report['fingerprint'] == manifest['fingerprint']
                 and report['source_sha256'] == manifest['source_sha256'], f'Run identity mismatch: {relative}')
-        require(hashlib.sha256((path/'trajectories.npz').read_bytes()).hexdigest()
+        trajectory_bytes = (path/'trajectories.npz').read_bytes()
+        require(hashlib.sha256(trajectory_bytes).hexdigest()
                 == report['trajectories_sha256'], f'Trajectory hash mismatch: {relative}')
+        require(report['seeds']['reference'] == int(seed), f'Paired reference seed mismatch: {relative}')
+        provenance[seed] = dict(root=str(root), repetition=str(path), report_sha256=sha(report_bytes),
+            trajectories_sha256=report['trajectories_sha256'], seeds=report['seeds'],
+            fingerprint=report['fingerprint'], source_sha256=report['source_sha256'])
         errors[seed] = report.get('errors', {})
-        with np.load(path/'trajectories.npz', allow_pickle=False) as saved:
+        with np.load(io.BytesIO(trajectory_bytes), allow_pickle=False) as saved:
             arrays = {name: saved[name] for name in saved.files}
         def array(name, dimensions):
             value = arrays[name]
@@ -6800,11 +6857,17 @@ def experiment_plot(config):
             return value.astype(float)
         train, query = array('train_inputs', 2), array('query_inputs', 2)
         targets, truth = array('train_labels', 1), array('query_labels', 1)
+        data_hashes = {key: array_sha(arrays[key]) for key in
+                       ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')}
+        require(data_hashes == report['data_sha256'] == manifest['identity']['data_sha256'],
+                f'Data array hash mismatch: {relative}')
         require(len(targets) > 0 and len(truth) > 0 and len(train) == len(targets)
                 and len(query) == len(truth) and train.shape[1] == query.shape[1] > 0,
                 f'Data shape mismatch: {relative}')
         checked = {}
         for name, model in report['models'].items():
+            if model['family'] not in (*methods, 'reference'):
+                continue
             run = report['runs'].get(name, {})
             if run.get('complete') is not True:
                 omissions.append(dict(seed=int(seed), model=name, reason='Incomplete model run'))
@@ -6827,6 +6890,10 @@ def experiment_plot(config):
                     and model['moving'] > 0 and model['total'] == model['moving']+model['fixed'],
                     f'Invalid storage counts: {relative}/{name}')
             checked[name] = (prediction[:, len(targets):], times)
+        for method in set(methods) & {'harmonic', 'logarithmic'}:
+            if method in report.get('sources', {}):
+                require(report['sources'][method]['effective_setup'] == _experiment_setup(manifest['config'], method),
+                        f'Recorded source setup mismatch: {relative}/{method}')
         require(not set(report['runs'])-set(report['models']), f'Missing model metadata: {relative}')
         omissions.extend(dict(seed=int(seed), model=name, reason=reason)
                          for name, reason in report.get('errors', {}).items() if name not in report['models'])
@@ -6860,8 +6927,8 @@ def experiment_plot(config):
             point[metric] = dict(value=float(getattr(np, aggregate)(scores)),
                                  minimum=float(scores.min()), maximum=float(scores.max()))
         points.append(point)
-    parent = root/'plots'
-    parent.mkdir(exist_ok=True)
+    parent = output_root/'plots'
+    parent.mkdir(parents=True, exist_ok=True)
     index = 1
     while True:
         destination = parent/f'plot_{index:03d}'
@@ -6900,6 +6967,10 @@ def experiment_plot(config):
             style = 'None' if family == 'frozen_features' else '-'
             axis.plot([p['moving'] for p in selected], [p[metric]['value'] for p in selected],
                       color=color, label=label, linestyle=style, marker='o', markersize=4, linewidth=1.5)
+            for p in selected:
+                if p['count'] < p['requested']:
+                    axis.annotate(f"{p['count']}/{p['requested']} seeds", (p['moving'], p[metric]['value']),
+                                  xytext=(5, 7), textcoords='offset points', fontsize=7, color=color)
             if spread == 'range':
                 for p in selected:
                     score = p[metric]
@@ -6918,8 +6989,15 @@ def experiment_plot(config):
         for extension in ('png', 'pdf'):
             figure.savefig(destination/f'{metric}.{extension}', dpi=180)
         plt.close(figure)
+    identity_fields = dict(source_sha256=common_contract['source_sha256'])
+    if len(inputs) == 1:
+        identity_fields['fingerprint'] = inputs[0]['fingerprint']
+    plot_source = Path(__file__).read_bytes()
+    (destination/'plot_source.py').write_bytes(plot_source)
+    (destination/'plot_config.json').write_text(json.dumps(config, indent=2, allow_nan=False)+'\n')
     (destination/'metrics.json').write_text(json.dumps(dict(
-        fingerprint=manifest['fingerprint'], source_sha256=manifest['source_sha256'],
+        **identity_fields, input_runs=inputs, repetition_provenance=provenance,
+        selected_methods=methods, comparison_contract=common_contract, plot_source_sha256=sha(plot_source),
         aggregate=aggregate, spread=spread, requested_repetitions=len(repetitions),
         points=points, runs=rows, omissions=omissions, errors=errors), indent=2, allow_nan=False)+'\n')
     (destination/'caption.txt').write_text(caption)
@@ -6946,7 +7024,8 @@ EXPERIMENT_DEFAULTS = {
             'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True)}},
     'execution': dict(devices='auto', tf32=False, seconds_per_fit=120., reuse_completed=True,
                       output='data/generated/compression_experiments/default'),
-    'plots': dict(metrics=['endpoint_rms', 'worst_recorded_rms'], aggregate='median', spread='range'),
+    'plots': dict(metrics=['endpoint_rms', 'worst_recorded_rms'], aggregate='median', spread='range',
+                  runs=[], methods=['dense', 'legendre', 'harmonic', 'logarithmic', 'low_rank', 'frozen_features']),
 }
 
 
@@ -6984,12 +7063,13 @@ def _experiment_merge(base, patch, path='', schema=None):
         if not valid:
             raise ValueError(f'Invalid type/value for {name}: {value!r}')
         if isinstance(expected, list):
+            element = expected[0] if expected else ''  # Empty defaults describe string lists.
             for item in value:
-                if isinstance(expected[0], dict):
-                    if not isinstance(item, dict) or set(item) != set(expected[0]):
-                        raise ValueError(f'{name} entries require exactly {list(expected[0])}')
-                    _experiment_merge(expected[0], item, name)
-                elif type(item) is not type(expected[0]):
+                if isinstance(element, dict):
+                    if not isinstance(item, dict) or set(item) != set(element):
+                        raise ValueError(f'{name} entries require exactly {list(element)}')
+                    _experiment_merge(element, item, name)
+                elif type(item) is not type(element):
                     raise ValueError(f'Wrong element type in {name}: {item!r}')
         result[key] = copy.deepcopy(value)
     return result
@@ -7038,7 +7118,8 @@ def _experiment_config(argv, validate_run=True):
                 if len(value) == 1 and value[0].lstrip().startswith('['):
                     value = json.loads(value[0])
                 else:
-                    cast = json.loads if isinstance(default[0], dict) else type(default[0])
+                    element = default[0] if default else ''
+                    cast = json.loads if isinstance(element, dict) else type(element)
                     value = [cast(item) for item in value]
             if path == 'execution.devices' and value.lstrip().startswith('['):
                 value = json.loads(value)
@@ -7126,6 +7207,10 @@ def _experiment_validate(config):
         if min(setup['rollout_step'], setup['time_degree'], setup['selection_trials']) <= 0 or setup['condition_limit'] < 1:
             raise ValueError('Setup orders/step/trials must be positive and condition_limit >= 1')
     if (not config['plots']['metrics'] or set(config['plots']['metrics'])-{'endpoint_rms', 'worst_recorded_rms'}
+            or not config['plots']['methods']
+            or set(config['plots']['methods'])-set(EXPERIMENT_DEFAULTS['plots']['methods'])
+            or len(set(config['plots']['methods'])) != len(config['plots']['methods'])
+            or any(not path for path in config['plots']['runs'])
             or config['plots']['aggregate'] not in ('mean', 'median')
             or config['plots']['spread'] not in ('range', 'none')
             or oblivious['frozen_features']['plot'] not in ('dashed', 'point')):

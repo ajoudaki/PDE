@@ -2,6 +2,81 @@
 
 ## Scope and question
 
+### Three independently coupled repetitions, 2026-10-09
+
+The user requests exactly two additional reference seeds,602/603, for Dense,
+Legendre and Logarithmic only, combined with the completed601 repetition.
+Configuration: `runner_two_more_seeds.json`. Architecture, data, training,
+source setup and the three largest budgets remain identical to
+`runner_largest_three.json`. Each new seed rebuilds the coupled compressions
+and independently initializes its dense comparators. No601 rerun, Harmonic,
+low-rank or frozen-feature fits, new sizes, tuning, retries or refinement.
+
+This is22 new fits: reference plus four dense comparators, three Legendre
+orders and three Logarithmic budgets per repetition. Use both RTX3090 GPUs,
+one repetition per GPU,120s per source setup/fit,1200s command cap. Successful
+execution means completed finite trajectories with matching data/time grids,
+verified counts and reconstructed scores, not a predetermined ranking.
+Failures stay inconclusive without replacement seeds. Endpoint and
+worst-recorded-time test RMS are computed against each repetition's own
+reference, then summarized by three-seed medians and observed min–max bars,
+not confidence intervals. Keep original run manifests and raw data unchanged;
+the merged figure records their separate provenance. Full-horizon rollout
+setup, empirical source ranks and declared Logarithmic test inputs remain
+explicit; this adds no asymptotic or continuous-time certificate. Root owns
+config/notes; a scoped agent adds plot-only saved-run merging after both
+workers have loaded the unchanged producer; a saved-array consistency check
+closes this bounded batch.
+
+Outcome:21 successful new fits; one initializer failure, without a retry or
+replacement. Seed602's width850/rank65 Logarithmic source has layer1 condition
+19.6555686>16 after64 candidates, so that repetition is inconclusive for this
+budget. The command correctly exits1. Seed602/603 elapsed times are374.59/441.96s
+on the two GPUs concurrently; completed fits take17.56–69.84s. All completed
+fits reach the full20480-step horizon. Nine displayed points have three seeds;
+Logarithmic850 has two and is explicitly annotated2/3. Observed medians:
+
+| Method | Width/order | Endpoint test RMS | Worst recorded test RMS | Seeds |
+|---|---:|---:|---:|---:|
+| Dense | 1446 | 0.0104392 | 0.0178676 | 3 |
+| Dense | 2047 | 0.00873262 | 0.0174012 | 3 |
+| Dense | 2895 | 0.00628602 | 0.0102609 | 3 |
+| Dense | 4096 | 0.00800371 | 0.0109219 | 3 |
+| Legendre | 2 | 0.000898489 | 0.00138006 | 3 |
+| Legendre | 3 | 0.000628800 | 0.000628800 | 3 |
+| Legendre | 12 | 0.0000604475 | 0.0000604475 | 3 |
+| Logarithmic | 424 | 0.00232826 | 0.00232826 | 3 |
+| Logarithmic | 600 | 0.00127645 | 0.00127645 | 3 |
+| Logarithmic | 850 | 0.000693551 | 0.000760539 | 2 |
+
+Every successful compression realization is below its own independent-dense
+comparator in both recorded metrics. This statement is conditional on successful
+construction and does not erase the failed850 initializer. Existing601 raw
+arrays are unchanged. All three repetitions used the identical producer snapshot
+SHA256`294643221e28f3a2fa32267ffd29f2a585da624416c1183e775a7451826a83fd`.
+New602/603 trajectory hashes are
+`1049f0253b012c038a83a864aded29a6eb0fc6ec5345c7c95e41de6c739167e9` and
+`6f12e658aa77a8a31c1568a58a2bea5c7221d836b3612029ef7801fdce31d850`.
+Final figures, per-seed metrics, original input provenance and full fixed/learned
+storage counts are under
+`data/generated/cubic_log_comparison_20261008/runner_three_seeds/plots/plot_006/`.
+The plot-only merged-run interface preserves each original producer identity;
+AST comparison confirms every numerical model, initializer and integration
+function is unchanged. Saved-run merge, single-run compatibility, CLI empty-list
+handling and duplicate/incompatible-input rejection checks passed. No additional
+scientific fits were used for these software checks. This requested batch stops
+with the initializer failure retained, not repaired through selection changes.
+The scoped read-only checker independently reconstructed all per-seed scores
+and medians/ranges within1e-15, verified finite65-by38 arrays, grids, counts,
+source settings, untruncated constructors, distinct references/role seeds and
+unchanged601 data, and visually checked both final figures. Maximum accepted
+source condition is15.4471. The failed initializer remains explicitly recorded.
+
+```sh
+timeout --signal=TERM --kill-after=10s 1200 /home/amir/miniconda3/bin/python -B -u paper/figures/capture_trajectory.py run --config studies/cubic_log_comparison_20261008/runner_two_more_seeds.json
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py plot --config studies/cubic_log_comparison_20261008/runner_three_seeds_plot.json
+```
+
 ### One-seed largest-three runner check, 2026-10-09
 
 The user requests one production-scale check of the new configuration runner,
