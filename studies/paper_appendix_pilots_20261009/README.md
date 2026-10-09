@@ -2,6 +2,20 @@
 
 ## Strategic trajectory-contract and source repair
 
+### Requested descriptive fit overlay
+
+The same trajectory-RMS figure now also has an optional dashed fit
+`C*(log n)^a` to Logarithmic learned storage. Across all six widths,
+unweighted least squares in log storage versus log log n gives mean exponent
+4.179965 (R^2=0.977814) and median exponent4.018250 (R^2=0.969244).
+These describe tested budgets, not asymptotic or optimal scaling. Regenerate
+with the scoring command below plus `--fit-polylog` and a fresh output.
+PNG/PDF, fit coefficients, caption and exact command are saved alongside the
+previous results in `digits_logarithmic_three_seeds/trajectory_rms_polylog_fit/`.
+All groups, candidates and selections match the un-fitted figure exactly;
+an independent scalar fit agrees, and the rendered overlay was inspected.
+No new training or source construction was performed.
+
 ### Outcome
 
 The reporting correction is implemented; an algorithmic storage improvement
@@ -47,7 +61,8 @@ CLI and scoped whitespace checks pass. These checks do not reproduce a
 successful repair: none was obtained. The bounded-experiment workflow kept
 benchmark changes separate from algorithm changes and stopped the failed
 branches. Full-horizon rollout sources remain empirical, not init-only
-certified sources; no new asymptotic claim or exponent fit is made.
+certified sources; no new asymptotic claim is made. The later descriptive
+overlay above does not change this conclusion.
 
 Evidence: the re-scored PNG/PDF, `metrics.json`, `selection_table.csv`, exact
 command and source snapshot are in

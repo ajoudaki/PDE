@@ -12811,6 +12811,8 @@ def trajectory_budget_plot(argv):
     parser = argparse.ArgumentParser(description=trajectory_budget_plot.__doc__)
     parser.add_argument('--metrics', nargs=2, type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--fit-polylog', action='store_true',
+                        help='Overlay descriptive C*(log n)^a fits to Logarithmic mean/median storage')
     args = parser.parse_args(argv)
 
     def require(condition, message):
@@ -12960,6 +12962,23 @@ def trajectory_budget_plot(argv):
                 groups[selection][family].append(dict(width=n, available=len(values), learned_values=values,
                     mean=float(np.mean(values)) if len(values) == len(seeds) else None,
                     median=float(np.median(values)) if len(values) == len(seeds) else None))
+    fits = None
+    if args.fit_polylog:
+        fits = {}
+        x = np.log(np.log(np.asarray(widths, dtype=float)))
+        for statistic in ('mean', 'median'):
+            values = [group[statistic] for group in groups['selected']['logarithmic']]
+            require(all(value is not None and value > 0 for value in values),
+                    'Polylog fit requires all six positive aggregate storage values')
+            y = np.log(np.asarray(values, dtype=float))
+            exponent, intercept = np.polyfit(x, y, 1)
+            residual = y-(intercept+exponent*x)
+            variance = float(np.sum((y-y.mean())**2))
+            fits[statistic] = dict(exponent=float(exponent), coefficient=float(np.exp(intercept)),
+                log_space_r2=1-float(residual@residual)/variance if variance > 0 else None,
+                widths=widths, storage=values, model='C*(log(n))^a',
+                objective='unweighted least squares in log(storage) versus log(log(n))',
+                scope='Descriptive finite-range fit to smallest tested passing budgets; not an asymptotic claim')
     caption = ('Digits 1 vs 7, six dense widths, three initialization seeds and unchanged paired dense '
         'trajectories. Selection minimizes learned storage among saved completed candidates whose maximum '
         'over 65 recorded times of RMS error on 30 query inputs is at most the corresponding dense-pair '
@@ -12967,10 +12986,15 @@ def trajectory_budget_plot(argv):
         'of selected learned storage; faint curves show individual seeds. These are smallest tested '
         'passing states, not new searches or certified global minima. Fixed storage and offline source '
         'costs are additional. Logarithmic sources retain temporal degree 8 and maximum rank 32. '
-        'No model was retrained and no exponent was fitted. The separately recorded panel diagnostic '
+        'No model was retrained. The separately recorded panel diagnostic '
         'compares maximum absolute error over all 65 times and 38 training-plus-query inputs to the '
         'same dense-pair maximum; its independently normalized criterion is not equivalent to RMS. '
         'Neither recorded-grid criterion certifies continuous time or unseen inputs.\n')
+    caption += ('Dashed curves fit C*(log n)^a to Logarithmic storage by unweighted least squares '
+        'in log storage versus log log n, over all six widths. Fits are descriptive, not asymptotic '
+        'or minimum-budget guarantees. ' + '; '.join(
+            f'{statistic}: a={fit["exponent"]:.6f}, log-space R^2={fit["log_space_r2"]:.6f}'
+            for statistic, fit in fits.items()) + '.\n') if fits else 'No exponent was fitted.\n'
     args.out.mkdir(parents=True, exist_ok=False)
     source = Path(__file__).read_bytes()
     (args.out/'source.py').write_bytes(source)
@@ -12987,7 +13011,7 @@ def trajectory_budget_plot(argv):
         logarithmic_source_orders_by_width=right['source_orders_by_width'],
         paired_checks='Exact paired trajectory and initialization hashes, data/model/training/time contracts; '
             'every archive/producer hash and every completed candidate RMS recomputed against prior audit',
-        individuals=rows, groups=groups, provenance=provenance, exponent_fit=None, training_rerun=False))
+        individuals=rows, groups=groups, provenance=provenance, exponent_fit=fits, training_rerun=False))
     (args.out/'captions.txt').write_text(caption)
     with (args.out/'selection_table.csv').open('w', newline='') as stream:
         writer = csv.writer(stream)
@@ -13011,6 +13035,12 @@ def trajectory_budget_plot(argv):
             axis.plot(widths, [group[statistic] if group[statistic] is not None else np.nan
                 for group in groups['selected'][family]], color=color, marker=marker,
                 linewidth=2, markersize=5, label=family.capitalize())
+        if fits:
+            fit = fits[statistic]
+            grid = np.geomspace(widths[0], widths[-1], 250)
+            axis.plot(grid, fit['coefficient']*np.log(grid)**fit['exponent'],
+                      color='#333333', linestyle='--', linewidth=1.7,
+                      label=rf'Fit: $(\log n)^{{{fit["exponent"]:.2f}}}$', zorder=4)
         axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=statistic.capitalize())
         axis.set_xticks(widths, [str(n) for n in widths])
         axis.xaxis.set_minor_formatter(NullFormatter())
