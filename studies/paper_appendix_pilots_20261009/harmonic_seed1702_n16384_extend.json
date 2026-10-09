@@ -1,0 +1,13 @@
+{
+  "runs": ["data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1702/search/n16384"],
+  "output": "data/generated/paper_appendix_pilots_20261009/harmonic_full_width_seeds/seed1702/extended_search",
+  "devices": ["cuda:0"],
+  "families": ["harmonic"],
+  "factor": 1,
+  "width_tolerance": 0.2,
+  "max_new_per_family": 5,
+  "rank_rule": "cap_at_source",
+  "source_max_ranks": {"harmonic": 42},
+  "cap_below_dense": true,
+  "expansion": {"harmonic": {"start": 256, "maximum": 8192}}
+}

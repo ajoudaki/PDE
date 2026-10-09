@@ -2,6 +2,68 @@
 
 ## Full-width three-seed Harmonic continuation
 
+### Final outcome after the approved cap extension
+
+The extension stops at the approved8192 cap without a passing tested budget
+for n16384/seed1702. No criterion/source/seed was changed to make it pass.
+The two extra fits complete normally:
+
+| Compact width | Endpoint RMS | Endpoint/dense pair | Maximum-recorded RMS | Maximum/dense pair | Euler seconds |
+|---:|---:|---:|---:|---:|---:|
+|4096|0.001888408|3.124969|0.002776971|0.395857|12.11|
+|8192|0.000888773|1.470756|0.001342371|0.191355|28.79|
+
+The endpoint dense-pair benchmark is only0.0006043; both new candidates pass
+the maximum-recorded test but fail the separate endpoint test. Source
+recompilation takes19.81s; its complete source hashes match the prior source
+exactly. All inherited arrays are bitwise unchanged; no dense reruns. No
+numerical-model function changed, and the final saved-array/plot checks pass.
+These are accuracy misses for tested candidates, not evidence that EVERY
+compact width below8192 fails; accuracy need not be monotone in width.
+
+17 of18 width/seed searches have resolved20% local passing brackets. Full
+six-width mean/median exponent fits remain unavailable. The complete record
+and full-width plots (explicit missing group at16384) are in
+`harmonic_full_width_seeds/figures_extended/`. Separately, a descriptive
+complete-case calculation on512,1024,2048,4096,8192 ONLY gives:
+
+| Learned-state aggregate | C in C(log n)^p | p | Log-space RMS residual |
+|---|---:|---:|---:|
+|Arithmetic mean|0.2999742553|6.755863455|0.275261604|
+|Median|16.07218075|4.624600307|0.381814902|
+
+The mean is monotone on these five widths; the median retains the20.9% dip
+at8192. These fits explicitly EXCLUDE16384 because its three-seed aggregate
+is incomplete. They are retrospective descriptive summaries of the complete
+range, not full six-width fits, asymptotic exponents, or a resolution of the
+failed case. They must not replace the full-range missing-result disclosure.
+Both aggregate panels and metrics are in
+`harmonic_full_width_seeds/figures_complete_widths/`. No further runs pending.
+
+Reproduce the extension with `refine-budgets --plan
+studies/paper_appendix_pilots_20261009/harmonic_seed1702_n16384_extend.json`,
+using the same frozen numerical executable and a fresh plan output. Reproduce
+the full plot using `budget-seed-plot --fit-log-powers --runs` with all six
+uniform20% seed1701 roots, the four prior low-width1702/1703 roots, the seven
+completed original higher-width roots and the one `extended_search/n16384`
+root, followed by `--out <fresh directory>`. The subset fit uses the same
+command but explicitly omits ALL THREE16384 roots. No failing trajectory
+is deleted. The plot records width limits and continuation provenance per
+row while enforcing identical actual source settings. The bounded research
+procedure kept the cap, failures and claim scope explicit; no theorem changed.
+
+User approved the one-case cap extension after clarification: continue only
+n16384/seed1702 to maximum compressed width8192, at most five additional fits.
+Retain every existing failure and the identical rank42 source/prefix/selector;
+do NOT restart Harmonic or rerun dense. Try4096, then8192 only if necessary,
+then follow the existing bisection rule to20%. All numerical settings and
+BOTH1x criteria are unchanged.120s per source/fit,10-minute extension cap.
+Preserve unresolved outcomes if the new cap/budget is exhausted. Plan:
+`harmonic_seed1702_n16384_extend.json`; output is
+`harmonic_full_width_seeds/seed1702/extended_search/`. Root owns runs/config/
+notes; scoped support makes plotting accept explicitly recorded resource-limit
+differences while still verifying identical scientific source settings.
+
 Initial bounded stage completed:16 new dense fits and42 Harmonic fits, with
 all finite trajectories complete and no constructor/runtime errors. Seven
 new searches resolve20% brackets. Seed1702 atn16384 does not pass byq2048:
@@ -10,7 +72,7 @@ RMS ratio0.290738 passes. This is an observed accuracy miss at the search cap,
 not a constructor failure or theorem counterexample. No unsuccessful model
 is substituted into the mean/median. Root requested user direction for at
 most five more width-only fits up to8192, with all source settings unchanged.
-No additional fit is authorized by this record itself.
+The subsequent user approval and its bounds are recorded immediately above.
 
 | Dense width | Seed1701 passingq (reused) | Seed1702 passingq | Seed1703 passingq | Mean learned | Median learned |
 |---:|---:|---:|---:|---:|---:|

@@ -12213,23 +12213,52 @@ def budget_seed_plot(argv):
         require(search['factor'] == plan['factor'] == 1
                 and search['width_tolerance'] == plan['width_tolerance'] == .2,
                 f'Expected strict 1x criteria and 20% local width brackets: {root}')
+        source = report.get('sources', {}).get('harmonic')
+        source_orders = report.get('harmonic_fresh_setup', {}).get('settings')
+        if source_orders is None and source is not None:
+            source_orders = dict(spatial_degree=source['spatial_degree'],
+                time_degree=source['chebyshev_degree'], source_max_rank=source['requested_rank'])
+        require(source_orders is not None and (not plan.get('restart_harmonic')
+                or plan['restart_harmonic'] == source_orders), f'Frozen source orders differ: {root}')
+        source_ranks = plan.get('source_max_ranks_by_width', {}).get(str(n), plan.get('source_max_ranks', {}))
+        source_rank = max((value['source_rank'] for value in
+            config['methods']['non_oblivious']['harmonic']['budgets']), default=(
+                plan['restart_harmonic']['source_max_rank'] if plan.get('restart_harmonic')
+                else source_ranks.get('harmonic', 0)))
+        require(source_rank == source_orders['source_max_rank'], f'Planned source rank differs: {root}')
         contract = dict(dataset=config['dataset'], training=config['training'], source_sha256=source_hash,
             model={key: value for key, value in config['model'].items() if key != 'width'},
             data_sha256=report['data_sha256'], tf32=config['execution']['tf32'],
             spatial_degree=config['methods']['non_oblivious']['harmonic']['spatial_degree'],
             setup=_experiment_setup(config, 'harmonic'),
-            search={key: plan[key] for key in ('restart_harmonic', 'rank_rule', 'cap_below_dense', 'expansion')})
+            search=dict(source_orders=source_orders, rank_rule=plan['rank_rule'],
+                cap_below_dense=plan['cap_below_dense'], expansion={family: {
+                    key: value for key, value in expansion.items() if key != 'maximum'}
+                    for family, expansion in plan['expansion'].items()}))
         require(common is None or contract == common, f'Data/model/training/source settings differ: {root}')
         common = contract
-        source = report.get('sources', {}).get('harmonic')
         if source is not None:
+            require(source_orders == dict(spatial_degree=source['spatial_degree'],
+                    time_degree=source['chebyshev_degree'], source_max_rank=source['requested_rank']),
+                    f'Compiled source orders differ from frozen settings: {root}')
             settings = {key: source[key] for key in ('method', 'horizon', 'rk4_step', 'rollout_dtype',
                 'coefficient_dtype', 'chebyshev_degree', 'spatial_degree', 'geometry_sha256', 'geometry_count',
                 'observation_count', 'boundaries', 'requested_rank', 'effective_setup')}
             require(common_source is None or settings == common_source, f'Compiled source settings differ: {root}')
             common_source = settings
+        expansion = dict(plan['expansion']['harmonic'])
+        if plan['cap_below_dense']:
+            expansion['maximum'] = min(expansion['maximum'], n-1)
+            expansion['start'] = min(expansion['start'], expansion['maximum'])
+        require(manifest.get('reused_from') == report.get('reused_from'), f'Reuse provenance differs: {root}')
         row = dict(width=n, seed=seed, root=str(root), source_sha256=source_hash,
             trajectories_sha256=archive_hash, bracket=search['bracket'], errors=report.get('errors', {}),
+            search_limits=dict(expansion=plan['expansion']['harmonic'], effective_expansion=expansion,
+                max_new_requests=plan.get('max_new_by_width', {}).get(str(n), plan['max_new_per_family']),
+                seconds_per_fit=config['execution']['seconds_per_fit']),
+            continuation_provenance=dict(restart_harmonic=plan.get('restart_harmonic'),
+                harmonic_fresh_setup=report.get('harmonic_fresh_setup'), reused_from=report.get('reused_from'),
+                inherited_requested=search.get('inherited_requested', []), requested=search['requested']),
             candidates=[], selected=None, status=search['bracket']['status'])
         with np.load(path/'trajectories.npz', allow_pickle=False) as arrays:
             require(report['data_sha256'] == manifest['identity']['data_sha256']
@@ -12325,8 +12354,15 @@ def budget_seed_plot(argv):
     save_json(args.out/'metrics.json', dict(scope=scope, common=common, compiled_source=common_source,
         recorded_times=common_times.tolist(), individuals=rows, groups=groups,
         descriptive_log_power_fits=descriptive_fits, unresolved=unresolved))
+    continuation_caption = ''.join(
+        f"The search at dense width {row['width']}, seed {row['seed']}, was extended with user approval "
+        f"to compact-width cap {row['search_limits']['effective_expansion']['maximum']} and at most "
+        f"{row['search_limits']['max_new_requests']} additional fits; other searches retain their original limits.\n"
+        for row in rows if not row['continuation_provenance']['restart_harmonic']
+        and row['continuation_provenance']['inherited_requested'])
     (args.out/'captions.txt').write_text(scope+'\nCommon spatial degree 25, temporal degree 8, source rank cap 42.\n'
-        'Faint curves: individual seeds. Blue squares: arithmetic mean. Orange diamonds: median.\n'
+        + continuation_caption
+        + 'Faint curves: individual seeds. Blue squares: arithmetic mean. Orange diamonds: median.\n'
         'Mean and median are computed from learned storage, not compact widths. '
         'Sample SD is recorded in metrics.json; group summaries require all three resolved crossings.\n'
         'The companion mean/median panels use logarithmic width and learned-storage axes. '
