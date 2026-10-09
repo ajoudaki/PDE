@@ -716,29 +716,34 @@ class LoRA:
             raise ValueError("LoRA rank must be in [1,n]")
         generator = torch.Generator(device=a.device).manual_seed(seed)
         right = torch.linalg.qr(torch.randn(n, rank, generator=generator,
-                                            device=a.device), mode='reduced')[0]
+                                            device=a.device, dtype=a.dtype), mode='reduced')[0]
         self.matrix = matrix.clone()
         self.initial_state = [a.clone(), w.clone(), torch.zeros_like(right), right]
         self.mobility = multiplier * n / rank
         self.fixed_scalars = matrix.numel()
 
-    def fields(self, state, inputs):
+    def _fields(self, state, inputs):
         a, w, left, right = state
         h1 = (a @ inputs.T).tanh()
-        h2 = (self.matrix @ h1 + left @ (right.T @ h1)).tanh()
-        return h1, h2, w @ h2 / len(w)
+        projected = right.T@h1
+        h2 = (self.matrix@h1+left@projected).tanh()
+        return h1, h2, w@h2/len(w), projected
+
+    def fields(self, state, inputs):
+        return self._fields(state, inputs)[:3]
 
     def rhs(self, state, inputs, labels):
         a, w, left, right = state
-        h1, h2, prediction = self.fields(state, inputs)
+        h1, h2, prediction, projected = self._fields(state, inputs)
         residual = prediction - labels
         delta2 = w[:, None] * (1 - h2.square())
-        delta1 = (self.matrix.T @ delta2 + right @ (left.T @ delta2)) * (1 - h1.square())
+        delta1 = (self.matrix.T@delta2+right@(left.T@delta2))*(1-h1.square())
         force = (-2 / len(labels)) * (delta2 * residual)
+        # Reuse the forward projection; no dense adapter is formed.
         return [(-2 / len(labels)) * (delta1 * residual) @ inputs,
                 (-2 / len(labels)) * (h2 @ residual),
-                self.mobility / len(w) * force @ (h1.T @ right),
-                self.mobility / len(w) * h1 @ (force.T @ left)]
+                self.mobility/len(w)*force@projected.T,
+                self.mobility/len(w)*h1@(force.T@left)]
 
     def predict(self, state, queries, inputs, labels):
         return self.fields(state, queries)[2]
@@ -800,24 +805,30 @@ class BudgetLoRA:
             readout_mobility=n, fixed_dense_scalars=self.fixed_scalars,
             normalization='expected induced block mobility at zero adapters; no fitted multiplier')
 
-    def fields(self, state, inputs):
+    def _fields(self, state, inputs):
         readout, first_left, first_right, left, right = state
-        h1 = (self.first@inputs.T+first_left@(first_right.T@inputs.T)).tanh()
-        h2 = (self.matrix@h1+left@(right.T@h1)).tanh()
-        return h1, h2, readout@h2/len(readout)
+        first_projected = first_right.T@inputs.T
+        h1 = (self.first@inputs.T+first_left@first_projected).tanh()
+        projected = right.T@h1
+        h2 = (self.matrix@h1+left@projected).tanh()
+        return h1, h2, readout@h2/len(readout), first_projected, projected
+
+    def fields(self, state, inputs):
+        return self._fields(state, inputs)[:3]
 
     def rhs(self, state, inputs, labels):
         readout, first_left, first_right, left, right = state
-        h1, h2, prediction = self.fields(state, inputs)
+        h1, h2, prediction, first_projected, projected = self._fields(state, inputs)
         residual = prediction-labels
         delta2 = readout[:, None]*(1-h2.square())
         delta1 = (self.matrix.T@delta2+right@(left.T@delta2))*(1-h1.square())
         force1, force2 = (-2/len(labels))*(delta1*residual), (-2/len(labels))*(delta2*residual)
         first_scale, hidden_scale = self.first_mobility/len(readout), self.hidden_mobility/len(readout)
+        # Projections are per-call temporaries, not additional retained state.
         return [(-2/len(labels))*h2@residual,
-                first_scale*force1@(inputs@first_right),
+                first_scale*force1@first_projected.T,
                 first_scale*inputs.T@(force1.T@first_left),
-                hidden_scale*force2@(h1.T@right),
+                hidden_scale*force2@projected.T,
                 hidden_scale*h1@(force2.T@left)]
 
     def predict(self, state, queries, inputs=None, labels=None):

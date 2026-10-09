@@ -472,3 +472,54 @@ degree8 and source rank14, complete Harmonic setup fell1.9057s to1.3242s
 Source-subspace relative differences were4.61e-15 and5.61e-15. These are
 single short implementation comparisons, not repeated timing estimates or
 new compression-accuracy evidence. No old result array or figure was changed.
+
+### Legendre and low-rank hot-loop check
+
+The next targeted implementation check covered LegendreCompression and the
+active BudgetLoRA baseline, plus the older LoRA helper in the same executable.
+Neither low-rank RHS transfers data to the CPU. BudgetLoRA unnecessarily
+recomputed two forward projections in its gradient calculation; these are now
+reused within each call. The older LoRA reuses its one analogous projection and
+now initializes its factors with the reference dtype rather than the global
+default. No persistent cache or extra retained state was introduced.
+
+A trial combined Legendre's domain and zero-clock decisions into one scalar GPU
+synchronization and used addmm for its dense-plus-low-rank actions. It showed
+no meaningful speedup and was reverted when the user requested no further
+optimization without an obvious problem. Legendre is unchanged. Both methods
+still pay for their frozen dense mixer's forward/reverse actions. The retained
+low-rank edit changes no dynamics, parameter budget, integration step or storage.
+
+A more aggressive low-rank rewrite using backward-projection reuse and fused/
+reassociated arithmetic passed the tiny algebra checks but changed a float32
+trajectory by0.00064754, exceeding the preset2e-6 implementation tolerance.
+That rewrite was discarded. The retained narrower version is bitwise identical
+to the old state and all recorded predictions in the targeted GPU check.
+The trial Legendre state/predictions were also bitwise identical in that check.
+
+Timing used RTX3090, TF32 off, one CPU thread, float64 initialization and
+float32 Euler, n4096,m8,d2,L2,tanh, reference seed704, dataset seed47 and30 query
+points from n4096.json. Legendre used order3; BudgetLoRA hidden rank24 and
+first rank2, with adapter seed _experiment_seed(704,'low_rank_24'). Each run
+used2048 updates of0.0015625 toT3.2, record_every320, with16 untimed warmup
+updates. Old/new/new/old timing order compared commitf6a4b3f against the saved
+updated source hash. Mean elapsed seconds were4.4857/4.4832 for Legendre
+(no meaningful improvement) and3.5778/3.3266 for BudgetLoRA (1.076x).
+These short runs are not converged training: final training MSEs are0.8978975
+and0.0913349 respectively, unchanged by the edits. Learned/fixed counts remain
+274434/16777222 and208900/16785408 respectively.
+
+Tiny CPU checks cover Legendre's explicit-matrix/product-rule oracle, zero
+flow and invalid clocks, both low-rank autograd gradients, full-rank induced
+mobilities, storage budgets, and float32 legacy initialization with a float64
+global default. Maximum gradient error is2.22e-16. A scoped read-only review
+checked projection reuse and the shared clock gate; no broad audit or new
+scientific experiment was launched. Full timing reports, configuration, hashes,
+the discarded-candidate failure and check results are in
+data/generated/circle_width_scaling_20261009/legendre_lowrank_performance_check/timing.json.
+The final code restores the original Legendre implementation; its unchanged
+low-rank class definitions match those in the timing check. No more benchmarks
+were run after the user's stop instruction. The benchmark harness initially
+called the legacy autograd oracle under
+no_grad; rerunning that oracle outside no_grad passed. No saved scientific
+trajectory, accuracy comparison or figure was replaced.
