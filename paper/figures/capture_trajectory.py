@@ -10196,6 +10196,152 @@ def harmonic_order_probe_main(argv):
 
 
 @torch.no_grad()
+def figure3_extend_main(argv):
+    """Fixed-budget Figure 3 extension reusing its original dense reference."""
+    parser = argparse.ArgumentParser(description=figure3_extend_main.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument('--prepare', action='store_true')
+    action.add_argument('--worker', choices=('dense', 'compressions'))
+    parser.add_argument('--device', default='cuda:0')
+    args = parser.parse_args(argv)
+    config = json.loads(args.config.read_text())
+    out, root = Path(config['output']), Path(config['reference_run'])
+    if args.prepare:
+        out.mkdir(parents=True, exist_ok=False)
+        (out/'source.py').write_bytes(Path(__file__).read_bytes())
+        save_json(out/'config.json', config)
+        print(json.dumps(dict(event='figure3_extension_prepared', output=str(out))), flush=True)
+        return 0
+    if config != json.loads((out/'config.json').read_text()) or sha(Path(__file__).read_bytes()) != sha((out/'source.py').read_bytes()):
+        raise ValueError('Run workers using the frozen source.py and unchanged prepared config')
+    manifest = json.loads((root/'run.json').read_text())
+    original = manifest['config']
+    path = root/manifest['repetitions']['903']
+    old = json.loads((path/'report.json').read_text())
+    archive = (path/'trajectories.npz').read_bytes()
+    if sha(archive) != old['trajectories_sha256']:
+        raise ValueError('Original trajectory archive changed')
+    with np.load(path/'trajectories.npz', allow_pickle=False) as saved:
+        arrays = {key: saved[key] for key in (*old['data_sha256'], 'reference', 'extra_reference', 'times_reference')}
+    if any(array_sha(arrays[key]) != value for key, value in old['data_sha256'].items()):
+        raise ValueError('Original data changed')
+    training = original['training']
+    if (original['seeds'] != [903] or original['model'] != dict(width=4096, depth=2, activation='tanh')
+            or training != dict(solver='euler', step=.00625, horizon=32, record_every=80, dtype='float32')
+            or original['execution']['tf32'] or not old['runs']['reference']['complete']):
+        raise ValueError('Unexpected Figure 3 reference protocol')
+    folder = out/args.worker
+    folder.mkdir(exist_ok=False)
+    report = dict(worker=args.worker, config=config, complete=False, models={}, runs={}, metrics={}, errors={},
+        source_sha256=sha(Path(__file__).read_bytes()), original_trajectories_sha256=sha(archive),
+        reference_initial_state_sha256=old['reference_initial_state_sha256'], data_sha256=old['data_sha256'],
+        training=training, command=sys.argv, cwd=str(Path.cwd()))
+    started = time.monotonic()
+
+    def persist():
+        np.savez_compressed(folder/'trajectories.npz', **arrays)
+        report.update(seconds=time.monotonic()-started,
+                      trajectories_sha256=sha((folder/'trajectories.npz').read_bytes()))
+        save_json(folder/'report.json', report)
+
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    device, dtype = torch.device(args.device), torch.float32
+    report['environment'] = dict(python=platform.python_version(), torch=torch.__version__,
+        device=str(device), hardware=torch.cuda.get_device_name(device), tf32=False, threads=1)
+    inputs, labels, queries, extra = [torch.as_tensor(arrays[key], device=device) for key in
+        ('train_inputs', 'train_labels', 'query_inputs', 'extra_query_inputs')]
+    scored = torch.cat((inputs, queries, extra)).to(dtype)
+    reference, extra_reference = arrays['reference'].astype(float), arrays['extra_reference'].astype(float)
+    m, p = len(inputs), len(queries)
+    dense = DeepDense(4096, inputs.shape[1], 2, 'tanh', 903, device)
+    if [array_sha(v.cpu().numpy()) for v in dense.initial_state] != old['reference_initial_state_sha256']:
+        raise ArithmeticError('Dense initialization differs from saved coupled reference')
+    persist()
+
+    def fit(name, family, construct, **metadata):
+        try:
+            t0 = time.monotonic()
+            model = construct()
+            synchronize(device)
+            report['models'][name] = dict(family=family, moving=sum(v.numel() for v in model.initial_state),
+                fixed=int(model.fixed_scalars), setup_seconds=time.monotonic()-t0,
+                diagnostics=getattr(model, 'diagnostics', {}), **metadata)
+            report['models'][name]['total'] = report['models'][name]['moving']+report['models'][name]['fixed']
+            if report['models'][name]['setup_seconds'] > config['seconds_per_fit']:
+                raise TimeoutError('Per-model setup cap exceeded')
+            _experiment_move(model, device, dtype)
+            state, prediction, run = integrate_euler(model, inputs.to(dtype), labels.to(dtype), scored,
+                training['step'], config['seconds_per_fit'], horizon=training['horizon'],
+                max_steps=5120, observation_every=training['record_every'])
+            del model, state
+            report['runs'][name] = run
+            arrays[name], arrays['extra_'+name] = prediction[:, :m+p], prediction[:, m+p:]
+            arrays['times_'+name] = np.asarray(run['times'])
+            if (not run['complete'] or not np.isfinite(prediction).all()
+                    or arrays[name].shape != reference.shape or arrays['extra_'+name].shape != extra_reference.shape
+                    or not np.array_equal(arrays['times_'+name], arrays['times_reference'])):
+                raise ArithmeticError('Incomplete/nonfinite or mismatched trajectory')
+            rms = np.sqrt(np.mean((arrays[name].astype(float)[:, m:]-reference[:, m:])**2, axis=1))
+            extra_rms = np.sqrt(np.mean((arrays['extra_'+name].astype(float)-extra_reference)**2, axis=1))
+            report['metrics'][name] = dict(endpoint_rms=float(rms[-1]), worst_recorded_rms=float(rms.max()),
+                extra_endpoint_rms=float(extra_rms[-1]), extra_worst_recorded_rms=float(extra_rms.max()))
+        except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
+            report['errors'][name] = f'{type(error).__name__}: {error}'
+        persist()
+        print(json.dumps(dict(event='figure3_extension', name=name, metrics=report['metrics'].get(name),
+                             error=report['errors'].get(name))), flush=True)
+
+    if args.worker == 'dense':
+        for width in config['dense_widths']:
+            for seed in config['dense_seeds']:
+                init_seed = _experiment_seed(seed, f'dense_{width}')
+                fit(f'dense_{width}_seed{seed}', 'dense',
+                    lambda: DeepDense(width, inputs.shape[1], 2, 'tanh', init_seed, device),
+                    width=width, seed=seed, initialization_seed=init_seed)
+    else:
+        for order in config['legendre_orders']:
+            fit(f'legendre_{order}', 'legendre', lambda: LegendreCompression(dense, inputs, labels, order), order=order)
+        for rank in config['low_rank_ranks']:
+            init_seed = _experiment_seed(903, f'low_rank_{rank}')
+            budget = 4096+min(rank, inputs.shape[1])*int(4096+inputs.shape[1])+8192*rank
+            fit(f'low_rank_{rank}', 'low_rank', lambda: BudgetLoRA(dense, budget, init_seed),
+                rank=rank, initialization_seed=init_seed)
+        try:
+            setup = _experiment_setup(original, 'logarithmic')
+            sources, info = cubic_rollout_sources(dense, inputs, labels, queries, training['horizon'],
+                seconds=config['seconds_per_fit'], seed=old['seeds']['logarithmic_source'],
+                ranks=tuple(item['source_rank'] for item in config['logarithmic_budgets']), partitions=('new',),
+                step=setup['rollout_step'], time_degree=setup['time_degree'],
+                rollout_dtype=setup['rollout_dtype'], coefficient_dtype=setup['coefficient_dtype'])
+            report['source'] = info
+            for item in config['logarithmic_budgets']:
+                width, rank = item['width'], item['source_rank']
+
+                def construct():
+                    model = DeepHarmonic(dense, inputs, labels, sources['new'][rank], width,
+                        selection_seed=old['seeds']['logarithmic_selector'],
+                        readout_floor=old['sources']['logarithmic']['readout_floor'],
+                        selection_trials=setup['selection_trials'], condition_limit=setup['condition_limit'],
+                        selection_strategy=setup['selection_strategy'])
+                    if any(v['truncated'] for v in model.diagnostics['source_truncations']):
+                        raise ArithmeticError('Extra constructor source truncation is forbidden')
+                    return model
+
+                fit(f'logarithmic_{width}_r{rank}', 'logarithmic', construct, width=width, source_rank=rank)
+        except (ValueError, RuntimeError, ArithmeticError, TimeoutError) as error:
+            report['errors']['logarithmic_setup'] = f'{type(error).__name__}: {error}'
+    report['complete'] = not report['errors']
+    report['finished'] = True
+    persist()
+    print(json.dumps(dict(event='figure3_extension_done', worker=args.worker,
+                         seconds=report['seconds'], errors=report['errors'])), flush=True)
+    return 0
+
+
 def logarithmic_order_probe_main(argv):
     """Bounded source/selector repair against a saved coupled dense pair."""
     parser = argparse.ArgumentParser(description=logarithmic_order_probe_main.__doc__)
@@ -13096,6 +13242,208 @@ def trajectory_budget_plot(argv):
     return 0
 
 
+def figure3_extended_plot(argv):
+    """Plot the saved sphere and extended Digits learned-budget curves."""
+    import shlex
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    parser = argparse.ArgumentParser(description=figure3_extended_plot.__doc__)
+    parser.add_argument('--config', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    config = json.loads(args.config.read_text())
+    previous_path = Path(config['previous_figure'])
+    previous = json.loads(previous_path.read_text())
+    sphere, sphere_summaries = previous['figure3']['sphere'], previous['figure3']['sphere_dense_summaries']
+    old = {point['name']: point for point in previous['figure3']['images']}
+    old_summaries = previous['figure3']['image_dense_summaries']
+    root = Path(config['reference_run'])
+    manifest = json.loads((root/'run.json').read_text())
+    reference_path = root/manifest['repetitions']['903']
+    reference_report = json.loads((reference_path/'report.json').read_text())
+    require(sha((reference_path/'trajectories.npz').read_bytes()) == reference_report['trajectories_sha256'],
+            'Saved reference archive changed')
+    with np.load(reference_path/'trajectories.npz', allow_pickle=False) as arrays:
+        references = {key: arrays[key].copy() for key in ('reference', 'extra_reference', 'times_reference')}
+    require(references['reference'].shape == (65, 38) and references['extra_reference'].shape == (65, 30)
+            and np.array_equal(references['times_reference'], np.linspace(0, 32, 65))
+            and all(np.isfinite(value).all() for value in references.values()), 'Invalid saved reference')
+    require(all(array_sha(value) == previous['provenance']['image_dense_repeats']
+                ['provenance']['reference_array_sha256'][key] for key, value in references.items()),
+            'Previous figure used a different Digits reference')
+    new, errors, inputs = {}, {}, []
+    metric_names = ('endpoint_rms', 'worst_recorded_rms', 'extra_endpoint_rms', 'extra_worst_recorded_rms')
+    for worker in ('dense', 'compressions'):
+        folder = Path(config['output'])/worker
+        report = json.loads((folder/'report.json').read_text())
+        archive = folder/'trajectories.npz'
+        require(report.get('finished') and report['config'] == config
+                and report['source_sha256'] == sha((Path(config['output'])/'source.py').read_bytes())
+                and report['original_trajectories_sha256'] == reference_report['trajectories_sha256'],
+                f'{worker} is unfinished or its producer/configuration/reference changed')
+        require(sha(archive.read_bytes()) == report['trajectories_sha256'], f'Changed {worker} archive')
+        inputs.append(dict(worker=worker, path=str(folder.resolve()),
+            report_sha256=sha((folder/'report.json').read_bytes()),
+            trajectories_sha256=report['trajectories_sha256'], source_sha256=report.get('source_sha256')))
+        errors.update(report.get('errors', {}))
+        with np.load(archive, allow_pickle=False) as arrays:
+            require(all(np.array_equal(arrays[key], value) for key, value in references.items()),
+                    f'{worker} reference or time arrays changed')
+            for name, model in report['models'].items():
+                if not report['runs'].get(name, {}).get('complete'):
+                    errors.setdefault(name, 'No completed trajectory')
+                    continue
+                require(name in report['metrics'], f'Missing completed model metrics: {name}')
+                prediction, extra = arrays[name], arrays['extra_'+name]
+                require(prediction.shape == (65, 38) and extra.shape == (65, 30)
+                        and np.isfinite(prediction).all() and np.isfinite(extra).all()
+                        and np.array_equal(arrays['times_'+name], references['times_reference']),
+                        f'Invalid predictions or observation grid: {name}')
+                rms = np.sqrt(np.mean((prediction[:, 8:].astype(float)
+                                      -references['reference'][:, 8:].astype(float))**2, axis=1))
+                extra_rms = np.sqrt(np.mean((extra.astype(float)
+                                            -references['extra_reference'].astype(float))**2, axis=1))
+                score = dict(zip(metric_names, map(float, (rms[-1], rms.max(), extra_rms[-1], extra_rms.max()))))
+                require(all(np.isclose(score[key], report['metrics'][name][key], rtol=1e-12, atol=0)
+                            for key in metric_names), f'Recomputed RMS differs: {name}')
+                require(model['moving'] > 0 and model['fixed'] >= 0
+                        and model['moving']+model['fixed'] == model['total'], f'Invalid storage: {name}')
+                require(name not in new, f'Duplicate new model: {name}')
+                new[name] = dict(model, name=name, **score)
+    points, dense_summaries = [], {}
+    for width in config['display_dense_widths']:
+        name = f'dense_{width}'
+        if width not in config['dense_widths']:
+            point, summary = dict(old[name]), old_summaries[name]
+        else:
+            names = [f'{name}_seed{seed}' for seed in config['dense_seeds']]
+            if not all(key in new for key in names):
+                errors[name] = 'Three completed dense initializations are required for a mean'
+                continue
+            samples = [new[key] for key in names]
+            require(all(point['moving'] == width*(width+65) and point['fixed'] == 0 for point in samples),
+                    f'Wrong dense storage: {width}')
+            summary = dict(width=width, moving=samples[0]['moving'], fixed=0,
+                count=len(samples), names=names, samples=samples)
+            for metric in metric_names:
+                values = [point[metric] for point in samples]
+                summary[metric] = dict(mean=float(np.mean(values)), sd=float(np.std(values, ddof=1)), values=values)
+            point = dict(name=name, family='dense', width=width, moving=summary['moving'],
+                fixed=0, total=summary['moving'], **{key: summary[key]['mean'] for key in metric_names})
+        require(summary['count'] == 3, f'Dense group is not a three-seed mean: {width}')
+        points.append(point)
+        dense_summaries[name] = summary
+    for family, field in (('legendre', 'display_legendre_orders'), ('low_rank', 'display_low_rank_ranks')):
+        for value in config[field]:
+            name = f'{family}_{value}'
+            if name in new or name in old:
+                points.append(dict(new.get(name, old.get(name))))
+            else:
+                errors.setdefault(name, 'No completed requested model')
+    points.append(dict(old['frozen_features']))
+    for budget in config['logarithmic_budgets']:
+        name = f"logarithmic_{budget['width']}_r{budget['source_rank']}"
+        if name in new:
+            points.append(dict(new[name]))
+        else:
+            errors.setdefault(name, 'No completed rebuilt Taylor model')
+    require(any(point['family'] == 'logarithmic' for point in points), 'No completed rebuilt Taylor points')
+    styles = dict(legendre=('Legendre', '#4477AA', 's'), harmonic=('Harmonic', '#EE7733', '^'),
+        logarithmic=('Taylor', '#228833', 'o'), dense=('Dense', '#666666', 'D'),
+        low_rank=('Low rank', '#CC6677', 'v'), frozen_features=('Frozen features', '#AA4499', '*'))
+    pair = old['dense_4096']['endpoint_rms']
+    sphere_pair = next(point['endpoint_rms'] for point in sphere if point['name'] == 'dense')
+    nonfrozen = [point['moving'] for point in sphere+points if point['family'] != 'frozen_features']
+    limits = (min(nonfrozen)*.75, max(nonfrozen)*1.3)
+    with plt.rc_context({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False,
+                         'pdf.fonttype': 42, 'savefig.facecolor': 'white'}):
+        figure, axes = plt.subplots(1, 2, figsize=(11.8, 4.8), sharex=True)
+        for column, (axis, title, data, baseline) in enumerate(zip(axes,
+                ('3D sphere', 'Digits 1 vs 7'), (sphere, points), (sphere_pair, pair))):
+            for family, (label, color, marker) in styles.items():
+                selected = sorted([point for point in data if point['family'] == family],
+                                  key=lambda point: point['moving'])
+                if not selected:
+                    continue
+                if family == 'frozen_features':
+                    axis.axhline(selected[0]['endpoint_rms'], color=color, linestyle='--', linewidth=1, label=label)
+                    continue
+                axis.plot([point['moving'] for point in selected], [point['endpoint_rms'] for point in selected],
+                          color=color, marker=marker, markersize=4.5, linewidth=1.2, label=label)
+                for point in selected:
+                    summary = (sphere_summaries if column == 0 else dense_summaries).get(point['name'])
+                    if summary:
+                        deviation = ([[summary['median']-summary['minimum']],
+                                      [summary['maximum']-summary['median']]] if column == 0
+                                     else summary['endpoint_rms']['sd'])
+                        axis.errorbar(point['moving'], point['endpoint_rms'], yerr=deviation,
+                                      fmt='none', color=color, capsize=3, linewidth=1)
+                if column == 1 and family == 'logarithmic':
+                    axis.plot([point['moving'] for point in selected],
+                              [point['extra_endpoint_rms'] for point in selected], ':', marker=marker,
+                              markerfacecolor='white', color=color, markersize=5, linewidth=1,
+                              label='Taylor, undeclared')
+            axis.axhline(baseline, color='#333333', linestyle=':', linewidth=1, label='Dense benchmark')
+            if column == 1:
+                axis.axhline(old['dense_4096']['extra_endpoint_rms'], color='#999999', linestyle='-.',
+                             linewidth=.8, label='Dense, undeclared')
+            axis.set(xscale='log', yscale='log', xlabel='Learned scalars', title=title, xlim=limits)
+            axis.grid(alpha=.15)
+        axes[0].set_ylabel('Endpoint query RMS')
+        legend = {}
+        for axis in axes:
+            handles, labels = axis.get_legend_handles_labels()
+            legend.update(zip(labels, handles))
+        figure.legend(legend.values(), legend.keys(), loc='upper center', ncol=5, frameon=False, fontsize=9)
+        figure.tight_layout(rect=(0, 0, 1, .84))
+        args.out.mkdir(parents=True, exist_ok=False)
+        for extension in ('png', 'pdf'):
+            figure.savefig(args.out/f'figure3_accuracy.{extension}', dpi=180)
+        plt.close(figure)
+    caption = ('Figure 3. Endpoint query RMS against each fixed width-4096 reference versus learned scalars. '
+        'Only the learned-storage row is shown; both panels share horizontal limits. The sphere points '
+        'and conditional dense medians/min-max bars are unchanged. Digits dense points show means and '
+        'sample SD across the existing repetition labels 903, 904, 905 against saved reference 903. '
+        'Displayed dense widths are '+', '.join(map(str, config['display_dense_widths']))+'. '
+        'Compression curves are single runs, without imposed monotonicity. All displayed Digits Taylor '
+        'points use one rebuilt maximum-rank-64 source with degree 8 and the declared nested ranks; '
+        'old maximum-rank-32 Taylor points are not mixed into this curve. Uniform selection uses 64 trials, '
+        'condition cap 16 and the original readout floor; setup uses full-horizon RK4 rollouts, not a '
+        'certified initialization-only compiler. Hollow Taylor markers score the 30 inputs withheld '
+        'from source setup; query labels are unused. Dashed frozen-feature baselines carry no budget '
+        'marker. The dense benchmark is the unchanged single sphere pair or three-control Digits mean. '
+        'Digits use Euler step 1/160 through time 32, with 65 observations; sphere retains its prior '
+        'step 1/640. Fixed retained storage is additional and remains in metrics: Digits Legendre '
+        '4096^2+2*order; Taylor 3*width^2+1; low rank and frozen features 17039360 scalars. '
+        'Common data, solver workspace and temporary source construction are excluded. No new dense '
+        'reference or continuous-time certificate is claimed.\n')
+    if errors:
+        caption += 'Unplotted requests or constructor failures: '+json.dumps(errors, sort_keys=True)+'.\n'
+    source = Path(__file__).read_bytes()
+    (args.out/'source.py').write_bytes(source)
+    (args.out/'config.json').write_bytes(args.config.read_bytes())
+    (args.out/'captions.txt').write_text(caption)
+    save_json(args.out/'metrics.json', dict(scope=caption.strip(), config=config,
+        config_sha256=sha(args.config.read_bytes()), previous_figure=str(previous_path.resolve()),
+        previous_figure_sha256=sha(previous_path.read_bytes()), inputs=inputs,
+        reference_array_sha256={key: array_sha(value) for key, value in references.items()},
+        figure3=dict(sphere=sphere, sphere_dense_summaries=sphere_summaries,
+                     images=points, image_dense_summaries=dense_summaries),
+        rescored_models=new, errors=errors, shared_learned_limits=list(limits),
+        source_sha256=sha(source), command=shlex.join([sys.executable, '-B', str(Path(__file__).resolve()),
+            'figure3-extended-plot', *argv]), cwd=str(Path.cwd()),
+        plot_validation='New archive hashes, reference equality, 65-time prediction grids and all four raw RMS scores'))
+    print(json.dumps(dict(event='figure3_extended_plot', output=str(args.out),
+                         completed_new_models=len(new), errors=errors)), flush=True)
+    return 0
+
+
 def trajectory_task_plot(argv):
     """Mean learned storage on the saved circle and digits tasks, with one RMS criterion."""
     import shlex
@@ -13355,6 +13703,10 @@ def budget_comparison_plot(argv):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'figure3-extend':
+        sys.exit(figure3_extend_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'figure3-extended-plot':
+        sys.exit(figure3_extended_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'trajectory-task-plot':
         sys.exit(trajectory_task_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'logarithmic-order-probe':

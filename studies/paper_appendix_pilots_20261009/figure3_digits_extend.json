@@ -1,0 +1,21 @@
+{
+  "reference_run": "data/generated/paper_appendix_pilots_20261009/restored/digits_budget/n4096",
+  "previous_figure": "data/generated/paper_appendix_pilots_20261009/digits_dense_repeats/figures/metrics.json",
+  "output": "data/generated/paper_appendix_pilots_20261009/figure3_digits_extend",
+  "seconds_per_fit": 120,
+  "dense_widths": [121, 991, 2017],
+  "dense_seeds": [903, 904, 905],
+  "legendre_orders": [8, 12],
+  "low_rank_ranks": [64],
+  "logarithmic_budgets": [
+    {"width": 192, "source_rank": 1},
+    {"width": 256, "source_rank": 8},
+    {"width": 384, "source_rank": 16},
+    {"width": 512, "source_rank": 32},
+    {"width": 768, "source_rank": 48},
+    {"width": 1024, "source_rank": 64}
+  ],
+  "display_dense_widths": [121, 256, 512, 991, 2017, 4096],
+  "display_legendre_orders": [1, 2, 4, 8, 12],
+  "display_low_rank_ranks": [6, 13, 23, 64]
+}

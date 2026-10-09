@@ -1,5 +1,93 @@
 # Bounded appendix figure pilots
 
+## Figure3 digits budget-range repair
+
+### Outcome
+
+Completed all18 requested trajectories, with no constructor failures or
+incomplete runs. The final figure has only the learned-state row, common
+x-axis limits, unchanged sphere observations, and a digits panel with6dense,
+5Legendre,4low-rank and6rebuilt Taylor (formerly Logarithmic) points. Frozen
+features are a dashed baseline only. Irregular old dense sizes and old
+rank32-source Taylor points remain archived, not mixed into the new curves.
+
+| Taylor width / source rank | Learned scalars | Endpoint declared RMS | Undeclared RMS |
+|---:|---:|---:|---:|
+|192 /1|49352|0.02842301|0.02580063|
+|256 /8|82184|0.01808598|0.02570634|
+|384 /16|172424|0.00927271|0.01338971|
+|512 /32|295432|0.00647626|0.01007436|
+|768 /48|639752|0.00378364|0.00617026|
+|1024 /64|1115144|0.00132057|0.00593753|
+
+Dense endpoint benchmark remains0.01237104 (mean of three controls against
+one fixed reference). New dense121/991/2017 mean +/-sample SD is
+0.04677749+/-0.00908143,0.01793013+/-0.00160116,
+0.01307054+/-0.00266348. Legendre8/12 gives endpoint RMS
+0.0000639506/0.0000755546 at856066/1118210 learned scalars; the small
+nonmonotonicity is retained. Low-rank64 gives0.23685351 at794624 learned
+scalars. All new final training MSEs are below0.0005. Query RMS is model
+discrepancy, not ground-truth MSE. Full-horizon rollout setup and single
+compression repetitions remain qualifications; no asymptotic inference.
+
+Both GPU queues finished in about130s: dense worker35.65s, compression
+worker129.03s, including4.40s source construction. Individual Euler runs
+took3.81--15.69s; source coefficients use one shared maximum-rank64 basis.
+Scoped renderer recomputed all four raw RMS metrics for all18 models,
+verified archive/source/reference hashes and exact65-time grids, checked
+three-member dense averages and retained counts, and preserved sphere
+points/summaries exactly. Root checked the saved reference/data arrays are
+bitwise equal across workers, count/time/score checks, and the rendered figure.
+The bounded-experiment workflow stopped at the prescribed budget without
+rescue searches or extra seeds. No paper text was changed.
+
+Config is `figure3_digits_extend.json`. Prepare with
+`capture_trajectory.py figure3-extend --config <config> --prepare`, then run
+the frozen generated `source.py figure3-extend --config <config> --worker
+dense --device cuda:0` and `--worker compressions --device cuda:1`, each
+under `timeout480`. Actual Python was `/home/amir/miniconda3/bin/python -B -u`.
+Render with `capture_trajectory.py figure3-extended-plot --config <config>
+--out <fresh-figure-directory>`. Outputs, raw arrays, producer/config and
+logs in JSON reports are under `data/generated/paper_appendix_pilots_20261009/figure3_digits_extend/`;
+final PNG/PDF, caption and checked scores are in its `figures/` folder.
+For a rerun choose a fresh output in the config. Shared Taylor wording edits
+belong to the concurrent task and remain separate from this addition.
+
+### Frozen design
+
+Frozen before new runs: user requests a digits learned-state panel with
+budget extent/spacing comparable to the sphere panel, omitting Harmonic,
+and only the top learned-state row in the final figure. Preserve sphere
+observations, reference903, raw8x8 digits data47,m8,p30 plus30 undeclared
+queries, L2tanh, float32/TF32off, Euler1/160,T32,65 saved times. Primary
+observable is endpoint query RMS versus the saved reference, with the
+unchanged dense conditional mean benchmark. This is a size sweep, not a
+pass-based search; retain every complete accuracy result whether good or bad.
+
+Add dense121/991/2017 at existing repetition labels903/904/905 (9 fits),
+Legendre orders8/12 (2), low-rank64 (1), and rebuild one nested Logarithmic
+family at widths192/256/384/512/768/1024 with ranks1/8/16/32/48/64 (6).
+Existing irregular dense controls remain archived, not displayed in the
+even-budget figure. One new maximum-rank64 source is compiled for ALL six
+Logarithmic points, avoiding a mixed old/new source family. Keep temporal
+degree8,RK4source0.125, float64coefficients, uniform64-coordinate candidates,
+condition16, original floor and no extra constructor truncation. Query
+inputs are declared, their labels never used; undeclared inputs only scored.
+This remains empirical full-horizon source setup, not the certified compiler.
+
+At most18 new candidate requests and1 source build, no new dense reference,
+120s per source/fit and8-minute GPU wall cap. Dense controls on one GPU;
+Legendre/low-rank/Logarithmic on the other. No new seeds beyond existing
+control labels, tuning, retries, or follow-up branches. Incomplete/nonfinite
+trajectories or constructor-gate failures are inconclusive, not plotted as
+accuracy. The discriminator is whether the prescribed range exposes better
+accuracy; it need not resemble sphere accuracy or be monotone. The two
+panels differ in input dimension and Euler step, disclosed in the caption.
+Readout/frozen storage is reported separately, not silently counted as learned.
+Config: `figure3_digits_extend.json`; outputs in the matching generated folder.
+Shared script has concurrent wording-only Taylor renames; preserve those
+unrelated changes and edit only new extension/plot entrypoints.
+
 ## Mean-only toy/digits comparison
 
 User requested toy on the left and digits on the right, retaining log-log
