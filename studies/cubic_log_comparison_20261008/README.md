@@ -4,6 +4,16 @@
 
 ### Three independently coupled repetitions, 2026-10-09
 
+Display update: at the user's request, `runner_three_seeds_plot.json` now selects
+means with plus/minus one sample standard deviation (ddof=1), not standard
+errors. The same raw paired scores produce `runner_three_seeds/plots/plot_007/`
+under this study's generated namespace; the median/range figures in plot006 are
+preserved. No training was rerun. Nine points still have3 seeds, Logarithmic850
+has2, visibly labelled. All means/SDs were reconstructed from the per-seed
+scores; all lower SD bounds are positive, so every requested bar is displayed.
+The original data and per-repetition provenance are unchanged. Both PNGs were
+visually checked. The plotter omits an SD bar for singletons (SD is undefined).
+
 The user requests exactly two additional reference seeds,602/603, for Dense,
 Legendre and Logarithmic only, combined with the completed601 repetition.
 Configuration: `runner_two_more_seeds.json`. Architecture, data, training,

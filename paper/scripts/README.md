@@ -61,6 +61,8 @@ Failed attempts are retained and retried in new attempt directories. Plotting
 never trains: it verifies saved arrays and computes each model's RMS against its
 own reference before aggregation. Median/mean and observed ranges are supported;
 ranges are not confidence intervals. Worst-time means worst *recorded* time.
+For mean plus/minus one sample standard deviation across repetitions, use
+`--plots.aggregate mean --plots.spread sd` (ddof=1, not standard error).
 Figures, per-seed metrics and a caption/storage table are saved in fresh
 `plots/plot_NNN/` folders. Frozen features use an equivalent dual Euler computation;
 the displayed parameter count is the width-sized primal readout, with both storage

@@ -6762,7 +6762,8 @@ def experiment_plot(config):
             raise ValueError(message)
     require(isinstance(metrics, list) and metrics and len(set(metrics)) == len(metrics)
             and all(metric in ('endpoint_rms', 'worst_recorded_rms') for metric in metrics), 'Invalid plot metrics')
-    require(aggregate in ('mean', 'median') and spread in ('range', 'none'), 'Invalid plot aggregation')
+    require(aggregate in ('mean', 'median') and spread in ('range', 'sd', 'none')
+            and (spread != 'sd' or aggregate == 'mean'), 'Invalid plot aggregation')
     frozen_style = config.get('methods', {}).get('oblivious', {}).get('frozen_features', {}).get('plot', 'dashed')
     require(frozen_style in ('dashed', 'point'), 'Invalid frozen-features plot style')
     families = dict(dense=('Dense', '#40566c'), legendre=('Legendre', '#d18624'),
@@ -6925,8 +6926,17 @@ def experiment_plot(config):
         for metric in labels:
             scores = np.asarray([row[metric] for row in values])
             point[metric] = dict(value=float(getattr(np, aggregate)(scores)),
-                                 minimum=float(scores.min()), maximum=float(scores.max()))
+                                 minimum=float(scores.min()), maximum=float(scores.max()),
+                                 sample_sd=float(scores.std(ddof=1)) if len(scores) > 1 else None)
         points.append(point)
+
+    def interval(score):
+        if spread == 'range':
+            return score['minimum'], score['maximum']
+        if spread == 'sd' and score['sample_sd'] is not None:
+            return score['value']-score['sample_sd'], score['value']+score['sample_sd']
+        return None
+
     parent = output_root/'plots'
     parent.mkdir(parents=True, exist_ok=True)
     index = 1
@@ -6944,7 +6954,10 @@ def experiment_plot(config):
                'Endpoint RMS uses the final recorded time; worst recorded RMS is the largest query RMS '
                'over the saved time grid. Test truth MSE uses the final query predictions. '
                + ('Bars show observed minimum–maximum ranges, not confidence intervals. ' if spread == 'range' else '')
-               + 'Zero scores and ranges touching zero are omitted from logarithmic plots. '
+               + ('Bars show mean plus/minus one sample standard deviation (ddof=1) of the individual '
+                  'scores, not standard errors or confidence intervals; no SD bar is drawn for a single score. '
+                  if spread == 'sd' else '')
+               + 'Nonpositive scores and error bars reaching nonpositive values are omitted from logarithmic plots. '
                'Frozen-features learned state counts the primal readout; executed dual storage is '
                'reported separately in each model record in metrics.json. Fixed storage is listed below.\n')
     caption += '\nname | learned | fixed | total | repetitions\n'
@@ -6961,8 +6974,9 @@ def experiment_plot(config):
             if family == 'frozen_features' and frozen_style == 'dashed':
                 score = selected[0][metric]
                 axis.axhline(score['value'], color=color, label=label, linestyle='--', linewidth=1.5)
-                if spread == 'range' and score['minimum'] > 0:
-                    axis.axhspan(score['minimum'], score['maximum'], color=color, alpha=.08)
+                bounds = interval(score)
+                if bounds is not None and bounds[0] > 0:
+                    axis.axhspan(*bounds, color=color, alpha=.08)
                 continue
             style = 'None' if family == 'frozen_features' else '-'
             axis.plot([p['moving'] for p in selected], [p[metric]['value'] for p in selected],
@@ -6971,12 +6985,13 @@ def experiment_plot(config):
                 if p['count'] < p['requested']:
                     axis.annotate(f"{p['count']}/{p['requested']} seeds", (p['moving'], p[metric]['value']),
                                   xytext=(5, 7), textcoords='offset points', fontsize=7, color=color)
-            if spread == 'range':
+            if spread != 'none':
                 for p in selected:
                     score = p[metric]
-                    if score['minimum'] > 0:
+                    bounds = interval(score)
+                    if bounds is not None and bounds[0] > 0:
                         axis.errorbar(p['moving'], score['value'],
-                                      yerr=[[score['value']-score['minimum']], [score['maximum']-score['value']]],
+                                      yerr=[[score['value']-bounds[0]], [bounds[1]-score['value']]],
                                       fmt='none', color=color, capsize=2, linewidth=.8)
         axis.set(xscale='log', yscale='log', xlabel='Learned state', ylabel='Test RMS',
                  title='Endpoint' if metric == 'endpoint_rms' else 'Worst over time')
@@ -7212,7 +7227,8 @@ def _experiment_validate(config):
             or len(set(config['plots']['methods'])) != len(config['plots']['methods'])
             or any(not path for path in config['plots']['runs'])
             or config['plots']['aggregate'] not in ('mean', 'median')
-            or config['plots']['spread'] not in ('range', 'none')
+            or config['plots']['spread'] not in ('range', 'sd', 'none')
+            or (config['plots']['spread'] == 'sd' and config['plots']['aggregate'] != 'mean')
             or oblivious['frozen_features']['plot'] not in ('dashed', 'point')):
         raise ValueError('Unsupported plot metric, aggregation, spread or frozen-feature style')
 
