@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 14: why the source span is small</title>
+<style>
+:root{--p:#1f1f1e;--s:#6b6b68;--t:#888780;--b:#c8c6bd;--text-primary:#1f1f1e;--text-secondary:#6b6b68;
+--text-muted:#9a9890;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--surface-1:#f4f3ef;
+--surface-2:#fff;--bg-success:#e3f3e8;--text-success:#1d6b3a;--radius:8px;--page:#fbfaf7}
+@media (prefers-color-scheme: dark){:root{--p:#ecebe6;--s:#a8a69e;--t:#8f8d86;--b:#55544f;
+--text-primary:#ecebe6;--text-secondary:#a8a69e;--text-muted:#7d7b75;--border:rgba(255,255,255,.14);
+--border-strong:rgba(255,255,255,.28);--surface-1:#2a2a28;--surface-2:#222220;--bg-success:#1f3b29;
+--text-success:#8fd3a5;--page:#1c1c1b}}
+body{margin:0;padding:24px 16px;background:var(--page);color:var(--text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:700px;margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+svg text.t{font-size:14px;fill:var(--text-primary)}
+svg text.ts{font-size:12px;fill:var(--text-secondary)}
+button,select{font:inherit;color:var(--text-primary);background:transparent;border:.5px solid var(--border-strong);
+border-radius:var(--radius);cursor:pointer}
+button:hover{background:var(--surface-1)}
+input[type=range]{accent-color:#2a78d6}
+nav{font-size:13px;margin-bottom:16px} nav a{color:var(--text-secondary)}
+</style></head><body><main>
+<nav><a href="../index.html">All explainer figures</a></nav>
+<svg width="100%" viewBox="0 0 680 400" role="img"><title>Figure 14: why the source span is small</title><desc>Left: Harmonic coefficient magnitudes decay in time and input degree, keep a triangle. Right: Logarithmic disks of analyticity widen along real time.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="170" y="30" text-anchor="middle">Harmonic: whole input sphere</text>
+<rect x="60" y="60" width="16" height="16" fill="#1D9E75" opacity="1"/><rect x="78" y="60" width="16" height="16" fill="#1D9E75" opacity="0.8"/><rect x="96" y="60" width="16" height="16" fill="#1D9E75" opacity="0.62"/><rect x="114" y="60" width="16" height="16" fill="#1D9E75" opacity="0.48"/><rect x="132" y="60" width="16" height="16" fill="#1D9E75" opacity="0.36"/><rect x="150" y="60" width="16" height="16" fill="#1D9E75" opacity="0.27"/><rect x="168" y="60" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="186" y="60" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="204" y="60" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="222" y="60" width="16" height="16" fill="#B4B2A9" opacity="0.12"/>
+<rect x="60" y="78" width="16" height="16" fill="#1D9E75" opacity="0.75"/><rect x="78" y="78" width="16" height="16" fill="#1D9E75" opacity="0.58"/><rect x="96" y="78" width="16" height="16" fill="#1D9E75" opacity="0.45"/><rect x="114" y="78" width="16" height="16" fill="#1D9E75" opacity="0.34"/><rect x="132" y="78" width="16" height="16" fill="#1D9E75" opacity="0.26"/><rect x="150" y="78" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="168" y="78" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="186" y="78" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="204" y="78" width="16" height="16" fill="#B4B2A9" opacity="0.13"/><rect x="222" y="78" width="16" height="16" fill="#B4B2A9" opacity="0.1"/>
+<rect x="60" y="96" width="16" height="16" fill="#1D9E75" opacity="0.55"/><rect x="78" y="96" width="16" height="16" fill="#1D9E75" opacity="0.42"/><rect x="96" y="96" width="16" height="16" fill="#1D9E75" opacity="0.32"/><rect x="114" y="96" width="16" height="16" fill="#1D9E75" opacity="0.24"/><rect x="132" y="96" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="150" y="96" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="168" y="96" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="186" y="96" width="16" height="16" fill="#B4B2A9" opacity="0.13"/><rect x="204" y="96" width="16" height="16" fill="#B4B2A9" opacity="0.1"/><rect x="222" y="96" width="16" height="16" fill="#B4B2A9" opacity="0.08"/>
+<rect x="60" y="114" width="16" height="16" fill="#1D9E75" opacity="0.4"/><rect x="78" y="114" width="16" height="16" fill="#1D9E75" opacity="0.3"/><rect x="96" y="114" width="16" height="16" fill="#1D9E75" opacity="0.23"/><rect x="114" y="114" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="132" y="114" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="150" y="114" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="168" y="114" width="16" height="16" fill="#B4B2A9" opacity="0.13"/><rect x="186" y="114" width="16" height="16" fill="#B4B2A9" opacity="0.1"/><rect x="204" y="114" width="16" height="16" fill="#B4B2A9" opacity="0.08"/><rect x="222" y="114" width="16" height="16" fill="#B4B2A9" opacity="0.06"/>
+<rect x="60" y="132" width="16" height="16" fill="#1D9E75" opacity="0.3"/><rect x="78" y="132" width="16" height="16" fill="#1D9E75" opacity="0.22"/><rect x="96" y="132" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="114" y="132" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="132" y="132" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="150" y="132" width="16" height="16" fill="#B4B2A9" opacity="0.13"/><rect x="168" y="132" width="16" height="16" fill="#B4B2A9" opacity="0.1"/><rect x="186" y="132" width="16" height="16" fill="#B4B2A9" opacity="0.08"/><rect x="204" y="132" width="16" height="16" fill="#B4B2A9" opacity="0.06"/><rect x="222" y="132" width="16" height="16" fill="#B4B2A9" opacity="0.05"/>
+<rect x="60" y="150" width="16" height="16" fill="#1D9E75" opacity="0.22"/><rect x="78" y="150" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="96" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="114" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="132" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.13"/><rect x="150" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.1"/><rect x="168" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.08"/><rect x="186" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.06"/><rect x="204" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.05"/><rect x="222" y="150" width="16" height="16" fill="#B4B2A9" opacity="0.04"/>
+<rect x="60" y="168" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="78" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="96" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="114" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.13"/><rect x="132" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.1"/><rect x="150" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.08"/><rect x="168" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.06"/><rect x="186" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.05"/><rect x="204" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.04"/><rect x="222" y="168" width="16" height="16" fill="#B4B2A9" opacity="0.03"/>
+<path d="M58 186 L76 186 L76 168 L94 168 L94 150 L112 150 L112 132 L130 132 L130 114 L148 114 L148 96 L166 96 L166 78 L184 78 L184 58" fill="none" stroke="#0F6E56" stroke-width="1.5"/>
+<line x1="60" y1="202" x2="240" y2="202" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="150" y="220" text-anchor="middle">time degree (Chebyshev)</text>
+<line x1="46" y1="58" x2="46" y2="186" class="arr" marker-start="url(#arrow)"/>
+<text class="ts" x="40" y="250">input degree (spherical harmonic) ↑</text>
+<text class="ts" x="40" y="280">analytic in time and input ⇒ coefficients</text>
+<text class="ts" x="40" y="298">decay exponentially; keep a triangle</text>
+<text class="ts" x="40" y="326">span: (log n)^(3d/2+1), grows with dimension d</text>
+<text class="th" x="510" y="30" text-anchor="middle">Logarithmic: declared panel</text>
+<circle cx="390" cy="200" r="7" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<circle cx="400" cy="200" r="9" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<circle cx="413" cy="200" r="12" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<circle cx="430" cy="200" r="16" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<circle cx="453" cy="200" r="22" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<circle cx="484" cy="200" r="30" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<circle cx="526" cy="200" r="41" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<circle cx="584" cy="200" r="56" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+<line x1="380" y1="200" x2="650" y2="200" class="arr" marker-end="url(#arrow)"/>
+<line x1="390" y1="194" x2="390" y2="206" stroke="#993C1D" stroke-width="1.5"/><line x1="400" y1="194" x2="400" y2="206" stroke="#993C1D" stroke-width="1.5"/><line x1="413" y1="194" x2="413" y2="206" stroke="#993C1D" stroke-width="1.5"/><line x1="430" y1="194" x2="430" y2="206" stroke="#993C1D" stroke-width="1.5"/><line x1="453" y1="194" x2="453" y2="206" stroke="#993C1D" stroke-width="1.5"/><line x1="484" y1="194" x2="484" y2="206" stroke="#993C1D" stroke-width="1.5"/><line x1="526" y1="194" x2="526" y2="206" stroke="#993C1D" stroke-width="1.5"/><line x1="584" y1="194" x2="584" y2="206" stroke="#993C1D" stroke-width="1.5"/>
+<line x1="380" y1="270" x2="380" y2="120" stroke="var(--b)" stroke-width="0.5"/>
+<text class="ts" x="372" y="118" text-anchor="end">Im t</text>
+<text class="ts" x="650" y="222" text-anchor="end">Re t</text>
+<text class="ts" x="390" y="280">residual decays ⇒ analytic in wider disks</text>
+<text class="ts" x="390" y="298">⇒ longer Taylor pieces, fewer of them</text>
+<text class="ts" x="390" y="326">e^(−κ(t+is)): imaginary shift only rotates phase</text>
+<text class="ts" x="390" y="350">span: (log n)^(3/2), no dependence on d</text>
+<text class="ts" x="340" y="384" text-anchor="middle">both build a small span E; the selected neurons realize it exactly</text>
+</svg>
+</main></body></html>

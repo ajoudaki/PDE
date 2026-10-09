@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 6: flaring disks</title>
+<style>
+:root{--p:#1f1f1e;--s:#6b6b68;--t:#888780;--b:#c8c6bd;--text-primary:#1f1f1e;--text-secondary:#6b6b68;
+--text-muted:#9a9890;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--surface-1:#f4f3ef;
+--surface-2:#fff;--bg-success:#e3f3e8;--text-success:#1d6b3a;--radius:8px;--page:#fbfaf7}
+@media (prefers-color-scheme: dark){:root{--p:#ecebe6;--s:#a8a69e;--t:#8f8d86;--b:#55544f;
+--text-primary:#ecebe6;--text-secondary:#a8a69e;--text-muted:#7d7b75;--border:rgba(255,255,255,.14);
+--border-strong:rgba(255,255,255,.28);--surface-1:#2a2a28;--surface-2:#222220;--bg-success:#1f3b29;
+--text-success:#8fd3a5;--page:#1c1c1b}}
+body{margin:0;padding:24px 16px;background:var(--page);color:var(--text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:700px;margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+svg text.t{font-size:14px;fill:var(--text-primary)}
+svg text.ts{font-size:12px;fill:var(--text-secondary)}
+button,select{font:inherit;color:var(--text-primary);background:transparent;border:.5px solid var(--border-strong);
+border-radius:var(--radius);cursor:pointer}
+button:hover{background:var(--surface-1)}
+input[type=range]{accent-color:#2a78d6}
+nav{font-size:13px;margin-bottom:16px} nav a{color:var(--text-secondary)}
+</style></head><body><main>
+<nav><a href="../index.html">All explainer figures</a></nav>
+<h2 class="sr-only">Figure 6. Analyticity disks widen as the residual decays; Taylor pieces lengthen; piece count versus a uniform covering.</h2>
+<div style="display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<span>Fitting rate ν</span><input type="range" id="nu" min="0.2" max="0.8" step="0.02" value="0.5" style="flex:1"><span id="cnt" style="min-width:260px;text-align:right"></span>
+</div>
+<svg id="fl" width="100%" viewBox="0 0 680 330" role="img"><title>Figure 6: flaring disks</title><desc>Residual on top; widening disks along real time; Taylor pieces below.</desc></svg>
+<script>
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('fl');
+const E=(n,a,t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+function draw(){const nu=+document.getElementById('nu').value,K=1,rn=0.15,T=24,dh=nu/(2*K);
+const h=t=>Math.log(1+2*K*rn*Math.exp(nu*t))/(2*K),rad=t=>h(t)/(2*(1+dh));
+const anchors=[0];while(anchors[anchors.length-1]<T&&anchors.length<5000){const t=anchors[anchors.length-1];anchors.push(Math.min(T,t+rad(t)/2))}
+const J=anchors.length-1,Ju=Math.ceil(T/(rad(0)/2));
+document.getElementById('cnt').textContent=`pieces: flaring ${J}, uniform ${Ju.toLocaleString()}`;
+svg.innerHTML='';const x0=40,x1=640,px=(x1-x0)/T,X=t=>x0+t*px,yax=225;
+svg.appendChild(E('text',{x:x0,y:22,class:'th'},'Remaining learning ρ(t) = e^(−νt)'));
+let d='';for(let i=0;i<=200;i++){const t=T*i/200;d+=(i?'L':'M')+X(t).toFixed(1)+' '+(95-55*Math.exp(-nu*t)).toFixed(1)}
+svg.appendChild(E('path',{d:d+`L${x1} 95L${x0} 95Z`,fill:'#F5C4B3',opacity:0.5,stroke:'none'}));svg.appendChild(E('path',{d,fill:'none',stroke:'#D85A30','stroke-width':1.6}));
+anchors.slice(0,-1).forEach((t,i)=>{const R=rad(t)*px,frac=t/T;svg.appendChild(E('circle',{cx:X(t),cy:yax,r:Math.max(R,0.6),fill:'#7F77DD',opacity:0.05+0.1*frac,stroke:'#534AB7','stroke-width':0.5,'stroke-opacity':0.25+0.5*frac}))});
+svg.appendChild(E('line',{x1:x0,y1:yax,x2:x1+12,y2:yax,stroke:'var(--b)','stroke-width':0.8}));
+anchors.forEach((t,i)=>{if(i<anchors.length-1)svg.appendChild(E('line',{x1:X(t),y1:yax+70,x2:X(anchors[i+1]),y2:yax+70,stroke:i%2?'#534AB7':'#AFA9EC','stroke-width':6}))});
+svg.appendChild(E('text',{x:x0,y:yax+92,class:'ts'},'Taylor pieces along real time (alternating shades): short early, long late'));
+svg.appendChild(E('text',{x:x1,y:yax-80,'text-anchor':'end',class:'ts'},'disk of analyticity in complex time'));
+svg.appendChild(E('text',{x:x1+4,y:yax+16,'text-anchor':'end',class:'ts'},'Re t'));
+svg.appendChild(E('text',{x:x0,y:132,class:'ts'},'e^(−κ(t+is)) only rotates in s: less remaining learning, wider disk'));}
+document.getElementById('nu').oninput=draw;draw();
+</script>
+</main></body></html>

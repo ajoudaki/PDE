@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 4: selected versus iid neurons</title>
+<style>
+:root{--p:#1f1f1e;--s:#6b6b68;--t:#888780;--b:#c8c6bd;--text-primary:#1f1f1e;--text-secondary:#6b6b68;
+--text-muted:#9a9890;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--surface-1:#f4f3ef;
+--surface-2:#fff;--bg-success:#e3f3e8;--text-success:#1d6b3a;--radius:8px;--page:#fbfaf7}
+@media (prefers-color-scheme: dark){:root{--p:#ecebe6;--s:#a8a69e;--t:#8f8d86;--b:#55544f;
+--text-primary:#ecebe6;--text-secondary:#a8a69e;--text-muted:#7d7b75;--border:rgba(255,255,255,.14);
+--border-strong:rgba(255,255,255,.28);--surface-1:#2a2a28;--surface-2:#222220;--bg-success:#1f3b29;
+--text-success:#8fd3a5;--page:#1c1c1b}}
+body{margin:0;padding:24px 16px;background:var(--page);color:var(--text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:700px;margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+svg text.t{font-size:14px;fill:var(--text-primary)}
+svg text.ts{font-size:12px;fill:var(--text-secondary)}
+button,select{font:inherit;color:var(--text-primary);background:transparent;border:.5px solid var(--border-strong);
+border-radius:var(--radius);cursor:pointer}
+button:hover{background:var(--surface-1)}
+input[type=range]{accent-color:#2a78d6}
+nav{font-size:13px;margin-bottom:16px} nav a{color:var(--text-secondary)}
+</style></head><body><main>
+<nav><a href="../index.html">All explainer figures</a></nav>
+<h2 class="sr-only">Figure 4. Selected weighted neurons are exact; iid neurons converge like q to the minus one half.</h2>
+<div style="display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<span>Neurons q</span><input type="range" id="qq" min="0" max="11" step="1" value="2" style="flex:1"><span id="ql" style="min-width:240px;text-align:right"></span>
+</div>
+<svg id="sv" width="100%" viewBox="0 0 680 300" role="img"><title>Figure 4: selected versus iid neurons</title><desc>iid sample, selected neurons, and Gram error versus q.</desc></svg>
+<script>
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('sv');
+const E=(n,a,t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const gauss=()=>Math.sqrt(-2*Math.log(rnd()+1e-12))*Math.cos(2*Math.PI*rnd());
+const N=600,pts=[];for(let i=0;i<N;i++){const s=0.6+0.8*rnd();const a=gauss()*s,b=gauss()*0.42*s;const c=Math.cos(0.5),d=Math.sin(0.5);pts.push([c*a-d*b,d*a+c*b])}
+const mom=(P,W)=>{let s=[0,0,0],t=0;P.forEach((p,i)=>{const w=W?W[i]:1;s[0]+=w*p[0]*p[0];s[1]+=w*p[0]*p[1];s[2]+=w*p[1]*p[1];t+=w});return W?s:s.map(v=>v/t)};
+const S=mom(pts),fro=A=>Math.sqrt(A[0]**2+2*A[1]**2+A[2]**2),rel=A=>fro([A[0]-S[0],A[1]-S[1],A[2]-S[2]])/fro(S);
+function eig(A){const tr=A[0]+A[2],det=A[0]*A[2]-A[1]*A[1],r=Math.sqrt(Math.max(tr*tr/4-det,0));return [tr/2+r,tr/2-r,Math.atan2(tr/2+r-A[0],A[1])]}
+const[,,a0]=eig(S);const u=[Math.cos(a0),Math.sin(a0)],v=[-Math.sin(a0),Math.cos(a0)];
+const dirs=[u,[-u[0],-u[1]],v,[-v[0],-v[1]],[(u[0]+v[0])/1.41,(u[1]+v[1])/1.41],[(u[0]-v[0])/1.41,(u[1]-v[1])/1.41]];
+const sel=dirs.map(d=>{let b=0,bv=-1e9;pts.forEach((p,i)=>{const r=Math.hypot(...p),val=(p[0]*d[0]+p[1]*d[1])/(r+1e-9)*Math.min(r,1.6);if(val>bv){bv=val;b=i}});return b});
+const SP=sel.map(i=>pts[i]);let w=SP.map(()=>S[0]/2);
+for(let it=0;it<20000;it++){const M=mom(SP,w),D=[M[0]-S[0],M[1]-S[1],M[2]-S[2]];w=w.map((wi,k)=>{const p=SP[k];return Math.max(0,wi-0.02*(D[0]*p[0]*p[0]+2*D[1]*p[0]*p[1]+D[2]*p[1]*p[1]))})}
+const selErr=Math.max(rel(mom(SP,w)),1e-6);
+const Q=[3,4,6,8,12,16,24,32,48,64,96,128],stats=Q.map(q=>{const e=[];for(let r=0;r<300;r++){const idx=[];while(idx.length<q){const k=Math.floor(rnd()*N);if(!idx.includes(k))idx.push(k)}e.push(rel(mom(idx.map(i=>pts[i]))))}e.sort((a,b)=>a-b);return [e[30],e[150],e[270]]});
+function ell(cx,cy,A,sc,st){const[l1,l2,ang]=eig(A);return E('ellipse',Object.assign({cx,cy,rx:2*Math.sqrt(Math.max(l1,1e-9))*sc,ry:2*Math.sqrt(Math.max(l2,1e-9))*sc,transform:`rotate(${ang*180/Math.PI} ${cx} ${cy})`,fill:'none'},st))}
+function cloud(cx,cy,sc){pts.forEach(p=>svg.appendChild(E('circle',{cx:cx+p[0]*sc,cy:cy-p[1]*sc,r:1.4,fill:'#B4B2A9',opacity:0.45})));svg.appendChild(ell(cx,cy,S,sc,{stroke:'#444441','stroke-width':1,'stroke-dasharray':'4 3'}))}
+function draw(){const qi=+document.getElementById('qq').value,q=Q[qi];svg.innerHTML='';const sc=27;
+const idx=[];while(idx.length<q){const k=Math.floor(rnd()*N);if(!idx.includes(k))idx.push(k)}const IP=idx.map(i=>pts[i]),IM=mom(IP);
+svg.appendChild(E('text',{x:105,y:22,'text-anchor':'middle',class:'th'},`${q} iid neurons`));cloud(105,135,sc);
+IP.forEach(p=>svg.appendChild(E('circle',{cx:105+p[0]*sc,cy:135-p[1]*sc,r:3.2,fill:'#D85A30'})));svg.appendChild(ell(105,135,IM,sc,{stroke:'#D85A30','stroke-width':2}));
+svg.appendChild(E('text',{x:105,y:262,'text-anchor':'middle',class:'ts'},`Gram error ${(100*rel(IM)).toFixed(0)}%`));
+svg.appendChild(E('text',{x:315,y:22,'text-anchor':'middle',class:'th'},'6 selected neurons'));cloud(315,135,sc);
+const wm=Math.max(...w);SP.forEach((p,j)=>{if(w[j]>1e-6)svg.appendChild(E('circle',{cx:315+p[0]*sc,cy:135-p[1]*sc,r:3+6*Math.sqrt(w[j]/wm),fill:'#1D9E75'}))});svg.appendChild(ell(315,135,mom(SP,w),sc,{stroke:'#1D9E75','stroke-width':2}));
+svg.appendChild(E('text',{x:315,y:262,'text-anchor':'middle',class:'ts'},'weights (metric): exact'));
+const X0=450,W=200,Y0=40,H=190,lx=q=>X0+W*(Math.log10(q)-Math.log10(3))/(Math.log10(128)-Math.log10(3)),ly=e=>Y0+H*(-Math.log10(e))/6;
+svg.appendChild(E('text',{x:X0+W/2,y:22,'text-anchor':'middle',class:'th'},'Error versus q'));
+svg.appendChild(E('line',{x1:X0,y1:Y0+H,x2:X0+W,y2:Y0+H,stroke:'var(--b)','stroke-width':0.5}));svg.appendChild(E('line',{x1:X0,y1:Y0,x2:X0,y2:Y0+H,stroke:'var(--b)','stroke-width':0.5}));
+let band='M'+Q.map((q,i)=>lx(q).toFixed(1)+' '+ly(stats[i][2]).toFixed(1)).join('L')+'L'+Q.slice().reverse().map((q,i)=>lx(q).toFixed(1)+' '+ly(stats[Q.length-1-i][0]).toFixed(1)).join('L')+'Z';
+svg.appendChild(E('path',{d:band,fill:'#F0997B',opacity:0.35,stroke:'none'}));
+svg.appendChild(E('path',{d:'M'+Q.map((q,i)=>lx(q).toFixed(1)+' '+ly(stats[i][1]).toFixed(1)).join('L'),fill:'none',stroke:'#D85A30','stroke-width':2}));
+svg.appendChild(E('line',{x1:lx(3),y1:ly(selErr),x2:lx(128),y2:ly(selErr),stroke:'#1D9E75','stroke-width':2}));
+svg.appendChild(E('circle',{cx:lx(q),cy:ly(stats[qi][1]),r:4.5,fill:'#D85A30'}));
+svg.appendChild(E('text',{x:X0+W,y:ly(stats[11][1])-10,'text-anchor':'end',class:'ts'},'iid ~ q^(-1/2)'));
+svg.appendChild(E('text',{x:X0+W,y:ly(selErr)-8,'text-anchor':'end',class:'ts'},'selected: exact'));
+svg.appendChild(E('text',{x:X0+W/2,y:Y0+H+18,'text-anchor':'middle',class:'ts'},'neurons q, 3 to 128 (log)'));
+document.getElementById('ql').textContent=`q = ${q}: iid median error ${(100*stats[qi][1]).toFixed(0)}%`;}
+document.getElementById('qq').oninput=draw;draw();
+</script>
+</main></body></html>

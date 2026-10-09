@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 11: trajectories in function space</title>
+<style>
+:root{--p:#1f1f1e;--s:#6b6b68;--t:#888780;--b:#c8c6bd;--text-primary:#1f1f1e;--text-secondary:#6b6b68;
+--text-muted:#9a9890;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--surface-1:#f4f3ef;
+--surface-2:#fff;--bg-success:#e3f3e8;--text-success:#1d6b3a;--radius:8px;--page:#fbfaf7}
+@media (prefers-color-scheme: dark){:root{--p:#ecebe6;--s:#a8a69e;--t:#8f8d86;--b:#55544f;
+--text-primary:#ecebe6;--text-secondary:#a8a69e;--text-muted:#7d7b75;--border:rgba(255,255,255,.14);
+--border-strong:rgba(255,255,255,.28);--surface-1:#2a2a28;--surface-2:#222220;--bg-success:#1f3b29;
+--text-success:#8fd3a5;--page:#1c1c1b}}
+body{margin:0;padding:24px 16px;background:var(--page);color:var(--text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:700px;margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+svg text.t{font-size:14px;fill:var(--text-primary)}
+svg text.ts{font-size:12px;fill:var(--text-secondary)}
+button,select{font:inherit;color:var(--text-primary);background:transparent;border:.5px solid var(--border-strong);
+border-radius:var(--radius);cursor:pointer}
+button:hover{background:var(--surface-1)}
+input[type=range]{accent-color:#2a78d6}
+nav{font-size:13px;margin-bottom:16px} nav a{color:var(--text-secondary)}
+</style></head><body><main>
+<nav><a href="../index.html">All explainer figures</a></nav>
+<svg width="100%" viewBox="0 0 680 300" role="img"><title>Figure 11: trajectories in function space</title><desc>A wide tube of independent dense runs that bulges early; inside it a dense trajectory with a thin compressed tube reaching the fitted limit.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<path d="M60 170 C140 60, 230 70, 330 110 C430 140, 520 140, 600 140 L600 168 C520 168, 430 168, 330 172 C230 196, 140 220, 60 170 Z" fill="#D3D1C7" opacity="0.55" stroke="none"/>
+<path d="M60 170 C150 120, 240 120, 330 138 C430 152, 520 154, 600 154" fill="none" stroke="#5F5E5A" stroke-width="1.5"/>
+<path d="M60 170 C150 116, 240 116, 330 134 C430 149, 520 151, 600 151 L600 157 C520 157, 430 155, 330 142 C240 124, 150 124, 60 170 Z" fill="#D85A30" opacity="0.45" stroke="none"/>
+<circle cx="60" cy="170" r="4" fill="#444441"/>
+<circle cx="600" cy="154" r="4" fill="#444441"/>
+<text class="ts" x="60" y="196" text-anchor="middle">f = 0</text>
+<text class="ts" x="600" y="186" text-anchor="middle">fitted limit</text>
+<line class="leader" x1="200" y1="88" x2="200" y2="50"/>
+<text class="ts" x="200" y="42" text-anchor="middle">independent dense runs: width ~ n^(-1/2)</text>
+<line class="leader" x1="420" y1="152" x2="460" y2="232"/>
+<text class="ts" x="460" y="248" text-anchor="middle">compressed model, thin tube</text>
+<text class="ts" x="460" y="264" text-anchor="middle">around its own dense run</text>
+<line x1="60" y1="280" x2="600" y2="280" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="330" y="296" text-anchor="middle">training time t ∈ [0, ∞], finite clock τ</text>
+</svg>
+</main></body></html>

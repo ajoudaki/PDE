@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 16c: the clock folds an infinite run into a finite interval</title>
+<style>
+:root{--p:#1f1f1e;--s:#6b6b68;--t:#888780;--b:#c8c6bd;--text-primary:#1f1f1e;--text-secondary:#6b6b68;
+--text-muted:#9a9890;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--surface-1:#f4f3ef;
+--surface-2:#fff;--bg-success:#e3f3e8;--text-success:#1d6b3a;--radius:8px;--page:#fbfaf7}
+@media (prefers-color-scheme: dark){:root{--p:#ecebe6;--s:#a8a69e;--t:#8f8d86;--b:#55544f;
+--text-primary:#ecebe6;--text-secondary:#a8a69e;--text-muted:#7d7b75;--border:rgba(255,255,255,.14);
+--border-strong:rgba(255,255,255,.28);--surface-1:#2a2a28;--surface-2:#222220;--bg-success:#1f3b29;
+--text-success:#8fd3a5;--page:#1c1c1b}}
+body{margin:0;padding:24px 16px;background:var(--page);color:var(--text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:700px;margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+svg text.t{font-size:14px;fill:var(--text-primary)}
+svg text.ts{font-size:12px;fill:var(--text-secondary)}
+button,select{font:inherit;color:var(--text-primary);background:transparent;border:.5px solid var(--border-strong);
+border-radius:var(--radius);cursor:pointer}
+button:hover{background:var(--surface-1)}
+input[type=range]{accent-color:#2a78d6}
+nav{font-size:13px;margin-bottom:16px} nav a{color:var(--text-secondary)}
+</style></head><body><main>
+<nav><a href="../index.html">All explainer figures</a></nav>
+<h2 class="sr-only">Figure 16c. The activity clock is the area under the residual activity; an infinite training run maps to a finite clock interval, where the backward history and its Legendre moments settle and freeze.</h2>
+<div style="font-size:15px;font-weight:500;color:var(--text-primary);margin:0 0 8px">Figure 16c · The clock folds an infinite run into a finite interval</div>
+<div style="display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<button id="pp" style="font-size:13px;padding:4px 10px">Pause</button>
+<button id="rs" style="font-size:13px;padding:4px 10px">Restart</button>
+<span>Moments q</span><input type="range" id="qs" min="1" max="8" step="1" value="5" style="flex:1">
+<span id="ql" style="min-width:230px;text-align:right"></span>
+</div>
+<svg id="sv" width="100%" viewBox="0 0 680 420" role="img"><title>Figure 16c: the clock folds an infinite run into a finite interval</title><desc>Top: residual activity over real time with the area so far. Middle: threads mapping real times to clock times, converging at a finite end. Bottom: the backward history on the clock with its moment fit. Right: the moments, which stop changing.</desc></svg>
+<script>
+(()=>{
+const D={"t":[0.0,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0,8.5,9.0,9.5,10.0,10.5,11.0,11.5,12.0,12.5,13.0,13.5,14.0,14.5,15.0,15.5,16.0,16.5,17.0,17.5,18.0,18.5,19.0,19.5,20.0,20.5,21.0,21.5,22.0,22.5,23.0,23.5,24.0,24.5,25.0,25.5,26.0,26.5,27.0,27.5,28.0,28.5,29.0,29.5,30.0,30.5,31.0,31.5,32.0,32.5,33.0,33.5,34.0,34.5,35.0,35.5,36.0,36.5,37.0,37.5,38.0,38.5,39.0,39.5,40.0,40.5,41.0,41.5,42.0,42.5,43.0,43.5,44.0,44.5,45.0,45.5,46.0,46.5,47.0,47.5,48.0,48.5,49.0,49.5,50.0,50.5,51.0,51.5,52.0,52.5,53.0,53.5,54.0,54.5,55.0,55.5,56.0,56.5,57.0,57.5,58.0,58.5,59.0,59.5,60.0,60.5,61.0,61.5,62.0,62.5,63.0,63.5,64.0,64.5,65.0,65.5,66.0,66.5,67.0,67.5,68.0,68.5,69.0,69.5,70.0,70.5,71.0,71.5,72.0,72.5,73.0,73.5,74.0,74.5,75.0,75.5,76.0,76.5,77.0,77.5,78.0,78.5,79.0,79.5,80.0,80.5,81.0,81.5,82.0,82.5,83.0,83.5,84.0,84.5,85.0,85.5,86.0,86.5,87.0,87.5,88.0,88.5,89.0,89.5,90.0,90.5,91.0,91.5,92.0,92.5,93.0,93.5,94.0,94.5,95.0,95.5,96.0,96.5,97.0,97.5,98.0,98.5,99.0,99.5,100.0,100.5,101.0,101.5,102.0,102.5,103.0,103.5,104.0,104.5,105.0,105.5,106.0,106.5,107.0,107.5,108.0,108.5,109.0,109.5,110.0,110.5,111.0,111.5,112.0],"rho":[1.0,0.9242,0.8249,0.7019,0.5777,0.4699,0.3856,0.328,0.2934,0.274,0.2629,0.2558,0.2503,0.2454,0.2406,0.236,0.2314,0.2268,0.2224,0.218,0.2138,0.2097,0.2056,0.2017,0.1978,0.194,0.1903,0.1866,0.183,0.1794,0.1759,0.1723,0.1689,0.1654,0.1619,0.1584,0.155,0.1515,0.148,0.1445,0.141,0.1375,0.134,0.1305,0.127,0.1235,0.12,0.1165,0.1131,0.1097,0.1063,0.1029,0.09965,0.0964,0.0932,0.09006,0.08698,0.08397,0.08101,0.07813,0.07532,0.07258,0.06991,0.06732,0.06481,0.06237,0.06001,0.05773,0.05553,0.0534,0.05135,0.04937,0.04747,0.04563,0.04387,0.04218,0.04055,0.03899,0.03749,0.03605,0.03467,0.03335,0.03208,0.03086,0.02969,0.02857,0.0275,0.02647,0.02548,0.02453,0.02362,0.02275,0.02191,0.0211,0.02033,0.01958,0.01887,0.01818,0.01752,0.01689,0.01628,0.01569,0.01512,0.01458,0.01405,0.01355,0.01306,0.01259,0.01214,0.01171,0.01129,0.01088,0.01049,0.01012,0.009752,0.009402,0.009065,0.008739,0.008425,0.008121,0.007829,0.007547,0.007275,0.007012,0.006759,0.006514,0.006278,0.006051,0.005831,0.00562,0.005415,0.005218,0.005028,0.004845,0.004668,0.004498,0.004334,0.004175,0.004022,0.003875,0.003733,0.003596,0.003464,0.003336,0.003214,0.003095,0.002981,0.002871,0.002765,0.002663,0.002565,0.00247,0.002379,0.002291,0.002206,0.002124,0.002046,0.00197,0.001897,0.001826,0.001758,0.001693,0.00163,0.00157,0.001511,0.001455,0.001401,0.001349,0.001298,0.00125,0.001204,0.001159,0.001115,0.001074,0.001034,0.0009952,0.0009581,0.0009223,0.0008879,0.0008547,0.0008228,0.0007921,0.0007625,0.000734,0.0007065,0.0006801,0.0006547,0.0006302,0.0006066,0.0005839,0.0005621,0.0005411,0.0005208,0.0005013,0.0004825,0.0004645,0.0004471,0.0004304,0.0004142,0.0003987,0.0003838,0.0003694,0.0003556,0.0003423,0.0003294,0.0003171,0.0003052,0.0002938,0.0002828,0.0002722,0.000262,0.0002521,0.0002427,0.0002336,0.0002248,0.0002164,0.0002083,0.0002005,0.000193,0.0001857,0.0001788,0.0001721,0.0001656,0.0001594,0.0001534],"tau":[1.0,1.4816,1.9202,2.3026,2.6222,2.8833,3.0961,3.2735,3.4281,3.5695,3.7035,3.8331,3.9595,4.0834,4.2049,4.3241,4.4409,4.5555,4.6678,4.7779,4.8858,4.9917,5.0955,5.1974,5.2972,5.3952,5.4912,5.5854,5.6778,5.7684,5.8572,5.9443,6.0296,6.1132,6.195,6.2751,6.3534,6.4301,6.505,6.5781,6.6495,6.7192,6.7871,6.8532,6.9176,6.9802,7.0411,7.1002,7.1577,7.2134,7.2673,7.3197,7.3703,7.4193,7.4667,7.5125,7.5568,7.5995,7.6408,7.6806,7.7189,7.7559,7.7915,7.8258,7.8589,7.8906,7.9212,7.9507,7.979,8.0062,8.0324,8.0576,8.0818,8.1051,8.1274,8.1489,8.1696,8.1895,8.2086,8.227,8.2447,8.2617,8.2781,8.2938,8.3089,8.3235,8.3375,8.351,8.364,8.3765,8.3885,8.4001,8.4113,8.422,8.4324,8.4424,8.452,8.4612,8.4702,8.4788,8.4871,8.4951,8.5028,8.5102,8.5173,8.5242,8.5309,8.5373,8.5435,8.5495,8.5552,8.5607,8.5661,8.5712,8.5762,8.581,8.5856,8.5901,8.5944,8.5985,8.6025,8.6063,8.61,8.6136,8.617,8.6204,8.6236,8.6266,8.6296,8.6325,8.6352,8.6379,8.6404,8.6429,8.6453,8.6476,8.6498,8.6519,8.654,8.6559,8.6578,8.6597,8.6614,8.6631,8.6648,8.6664,8.6679,8.6693,8.6707,8.6721,8.6734,8.6747,8.6759,8.677,8.6782,8.6793,8.6803,8.6813,8.6823,8.6832,8.6841,8.685,8.6858,8.6866,8.6874,8.6881,8.6888,8.6895,8.6902,8.6908,8.6914,8.692,8.6926,8.6931,8.6936,8.6942,8.6946,8.6951,8.6956,8.696,8.6964,8.6968,8.6972,8.6976,8.6979,8.6983,8.6986,8.6989,8.6993,8.6996,8.6998,8.7001,8.7004,8.7006,8.7009,8.7011,8.7013,8.7016,8.7018,8.702,8.7022,8.7024,8.7025,8.7027,8.7029,8.7031,8.7032,8.7034,8.7035,8.7036,8.7038,8.7039,8.704,8.7041,8.7043,8.7044,8.7045,8.7046,8.7047,8.7048,8.7049,8.705,8.705,8.7051,8.7052],"bt":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.01621,0.05389,0.09153,0.1291,0.1665,0.2037,0.2406,0.2773,0.3135,0.3494,0.3847,0.4196,0.4539,0.4876,0.5207,0.5531,0.5849,0.6158,0.6461,0.6756,0.7043,0.7323,0.7594,0.7858,0.8114,0.8362,0.8603,0.8837,0.9063,0.9282,0.9495,0.9701,0.9901,1.01,1.028,1.047,1.064,1.081,1.098,1.113,1.129,1.143,1.157,1.171,1.183,1.195,1.207,1.217,1.227,1.236,1.244,1.252,1.259,1.265,1.271,1.275,1.279,1.281,1.283,1.283,1.281,1.278,1.273,1.266,1.258,1.248,1.237,1.224,1.211,1.197,1.183,1.169,1.156,1.143,1.131,1.121,1.111,1.103,1.096,1.09,1.085,1.081,1.079,1.077,1.077,1.077,1.078,1.079,1.082,1.084,1.088,1.091,1.096,1.1,1.105,1.109,1.114,1.119,1.124,1.13,1.135,1.14,1.145,1.151,1.156,1.161,1.166,1.171,1.176,1.181,1.185,1.19,1.194,1.199,1.203,1.207,1.211,1.214,1.218,1.221,1.224,1.227,1.229,1.232,1.234,1.236,1.238,1.239,1.241,1.242,1.243,1.243,1.244,1.244,1.244,1.244,1.243,1.243,1.242,1.241,1.24,1.239,1.238,1.236,1.235,1.234,1.233,1.231,1.23,1.229,1.228,1.227,1.227,1.227,1.227,1.227,1.228,1.229,1.231,1.233,1.235,1.238,1.242,1.246,1.251,1.257,1.263,1.27,1.278,1.286,1.296,1.306,1.317,1.329,1.341,1.355,1.37,1.385,1.402,1.419,1.438,1.457,1.478,1.499,1.522,1.545,1.57,1.595,1.621,1.648,1.676,1.705,1.735,1.765,1.795,1.826,1.857,1.888,1.919,1.95,1.98,2.009,2.036,2.06,2.083,2.101,2.116,2.127,2.133,2.135,2.134,2.134,2.141],"tauEnd":8.705194018372787};
+const svg=document.getElementById('sv'),BL='#2a78d6',BD='#185FA5',PU='#7F77DD',PD='#534AB7',GR='#888780';
+const E=(n,a,t)=>{const e=document.createElementNS('http://www.w3.org/2000/svg',n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+const TM=D.t[D.t.length-1],TI=D.tauEnd;
+const lin=(xs,ys,x)=>{const n=xs.length;if(x<=xs[0])return ys[0];if(x>=xs[n-1])return ys[n-1];let i=Math.floor((x-xs[0])/(xs[1]-xs[0]));i=Math.min(n-2,Math.max(0,i));const w=(x-xs[i])/(xs[i+1]-xs[i]);return ys[i]*(1-w)+ys[i+1]*w};
+const rho=t=>lin(D.t,D.rho,t);
+const tau=t=>lin(D.t,D.tau,t);
+const bg=D.bt.map((_,k)=>TI*k/(D.bt.length-1)),bval=s=>lin(bg,D.bt,s);
+const bmn=Math.min(...D.bt),bmx=Math.max(...D.bt);
+const X0=40,XW=440,xt=t=>X0+XW*Math.min(t,TM)/TM,xs=s=>X0+XW*s/TI;
+const leg=(x,q)=>{const P=[1,x];for(let j=1;j<q;j++)P.push(((2*j+1)*x*P[j]-j*P[j-1])/(j+1));return P};
+function moments(s,Q){const M=500,c=Array(Q).fill(0);for(let k=0;k<=M;k++){const u=s*k/M,w=(k===0||k===M?0.5:1)*s/M,P=leg(2*u/s-1,Q),v=bval(u);for(let j=0;j<Q;j++)c[j]+=w*P[j]*v}return c.map((v,j)=>(2*j+1)/s*v)}
+let t=0,run=true,last=null,hold=0;const CREF=Math.max(...[2,3,4,5,6,7,8.6].map(u=>Math.max(...moments(u,8).map(Math.abs))));
+function draw(){const q=+document.getElementById('qs').value,s=tau(t);svg.innerHTML='';
+svg.appendChild(E('text',{x:X0,y:20,class:'th'},'Real time: residual activity ρ(t)'));
+const ry=v=>112-70*v,top=[];let ar=`M${xt(0)} ${ry(0)}`;
+for(let k=0;k<=256;k++){const u=TM*k/256;top.push([xt(u),ry(rho(u))]);if(u<=t)ar+=`L${xt(u).toFixed(1)} ${ry(rho(u)).toFixed(1)}`}
+ar+=`L${xt(Math.min(t,TM)).toFixed(1)} ${ry(rho(Math.min(t,TM))).toFixed(1)}L${xt(Math.min(t,TM)).toFixed(1)} ${ry(0)}Z`;
+svg.appendChild(E('path',{d:ar,fill:BL,opacity:0.22,stroke:'none'}));
+let d1='';top.forEach((p,k)=>{d1+=(k?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)});
+svg.appendChild(E('path',{d:d1,fill:'none',stroke:BD,'stroke-width':1.6}));
+svg.appendChild(E('line',{x1:X0,y1:ry(0),x2:X0+XW+24,y2:ry(0),stroke:'var(--s)','stroke-width':0.8}));
+svg.appendChild(E('text',{x:X0+XW+30,y:ry(0)+4,class:'ts'},'∞'));
+[0,16,32,48,64,80,96,112].forEach(u=>svg.appendChild(E('text',{x:xt(u),y:ry(0)+14,'text-anchor':'middle',class:'ts'},u)));svg.appendChild(E('text',{x:X0+XW+30,y:ry(0)+14,class:'ts'},'t'));
+const tx=xt(t);svg.appendChild(E('circle',{cx:tx,cy:ry(0),r:4.5,fill:'var(--p)'}));
+const yA=130,yB=232;
+for(let u=0;u<=TM;u+=2){const s2=tau(u);svg.appendChild(E('line',{x1:xt(u),y1:yA,x2:xs(s2),y2:yB,stroke:GR,'stroke-width':0.6,opacity:u%16===0?0.9:0.3}))}
+svg.appendChild(E('line',{x1:tx,y1:yA,x2:xs(s),y2:yB,stroke:'var(--p)','stroke-width':1.4}));
+svg.appendChild(E('text',{x:528,y:156,class:'ts'},'t from 32 to 112'));svg.appendChild(E('text',{x:528,y:172,class:'ts'},'lands in the last'));svg.appendChild(E('text',{x:528,y:188,class:'ts'},'tenth of the clock'));
+const by=v=>372-86*(v-bmn)/(bmx-bmn),cy0=yB;
+svg.appendChild(E('line',{x1:X0,y1:cy0,x2:xs(TI),y2:cy0,stroke:'var(--s)','stroke-width':0.8}));
+svg.appendChild(E('rect',{x:xs(1),y:cy0-3,width:Math.max(0,xs(s)-xs(1)),height:6,fill:BL,opacity:0.35}));
+svg.appendChild(E('line',{x1:xs(TI),y1:cy0-8,x2:xs(TI),y2:cy0+8,stroke:'var(--p)','stroke-width':1.5}));
+svg.appendChild(E('text',{x:xs(TI)+6,y:cy0+4,class:'ts'},'τ∞ ≈ '+TI.toFixed(2)));
+svg.appendChild(E('text',{x:xs(0),y:cy0+18,'text-anchor':'middle',class:'ts'},'0'));svg.appendChild(E('text',{x:xs(1),y:cy0+18,'text-anchor':'middle',class:'ts'},'1'));svg.appendChild(E('text',{x:xs(1)+8,y:cy0+18,class:'ts'},'clock τ: blue length = blue area above'));
+let dp='',df='';for(let k=0;k<=300;k++){const u=TI*k/300,v=bval(u),str=(u<=s?(dp?'L':'M'):(df?'L':'M'))+xs(u).toFixed(1)+' '+by(v).toFixed(1);if(u<=s)dp+=str;else df+=str}
+svg.appendChild(E('path',{d:dp,fill:'none',stroke:PU,'stroke-width':1.6}));if(df)svg.appendChild(E('path',{d:df,fill:'none',stroke:PU,'stroke-width':1,opacity:0.3}));
+const c=moments(Math.max(s,1e-3),8);let dfit='';for(let k=0;k<=200;k++){const u=s*k/200,P=leg(2*u/s-1,q);let v=0;for(let j=0;j<q;j++)v+=c[j]*P[j];dfit+=(k?'L':'M')+xs(u).toFixed(1)+' '+by(v).toFixed(1)}
+svg.appendChild(E('path',{d:dfit,fill:'none',stroke:PD,'stroke-width':2,'stroke-dasharray':'5 3'}));
+svg.appendChild(E('circle',{cx:xs(s),cy:by(bval(s)),r:4.5,fill:'var(--p)'}));
+svg.appendChild(E('text',{x:X0,y:270,class:'th'},'On the clock: backward history bᵢ, q-moment memory'));
+const MX=566,MY=282;svg.appendChild(E('text',{x:MX-40,y:MY-12,class:'th'},'Moments now'));
+const cm=CREF;c.forEach((v,j)=>{const w=Math.min(84,70*Math.abs(v)/cm),kept=j<q;svg.appendChild(E('rect',{x:v>=0?MX+20:MX+20-w,y:MY+j*16,width:Math.max(w,0.5),height:11,rx:2,fill:PU,opacity:kept?0.9:0.25}));svg.appendChild(E('text',{x:MX-40,y:MY+j*16+10,class:'ts'},'k='+j))});
+svg.appendChild(E('line',{x1:MX+20,y1:MY-4,x2:MX+20,y2:MY+8*16,stroke:'var(--b)','stroke-width':0.5}));
+document.getElementById('ql').textContent=`t = ${t.toFixed(1)} → τ = ${s.toFixed(3)} (τ∞ ≈ ${TI.toFixed(2)})`}
+function frame(ts){if(last===null)last=ts;const dt=Math.min(0.05,(ts-last)/1000);last=ts;if(run){if(t>=TM){hold+=dt;if(hold>1.2){t=0;hold=0}}else t=Math.min(TM,t+dt*(0.9+t/4))}draw();requestAnimationFrame(frame)}
+document.getElementById('pp').onclick=e=>{run=!run;e.target.textContent=run?'Pause':'Play'};
+document.getElementById('rs').onclick=()=>{t=0;run=true;document.getElementById('pp').textContent='Pause'};
+document.getElementById('qs').oninput=draw;requestAnimationFrame(frame);
+})();
+</script>
+</main></body></html>

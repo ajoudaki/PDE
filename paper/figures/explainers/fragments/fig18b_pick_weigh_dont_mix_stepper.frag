@@ -1,0 +1,53 @@
+<h2 class="sr-only">Figure 18b. A four-step explanation: the next layer needs the average of tanh over neurons; mixing neurons before tanh is biased; sampling neurons is noisy; selecting three real neurons with weights is exact.</h2>
+<div style="font-size:15px;font-weight:500;color:var(--text-primary);margin:0 0 8px">Figure 18b · Pick and weigh, don't mix</div>
+<div style="display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<button id="bk" style="font-size:13px;padding:4px 10px">Back</button><button id="nx" style="font-size:13px;padding:4px 10px">Next</button>
+<span id="dots" style="letter-spacing:4px"></span><button id="rd" style="font-size:13px;padding:4px 10px;margin-left:auto">Draw again</button>
+</div>
+<svg id="sv" width="100%" viewBox="0 0 680 310" role="img"><title>Figure 18b: pick and weigh, don't mix</title><desc>Neurons on the tanh curve and four ways to form the layer average.</desc></svg>
+<div id="cap" style="font-size:14px;line-height:1.6;color:var(--text-primary);min-height:72px;margin-top:4px"></div>
+<script>
+(()=>{
+const svg=document.getElementById('sv'),GN='#1baf7a',PU='#7F77DD',GR='#888780';
+const E=(n,a,t)=>{const e=document.createElementNS('http://www.w3.org/2000/svg',n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+let seed=3;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const z=[-1.6,-0.7,-0.1,0.3,0.6,0.9,1.15,1.4,1.8,2.2,2.7,3.1],n=z.length,t=z.map(Math.tanh);
+const mean=a=>a.reduce((s,v)=>s+v,0)/a.length,C=[mean(z),mean(t)];
+let best=null,bm=-1;for(let a=0;a<n;a++)for(let b=a+1;b<n;b++)for(let c=b+1;c<n;c++){const A=[z[a],t[a]],B=[z[b],t[b]],D=[z[c],t[c]],det=(B[0]-A[0])*(D[1]-A[1])-(D[0]-A[0])*(B[1]-A[1]);if(Math.abs(det)<1e-9)continue;
+const l1=((C[0]-A[0])*(D[1]-A[1])-(D[0]-A[0])*(C[1]-A[1]))/det,l2=((B[0]-A[0])*(C[1]-A[1])-(C[0]-A[0])*(B[1]-A[1]))/det,l0=1-l1-l2,mn=Math.min(l0,l1,l2);if(mn>bm){bm=mn;best=[[a,l0],[b,l1],[c,l2]]}}
+const groups=[[0,5,10],[1,6,11],[2,7,8],[3,4,9]];
+const X=v=>250+80*v,Y=v=>170-120*v;
+let step=0,sample=null,cloud=[];
+const draws=()=>{const s=[];while(s.length<4){const k=Math.floor(rnd()*n);if(!s.includes(k))s.push(k)}return s};
+const caps=[
+'<b style="font-weight:500">1 · What the next layer needs.</b> One layer, one input. Each dot is a neuron: its preactivation z and its output tanh z. The next layer, and every pairing ⟨u, v⟩ₙ in the paper, only uses averages over neurons. The black diamond is that average: mean of z, mean of tanh z. It sits inside the bend of the curve.',
+'<b style="font-weight:500">2 · Mixing is biased.</b> Compress by averaging groups of neurons first (any random projection or sketch of the width does this), then apply tanh. Each mixed neuron lands back on the curve (purple). Their average (purple ring) misses the diamond: tanh of an average is not the average of tanh. More mixed neurons shrink this gap only slowly; it vanishes only when nothing is compressed.',
+'<b style="font-weight:500">3 · Random picking is noisy.</b> Keep 4 real neurons at random, equal weights. Their average (gray square) is right on average but scatters around the diamond (faint squares: earlier draws). The scatter shrinks like q^(−1/2), so matching a dense network needs q comparable to n.',
+'<b style="font-weight:500">4 · Select and weigh: exact.</b> Keep 3 real neurons and give them weights (dot size). tanh is applied to their own preactivations, so nothing is distorted, φ(z)_I = φ(z_I), and the weights put their average exactly on the diamond. This is the selected model of Harmonic and Logarithmic: real coordinates I plus a metric M with ⟨u, v⟩ₙ = u_Iᵀ M v_I on the source space E.'];
+function draw(){svg.innerHTML='';
+svg.appendChild(E('line',{x1:X(-2.2),y1:Y(0),x2:X(4.6),y2:Y(0),stroke:'var(--b)','stroke-width':0.6}));
+svg.appendChild(E('text',{x:X(4.6),y:Y(0)+16,'text-anchor':'end',class:'ts'},'preactivation z'));
+let d='';for(let k=0;k<=200;k++){const v=-2.2+6.8*k/200;d+=(k?'L':'M')+X(v).toFixed(1)+' '+Y(Math.tanh(v)).toFixed(1)}svg.appendChild(E('path',{d,fill:'none',stroke:'var(--s)','stroke-width':1.3}));
+svg.appendChild(E('text',{x:X(4.4),y:Y(1)-10,'text-anchor':'end',class:'ts'},'tanh z'));
+const dim=step>0?0.35:0.9;z.forEach((v,i)=>svg.appendChild(E('circle',{cx:X(v),cy:Y(t[i]),r:4.5,fill:GR,opacity:dim})));
+if(step===1){groups.forEach(g=>{const zb=mean(g.map(i=>z[i]));g.forEach(i=>svg.appendChild(E('line',{x1:X(z[i]),y1:Y(t[i]),x2:X(zb),y2:Y(0),stroke:PU,'stroke-width':0.8,opacity:0.5})));
+svg.appendChild(E('line',{x1:X(zb),y1:Y(0),x2:X(zb),y2:Y(Math.tanh(zb)),stroke:PU,'stroke-width':1,'stroke-dasharray':'3 2'}));svg.appendChild(E('circle',{cx:X(zb),cy:Y(Math.tanh(zb)),r:5.5,fill:PU}))});
+const my=mean(groups.map(g=>Math.tanh(mean(g.map(i=>z[i])))));svg.appendChild(E('circle',{cx:X(C[0]),cy:Y(my),r:8,fill:'none',stroke:PU,'stroke-width':2.2}));
+svg.appendChild(E('line',{x1:X(C[0])+14,y1:Y(my),x2:X(C[0])+14,y2:Y(C[1]),stroke:PU,'stroke-width':1.5}));svg.appendChild(E('text',{x:X(C[0])+20,y:(Y(my)+Y(C[1]))/2+4,class:'ts'},`gap ${(my-C[1]).toFixed(2)}`))}
+if(step===2){cloud.forEach(c=>svg.appendChild(E('rect',{x:X(c[0])-3,y:Y(c[1])-3,width:6,height:6,fill:GR,opacity:0.25})));
+sample.forEach(i=>svg.appendChild(E('circle',{cx:X(z[i]),cy:Y(t[i]),r:7,fill:'none',stroke:'#5F5E5A','stroke-width':1.8})));
+const sx=mean(sample.map(i=>z[i])),sy=mean(sample.map(i=>t[i]));svg.appendChild(E('rect',{x:X(sx)-6,y:Y(sy)-6,width:12,height:12,fill:'#5F5E5A'}));
+svg.appendChild(E('text',{x:X(sx)+10,y:Y(sy)+18,class:'ts'},`off by ${Math.abs(sy-C[1]).toFixed(2)}`))}
+if(step===3){const srt=best.slice().sort((p,q)=>z[p[0]]-z[q[0]]),off=[[-18,20,'end'],[-20,4,'end'],[12,-16,'start']];srt.forEach(([i,w],k)=>{svg.appendChild(E('line',{x1:X(z[i]),y1:Y(t[i]),x2:X(C[0]),y2:Y(C[1]),stroke:GN,'stroke-width':1,opacity:0.7}));svg.appendChild(E('circle',{cx:X(z[i]),cy:Y(t[i]),r:4+12*Math.sqrt(w),fill:GN,opacity:0.85}));svg.appendChild(E('text',{x:X(z[i])+off[k][0],y:Y(t[i])+off[k][1],'text-anchor':off[k][2],class:'ts'},`weight ${w.toFixed(2)}`))});
+svg.appendChild(E('circle',{cx:X(C[0]),cy:Y(C[1]),r:11,fill:'none',stroke:GN,'stroke-width':2.2}))}
+svg.appendChild(E('rect',{x:X(C[0])-5,y:Y(C[1])-5,width:10,height:10,fill:'var(--p)',transform:`rotate(45 ${X(C[0])} ${Y(C[1])})`}));
+if(step===0){svg.appendChild(E('line',{x1:X(C[0])-12,y1:Y(C[1])+8,x2:X(C[0])-80,y2:Y(C[1])+60,stroke:'var(--s)','stroke-width':0.6}));svg.appendChild(E('text',{x:X(C[0])-84,y:Y(C[1])+74,'text-anchor':'end',class:'ts'},'layer average'))}
+document.getElementById('cap').innerHTML=caps[step];
+document.getElementById('dots').textContent=[0,1,2,3].map(k=>k===step?'●':'○').join('');
+document.getElementById('rd').style.visibility=step===2?'visible':'hidden'}
+document.getElementById('nx').onclick=()=>{step=(step+1)%4;if(step===2&&!sample){sample=draws()}draw()};
+document.getElementById('bk').onclick=()=>{step=(step+3)%4;if(step===2&&!sample){sample=draws()}draw()};
+document.getElementById('rd').onclick=()=>{const sx=mean(sample.map(i=>z[i])),sy=mean(sample.map(i=>t[i]));cloud.push([sx,sy]);sample=draws();draw()};
+draw();
+})();
+</script>

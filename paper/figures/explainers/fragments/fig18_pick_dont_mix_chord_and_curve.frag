@@ -1,0 +1,61 @@
+<h2 class="sr-only">Figure 18. On the tanh curve, averaging neurons before tanh is biased, sampling neurons is noisy, and three selected neurons with weights reproduce the layer average exactly.</h2>
+<div style="font-size:15px;font-weight:500;color:var(--text-primary);margin:0 0 8px">Figure 18 · The chord and the curve</div>
+<div style="display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<button id="rd" style="font-size:13px;padding:4px 10px">Redraw</button>
+<span>Kept q</span><input type="range" id="qs" min="2" max="20" step="1" value="5" style="flex:1">
+<span id="ql" style="min-width:280px;text-align:right"></span>
+</div>
+<svg id="sv" width="100%" viewBox="0 0 680 350" role="img"><title>Figure 18: the chord and the curve</title><desc>Neurons on the tanh curve, the true average point, the mixed estimate, iid estimates and the selected weighted estimate; error versus q.</desc></svg>
+<script>
+(()=>{
+const svg=document.getElementById('sv'),GN='#1baf7a',PU='#7F77DD',GR='#888780';
+const E=(n,a,t)=>{const e=document.createElementNS('http://www.w3.org/2000/svg',n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+let seed=21;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const gs=()=>Math.sqrt(-2*Math.log(rnd()+1e-12))*Math.cos(2*Math.PI*rnd());
+const n=40,z=Array.from({length:n},()=>0.85+1.35*gs()),t=z.map(Math.tanh);
+const mean=a=>a.reduce((s,v)=>s+v,0)/a.length,C=[mean(z),mean(t)];
+let best=null,bm=-1;for(let a=0;a<n;a++)for(let b=a+1;b<n;b++)for(let c=b+1;c<n;c++){const A=[z[a],t[a]],B=[z[b],t[b]],D=[z[c],t[c]];
+const det=(B[0]-A[0])*(D[1]-A[1])-(D[0]-A[0])*(B[1]-A[1]);if(Math.abs(det)<1e-9)continue;
+const l1=((C[0]-A[0])*(D[1]-A[1])-(D[0]-A[0])*(C[1]-A[1]))/det,l2=((B[0]-A[0])*(C[1]-A[1])-(C[0]-A[0])*(B[1]-A[1]))/det,l0=1-l1-l2,mn=Math.min(l0,l1,l2);
+if(mn>bm){bm=mn;best=[[a,l0],[b,l1],[c,l2]]}}
+const shuffle=k=>{const p=[...Array(k).keys()];for(let i=k-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[p[i],p[j]]=[p[j],p[i]]}return p};
+function mixOnce(q){const p=shuffle(n),g=Array.from({length:q},()=>[]);p.forEach((i,k)=>g[k%q].push(z[i]));const zb=g.map(mean);return {pts:zb.map(v=>[v,Math.tanh(v)]),y:mean(zb.map(Math.tanh))}}
+function iidOnce(q){const s=[];while(s.length<q){const k=Math.floor(rnd()*n);if(!s.includes(k))s.push(k)}return {idx:s,y:mean(s.map(i=>t[i])),x:mean(s.map(i=>z[i]))}}
+const QS=Array.from({length:19},(_,i)=>i+2),stat=QS.map(q=>{let bm=0,iv=0;for(let r=0;r<300;r++){bm+=Math.abs(mixOnce(q).y-C[1]);iv+=(iidOnce(q).y-C[1])**2}return [bm/300,Math.sqrt(iv/300)]});
+const X=v=>210+56*v,Y=v=>178-118*v;
+let cur=null;
+function draw(redraw){const q=+document.getElementById('qs').value;if(redraw||!cur||cur.q!==q){cur={q,mix:mixOnce(q),iid:iidOnce(q),cloud:Array.from({length:120},()=>iidOnce(q))}}
+svg.innerHTML='';svg.appendChild(E('text',{x:40,y:22,class:'th'},'One layer, one input: neurons on the tanh curve'));
+svg.appendChild(E('line',{x1:X(-3),y1:Y(0),x2:X(3.6),y2:Y(0),stroke:'var(--b)','stroke-width':0.5}));
+let d='';for(let k=0;k<=200;k++){const v=-3+6.6*k/200;d+=(k?'L':'M')+X(v).toFixed(1)+' '+Y(Math.tanh(v)).toFixed(1)}
+svg.appendChild(E('path',{d,fill:'none',stroke:'var(--s)','stroke-width':1.2}));
+svg.appendChild(E('text',{x:X(3.6),y:Y(Math.tanh(3.6))-10,'text-anchor':'end',class:'ts'},'tanh'));
+cur.cloud.forEach(c=>svg.appendChild(E('circle',{cx:X(c.x).toFixed(1),cy:Y(c.y).toFixed(1),r:1.6,fill:GR,opacity:0.25})));
+z.forEach((v,i)=>svg.appendChild(E('circle',{cx:X(v).toFixed(1),cy:Y(t[i]).toFixed(1),r:2.6,fill:GR,opacity:0.55})));
+cur.iid.idx.forEach(i=>svg.appendChild(E('circle',{cx:X(z[i]).toFixed(1),cy:Y(t[i]).toFixed(1),r:4.5,fill:'none',stroke:'var(--s)','stroke-width':1.2})));
+cur.mix.pts.forEach(p=>svg.appendChild(E('circle',{cx:X(p[0]).toFixed(1),cy:Y(p[1]).toFixed(1),r:3.6,fill:PU})));
+best.forEach(([i,w])=>svg.appendChild(E('circle',{cx:X(z[i]).toFixed(1),cy:Y(t[i]).toFixed(1),r:(3+9*Math.sqrt(w)).toFixed(1),fill:GN,opacity:0.85})));
+best.forEach(([i])=>svg.appendChild(E('line',{x1:X(z[i]),y1:Y(t[i]),x2:X(C[0]),y2:Y(C[1]),stroke:GN,'stroke-width':0.8,opacity:0.6})));
+svg.appendChild(E('line',{x1:X(C[0]),y1:Y(C[1]),x2:X(C[0]),y2:Y(cur.mix.y),stroke:PU,'stroke-width':1.5,'stroke-dasharray':'3 2'}));
+svg.appendChild(E('circle',{cx:X(C[0]),cy:Y(cur.mix.y),r:6,fill:'none',stroke:PU,'stroke-width':2}));
+svg.appendChild(E('rect',{x:X(cur.iid.x)-4,y:Y(cur.iid.y)-4,width:8,height:8,fill:'var(--s)',transform:`rotate(45 ${X(cur.iid.x)} ${Y(cur.iid.y)})`}));
+svg.appendChild(E('circle',{cx:X(C[0]),cy:Y(C[1]),r:8,fill:'none',stroke:GN,'stroke-width':2}));
+svg.appendChild(E('circle',{cx:X(C[0]),cy:Y(C[1]),r:3,fill:'var(--p)'}));
+const lg=[[PU,'circle','mix: average z, then tanh'],['var(--s)','diamond','iid: q neurons, equal weights'],[GN,'circle','selected: 3 neurons, weights'],['var(--p)','dot','true layer average']];
+lg.forEach(([c,s,txt],k)=>{const y=52+k*18,x=48;if(s==='diamond')svg.appendChild(E('rect',{x:x-4,y:y-8,width:8,height:8,fill:c,transform:`rotate(45 ${x} ${y-4})`}));else if(s==='dot')svg.appendChild(E('circle',{cx:x,cy:y-4,r:3,fill:c}));else svg.appendChild(E('circle',{cx:x,cy:y-4,r:5,fill:'none',stroke:c,'stroke-width':2}));svg.appendChild(E('text',{x:x+12,y,class:'ts'},txt))});
+const X0=440,PW=200,Y0=50,PH=220,lx=q=>X0+PW*(Math.log(q)-Math.log(2))/(Math.log(20)-Math.log(2)),ly=v=>Y0+PH*Math.min(1,(0.3-Math.log10(Math.max(v,1e-4)))/4.3);
+svg.appendChild(E('text',{x:X0,y:22,class:'th'},'Error in the layer average'));
+svg.appendChild(E('line',{x1:X0,y1:Y0+PH,x2:X0+PW,y2:Y0+PH,stroke:'var(--b)','stroke-width':0.5}));svg.appendChild(E('line',{x1:X0,y1:Y0,x2:X0,y2:Y0+PH,stroke:'var(--b)','stroke-width':0.5}));
+[[0,PU],[1,'var(--s)']].forEach(([k,c])=>{let p='';QS.forEach((q,i)=>{p+=(i?'L':'M')+lx(q).toFixed(1)+' '+ly(stat[i][k]).toFixed(1)});svg.appendChild(E('path',{d:p,fill:'none',stroke:c,'stroke-width':2}))});
+svg.appendChild(E('line',{x1:lx(3),y1:Y0+PH-1.5,x2:X0+PW,y2:Y0+PH-1.5,stroke:GN,'stroke-width':3}));
+svg.appendChild(E('line',{x1:lx(q),y1:Y0,x2:lx(q),y2:Y0+PH,stroke:GR,'stroke-width':0.8,'stroke-dasharray':'2 3'}));
+svg.appendChild(E('text',{x:X0+8,y:ly(stat[0][0])+18,class:'ts'},'mix: bias'));
+svg.appendChild(E('text',{x:X0+8,y:ly(stat[0][1])-10,class:'ts'},'iid: noise ~ q^(-1/2)'));
+svg.appendChild(E('text',{x:X0+PW,y:Y0+PH-8,'text-anchor':'end',class:'ts'},'selected: exact'));
+[2,5,10,20].forEach(v=>svg.appendChild(E('text',{x:lx(v),y:Y0+PH+16,'text-anchor':'middle',class:'ts'},v)));
+[[1,'1'],[1e-1,'0.1'],[1e-2,'0.01'],[1e-3,'0.001']].forEach(([v,s])=>svg.appendChild(E('text',{x:X0-6,y:ly(v)+4,'text-anchor':'end',class:'ts'},s)));
+svg.appendChild(E('text',{x:X0+PW/2,y:Y0+PH+34,'text-anchor':'middle',class:'ts'},`kept q of n = ${n} (log)`));
+document.getElementById('ql').textContent=`error: mix ${Math.abs(cur.mix.y-C[1]).toFixed(3)} · iid ${Math.abs(cur.iid.y-C[1]).toFixed(3)} · selected 0`}
+document.getElementById('qs').oninput=()=>draw(false);document.getElementById('rd').onclick=()=>draw(true);draw(true);
+})();
+</script>

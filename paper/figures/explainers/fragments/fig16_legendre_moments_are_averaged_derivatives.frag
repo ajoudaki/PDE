@@ -1,0 +1,63 @@
+<h2 class="sr-only">Figure 16. Each Legendre moment is a derivative of the history averaged under a bump: position, velocity, acceleration, jerk, snap; on the activity clock these shrink fast.</h2>
+<div style="font-size:15px;font-weight:500;color:var(--text-primary);margin:0 0 8px">Figure 16 · Moments are averaged derivatives</div>
+<div style="display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<span>Moments q</span><input type="range" id="qs" min="1" max="8" step="1" value="3" style="flex:1">
+<span id="ql" style="min-width:150px;text-align:right"></span>
+</div>
+<svg id="sv" width="100%" viewBox="0 0 680 430" role="img"><title>Figure 16: moments are averaged derivatives</title><desc>Top: a history and its reconstruction from q moments, and the moment spectrum on two clocks. Rows: derivative of order j, the averaging bump, and the resulting moment.</desc></svg>
+<script>
+(()=>{
+const svg=document.getElementById('sv'),BL='#2a78d6',BD='#185FA5',GR='#888780';
+const g=x=>0.3+0.55*Math.sin(1.25*x+0.35)+0.2*Math.sin(2.4*x-1.1);
+const U=x=>(1-Math.exp(-5*(x+1)))/(1-Math.exp(-10));
+const F={clock:g,real:x=>g(2*U(x)-1)};
+let mode='clock';
+const N=2001,xs=Array.from({length:N},(_,k)=>-1+2*k/(N-1)),dx=2/(N-1);
+const legAll=(x,J)=>{const P=[1,x];for(let j=1;j<J;j++)P.push(((2*j+1)*x*P[j]-j*P[j-1])/(j+1));return P};
+const JM=22,PT=xs.map(x=>legAll(x,JM));
+const simpson=v=>{let s=v[0]+v[N-1];for(let k=1;k<N-1;k++)s+=(k%2?4:2)*v[k];return s*dx/3};
+const binom=(n,k)=>{let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return r};
+const fact=n=>{let r=1;for(let i=2;i<=n;i++)r*=i;return r};
+const der=(f,x,j)=>{const d=0.01;let s=0;for(let k=0;k<=j;k++)s+=(k%2?-1:1)*binom(j,k)*f(x+(j/2-k)*d);return s/Math.pow(d,j)};
+const cache={};
+function data(md){if(cache[md])return cache[md];const f=F[md],H=xs.map(f);
+const a=[];for(let j=0;j<JM;j++)a.push((2*j+1)/2*simpson(H.map((h,k)=>h*PT[k][j])));
+const D=[];for(let j=0;j<5;j++){const w=xs.map(x=>Math.pow(1-x*x,j)/(Math.pow(2,j)*fact(j)));D.push({d:xs.map(x=>der(f,x,j)),w})}
+return cache[md]={H,a,D}}
+const E=(n,at,t)=>{const e=document.createElementNS('http://www.w3.org/2000/svg',n);for(const k in at)e.setAttribute(k,at[k]);if(t!==undefined)e.textContent=t;return e};
+const PX0=130,PW=300,px=x=>PX0+PW*(x+1)/2;
+const names=['position','velocity','acceleration','jerk','snap'];
+function draw(){const q=+document.getElementById('qs').value,{H,a,D}=data(mode);svg.innerHTML='';
+svg.appendChild(E('text',{x:40,y:20,class:'th'},'History and its q-moment reconstruction'));
+const hy0=34,hh=84,lo=Math.min(...H)-0.08,hi=Math.max(...H)+0.08,py=v=>hy0+hh*(hi-v)/(hi-lo);
+svg.appendChild(E('text',{x:40,y:hy0+hh/2-4,class:'ts'},'history'));svg.appendChild(E('text',{x:40,y:hy0+hh/2+12,class:'ts'},'on clock τ'));
+let d='',dr='',err=0;for(let k=0;k<N;k+=8){const x=xs[k];d+=(k?'L':'M')+px(x).toFixed(1)+' '+py(H[k]).toFixed(1);let r=0;for(let j=0;j<q;j++)r+=a[j]*PT[k][j];err=Math.max(err,Math.abs(r-H[k]));dr+=(k?'L':'M')+px(x).toFixed(1)+' '+py(r).toFixed(1)}
+svg.appendChild(E('path',{d,fill:'none',stroke:'var(--p)','stroke-width':1.6}));
+svg.appendChild(E('path',{d:dr,fill:'none',stroke:BL,'stroke-width':2,'stroke-dasharray':'6 4'}));
+const sx0=478,sw=170,sy0=34,sh=84,sxj=j=>sx0+sw*j/(JM-1),syv=v=>sy0+sh*Math.min(1,-Math.log10(Math.max(v,1e-9))/7);
+svg.appendChild(E('text',{x:sx0,y:20,class:'th'},'Moment sizes |aⱼ|'));
+svg.appendChild(E('line',{x1:sx0,y1:sy0+sh,x2:sx0+sw,y2:sy0+sh,stroke:'var(--b)','stroke-width':0.5}));
+svg.appendChild(E('line',{x1:sx0,y1:sy0,x2:sx0,y2:sy0+sh,stroke:'var(--b)','stroke-width':0.5}));
+['clock','real'].forEach(md=>{const A=data(md).a;let p='';A.forEach((v,j)=>{p+=(j?'L':'M')+sxj(j).toFixed(1)+' '+syv(Math.abs(v)).toFixed(1)});const on=md===mode;
+svg.appendChild(E('path',{d:p,fill:'none',stroke:md==='clock'?BL:GR,'stroke-width':on?2:1.2,opacity:on?1:0.6}))});
+svg.appendChild(E('line',{x1:sxj(q-0.5),y1:sy0,x2:sxj(q-0.5),y2:sy0+sh,stroke:GR,'stroke-width':0.8,'stroke-dasharray':'2 3'}));
+svg.appendChild(E('text',{x:sx0+sw,y:syv(Math.abs(data('real').a[JM-1]))+16,'text-anchor':'end',class:'ts'},'same history, real time'));
+svg.appendChild(E('text',{x:sx0+4,y:sy0+sh-6,class:'ts'},'activity clock'));
+svg.appendChild(E('text',{x:sx0,y:sy0+sh+16,class:'ts'},'j = 0 … 21, log scale'));
+svg.appendChild(E('text',{x:40,y:158,class:'th'},'Moment j = derivative j averaged under a bump'));
+D.forEach((row,j)=>{const y0=172+j*50,rh=40,mid=y0+rh/2,m=Math.max(...row.d.map(Math.abs))||1,wm=Math.max(...row.w);
+svg.appendChild(E('text',{x:40,y:mid-2,class:'t'},names[j]));svg.appendChild(E('text',{x:40,y:mid+13,class:'ts'},'j = '+j));
+let wb='M'+px(-1)+' '+mid;for(let k=0;k<N;k+=10)wb+='L'+px(xs[k]).toFixed(1)+' '+(mid-(rh/2)*row.w[k]/wm).toFixed(1);wb+='L'+px(1)+' '+mid+'Z';
+svg.appendChild(E('path',{d:wb,fill:GR,opacity:0.14,stroke:'none'}));
+let pf='M'+px(-1)+' '+mid,dl='';for(let k=0;k<N;k+=5){const v=row.d[k]/m;pf+='L'+px(xs[k]).toFixed(1)+' '+(mid-(rh/2)*v*row.w[k]/wm).toFixed(1);dl+=(k?'L':'M')+px(xs[k]).toFixed(1)+' '+(mid-(rh/2)*v).toFixed(1)}pf+='L'+px(1)+' '+mid+'Z';
+svg.appendChild(E('line',{x1:px(-1),y1:mid,x2:px(1),y2:mid,stroke:'var(--b)','stroke-width':0.5}));
+svg.appendChild(E('path',{d:pf,fill:BL,opacity:0.3,stroke:'none'}));
+svg.appendChild(E('path',{d:dl,fill:'none',stroke:BD,'stroke-width':1.3}));
+const v=a[j],L=Math.max(2,150*Math.max(0,(Math.log10(Math.abs(v)+1e-12)+4)/4)),kept=j<q;
+svg.appendChild(E('rect',{x:470,y:mid-7,width:L.toFixed(1),height:14,rx:3,fill:kept?BL:GR,opacity:kept?0.9:0.35}));
+svg.appendChild(E('text',{x:476+L,y:mid+4,class:'ts'},(v>=0?'+':'−')+Math.abs(v).toExponential(1)))});
+svg.appendChild(E('text',{x:470,y:166,class:'ts'},'moment aⱼ (bar: log size)'));
+document.getElementById('ql').textContent=`max error with ${q}: ${err.toExponential(1)}`}
+document.getElementById('qs').oninput=draw;draw();
+})();
+</script>

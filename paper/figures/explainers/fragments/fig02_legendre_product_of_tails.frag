@@ -1,0 +1,49 @@
+<h2 class="sr-only">Figure 2. Legendre memory: the pairing error equals the pairing of two tails.</h2>
+<div style="display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<span>Moments q</span><input type="range" id="qs" min="1" max="40" step="1" value="4" style="flex:1"><span id="ql" style="min-width:60px;text-align:right"></span>
+</div>
+<svg id="lp" width="100%" viewBox="0 0 680 320" role="img"><title>Figure 2: product of tails</title><desc>Two histories with projections and shaded tails; error versus q.</desc></svg>
+<script>
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('lp');
+const E=(n,a,t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+const fh=s=>0.55*Math.tanh(4*(s-0.3))+0.45*Math.abs(s-0.65)-0.1;
+const fb=s=>Math.exp(-2.5*s)*(1-1.4*Math.abs(s-0.22));
+const N=4001,JM=300,dx=2/(N-1);
+const xs=Array.from({length:N},(_,k)=>-1+k*dx);
+const Fh=xs.map(x=>fh((x+1)/2)),Fb=xs.map(x=>fb((x+1)/2));
+const ch=[],cb=[];let P0=xs.map(()=>1),P1=xs.slice();
+const coef=(F,P,j)=>{let s=0;for(let k=0;k<N;k++)s+=(k===0||k===N-1?0.5:1)*F[k]*P[k];return (2*j+1)/2*s*dx};
+ch.push(coef(Fh,P0,0));cb.push(coef(Fb,P0,0));ch.push(coef(Fh,P1,1));cb.push(coef(Fb,P1,1));
+for(let j=1;j<JM;j++){const P2=new Array(N);for(let k=0;k<N;k++)P2[k]=((2*j+1)*xs[k]*P1[k]-j*P0[k])/(j+1);P0=P1;P1=P2;ch.push(coef(Fh,P1,j+1));cb.push(coef(Fb,P1,j+1))}
+const tail=(c,q)=>{let s=0;for(let j=q;j<c.length;j++)s+=c[j]*c[j]*2/(2*j+1);return Math.sqrt(s/2)};
+const pair=q=>{let s=0;for(let j=q;j<ch.length;j++)s+=cb[j]*ch[j]*2/(2*j+1);return Math.abs(s/2)};
+const proj=(c,q,x)=>{let p0=1,p1=x,s=c[0];if(q>1)s+=c[1]*x;for(let j=1;j<q-1;j++){const p2=((2*j+1)*x*p1-j*p0)/(j+1);p0=p1;p1=p2;s+=c[j+1]*p2}return q>=1?s:0};
+const qsList=Array.from({length:40},(_,i)=>i+1);
+const TH=qsList.map(q=>tail(ch,q)),TB=qsList.map(q=>tail(cb,q)),PR=qsList.map((q,i)=>TH[i]*TB[i]),PA=qsList.map(q=>pair(q));
+function mini(y0,F,c,q,col,lo,hi,name){const X0=40,W=290,H=95,M=240;const X=s=>X0+W*s,Y=v=>y0+H*(hi-v)/(hi-lo);
+let df='',dp='';const pts=[];
+for(let i=0;i<=M;i++){const s=i/M,x=2*s-1,v=F(s),p=proj(c,q,x);pts.push([X(s),Y(v),Y(p)]);df+=(i?'L':'M')+X(s).toFixed(1)+' '+Y(v).toFixed(1);dp+=(i?'L':'M')+X(s).toFixed(1)+' '+Y(p).toFixed(1)}
+const poly='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L')+'L'+pts.slice().reverse().map(p=>p[0].toFixed(1)+' '+p[2].toFixed(1)).join('L')+'Z';
+svg.appendChild(E('path',{d:poly,fill:col,opacity:0.28,stroke:'none'}));
+svg.appendChild(E('path',{d:df,fill:'none',stroke:col,'stroke-width':1.8}));
+svg.appendChild(E('path',{d:dp,fill:'none',stroke:'#444441','stroke-width':1.2,'stroke-dasharray':'4 3'}));
+svg.appendChild(E('text',{x:X0,y:y0-6,class:'ts'},name))}
+function draw(){const q=+document.getElementById('qs').value;document.getElementById('ql').textContent='q = '+q;svg.innerHTML='';
+svg.appendChild(E('text',{x:40,y:22,class:'th'},'Two histories on the clock interval'));
+mini(48,fb,cb,q,'#D85A30',-0.15,0.75,'backward b(τ); dashed: q moments; shade: tail');
+mini(180,fh,ch,q,'#1D9E75',-0.7,0.55,'forward h(τ)');
+svg.appendChild(E('text',{x:185,y:300,'text-anchor':'middle',class:'ts'},'clock τ from 0 to τ∞'));
+const X0=410,W=240,Y0=40,H=220,lx=v=>X0+W*Math.log10(v)/Math.log10(40),ly=v=>Y0+H*(-Math.log10(Math.max(v,1e-9)))/7;
+svg.appendChild(E('text',{x:X0,y:22,class:'th'},'Error versus moments'));
+svg.appendChild(E('line',{x1:X0,y1:Y0+H,x2:X0+W,y2:Y0+H,stroke:'var(--b)','stroke-width':0.5}));
+svg.appendChild(E('line',{x1:X0,y1:Y0,x2:X0,y2:Y0+H,stroke:'var(--b)','stroke-width':0.5}));
+[[TB,'#D85A30',1.2,'none'],[TH,'#1D9E75',1.2,'none'],[PR,'#534AB7',2.2,'none'],[PA,'#534AB7',1,'2 3']].forEach(([A,c,w,da])=>{let d='';A.forEach((v,i)=>{d+=(i?'L':'M')+lx(qsList[i]).toFixed(1)+' '+ly(v).toFixed(1)});svg.appendChild(E('path',{d,fill:'none',stroke:c,'stroke-width':w,'stroke-dasharray':da}))});
+svg.appendChild(E('line',{x1:lx(q),y1:Y0,x2:lx(q),y2:Y0+H,stroke:'#888780','stroke-width':0.8,'stroke-dasharray':'2 3'}));
+svg.appendChild(E('text',{x:X0+W,y:ly(TB[39])-8,'text-anchor':'end',class:'ts'},'one tail'));
+svg.appendChild(E('text',{x:X0+8,y:Y0+H-8,class:'ts'},'product of tails = weight error'));
+['1','10'].forEach((s,i)=>svg.appendChild(E('text',{x:lx(i?10:1),y:Y0+H+16,'text-anchor':'middle',class:'ts'},s)));
+svg.appendChild(E('text',{x:lx(40),y:Y0+H+16,'text-anchor':'middle',class:'ts'},'40'));
+svg.appendChild(E('text',{x:X0+W/2,y:Y0+H+34,'text-anchor':'middle',class:'ts'},'moments q (log); error (log)'));
+svg.appendChild(E('text',{x:340,y:316,'text-anchor':'middle',class:'ts'},'∫bh − ∫(Πb)(Πh) = ∫(b−Πb)(h−Πh): cross terms vanish, so the error is a product of tails'));}
+document.getElementById('qs').oninput=draw;draw();
+</script>

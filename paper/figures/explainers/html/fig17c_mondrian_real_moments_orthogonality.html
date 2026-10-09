@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 17c: only like pairs with like</title>
+<style>
+:root{--p:#1f1f1e;--s:#6b6b68;--t:#888780;--b:#c8c6bd;--text-primary:#1f1f1e;--text-secondary:#6b6b68;
+--text-muted:#9a9890;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--surface-1:#f4f3ef;
+--surface-2:#fff;--bg-success:#e3f3e8;--text-success:#1d6b3a;--radius:8px;--page:#fbfaf7}
+@media (prefers-color-scheme: dark){:root{--p:#ecebe6;--s:#a8a69e;--t:#8f8d86;--b:#55544f;
+--text-primary:#ecebe6;--text-secondary:#a8a69e;--text-muted:#7d7b75;--border:rgba(255,255,255,.14);
+--border-strong:rgba(255,255,255,.28);--surface-1:#2a2a28;--surface-2:#222220;--bg-success:#1f3b29;
+--text-success:#8fd3a5;--page:#1c1c1b}}
+body{margin:0;padding:24px 16px;background:var(--page);color:var(--text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:700px;margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+svg text.t{font-size:14px;fill:var(--text-primary)}
+svg text.ts{font-size:12px;fill:var(--text-secondary)}
+button,select{font:inherit;color:var(--text-primary);background:transparent;border:.5px solid var(--border-strong);
+border-radius:var(--radius);cursor:pointer}
+button:hover{background:var(--surface-1)}
+input[type=range]{accent-color:#2a78d6}
+nav{font-size:13px;margin-bottom:16px} nav a{color:var(--text-secondary)}
+</style></head><body><main>
+<nav><a href="../index.html">All explainer figures</a></nav>
+<h2 class="sr-only">Figure 17c. For a real link, the weight it writes equals the sum of diagonal rectangles whose sides are matching forward and backward Legendre moments; any off-diagonal pair integrates to zero, so truncation loses only the small corner.</h2>
+<div style="font-size:15px;font-weight:500;color:var(--text-primary);margin:0 0 8px">Figure 17c · Only like pairs with like</div>
+<div id="ctl" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:0 0 8px;font-size:13px;color:var(--text-secondary)"></div>
+<svg id="sv" width="100%" viewBox="0 0 680 490" role="img"><title>Figure 17c: only like pairs with like</title><desc>Mondrian of moment pairs for a real link with diagonal cells filled; a panel showing two Legendre components and their product for a chosen cell; error versus q.</desc></svg>
+<script>
+(()=>{
+const D=[{"name":"Link A: example 5, link 6→6","f":[-1.701,-0.3338,0.2867,0.1314,-0.08989,0.01314,0.03366,-0.03779,-0.01249,0.01801,-0.001847,-0.007895],"g":[2.705,1.07,-0.5423,0.3203,0.1648,-0.2122,0.1953,0.06885,-0.1134,0.01117,0.009799,0.0198],"direct":-5.084581412524986},{"name":"Link B: example 0, link 50→33","f":[2.744,0.0127,-0.009642,0.004185,0.01152,-0.0007967,-0.004738,-0.000173,0.0004862,-0.0001714,0.0005126,0.0004833],"g":[-0.6172,-0.7997,-0.166,0.392,0.0861,-0.1638,0.04931,0.05483,-0.07303,0.0004626,0.05255,-0.01355],"direct":-1.69972041644267},{"name":"Link C: example 2, link 59→35","f":[2.3,0.09263,-0.01791,-0.01586,0.01019,-0.001729,-0.004783,0.003086,0.001067,-0.001449,4.416e-05,0.0005553],"g":[1.817,1.292,-0.4265,-0.5162,0.4176,0.2898,-0.2978,-0.09089,0.1961,-0.001578,-0.112,0.02868],"direct":4.3209049797698045}];
+const svg=document.getElementById('sv'),BL='#2a78d6',BD='#185FA5',PU='#7F77DD',PD='#534AB7',GR='#888780';
+const E=(n,a,t)=>{const e=document.createElementNS('http://www.w3.org/2000/svg',n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+let li=0,q=3,sel=[1,1];const K=10;
+const ctl=document.getElementById('ctl');
+const btns=D.map((L,k)=>{const b=document.createElement('button');b.textContent='Link '+'ABC'[k];b.style.cssText='font-size:13px;padding:3px 9px';b.onclick=()=>{li=k;draw()};ctl.appendChild(b);return b});
+const sp=document.createElement('span');sp.style.cssText='display:flex;align-items:center;gap:8px;flex:1;min-width:220px';sp.innerHTML='<span>Moments q</span><input type="range" min="1" max="10" step="1" value="3" style="flex:1"><span style="min-width:24px"></span>';ctl.appendChild(sp);
+const qs=sp.querySelector('input'),ql=sp.querySelectorAll('span')[1];qs.oninput=()=>{q=+qs.value;draw()};
+const leg=(x,k)=>{let p0=1,p1=x;if(k===0)return 1;for(let j=1;j<k;j++){const p2=((2*j+1)*x*p1-j*p0)/(j+1);p0=p1;p1=p2}return p1};
+function draw(){const L=D[li],f=L.f.slice(0,K),g=L.g.slice(0,K);svg.innerHTML='';ql.textContent=q;
+btns.forEach((b,k)=>{b.style.borderColor=k===li?BL:'';b.style.color=k===li?BL:''});
+const S=290,X0=60,Y0=66,FT=f.reduce((s,v)=>s+Math.abs(v),0),GT=g.reduce((s,v)=>s+Math.abs(v),0);
+const cx=[X0],cy=[Y0];f.forEach((v,k)=>cx.push(cx[k]+S*Math.abs(v)/FT));g.forEach((v,k)=>cy.push(cy[k]+S*Math.abs(v)/GT));
+svg.appendChild(E('text',{x:40,y:22,class:'th'},L.name));
+svg.appendChild(E('text',{x:X0,y:Y0-10,class:'ts'},'columns: forward moments, width = |h̄ₖ|'));
+svg.appendChild(E('text',{x:X0,y:Y0+S+30,class:'ts'},'rows: backward moments, height = |b̄ₖ|'));
+const Qc=Math.min(q,K);
+if(q<K){svg.appendChild(E('rect',{x:cx[Qc],y:Y0,width:cx[K]-cx[Qc],height:cy[Qc]-Y0,fill:GR,opacity:0.08}));svg.appendChild(E('rect',{x:X0,y:cy[Qc],width:cx[Qc]-X0,height:cy[K]-cy[Qc],fill:GR,opacity:0.08}));svg.appendChild(E('rect',{x:cx[Qc],y:cy[Qc],width:cx[K]-cx[Qc],height:cy[K]-cy[Qc],fill:PU,opacity:0.15}))}
+for(let j=0;j<K;j++)for(let k=0;k<K;k++){const x=cx[k],y=cy[j],w=cx[k+1]-x,h=cy[j+1]-y;let el;
+if(j!==k)el=E('rect',{x,y,width:Math.max(w,0.5),height:Math.max(h,0.5),fill:'transparent',stroke:'var(--b)','stroke-width':0.5});
+else el=E('rect',{x:x+0.5,y:y+0.5,width:Math.max(w-1,0.6),height:Math.max(h-1,0.6),fill:f[k]*g[k]>0?BL:PD,opacity:k<q?0.9:0.4});
+el.style.cursor='pointer';el.onclick=()=>{sel=[j,k];draw()};svg.appendChild(el)}
+const [sj,sk]=sel;svg.appendChild(E('rect',{x:cx[sk],y:cy[sj],width:Math.max(cx[sk+1]-cx[sk],2),height:Math.max(cy[sj+1]-cy[sj],2),fill:'none',stroke:'var(--p)','stroke-width':2,'pointer-events':'none'}));
+svg.appendChild(E('rect',{x:X0,y:Y0,width:S,height:S,fill:'none',stroke:'var(--s)','stroke-width':0.8,'pointer-events':'none'}));
+if(q<K){svg.appendChild(E('line',{x1:cx[Qc],y1:Y0-4,x2:cx[Qc],y2:Y0+S+4,stroke:'var(--p)','stroke-width':1.3,'stroke-dasharray':'4 3','pointer-events':'none'}));svg.appendChild(E('line',{x1:X0-4,y1:cy[Qc],x2:X0+S+4,y2:cy[Qc],stroke:'var(--p)','stroke-width':1.3,'stroke-dasharray':'4 3','pointer-events':'none'}))}
+for(let k=0;k<3;k++){if(cx[k+1]-cx[k]>10)svg.appendChild(E('text',{x:(cx[k]+cx[k+1])/2,y:Y0+S+14,'text-anchor':'middle',class:'ts'},k));if(cy[k+1]-cy[k]>12)svg.appendChild(E('text',{x:X0-8,y:(cy[k]+cy[k+1])/2+4,'text-anchor':'end',class:'ts'},k))}
+const PX=392,PW=268,rows=[[58,'forward mode k: h̄ₖ Pₖ',BL],[122,'backward mode j: b̄ⱼ Pⱼ',PU],[186,'their product over the clock',GR]];
+svg.appendChild(E('text',{x:PX,y:22,class:'th'},`Why cell (j=${sj}, k=${sk}) is ${sj===sk?'filled':'empty'}`));
+const N=200,xs=Array.from({length:N+1},(_,i)=>-1+2*i/N),fk=xs.map(x=>f[sk]*leg(x,sk)),gj=xs.map(x=>g[sj]*leg(x,sj)),pr=xs.map((x,i)=>fk[i]*gj[i]);
+[[fk,0],[gj,1],[pr,2]].forEach(([arr,r])=>{const [y0,lab,col]=rows[r],mx=Math.max(...arr.map(Math.abs),1e-9),yy=v=>y0+28-24*v/mx,X=i=>PX+PW*i/N;
+svg.appendChild(E('line',{x1:PX,y1:y0+28,x2:PX+PW,y2:y0+28,stroke:'var(--b)','stroke-width':0.5}));
+if(r===2){let pp='M'+X(0)+' '+(y0+28),pn='M'+X(0)+' '+(y0+28);arr.forEach((v,i)=>{pp+='L'+X(i).toFixed(1)+' '+yy(Math.max(v,0)).toFixed(1);pn+='L'+X(i).toFixed(1)+' '+yy(Math.min(v,0)).toFixed(1)});pp+='L'+X(N)+' '+(y0+28)+'Z';pn+='L'+X(N)+' '+(y0+28)+'Z';
+svg.appendChild(E('path',{d:pp,fill:BL,opacity:0.45,stroke:'none'}));svg.appendChild(E('path',{d:pn,fill:'#D85A30',opacity:0.4,stroke:'none'}))}
+let d='';arr.forEach((v,i)=>{d+=(i?'L':'M')+X(i).toFixed(1)+' '+yy(v).toFixed(1)});svg.appendChild(E('path',{d,fill:'none',stroke:r===2?'var(--s)':col,'stroke-width':1.6}));
+svg.appendChild(E('text',{x:PX,y:y0-2,class:'ts'},lab))});
+const area=sj===sk?f[sk]*g[sk]:0;
+svg.appendChild(E('text',{x:PX,y:256,class:'ts'},sj===sk?`net area = h̄ₖ b̄ₖ = ${area.toFixed(4)}: this pair writes it`:'net area = 0: blue and orange cancel exactly'));
+let part=0;for(let k=0;k<q&&k<K;k++)part+=f[k]*g[k];const total=f.reduce((s,v,k)=>s+v*g[k],0);
+const CX=PX+20,CW=240,CY=300,CH=104,lx=v=>CX+CW*Math.log10(v)/Math.log10(8),ly=v=>CY+CH*Math.min(1,-Math.log10(Math.max(v,1e-6))/5);
+svg.appendChild(E('text',{x:PX,y:CY-12,class:'th'},'What truncation loses'));
+svg.appendChild(E('line',{x1:CX,y1:CY+CH,x2:CX+CW,y2:CY+CH,stroke:'var(--b)','stroke-width':0.5}));svg.appendChild(E('line',{x1:CX,y1:CY,x2:CX,y2:CY+CH,stroke:'var(--b)','stroke-width':0.5}));
+const tl=(a,qq)=>Math.sqrt(a.slice(qq).reduce((s,v)=>s+v*v,0)),fn=Math.sqrt(f.reduce((s,v)=>s+v*v,0)),gn=Math.sqrt(g.reduce((s,v)=>s+v*v,0));
+let p1='',p2='',p3='';for(let qq=1;qq<=8;qq++){const x=lx(qq),one=tl(f,qq)*gn/(fn*gn),prod=tl(f,qq)*tl(g,qq)/(fn*gn);let ps=0;for(let k=0;k<qq;k++)ps+=f[k]*g[k];const err=Math.abs(L.direct-ps)/(fn*gn);
+p1+=(qq>1?'L':'M')+x.toFixed(1)+' '+ly(one).toFixed(1);p2+=(qq>1?'L':'M')+x.toFixed(1)+' '+ly(prod).toFixed(1);p3+=(qq>1?'L':'M')+x.toFixed(1)+' '+ly(err).toFixed(1)}
+svg.appendChild(E('path',{d:p1,fill:'none',stroke:GR,'stroke-width':1.5}));svg.appendChild(E('path',{d:p2,fill:'none',stroke:PD,'stroke-width':2.2}));svg.appendChild(E('path',{d:p3,fill:'none',stroke:PD,'stroke-width':1,'stroke-dasharray':'2 3'}));
+svg.appendChild(E('line',{x1:lx(q),y1:CY,x2:lx(q),y2:CY+CH,stroke:GR,'stroke-width':0.8,'stroke-dasharray':'2 3'}));
+svg.appendChild(E('text',{x:CX,y:CY+CH+30,class:'ts'},'gray: one tail · purple: tail × tail'));
+[1,2,4,8].forEach(v=>svg.appendChild(E('text',{x:lx(v),y:CY+CH+14,'text-anchor':'middle',class:'ts'},v)));
+svg.appendChild(E('text',{x:40,y:462,class:'ts'},`Sum of all diagonal cells ${total.toFixed(4)} · ∫ b h dτ computed directly ${L.direct.toFixed(4)}`));
+svg.appendChild(E('text',{x:40,y:480,class:'ts'},`Kept by q = ${q}: ${part.toFixed(4)} · lost: ${(L.direct-part).toFixed(4)} (${(100*Math.abs((L.direct-part)/L.direct)).toFixed(2)}%) · click any cell`));}
+draw();
+})();
+</script>
+</main></body></html>

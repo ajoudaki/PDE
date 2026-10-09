@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 9: selected versus iid neurons</title>
+<style>
+:root{--p:#1f1f1e;--s:#6b6b68;--t:#888780;--b:#c8c6bd;--text-primary:#1f1f1e;--text-secondary:#6b6b68;
+--text-muted:#9a9890;--border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.25);--surface-1:#f4f3ef;
+--surface-2:#fff;--bg-success:#e3f3e8;--text-success:#1d6b3a;--radius:8px;--page:#fbfaf7}
+@media (prefers-color-scheme: dark){:root{--p:#ecebe6;--s:#a8a69e;--t:#8f8d86;--b:#55544f;
+--text-primary:#ecebe6;--text-secondary:#a8a69e;--text-muted:#7d7b75;--border:rgba(255,255,255,.14);
+--border-strong:rgba(255,255,255,.28);--surface-1:#2a2a28;--surface-2:#222220;--bg-success:#1f3b29;
+--text-success:#8fd3a5;--page:#1c1c1b}}
+body{margin:0;padding:24px 16px;background:var(--page);color:var(--text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:700px;margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg text.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+svg text.t{font-size:14px;fill:var(--text-primary)}
+svg text.ts{font-size:12px;fill:var(--text-secondary)}
+button,select{font:inherit;color:var(--text-primary);background:transparent;border:.5px solid var(--border-strong);
+border-radius:var(--radius);cursor:pointer}
+button:hover{background:var(--surface-1)}
+input[type=range]{accent-color:#2a78d6}
+nav{font-size:13px;margin-bottom:16px} nav a{color:var(--text-secondary)}
+</style></head><body><main>
+<nav><a href="../index.html">All explainer figures</a></nav>
+<h2 class="sr-only">Figure 9. Full neuron cloud ellipse, a noisy iid estimate, and an exact selected weighted estimate.</h2>
+<div style="display:flex;align-items:center;gap:12px;margin:0 0 8px;font-size:13px;color:var(--text-secondary)">
+<button id="rs" style="font-size:13px;padding:4px 10px">Resample iid neurons</button>
+<span id="err"></span>
+</div>
+<svg id="fig" width="100%" viewBox="0 0 680 300" role="img"><title>Figure 9: selected versus iid neurons</title><desc>Three panels of the same neuron cloud with second-moment ellipses.</desc></svg>
+<script>
+const svg=document.getElementById('fig'),NS='http://www.w3.org/2000/svg';
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const gauss=()=>Math.sqrt(-2*Math.log(rnd()+1e-12))*Math.cos(2*Math.PI*rnd());
+const N=600,pts=[];
+for(let i=0;i<N;i++){const s=0.6+0.8*rnd();const a=gauss()*1.0*s,b=gauss()*0.42*s;const c=Math.cos(0.5),d=Math.sin(0.5);pts.push([c*a-d*b,d*a+c*b]);}
+const mom=(P,W)=>{let s=[0,0,0],t=0;P.forEach((p,i)=>{const w=W?W[i]:1;s[0]+=w*p[0]*p[0];s[1]+=w*p[0]*p[1];s[2]+=w*p[1]*p[1];t+=w});return W?s:s.map(v=>v/t)};
+const S=mom(pts);
+const fro=(A)=>Math.sqrt(A[0]**2+2*A[1]**2+A[2]**2);
+const relerr=(A)=>fro([A[0]-S[0],A[1]-S[1],A[2]-S[2]])/fro(S);
+function eig(A){const tr=A[0]+A[2],det=A[0]*A[2]-A[1]*A[1],r=Math.sqrt(tr*tr/4-det);const l1=tr/2+r,l2=tr/2-r;const ang=Math.atan2(l1-A[0],A[1]);return [l1,l2,ang]}
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e};
+const panels=[{x:20,t:'All n neurons'},{x:245,t:'q neurons, iid'},{x:470,t:'q neurons, selected'}];
+const W=190,H=190,sc=34,Q=6;
+function ell(cx,cy,A,style){const[l1,l2,ang]=eig(A);return el('ellipse',Object.assign({cx,cy,rx:2*Math.sqrt(Math.max(l1,1e-9))*sc,ry:2*Math.sqrt(Math.max(l2,1e-9))*sc,transform:`rotate(${ang*180/Math.PI} ${cx} ${cy})`,fill:'none'},style))}
+const[,,ang0]=eig(S);const ax=[[Math.cos(ang0),Math.sin(ang0)],[-Math.sin(ang0),Math.cos(ang0)]];
+const dirs=[ax[0],[-ax[0][0],-ax[0][1]],ax[1],[-ax[1][0],-ax[1][1]],[(ax[0][0]+ax[1][0])/1.41,(ax[0][1]+ax[1][1])/1.41],[(ax[0][0]-ax[1][0])/1.41,(ax[0][1]-ax[1][1])/1.41]];
+const sel=dirs.map(d=>{let best=0,bv=-1e9;pts.forEach((p,i)=>{const pr=p[0]*d[0]+p[1]*d[1],r=Math.hypot(p[0],p[1]);const v=pr/(r+1e-9)*Math.min(r,1.6);if(v>bv){bv=v;best=i}});return best});
+const SP=sel.map(i=>pts[i]);let w=SP.map(()=>S[0]/2);
+for(let it=0;it<20000;it++){const M=mom(SP,w),D=[M[0]-S[0],M[1]-S[1],M[2]-S[2]];w=w.map((wi,k)=>{const p=SP[k];const g=D[0]*p[0]*p[0]+2*D[1]*p[0]*p[1]+D[2]*p[1]*p[1];return Math.max(0,wi-0.02*g)})}
+const selErr=relerr(mom(SP,w));
+function draw(){svg.querySelectorAll('g.dyn').forEach(g=>g.remove());
+const iid=[];while(iid.length<Q){const k=Math.floor(rnd()*N);if(!iid.includes(k))iid.push(k)}
+const iidP=iid.map(i=>pts[i]),iidM=mom(iidP);
+panels.forEach((p,k)=>{const g=el('g',{class:'dyn'});const cx=p.x+W/2,cy=40+H/2;
+const t=el('text',{x:cx,y:28,'text-anchor':'middle',class:'th'});t.textContent=p.t;g.appendChild(t);
+pts.forEach((q,i)=>g.appendChild(el('circle',{cx:cx+q[0]*sc,cy:cy-q[1]*sc,r:1.6,fill:'#B4B2A9',opacity:k===0?0.9:0.35})));
+g.appendChild(ell(cx,cy,S,{stroke:'#444441','stroke-width':1.2,'stroke-dasharray':k===0?'none':'4 3'}));
+if(k===1){iidP.forEach(q=>g.appendChild(el('circle',{cx:cx+q[0]*sc,cy:cy-q[1]*sc,r:4.5,fill:'#D85A30'})));g.appendChild(ell(cx,cy,iidM,{stroke:'#D85A30','stroke-width':2}));}
+if(k===2){const wm=Math.max(...w);SP.forEach((q,j)=>{if(w[j]>1e-6)g.appendChild(el('circle',{cx:cx+q[0]*sc,cy:cy-q[1]*sc,r:3+7*Math.sqrt(w[j]/wm),fill:'#1D9E75'}))});g.appendChild(ell(cx,cy,mom(SP,w),{stroke:'#1D9E75','stroke-width':2}));}
+const lab=el('text',{x:cx,y:262,'text-anchor':'middle',class:'ts'});lab.textContent=k===0?'Gram on E: dashed ellipse':k===1?'Monte Carlo: error ~ q^(-1/2)':'weights (metric): exact on E';g.appendChild(lab);
+svg.appendChild(g)});
+document.getElementById('err').textContent=`Gram error with ${Q} neurons: iid ${(100*relerr(iidM)).toFixed(0)}%, selected ${(100*selErr).toFixed(2)}%`}
+draw();document.getElementById('rs').onclick=draw;
+</script>
+</main></body></html>

@@ -1,0 +1,51 @@
+<h2 class="sr-only">Figure 20c. A neuron's response around the input circle is a combination of a few Fourier shapes; rotating the neuron moves weight between the cosine and sine of the same frequency but never between frequencies, so one frequency cutoff serves every neuron in the layer.</h2>
+<div style="font-size:15px;font-weight:500;color:var(--text-primary);margin:0 0 8px">Figure 20c · Every petal is spelled with the same few shapes</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
+<button id="rt" style="font-size:13px;padding:4px 10px">Pause rotation</button>
+<span>Sharpness |w|</span><input type="range" id="rs" min="0.5" max="4.5" step="0.1" value="2.6" style="width:100px"><span id="rl" style="min-width:28px"></span>
+<span>Frequency cutoff J</span><input type="range" id="Js" min="1" max="15" step="2" value="5" style="width:100px"><span id="Jl" style="min-width:20px"></span>
+</div>
+<svg id="sv" width="100%" viewBox="0 0 680 380" role="img"><title>Figure 20c: every petal is spelled with the same few shapes</title><desc>Left: petals of neurons on the input circle, one highlighted with its truncation to frequencies up to J. Right: the Fourier shapes, cosine and sine for each odd frequency, lit by the highlighted neuron's coefficients, with fixed energy per frequency.</desc></svg>
+<div id="rd" style="font-size:13px;color:var(--text-secondary)"></div>
+<script>
+(()=>{
+const svg=document.getElementById('sv'),GN='#1baf7a',GD='#0F6E56',GR='#888780';
+const E=(n,a,t)=>{const e=document.createElementNS('http://www.w3.org/2000/svg',n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
+const JM=41;
+const spec=r=>{const M=512,a=[];for(let j=0;j<=JM;j++){let s=0;for(let k=0;k<M;k++){const th=2*Math.PI*k/M;s+=Math.tanh(r*Math.cos(th))*Math.cos(j*th)}a.push(2*s/M)}return a};
+let seed=9;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const bg=Array.from({length:9},()=>[Math.sqrt(-2*Math.log(rnd()+1e-12)),2*Math.PI*rnd()]);
+let phi=0.4,run=true,last=null,cache={};
+const A=r=>{const k=r.toFixed(2);return cache[k]||(cache[k]=spec(r))};
+const cx=160,cy=200,R0=72,AMP=46;
+const petal=(f,col,w,op,dash)=>{let d='';for(let k=0;k<=240;k++){const th=2*Math.PI*k/240,R=R0+AMP*f(th);d+=(k?'L':'M')+(cx+R*Math.cos(th)).toFixed(1)+' '+(cy-R*Math.sin(th)).toFixed(1)}return E('path',{d,fill:'none',stroke:col,'stroke-width':w,opacity:op,'stroke-dasharray':dash||'none'})};
+const icon=(x,y,j,kind,op)=>{let d='';for(let k=0;k<=120;k++){const th=2*Math.PI*k/120,b=kind?Math.sin(j*th):Math.cos(j*th),R=11*(1+0.42*b);d+=(k?'L':'M')+(x+R*Math.cos(th)).toFixed(1)+' '+(y-R*Math.sin(th)).toFixed(1)}return E('path',{d:d+'Z',fill:GN,'fill-opacity':(0.08+0.75*op).toFixed(3),stroke:GD,'stroke-width':0.8,'stroke-opacity':(0.2+0.8*op).toFixed(3)})};
+function draw(){const r=+document.getElementById('rs').value,J=+document.getElementById('Js').value,a=A(r);svg.innerHTML='';
+document.getElementById('rl').textContent=r.toFixed(1);document.getElementById('Jl').textContent=J;
+svg.appendChild(E('text',{x:40,y:22,class:'th'},'Neurons as petals on the input circle'));
+svg.appendChild(E('circle',{cx,cy,r:R0,fill:'none',stroke:'var(--b)','stroke-width':0.6,'stroke-dasharray':'3 3'}));
+bg.forEach(([rr,pp])=>svg.appendChild(petal(th=>Math.tanh(rr*Math.cos(th-pp)),GR,0.8,0.35)));
+svg.appendChild(petal(th=>Math.tanh(r*Math.cos(th-phi)),GN,2.4,1));
+let err=0;const tr=th=>{let s=0;for(let j=1;j<=J;j+=2)s+=a[j]*Math.cos(j*(th-phi));return s};for(let k=0;k<360;k++){const th=2*Math.PI*k/360;err=Math.max(err,Math.abs(tr(th)-Math.tanh(r*Math.cos(th-phi))))}
+svg.appendChild(petal(tr,'var(--p)',1.6,1,'5 4'));
+svg.appendChild(E('line',{x1:cx,y1:cy,x2:cx+(R0+AMP+14)*Math.cos(phi),y2:cy-(R0+AMP+14)*Math.sin(phi),stroke:GD,'stroke-width':1,'stroke-dasharray':'2 3'}));
+svg.appendChild(E('text',{x:cx+(R0+AMP+20)*Math.cos(phi),y:cy-(R0+AMP+20)*Math.sin(phi)+4,'text-anchor':'middle',class:'ts'},'w'));
+svg.appendChild(E('text',{x:cx,y:350,'text-anchor':'middle',class:'ts'},'green: tanh(|w| cos(θ − φ)) · dashed: frequencies ≤ J'));
+svg.appendChild(E('text',{x:cx,y:368,'text-anchor':'middle',class:'ts'},`max error ${err<1e-3?err.toExponential(0):err.toFixed(3)}`));
+const X0=370,Y0=48,RH=38,tot=a.reduce((s,v,j)=>s+(j%2?v*v:0),0),EM=Math.max(...a.map((v,j)=>j%2?v*v:0));
+svg.appendChild(E('text',{x:X0-36,y:22,class:'th'},'The shapes, lit by this neuron'));
+svg.appendChild(E('text',{x:X0+18,y:40,'text-anchor':'middle',class:'ts'},'cos jθ'));svg.appendChild(E('text',{x:X0+62,y:40,'text-anchor':'middle',class:'ts'},'sin jθ'));svg.appendChild(E('text',{x:X0+96,y:40,class:'ts'},'energy at frequency j (log)'));
+for(let row=0;row<8;row++){const j=2*row+1,y=Y0+16+row*RH,c=a[j]*Math.cos(j*phi),s=a[j]*Math.sin(j*phi),e=c*c+s*s,on=j<=J,dim=on?1:0.25;
+svg.appendChild(E('text',{x:X0-30,y:y+4,class:'ts'},'j = '+j));
+const g=E('g',{opacity:dim});g.appendChild(icon(X0+18,y,j,0,e>0?c*c/e:0));g.appendChild(icon(X0+62,y,j,1,e>0?s*s/e:0));svg.appendChild(g);
+const L=Math.max(0,(Math.log10(Math.max(e/EM,1e-12))+10)/10)*150;svg.appendChild(E('rect',{x:X0+96,y:y-6,width:Math.max(L,1).toFixed(1),height:12,rx:3,fill:GN,opacity:on?0.85:0.25}));
+svg.appendChild(E('text',{x:X0+102+L,y:y+4,class:'ts'},(100*e/tot<0.01?(100*e/tot).toExponential(0):(100*e/tot).toFixed(2))+'%'))}
+svg.appendChild(E('line',{x1:X0-34,y1:Y0+16+((J+1)/2-0.5)*RH,x2:660,y2:Y0+16+((J+1)/2-0.5)*RH,stroke:'var(--p)','stroke-width':1,'stroke-dasharray':'4 3'}));
+svg.appendChild(E('text',{x:X0-34,y:Y0+16+8*RH,class:'ts'},'w turns: light moves between cos and sin; bars stay put'));
+const need=n=>{const rr=Math.sqrt(2*Math.log(n)),aa=A(Math.min(4.5,Math.round(rr*10)/10));let tail=0;for(let j=JM;j>=1;j-=2){tail+=Math.abs(aa[j]);if(tail>1/n)return j}return 1};
+document.getElementById('rd').textContent=`With cutoff J = ${J}: ${J+1} shapes describe every neuron up to sharpness ${r.toFixed(1)}. A width-n layer's sharpest neuron has |w| ≈ √(2 ln n), so accuracy 1/n needs J ≈ ${need(1e2)}, ${need(1e4)}, ${need(1e6)} for n = 10², 10⁴, 10⁶: logarithmic, not n.`}
+function frame(t){if(last===null)last=t;const dt=Math.min(0.05,(t-last)/1000);last=t;if(run){phi+=0.35*dt;draw()}requestAnimationFrame(frame)}
+document.getElementById('rt').onclick=e=>{run=!run;e.target.textContent=run?'Pause rotation':'Rotate'};
+document.getElementById('rs').oninput=draw;document.getElementById('Js').oninput=draw;draw();requestAnimationFrame(frame);
+})();
+</script>
