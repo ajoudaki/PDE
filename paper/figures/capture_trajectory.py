@@ -13096,6 +13096,148 @@ def trajectory_budget_plot(argv):
     return 0
 
 
+def trajectory_task_plot(argv):
+    """Mean learned storage on the saved circle and digits tasks, with one RMS criterion."""
+    import shlex
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import NullFormatter
+    parser = argparse.ArgumentParser(description=trajectory_task_plot.__doc__)
+    parser.add_argument('--toy-metrics', nargs=3, type=Path, required=True,
+                        metavar=('LEGENDRE', 'HARMONIC', 'LOGARITHMIC'))
+    parser.add_argument('--digits-metrics', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    digits = json.loads(args.digits_metrics.read_text())
+    audits = [json.loads(path.read_text()) for path in args.toy_metrics]
+    widths = digits['widths']
+    rows, pairs = [], {}
+    for family, audit in zip(('legendre', 'harmonic', 'logarithmic'), audits):
+        require(audit.get('family', 'harmonic') == family, 'Toy audits must be Legendre, Harmonic, Logarithmic')
+        common = audit['common']
+        require(common['dataset']['name'] == 'sphere' and common['dataset']['dimension'] == 2
+                and common['dataset']['train_samples'] == 8 and common['dataset']['test_samples'] == 30,
+                'Expected the earlier eight-training, thirty-query circle task')
+        require(all(common[key] == audits[0]['common'][key] for key in
+                    ('dataset', 'model', 'training', 'data_sha256', 'tf32'))
+                and common['training'] == digits['common']['training']
+                and audit['recorded_times'] == digits['recorded_times'], 'Task protocols differ')
+        for old in audit['individuals']:
+            n, seed, root = old['width'], old['seed'], Path(old['root'])
+            manifest = json.loads((root/'run.json').read_text())
+            path = root/manifest['repetitions'][str(seed)]
+            report = json.loads((path/'report.json').read_text())
+            require(sha((path/'trajectories.npz').read_bytes()) == old['trajectories_sha256']
+                    == report['trajectories_sha256'], 'Toy trajectory archive changed')
+            require(sha((root/'source.py').read_bytes()) == old['source_sha256']
+                    == manifest['source_sha256'], 'Toy producer changed')
+            candidates = []
+            with np.load(path/'trajectories.npz', allow_pickle=False) as arrays:
+                require(all(array_sha(arrays[key]) == value for key, value in common['data_sha256'].items()),
+                        'Toy data changed')
+                times, reference = arrays['times_reference'], arrays['reference'].astype(float)
+                require(np.array_equal(times, audit['recorded_times']) and reference.shape == (65, 38),
+                        'Toy observation grid differs')
+                pair = {key: array_sha(arrays[key]) for key in ('reference', f'dense_{n}', 'times_reference')}
+                require((n, seed) not in pairs or pairs[n, seed] == pair, 'Toy dense pairs differ across methods')
+                pairs[n, seed] = pair
+                for name in ('reference', f'dense_{n}'):
+                    require(report['runs'][name]['complete'] and np.isfinite(arrays[name]).all()
+                            and np.array_equal(arrays['times_'+name], times), 'Incomplete toy dense pair')
+                dense_rms = float(np.sqrt(np.mean((arrays[f'dense_{n}'].astype(float)[:, 8:]
+                                                  -reference[:, 8:])**2, axis=1)).max())
+                require(dense_rms > 0 and np.isclose(dense_rms, old['dense_pair']['worst_recorded_rms'],
+                                                   rtol=1e-12, atol=0), 'Toy benchmark changed')
+                for point in old['candidates']:
+                    name = point['name']
+                    if not report['runs'].get(name, {}).get('complete'):
+                        continue
+                    prediction = arrays[name].astype(float)
+                    require(prediction.shape == reference.shape and np.isfinite(prediction).all()
+                            and np.array_equal(arrays['times_'+name], times), 'Invalid toy candidate')
+                    rms = float(np.sqrt(np.mean((prediction[:, 8:]-reference[:, 8:])**2, axis=1)).max())
+                    require(np.isclose(rms, point['worst_recorded_rms'], rtol=1e-12, atol=0)
+                            and point['learned'] == report['models'][name]['moving']
+                            and point['fixed'] == report['models'][name]['fixed'], 'Toy score/storage changed')
+                    candidates.append(dict(point, worst_recorded_ratio=rms/dense_rms,
+                                           trajectory_pass=rms <= dense_rms))
+            passing = [point for point in candidates if point['trajectory_pass']]
+            require(passing, f'No tested trajectory-RMS pass for {family}/{n}/{seed}')
+            rows.append(dict(family=family, width=n, seed=seed, root=str(root),
+                archive_sha256=old['trajectories_sha256'], paired_trajectory_sha256=pair,
+                prior_joint_selected=old['selected'], selected=min(passing, key=lambda p: p['learned']),
+                candidates=candidates))
+    toy_groups, toy_seeds = {}, sorted({row['seed'] for row in rows})
+    for family in ('legendre', 'harmonic', 'logarithmic'):
+        subset = [row for row in rows if row['family'] == family]
+        require(len(toy_seeds) == 3 and len(subset) == len(widths)*3
+                and {(row['width'], row['seed']) for row in subset}
+                    == {(n, seed) for n in widths for seed in toy_seeds}, 'Incomplete toy mean')
+        toy_groups[family] = [dict(width=n, mean=float(np.mean([
+            row['selected']['learned'] for row in subset if row['width'] == n]))) for n in widths]
+    panels = [('Toy circle (d = 2)', toy_groups), ('Digits 1 vs 7 (d = 64)', digits['groups']['selected'])]
+    fits = {}
+    figure, axes = plt.subplots(1, 2, figsize=(11.5, 4.5), sharex=True, sharey=True)
+    for axis, (title, groups) in zip(axes, panels):
+        fits[title] = {}
+        for family, color, marker in (('legendre', '#185b84', 's'),
+                                      ('harmonic', '#dd8822', '^'), ('logarithmic', '#228833', 'o')):
+            if family not in groups:
+                continue
+            values = np.array([group['mean'] for group in groups[family]])
+            axis.plot(widths, values, color=color, marker=marker, linewidth=2,
+                      markersize=5, label=family.capitalize())
+            if family != 'legendre':
+                x, y = np.log(np.log(np.asarray(widths, dtype=float))), np.log(values)
+                exponent, intercept = np.polyfit(x, y, 1)
+                fit = dict(exponent=float(exponent), coefficient=float(np.exp(intercept)),
+                    log_space_r2=float(1-np.sum((y-intercept-exponent*x)**2)/np.sum((y-y.mean())**2)))
+                fits[title][family] = fit
+                grid = np.geomspace(widths[0], widths[-1], 250)
+                axis.plot(grid, fit['coefficient']*np.log(grid)**fit['exponent'],
+                          color=color if family == 'harmonic' else '#333333', linestyle='--', linewidth=1.5,
+                          label=rf'{family.capitalize()} fit: $(\log n)^{{{exponent:.2f}}}$')
+        axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=title)
+        axis.set_xticks(widths, [str(n) for n in widths])
+        axis.xaxis.set_minor_formatter(NullFormatter())
+        axis.tick_params(axis='x', labelsize=8)
+        axis.grid(alpha=.2)
+        axis.legend(fontsize=8, frameon=False)
+    axes[0].set_ylabel('Mean learned scalars')
+    figure.text(.02, .02, 'Three seeds; trajectory RMS ≤ dense–dense. Fixed storage excluded.', fontsize=9)
+    figure.tight_layout(rect=(0, .06, 1, 1))
+    args.out.mkdir(parents=True, exist_ok=False)
+    for extension in ('png', 'pdf'):
+        figure.savefig(args.out/f'learned_state_mean_tasks.{extension}', dpi=180)
+    plt.close(figure)
+    source = Path(__file__).read_bytes()
+    (args.out/'source.py').write_bytes(source)
+    caption = ('Mean learned storage across three independently coupled repetitions on each task. '
+        'Both panels select the smallest tested completed model with maximum-recorded query RMS '
+        'no greater than the same dense-pair maximum; no separate endpoint requirement. Toy runs '
+        'are re-scored from their saved arrays; the digits panel is unchanged. All six widths are '
+        'included. Dashed curves are unweighted log-space fits to C*(log n)^a, not asymptotic or '
+        'optimal-budget guarantees. Fixed storage and full-horizon empirical rollout setup are '
+        'additional; no new training or time-step refinement. Circle sources retain their original '
+        'width-dependent Logarithmic rank caps and fixed Harmonic spatial/source settings.\n')
+    (args.out/'captions.txt').write_text(caption)
+    save_json(args.out/'metrics.json', dict(scope=caption.strip(), widths=widths,
+        toy_seeds=toy_seeds, digits_seeds=digits['seeds'], toy_individuals=rows,
+        toy_groups=toy_groups, digits_groups=digits['groups']['selected'], fits=fits,
+        inputs=[dict(path=str(p.resolve()), sha256=sha(p.read_bytes()))
+                for p in [*args.toy_metrics, args.digits_metrics]],
+        source_sha256=sha(source), command=shlex.join([sys.executable, '-B', str(Path(__file__).resolve()),
+            'trajectory-task-plot', *argv]), cwd=str(Path.cwd()), training_rerun=False))
+    print(json.dumps(dict(event='trajectory_task_plot', output=str(args.out), fits=fits)), flush=True)
+    return 0
+
+
 def budget_comparison_plot(argv):
     """Compare paired six-width, three-seed Legendre and Logarithmic audits."""
     import matplotlib
@@ -13213,6 +13355,8 @@ def budget_comparison_plot(argv):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'trajectory-task-plot':
+        sys.exit(trajectory_task_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'logarithmic-order-probe':
         sys.exit(logarithmic_order_probe_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'trajectory-budget-plot':

@@ -1,5 +1,51 @@
 # Bounded appendix figure pilots
 
+## Mean-only toy/digits comparison
+
+User requested toy on the left and digits on the right, retaining log-log
+axes and mean curves only. The saved three-seed circle audits are re-scored
+against the same maximum-recorded query RMS criterion as the current digits
+panel, without the extra endpoint requirement. No new training, budget
+searches or initializer changes. Toy includes Legendre, Harmonic and
+Logarithmic; digits includes Legendre and Logarithmic. Fixed storage is
+additional and not plotted. Both tasks retain m8,p30,L2tanh,Euler1/160,T32.
+
+All54 toy method/width/seed cases have passing saved witnesses under this
+criterion, including the previously missing Harmonic n16384/seed1702 case
+(q512). Selections change in10 Legendre,9 Harmonic and10 Logarithmic rows.
+At16384, toy Logarithmic now selects q512 for each seed, removing its old
+endpoint-driven high-budget jump. This is a benchmark change, not a better
+initializer or a new optimal-budget search.
+
+| Dense width | Toy mean Legendre | Toy mean Harmonic | Toy mean Logarithmic |
+|---:|---:|---:|---:|
+|512|20652.667|46386.667|51538.667|
+|1024|52226|88594.667|102146.667|
+|2048|104450|263688|186973.333|
+|4096|230743.333|233522.667|171890.667|
+|8192|505175.333|702664|297885.333|
+|16384|1097730|444296|263688|
+
+All-six-width log-space fits C(log n)^a give toy Harmonic a5.717684
+(R^2=0.872897), toy Logarithmic a3.727908 (R^2=0.885212), and unchanged
+digits Logarithmic a4.179965 (R^2=0.977814). These are descriptive fits to
+tested passing storage, not asymptotic exponents or exact minima. The toy
+Logarithmic source-rank caps remain width-dependent; the Harmonic source
+settings remain spatial25/time8/rank42. No continuous-time certificate.
+
+Regenerate with `capture_trajectory.py trajectory-task-plot --toy-metrics
+<legendre_three_seeds/figures/metrics.json>
+<harmonic_full_width_seeds/figures_extended/metrics.json>
+<logarithmic_three_seeds/figures/metrics.json> --digits-metrics
+<digits_logarithmic_three_seeds/trajectory_rms_polylog_fit/metrics.json>
+--out <fresh-directory>`, with inputs relative to this study's generated root.
+PNG/PDF, caption, all toy candidate scores/selections, input hashes, source,
+exact command and fits are in `data/generated/paper_appendix_pilots_20261009/mean_task_comparison/`.
+Root and scoped support independently recomputed toy RMS selection; all54
+archives and232 completed candidates agree with prior metrics, and the18
+dense pairs match exactly across toy methods. Digits groups and exponent
+are exactly unchanged. The rendered figure and scoped whitespace check pass.
+
 ## Strategic trajectory-contract and source repair
 
 ### Requested descriptive fit overlay
