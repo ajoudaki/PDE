@@ -77,50 +77,61 @@ that defect and adds multistep vector/matrix, seed lifecycle, jet and source
 response regressions. It also repairs section links, definition numbering and
 the new rule layout. No earlier verdict is reused to approve the changed bytes.
 
-The corrected standalone edition has passed all 72 tests, imports, library
-boundary checks, all guide snippets and all example producers. The full HTML
-build passes 7,490 local link/fragment checks across 18 pages with no duplicate
-IDs. Complete PDF and editable-LaTeX builds also pass. Structural checks retain
-all 466 older Chapter 2 anchors and resolve all 50 new anchors, verify the
-formal environments, and confirm the frozen 116-file source edition and
-18-file dependency packet remain unchanged. The root inspected the new PDF
-definition, theorem and adjoint rules. Both fresh complete scientific reviews
-pass: [review one](promotion_review_one_v3.md) and
-[review two](promotion_review_two_v3.md). The root read both full reports and
-verified their input identities. They independently reconstructed the full
-proof and implementation, ran all supplied tests/recipes and added separate
-exact Gaussian and finite-width algebraic attacks.
+Both fresh complete scientific reviews pass: [review one](promotion_review_one_v3.md)
+and [review two](promotion_review_two_v3.md). The root read both full reports
+and verified their inputs. Both reconstructed the complete proof and code,
+executed the supplied tests and recipes, and added independent exact Gaussian
+and finite-width algebraic checks.
 
-The [v3 integration review](promotion_integration_review_v3.md) accepted its
-assembled edition. At the final concurrency check, an independently committed
-addition to the maintained trajectory-compression chapter required refreshing
-the whole-edition context. [Exact input correspondence](promotion_scientific_input_correspondence_v4.json)
-confirms that all 18 scientific packet files, all 18 required edition reads
-and all 15 proposed file changes remain identical. The scientific verdicts
-stay attached to those unchanged inputs; they do not extend to the other
-chapter. A fresh integration review includes that chapter's complete new
-section as placement, duplication and normalization context. Its final
-report is pending; no whole-book proof audit is claimed.
+The final v6 mathematical content, implementation and proof dependencies are
+the same reviewed material. [Exact correspondence](promotion_scientific_input_correspondence_v6.json)
+records the byte-identical code and dependencies. [Layout equivalence](promotion_layout_equivalence_v6.json)
+verifies that thirteen display-only reflows preserve all ordered mathematical
+tokens, punctuation and labels; reversing those changes exactly restores the
+reviewed theory and Chapter 2. No scientific verdict is transferred to the
+concurrent addition in the trajectory-compression chapter.
 
-Frozen inputs and validation outputs:
-`data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v4/`.
-The run's `mfp_book_preview.pdf` is an exact extract of pages 117–136 from
-the fully rendered PDF, including the adjoining book context. Its
-`reviewed_changes.patch` contains every proposed source change, and
-`edition/code/MFP_CALCULUS.md` is the complete maintained API guide candidate.
-Both preview and patch have source/hash manifests in that run.
-Exact neutral review scopes are retained in `promotion_review_assignment_v3.md`
-and `promotion_integration_assignment_v4.md`. The complete reports and original
-adverse v1 evidence remain retained. The reviewed source-manifest SHA-256 is
-`30a4f627f2937664ce2e66fbb620d09331a285c713f561e0075fe3cf15e0cdca`;
+The v4 standalone code validation passes all 72 tests, imports, library
+boundaries, every guide snippet and all example producers. All 92 code and
+requirements files in v6 are byte-identical to that executed edition. A fresh
+integration reviewer independently executes the current v6 code and recipes.
+The final HTML build passes 7,490 local link/fragment checks across 18 pages
+with no duplicate IDs. Actual MathJax typesetting checks all 44 new displays
+at 1500×1100 and 1280×1100: zero errors and zero article-boundary overflows.
+The complete 1,752-page PDF build passes. Editable LaTeX and final structural
+validation are pending.
+
+The earlier [v3 integration report](promotion_integration_review_v3.md) passed
+its edition. A subsequent concurrent book addition required a refreshed
+whole-edition review; the [v4 report](promotion_integration_review_v4.md)
+identified overwide HTML equations. That adverse report remains retained.
+The corrected candidate has a [fresh complete neutral integration assignment](promotion_integration_assignment_v6.md),
+including the complete new compression section as placement/duplication
+context. Its independent report is pending. The assigned older read scope
+and unread complement are explicit; this is not a new whole-book proof audit.
+
+Frozen final inputs and available validation outputs:
+`data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v6/`.
+The run's `mfp_book_preview.pdf` is an exact extract of pages 117–137 from
+the complete rendered PDF, including adjoining context. Its
+`reviewed_changes.patch` contains all 15 proposed source changes and passes
+a dry run against the retained current baseline. The complete maintained API
+guide candidate is `edition/code/MFP_CALCULUS.md`. Preview and patch have
+source/hash manifests. All earlier frozen candidates and original reports
+remain retained.
+
+The final source-manifest SHA-256 is
+`188c0cc7cf9de7fe29ac8f4786f33448a89e73d11d828b79379088b7136b7c04`;
 the exact 15-file changed-manifest SHA-256 is
-`ff6d10776f3add6a276f39be80e23a3517cf2b6d007a20c1eb40fa62299a69d8`.
+`9577ec8be09f5dffe4cc5772a2ad3d6d1a87fecaf6d9d572d8ad20e902b48854`;
+the patch SHA-256 is
+`8f919e8f3a5db9ad5c89eca958b952de7cf85df0ad8e69759c242379094eb7c6`.
 
 ## Recommendation and remaining action
 
 The MFP source addition is recommended for integration at the destinations above.
-The final approval request awaits correction of the overwide HTML displays,
-revalidation and a fresh complete independent integration review.
+The final approval request awaits completion of format validation and the
+fresh complete independent integration review.
 On approval,
 recheck the shared checkout and dependencies, apply the reviewed source bytes,
 verify live correspondence and affected integration checks, and record the
