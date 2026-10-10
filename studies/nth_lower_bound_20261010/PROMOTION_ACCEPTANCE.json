@@ -1,0 +1,27 @@
+{
+  "approval": {
+    "text": "Yes I approve",
+    "scope": "The unchanged reviewed promotion_v4 package presented in the preceding assistant turn",
+    "date": "2026-10-10"
+  },
+  "candidate_sha256": "e8c8cbd7474b9e0bbaded9100ce02474708339f9ac95cf606de7b93886616d23",
+  "reviewed_edition": "data/generated/nth_lower_bound_20261010/promotion_v4",
+  "files": [
+    {
+      "path": "docs/07-observable-closure.qmd",
+      "sha256": "61c07f5813112b18011944618059cf3a1155feab476762aa8602442fd98e36e4",
+      "byte_identical_to_reviewed": true
+    },
+    {
+      "path": "docs/08b-trajectory-compression.qmd",
+      "sha256": "405c8e0a4d99d8b5bebcb4c13d5534317050aa0a10d33b0476b9d90c9cc5bdf5",
+      "byte_identical_to_reviewed": true
+    },
+    {
+      "path": "docs/references.bib",
+      "sha256": "22e5ef136f3d863bd95f09d66206dca5b09c4e92ee5a0bcc91aac093e94709a1",
+      "byte_identical_to_reviewed": true
+    }
+  ],
+  "status": "integrated; commit pending"
+}

@@ -1,0 +1,68 @@
+--- v1.qmd
++++ v2.qmd
+@@ -161,7 +161,9 @@
+ $$ {#eq-nth-storage-geometric}
+ :::
+ 
+-::: {#proof-nth-storage-source-control .proof}
++[]{#proof-nth-storage-source-control}
++
++::: {.proof}
+ In the maximum block norm, a source derivative replaces one of the three
+ parameter leaves of $c^\top WBv_0$ by a quadratic expression.
+ After $k$ derivatives there are at most $(k+2)!/2$ terms, each with $k+3$
+@@ -270,7 +272,9 @@
+ Here and below unspecified $c,C>0$ are absolute.
+ :::
+ 
+-::: {#proof-nth-storage-gaussian-control .proof}
++[]{#proof-nth-storage-gaussian-control}
++
++::: {.proof}
+ A maximal $1/4$-separated sphere set has at most $9^d$ elements by comparing
+ disjoint radius-$1/8$ balls with the radius-$9/8$ ball, and is a $1/4$ net.
+ It gives $\|M\|_{\rm op}\le(4/3)\max_v\|Mv\|_2$.
+@@ -356,7 +360,9 @@
+ $$ {#eq-nth-storage-omitted-jet}
+ :::
+ 
+-::: {#proof-nth-storage-omitted-derivative .proof}
++[]{#proof-nth-storage-omitted-derivative}
++
++::: {.proof}
+ Directly, $G=(v_a^\top v_b)_{a,b}=\frac12(I_m+\mathbf1\mathbf1^\top)$,
+ $\lambda^2=1/8+1/(2m)$, label RMS is $Y$, and label variance is
+ $3Y^2/4$. Identity activations preserve this population feature Gram.
+@@ -433,7 +439,9 @@
+ $$ {#eq-nth-storage-transfer}
+ :::
+ 
+-::: {#proof-nth-storage-analytic-transfer .proof}
++[]{#proof-nth-storage-analytic-transfer}
++
++::: {.proof}
+ For a degree-$N$ polynomial $P$, map $[0,R/4]$ to $[-1,1]$.
+ Its nonconstant Chebyshev coefficients have modulus at most $2\|P\|$,
+ by their cosine integral formula, and
+@@ -478,7 +486,9 @@
+ $$ {#eq-nth-storage-dense-lower}
+ :::
+ 
+-::: {#proof-nth-storage-dense-small-ball .proof}
++[]{#proof-nth-storage-dense-small-ball}
++
++::: {.proof}
+ Use $v_*=b/\|b\|_2$ and $g(t)=f_n(t,v_*)-\widetilde f_n(t,v_*)$.
+ On the pair's matrix-norm event, @lem-nth-storage-source-control bounds
+ $|g|\le2\|b\|_2$ on $|t|<R_0$.
+@@ -510,7 +520,9 @@
+ $|g(t_n)|\ge\|b\|_2/(2^{31}n^2)$, proving the assertion.
+ :::
+ 
+-::: {#proof-nth-storage-main .proof}
++[]{#proof-nth-storage-main}
++
++::: {.proof}
+ For the general upper, combine @eq-nth-storage-geometric and
+ @eq-nth-storage-dense-lower to get
+ $E_n(q)/D_n\le2^{37}n^2\,1024^{-q}$ when $b\ne0$.

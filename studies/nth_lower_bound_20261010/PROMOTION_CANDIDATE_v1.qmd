@@ -1,0 +1,566 @@
+## Literal storage of a frozen-top neural tangent hierarchy {#sec-nth-storage}
+
+The preceding encoding obstruction depends on the permitted representation.
+Here that representation is fixed explicitly: ordered neural tangent hierarchy
+(NTH) tensors, retained as literal arrays and truncated by freezing their
+highest rank. This rule, associated with the NTH of @huang2020nth, is considered
+in the book's feature-learning metric with zero initial readout. No theorem
+for another parameterization or readout initialization is transferred.
+On a correlated growing dataset, the necessary and sufficient retained size
+is $\exp[\Theta(\log m\log n)]$ on a fixed short physical interval.
+
+### Model, closure, and storage {#sec-nth-storage-setup}
+
+There are $m\ge1$ deterministic samples, independent of initialization,
+$v_a=x_a/\sqrt d\in\mathbb R^d$, with $\|v_a\|_2\le1$ and $|y_a|\le1$.
+Predictions indexed by $v$ mean the physical network input $x=\sqrt d\,v$.
+The two hidden activations are identity. In canonical layer notation,
+$W^{(1)}\in\mathbb R^{n\times d}$, $W^{(2)}\in\mathbb R^{n\times n}$,
+$W^{(3)}\in\mathbb R^n$, and
+$$
+h^{(1)}=W^{(1)}v,\quad h^{(2)}=W^{(2)}h^{(1)},\quad
+f_n(v)=\frac{W^{(3)\top}h^{(2)}}n,\qquad
+r_a=f_n(v_a)-y_a,\quad \mathcal L=\frac1{2m}\sum_a r_a^2.
+$$ {#eq-nth-storage-network}
+Initially the first two matrices have independent entries with laws
+$\mathcal N(0,1)$ and $\mathcal N(0,1/n)$, respectively, and $W^{(3)}(0)=0$.
+All blocks train with mobilities $(n,1,n)$. The half-MSE is deliberate:
+the book's full-MSE flow at physical time $t$ equals this flow at time $2t$.
+Thus the interval below becomes $[0,T/2]$ under full-MSE.
+
+Put
+$$
+B=W^{(1)}/\sqrt n,\qquad W=W^{(2)},\qquad c=W^{(3)}/\sqrt n,
+\qquad \theta=(B,W,c).
+$$ {#eq-nth-storage-normalization}
+Then $f_n(v)=c^\top WBv$ and training is ordinary Euclidean/Frobenius
+gradient flow in $\theta$. In particular $B_0,W_0$ have independent
+$\mathcal N(0,1/n)$ entries. Define the fixed data summaries and evolving
+prediction coefficient by
+$$
+Q=\frac1m\sum_a v_av_a^\top,\qquad b=\frac1m\sum_a y_av_a,\qquad
+w=B^\top W^\top c,\qquad f_n(v)=v^\top w.
+$$ {#eq-nth-storage-data}
+Here $\|Q\|_{\rm op}\le1$, $\|b\|_2\le1$, and the exact dense equations are
+$$
+\dot B=W^\top c(b-Qw)^\top,\qquad
+\dot W=c[B(b-Qw)]^\top,\qquad \dot c=WB(b-Qw).
+$$ {#eq-nth-storage-dense}
+
+For arbitrary input vectors define the source field and ordered tensors by
+$$
+\begin{aligned}
+V(v;\theta)&=\nabla_\theta f_n(v)
+ =(W^\top cv^\top,\ c(Bv)^\top,\ WBv),\\
+K_1(v;\theta)&=f_n(v),\\
+K_{r+1}(v_0,\ldots,v_r;\theta)
+ &=D_\theta K_r(v_0,\ldots,v_{r-1};\theta)[V(v_r;\theta)].
+\end{aligned}
+$$ {#eq-nth-storage-source}
+Every input slot is linear; permutation symmetry is not assumed.
+$K_r(\mathbf v;0)$ means evaluation at $\theta_0$.
+For an integer $q\ge2$, copy these initialized tensors through rank $q$,
+freeze rank $q$, and evolve all lower ranks by
+$$
+\dot K_r^{(q)}(\mathbf v;t)
+ =-\frac1m\sum_a r_a^{(q)}(t)K_{r+1}^{(q)}(\mathbf v,v_a;t),
+\quad r_a^{(q)}=f_{n,q}(v_a)-y_a,\quad f_{n,q}(v)=K_1^{(q)}(v).
+$$ {#eq-nth-storage-closure}
+The closure uses its own residual. In each array the first slot is a training
+input or a passive coordinate query $e_i$, $1\le i\le d$; all later slots
+are training indices. Passive queries have no labels. Linearity gives the
+exact decoder $f_{n,q}(t,v)=v^\top w_q(t)$ for any later query, where
+$w_q(t)=(f_{n,q}(t,e_i))_{i=1}^d$.
+The moving and frozen array counts are, respectively,
+$$
+N_{\rm mov}(q)=(m+d)\sum_{r=1}^{q-1}m^{r-1},\qquad
+N_{\rm top}(q)=(m+d)m^{q-1},\qquad N_{\rm arr}=N_{\rm mov}+N_{\rm top}.
+$$ {#eq-nth-storage-counts}
+The dataset adds at most $md+m$ fixed scalars. These are retained real
+coordinates, excluding coefficient-generation work, initialization peak
+memory, numerical integration and bit precision. They do not charge a
+factorized or implicit encoding. Once the initial tensors have been formed
+from $B_0,W_0$ and the data, those dense matrices need not be retained.
+
+Fix throughout
+$$
+T=2^{-15},\qquad
+E_n(q)=\sup_{0\le t\le T}\sup_{\|v\|_2=1}|f_n(t,v)-f_{n,q}(t,v)|,\qquad
+D_n=\sup_{0\le t\le T}\sup_{\|v\|_2=1}|f_n(t,v)-\widetilde f_n(t,v)|,
+$$ {#eq-nth-storage-errors}
+where $\widetilde f_n$ is an independent dense initialization on the same
+dataset. Both errors use the same physical window and sphere.
+In probability statements, nonexistence on the window counts as failure;
+$E_n(q)\le A D_n$ includes $E_n(q)=D_n=0$ without taking a ratio.
+
+::: {#thm-nth-storage-matching}
+### Matched literal storage
+
+Fix $0<Y\le1$, a success probability $0<p<1$, and an accuracy factor $A>0$.
+For $4\mid m$, $4\le m\le\sqrt n$, take $d=m+1$, orthonormal coordinates
+$e_0,\ldots,e_m$, and
+$$
+v_a=\frac{e_0+e_a}{\sqrt2},\qquad
+y_a=Ys_a,\qquad
+s_a=\begin{cases}1,&a\le3m/4,\\-1,&a>3m/4.\end{cases}
+$$ {#eq-nth-storage-hard-data}
+Let $S_n(p,A)$ be the minimum of $N_{\rm arr}(q)+md+m$ over deterministic
+orders $q\ge2$ for which $\Pr\{E_n(q)\le A D_n\}\ge p$.
+For sufficiently large $n$, uniformly over the displayed sample range,
+$$
+\exp[c_Y\log m\log n]\ \le S_n(p,A)
+\le\exp[C_Y\log m\log n]
+$$ {#eq-nth-storage-matched}
+for positive constants depending only on $Y$; the width threshold may also
+depend on $p,A$. The same order holds for the minimum moving-array count,
+and survives omission of a zero odd frozen top.
+The lower bound excludes all insufficient orders simultaneously, including
+initialization-dependent order selection under a deterministic budget.
+For $m=4\lfloor n^a/4\rfloor$, fixed $0<a\le1/2$, the size is
+$\exp[\Theta_{Y,a}((\log n)^2)]$.
+:::
+
+::: {#cor-nth-storage-general-upper}
+### A uniform local upper bound for deterministic datasets
+
+For every dataset in the setup, $n\ge4$ and $1\le d\le n$, put
+$$
+q_n=\left\lceil\frac{\log(2^{37}n^3)}{\log1024}\right\rceil,\qquad
+c_*=4-\tfrac32\log9>0.
+$$ {#eq-nth-storage-order}
+With probability at least $1-4e/\sqrt n-4e^{-c_*n}$, the dense and
+order-$q_n$ solutions exist and $E_n(q_n)\le D_n/n$.
+For $m\ge2$ their arrays satisfy
+$N_{\rm mov}\le2(m+d)m^{q_n-2}$ and
+$N_{\rm arr}\le2(m+d)m^{q_n-1}$; for $m=1$ the exact counts are
+$(1+d)(q_n-1)$ moving and $1+d$ frozen.
+No Gram gap or positive label mean is required. If $b=0$, both dense
+predictors and the closure vanish identically.
+The probability is for each deterministic dataset, not one simultaneous
+anti-concentration event for all datasets.
+:::
+
+The proof separates three issues. Ordered source integration controls the
+unchanged closure with its own residual. A nonzero omitted derivative and
+analytic continuation force a lower error at every finite order.
+Upper and lower probability bounds on the *actual* dense-pair discrepancy
+then give the two storage inequalities.
+
+::: {#lem-nth-storage-source-control}
+### Ordered source convergence and a common analytic disk
+
+Suppose deterministically that $\|B_0\|_{\rm op},\|W_0\|_{\rm op}\le4$.
+The dense solution and every finite closure exist on $[0,T]$.
+Their prediction coefficients extend holomorphically to $|t|<R_0=2^{-12}$,
+with norms at most one there; the dense coefficient satisfies
+$\|w(t)\|_2\le\|b\|_2(e^{1875|t|}-1)<\|b\|_2$ when $b\ne0$.
+Simultaneously for every $q\ge2$, with $j=2\lfloor q/2\rfloor+1$,
+$$
+E_n(q)\le64(j+1)(j+2)(\|b\|_2/4096)^j
+\le64\|b\|_2\,1024^{-q}.
+$$ {#eq-nth-storage-geometric}
+:::
+
+::: {#proof-nth-storage-source-control .proof}
+In the maximum block norm, a source derivative replaces one of the three
+parameter leaves of $c^\top WBv_0$ by a quadratic expression.
+After $k$ derivatives there are at most $(k+2)!/2$ terms, each with $k+3$
+parameter leaves and one occurrence of each input. Products, transposes,
+outer products and scalar contractions are bounded by their operator/vector
+norm products; this construction introduces no free trace. Consequently,
+on a block-norm ball of radius $s$,
+$$
+|K_{k+1}(v_0,\ldots,v_k;\theta)|
+\le\tfrac12(k+2)!\,s^{k+3}\prod_i\|v_i\|_2,\qquad
+|K_{k+1}(\mathbf v;0)|\le32\,4^k(k+2)!\prod_i\|v_i\|_2.
+$$ {#eq-nth-storage-leaf-bound}
+Readout reflection $J(B,W,c)=(B,W,-c)$ obeys $f_n\circ J=-f_n$ and
+$V(v;J\theta)=-JV(v;\theta)$. Induction gives
+$K_r(\mathbf v;J\theta)=(-1)^rK_r(\mathbf v;\theta)$.
+Thus all odd initialized ranks vanish.
+
+Extend @eq-nth-storage-dense over complex coordinates using ordinary
+transposes. Within distance one of $\theta_0$, all block norms are at most
+five, $\|w\|_2\le125$, and $\|b-Qw\|_2\le126$.
+Each block velocity is at most $25\cdot126=3150$.
+A unit variation changes $w$ by at most $75$, so each velocity derivative
+is at most $5\cdot126+5\cdot126+25\cdot75=3135$.
+Picard integration on $|t|\le R_0$ maps this path ball into itself and
+contracts, since $3150R_0,3135R_0<1$. Its uniform iterates give a
+holomorphic solution, unique also as a real polynomial ODE solution.
+Differentiating $w=B^\top W^\top c$ gives
+$\|w'\|_2\le1875(\|b\|_2+\|w\|_2)$.
+Integration along a radial segment and scalar Gronwall give the stated bound,
+using $1875R_0<\log2$.
+
+For a vector path $z$, put $a_z(t)=b-Qz(t)$. Define a vector-valued map by
+its pairing with every $v$:
+$$
+v^\top\mathcal F_q[z](t)=
+\sum_{k=1}^{q-1}\int_{0<s_k<\cdots<s_1<t}
+K_{k+1}(v,a_z(s_1),\ldots,a_z(s_k);0)\,ds_k\cdots ds_1.
+$$ {#eq-nth-storage-ordered-map}
+The complex integrals follow the straight segment to $t$;
+$\mathcal F_\infty$ uses all $k\ge1$.
+The first appended slot is always at the latest integration time.
+For $u_a(t)=(y_a-v_a^\top z(t))/m$, define
+$I_{a_1\ldots a_k}[u]$ as the ordered integral of
+$\prod_i u_{a_i}(s_i)$ over that simplex, and $I_\varnothing=1$.
+For each retained rank the exact reconstruction is
+$$
+K_r^{(q)}(\mathbf v;t)=
+\sum_{k=0}^{q-r}\ \sum_{a_1,\ldots,a_k}
+K_{r+k}(\mathbf v,v_{a_1},\ldots,v_{a_k};0)
+I_{a_1\ldots a_k}[u](t).
+$$ {#eq-nth-storage-reconstruction}
+Differentiating the outer integration limit gives
+@eq-nth-storage-closure whenever $z=\mathcal F_q[z]$; multilinearity
+identifies its rank-one equation with @eq-nth-storage-ordered-map.
+Thus a fixed point supplies all actual arrays, their initialized values,
+and their frozen top. Polynomial ODE uniqueness identifies this solution
+with the prescribed closure.
+
+On the unit ball of holomorphic coefficient paths on $|t|\le R_0$,
+$\|a_z\|\le2$. The simplex volume and @eq-nth-storage-leaf-bound bound
+every finite map by $32\sum_{k\ge1}(k+1)(k+2)(8R_0)^k<0.38$.
+Telescoping its $k$ source slots bounds its Lipschitz constant by
+$16\sum_{k\ge1}k(k+1)(k+2)(8R_0)^k<0.2$.
+Contraction gives all the asserted analytic closure paths.
+
+On real $[0,T]$, if $\|b\|_2>0$, use instead the path ball of radius
+$\|b\|_2$ and put $x=8T=1/4096$. Uniformly over finite and infinite maps,
+$$
+\|\mathcal F_q[z]\|_\infty
+\le64\|b\|_2[(1-x)^{-3}-1]<\|b\|_2/16,\qquad
+L\le\frac{96x}{(1-x)^4}<\frac1{32}.
+$$ {#eq-nth-storage-contraction}
+These follow from $\|a_z\|\le2\|b\|_2$ and
+$\|a_z-a_{\widetilde z}\|\le\|z-\widetilde z\|$; the series converge
+uniformly. The dense path is the infinite fixed point: repeated integration
+of its exact hierarchy leaves, after $N$ steps, an $N$-fold integral of
+$K_{N+1}(v,a_w(s_1),\ldots,a_w(s_N);\theta(s_N))$.
+Previously selected source vectors are held fixed during each integration.
+By the dense bound and @eq-nth-storage-leaf-bound, this remainder is at most
+$\frac{125}{2}(N+1)(N+2)(10\|b\|_2T)^N$, which tends to zero.
+
+Parity makes $j=2\lfloor q/2\rfloor+1$ the first possible omitted index.
+For $z_0=x\|b\|_2$, the omitted tail is at most
+$$
+32\sum_{k\ge j}(k+1)(k+2)z_0^k
+\le32(j+1)(j+2)z_0^j\frac{1+z_0}{(1-z_0)^3}.
+$$
+Here $(j+\ell+1)(j+\ell+2)\le(j+1)(j+2)(\ell+1)^2$ and
+$\sum_{\ell\ge0}(\ell+1)^2z^\ell=(1+z)/(1-z)^3$.
+The difference of the two own-residual fixed points is bounded by this
+tail divided by $1-L$. Since $(1+x)/[(1-x)^3(1-L)]<2$ and
+$(j+1)(j+2)\le4^j$ for $j\ge2$, @eq-nth-storage-geometric follows.
+If $b=0$, the dense initial state is stationary and the zero path is a
+fixed point of every finite map; uniqueness proves the omitted case.
+:::
+
+::: {#lem-nth-storage-gaussian-control}
+### Gaussian events and dense concentration
+
+For $d\le n$ the matrix-norm event in @lem-nth-storage-source-control has
+probability at least $1-2e^{-c_*n}$. For the hard family, with probability
+at least $1-n^{-1}-Ce^{-cn}$,
+$$
+D_n\le C\sqrt{\frac{m+\log(en)}n}.
+$$ {#eq-nth-storage-dense-upper}
+Here and below unspecified $c,C>0$ are absolute.
+:::
+
+::: {#proof-nth-storage-gaussian-control .proof}
+A maximal $1/4$-separated sphere set has at most $9^d$ elements by comparing
+disjoint radius-$1/8$ balls with the radius-$9/8$ ball, and is a $1/4$ net.
+It gives $\|M\|_{\rm op}\le(4/3)\max_v\|Mv\|_2$.
+For a fixed unit $v$, $n\|B_0v\|_2^2$ is $\chi_n^2$.
+The Gaussian integral gives $\mathbb E e^{t\chi_n^2}=(1-2t)^{-n/2}$.
+Exponential Markov at $t=4/9$ yields
+$\Pr(\|B_0v\|_2>3)\le e^{-4n}9^{n/2}$.
+The net union bound proves the asserted $e^{-c_*n}$ failure for $B_0$;
+the same calculation proves it for $W_0$.
+
+We supply the Gaussian Lipschitz concentration used here.
+For standard Gaussian measure $\gamma$ in any finite dimension define
+$P_s h(x)=\mathbb E h(e^{-s}x+\sqrt{1-e^{-2s}}\,Z)$, $Z\sim\gamma$.
+Write $\mathscr A=\sum_i\partial_{x_i}^2-x\cdot\nabla$.
+For positive bounded smooth $h$ with bounded derivatives and bounded away
+from zero, Gaussian integration by parts gives $\partial_sP_sh=\mathscr A P_sh$ and
+$$
+-\frac{d}{ds}\operatorname{Ent}_\gamma(P_sh)
+=\mathbb E_\gamma\frac{|\nabla P_sh|^2}{P_sh},\qquad
+\operatorname{Ent}_\gamma(h)=
+\mathbb E_\gamma(h\log h)-\mathbb E_\gamma h\log\mathbb E_\gamma h.
+$$
+Indeed $\mathbb E_\gamma[u\mathscr A v]
+=-\mathbb E_\gamma\nabla u\cdot\nabla v$, and $P_s$ preserves $\gamma$.
+Since $\nabla P_sh=e^{-s}P_s\nabla h$, weighted Cauchy--Schwarz gives
+$|\nabla P_sh|^2/P_sh\le e^{-2s}P_s(|\nabla h|^2/h)$.
+As $s\to\infty$, bounded convergence gives $P_sh\to\mathbb E_\gamma h$
+and entropy tending to zero. Integrating proves
+$\operatorname{Ent}_\gamma(h)\le\frac12\mathbb E_\gamma(|\nabla h|^2/h)$.
+For bounded smooth $L$-Lipschitz $F$, with $L>0$, substitute $h=e^{\lambda F}$.
+With $\psi(\lambda)=\log\mathbb E e^{\lambda F}$ this gives
+$\lambda\psi'(\lambda)-\psi(\lambda)\le\lambda^2L^2/2$.
+Integrating $(\psi/\lambda)'$ from zero yields
+$\log\mathbb E e^{\lambda(F-\mathbb EF)}\le\lambda^2L^2/2$.
+Markov, optimized at $\lambda=s/L^2$, and the same argument for $-F$ give
+$$
+\Pr\{|F-\mathbb EF|\ge s\}\le2e^{-s^2/(2L^2)}.
+$$ {#eq-nth-storage-gaussian-tail}
+For an arbitrary Lipschitz $F$, truncate its values and smooth by convolution,
+preserving the Lipschitz bound. Pass first through smoothing and then
+truncation by dominated convergence: $|F(x)|\le|F(0)|+L|x|$, whose
+exponential is Gaussian-integrable. The case $L=0$ is constant.
+This also justifies the preceding
+smooth calculations by bounded approximations.
+
+On the matrix-norm event, all real states have block norms at most five.
+For two such trajectories, measure parameter differences by the sum of
+Frobenius/vector norms. Their $w$ values differ by at most $25$ times this
+sum. Expanding @eq-nth-storage-dense bounds each velocity difference by
+$1255$ times the sum: the two direct-product differences each cost $630$
+on distinct blocks, while the residual difference costs $625$ on each block.
+Gronwall gives factor $e^{3765t}$ in the sum norm.
+Therefore a fixed unit-query output at any $t\le T$ is
+$L_T=50e^{4000T}$-Lipschitz in the Euclidean list of initial entries.
+Each such scalar map extends from the good set by
+$F(x)=\inf_{z\ {\rm good}}\{F(z)+L_T\|x-z\|_2\}$, with unchanged
+values and Lipschitz constant. Apply @eq-nth-storage-gaussian-tail to
+the variance-$1/n$ Gaussian entries. Two independent copies differ by
+at most $2s$ except with probability $4e^{-ns^2/(2L_T^2)}$, since
+their extension means agree.
+
+The coefficient path has time Lipschitz constant at most
+$3\cdot25\cdot3150<250000$. Take a $1/2$ sphere net with at most $5^d$
+points and a time grid with $M=\lceil nT\rceil+1$ points and mesh at most
+$1/n$. A linear functional's sphere norm is at most twice its net maximum.
+For $s=L_T\sqrt{2\log(4\,5^dM/\delta)/n}$ a union bound and the time
+Lipschitz estimate give $D_n\le4s+500000/n$, except with probability
+$\delta+4e^{-c_*n}$. Set $\delta=1/n$, $d=m+1$ to obtain
+@eq-nth-storage-dense-upper.
+:::
+
+::: {#lem-nth-storage-omitted-derivative}
+### A nonzero omitted derivative at every effective order
+
+For the hard family put $\bar v=m^{-1}\sum_a s_av_a$,
+$\lambda=\|\bar v\|_2$, and $v_*=\bar v/\lambda$.
+With probability at least $1-Ce^{-cn}$, simultaneously for every $q\ge2$,
+the signed prediction difference
+$g_q(t)=m^{-1}\sum_a s_a[f_n(t,v_a)-f_{n,q}(t,v_a)]$ satisfies
+$$
+g_q^{(k)}(0)=0\ (k<j),\qquad
+g_q^{(j)}(0)\ge j!(Y/64)^j,\qquad j=2\lfloor q/2\rfloor+1.
+$$ {#eq-nth-storage-omitted-jet}
+:::
+
+::: {#proof-nth-storage-omitted-derivative .proof}
+Directly, $G=(v_a^\top v_b)_{a,b}=\frac12(I_m+\mathbf1\mathbf1^\top)$,
+$\lambda^2=1/8+1/(2m)$, label RMS is $Y$, and label variance is
+$3Y^2/4$. Identity activations preserve this population feature Gram.
+For $\xi_0=B_0v_*$, the Gaussian norm ratios
+$\|\xi_0\|_2^2$ and $\|W_0\xi_0\|_2^2/\|\xi_0\|_2^2$ are independent
+$\chi_n^2/n$. Each is at least $3/4$ except with exponentially small
+probability: Markov applied to $e^{-\chi_n^2/6}$ gives failure at most
+$\exp[n/8-(n/2)\log(4/3)]$.
+Intersecting with the matrix-norm event gives
+$\|\xi_0\|_2^2,\|W_0\xi_0\|_2^2\ge1/2$.
+
+An odd frozen top is zero, so its predictor equals that of the preceding
+even top: for $h=2\lfloor q/2\rfloor$, parity gives
+$\mathcal F_q=\mathcal F_h$. Put $e=w-w_h$ and $j=h+1$.
+The first omitted index $h$ vanishes, so the ordered series gives
+$$
+v^\top(\mathcal F_\infty[w]-\mathcal F_h[w])(t)
+=\frac{t^j}{j!}K_{j+1}(v,b,\ldots,b;0)+O(t^{j+1}).
+$$
+If $e(t)=O(t^\ell)$, telescoping source slots in the finite map gives
+$\mathcal F_h[w]-\mathcal F_h[w_h]=O(t^{\ell+1})$: one slot contributes
+$-Qe$, and there is at least one time integration.
+Since $e(0)=0$, repeated substitution in the difference of the two
+fixed-point equations proves $e=O(t^j)$; the finite-map difference is
+then $O(t^{j+1})$. This proves both the vanishing derivatives and the
+displayed leading coefficient, with the closure's own feedback retained.
+Contracting $v=\bar v$ and using $b=Y\bar v$ gives exactly
+$$
+g_q^{(j)}(0)=Y^j K_{j+1}(\bar v,\ldots,\bar v;0).
+$$ {#eq-nth-storage-feedback-jet}
+
+For source ascent of $F=c^\top WB\bar v$, write $\xi=Bv_*$ and use the
+source clock $\tau=\lambda s$. The exact equations are
+$\xi'=W^\top c$, $W'=c\xi^\top$, $c'=W\xi$.
+Their invariants $WW^\top-cc^\top=W_0W_0^\top$ and
+$\|\xi\|_2^2-\|c\|_2^2=\|\xi_0\|_2^2$ imply
+$$
+c''=(\|\xi_0\|_2^2I+W_0W_0^\top)c+2\|c\|_2^2c,\qquad
+c(0)=0,\quad c'(0)=W_0\xi_0.
+$$ {#eq-nth-storage-source-ascent}
+Diagonalize the positive semidefinite matrix, choosing eigenvector signs
+so that $a=W_0\xi_0$ is coordinatewise nonnegative.
+The Taylor recurrence then has nonnegative coefficients. With
+$A_0=\|\xi_0\|_2^2$, $H=\|a\|_2^2$, coefficientwise induction compares
+$c$ from below with $a u$, where
+$u''=A_0u+2Hu^3$, $u(0)=0$, $u'(0)=1$.
+Indeed the linear term dominates $A_0a_i u$ in coordinate $i$, and
+$\|c\|_2^2c_i$ dominates $H a_i u^3$ at every successive coefficient.
+Since $A_0,H\ge1/2$, it also compares $u$ from below with
+$2\tan(\tau/2)$, which solves $u''=\frac12u+\frac18u^3$
+with the same initial values.
+Writing $\tan z=\sum_{k\ge0}t_kz^{2k+1}$,
+$(2k+1)t_k=\sum_{i=0}^{k-1}t_it_{k-1-i}$ for $k\ge1$, and $t_0=1$,
+give $t_k\ge3^{-k}$ by induction. Hence
+$u\ge\tau/(1-\tau^2/12)$ coefficientwise.
+The degree-$j=2k+1$ coefficient of $c^\top W\xi=c^\top c'$ is at least
+$H(k+1)^2\,12^{-k}\ge8^{-j}$.
+Returning to $F$ and clock $s$ multiplies its $j$th derivative by
+$\lambda^{j+1}$. Since $\lambda\ge2^{-3/2}$,
+$K_{j+1}(\bar v,\ldots,\bar v;0)\ge j!\lambda^{j+1}8^{-j}
+\ge j!64^{-j}$, proving the claim on one event for every order.
+:::
+
+::: {#lem-nth-storage-analytic-transfer}
+### From an omitted derivative to error on a real interval
+
+If $g$ is holomorphic on a neighborhood of $|t|\le R$, bounded there by
+two, and $|g^{(j)}(0)|\ge j!\rho^j$, where $j\ge1$ and
+$0<\vartheta=\rho R/8<1$, then, for
+$\kappa=16[1+\log(1/\vartheta)+\log(8/3)]$,
+$$
+\|g\|_{[0,R/4]}\ge
+\frac1{8\kappa}\left(\frac{\vartheta}{8e^2\kappa^2}\right)^j.
+$$ {#eq-nth-storage-transfer}
+:::
+
+::: {#proof-nth-storage-analytic-transfer .proof}
+For a degree-$N$ polynomial $P$, map $[0,R/4]$ to $[-1,1]$.
+Its nonconstant Chebyshev coefficients have modulus at most $2\|P\|$,
+by their cosine integral formula, and
+$$
+|T_k^{(j)}(-1)|=\prod_{r=0}^{j-1}\frac{k^2-r^2}{2r+1}
+\le k^{2j}/j!,\qquad
+|P^{(j)}(0)|\le\frac{2N}{j!}(8N^2/R)^j\|P\|_{[0,R/4]}.
+$$
+For $k<j$ the derivative is zero; for $k\ge j$ the product formula follows
+by successively differentiating
+$(1-x^2)T_k''-xT_k'+k^2T_k=0$ at $x=-1$.
+Take the degree-$N=\lceil\kappa j\rceil$ Taylor polynomial of $g$.
+Cauchy's coefficient bound gives remainder at most $(2/3)4^{-N}$.
+Since its $j$th derivative agrees with that of $g$,
+$$
+\|g\|_{[0,R/4]}\ge
+\frac{\vartheta^j(j!)^2}{2N^{2j+1}}-\frac23\,4^{-N}.
+$$
+To verify that the tail is at most half the first term, put
+$u=\log(1/\vartheta)$, $v=\log(8/3)$, $D=1+u+v$.
+Using $N\le2\kappa j$, $\log(j!)\ge j\log j-j$, and $\log j\le j$,
+$$
+ju+(2j+1)\log N-2\log(j!)+v
+\le j[u+v+3\log(2\kappa)+3]
+\le15jD<\kappa j\log4\le N\log4.
+$$
+The second inequality uses $\kappa=16D$, $\log32<4$ and
+$\log D\le D-1$. Exponentiation proves the tail comparison.
+The resulting lower bound
+$\vartheta^j(j!)^2/(4N^{2j+1})$, with the same factorial bound,
+$N\le2\kappa j$ and $j\le2^j$, yields @eq-nth-storage-transfer.
+:::
+
+::: {#lem-nth-storage-dense-small-ball}
+### An actual dense-pair lower bound
+
+For every fixed deterministic dataset in the setup with $n\ge4$,
+$1\le d\le n$, and $b\ne0$,
+with probability at least $1-4e/\sqrt n-4e^{-c_*n}$,
+$$
+D_n\ge\frac{\|b\|_2}{2^{31}n^2}.
+$$ {#eq-nth-storage-dense-lower}
+:::
+
+::: {#proof-nth-storage-dense-small-ball .proof}
+Use $v_*=b/\|b\|_2$ and $g(t)=f_n(t,v_*)-\widetilde f_n(t,v_*)$.
+On the pair's matrix-norm event, @lem-nth-storage-source-control bounds
+$|g|\le2\|b\|_2$ on $|t|<R_0$.
+Set $R=2^{-13}$, so $T=R/4$.
+For $0\le t\le T$ the radius-$R/2$ circle centered at $t$ lies in this
+disk; Cauchy's formula gives $|g''(t)|\le2^{30}\|b\|_2$.
+At initialization,
+$$
+f_n'(0,v_*)=\|b\|_2 H,\qquad
+H=\|W_0B_0v_*\|_2^2\ \stackrel{\rm law}{=}\ UV,
+$$
+where $U,V$ are independent $\chi_n^2/n$ variables.
+Indeed $U=\|B_0v_*\|_2^2$, and conditional on $B_0v_*$ the ratio
+$H/U$ has that same chi-square law independently of the conditioning vector.
+
+For $n\ge4$, the density $p(u)=C_nu^{n/2-1}e^{-nu/2}$ is maximal at
+$u_0=1-2/n\ge1/2$. On $[u_0,u_0+n^{-1/2}]$ its logarithm has zero
+initial derivative and second derivative at least $-2n$.
+Thus $p(u)\ge e^{-1}p(u_0)$ there and $\|p\|_\infty\le e\sqrt n$.
+Integration by parts in the same density gives
+$\mathbb E V^{-1}=n/(n-2)\le2$.
+The product density satisfies $\|p_H\|_\infty\le2e\sqrt n$,
+and convolution gives the same bound for $H-\widetilde H$.
+Therefore $\Pr(|H-\widetilde H|\le a)\le4e\sqrt n\,a$.
+Taking $a=1/n$ gives $|g'(0)|\ge\|b\|_2/n$ outside an event of
+probability $4e/\sqrt n$, without conditioning on the matrix norms.
+Intersect afterward with their good event.
+At $t_n=1/(2^{30}n)\le T$, Taylor's integral remainder now gives
+$|g(t_n)|\ge\|b\|_2/(2^{31}n^2)$, proving the assertion.
+:::
+
+::: {#proof-nth-storage-main .proof}
+For the general upper, combine @eq-nth-storage-geometric and
+@eq-nth-storage-dense-lower to get
+$E_n(q)/D_n\le2^{37}n^2\,1024^{-q}$ when $b\ne0$.
+The choice @eq-nth-storage-order proves
+@cor-nth-storage-general-upper, including its probability.
+For $b=0$, uniqueness gives the claimed exact zero predictions instead.
+The counts follow by summing @eq-nth-storage-counts.
+
+For the lower, apply @lem-nth-storage-analytic-transfer to $g_q$ from
+@lem-nth-storage-omitted-derivative with
+$R=2^{-13}$ and $\rho=Y/64$; the common analytic bound is two.
+Since $g_q=\bar v^\top(w-w_q)$ and $\lambda\le1$, $E_n(q)\ge\|g_q\|_{[0,T]}$.
+Writing
+$$
+\kappa_Y=16[1+\log(2^{22}/Y)+\log(8/3)],\qquad
+a_Y=(8\kappa_Y)^{-1},\qquad
+b_Y=\log(2^{25}e^2\kappa_Y^2/Y),
+$$
+gives, on one event of probability $1-Ce^{-cn}$,
+$E_n(q)\ge a_Ye^{-b_Yj}$ simultaneously for every $q\ge2$.
+Put $R_n=n/(m+\log(en))$.
+If $q\le(4b_Y)^{-1}\log R_n$, then $j\le q+1$ gives
+$E_n(q)\ge a_Ye^{-b_Y}R_n^{-1/4}$, whereas
+@eq-nth-storage-dense-upper gives $D_n\le C R_n^{-1/2}$.
+Because $R_n\to\infty$ uniformly in $4\le m\le\sqrt n$, these bounds imply
+$E_n(q)>A D_n$ simultaneously over these orders. Thus their success probability
+for any fixed factor $A$ tends to zero, and eventually is below $p$.
+
+Literal training arrays alone have at least $m^{q-1}$ entries, even after
+omitting a zero odd top; nonfrozen arrays have at least $m^{q-2}$.
+The necessary order therefore costs
+$\exp[c_Y\log m\log R_n]$ in either convention.
+Uniformly in the sample range $\log R_n$ is bounded above and below by
+positive absolute multiples of $\log n$ for sufficiently large $n$.
+For the upper, $q_n=O(\log n)$ has success tending to one and error
+at most $D_n/n$. With $d=m+1$, its count is at most $5m^{q_n}+md+m$.
+These prove @thm-nth-storage-matching and its moving-array assertion.
+For an adaptive order under a deterministic smaller budget, every permitted
+order lies in the simultaneously excluded range, proving the stated
+budget interpretation.
+:::
+
+The matched result concerns a growing-data, deep-linear model, a specified
+literal tensor representation, and the window $[0,2^{-15}]$ in half-MSE
+physical time. All layers are trainable, but the input-output function is
+linear. No longer-time, nonlinear-activation, arbitrary-encoding, or
+finite-precision conclusion is asserted. Fixed $m,d$ give polynomial size;
+the superpolynomial example grows $m$ and $d$ together with width.
+Here $Y$ is fixed independently of $m,n$. The fixed-data small-label
+hypotheses of the complete-trajectory compression theorem are therefore
+not assumptions of this result. Its fitting and dense-variability theorems
+are not used, and this result establishes no same-family storage separation
+from those compression constructions.
