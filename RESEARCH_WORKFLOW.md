@@ -156,6 +156,36 @@ and their reputation are not substitutes. Prepare everything in the originating
 study; reviewers' temporary workspaces belong in its generated-data namespace.
 These are scientific requirements, not a requirement for particular JSON forms.
 
+**Model allocation and supervision.**
+
+- Use scripts for mechanical checks. Choose Terra for narrowly specified
+  tasks with directly checkable outputs: running prescribed builds, checking
+  an explicit list of layout defects, or proposing a localized formatting
+  repair following an established example.
+- Choose Sol from the outset when supporting work requires diagnosis or
+  broader judgment: investigating unexplained build failures, assessing
+  complex page layouts, or repairing interactions between Quarto, LaTeX
+  and styles. Do not require a failed Terra attempt first. If Terra's task
+  exceeds its assigned scope, escalate the unresolved part rather than
+  repeatedly retrying it.
+- Terra and Sol return compact findings, evidence and proposed patches;
+  they do not directly edit candidate or established book/code files.
+  Mechanically compare candidate files before and after their work to
+  detect unexpected changes.
+- The Astra coordinator verifies results against actual command outcomes
+  and logs, reviews every proposed patch before applying it, and rechecks
+  affected outputs. Changes affecting mathematical meaning, scientific
+  references or code behavior follow the existing correction and review
+  gates.
+- All required scientific and integration reviews remain assigned to
+  Astra, with unchanged full scope and independence. Build and visual
+  checks never substitute for reviewing proofs, assumptions, notation,
+  reference correctness, code correctness or scientific preservation.
+- Do not repeat unchanged mechanical checks or visual inspections without
+  a concrete reason. This does not waive any required independent
+  scientific check or reproduction. All existing promotion requirements
+  remain in force.
+
 1. **Independent relevance and placement.** A selector who did not author or assemble
    the result compares it with current book/code coverage. Record distinct value,
    useful scope, duplication, assumptions, maintenance cost and the smallest suitable
