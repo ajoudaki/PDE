@@ -1,0 +1,1093 @@
+\section{One selected nonlinear dynamics for both source constructions}
+\label{cp:selected-section}
+
+The sparse-metric lemma first supplies exact geometry on any finite source
+space. The transfer proposition then constructs and analyzes one autonomous
+selected model, with its optimizer and comparison coefficients local to that
+proof. Two later propositions supply its source spaces from whole-sphere
+polynomials or finite-panel Taylor expansions. They use only the transfer
+statement's error and storage interface.
+
+\begin{lemma}[Sparse coordinates with an exact source metric]
+\label{cp:selection}
+Let $E\subset\R^n$ be a linear subspace containing $\mathbf1_n$,
+with $r=\dim E$.
+There are a set $I$ of at most $9r$ coordinates, a positive diagonal
+matrix $D$ on $I$, and a positive definite matrix $M$ such that
+\[
+ u_I^\top Mv_I=u^\top v/n\quad(u,v\in E),\qquad
+ D/4\preceq M\preceq D,\qquad
+ \mathbf1^\top M\mathbf1=1,\quad\mathbf1^\top D\mathbf1\le4.
+\]
+Write $\|u\|_M=(u^\top Mu)^{1/2}$. Consequently a coordinate
+multiplication operator $B$ satisfies
+$\|B\|_{M\to M}\le2\max_i|B_{ii}|$, and an activation with
+$|\phi'|\le s$, $|\phi(0)|\le b$ satisfies
+$\|\phi(u)-\phi(v)\|_M\le2s\|u-v\|_M$ and
+$\|\phi(u)\|_M\le2b+2s\|u\|_M$.
+\end{lemma}
+\begin{proof}
+We give the finite sparsification argument. For vectors $v_i\in\R^r$
+with $\sum_i v_iv_i^\top=I$, start with $A=0$, lower barrier $l=-3r$
+and upper barrier $u=6r$. Maintain
+\[
+ lI\prec A\prec uI,\qquad
+ \Phi_l(A)=\operatorname{tr}(A-lI)^{-1}\le\tfrac13,
+ \quad\Phi^u(A)=\operatorname{tr}(uI-A)^{-1}\le\tfrac16.
+\]
+Set $l'=l+1$, $u'=u+2$, and define
+\[
+ U(v)=\frac{v^\top(u'I-A)^{-2}v}{\Phi^u(A)-\Phi^{u'}(A)}
+       +v^\top(u'I-A)^{-1}v,\qquad
+ L(v)=\frac{v^\top(A-l'I)^{-2}v}{\Phi_{l'}(A)-\Phi_l(A)}
+       -v^\top(A-l'I)^{-1}v.
+\]
+The lower potential implies that every eigenvalue is at least three
+above $l$, so both inverse matrices and both denominators are positive.
+The identity
+$(B+t vv^\top)^{-1}=B^{-1}-B^{-1}vv^\top B^{-1}/(t^{-1}+v^\top B^{-1}v)$
+shows that $U(v)\le t^{-1}\le L(v)$ preserves the two potential
+inequalities at the shifted barriers. For the upper potential, the
+positive first term of $U(v)$ also preserves the strict spectral barrier.
+
+Such a nonzero $v_i$ exists. If $a_j$ are the eigenvalues of $A$, then
+$(u-a_j)^{-1}-(u'-a_j)^{-1}\ge2(u'-a_j)^{-2}$, hence
+$\sum_iU(v_i)\le1/2+\Phi^{u'}(A)\le2/3$.
+For the lower sum put $a'_j=(a_j-l')^{-1}$,
+$b'_j=(a_j-l)^{-1}=a'_j/(1+a'_j)$ and
+$\Delta=\sum_j a'_jb'_j=\Phi_{l'}-\Phi_l$.
+Weighted Cauchy--Schwarz gives
+\[
+ \Delta^2\le\Big(\sum_j(a'_j)^2b'_j\Big)\sum_jb'_j
+ \le\sum_j(a'_j)^2-\Delta.
+\]
+Therefore $\sum_iL(v_i)\ge1-\Phi_l(A)\ge2/3$.
+Choose $t>0$ with reciprocal in the resulting nonempty interval and
+add $t v_iv_i^\top$. After $9r$ iterations the barriers are $6r,24r$.
+Dividing all accumulated weights by $6r$ gives nonnegative weights
+$s_i$, supported on at most $9r$ indices, with
+$I\preceq\sum_i s_i v_iv_i^\top\preceq4I$.
+
+Choose $U$ with range $E$ and $U^\top U/n=I$, apply this result to
+$v_i=U_{i,:}^\top/\sqrt n$, and set
+$P=U_I$, $D=\operatorname{diag}(s_i/n)$, $G=P^\top DP$ and
+$Z=D^{1/2}P$. Define
+\begin{equation}
+ M=D^{1/2}\{ZG^{-2}Z^\top+I-ZG^{-1}Z^\top\}D^{1/2}.
+ \label{cp:metric}
+\end{equation}
+On $\operatorname{ran}Z$ the middle matrix has eigenvalues those of
+$G^{-1}$, and on its orthogonal complement it is the identity.
+Thus $D/4\preceq M\preceq D$, while multiplication gives $P^\top MP=I$.
+The constant source proves the two mass assertions. Finally
+$\|Bu\|_M\le\|Bu\|_D\le\max_i|B_{ii}|\|u\|_D\le
+2\max_i|B_{ii}|\|u\|_M$. Apply this to coordinate divided differences
+and use $\|\mathbf1\|_M=1$ for the activation claims.
+\end{proof}
+
+\subsection{A portable source-to-runtime construction}
+
+\begin{proposition}[Source-to-runtime transfer]
+\label{cp:selected}
+Work on the fitting and analytic-source event of \Cref{cp:fit,cp:source}.
+Write $W_0^{(j)}=W^{(j)}(0)$ for the initialized matrices in this statement.
+Fix
+\[
+ T=32\frac m\gamma\log(en),\qquad
+ 0<\eta\le\min\{1,Y,16Ym/\gamma\},\qquad
+ q\ge\max\{m,d\}.
+\]
+For each layer let $E_j\subset\R^n$ have dimension at most $q$ and contain
+the constant, exact initialized training features and their initialized
+forward images when present, and (at the first layer) the columns of
+$W_0^{(1)}$. Suppose these spaces approximate the families
+\eqref{cp:source-families} to coordinate accuracy $\eta$ on $[0,T]$,
+with forward queries in $\mathcal X$ and backward queries at training inputs.
+Require exact initialized-image pairing: each image approximant is the
+corresponding initialized map applied to its base approximant.
+There is an autonomous selected nonlinear predictor satisfying
+\begin{align}
+ \|f_{\rm model}-f_n\|_{\mathcal X}
+ &\le C\frac{Ym}\gamma\left(1+\sqrt{\frac m\gamma}\right)
+       (1+\sqrt{\log(en)})e^{\sqrt{\log(en)}}\eta
+ \nonumber\\
+ &\quad+C\frac{Ym}\gamma\left(1+\sqrt{\frac m\gamma}\right)
+                      e^{-\gamma T/(4m)}.
+ \label{cp:smallcap-comparison}
+\end{align}
+It fits, has a fitted limit, and retains at most
+\begin{equation}
+ 1020(L+1)q^2+36q+10m(d+1)
+ \label{cp:selected-inventory}
+\end{equation}
+real coordinates, including data, selected indices, metrics, initial copies
+and working arrays. Here $C\ge1$.
+In particular, the permissible choice
+\begin{equation}
+ \eta=\min\left\{1,Y,\frac{16Ym}\gamma,
+ \frac{\gamma}{2Cmn(1+\sqrt{m/\gamma})
+          (1+\sqrt{\log(en)})e^{\sqrt{\log(en)}}}\right\}
+ \label{cp:selected-tolerance}
+\end{equation}
+gives error at most $Y/n$ eventually. Source bases, dense coefficients and
+compilation scratch are discarded after the selected initial arrays are formed.
+\end{proposition}
+\begin{proof}
+All auxiliary quantities in this proof belong to this construction.
+Put $\lambda=\gamma/m$, $z=Y/\lambda$, $\alpha=Y/\sqrt\lambda$,
+$S=16z$, and $\ell=\log(en)$, so $0<\lambda\le1$ and
+$0<z\le\beta^{-30L}$. For activation estimates use the envelopes
+$b=\beta-1$ and $s=t_2=\beta$; thus $|\phi_j(0)|\le b$,
+$|\phi_j'|\le s$ and $|\phi_j''|\le t_2$ on the real line.
+Write $c_n=(y_a-f_n(t,x_a))_{a=1}^m$ for the dense training deficits and
+$\rho_n=\|c_n\|_2/\sqrt m$ for their RMS.
+The public source bounds permit the local envelopes
+\[
+ u_0=\beta^{3L},\qquad \tau=\beta^{4L},\qquad
+ K_{\rm src}=\beta^{21L}.
+\]
+Dense feature norms are at most $u_0$ and dense training response norms
+at most $S\tau$ in neuron RMS. Dense training carriers on $[0,T]$
+are the local fields
+$k_{n,a}^{(L)}=w$ and
+$k_{n,a}^{(j)}=W^{(j+1)\top}\delta_{n,a}^{(j+1)}$; by
+\eqref{cp:carrier} they are bounded coordinatewise by
+$32zK_{\rm src}\sqrt\ell$.
+Dense vector norms below are normalized by $\sqrt n$; selected norms
+are specified by their metrics. Every query $v$ denotes $x/\sqrt d$
+for an input $x$ in the promised domain.
+
+\paragraph{Autonomous selected model.}
+
+Apply \Cref{cp:selection} to obtain $(I_j,M_j,D_j)$ and let
+$q_j=|I_j|\le9q$. The selected moving variables are
+$W_C^{(1)}\in\R^{q_1\times d}$,
+$B_C^{(j)}\in\R^{q_j\times q_{j-1}}$ ($2\le j\le L$),
+$w_C\in\R^{q_L}$ and $c_C\in\R^m$.
+For $v=x/\sqrt d$ the forward pass is
+\[
+ z_C^{(1)}=W_C^{(1)}v,\qquad
+ z_C^{(j)}=B_C^{(j)}h_C^{(j-1)},\qquad
+ h_C^{(j)}=\phi_j(z_C^{(j)}).
+\]
+All layer norms and adjoints below use $M_j$; in particular
+$(B_C^{(j)})^*=M_{j-1}^{-1}B_C^{(j)\top}M_j$.
+Let $V_C$ have columns $h_C^{(L)}(v_a)/\sqrt m$ and define
+\begin{equation}
+ Q_C=V_C^*V_C,\qquad
+ \widehat w_C=w_C+V_CQ_C^{-1}
+       \{(y-c_C)/\sqrt m-V_C^*w_C\},\qquad
+ f_C(v)=\langle\widehat w_C,h_C^{(L)}(v)\rangle_{M_L}.
+ \label{cp:selected-readout}
+\end{equation}
+The statement's predictor is $f_{\rm model}(t,x)=f_C(t,x/\sqrt d)$;
+physical time is suppressed in the local forward formulas.
+Thus $f_C(v_a)=y_a-c_{C,a}$ exactly. Define training signals by
+$k_{C,a}^{(L)}=\widehat w_C$,
+$\delta_{C,a}^{(j)}=\phi_j'(z_{C,a}^{(j)})\odot k_{C,a}^{(j)}$ and
+$k_{C,a}^{(j)}=(B_C^{(j+1)})^*\delta_{C,a}^{(j+1)}$.
+The unnormalized sample matrix is
+\begin{align}
+ K_{C,ab}={}&\langle h_{C,a}^{(L)},h_{C,b}^{(L)}\rangle_{M_L}
+ +\langle\delta_{C,a}^{(1)},\delta_{C,b}^{(1)}\rangle_{M_1}v_a^\top v_b
+ \nonumber\\
+ &+\sum_{j=2}^L\langle\delta_{C,a}^{(j)},\delta_{C,b}^{(j)}\rangle_{M_j}
+                  \langle h_{C,a}^{(j-1)},h_{C,b}^{(j-1)}\rangle_{M_{j-1}}.
+ \label{cp:selected-gram}
+\end{align}
+The autonomous optimizer is
+\begin{align}
+ \dot W_C^{(1)}&=\frac2m\sum_a c_{C,a}\delta_{C,a}^{(1)}v_a^\top,
+ &\dot B_C^{(j)}&=\frac2m\sum_a c_{C,a}\delta_{C,a}^{(j)}
+                                      h_{C,a}^{(j-1)\top}M_{j-1},
+ \nonumber\\
+ \dot w_C&=\frac2m\sum_a c_{C,a}h_{C,a}^{(L)},
+ &\dot c_C&=-2K_Cc_C/m.
+ \label{cp:selected-flow}
+\end{align}
+These are prescribed directions; coordinate gates need not be self-adjoint
+in $M_j$, and no gradient interpretation of the corrected predictor is used.
+
+For bases $U_j$ of $E_j$ with $U_j^\top U_j/n=I$, set $P_j=(U_j)_{I_j}$.
+Initialize
+\begin{equation}
+ W_C^{(1)}(0)=(W_0^{(1)})_{I_1},\quad w_C(0)=0,\quad c_C(0)=y,
+ \qquad
+ B_C^{(j)}(0)=P_j\frac{U_j^\top W_0^{(j)}U_{j-1}}n
+                         P_{j-1}^\top M_{j-1}.
+ \label{cp:selected-initial}
+\end{equation}
+Since $P_j^\top M_jP_j=I$, these operators have norms at most eight.
+They reproduce an initialized forward image exactly whenever both members
+belong to the source spaces; their metric adjoints reproduce paired reverse
+images. The exact additions therefore preserve the entire initialized
+training forward pass and Gram. All bases, dense arrays and source
+coefficients are discarded after these finite initial arrays are formed.
+
+\begin{claim}[Independent fitting and endpoint tails]
+With the notation of this construction, the following local bounds hold.
+The selected dynamics exist for every $t\ge0$, have $Q_C\succeq\lambda I/4$,
+fit the training labels and converge in parameter space. Write
+\[
+ H_1^c=2b+16s,\quad H_j^c=2b+18sH_{j-1}^c,\quad H_c=H_L^c,
+ \quad d_j^c=2s(18s)^{L-j},\quad
+ F_c=(d_1^c)^2+4H_c^2\sum_{j=2}^L(d_j^c)^2.
+\]
+For the selected parameter tuple
+$\theta_C=(W_C^{(1)},(B_C^{(j)})_{j=2}^L,w_C)$ use
+\[
+ \|\theta_C\|_{\rm par}^2=
+ \operatorname{tr}(W_C^{(1)\top}M_1W_C^{(1)})+
+ \sum_{j=2}^L\|M_j^{1/2}B_C^{(j)}M_{j-1}^{-1/2}\|_F^2+
+ \|w_C\|_{M_L}^2.
+\]
+Then $\|h_C^{(j)}\|\le2H_c$, $\|\widehat w_C\|\le5\alpha$,
+$\rho_C:=\|c_C\|/\sqrt m\le Ye^{-\lambda t/2}$ and
+$\int_0^\infty\|\dot\theta_C\|_{\rm par}\le2\alpha$.
+There is a coefficient $\mathcal D\le C z(1+\lambda^{-1/2})$ such that
+comparison on $[0,T]$ extends to all times and the fitted endpoint with
+additional error at most $\mathcal D e^{-\lambda T/4}$.
+Here and below $C$ depends only on activations and depth.
+\end{claim}
+\begin{proof}[Proof of the claim]
+Stop at operator norm nine, feature norm $2H_c$, or Gram margin $\lambda/4$.
+Expanding the velocities, with all cross-sample terms, gives
+\begin{equation}
+ -\frac d{dt}\rho_C^2=4c_C^\top K_Cc_C/m^2
+       =\|\dot\theta_C\|_{\rm par}^2,
+ \qquad K_C/m\succeq Q_C.
+ \label{cp:selected-energy}
+\end{equation}
+Thus $-\dot\rho_C\ge\lambda\rho_C/2$ and
+$\|\dot\theta_C\|\le2(-\dot\rho_C)/\sqrt\lambda$.
+Integration gives the asserted residual and path bounds, as well as
+$\int\rho_C\le2z$ and $\|w_C\|\le2\alpha$.
+With $T_C=V_CQ_C^{-1}$ and $P_C=T_CV_C^*$, the readout is the
+orthogonal sum $(I-P_C)w_C+T_C(y-c_C)/\sqrt m$.
+Its squared norm is at most $4\alpha^2+16\alpha^2$.
+
+Set $R_c=5\alpha$, $U_1^c=d_1^c$, $U_j^c=2H_cd_j^c$ for $j\ge2$,
+and $F_1^c=2sU_1^c$, $F_j^c=2s(2H_cU_j^c+9F_{j-1}^c)$.
+The latter recurrence has $F_L^c=F_c$. Backward propagation bounds
+$\|\delta_C^{(j)}\|\le d_j^cR_c$, and integration bounds each hidden
+parameter displacement by $20U_j^cY^2/\lambda^{3/2}$ and each feature
+displacement by $20F_j^cY^2/\lambda^{3/2}$.
+Under the stated cap, $H_c\le\beta^{3L}$, $F_c\le\beta^{15L}$ and
+$z\le(16H_c\sqrt{F_c})^{-1}$; hence the last bound is at most
+$5\sqrt\lambda/(64H_c^2)<\min\{1/(8H_c),\sqrt\lambda/8\}$.
+The operator and feature stops improve strictly. The normalized training
+feature matrix starts with smallest singular value at least
+$\sqrt{\lambda/2}$ and moves by less than $\sqrt\lambda/8$, so the
+Gram stop improves too. Smoothness on this strict Gram-positive domain
+and bounded parameters give global existence. Finite path length and
+\eqref{cp:selected-readout} give convergence; $c_C\to0$ gives fitting.
+
+For quantitative tails, differentiating the inverse gives
+\[
+ \dot T_C=(I-P_C)\dot V_CQ_C^{-1}-T_C\dot V_C^*T_C,\qquad
+ \dot P_C=(I-P_C)\dot V_CT_C^*+T_C\dot V_C^*(I-P_C).
+\]
+Thus $\|\dot T_C\|\le8\|\dot V_C\|/\lambda$,
+$\|\dot P_C\|\le4\|\dot V_C\|/\sqrt\lambda$ and
+$\|\dot V_C\|\le2R_cF_c\rho_C$.
+Put $G_c=4H_c^2+R_c^2F_c$ and
+\[
+ B_w=4H_c+48R_cF_cz+4G_c/\sqrt\lambda,
+ \qquad B_f=2H_cB_w+2R_c^2F_c.
+\]
+Differentiating the orthogonal readout formula proves
+$\|\dot{\widehat w}_C\|\le B_w\rho_C$ and
+$|\dot f_C(v)|\le B_f\rho_C$ uniformly over unit inputs.
+Therefore $|f_C(\infty,v)-f_C(t,v)|\le2B_fz e^{-\lambda t/2}$.
+For the dense tail, the RMS bounds hold at every real time, not merely
+on the finite complex source domain. Indeed \Cref{cp:fit} bounds all
+normalized operators by nine and gives
+$\|w\|/\sqrt n\le2Y/\sqrt\lambda\le Su_0$.
+The all-time RMS bounds of \Cref{cp:source}, or the same real
+forward/backward induction, give
+$\|h^{(j)}\|/\sqrt n\le u_0$ and
+$\|\delta^{(j)}\|/\sqrt n\le S\tau$ for all real times.
+The flow equations and sample Cauchy--Schwarz therefore imply
+$|\dot f_n(v)|\le2\mathcal K\rho_n$, where
+\[
+ \mathcal K=u_0^2+S^2\tau^2[1+(L-1)u_0^2].
+\]
+Comparing each flow with its value at $T$ proves the claimed extension with
+$\mathcal D=z(16\mathcal K+4B_f)$.
+The small cap gives $\mathcal K\le C$, $B_f\le C(1+\lambda^{-1/2})$,
+which establishes the stated parameter dependence.
+\end{proof}
+
+\paragraph{Comparison coefficients.}
+
+Here is an explicit coefficient ledger for the comparison. Its size is
+independent of the number of sources. Use the local envelopes
+$u_0,\tau,K_{\rm src}$ fixed at this proof's start, and put
+\[
+ H_r=u_0+3,\quad H_C=2H_c,\quad
+ P_h=6u_0+9,\quad P_\delta=6\tau+9,
+\]
+\[
+ A_f=18+S^2(\tau+3)P_h,\qquad
+ A_b=18+S^2H_rP_\delta.
+\]
+Define the forward-error recursion and the reference-response bounds by
+\begin{align*}
+ F_1^z&=1,\quad F_1^h=2s,\\
+ F_j^z&=9F_{j-1}^h+H_r+A_f,\quad
+ F_j^h=2sF_j^z\quad(j\ge2),\quad F=\max_jF_j^h,\\
+ d_j^E&=2s(9s)^{L-j}+3H_c,\quad J_C=5\sqrt{F_c},\\
+ J_R&=\left[(d_1^E)^2+H_r^2\sum_{j=2}^L(d_j^E)^2\right]^{1/2},\\
+ D_s&=P_h+16zP_\delta\{1+(L-1)H_r^2\}
+                   +(L-1)(16z)^2\tau^2P_h.
+\end{align*}
+The backward-error recursion is
+\begin{align*}
+ B_L&=2s(1+6zF+32zP_h)+2t_2F_L^z,\\
+ B_j&=18sB_{j+1}+2s(d_{j+1}^EzH_C+A_b)+2t_2F_j^z
+                       \quad(j<L),\\
+ B_h&=\sqrt L\{H_C\max_jB_j+(\max_jd_j^E)zH_CF\},\\
+ K_1&=12F+2B_h+20z(J_C+J_R)B_h+20D_s.
+\end{align*}
+Increasing any of these positive coefficients is harmless. Finally set
+\begin{align}
+ \mathcal B_n={}&400z^2F_c+2zK_1+40zF
+                         +64z^2K_1K_{\rm src}\sqrt\ell,\nonumber\\
+ \mathcal A_n={}&[H_C(1+6zF)+3\alpha F]
+             (1+\lambda^{-1/2})(e^{\mathcal B_n}-1)\nonumber\\
+ &+6H_CzF+32H_CzP_h/\sqrt\lambda+3\alpha F+16zP_h.
+ \label{cp:selected-coefficients}
+\end{align}
+
+\begin{claim}[Finite-horizon comparison]
+With the local coefficients \eqref{cp:selected-coefficients},
+\[
+ \sup_{0\le t\le T}\sup_{x\in\mathcal X}
+ |f_C(t,x/\sqrt d)-f_n(t,x)|\le\mathcal A_n\eta.
+\]
+\end{claim}
+\begin{proof}[Proof of the comparison claim]
+We record both the source-energy estimate and the cancellation that
+make the parameter dependence possible. For one layer abbreviate
+$E=E_j$, $I=I_j$ and $M=M_j$. If $p\in E$ approximates $u$
+to coordinate accuracy $e_u$, exact isometry and the mass bound give
+\[
+ \|u-p\|_n\le e_u,\quad \|u_I-p_I\|_M\le2e_u,
+ \quad\|u_I\|_M\le\|u\|_n+3e_u.
+\]
+Expanding two inner products about $p,q\in E$ therefore gives
+\begin{equation}
+ |\langle u_I,v_I\rangle_M-\langle u,v\rangle_n|
+ \le3e_u\|v\|_n+3e_v\|u\|_n+9e_ue_v.
+ \label{cp:pair-defect}
+\end{equation}
+Thus feature-pair defects are at most $P_h\eta$, and response-pair
+defects at most $SP_\delta\eta$; here $\eta\le1,S$ is used.
+
+Let the proof reference have first layer and readout equal to the
+coordinate restrictions of the dense ones, and hidden operators
+\[
+ B_R^{(j)}(t)=B_C^{(j)}(0)+\frac2m\int_0^t\sum_a
+ c_{n,a}(u)(\delta_{n,a}^{(j)}(u))_{I_j}
+              (h_{n,a}^{(j-1)}(u))_{I_{j-1}}^\top M_{j-1}\,du.
+\]
+Its preactivation, feature and response symbols below mean the restricted
+dense values, not a fresh forward pass; its carrier symbols
+mean $k_{R,a}^{(j)}=(k_{n,a}^{(j)})_{I_j}$ as well.
+The exact initialized
+pairing and operator bound eight make an initialized action defect at
+most $18\eta$. In each learned action, subtract the dense outer-product
+integral and use \eqref{cp:pair-defect} together with
+$\int\rho_n\le2z$, $\|\delta_n^{(j)}\|_n\le S\tau$ and
+$\|h_n^{(j)}\|_n\le u_0$. The resulting forward and reverse defects
+are at most $A_f\eta$ and $A_b\eta$. The identical calculation for
+the integrated raw readout gives
+\begin{equation}
+ |\langle w_R,h_R^{(L)}(v)\rangle-f_n(v)|\le16zP_h\eta.
+ \label{cp:readout-observation}
+\end{equation}
+
+Write $V_n,V_R$ for the dense and restricted top feature maps, with
+columns divided by $\sqrt m$. Their common approximants and exact
+isometry give, for every $a\in\R^m$,
+$\|V_Ra\|\le\|V_na\|+3\eta\|a\|$.
+For $\nu=\|V_Rc_n/\sqrt m\|$, the dense energy identity gives
+\begin{equation}
+ \int_0^T\nu\le\alpha+6\eta z\le2\alpha.
+ \label{cp:source-energy}
+\end{equation}
+Here let $\theta_n=(W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)$
+with its Euclidean block norm. Indeed
+$2\|V_nc_n/\sqrt m\|\le\|\dot\theta_n\|$,
+whose integral is at most $2\alpha$.
+Integrating source approximants for $\dot w_n=2V_nc_n/\sqrt m$
+gives a vector in $E_L$ at coordinate error at most $4\eta z$.
+Consequently $\|w_R\|\le2\alpha+12\eta z\le3\alpha$.
+Likewise the restricted responses have norm at most $d_j^E\alpha$.
+These arguments never differentiate an approximation error.
+
+Use the hidden-parameter Hilbert norms of the preceding local fitting claim,
+and let $\theta_{h,C},\theta_{h,R}$ denote the selected and reference tuples
+of first-layer and hidden-layer matrices. Let
+$\mathcal J_C,\mathcal J_R$ have sample columns, divided by $\sqrt m$,
+equal respectively to the tuples
+\[
+ (\delta^{(1)}v_a^\top,
+       (\delta^{(j)}h_a^{(j-1)\top}M_{j-1})_{j=2}^L).
+\]
+Thus $K_C/m=V_C^*V_C+\mathcal J_C^*\mathcal J_C$ and
+$\dot\theta_{h,C}=2\mathcal J_Cc_C/\sqrt m$; the reference satisfies
+the latter identity with $R,n$. Moreover
+$\|\mathcal J_C\|\le J_C\alpha$,
+$\|\mathcal J_R\|\le J_R\alpha$.
+Put
+\[
+ a_h=\|\theta_{h,C}-\theta_{h,R}\|,\quad
+ e=(c_C-c_n)/\sqrt m,\quad u=\|e\|,\quad z_w=w_C-w_R,
+\]
+\[
+ T_C=V_CQ_C^{-1},\quad P_C=T_CV_C^*,\quad
+ p=T_Ce,\quad \zeta=z_w+p,\quad b_e=\|p\|+\|\zeta\|,
+ \quad E=a_h+b_e.
+\]
+All these error variables vanish at zero. Forward induction, first
+subtracting the reference action and then the nonlinear gate, gives
+\begin{equation}
+ \|h_C^{(j)}-h_R^{(j)}\|\le F_j^h(a_h+\eta),
+ \qquad \|V_C-V_R\|\le F(a_h+\eta).
+ \label{cp:forward-error}
+\end{equation}
+The first-layer preactivation error is $a_h$; at layer $j$ it is at
+most $9F_{j-1}^h(a_h+\eta)+H_ra_h+A_f\eta$, which proves the displayed
+recursion rather than presuming an ambient Lipschitz bound.
+
+Set $d_R=V_R^*w_R-(y-c_n)/\sqrt m$ and $\Delta V=V_C-V_R$.
+Subtracting the exact readout formula yields
+\begin{equation}
+ \widehat w_C-w_R=(I-P_C)z_w-p-T_C\Delta V^*w_R-T_Cd_R.
+ \label{cp:readout-deficit}
+\end{equation}
+Since $p\in\operatorname{ran}V_C$, $(I-P_C)z_w=(I-P_C)\zeta$.
+Equations \eqref{cp:readout-observation}--\eqref{cp:forward-error} and
+$\|T_C\|\le2/\sqrt\lambda$ imply
+\begin{align}
+ \|\widehat w_C-w_R\|&\le b_e+6zF(a_h+\eta)
+                                      +32zP_h\eta/\sqrt\lambda,
+ \label{cp:readout-error}\\
+ |f_C(v)-f_n(v)|&\le H_C\{b_e+6zF(a_h+\eta)
+                         +32zP_h\eta/\sqrt\lambda\}
+                     +3\alpha F(a_h+\eta)+16zP_h\eta.
+ \label{cp:output-error}
+\end{align}
+
+Let $K_n$ be the dense training tangent Gram: it is the formula
+\eqref{cp:selected-gram} with dense fields and the inner products
+$n^{-1}u^\top v$ in each neuron layer. The dense deficit therefore obeys
+$\dot c_n=-2K_nc_n/m$. The source-only Gram defect
+$D=V_R^*V_R+\mathcal J_R^*\mathcal J_R-K_n/m$ satisfies
+$\|D\|\le D_s\eta$. To see this without an extra factor $m$, split
+each product of two pairings, use \eqref{cp:pair-defect}, and recall
+that the sample matrix entries carry the factor $1/m$; a matrix all
+of whose entries have magnitude at most $a/m$ has operator norm at
+most $a$. With $\Delta\mathcal J=\mathcal J_C-\mathcal J_R$, write
+\[
+ \Delta\mathcal K=
+ V_C^*\Delta V+\Delta V^*V_R+
+ \mathcal J_C^*\Delta\mathcal J+
+ \Delta\mathcal J^*\mathcal J_R+D.
+\]
+The error equations are exactly
+\begin{align*}
+ \dot e&=-2(Q_C+\mathcal J_C^*\mathcal J_C)e
+                           -2\Delta\mathcal Kc_n/\sqrt m,\\
+ \dot z_w&=2V_Ce+2\Delta Vc_n/\sqrt m,\\
+ \dot\zeta&=2\Delta Vc_n/\sqrt m+\dot T_Ce
+        -2T_C\mathcal J_C^*\mathcal J_Ce
+        -2T_C\Delta\mathcal Kc_n/\sqrt m.
+\end{align*}
+The term $2V_Ce$ cancels because $T_CQ_C=V_C$.
+This is why estimating $c_C-c_n$ by an unconstrained Gronwall
+inequality would lose the result.
+
+Here are the needed norm estimates, including the dissipative one.
+The derivative formula for $T_C$, and
+$\|\dot V_C\|\le10\alpha F_c\rho_C$, give
+$\|\dot T_Ce\|\le40zF_c\rho_C\|p\|$.
+In the derivative of $\|p\|^2/2$, the $Q_C$ term is $-2u^2$.
+The possible absolute contribution from the hidden Gram is at most
+$8\|\mathcal J_C\|^2u^2/\lambda\le200z^2F_cu^2$;
+the label cap bounds this by $25u^2/(32H_c^2)$, leaving at least
+$39u^2/32$. Define
+\[
+ \mathfrak f=2\|T_C\Delta\mathcal Kc_n/\sqrt m\|,\qquad
+ I(t)=\int_0^t\{40zF_c\rho_C b_e+\mathfrak f\}.
+\]
+Dividing the dissipative inequality by $\|p\|$ gives
+\[
+ \|p(t)\|+\int_0^t u^2/\|p\|\le I(t),\qquad
+ \int_0^t u\le2I(t)/\sqrt\lambda.
+\]
+At zeros use $(\|p\|^2+\epsilon^2)^{1/2}$ and let
+$\epsilon\downarrow0$; $p=0$ implies $e=0$ because $Q_C$ is invertible.
+The second inequality also follows directly from
+$\|p\|\le2u/\sqrt\lambda$.
+Integrating the $\zeta$ equation bounds its hidden-Gram term by
+$200z^2F_c I\le25I/32$. Therefore
+\begin{equation}
+ b_e\le2F\int_0^t\rho_n(a_h+\eta)+3I(t).
+ \label{cp:cancelled-energy}
+\end{equation}
+
+For completeness, the remaining response estimate can be checked
+layer by layer. The dense training preactivation carriers are bounded
+coordinatewise by
+$M=1+32zK_{\rm src}\sqrt\ell$ on $[0,T]$.
+At each gate split
+$\phi'(z_C)k_C-\phi'(z_R)k_R$
+as $\phi'(z_C)(k_C-k_R)+(\phi'(z_C)-\phi'(z_R))k_R$.
+The first multiplication costs $2s$, and the second at most
+$2t_2MF_j^z(a_h+\eta)$. Subtracting the initialized and learned reverse
+actions costs $A_b\eta$, and the hidden parameter difference costs
+$d_{j+1}^E\alpha a_h$. Starting with \eqref{cp:readout-error}, the
+displayed $B_j$ recursion, followed by the outer-product split, gives
+\[
+ \|\Delta\mathcal J\|
+ \le B_h\{b_e+M(a_h+\eta)+\eta/\sqrt\lambda\}.
+\]
+Only the carrier factor contains $M$; it is not multiplied once per
+layer. Applying this to the four terms of $\Delta\mathcal K$ gives
+\begin{align*}
+ \mathfrak f\le{}&2F\rho_n(a_h+\eta)
+       +4F\nu(a_h+\eta)/\sqrt\lambda+4D_s\eta\rho_n/\sqrt\lambda\\
+ &+4z(J_C+J_R)B_h\rho_n
+                  \{b_e+M(a_h+\eta)+\eta/\sqrt\lambda\}.
+\end{align*}
+The hidden-parameter equation, $\int u\le2I/\sqrt\lambda$ and
+$4zJ_C\le5/4$ similarly yield
+\[
+ a_h\le\tfrac54 I+2B_h\int_0^t\rho_n
+                    \{b_e+M(a_h+\eta)+\eta/\sqrt\lambda\}.
+\]
+Combining with \eqref{cp:cancelled-energy} proves the scalar inequality
+\[
+ E(t)\le\int_0^t
+ \{200zF_c\rho_C+K_1M\rho_n+20F\nu/\sqrt\lambda\}
+                \{E+\eta(1+\lambda^{-1/2})\}.
+\]
+The integral of its coefficient is at most $\mathcal B_n$, by
+$\int\rho_n,\int\rho_C\le2z$ and \eqref{cp:source-energy}.
+The integrating-factor formula gives
+$E\le\eta(1+\lambda^{-1/2})(e^{\mathcal B_n}-1)$.
+Substitution in \eqref{cp:output-error} proves the finite-horizon
+claim with precisely \eqref{cp:selected-coefficients}.
+\end{proof}
+
+\paragraph{Canonical error bound and retained inventory.}
+The local fitting claim supplies the tails and endpoint. Thus
+\[
+ \|f_{\rm model}-f_n\|_{\mathcal X}\le
+             \mathcal A_n\eta+\mathcal D e^{-\lambda T/4}.
+\]
+
+We verify that the explicit ledger has the promised dependence.
+Put $X=\beta^L\ge100$. The local envelopes and fitting bounds give
+$u_0,H_c\le X^3$, $\tau\le X^4$ and $K_{\rm src}\le X^{21}$.
+For example $16z\le16X^{-30}$ makes both additional terms in
+$A_f,A_b$ less than one; hence $A_f,A_b\le19$.
+The forward recursion then gives $F\le X^6$.
+For further detail, $d_j^E\le X^4$, $H_C\le2X^3$ and
+$P_h,P_\delta\le X^4,X^5$. In the backward recursion the additive
+term is at most $X^7$, and $18s\le\beta^3$. Geometric summation
+over at most $L$ layers gives $\max_jB_j\le X^{11}$ and then
+$B_h\le X^{15}$. Also $J_C,J_R\le X^9$ and $D_s\le X^5$.
+Substitution gives $K_1\le X^{18}$; here the generous powers
+absorb $L\le X$, all numerical factors, and $H_C=2H_c$.
+The selected fitting recursion already gives $F_c\le X^{15}$.
+Consequently
+\[
+ \mathcal B_n\le
+ 400X^{-45}+2X^{-12}+40X^{-24}
+                      +64X^{-21}\sqrt\ell
+ \le1+\sqrt\ell,
+\]
+and $\mathcal B_n/z\le C(1+\sqrt\ell)$ with $C$ depending only
+on $X$. Since $e^u-1\le ue^u$, \eqref{cp:selected-coefficients}
+gives
+\[
+ \mathcal A_n\le C z(1+\lambda^{-1/2})
+                   (1+\sqrt\ell)e^{\sqrt\ell},\qquad
+ \mathcal D\le C z(1+\lambda^{-1/2}),
+\]
+after increasing the activation/depth constant to absorb $e$.
+These are exactly the canonical factors in
+\eqref{cp:smallcap-comparison}. This is a small-cap proof,
+not a claim on a larger recurrence-defined label interval.
+Finally $T=32\ell/\lambda$ makes the tail $\mathcal D e^{-8\ell}$.
+For fixed positive $Y$ it is at most $Y/(2n)$ eventually; the other
+half is \eqref{cp:selected-tolerance}.
+
+\paragraph{Retained inventory.}
+Retain both moving and initial copies of the first matrix, mixers and
+raw readout; the selected indices; each $M_j$, its inverse or factorization,
+and $D_j$; the training data and labels; current training forward and
+backward arrays; $c_C$, $V_C$, $Q_C$ and its inverse or factorization;
+the corrected readout; direction arrays; and one-query forward workspace.
+Every selected width is at most $9q$. Each mixer or metric therefore
+costs at most $81q^2$, each first matrix at most $9qd$, each layer's
+training arrays at most a fixed multiple of $9mq$, and each sample
+matrix at most $m^2$. Since $m,d\le q$, these arrays total at most
+$1020(L+1)q^2+36q+10m(d+1)$, including simultaneous initial copies
+and working arrays. A nonprimitive activation evaluator is charged
+separately. Dense mixers, source bases, coefficient vectors and
+coefficient-compilation scratch are not retained by the runtime.
+The construction itself uses the finite source spaces only through
+its initial arrays; the separate compiler below will establish their
+initialization-only provenance for the two methods.
+\end{proof}
+
+\subsection{Finite initialized jets suffice}
+
+\begin{proposition}[Initialization-only coefficient compiler]
+\label{cp:jets}
+On the initialized operator event of \Cref{cp:fit}, fix $T,r_0,M>0$.
+Let finitely many sources from \Cref{cp:source} extend coordinatewise
+holomorphically near $[-r_0,T+r_0]+i[-r_0,r_0]$, bounded by $M$ uniformly
+over their compact query domain. For sphere queries assume also the joint
+holomorphic extension of \Cref{cp:source}.
+Any finite list of their integrals against specified polynomial time--sphere
+bases, or derivatives at real anchors in $[0,T]$, can be approximated to
+arbitrary positive accuracy using finitely many derivatives of the dense ODE
+and passive recursions at time zero, with exact initialized-image pairing.
+No later dense state or trajectory sample is needed; no bound on
+initialization time or working storage is asserted.
+\end{proposition}
+\begin{proof}
+We first prove the continuation assertion that makes initialized jets
+sufficient. For any one scalar source $g$, use its common bound $M$
+on the closed rectangle
+$\{-r_0\le\Re t\le T+r_0,\ |\Im t|\le r_0\}$, with a slightly
+larger open domain. The source rectangle, or a finite closed-disk cover
+with the real interval strictly inside its union, supplies such a
+positive $r_0$ by compactness. Put
+\[
+ \chi=\frac{\pi T}{8r_0},\quad b_0=\tanh\chi,\quad
+ b_1=\tanh(\chi+\pi/4),\quad \theta=b_0/b_1,
+ \quad \psi(\xi)=\frac{\xi-\theta}{1-\theta\xi},
+\]
+\[
+ \mathfrak t(\xi)=\frac T2+\frac{2r_0}{\pi}
+       \log\frac{1+b_1\psi(\xi)}{1-b_1\psi(\xi)},
+ \qquad \xi_*=\frac{2\theta}{1+\theta^2}<1.
+\]
+The logarithm is the branch equal to a real number on the real
+interval. For $|\xi|<1$, $|\psi(\xi)|<1$; the ratio in the logarithm
+has positive real part and modulus between
+$(1-b_1)/(1+b_1)$ and its reciprocal. Thus
+$|\Im\mathfrak t|<r_0$ and
+$-r_0<\Re\mathfrak t<T+r_0$.
+Direct substitution gives $\mathfrak t(0)=0$ and
+$\mathfrak t(\xi_*)=T$, and the derivative is nonzero on
+$[0,\xi_*]$. This proves continuation from the origin onto the
+entire physical interval, without stepping a dense trajectory.
+
+The Taylor coefficients of $g\circ\mathfrak t$ are
+\[
+ a_j=\sum_{k=0}^j\frac{g^{(k)}(0)}{k!}
+                       [\xi^j]\mathfrak t(\xi)^k.
+\]
+Cauchy's coefficient formula gives $|a_j|\le M$, so truncation at
+$N$ has error at most $M\xi_*^{N+1}/(1-\xi_*)$ on the whole interval.
+This bound is uniform over all passive inputs in the compact domain
+and over all source coordinates. Derivatives at finitely many later
+anchors are also recovered: choose $\xi_*<\rho_*<1$ and
+$0<\epsilon_*<\rho_*-\xi_*$. On $|\xi|\le\rho_*$ the tail is
+$M\rho_*^{N+1}/(1-\rho_*)$, hence its $k$th derivative at any real
+anchor is at most
+$k!M\rho_*^{N+1}/\{\epsilon_*^k(1-\rho_*)\}$.
+Repeated application of $(\mathfrak t')^{-1}\partial_\xi$ converts
+these to the finitely many required time derivatives. All its
+coefficients are bounded on that compact interval. A finite $N$
+therefore achieves every prescribed finite list of accuracies.
+
+Let $\Theta=(W^{(1)},\ldots,W^{(L)},w)$ be the dense parameter tuple
+and $\mathcal F$ its autonomous vector field. For the initialized ODE
+$\dot\Theta=\mathcal F(\Theta)$ the formal
+coefficients are computed successively by
+\[
+ \Theta_{j+1}=\frac1{j+1}[t^j]
+          \mathcal F\!\left(\sum_{i=0}^j\Theta_i t^i\right).
+\]
+The analytic local solution has precisely these coefficients, by
+coefficient comparison and uniqueness of the local ODE. The forward
+and passive backward recursions then give their source jets by finite
+addition, multiplication and composition at time zero. Any scalar
+activation derivatives required here are part of the fixed analytic
+activation evaluator; their description, evaluation and scratch are
+not asserted to have unit cost unless taken as primitives.
+
+For time--sphere integral coefficients, insert the uniformly convergent
+continued polynomials into their defining integrals. Each integrand is
+continuous on the compact time interval times sphere. Finite partitions
+and weighted Riemann sums converge uniformly for the finite collection
+of integrands. A finite mesh can be chosen from their modulus of
+continuity: the source strip gives derivative bounds by Cauchy's
+formula, and the finitely many basis functions are known polynomials.
+Thus the required integral approximations use only finitely many
+evaluations of the continued origin-jet polynomial. For $d=1$ the
+spatial integral is simply the two-point average.
+
+Finally perform every scalar linear coefficient operation on a base
+source and set its image coefficient equal to the initialized matrix
+times that vector. Linear operations commute with this fixed matrix.
+Since its Euclidean operator norm is at most eight, approximating a
+base coefficient in Euclidean norm to $\epsilon/8$ approximates both
+the base and its image to $\epsilon$. There are only finitely many
+coefficients and a finite sum of their basis suprema; choose each
+coefficient tolerance smaller than the desired final error divided
+by this sum. This imposes exact pairing while retaining the chosen
+uniform source tolerance. No coefficient is retained after the
+selected initial arrays are formed.
+\end{proof}
+
+\subsection{Whole-sphere polynomial sources}
+
+\begin{lemma}[Joint time--sphere approximation and its dimension]
+\label{cp:harmonic-approximation}
+Let $T,r_t,r_q,M_n>0$ and $0<\eta\le\min\{1,M_n\}$, and put
+$\alpha_T=r_t/(4T)$. Suppose a real $\R^n$-valued source on
+$[0,T]\times S^{d-1}$ extends coordinatewise holomorphically to a neighborhood of
+\[
+ ([-r_t,T+r_t]+i[-r_t,r_t])\times
+ \{v\in\mathbb C^d:v^\top v=1,\ \|\operatorname{Im}v\|_2\le\sinh r_q\},
+\]
+with coordinate modulus at most $M_n$ on this set. Query holomorphy is
+relative to the quadric; for $d=1$ use its two real points.
+For $d\ge2$ put
+\[
+ b_d=2d-2,\quad
+ D_d=2^{d+1}d^{d-2},\quad
+ P_T=\frac{18D_db_d!\,2^{b_d+1}}{\alpha_T r_q^{b_d+1}},
+ \quad H_*=2\log\frac{16M_nP_T}{\eta}.
+\]
+For $\alpha_T,r_q\le1$, a real expansion in Chebyshev time polynomials and
+real spherical harmonics with $\alpha_Tk+r_qj\le H_*$ approximates the source
+to coordinate error $\eta/8$ using at most
+\begin{equation}
+ N\le\frac{2\{H_*+\alpha_T+(d-1)r_q\}^d}
+                {d!\,\alpha_T r_q^{d-1}}
+ \label{cp:harmonic-dimension}
+\end{equation}
+coefficient vectors. For the dense sources of \Cref{cp:source},
+\Cref{cp:jets} gives initialized-jet coefficients with total coordinate
+error at most $\eta$ and exact initialized-image pairing.
+For $d=1$, use the two points of $S^0$ and at most $2N_1$ vectors,
+where $N_1=1+\lfloor H_1/\alpha_T\rfloor$ and
+$H_1=\log(64M_n/(\alpha_T\eta))$.
+\end{lemma}
+\begin{proof}
+Fix one coordinate and call its scalar source $g$.
+We supply the spatial decay argument. For $d\ge2$ let
+$\mathcal H_j$ be the restrictions of homogeneous harmonic
+polynomials of degree $j$ to $S^{d-1}$, with probability surface
+measure. Its dimension is
+\[
+ h_j=\binom{j+d-1}{d-1}-\binom{j+d-3}{d-1}
+       \le2\binom{j+d-2}{d-2},
+\]
+where a binomial coefficient with negative upper index is zero.
+Indeed, applying the Laplacian to $|x|^{2k}H_l(x)$ gives
+$2k(2l+2k+d-2)|x|^{2k-2}H_l(x)$; induction decomposes every
+homogeneous polynomial into these summands and gives the dimension
+formula by subtraction. The spherical Laplacian eigenvalues
+$-j(j+d-2)$ give orthogonality of different degrees by integration
+by parts. Polynomials contain constants and separate points on the
+compact sphere, so their uniform density (the real Stone--Weierstrass
+theorem) proves completeness. For an orthonormal basis $Y_{j\nu}$,
+rotational invariance and integration give the addition identity
+$\sum_\nu Y_{j\nu}(v)^2=h_j$; consequently
+$|Y_{j\nu}(v)|\le\sqrt{h_j}$ and the projection $\Pi_j$ has
+supremum operator norm at most $h_j$.
+
+For fixed $v$, average an analytic function over the complex tangent
+circle $\cos\zeta\,v+\sin\zeta\,u$, $u\perp v$, $|u|=1$.
+On $\mathcal H_j$ this averaging is scalar: rotations fixing $v$
+leave a one-dimensional zonal eigenspace, and its normalized
+eigenfunction solves
+$(1-x^2)p''-(d-1)xp'+j(j+d-2)p=0$, $p(1)=1$.
+Coefficient comparison gives
+$p(x)=C_j^{(d-2)/2}(x)/C_j^{(d-2)/2}(1)$ for $d>2$.
+For real $\zeta$ the averaging is self-adjoint because the joint
+law of its two endpoints is symmetric. Apply this to each harmonic
+coefficient and continue analytically in $\zeta$; it follows that
+the averaged analytic source has $j$th projection equal to
+$p(\cos\zeta)\Pi_jg$. At $\zeta=ir_q$ its arguments satisfy
+$z^\top z=1$, $|\Im z|\le\sinh r_q$, so its supremum is at most
+$M_n$. Thus $\|\Pi_jg\|_\infty\le h_jM_n/p(\cosh r_q)$.
+
+For $\nu=(d-2)/2>0$, the generating function
+$(1-2xw+w^2)^{-\nu}=\sum_j C_j^\nu(x)w^j$
+at $x=\cosh r$, for any $r>0$, factors as
+$(1-e^rw)^{-\nu}(1-e^{-r}w)^{-\nu}$ with nonnegative coefficients.
+It gives $C_j^\nu(\cosh r)\ge e^{rj}(\nu)_j/j!$ and
+$C_j^\nu(1)=(2\nu)_j/j!$. For $j\ge1$ their ratio is
+$2\prod_{i=1}^{j-1}(1+\nu/(\nu+i))$.
+Its logarithm is at most
+$\log2+\nu\int_0^{j-1}(\nu+x)^{-1}\,dx$.
+Since $\nu\ge1/2$, the ratio is at most $2(2j)^\nu$, and hence
+at most $2^d(j+1)^d$; the $j=0$ inequality is immediate.
+Together with
+$h_j\le2d^{d-2}(j+1)^{d-2}$ this proves
+\begin{equation}
+ \|\Pi_jg\|_\infty\le M_nD_d(j+1)^{b_d}e^{-r_qj}.
+ \label{cp:spatial-decay}
+\end{equation}
+For $d=2$, the basis is the constant and the sine--cosine pair at
+each positive integer, and the averaging multiplier is
+$\cosh(jr)\ge e^{jr}/2$; the same loose bound with $D_2=8$, $b_2=2$
+holds directly.
+
+Set $t=T(1+\cos u)/2$. For $|\Im u|\le\alpha_T\le1$ this lies
+inside the time rectangle, since its displacement from $[0,T]$ is
+at most $T\alpha_T$. The resulting even periodic function has
+cosine coefficients whose $j$th harmonic block is bounded by
+$2M_nD_d(j+1)^{b_d}e^{-\alpha_Tk-r_qj}$: shift the Fourier contour
+to $\Im u=\pm\alpha_T$ and use \eqref{cp:spatial-decay} there.
+The series is absolutely uniformly convergent. Discarding indices
+with $\alpha_Tk+r_qj>H_*$ bounds the tail by
+\[
+ 2M_nD_de^{-H_*/2}
+ \sum_{k\ge0}e^{-\alpha_Tk/2}
+ \sum_{j\ge0}(j+1)^{b_d}e^{-r_qj/2}
+ \le M_nP_Te^{-H_*/2}\le\eta/16.
+\]
+Here $\sum_ke^{-\alpha_Tk/2}\le3/\alpha_T$ and
+$\sum_j(j+1)^be^{-r_qj/2}\le3b!(2/r_q)^{b+1}$, obtained by
+comparison with the gamma integral after shifting each unit interval.
+
+The number of retained coefficients is
+$N=\sum_{r_qj\le H_*}h_j(1+\lfloor(H_*-r_qj)/\alpha_T\rfloor)$.
+Replace $h_j$ by twice the number of weak compositions of $j$ into
+$d-1$ parts. The corresponding nonnegative lattice points have
+weighted sum $\alpha_Tk+r_q\sum l_i\le H_*$. Their disjoint unit
+cubes lie in the simplex with right-hand side
+$H_*+\alpha_T+(d-1)r_q$, whose volume is exactly the right-hand
+side of \eqref{cp:harmonic-dimension}. This proves the count.
+For the finite collection of coefficients, choose the Euclidean
+approximation tolerance in \Cref{cp:jets} so that its product with
+$8\sum_{k,j,\nu}\|Y_{j\nu}\|_\infty$ is at most $\eta/16$.
+Both a base source and its paired image then have total error below
+$\eta$, without increasing the coefficient count.
+
+If $d=1$, there is no spatial approximation: apply the preceding
+one-variable Fourier contour argument separately at the two points.
+The geometric tail after degree $\lfloor H_1/\alpha_T\rfloor$ is
+at most $6M_ne^{-H_1}/\alpha_T<\eta/8$; the same finite coefficient
+accuracy argument finishes this case.
+\end{proof}
+
+\begin{proposition}[Harmonic: whole-sphere accuracy and total state]
+\label{cp:harmonic}
+Eventually at each fixed confidence, the initialized-jet construction gives
+a selected nonlinear model with $\|f_{\rm Harm}-f_n\|_{\mathcal X}\le Y/n$
+on the whole sphere and total retained real-coordinate count at most
+\[
+ C(m+d)^2+\left(\frac Cd\right)^{d+1}
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^{3d+2}.
+\]
+\end{proposition}
+\begin{proof}
+For this whole-sphere construction put $\lambda=\gamma/m$,
+$z=Y/\lambda$, $\ell=\log(en)$, and $T=32\ell/\lambda$.
+Choose $\eta$ by the canonical tolerance formula
+\eqref{cp:selected-tolerance}. The public source proposition supplies
+the radii and coordinate bound
+\[
+ r_t=\frac{\gamma}
+ {\beta^{30L}Y^2m\sqrt{(d+3)\ell}},\qquad
+ r_q=\frac1{\beta^{3L}\sqrt{(d+3)\ell}},\qquad
+ M_n=\beta^{6L}\sqrt n.
+\]
+Set $\alpha_T=r_t/(4T)$. For $d\ge2$, let $N$ be the coefficient
+count in \Cref{cp:harmonic-approximation}, with its explicitly defined
+$P_T,H_*$ evaluated at these local parameters. For $d=1$, let $N_1$
+be the two-point time count defined in that same statement.
+Apply the approximation lemma to the four joint time--sphere families
+from \Cref{cp:source}, including its passive backward family; hence
+the same coefficient vectors serve all training inputs. In layer $j$
+include the approximate feature and response coefficients and the
+paired initialized forward and reverse image coefficients. Add
+$\mathbf1_n$, the at most $2m$ exact initialized training vectors
+needed for forward-image pairing, and the $d$ first-layer columns.
+Each source space has rank at most
+\[
+ R=2m+d+1+4N\quad(d\ge2),\qquad
+ R=2m+d+1+8N_1\quad(d=1).
+\]
+The source contract is now satisfied. Invoke \Cref{cp:selected} with
+its source-dimension bound $q=R$; it selects at most $9R$ coordinates
+per layer and gives
+the claimed absolute error. All choices use initialized jets only.
+
+We spell out the asymptotic count because dropping the label factor
+here would change the theorem. The exact source radius gives
+\begin{equation}
+ \alpha_T^{-1}=\frac{4T}{r_t}
+       =128\beta^{30L}z^2\sqrt{d+3}\,\ell^{3/2},\qquad
+ r_q^{-1}=\beta^{3L}\sqrt{(d+3)\ell}.
+ \label{cp:time-radius-count}
+\end{equation}
+For each fixed admissible problem, \eqref{cp:smallcap-comparison}
+and \eqref{cp:selected-tolerance} imply
+$\log(1/\eta)\le2\ell$ eventually. Every other fixed parameter
+inside the logarithm defining $H_*$ is additive, whereas
+$\log P_T=O_{d,\mathrm{problem}}(\log\ell)$.
+Thus $H_*+\alpha_T+(d-1)r_q\le8\ell$ eventually. The dimension
+bound gives
+\[
+ N\le C^d\beta^{CLd}\frac{(d+3)^{d/2}}{d!}\,
+                    z^2\ell^{3d/2+1}.
+\]
+For $d=1$, the direct two-point count gives the same form with
+$N_1\le C\beta^{CL}z^2\ell^{5/2}$.
+
+The public inventory \eqref{cp:selected-inventory}, with $q=R$,
+is $1020(L+1)R^2+36R+10m(d+1)$, plus the separately charged
+activation evaluator. It already includes selected mixers, metrics,
+initial copies, data and working arrays. No dense mixer, source basis,
+initialized jet, quadrature table or coefficient vector is retained.
+
+Finally, for $d\ge2$, $R^2\le C(m+d)^2+CN^2$ and
+$d!\ge(d/e)^d$ imply
+\[
+ \frac{(d+3)^d}{(d!)^2}
+ \le\frac{(8e^2)^d}{d^{d+1}}.
+\]
+Indeed, for $d\ge2$, $(1+3/d)^d\le(5/2)^d$ and $d\le2^d$
+give the stronger numerator $(5e^2)^d$. Absorb activation/depth
+powers into $C^d$ to obtain the asserted count. For $d=1$, use
+$R^2\le C(m+1)^2+CN_1^2$ and the already proved bound on $N_1$;
+this gives the stated logarithmic exponent five. If a finite small
+width makes $9R\ge n$, retaining all coordinates is a valid fallback;
+the claimed polylogarithmic bound concerns the eventual range only.
+\end{proof}
+
+\subsection{Finite-panel sources on an adaptive time partition}
+
+\begin{proposition}[Taylor: panel accuracy and total state]
+\label{cp:panel}
+On the declared $(m+p)$-input panel of \Cref{cp:setup}, eventually at each
+fixed confidence there is an initialization-only selected model with
+$\|f_{\rm Taylor}-f_n\|_{\mathcal X}\le Y/n$ and total state at most
+\[
+ C(m+p)^2\left[\left(\frac{Ym}\gamma\right)^4[\log(en)]^3+
+       \left(\frac m\gamma\right)^2[\log(en)]^2
+       \{\log(e+\log(en))\}^2\right]+C(m+p)d.
+\]
+Only training inputs enter the deficit equation and Gram inverse.
+Accuracy outside the panel is not asserted.
+\end{proposition}
+\begin{proof}
+For this finite-panel construction put $\lambda=\gamma/m$,
+$z=Y/\lambda$, $\ell=\log(en)$ and $T=32\ell/\lambda$.
+Use the public disk-and-partition interface of \Cref{cp:source}:
+there are $0=t_0<\cdots<t_J=T$ and radii $r_b>0$ such that each
+source is holomorphic near $|t-t_b|\le r_b$ and
+$t_{b+1}-t_b\le r_b/2$. Its count \eqref{cp:panel-source} gives
+\begin{equation}
+ J\le1+\beta^{30L}z^2\sqrt\ell
+             +\frac{\beta^{16L}}\lambda
+                        \log(1+4\ell/\log2).
+ \label{cp:panel-count}
+\end{equation}
+The centers and radii are deterministic functions of the problem
+parameters, as that public interface guarantees, so they require
+no later dense training data.
+
+There are at most $2(2m+p)$ source curves per layer: forward features
+and their initialized images at all declared inputs, and backward
+responses and their initialized transpose images at training inputs.
+Each coordinate is bounded by $M_n=\beta^{6L}\sqrt n$ on its disks.
+Choose the source tolerance \eqref{cp:selected-tolerance} and
+\[
+ K=\max\{0,\lceil\log_2(8M_n/\eta)\rceil\}.
+\]
+On panel $b$, retain coefficient vectors
+$r_b^ku^{(k)}(t_b)/k!$ for $0\le k\le K$, where $u$ denotes
+one of the source curves.
+They have coordinate magnitude at most $M_n$. Since
+$|t-t_b|/r_b\le1/2$, the discarded Taylor tail is at
+most $M_n2^{-K}\le\eta/8$. The vectors from all panels span one
+time-independent space of dimension at most $J(K+1)$ per curve.
+The local approximants may differ at a panel boundary: both
+approximate the same source there, and the comparison theorem
+uses values, never their derivatives or a boundary matching rule.
+
+Apply \Cref{cp:jets} to approximate every scaled base coefficient
+in Euclidean norm to $\eta/128$, and form its initialized image
+exactly. The base reconstruction error is at most
+$(\eta/128)\sum_{k\ge0}2^{-k}=\eta/64$; initialized operator norm
+eight gives image error at most $\eta/8$. Adding their independently
+controlled Taylor tails leaves both below $\eta$.
+Include the constant, exact initial training vectors and paired
+images, and first-weight columns required by \Cref{cp:selected}.
+Before input
+reduction the rank per layer is at most
+$2m+d+1+2(2m+p)J(K+1)$.
+This verifies the identical source contract, so the same selected
+runtime, fitting, cancellation, and endpoint proofs apply. In
+particular taking a maximum over the passive inputs does not
+introduce $p$ into any comparison coefficient. No passive deficit
+or additional sample Gram is introduced.
+
+There is an exact reduction of the first-layer dimension. Let
+$U_0\in\R^{d\times k}$ have orthonormal columns spanning all
+declared normalized inputs, where $k\le\min(d,m+p)$.
+Replace $v_i$ by $U_0^\top v_i$ and the first matrix by
+$W^{(1)}U_0$. Every first-layer derivative is a sum of outer
+products with $v_a$, hence the component on the orthogonal
+complement of this input span is constant. Induction through
+the layers proves equality of the original and reduced coupled
+trajectories on the panel. The reduced inputs remain unit vectors;
+there is no new normalization factor. Each initialized Gaussian
+row multiplied by $U_0$ is exactly standard Gaussian in $\R^k$,
+and the sample inner products and population feature Gram are
+unchanged. Thus the same source event applies to the reduced
+system, whose public panel-count coefficients depend only on activations
+and depth, not on $k$ or $d$. The source rank is now
+\[
+ R=2m+k+1+2(2m+p)J(K+1).
+\]
+
+Invoke \Cref{cp:selected} with source-dimension bound $q=R$ and
+input dimension $k$. To its public inventory
+\eqref{cp:selected-inventory}, add the passive inputs and output
+buffer and retain the input map. A safe explicit count is
+\[
+ 1020(L+1)R^2+36R+10m(k+1)+pk+(m+p)
+                         +3(m+p)d,
+\]
+plus the separately charged nonprimitive activation evaluator.
+This includes original and transformed data, the map, all metrics
+and inverse caches, initial and moving weights, direction arrays,
+training feature/response and sample-matrix buffers, and query
+workspace. Discard the dense arrays, source coefficients, origin
+jets, panel anchors and partition schedule. The optimizer is
+autonomous; a partition used to prove source approximation is not
+a retained forcing table.
+
+For each fixed problem, \eqref{cp:selected-tolerance} implies
+$K+1\le8\ell$ eventually. The coefficients $\beta^{30L}$ and
+$\beta^{16L}$ in \eqref{cp:panel-count} depend only on activations
+and depth. Squaring that bound with
+$(a+b+c)^2\le3(a^2+b^2+c^2)$, and using $k\le m+p$, yields
+\[
+ R^2\le C(m+p)^2\left[
+    z^4\ell^3+\lambda^{-2}\ell^2\{\log(e+\ell)\}^2\right].
+\]
+The second term absorbs the initial rank and plain $\ell^2$ terms
+because $\lambda\le1$. Crucially, the $z^2$ in the first term of
+the panel count was retained before squaring, so its storage
+contribution remains $z^4=(Ym/\gamma)^4$; it was not replaced
+by a label-independent constant. This proves the stated inventory
+and finishes the construction.
+\end{proof}

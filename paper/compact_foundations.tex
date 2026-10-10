@@ -1,0 +1,1526 @@
+\section{One source argument on two analytic domains}
+\label{cp:foundations}
+
+The following interface supplies the analytic approximation domains and
+real-time bounds used by the compression constructions.  Its proof contains
+the stopped-cavity argument and all its auxiliary coefficient estimates.
+
+\begin{proposition}[Analytic sources and real-time response bounds]
+\label{cp:source}
+Fix the finite query lists below before initialization. Eventually at each
+fixed confidence, the following hold on one event. In this proposition put
+\[
+ T=32\frac m\gamma\log(en),\qquad
+ r_t=\frac{\gamma}{\beta^{30L}Y^2m\sqrt{(d+3)\log(en)}},\qquad
+ r_q=\frac1{\beta^{3L}\sqrt{(d+3)\log(en)}}.
+\]
+Write \(k^{(L)}=w\), \(k^{(j)}=W^{(j+1)\top}\delta^{(j+1)}\) (\(j<L\)) for
+the backward responses before the activation derivative. The four source
+families are
+\begin{equation}
+ h^{(j)},\qquad W^{(j)}(0)h^{(j-1)},\qquad
+ \delta^{(j)},\qquad W^{(j+1)}(0)^\top\delta^{(j+1)},
+ \label{cp:source-families}
+\end{equation}
+omitting the forward image for \(j=1\) and reverse image for \(j=L\).
+
+\begin{enumerate}[label=(\roman*)]
+\item The forward and backward fields are holomorphic on a neighborhood of
+\[
+ ([-r_t,T+r_t]+i[-r_t,r_t])\times
+ \{v\in\mathbb C^d:v^\top v=1,
+                      \|\operatorname{Im}v\|_2\le\sinh r_q\}.
+\]
+Query holomorphy is relative to the quadric; for \(d=1\) use \(\{-1,1\}\).
+Here and for \(t\in[0,\infty]\) over the real sphere, the first-layer
+operator divided by \(\sqrt n\) and all hidden operators have norm at most
+ten, and
+\begin{equation}
+ \frac{\|h^{(j)}\|_2}{\sqrt n}\le\beta^{3L},\qquad
+ \frac{\max\{\|\delta^{(j)}\|_2,\|k^{(j)}\|_2\}}{\sqrt n}
+ \le16\beta^{4L}\frac{Ym}{\gamma}.
+ \label{cp:source-rms}
+\end{equation}
+Each source coordinate has modulus at most \(\beta^{6L}\sqrt n\)
+on the complex domain.
+
+\item On each fixed finite query list, the predictions are holomorphic near
+\([-r,T+r]+i[-r,r]\), where
+\begin{equation}
+ r=\frac m{\gamma\sqrt{\log(en)}},\qquad
+ |f_n(t,\sqrt d\,v)|\le16\beta^{6L}\frac{Ym}{\gamma}.
+ \label{cp:finite-time}
+\end{equation}
+On the entire real training trajectory,
+\begin{equation}
+ \sup_{t\in[0,\infty]}\max_{a,j,i}|k_{a,i}^{(j)}(t)|
+ \le32\beta^{21L}\frac{Ym}{\gamma}\sqrt{\log(en)}.
+ \label{cp:carrier}
+\end{equation}
+
+\item For a declared finite panel containing the training inputs, there are
+\(0=t_0<\cdots<t_J=T\) and \(r_b>0\), \(0\le b<J\), with
+\(t_{b+1}-t_b\le r_b/2\). The sources are holomorphic near
+\(|t-t_b|\le r_b\), with the operator, RMS and coordinate bounds in (i):
+forward queries range over the panel, backward queries over training inputs.
+The partition and radii depend deterministically only on
+\(n,m,\gamma,Y\), activations and depth, and
+\begin{equation}
+ J\le1+\beta^{30L}\left(\frac{Ym}{\gamma}\right)^2\sqrt{\log(en)}
+       +\beta^{16L}\frac m\gamma
+             \log\left(1+\frac{4\log(en)}{\log2}\right).
+ \label{cp:panel-source}
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+We prove stronger intermediate domains with explicitly calculated bounds,
+then compare them with the displayed interface.  All symbols introduced
+from here through the end of this proof are private to this argument;
+the subsequent constructions use only the proposition's stated bounds.
+All probability statements concern one sufficiently large width, with the
+data, depth, activations and confidence fixed.  Write
+\(\lambda=\gamma/m\), \(Y=\|y\|_2/\sqrt m\),
+\(S=16Y/\lambda\), and \(\ell=\log(en)\).  We treat \(Y>0\);
+zero labels give the stationary zero predictor.  For each full or cavity
+trajectory write \(\rho=\|r\|_2/\sqrt m\), also at complex times using
+the Euclidean norm of the complex residual vector.  Write
+\(W_0^{(j)}=W^{(j)}(0)\) for initialized matrices.  Put
+\[
+ b=\max_j|\phi_j(0)|,\qquad
+ s=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|\phi'_j(z)|\},
+ \qquad
+ t_2=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|\phi''_j(z)|\}.
+\]
+Thus \(1+b,s,t_2,16/a\le\beta\), and the bound used for
+activation values is \(|\phi_j(z)|\le b+s|z|\), not boundedness.
+Write \(v=x/\sqrt d\).  Backward fields at a passive input are defined
+by the same algebraic recursion as at a training input,
+\[
+ k^{(L)}(t,v)=w(t),\qquad
+ \delta^{(j)}(t,v)=\phi'_j(z^{(j)}(t,v))\odot k^{(j)}(t,v),
+ \qquad k^{(j)}=W^{(j+1)\top}\delta^{(j+1)}.
+\]
+This definition uses no passive label and does not add a training term.
+
+\paragraph{1. Local coefficient estimates and working domains.}
+\label{cp:src-coefficients}
+
+The following scalars are bounds, not coordinates of a model:
+\begin{align}
+ H_1&=\max(1,b+20s),& H_j&=\max(1,b+10sH_{j-1}),\nonumber\\
+ k_L&=H_L,& k_j&=10sk_{j+1},& \tau_j&=sk_j,\nonumber\\
+ P_1&=3,&P_j&=H_{j-1}+10sP_{j-1}+1,&f_j&=sP_j,\nonumber\\
+ A_*&=2sP_L+2s^2\sum_{j=2}^Lk_jP_{j-1},&
+ D_*&=t_2\sum_{j=1}^LP_j^2,&
+ H_*&=A_*+t_2\sum_{j=1}^LP_j^2k_j. \label{cp:src-basic}
+\end{align}
+Set \(f_* =\max_jf_j\), \(k_* =\max_jk_j\),
+\(H_{\max}=\max_jH_j\), and define
+\begin{align}
+ E_*&=t_2\sum_{j=1}^L(10s)^{2(j-1)}k_j,&
+ T_*&=2H_*^2+4A_*^2(e^2-1),\nonumber\\
+ D_0&=(1+b+s)(1+T_*+E_*+s^2k_*^2),&
+ D_1&=576e^3(1+b+s)D_*^3,\nonumber\\
+ C_F&=s(8f_*^2+H_{\max}^2+1),&
+ C_{\rm abs}&=8(D_0+1),\nonumber\\
+ V_1^0&=\tau_1,&V_j^0&=\tau_jH_{j-1}^2+10sV_{j-1}^0,\nonumber\\
+ G_L^0&=sH_L+14t_2V_L^0+s,&
+ G_j^0&=10sG_{j+1}^0+s^3k_{j+1}^2H_j+14t_2V_j^0+s,\nonumber\\
+ W_G&=128(1+H_{\max}+s\max_jV_j^0+\max_jG_j^0).
+ \label{cp:src-absorption-coefficients}
+\end{align}
+Choose the exponential-budget constants in this order:
+\begin{align}
+ \eta_*&=\min\{1,(1024C_{\rm abs}W_G)^{-1}\},&
+ \mathcal B&=1024e^2L,&
+ \Lambda_*&=\log(e+\mathcal B)+\log(1/\eta_*).\nonumber
+\end{align}
+\begin{equation}
+\begin{split}
+ S_*={}&\min\left\{1,(4A_*)^{-1},
+ \sqrt{\frac{\eta_*}{4000D_*}},
+ \sqrt{\frac{\eta_*}{16eD_*\sqrt{2\mathcal B}}},\right.\\
+ &\hspace{19mm}\left.\sqrt{\frac{\eta_*}{\Lambda_*}},
+ \left(\frac{\eta_*^3}{D_1\mathcal B}\right)^{1/4},
+ (8D_0C_F)^{-1/2}\right\}. \label{cp:src-allowance}
+\end{split}
+\end{equation}
+These quantities depend only on the activation bounds and depth.
+Further put
+\begin{align}
+ C_G&=32\max(1,H_{\max},\max_j\tau_j),&
+ K_{\rm src}&=16C_{\rm abs}(1+C_G),\nonumber\\
+ g_*&=\tau_1+\sum_{j=2}^L\tau_jH_{j-1},&
+ r_j^*&=P_jg_*,&q_j^*&=f_jg_*,\nonumber\\
+ j_j^*&=20(10s)^{j-1},&b_j^*&=sj_j^*,\nonumber\\
+ e_1&=t_2r_1^*P_1,&
+ e_j&=t_2r_j^*P_j+s(q_{j-1}^*+\tau_jH_{j-1}f_{j-1}+10e_{j-1}),\nonumber\\
+ a_1^*&=t_2j_1^*P_1+2s,&
+ a_j^*&=t_2j_j^*P_j+s(b_{j-1}^*+10a_{j-1}^*),\nonumber\\
+ T_Q&=8f_*\max_j(f_jH_*+e_j),&T_J&=8f_*\max_ja_j^*.
+ \label{cp:src-response-coefficients}
+\end{align}
+For a Gaussian multiplier \(G\), define
+\begin{align}
+ U_1(G)&=4sK_{\rm src},\nonumber\\
+ U_j(G)&=2\{sK_{\rm src}(H_{j-1}^2+f_{j-1}^2+ST_Q
+                  +S^2H_{j-1}q_{j-1}^*)+Gq_{j-1}^*+1\},\nonumber\\
+ V_1(G)&=2(2G+2sK_{\rm src}S^2+1),\nonumber\\
+ V_j(G)&=2\{Gb_{j-1}^*+sK_{\rm src}S^2
+                    (T_J+H_{j-1}b_{j-1}^*)+1\}. \label{cp:src-UV}
+\end{align}
+Use \(U=\max_jU_j(16\sqrt{d+3})\),
+\(V=\max_jV_j(16\sqrt{d+3})\) for the sphere, and
+\(U_{\rm fin}=\max_jU_j(64)\) for a fixed finite list of inputs.
+Finally let
+\begin{equation}
+ \mathcal K=H_L^2+S^2\left(\tau_1^2+
+            \sum_{j=2}^L\tau_j^2H_{j-1}^2\right),\qquad
+ D_W=\max\{\tau_1,\max_{j\ge2}\tau_jH_{j-1}\}.
+ \label{cp:src-K}
+\end{equation}
+
+\begin{claim}[Local power bounds]
+\label{cp:src-powers}
+If \(Y/\lambda\le\beta^{-30L}\), then \(S\le\beta^{-26L}\le S_*\).
+Moreover
+\begin{gather}
+ H_j\le3\beta^{2j},\quad P_j\le\beta^{3j-2},\quad
+ k_j\le3\beta^{4L-2j},\quad\tau_j\le3\beta^{4L-2j+1},
+ \quad K_{\rm src}\le\beta^{21L},\label{cp:src-powers-basic}\\
+ U\le\beta^{26L}\sqrt{d+3},\qquad
+ V\le\beta^{2L}\sqrt{d+3},\qquad
+ U_{\rm fin}\le\beta^{26L},\qquad
+ \mathcal K\le\beta^{14L}. \label{cp:src-powers-UV}
+\end{gather}
+\end{claim}
+\begin{proof}
+Unroll the affine recurrences using \(10s\le\beta^2\),
+\(4j\le\beta^j\), \(L,L+1\le\beta^{L-1}\), and
+\(\sum_{j=1}^L\beta^{cj}\le\beta^{cL}/(1-\beta^{-c})\).
+They give \(H_j\le22\beta(10\beta)^{j-1}\le3\beta^{2j}\)
+and \(P_j\le4j(10\beta)^{j-1}\le\beta^{3j-2}\).
+Substitution gives the following bounds; both columns are included to
+account for the numerical factors.
+\begin{center}\small
+\begin{tabular}{c|c|c}
+quantity& intermediate bound&power bound\\\hline
+\(A_*\)&\(7\beta^{5L-3}\)&\(\beta^{5L-2}\)\\
+\(D_*\)&\(2\beta^{6L-3}\)&\(\beta^{6L-2}\)\\
+\(H_*\)&\(4\beta^{8L-3}\)&\(\beta^{8L-2}\)\\
+\(E_*\)&\(4\beta^{6L-3}\)&\(\beta^{6L-2}\)\\
+\(T_*\)&\(3\beta^{16L-4}\)&\(\beta^{16L-3}\)\\
+\(D_0\)&\(8\beta^{16L-3}\)&\(\beta^{16L-2}\)\\
+\(D_1\)&\(9216e^3\beta^{18L-8}\)&\(\beta^{18L-2}\)\\
+\(C_F\)&\(9\beta^{6L-1}\)&\(\beta^{6L}\)\\
+\(C_{\rm abs}\)&\(65\beta^{16L-3}\)&\(\beta^{16L-1}\)
+\end{tabular}\end{center}
+For instance, the summands of \(A_*\)'s mixed part, \(H_*\)'s
+curvature part, and \(E_*\) are at most
+\(6\beta^{4L+j-3},3\beta^{4L+4j-3},3\beta^{4L+2j-3}\).
+The inner sum in \(D_0\) is at most
+\(1+3\beta^{16L-4}+4\beta^{6L-3}+9\beta^{8L-2}
+\le4\beta^{16L-4}\), and \(9216e^3<\beta^6\).
+Unrolling the two activity recurrences gives
+\[
+ V_j^0\le27j\beta^{4L+2j-3},\quad \max_jV_j^0\le\beta^{7L-2},
+ \quad G_j^0\le66L\beta^{8L-2j-1},\quad
+ W_G\le\beta^{9L+1}.
+\]
+In the reverse recurrence the propagated terminal, mixer and curvature
+contributions are bounded respectively by
+\(380L\beta^{8L-2j-2},27L\beta^{8L-2j-1},
+379L\beta^{8L-2j-6}\); the constant contribution is at most
+\(2\beta^{2L-2j-1}\).  Hence
+\(\eta_*^{-1}\le\beta^{25L+4}\),
+\(\mathcal B\le\beta^{L+3}\), and \(\Lambda_*\le\beta^{2L}\).
+The six nonconstant entries of \eqref{cp:src-allowance} are at least
+\(\beta^{-c}\), with exponents
+\[
+ 5L-1,\quad(31L+6)/2,\quad(63L+12)/4,\quad
+ (27L+4)/2,\quad(94L+13)/4,\quad(22L-1)/2.
+\]
+All are at most \(26L\).  Also \(16\beta^{-30L}\le\beta^{-26L}\).
+The remaining recurrences give
+\begin{gather*}
+ g_*\le\beta^{5L-1},\qquad r_j^*\le\beta^{5L+3j-3},\qquad
+ q_j^*\le\beta^{5L+3j-2},\\
+ e_j\le2\beta^{5L+6j-4},\qquad a_j^*\le3\beta^{5j-2},
+ \qquad T_Q\le\beta^{14L-3},\qquad T_J\le\beta^{8L-1}.
+\end{gather*}
+For \(e_j\), its three forcing exponents are at most
+\(5L+6j-4,5L+3j-4,4L+3j-4\), with coefficient nine
+in the last term; geometric propagation by \(\beta^2\) gives the
+displayed factor two.  The same calculation gives the factor three
+for \(a_j^*\).  Further
+\(K_{\rm src}\le1552\beta^{20L-2}\le\beta^{20L+2}\).
+Now \(ST_Q,S^2H_{j-1}q_{j-1}^*\le1\), and the bracket in
+\eqref{cp:src-UV} is at most \(11\beta^{6L-8}\).
+Thus for \(j\ge2\)
+\[
+ U_j(16\sqrt{d+3})\le22\beta^{26L-5}
+       +32\sqrt{d+3}\beta^{8L-5}+2,
+ \quad U_j(64)\le22\beta^{26L-5}+128\beta^{8L-5}+2.
+\]
+The first-layer bound is \(4\beta^{20L+3}\).  These give the
+asserted bounds on \(U,U_{\rm fin}\).  In \(V_j\), the term
+containing \(S^2\) is at most one, giving
+\(V_j\le64\sqrt{d+3}\beta^{2L-2}+4\) for \(j\ge2\);
+the first value is at most \(67\sqrt{d+3}\).
+Finally substitute \eqref{cp:src-powers-basic} in
+\eqref{cp:src-K}; \(S\le1\) and the same geometric sum give
+\(\mathcal K\le\beta^{14L}\).  Every comparison above holds
+already at \(L=2,\beta=10\), and improves as either increases.
+\end{proof}
+
+\paragraph{Working whole-sphere estimates.}
+The estimates below in fact require only the conclusion of the fitting
+lemma and \(S\le S_*\), both already implied by the headline assumptions.
+For the remainder of this proof redefine the working radii by
+\[
+ T=32\ell/\lambda,\quad c_t=\frac a{64YSU},\quad
+ c_q=\min\{1/8,a/(8V)\},\quad r_t=c_t/\sqrt\ell,
+ \quad r_q=c_q/\sqrt\ell.
+\]
+For every fixed confidence, eventually with that confidence all forward
+and backward fields extend holomorphically to a neighborhood of
+\[
+ ([-r_t,T+r_t]+i[-r_t,r_t])\times\mathcal Q_{r_q},\qquad
+ \mathcal Q_r=\{v\in\mathbb C^d:v^\top v=1,
+                           \|\operatorname{Im}v\|_2\le\sinh r\}.
+\]
+For \(d=1\), replace \(\mathcal Q_r\) by the two points \(\{-1,1\}\).
+Holomorphy in the query is relative to the complex quadric.
+Normalized first-layer and hidden operator norms are at most ten, and
+\[
+ \|h^{(j)}\|_2/\sqrt n\le H_j,\qquad
+ \|k^{(j)}\|_2/\sqrt n\le Sk_j,\qquad
+ \|\delta^{(j)}\|_2/\sqrt n\le S\tau_j.
+\]
+For training points,
+\(\max|z_{a,i}^{(j)}|\le K_{\rm src}\sqrt\ell\) and
+\(\max|k_{a,i}^{(j)}|\le SK_{\rm src}\sqrt\ell\).
+In mobility coordinates
+\(\Theta=(W^{(1)},\sqrt nW^{(2)},\ldots,\sqrt nW^{(L)},w)\),
+put \(F_a=nf_n(v_a)\).  Then
+\[
+ \max_{a,j,i,v}|(D_\Theta z^{(j)}(v)\nabla_\Theta F_a)_i|
+       \le SU\sqrt\ell,\qquad
+ \max_{j,i}|\partial_\zeta z_i^{(j)}(u\cos\zeta+v\sin\zeta)|
+       \le V\sqrt\ell
+\]
+for real orthonormal frames \((u,v)\) in the query tube.
+All four source families
+\[
+ h^{(j)},\qquad W_0^{(j)}h^{(j-1)},\qquad\delta^{(j)},\qquad
+ W_0^{(j+1)\top}\delta^{(j+1)},
+\]
+omitting boundary images, have
+coordinate modulus at most \(M_0\sqrt n\), where
+\(M_0=10\max_j(H_j,\tau_j)\).  The real fitting trajectory and its
+endpoint are those of Lemma~\ref{cp:fit}.
+The proof below also establishes the finite-query and expanding-domain
+variants.  Its probability step is shared; the domain verifications are
+given last.
+
+\paragraph{2. Independent stops and deterministic differentiation.}
+\label{cp:src-local}
+
+Delete a fixed number \(u\) of neurons at one layer, preserving the
+original normalization \(n\) in every rectangular matrix.  For each
+deleted interior neuron, its initialized incoming row transpose \(y_i\)
+and outgoing column \(x_i\) are independent \(N(0,I/n)\), independent
+of the retained initialization and other omitted pairs.  At the first
+layer the incoming row instead has covariance \(I_d\) and evaluates
+only its own initial preactivation; at the top there is no outgoing
+root.  Use a separate initial test for each cavity, and set its
+reference coefficient paths identically zero if it fails.  All such
+paths are defined before integrating an omitted root.
+
+For a nested domain \(D_s\), stop each cavity at its own first exit
+level.  Stop every training sample's budget
+\begin{equation}
+ \mathcal H_a=\frac1n\sum_{j,i}
+ \exp\{\eta_*(Z_{a,i}^{(j)}+K_{a,i}^{(j)}/S)\},\quad
+ Z_{a,i}^{(j)}=\sup_{D_s}|z_{a,i}^{(j)}|,\quad
+ K_{a,i}^{(j)}=\sup_{D_s}|k_{a,i}^{(j)}|,
+ \label{cp:src-budget}
+\end{equation}
+at \(\mathcal B\) for the full network and \(2\mathcal B\) for
+cavities.  Also stop operators at ten, contour activity at
+\(2\int\rho|dt|=S\), and imaginary preactivations at \(3a/8\)
+and \(7a/16\), respectively.  Impose provisional coordinate and
+response maxima twice the claimed full bounds and four times the
+cavity bounds, as well as the passive size and row bounds used below.
+These have strict margins on the successful prefix.
+
+For rectangles use \(D_s=sD_1\) and coordinate clipping \(P_s\).
+For the query tube also clip its imaginary great-circle coordinate,
+retaining every real frame.  If a cavity stops at \(s_c\), extend a
+coefficient by \(b_c(P_{s_c}z)\).  With
+\(a_0(z)=\operatorname{clip}_{[0,T]}\operatorname{Re}z\),
+\begin{equation}
+ P_{s_c}a_0(z)=a_0(P_{s_c}z),\qquad
+ b_c(P_{s_c}z)-b_c(P_{s_c}a_0(z))
+   =b_c(P_{s_c}z)-b_c(a_0(P_{s_c}z)).
+ \label{cp:src-clipped}
+\end{equation}
+Clipping is measurable in retained initialization, is Lipschitz, and
+fixes the successful prefix.  Its real anchors traverse a monotone
+interval and then freeze.  Different cavities are extended separately
+before subtraction.  The expanding domain below has the same
+properties with a uniformly bounded Lipschitz constant.  These
+extensions need not be holomorphic outside their own domains.
+
+Write \(\Theta_0=\Theta(0)\), \(\bar u=(\Theta-\Theta_0)/S\),
+\(\bar F_a=F_a(\Theta_0+S\bar u,e_a)/S\),
+\(\bar r_a=\bar F_a/n-y_a/S\), and put bars on backward
+fields divided by \(S\).  Here \(e_a\) is an additive forward port.
+The two actual ports of a deletion are
+\(e_a=\sum_iW_{:,i}^{(j+1)}h_{a,i}^{(j)}\) and
+\(\bar q_a=\sum_iW_{i,:}^{(j)\top}\bar\delta_{a,i}^{(j)}\).
+The exact retained equation is
+\begin{equation}
+ \dot{\bar u}=-\frac2m\sum_a\bar r_a
+   \left(\nabla_{\bar u}\bar F_a+
+           D_{\bar u}h_a^{(j-1)\top}\bar q_a\right).
+ \label{cp:src-retained}
+\end{equation}
+At the top add \(n^{-1}\sum_i\bar u_{w,i}h_{a,i}^{(L)}\)
+to \(\bar r_a\), multiplying both terms.  The reverse port does
+not enter the forward residual.  The gradient blocks of \(\bar F_a\)
+are \(S\bar\delta_a^{(1)}v_a^\top\),
+\(S\bar\delta_a^{(j)}h_a^{(j-1)\top}/\sqrt n\), and
+\(h_a^{(L)}\).
+
+The physical recurrences and linear activation growth give
+\eqref{cp:src-basic}'s RMS bounds whenever the operator and activity
+stops hold.  For augmented mobility/port directions \(U\), write
+\(Z_a^{(j)}U=Dz_a^{(j)}[U]\).  The exact derivative recursion is
+\begin{align}
+ Z_a^{(1)}U&=U_{W^{(1)}}v_a+U_{e^{(1)}},\nonumber\\
+ Z_a^{(j)}U&=U_{\sqrt nW^{(j)}}h_a^{(j-1)}/\sqrt n
+       +W^{(j)}\operatorname{diag}(\phi'_{j-1})Z_a^{(j-1)}U
+       +U_{e^{(j)}}. \label{cp:src-first-derivative}
+\end{align}
+It is bounded by \(P_j\); its activated version is bounded by \(f_j\).
+The Hessian, with all activations evaluated at the reference state, is
+\begin{align}
+ D^2F_a[U,V]={}&U_w^\top\operatorname{diag}(\phi'_L)Z_a^{(L)}V
+ +V_w^\top\operatorname{diag}(\phi'_L)Z_a^{(L)}U\nonumber\\
+ &+\sum_j(Z_a^{(j)}U)^\top
+       \operatorname{diag}(k_a^{(j)}\phi_j'')Z_a^{(j)}V\nonumber\\
+ &+\sum_{j\ge2}\frac{\delta_a^{(j)\top}}{\sqrt n}
+ \{U_{\sqrt nW^{(j)}}\operatorname{diag}(\phi'_{j-1})Z_a^{(j-1)}V
+ +(U\leftrightarrow V)\}. \label{cp:src-Hessian}
+\end{align}
+For a rectangular matrix let
+\(\|B\|_{p,n}=n^{-1/p}(\sum_i\sigma_i(B)^p)^{1/p}\).
+The budget implies
+\(\|k_a^{(j)}\|_p/n^{1/p}\le(S/\eta_*)p(2\mathcal B)^{1/p}\),
+because \(x^p\le(p/e)^pe^x\).  Each noncurvature Hessian block
+factors through at most \(n\) coordinates, and each curvature block
+contains one carrier diagonal.  Matrix ideal inequalities in
+\eqref{cp:src-Hessian} therefore give
+\begin{align}
+ \|D^2F_a\|_{p,n}&\le A_*+(SD_*/\eta_*)p(2\mathcal B)^{1/p},
+ \qquad \|D^2F_a\|_{\rm HS}/\sqrt n\le H_*,\nonumber\\
+ \|D^2F_a\|_{\rm op}&\le A_*+(SD_*/\eta_*)\log(2n\mathcal B).
+ \label{cp:src-Schatten}
+\end{align}
+These bounds also cover \(D_\Theta\delta\), since
+\(\partial_{e^{(j)}}F_a=\delta_a^{(j)}\).  Residual mixtures
+preserve the bounds by \(\sum_a|r_a|/(m\rho)\le1\).
+
+Suppose for now that products of the negative-Gram propagators on
+ordered disjoint contour pieces have norm at most two, and
+\(\rho/S\le\lambda/8\).  The variational generator is
+\[
+ -\frac2{mn}\sum_ag_ag_a^\top-\frac2m\sum_ar_aD^2F_a,
+ \qquad g_a=\nabla_\Theta F_a.
+\]
+Its full propagator obeys
+\begin{equation}
+ \|J(t,s)\|\le2\exp\{SA_*+(S^2D_*/\eta_*)\log(2n\mathcal B)\}
+ \le Cn^{\kappa},\qquad \kappa=1/4000.
+ \label{cp:src-propagator}
+\end{equation}
+Here and only in qualitative local estimates, \(C\) and powers of
+\(\ell\) may depend on the fixed problem and deletion count.
+The coefficient of \(\log n\) is bounded by
+\eqref{cp:src-allowance}; it has not been hidden in a width threshold.
+
+\begin{claim}[Local maps, remainders, and passive observables]
+\label{cp:src-local-lemma}
+On the independent stops just specified, with contours of length
+\(O(\ell)\), all first insertion maps have norm
+\(n^\kappa\operatorname{poly}(\ell)\).  Their dependence on the
+supremum norm of scalar controls is Lipschitz with that bound, and
+their raw terminal/time/frame derivatives are bounded by
+\(\sqrt n n^\kappa\operatorname{poly}(\ell)\).
+On the uniform Gaussian event proved below, the retained full/cavity
+differences in preactivations, scaled carriers, responses and angular
+derivatives are at most \(n^{-1/30}\) per coordinate and at most
+\(2n^{1/100}\) in Euclidean norm, for every fixed deletion count.
+\end{claim}
+\begin{proof}
+For deterministic controls \(\alpha_{a,i},b_{a,i}\), use ports
+\(e_a=\sum_ix_i\alpha_{a,i}\), \(\bar q_a=\sum_iy_ib_{a,i}\).
+The three port derivatives of \eqref{cp:src-retained} at zero ports are
+\[
+ -\frac2{mn}\nabla_{\bar u}\bar F_a\bar\delta_a^{(j+1)\top},
+ \qquad -\frac2m\bar r_a(D_{\bar u}\bar\delta_a^{(j+1)})^\top,
+ \qquad -\frac2m\bar r_a(D_{\bar u}h_a^{(j-1)})^\top.
+\]
+The first term accounts for the changed residual.  Integrating them
+against \eqref{cp:src-propagator}, using gradient norm
+\(O(\sqrt n)\), response RMS, and contour length \(O(\ell)\),
+gives an insertion-map bound \(\sqrt u n^\kappa O(\ell^2)\).
+The differentiated forward/backward recursions are exactly
+\begin{align*}
+ z_{[1]}^{(j)}&=SV_{\sqrt nW^{(j)}}h^{(j-1)}/\sqrt n
+                      +W^{(j)}h_{[1]}^{(j-1)}+e_{[1]}^{(j)},\\
+ h_{[1]}^{(j)}&=\phi'_j\odot z_{[1]}^{(j)},\\
+ \bar k_{[1]}^{(j)}&=W^{(j+1)\top}\bar\delta_{[1]}^{(j+1)}
+       +SV_{\sqrt nW^{(j+1)}}^\top\bar\delta^{(j+1)}/\sqrt n
+       +\bar q_{[1]}^{(j)},\\
+ \bar\delta_{[1]}^{(j)}&=\phi'_j\odot\bar k_{[1]}^{(j)}
+       +\phi_j''\odot\bar k^{(j)}\odot z_{[1]}^{(j)}.
+\end{align*}
+At the first layer replace the matrix product by \(SV_{W^{(1)}}v\);
+at the top \(\bar k_{[1]}=V_w\).  A reference carrier costs
+\(O(\ell)\) once in the inhomogeneous last term.  Homogeneous
+propagation costs \(10s\).  Induction gives the asserted map bounds;
+subtracting controls gives their Lipschitz bounds because the linear
+variational equation is linear in these controls.  Differentiating
+these displayed recursions introduces only the terms
+\(\phi''z_t\),
+\(\phi'''z_tz_{[1]}\bar k+\phi''z_{[1]}\bar k_t
++\phi''\bar k z_{[1],t}\), and ordinary product derivatives.
+There is at most one raw reference coordinate derivative, bounded by
+\(\sqrt n\operatorname{poly}(\ell)\).  This proves the derivative
+claim without a width power depending on depth.  Cauchy's formula on
+the strict strip bounds \(\phi'''\) by \(4\beta^2\).
+
+Here are the nonlinear estimates needed to justify this linearization.
+Decompose the augmented displacement into \((V,e)+(U,0)\), and let
+\(N\) bound its linear Euclidean variations, \(d_0\) their coordinate
+maxima, and \(u_0\) bound \(\|U\|\).  Put
+\[
+ R=d_0N+d_0u_0+u_0^2,\qquad P=(N+u_0)^2/\sqrt n.
+\]
+Assume \(N\ge1\), \(d_0,u_0\le1\), \(N+u_0\le\sqrt n\),
+and \(u_0+R+P\le1\).  If \(E_g=g_1-g_0-Dg_0(V+U,e)\)
+and \(g_i=\phi'(z_i)\) in the third line below, the exact identities are
+\begin{align}
+ E_{z^{(j)}}&=W_1^{(j)}E_{h^{(j-1)}}+
+              S\Delta\bar u_{\sqrt nW^{(j)}}h_{[1]}^{(j-1)}/\sqrt n,
+ \nonumber\\
+ E_{\bar k^{(j)}}&=W_1^{(j+1)\top}E_{\bar\delta^{(j+1)}}+
+ S\Delta\bar u_{\sqrt nW^{(j+1)}}^\top\bar\delta_{[1]}^{(j+1)}/\sqrt n,
+ \nonumber\\
+ E_{\bar\delta}&=g_1\odot E_{\bar k}
+ +(g_1-g_0)\odot\bar k_{[1]}
+ +\bar k_0\odot(g_1-g_0-\phi''(z_0)z_{[1]}).
+ \label{cp:src-exact-remainders}
+\end{align}
+The first and top boundary remainders vanish.  Forward and backward
+first derivatives are bounded by \(J_f=\beta^{10L}\) and
+\(J_b=\beta^{20L}(1+M)\), where \(M\ge1\) is a common
+provisional bound for the absolute preactivations and scaled carriers
+of the reference and full paths, including the deleted-neuron values
+that define the scalar controls. Such an envelope is
+\(\operatorname{poly}(\ell)\) under the stated stops.
+The localized product estimate is
+\(\|z_{[1]}^{\odot2}\|_2\le3J_f^2R\).
+Insert \(z_0+z_{[1]}\) into activation subtraction.  Taylor's formula
+and \eqref{cp:src-exact-remainders}, summed by geometric propagation,
+give
+\begin{equation}
+ \max(\|E_z\|_2,\|E_h\|_2)\le\beta^{30L}(R+P),\qquad
+ \max(\|E_{\bar k}\|_2,\|E_{\bar\delta}\|_2)
+       \le\beta^{60L}(1+M)(R+P).
+ \label{cp:src-remainder-bounds}
+\end{equation}
+Indeed the two gate cross terms cost at most
+\(\beta[3J_fJ_bR+\beta^{30L}(R+P)(d_0+J_bu_0)]\) and
+\(M[\beta\|E_z\|+\beta^2\|z_{[1]}^{\odot2}\|/2]\);
+the matrix cross term costs \(J_bP\).  No changed carrier is used
+as a presumed reference bound.
+
+The hidden gradient remainder is
+\[
+ \frac S{\sqrt n}
+ [E_{\bar\delta}h_1^\top+
+       \bar\delta_{[1]}(h_1-h_0)^\top+\bar\delta_0E_h^\top],
+\]
+bounded by \(\beta^{70L}(1+M)(R+P)\).
+The Hessian identity along partial joining segments bounds the
+residual difference by \(\beta^{13L}(N+u_0)/\sqrt n\) and its
+linearization error by
+\(\beta^{87L}(1+M)(N+u_0)^2/(2n)\).
+For a product of residual and gradient, its exact remainder is
+\(\bar r_0E_g+(\Delta\bar r-D\bar r_0\Delta)g_0
++\Delta\bar r(g_1-g_0)\).
+
+For the reverse force one additionally needs a lower adjoint probe.
+For an omitted root \(y_i\), include all derivatives of
+\(y_i^\top h^{(j-1)}\) in the Gaussian coordinate event.
+For \(q=\sum_iy_ib_{a,i}\), let \(Q=2u\beta M\),
+\(P_q=u\beta Md_0\).  Subtracting its adjoint recursion gives
+\[
+ \max_j\|k_{q,1}^{(j)}-k_{q,0}^{(j)}\|_2
+ \le\beta^{20L}(P_q+Q/\sqrt n)(N+u_0),
+\]
+since the changed gate multiplies the reference probe maximum, the
+changed matrix costs \(Q(N+u_0)/\sqrt n\), and propagation costs
+\(11s\).  Integrating the corresponding Hessian gives
+\[
+ \|(Dh_1-Dh_0)^\top q\|_2
+ \le\beta^{50L}(P_q+Q/\sqrt n)[N+u_0+(N+u_0)^2].
+\]
+Combining these estimates in \eqref{cp:src-retained} yields the
+vector-field remainder bound
+\begin{equation}
+ \beta^{240L}(1+u)(1+M)
+ \{\bar\rho[R+d_0(N^2+Nu_0+u_0^2)]+(1+\bar\rho)P\},
+ \qquad \bar\rho=\rho/S. \label{cp:src-force-remainder}
+\end{equation}
+This also holds on the complex joining segments: the sufficient gate
+\(d_0+\beta^{10L}u_0+\beta^{30L}(R+P)<a/32\)
+keeps the segments and auxiliary Taylor points inside \(15a/32\).
+A first-exit argument proves the gate's use before Taylor expansion;
+the factor \(\beta^{240L}\) pays for the Cauchy third-derivative
+bound.  Scaling introduced no inverse power of \(S\): in the
+effective network with readout \(\bar u_w\), the affine change of
+variables multiplies hidden directions by \(S\le1\).
+
+For every existing outgoing column, and for an incoming row at a
+layer \(j\ge2\), integrating the omitted-parameter equations gives
+\[
+ \|\Delta W^{(j+1)}_{:,i}\|
+       \le S^2(\max_r\tau_r)(b+sM)/\sqrt n,
+ \qquad
+ \|\Delta W^{(j)}_{i,:}\|
+       \le S^2H_{\max}sM/\sqrt n.
+\]
+At the first layer the incoming-row estimate is instead
+\(\|\Delta W^{(1)}_{i,:}\|\le sS^2M\).
+There is no retained reverse port below that layer: this row's
+motion is included in the deleted neuron's scalar controls, rather
+than in the learned retained-port remainder. Thus every existing
+learned port entering the retained equation still induces a force
+at most
+\(S^2\beta^{260L}(1+u)^2(1+M)^3(1+\bar\rho)/\sqrt n\).
+The top residual offset is at most \(uM(b+sM)/n\); its product
+with both retained terms has the same enclosing bound.
+
+It remains to specify all passive quantities in the local claim.
+For evaluated input \(q\) and training driver \(a\), let
+\(C_q^{(j)}=D_\Theta h_q^{(j)}\),
+\(\bar R_{qa}^{(j)}=S^{-1}D_\Theta z_q^{(j)}g_a\), and
+\(\bar Q_{qa}^{(j)}=\phi'_j\odot\bar R_{qa}^{(j)}\).  Then
+\begin{align}
+ \bar R_{qa}^{(1)}&=\bar\delta_a^{(1)}v_a^\top q,&
+ \bar R_{qa}^{(j)}&=\bar\delta_a^{(j)}c_{aq}^{(j-1)}
+                         +W^{(j)}\bar Q_{qa}^{(j-1)},&
+ c_{aq}^{(j-1)}&=h_a^{(j-1)\top}h_q^{(j-1)}/n.\label{cp:src-response-recursion}
+\end{align}
+Angular fields satisfy \(J^{(1)}=W^{(1)}q'\),
+\(J^{(j)}=W^{(j)}I^{(j-1)}\), \(I=\phi'\odot J\).
+Differentiate these product formulas: the four response terms are
+\(\bar\delta_{[1]}c+\bar\delta c_{[1]}\),
+\(SV_{\sqrt nW}\bar Q/\sqrt n\), and
+\(W\bar Q_{[1]}\), together with the omitted port
+\(\sum_ix_i\bar Q_{qa,i}\).  The activated variation adds
+\(\phi''\bar R z_{[1]}\).  Angular variations have the same
+matrix and gate terms, with omitted port \(\sum_ix_iI_i\).
+Below a deletion there is also the direct reverse observable
+\begin{equation}
+ S^{-1}(Q_{qa,\mathrm{full}}-C_qg_a)=C_qC_a^\top\bar q_a.
+ \label{cp:src-direct-reverse}
+\end{equation}
+Include the forward images of \(C_a^{0\top}y_i\) in the Gaussian
+event; their coefficient maps are independent of that root.
+
+Product subtraction gives
+\[
+ |c_{[1]}|\le\beta^{10L}(N+u_0)/\sqrt n,\qquad
+ |E_c|\le\beta^{40L}[(R+P)/\sqrt n+(N+u_0)^2/n].
+\]
+The exact response remainder is
+\(E_{\bar\delta}c_1+\bar\delta_{[1]}(c_1-c_0)
++\bar\delta_0E_c+W_1E_{\bar Q}+\Delta W\bar Q_{[1]}
++E_{\rm ports}\); its gate remainder is the third line of
+\eqref{cp:src-exact-remainders} with \(\bar k\) replaced by
+\(\bar R\).  The angular case uses that same identity with \(J\).
+Reference response RMS cancels the \(1/\sqrt n\) in \(E_c\).
+For \(\xi=C_a^{0\top}y_i\), forward directional subtraction gives
+\(\|(C_q^1-C_q^0)\xi\|\le
+\beta^{50L}(d_0+n^{-1/2})(N+u_0)\).
+The other changed factor in \eqref{cp:src-direct-reverse} uses the
+adjoint-probe estimate above.  Their sum is bounded by
+\[
+ \beta^{70L}(1+u)(1+M)(d_0+n^{-1/2})
+                       [N+u_0+(N+u_0)^2].
+\]
+Missing feature products cost \(u(b+sM)^2/n\), and learned ports
+cost \(n^{-1/2}\operatorname{poly}(\ell)\).  These enumerate all
+additional remainders.  Their time and frame derivatives have the
+same product structure already checked.  The probabilistic and
+first-exit conclusion follows in the next paragraph.
+\end{proof}
+
+\paragraph{The uniform Gaussian event and closing the local comparison.}
+For fixed controls, a pairing of an omitted root with a linear
+variation has the form \(g^\top Rg\), where
+\(R=(E_i^\top L+L^\top E_i)/2\).  Consequently
+\(\|R\|\le\|L\|\), and only its same-root diagonal block has a
+mean \(\operatorname{tr}R/n\).  Cross-root forms are centered.
+On \(\|g\|\le2\sqrt{2u}\), interpolation of a centered form costs
+at most \(10u\|\Delta R\|\), including its trace.
+All stopped scalar controls have polynomial-logarithmic amplitudes
+and speeds \(\sqrt n\operatorname{poly}(\ell)\); this follows by
+differentiating the forward, backward and response recursions above.
+A scalar control with amplitude \(M_c\), speed \(D_c\sqrt n\)
+on a contour of length \(T_c\) has an \(n^{-1/8}\)-net of
+logarithmic cardinality at most
+\[
+ (2+8T_cD_cn^{5/8})\log(1+8M_cn^{1/8}).
+\]
+Indeed sample it at spacing \(n^{-1/8}/(8D_c\sqrt n)\), round
+on mesh \(n^{-1/8}/4\), and interpolate.  Apply this separately to
+the finitely many real and imaginary controls.  They are deterministic
+one-dimensional histories on a prescribed contour; no arbitrary
+two-dimensional analytic continuation of controls is assumed.
+
+After eventual absorption of the fixed logarithmic factors, all
+linear and quadratic maps have norm at most \(n^{1/200}\).
+A linear coordinate has variance at most \(n^{-99/100}\).
+For a real symmetric form, diagonalization and
+\[
+ \mathbb E e^{t(G^\top RG-\operatorname{tr}R)}
+ =\prod_i e^{-t\lambda_i}(1-2t\lambda_i)^{-1/2},\qquad
+ -\log(1-v)-v\le\frac{v^2}{2(1-|v|)}
+\]
+give, for \(g\sim N(0,I/n)\),
+\[
+ \Pr\{|g^\top Rg-\operatorname{tr}R/n|>t\}
+ \le2\exp\left[-c\min\left\{
+       \frac{n^2t^2}{\|R\|_{\rm HS}^2},
+       \frac{nt}{\|R\|_{\rm op}}\right\}\right]
+\]
+with an absolute \(c>0\), by applying exponential Markov with
+\(|2t\lambda_i|\le1/2\) and optimizing the parameter.
+Here \(\|R\|_{\rm HS}\le\sqrt{2un}\|R\|\).  At threshold
+\(n^{-1/10}/8\), real/imaginary splitting gives
+\(4e^{-n^{.78}}\) eventually.  Root-norm failure is at most
+\(e^{-un}\).  The control interpolation error is
+\(n^{-1/8+1/200}\operatorname{poly}(\ell)=o(n^{-1/10})\).
+A terminal/time/frame mesh of spacing
+\(n^{-2}/\operatorname{poly}(\ell)\) has polynomial size;
+the sphere frame has \(2d\) ambient coordinates.  Together with
+all coordinates, probes and at most \(uLn^u\) deletion sets, the
+logarithmic union cost is eventually less than \(n^{.65}\).
+Thus the uniform event fails with probability at most \(e^{-n^{.7}}\).
+Only after this event is established are the actual adaptive controls
+substituted.  Root-norm bounds also make the total linear vector
+variation at most \(n^{1/100}\), distributing a fixed share among
+the finitely many components.
+
+Let \(U\) be the retained scaled displacement minus its linear
+variation.  It satisfies Duhamel's formula with
+\eqref{cp:src-force-remainder}, the learned ports, and the top offset.
+Set \(N=n^{1/100}\), \(d_0=n^{-1/10}\), \(u_0=n^{-1/25}\).
+On a first-exit prefix \(\|U\|\le u_0\),
+\begin{equation}
+ \|U\|\le n^\kappa\operatorname{poly}(\ell)
+ [n^{-.08}+u_0^2+n^{-.48}+n^{-1/2}]=o(u_0).
+ \label{cp:src-local-close}
+\end{equation}
+The activity integral bounds the residual-weighted terms and the
+contour length bounds the others.  This strictly improves the stop.
+The explicit remainders then give coordinate discrepancies
+\(n^{-1/30}\) and vector discrepancies \(2n^{1/100}\), including
+passive responses and angular fields.  The joining-strip gate also
+holds eventually. For every deterministic frozen control history, the
+retained linear variations are centered Gaussian images conditional on
+the cavity. After substituting adaptive controls, we use only the
+uniform bounds already proved; we assert neither Gaussianity nor
+centering of the resulting variations. Pairing a frozen-control
+variation again with an omitted root produces a quadratic form. Its
+nonzero trace is retained before adaptive substitution, as treated next.
+This completes Claim~\ref{cp:src-local-lemma}.
+
+\paragraph{3. Trace absorption and Gaussian moments.}
+\label{cp:src-moments}
+
+\paragraph{Every noncentered contraction.}
+Throughout this paragraph, conditional means and centered forms refer
+to deterministic frozen controls, conditional on the cavity. The
+resulting trace bounds hold uniformly over those controls and are
+then evaluated at the actual adaptive controls.
+For one interior omitted neuron work in unscaled mobility coordinates,
+and set \(C_a=D_\Theta h_a^{(j-1)}\),
+\(B_a=D_\Theta\delta_a^{(j+1)}\),
+\(E_a=D_{e_a^{(j+1)}}\delta_a^{(j+1)}\), all at the zero-source
+cavity.  With \(\alpha_b=h_{b,i}^{(j)}\),
+\(b_b=\delta_{b,i}^{(j)}\), and \(d_b=\delta_b^{(j+1)}\),
+the linear parameter variation is
+\[
+ V(t)=-\frac2m\sum_b\int_0^tJ(t,s)
+ \{g_b(s)d_b(s)^\top x_i\alpha_b(s)/n
+       +r_b(s)B_b(s)^\top x_i\alpha_b(s)
+       +r_b(s)C_b(s)^\top y_i b_b(s)\}\,ds.
+\]
+The scalar expansions are
+\[
+ z_{a,i}=y_i^\top h_a^0+y_i^\top C_aV
+                      +(\Delta W_{i,:})h_a+o(1),\qquad
+ k_{a,i}=x_i^\top\delta_a^0+x_i^\top B_aV
+                  +x_i^\top E_ax_i\alpha_a
+                  +(\Delta W_{:,i})^\top\delta_a+o(S).
+\]
+The errors follow in scaled coordinates from
+Claim~\ref{cp:src-local-lemma}.  The four nonzero conditional means are
+\begin{align}
+ &-\frac2m\sum_b\int r_bb_b
+           \frac{\operatorname{tr}(C_aJ C_b^\top)}n\,ds,
+ &&-\frac2m\sum_b\int r_b\alpha_b
+           \frac{\operatorname{tr}(B_aJ B_b^\top)}n\,ds,\nonumber\\
+ &\alpha_a\operatorname{tr}(E_a)/n,
+ &&-\frac2{mn^2}\sum_b\int\alpha_b d_b^\top B_aJg_b\,ds.
+ \label{cp:src-traces}
+\end{align}
+All other forms are centered same-root or independent-root forms
+covered by the uniform Gaussian event.  The last displayed mean is
+\(n^{-1+\kappa}\operatorname{poly}(\ell)=o(1)\), since
+\(\|d_b\|,\|g_b\|=O(\sqrt n)\).
+
+Expand \(J\) around its negative-Gram base.  A term with \(h\)
+residual-Hessian insertions has ordered activity integral at most
+\(S^h/h!\).  The product of its base propagators costs at most two.
+Normalized Schatten H\"older, with exponent \(h+2\) on both
+endpoint Hessian blocks and the \(h\) insertions, gives
+\[
+ \frac{2S^h}{h!}
+ [A_*+(SD_*/\eta_*)(h+2)(2\mathcal B)^{1/(h+2)}]^{h+2}.
+\]
+The zero-insertion term is at most \(2H_*^2\).  Split the other
+powers by \((x+y)^{h+2}\le2^{h+1}(x^{h+2}+y^{h+2})\).
+The bounded part sums to \(4A_*^2(e^{2SA_*}-1)\); the carrier part is
+\[
+ \frac{8e^2D_*^2S^2\mathcal B}{\eta_*^2}
+ \sum_{h\ge1}(2eD_*S^2/\eta_*)^h(h+2)^2
+ \le\frac{576e^3D_*^3\mathcal B S^4}{\eta_*^3}.
+\]
+Indeed \(h!\ge(h/e)^h\), \((1+2/h)^h\le e^2\), and
+\(\sum_{h\ge1}q^h(h+2)^2\le36q\) for \(q\le1/2\), by
+differentiating the geometric series.  The allowance gives this last
+condition.  For forward endpoints give one exponent two, the other
+infinity, and the \(h\) Hessians exponent \(2h\).  The two series
+are bounded by \(e^{2SA_*}-1\) and
+\(\sqrt{2\mathcal B}\sum_{h\ge1}(4eD_*S^2/\eta_*)^h\),
+each at most one by \eqref{cp:src-allowance}.  Including the zero term,
+\begin{equation}
+ |\operatorname{tr}(C_aJC_b^\top)|/n\le8f_*^2.
+ \label{cp:src-forward-trace}
+\end{equation}
+Reciprocal exponents sum to one, giving normalization exactly
+\(n^{-1}\), independent of parameter-space dimension.
+The direct port Hessian is
+\(E_a=\sum_{r>j}T_{r,j+1}^\top
+\operatorname{diag}(k_a^{(r)}\phi_r'')T_{r,j+1}\), with
+\(\|T_{r,j+1}\|\le(10s)^{r-j-1}\); hence carrier RMS gives
+\(|\operatorname{tr}E_a|/n\le SE_*\).
+
+Let \(G_{h,a,i}\), \(G_{\delta,a,i}\) denote suprema of the
+corresponding cavity Gaussian pairings.  Set
+\(Z_i=(m^{-1}\sum_aZ_{a,i}^2)^{1/2}\) and
+\(U_i=(m^{-1}\sum_a(K_{a,i}/S)^2)^{1/2}\).
+At every driving time Cauchy--Schwarz gives
+\(m^{-1}\sum_b|r_bh_{b,i}|\le\rho(b+sZ_i)\) and
+\(m^{-1}\sum_b|r_b\delta_{b,i}|\le\rho sSU_i\).
+Integrating the rank-one updates and pairing retained factors in RMS,
+the learned outgoing column costs \(s^2k_*^2S^3\) times its driving
+amplitude, and the learned incoming row costs
+\(sS^2U_iH_{j-1}^2\); at the first layer the latter is \(sS^2U_i\).
+Thus \eqref{cp:src-traces} gives
+\begin{align}
+ K_{a,i}/S&\le G_{\delta,a,i}/S+
+ (D_0+D_1\mathcal BS^4/\eta_*^3)(1+Z_{a,i}+Z_i)+o(1),\nonumber\\
+ Z_{a,i}&\le G_{h,a,i}+C_FS^2U_i+o(1).
+ \label{cp:src-scalar-feedback}
+\end{align}
+The direct external trace keeps the evaluated sample's amplitude
+\(Z_{a,i}\); only integrated terms use the driving-sample RMS.
+At the first layer \(G_{h,a,i}=|W_{0,i}^{(1)}v_a|\); at the top
+\(\sup|w_i|/S\le b+sZ_i\) and there is no outgoing root.
+These endpoint formulas obey the same enclosing inequalities.
+
+Put \(\overline G_h=(m^{-1}\sum_aG_{h,a,i}^2)^{1/2}\) and
+\(\overline G_\delta=(m^{-1}\sum_a(G_{\delta,a,i}/S)^2)^{1/2}\).
+The backward coefficient is at most \(2D_0\) and
+\(D=C_FS^2\le1/(8D_0)\).  Taking sample RMS gives
+\[
+ U_i\le\overline G_\delta+2D_0(1+2Z_i)+o(1),\qquad
+ Z_i\le\overline G_h+DU_i+o(1).
+\]
+Since \(4D_0D\le1/2\), solve these two inequalities and substitute
+back sample by sample to obtain
+\begin{equation}
+ Z_{a,i}+K_{a,i}/S\le C_{\rm abs}
+ (1+G_{h,a,i}+G_{\delta,a,i}/S+
+                     \overline G_h+\overline G_\delta)+o(1).
+ \label{cp:src-scalar-absorption}
+\end{equation}
+This coefficient is independent of sample and deletion counts.
+
+\paragraph{Real reference moments.}
+Parameterize a real stopped cavity by its own normalized activity
+\(u=2\int_0^t\rho/S\in[0,1]\), freezing after its endpoint.
+For \(v=|u-u'|\), integrating the updates gives
+\begin{gather*}
+ \|\Delta w\|_2/\sqrt n\le H_LSv,\qquad
+ \|\Delta W^{(1)}\|_F/\sqrt n\le\tau_1S^2v,\\
+ \|\Delta W^{(j)}\|_F\le\tau_jH_{j-1}S^2v,\qquad
+ \|\Delta z_a^{(j)}\|_2/\sqrt n\le V_j^0S^2v.
+\end{gather*}
+The feature difference has the last bound multiplied by \(s\).
+Split a reference carrier at \(SR\).  Its high part satisfies
+\(\|k\mathbf1_{|k|>SR}\|_2/\sqrt n
+\le(4S/\eta_*)\sqrt{2\mathcal B}e^{-\eta_*R/4}\), by the
+budget and \(x^2e^{-x/2}\le16\).
+Choose \(R=(4/\eta_*)\log[8\sqrt{2\mathcal B}/(\eta_*v)]\)
+when \(v>0\).  The high changed-gate part is at most \(sSv\);
+the low part is at most \(t_2V_j^0S^3Rv\).  Since
+\(R\le\eta_*^{-1}(10\Lambda_*+4\log(1/v))\),
+\(S^2\Lambda_*/\eta_*\le1\), and
+\(v\log(1/v)\le2\sqrt v/e\), the low part is bounded by
+\(14t_2V_j^0S\sqrt v\).  At the top add \(sH_LSv\);
+below it add the changed-matrix term
+\(s^3k_{j+1}^2H_jS^3v\) and propagated difference.  This proves
+\begin{equation}
+ \|\delta_a^{(j)}(u)-\delta_a^{(j)}(u')\|_2/(S\sqrt n)
+                 \le G_j^0\sqrt{|u-u'|}.
+ \label{cp:src-real-modulus}
+\end{equation}
+The top carrier was included; no coordinate readout bound was used.
+
+Conditioned on the cavity, a Gaussian reference has bounded initial
+variance and this square-root activity modulus.  Grids of spacing
+\(4^{-q}\) have at most \(2\cdot4^q\) increments of standard
+deviation at most \(2G2^{-q}\).  Gaussian tails at thresholds
+proportional to \(2^{-q}\sqrt{z^2+4(q+1)}\), summed over levels
+and the initial value, give
+\[
+ \Pr\{X>W_G(1+z)\mid\text{cavity}\}\le4e^{-z^2},\qquad
+ \mathbb E[e^{X^2/(16W_G^2)}\mid\text{cavity}]<2.
+\]
+The factor 128 in \(W_G\) bounds the geometric threshold sums.
+For the moment, \((1+z)^2\le2(1+z^2)\) and tail integration give
+\(\mathbb E e^{Z^2/8}\le1+4/7\), with
+\(e^{1/8}(1+4/7)<2\).  Jensen gives the same bound for sample RMS:
+\(e^{\overline X^2/(16W_G^2)}\le
+m^{-1}\sum_ae^{X_a^2/(16W_G^2)}\), without sample independence.
+Completing the square and H\"older for the four terms in
+\eqref{cp:src-scalar-absorption} give the one-neuron moment base
+\begin{equation}
+ 2\exp\{qC_{\rm abs}+64q^2C_{\rm abs}^2W_G^2\}<4,
+                    \qquad 0\le q\le8\eta_*.
+ \label{cp:src-main-moment}
+\end{equation}
+The chosen \(\eta_*\) verifies the last inequality.
+
+\begin{claim}[Local Gaussian rectangle bound]
+\label{cp:src-Gaussian}
+Let a deterministic complex coefficient map on a rectangle of sides at
+most \(H\) satisfy \(\sup_z\|b_z\|\le D\) and
+\(\|b_z-b_{z'}\|\le K\|z-z'\|\).  For a standard real Gaussian
+vector \(G\), put \(X=\sup_z|G^\top b_z|\).  Then
+\[
+ M=256D\sqrt{\log(e+HK/D)},\qquad
+ \log\mathbb E e^{qX}\le qM+2q^2D^2\quad(q\ge0).
+\]
+For sample RMS with the same bounds, replace \(M\) by \(M+2D\).
+If \(D=0\), the process is zero.  For covariance \(I/n\), divide
+coefficient norms by \(\sqrt n\).
+\end{claim}
+\begin{proof}
+Use dyadic coefficient meshes with spacing proportional to
+\(D2^{-j}/K\), having at most \(4(1+HK/D)^2 4^j\) points.
+Connect each point to the preceding mesh; increment standard deviations
+are at most \(3D2^{-j}\).  Gaussian exponential moments give
+\(\mathbb E\max_{r\le N}|Z_r|\le\sigma\sqrt{2\log(2N)}\)
+when standard deviations are at most \(\sigma\).  Summing uses
+\(\sum_{j\ge1}2^{-j}=1\), \(\sum_{j\ge1}2^{-j}\sqrt j\le2\).
+A factor 128 covers the real process, and real/imaginary splitting
+gives 256.
+
+An \(a\)-Lipschitz Gaussian function satisfies
+\(\log\mathbb E e^{t(F-\mathbb EF)}\le a^2t^2/2\) and
+\(\operatorname{Var}F\le a^2\).  Here is a derivation.
+For \(P_tg(x)=\mathbb E g(e^{-t}x+\sqrt{1-e^{-2t}}G)\),
+differentiating invariant entropy and Gaussian integration by parts give
+\[
+ \operatorname{Ent}_\gamma(g)
+ =\int_0^\infty\mathbb E\frac{|\nabla P_tg|^2}{P_tg}\,dt
+ \le\tfrac12\mathbb E\frac{|\nabla g|^2}{g}.
+\]
+Use \(\nabla P_tg=e^{-t}P_t\nabla g\) and weighted
+Cauchy--Schwarz for the inequality.  Apply it to \(g=e^{uF}\) and
+integrate the resulting derivative inequality for
+\(u^{-1}\log\mathbb E e^{uF}\).  Truncation and smoothing extend
+the calculation to Lipschitz functions; their linear growth supplies
+exponential integrability.  Differentiating at zero gives the variance.
+Here \(X\) is at most \(2D\)-Lipschitz, proving the estimate.
+The sample RMS is also \(2D\)-Lipschitz; its mean is at most
+\(M+2D\) by the variance bound and Cauchy--Schwarz.  Independence
+among sample processes is unnecessary.
+\end{proof}
+
+\paragraph{Initial cavities and maximum improvements.}
+The initialization event of Lemma~\ref{cp:fit} applies jointly to
+fixed-size rectangular cavities.  To see why weak covariance estimates
+need not be union-bounded over deletion sets, zero-embed their features.
+On the full initial operator event, conditional fresh-row Gaussian
+tails give initial training maxima \(Z_0=C\sqrt\ell\) with
+probability tending to one.  Deleting \(u\) coordinates changes each
+later initialized feature vector by at most
+\[
+ D_{\rm init}=(8s)^L\sqrt u(b+sZ_0)=O_u(\sqrt\ell).
+\]
+Normalized feature and singular-value changes therefore vanish
+uniformly over deletion sets, transferring the strict fitting margins.
+For coordinate localization above a deletion, project the complete
+lower feature difference onto this deterministic ball before pairing
+with the independent current row.  At threshold \(n^{-1/10}\),
+the tail \(2\exp[-n^{4/5}/(2D_{\rm init}^2)]\) pays for the
+\(O_u(n^{u+1})\) tests.  A cavity's covariance retains normalization
+\(n\); it is not identified with the full covariance.
+Initial budgets are below \(\mathcal B/2\) with probability tending
+to one: their conditional means are below
+\(2e^{\eta_*^2H_{\max}^2/2}<3\), their second exponential
+moments are bounded, and conditional Chebyshev applies layer by layer.
+The coordinate-small deletion comparison transfers this event to all
+cavities.  Their own initial tests remain part of each globally
+extended reference's definition.
+
+Under the provisional stops, Gaussian coefficient RMS is bounded by
+\(H_{\max}\) or \(S\max_j\tau_j\).  A mesh of spacing \(n^{-2}\)
+has polynomial size, with vanishing off-grid error from the normalized
+coefficient derivative bounds.  Complex Gaussian splitting has tail
+\(4e^{-u^2/(4\sigma^2)}\).  The multiplier \(C_G\), followed by
+\eqref{cp:src-scalar-absorption}, improves the full training stops to
+\begin{equation}
+ \max|z_{a,i}^{(j)}|\le K_{\rm src}\sqrt\ell,
+ \qquad\max|k_{a,i}^{(j)}|\le SK_{\rm src}\sqrt\ell.
+ \label{cp:src-improved-maxima}
+\end{equation}
+There are at most \(n^7\) tests eventually on the original rectangle
+and \(n^{10}\) on the expanding finite-panel rectangle; the factor
+32 leaves strict margin.  This step uses Gaussian tails on a mesh,
+not already removed budgets or Gaussian supremum moments.
+
+For response and angular stops, differentiate \(Q_{qa}=C_qg_a\):
+\(DQ_{qa}=C_qDg_a+(DC_q)[\cdot]g_a\).
+The first term has normalized Hilbert--Schmidt norm at most \(f_jH_*\).
+Curvature, changed matrix, changed feature and propagation in the
+second give respectively
+\(t_2r_j^*P_j,sq_{j-1}^*,s\tau_jH_{j-1}f_{j-1},10se_{j-1}\).
+These are the recurrence for \(e_j\).  Angular fields give the
+recurrence for \(a_j^*\), including the first-layer map
+\(U_{W^{(1)}}q'\) of normalized norm at most two.
+Apply \eqref{cp:src-forward-trace} with these endpoints.  The four
+noncentered response terms are exactly the direct feature pairing,
+the direct reverse term \eqref{cp:src-direct-reverse}, the integrated
+mixed endpoint, and the learned incoming row.  After division by \(S\),
+their coefficients are
+\[
+ sK_{\rm src}H_{j-1}^2,\quad sK_{\rm src}f_{j-1}^2,\quad
+ sK_{\rm src}ST_Q,\quad sK_{\rm src}S^2H_{j-1}q_{j-1}^*.
+\]
+The centered incoming pairing contributes \(Gq_{j-1}^*\).
+Angular terms are \(Gb_{j-1}^*\) and
+\(sK_{\rm src}S^2(T_J+H_{j-1}b_{j-1}^*)\).
+Thus the factor two in \eqref{cp:src-UV} strictly improves these stops.
+For sphere frames, at most \(n^{4d+10}\) mesh points require
+\(G=16\sqrt{d+3}\); polar normalization of nearby frames gives
+bounded frame derivatives for interpolation.  A fixed finite input
+list has no frame mesh and at most \(n^{10}\) tests eventually;
+\(G=64\) gives failure \(4n^{10}e^{-1024\ell}\).
+The number of passive inputs affects only the qualifying width.
+
+Use the provisional passive-preactivation cap
+\(2(GH_{\max}+1+U_0S^2+a)\ell^2\), where \(U_0\) is the
+applicable response bound.  Its initial maximum is
+\((GH_{\max}+1)\sqrt\ell\), by the same fresh-row argument;
+real activity adds at most \(U_0S^2\sqrt\ell\).
+The domain checks below control the complex displacement and improve
+this stop without a passive exponential budget.
+
+\begin{claim}[Local time derivative under provisional stops]
+\label{cp:src-time-derivative}
+Let \(U_0=U\) or \(U_{\rm fin}\), as appropriate, and put
+\(N_* =\max_j\{r_j^*,4U_0\}\),
+\(B_n=1+(S^2/\eta_*)\log(e+\ell)\).  Define
+\[
+ J_L=2sH_L+4et_2N_*,\qquad
+ J_j=10sJ_{j+1}+2s^3k_{j+1}^2H_j+4et_2N_*,\qquad J_* =\max_jJ_j.
+\]
+For \(\ell\ge\max(e^2,2\mathcal B)\), on each independently
+stopped cavity,
+\[
+ \|\dot h_a^{(j)}\|_2/\sqrt n\le2\rho Sq_j^*,\qquad
+ \|\dot\delta_a^{(j)}\|_2/\sqrt n\le J_*B_n\rho.
+\]
+These bounds use the provisional response stops, not their improvement.
+\end{claim}
+\begin{proof}
+The exact response identity gives
+\(\|\dot z\|_2/\sqrt n\le2\rho Sr_j^*\),
+\(\|\dot z\|_\infty\le8\rho SU_0\sqrt\ell\).
+Interpolate to exponent \(2v/(v-2)\) and use the carrier
+\(v\)-norm supplied by \eqref{cp:src-budget}.  For \(v\ge4\),
+\[
+ \|k\odot\dot z\|_2/\sqrt n
+ \le(2\rho S^2N_*/\eta_*)v(2\mathcal B\ell)^{1/v}.
+\]
+Choose \(v=\max(4,\log(2\mathcal B\ell))\).  The exponential
+factor is at most \(e\), and \(v\le2\log(e+\ell)\).
+Backward differentiation now gives the readout term \(2sH_L\),
+propagated derivative, changed-matrix term
+\(2s^3k_{j+1}^2H_j\), and changed-gate term \(4et_2N_*\).
+They are the displayed recursion.  Forward differentiation gives the
+first bound.  This growing real exponent is a deterministic budget
+inequality and does not use growing deletion sets.
+\end{proof}
+
+\paragraph{Removing budgets on complete independently stopped paths.}
+The domain checks below will supply a bounding rectangle of side
+\(O(\ell)\), uniformly Lipschitz retractions commuting with real
+anchors, and normalized complex-minus-real coefficient radius
+\(D_n=O(B_n/\sqrt\ell)\) with global modulus \(O(B_n)\).
+Claim~\ref{cp:src-Gaussian} then gives mean
+\(O((\log(e+\ell))^{3/2}/\sqrt\ell)\) and vanishing tail radius.
+Every fixed exponential moment of these corrections tends to one.
+Fixed squared-exponential moments do also, by integrating the
+sub-Gaussian tail; sample RMS uses Jensen.  Notice that the modulus
+here is polylogarithmic, not an arbitrary polynomial in \(n\).
+
+For singleton/common-cavity differences, first extend each path by
+its own retraction, then project their difference onto the deterministic
+ball of radius \(4n^{1/100}\).  Both paths omit the paired root.
+Projection preserves this independence and equals the actual difference
+on the successful prefix.  Its normalized Gaussian radius is
+\(4n^{-49/100}\), and its modulus is at most a fixed power of
+\(n\), by the already proved derivative bounds.  The Gaussian
+rectangle claim again gives moments tending to one at every fixed
+order.  The two coefficient paths need not be independent of each other.
+
+Fix a positive integer moment order \(u\), a sample and a layer.
+Distinct roots in an empirical \(u\)th moment are independent given
+their common cavity.  Apply Cauchy--Schwarz to separate products of
+main real references from products of corrections, and then H\"older
+over the finitely many roots and four reference families for the
+corrections.  Main moments use exponent at most \(8\eta_*\) in
+\eqref{cp:src-main-moment}; corrections use fixed orders proportional
+to \(u\) and tend to one.  The limiting per-root base is therefore
+below sixteen.  Drop full-event indicators only after dominating by
+these nonnegative, globally defined cavity bounds.  A tuple with
+\(k<u\) distinct roots has normalized multiplicity
+\(O_u(n^{k-u})\).  On \eqref{cp:src-improved-maxima}, repeated
+weights cost at most \(e^{2u\eta_*K_{\rm src}\sqrt\ell}=n^{o(1)}\),
+so collision contributions vanish.  Local exceptional events are
+superpolynomially small, and the stopped budgets are bounded.
+
+Cavities cannot stop first on the successful full prefix: their
+coordinate differences are \(n^{-1/30}\), maxima and poles have
+strict transferred margins, and
+\[
+ \mathcal H_a^{\rm cavity}\le
+ e^{2\eta_*n^{-1/30}}\mathcal H_a+O_u(1/n)<2\mathcal B.
+\]
+Operator and activity margins are established in the domain checks.
+If a full budget is hit, some sample/layer mean is at least
+\(\mathcal B/L\).  Markov's inequality and the fixed sample/layer
+union give
+\begin{equation}
+ \limsup_{n\to\infty}\Pr\{\text{a full budget is hit}\}
+              \le mL(16L/\mathcal B)^u. \label{cp:src-budget-removal}
+\end{equation}
+Take the width limit at each fixed \(u\), then the infimum over
+positive integers.  Since \(16L/\mathcal B<1\), the result is zero.
+The label allowance precedes the moment order and does not shrink
+with confidence or sample count.  This is the shared probability step.
+
+\paragraph{4. Verification of the working domains.}
+
+\begin{proof}[Verification of the working whole-sphere estimates]
+Lemma~\ref{cp:fit} independently supplies the real trajectory, strict
+operator caps below nine, and real activity at most \(S/2\).
+The same holds for the independently tested cavities.  Impose the
+eventual deterministic gates
+\begin{equation}
+ n^{-1}\le\min(Y,S,1),\qquad \ell\ge\max(e^2,2\mathcal B),
+ \qquad \sqrt\ell\ge c_t
+       \max\{8,\lambda,4\mathcal K/\log2,32YSD_W\}.
+ \label{cp:src-rectangle-gates}
+\end{equation}
+Follow the real solution to its nearest anchor in \([0,T]\), then
+at most two short contour pieces of total length \(2r_t\).
+The algebraic residual Gram and the negative-Gram variational
+generator, divided by their factor two, have norm at most
+\(\mathcal K\), by the explicit gradient blocks.  No complex
+positivity is used.  Residual growth and products of the base
+propagators cost at most \(e^{4\mathcal Kr_t}\le2\).
+Additional activity is at most \(8Yr_t\le S/2\);
+normalized hidden increments are at most \(8YSD_Wr_t\le1/4\).
+Thus operators have strict margins inside ten and \(\rho/S\le\lambda/8\).
+The total contour length is \(O(\ell)\).
+
+These are the premises of the local insertion and trace argument,
+which improves maxima and response/angular caps.  The exact velocity
+\(\partial_tz^{(j)}=-(2/m)\sum_ar_aR_a^{(j)}\) now bounds the
+complex-time preactivation displacement by \(8c_tYSU=a/8\).
+Every query in the intrinsic tube has the form
+\(u\cosh h+iv\sinh h\) for a real orthonormal frame and
+\(|h|\le r_q\).  Its additional displacement is at most
+\(c_qV\le a/8\).  Thus the full pole stop improves strictly;
+the local coordinate comparison transfers this margin to cavities.
+The passive size stop also improves as already shown.
+
+Under the provisional response stops, Claim~\ref{cp:src-time-derivative}
+bounds normalized complex-minus-real reference radii by
+\(C r_tB_n=O(B_n/\sqrt\ell)\), and their global time moduli
+by \(CB_n\).  This holds on complete independently stopped paths:
+the clipped arguments commute with the real-anchor map as in
+\eqref{cp:src-clipped}.  Their parameter rectangle has side
+\(O(\ell)\).  The budget-removal argument therefore applies,
+with probability of failure tending to zero.  The logical order is
+provisional deterministic bounds, local insertion, maximum/response
+improvement, strict pole/cavity transfer, and then complete-path
+Gaussian moments and budget removal.  None of these steps conditions
+an omitted Gaussian root on full-network survival.
+
+Before each stop, finite-width bounded parameters and strict separation
+from the activation singularities give local holomorphic ODE
+continuation.  Compactness and uniqueness glue the local continuations
+on the nested rectangles.  At a first exit the strict derivative strip
+allows one-sided estimates; the strict improvements continue the
+solution across the closed boundary.  Query holomorphy follows by
+forward composition on the quadric.  Passive backward fields are then
+holomorphic by their finite downward recursion, with RMS bounds
+\(Sk_j,S\tau_j\), using the same readout and operator bounds;
+they require no new probabilistic budget.  Initialized operator norm
+eight proves the four-family coordinate bound.  All failures tend to
+zero, hence each prescribed fixed confidence is attained eventually.
+\end{proof}
+
+\begin{claim}[Working finite-query time domain and all-time carriers]
+\label{cp:src-finite-working}
+Under \(Y/\lambda\le\beta^{-30L}\), for any fixed finite list of
+real unit inputs, eventually with every fixed confidence its predictions
+are holomorphic on a neighborhood of
+\[
+ [-r,T+r]+i[-r,r],\qquad
+ T=32\ell/\lambda,\qquad r=1/(\lambda\sqrt\ell),
+\]
+and \(|f_n(t,v)|\le SH_L^2\) there.  Two independent copies thus
+satisfy \(|f_n-\widetilde f_n|\le32\beta^{6L}Y/\lambda\)
+on their common event.  In particular the Bernstein ellipse of
+parameter two on \([0,r]\) is contained in this rectangle.
+On the real all-time trajectory, also
+\begin{equation}
+ \sup_{t\in[0,\infty]}\max_{a,j,i}|k_{a,i}^{(j)}(t)|
+               \le2SK_{\rm src}\sqrt\ell.
+ \label{cp:src-carrier-working}
+\end{equation}
+The fitted endpoint is included.
+\end{claim}
+\begin{proof}
+Use the same proof without angular fields or the frame mesh, replacing
+the Gaussian multiplier by 64.  The finite-list response bound is
+\(SU_{\rm fin}\sqrt\ell\).  The time-radius coefficient may be any
+\(c\le a/(64YSU_{\rm fin})=a/(4\lambda S^2U_{\rm fin})\).
+By Claim~\ref{cp:src-powers},
+\[
+ \frac a{4S^2U_{\rm fin}}
+ \ge\frac{\beta^{34L-1}}{64}>1,
+\]
+so \(c=1/\lambda\) is permitted.  All other rectangle gates are
+eventual.  Cauchy--Schwarz gives \(|f_n|\le SH_L^2\); use
+\(H_L\le\beta^{3L}\) for the difference bound.  The parameter-two
+ellipse on \([0,r]\) has real range \([-r/8,9r/8]\) and imaginary
+height \(3r/8\), hence lies inside the stated rectangle eventually.
+
+It remains to extend the carrier maximum beyond \(T\); no complex
+late-time extension is required.  Let \(\|\Delta\theta\|\) denote
+the physical parameter norm with blocks
+\((W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)\).
+Forward subtraction in the real fitting tube gives feature RMS
+changes bounded by \(P_j\|\Delta\theta\|\).  Backward subtraction
+then gives
+\[
+ \max_{a,j}\|k_a^{(j)}(t)-k_a^{(j)}(T)\|_\infty
+ \le C_k n\|\theta(t)-\theta(T)\|,
+\]
+where \(C_L^k=1\),
+\(C_j^k=S\tau_{j+1}+10sC_{j+1}^k+
+10t_2SP_{j+1}k_{j+1}\), and \(C_k=\max_jC_j^k\le\beta^{20L}\).
+The terms are the changed mixer, propagated upper difference, and
+changed activation gate; RMS-to-coordinate conversions account for
+the two factors \(\sqrt n\).  The real segment has bounded
+operators and real activations, so this subtraction needs no complex
+strip hypothesis.  Lemma~\ref{cp:fit} gives
+\(\|\theta(t)-\theta(T)\|\le2Y e^{-16\ell}/\sqrt\lambda\).
+Consequently the last display is eventually at most
+\(SK_{\rm src}\sqrt\ell\), including at \(t=\infty\).
+Add \eqref{cp:src-improved-maxima} at \(T\).
+\end{proof}
+
+\begin{claim}[Working residual-adapted finite-panel domain]
+\label{cp:src-panel-working}
+Fix the training inputs and any finite list of passive inputs before
+initialization.  Use the same allowance as the working whole-sphere estimates,
+and let
+\begin{gather*}
+ \nu=\lambda/4,\quad T=32\ell/\lambda,\quad
+ r_n=\frac a{64YSU_{\rm fin}\sqrt\ell},\\
+ h(t)=\frac1{2\mathcal K}\log(1+2\mathcal K r_ne^{\nu t}),
+ \quad d_h=\frac\nu{2\mathcal K},\quad T_+=T+h(T)+r_n.
+\end{gather*}
+Eventually with every fixed confidence, the required forward and
+backward fields are holomorphic on a neighborhood of
+\[
+ D_1=\{x+iy:-h(0)\le x\le T_+,\quad |y|\le h(\max(x,0))\},
+\]
+with the same operator, RMS, training-maximum, and four-family
+coordinate bounds as in the working whole-sphere estimates; the response
+bound is \(SU_{\rm fin}\sqrt\ell\).  In particular it suffices
+to retain forward families on all declared inputs and backward
+families only on training inputs.
+For \(0\le t\le T\), the disk of radius
+\(\varrho(t)=h(t)/(2(1+d_h))\) about \(t\) lies in \(D_1\).
+The adaptive subdivision
+\(t_0=0\), \(t_{b+1}=\min(T,t_b+\varrho(t_b)/2)\)
+has at most
+\begin{equation}
+ J\le1+40960\frac{U_{\rm fin}}a
+                  \left(\frac Y\lambda\right)^2\sqrt\ell
+       +80\frac{\mathcal K}{\lambda}
+                  \log\left(1+\frac{4\ell}{\log2}\right)
+ \label{cp:src-panel-count}
+\end{equation}
+panels.  Here \(U_{\rm fin}/a\le\beta^{27L}\) and
+\(\mathcal K\le\beta^{14L}\), independently of the input dimension
+and the size of the fixed passive list.
+\end{claim}
+\begin{proof}
+Population RMS and the Gram gap give
+\(\lambda\le H_L^2\le\mathcal K\).  Thus
+\(0\le h'\le d_h\le1/8\), \(h(0)\le r_n\), and
+\(h(t)\le r_n+d_ht\).  Define the nested domains by
+\[
+ D_s=\{x+iy:-s h(0)\le x\le sT_+,\quad
+                      |y|\le s h(\max(x,0))\},\quad0\le s\le1.
+\]
+For \(X_s(x)=\operatorname{clip}_{[-s h(0),sT_+]}x\), their
+retractions are
+\[
+ P_s(x+iy)=X_s(x)+i\operatorname{clip}_{[-s h(X_s(x)_+),
+                                           s h(X_s(x)_+)]}y.
+\]
+With \(a_0(z)=\operatorname{clip}_{[0,T_+]}\operatorname{Re}z\),
+\(P_sa_0=a_0P_s\), and \(\operatorname{Lip}(P_s)\le1+d_h\).
+Indeed \(|\Delta X_s|\le|\Delta x|\) and the imaginary
+increment is at most \(|\Delta y|+d_h|\Delta x|\); the shear
+has norm at most \(1+d_h\).  Integrate derivatives along the image
+under \(P_s\) of a straight segment to get global coefficient
+Lipschitz bounds.  Convexity of \(D_s\) is unnecessary.  The real
+anchors remain monotone and freeze, as required by the moment proof.
+
+We verify the base-propagator premise before Gaussian insertion.
+Under each cavity's provisional response stop, use
+Claim~\ref{cp:src-time-derivative} with \(U_0=U_{\rm fin}\).
+For
+\(G=(mn)^{-1/2}[\nabla_\Theta F_1,\ldots,\nabla_\Theta F_m]\),
+the explicit gradient blocks give
+\begin{equation}
+ \|G\|\le\sqrt{\mathcal K},\qquad
+ \|\dot G\|\le C_gB_n\rho,\qquad
+ C_g=J_*\left(1+\sum_{j=2}^LH_{j-1}\right)
+    +2S^2\sum_{j=2}^L\tau_jq_{j-1}^*+2Sq_L^*.
+ \label{cp:src-gradient-derivative}
+\end{equation}
+For the second estimate differentiate each column block
+\(m^{-1/2}\delta_a^{(1)}v_a^\top/\sqrt n\),
+\(m^{-1/2}\delta_a^{(j)}h_a^{(j-1)\top}/n\), and
+\(m^{-1/2}h_a^{(L)}/\sqrt n\), then bound Frobenius norm.
+The division by \(\sqrt m\) prevents a sample factor.
+
+The exact residual equation is \(\dot r=-2G^\top Gr\).
+On a vertical segment based at real \(t\ge0\), norm
+differentiation and real fitting give
+\begin{equation}
+ \rho(t\pm iv)\le Ye^{-\nu t}e^{2\mathcal Kv},\qquad
+ \int_0^{h(t)}\rho(t\pm iv)\,dv\le Yr_n.
+ \label{cp:src-vertical}
+\end{equation}
+The second bound is the defining identity for \(h(t)\).  It also
+gives \(\rho\le Y+2\mathcal KYr_n\le2Y\) eventually.
+The base variational equation is \(\dot P=-2GG^\top P\), with
+algebraic transposes.  At a real anchor,
+\(A_t=2G(t)G(t)^\top\) is real symmetric, so \(-iA_t\)
+generates unitary motion.  Freeze this generator on the vertical
+segment and use \eqref{cp:src-gradient-derivative}:
+\[
+ \|2G(t\pm iv)G(t\pm iv)^\top-A_t\|
+ \le4\sqrt{\mathcal K}C_gB_n\int_0^v\rho(t\pm iu)\,du.
+\]
+Conjugating by the frozen unitary bounds its propagator by
+\[
+ \exp\left(4\sqrt{\mathcal K}C_gB_n
+       \int_0^{h(t)}(h(t)-v)\rho(t\pm iv)\,dv\right)
+ \le\exp\left(\frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n\right).
+\]
+For the last inequality, integrate the exponential bound in
+\eqref{cp:src-vertical}; the double integral is at most
+\(Yr_n/(2\mathcal K)\).  Products on ordered disjoint subsegments
+obey the same bound, since their growth integrals add.  Forward real
+segments contract.  The negative-real corner has total exceptional
+length at most \(2r_n\), costing at most \(e^{4\mathcal Kr_n}\).
+Hence impose the directly checkable eventual gate
+\begin{equation}
+ 4\mathcal Kr_n+(2C_g/\sqrt{\mathcal K})B_nYr_n<\log(3/2).
+ \label{cp:src-flaring-gate}
+\end{equation}
+It supplies the factor-two base premise, without treating a complex
+Gram matrix as positive.  Its left side tends to zero because
+\(B_nr_n=O(\log(e+\ell)/\sqrt\ell)\).
+
+Also impose \eqref{cp:src-rectangle-gates} with
+\(c_t=a/(64YSU_{\rm fin})\).  Additional activity is at most
+\(8Yr_n\), and normalized parameter increments are at most
+\(8YSD_Wr_n\le1/4\).  Thus operators, activity and
+\(\rho/S\le\lambda/8\) meet the shared premises.
+All canonical anchor contours have length \(O(\ell)\), and the
+bounding rectangle
+\([-h(0),T_+]+i[-h(T_+),h(T_+)]\) has sides \(O(\ell)\).
+The local map/remainder argument is therefore unchanged: the
+one-dimensional control entropy is
+\(n^{5/8}\operatorname{poly}(\ell)\), endpoint meshes are
+polynomial, and the same \(n^{.78}\) Gaussian tail dominates them.
+After the improved response bound, vertical displacement is at most
+\(2YSU_{\rm fin}\sqrt\ell r_n=a/32\); the negative corner costs
+at most \(a/8\).  The pole and passive-size stops improve, and
+cavity transfer is strict.
+
+Finally Claim~\ref{cp:src-time-derivative}, integrated over these
+segments, gives the complete-path normalized correction radius
+\[
+ D_n=4Yr_n\max\{2S\max_jq_j^*,J_*B_n/S\}
+                 =O(\log(e+\ell)/\sqrt\ell).
+\]
+The commuting retractions preserve this estimate and give global
+modulus \(O(B_n)\).  Thus the shared Gaussian moment and budget
+argument applies.  Local holomorphic continuation glues because the
+domain is vertically fibered, retracts onto its real interval, and
+is simply connected; strict stopped margins continue across its
+compact boundary.  This proves the source event and its confidence.
+
+For the disk claim, if its real coordinate is nonnegative, then
+\(h(x)\ge h(t)-d_h\varrho(t)\ge\varrho(t)\).
+If it is negative, \(t<\varrho(t)\) and
+\(h(t)\le h(0)+d_ht\) imply \(\varrho(t)<h(0)\).
+The right endpoint is below \(T+h(T)<T_+\).
+The radius is nondecreasing with Lipschitz constant
+\(C_r=d_h/[2(1+d_h)]\).  Each complete adaptive panel contributes
+at least \(1/(2+C_r)\) to \(\int dt/\varrho(t)\), by bounding
+the radius on that panel by \((1+C_r/2)\varrho(t_b)\).
+Consequently \(J\le1+5\int_0^Tdt/h(t)\).
+Split at \(2\mathcal Kr_ne^{\nu t}=1\).  Before this point use
+\(\log(1+x)\ge x/2\); afterward the logarithm grows at least
+with slope \(\nu/2\).  This bounds the integral by
+\[
+ \frac2{\nu r_n}+\frac{4\mathcal K}{\nu}
+             \log\left(1+\frac{\nu T}{2\log2}\right).
+\]
+Substitute \(\nu=\lambda/4\), \(S=16Y/\lambda\) and \(T\)
+to obtain \eqref{cp:src-panel-count}.  The coefficient bounds follow
+from Claim~\ref{cp:src-powers} and \(a^{-1}\le\beta/16\).
+\end{proof}
+
+\paragraph{5. Reduction to the public bounds.}
+We now compare the stronger working estimates with the statement, so no
+coefficient from this proof is needed by a later construction.  The working
+whole-sphere time radius is
+\[
+ \frac{a}{64YSU\sqrt\ell}
+   =\frac{a\lambda}{1024Y^2U\sqrt\ell}.
+\]
+Since \(U\le\beta^{26L}\sqrt{d+3}\) and \(a^{-1}\le\beta/16\),
+\[
+ \frac{1024U}{a}
+ \le64\beta^{26L+1}\sqrt{d+3}
+ \le\beta^{30L}\sqrt{d+3}.
+\]
+The last inequality uses \(64\le\beta^{4L-1}\), valid for
+\(L\ge2\), \(\beta\ge10\).  This gives at least the public time
+radius.  Likewise \(V\le\beta^{2L}\sqrt{d+3}\) gives
+\[
+ \max\{8,8V/a\}
+ \le\max\{8,\tfrac12\beta^{2L+1}\sqrt{d+3}\}
+ \le\beta^{3L}\sqrt{d+3},
+\]
+so the working query tube contains the stated tube.
+
+The local power bounds yield, for every layer,
+\[
+ H_j\le3\beta^{2j}\le\beta^{3L},\qquad
+ \max(k_j,\tau_j)\le3\beta^{4L-1}\le\beta^{4L}.
+\]
+Multiplication by \(S=16Ym/\gamma\) gives the backward bounds.
+The four-family coordinate envelope obeys
+\[
+ M_0=10\max_j(H_j,\tau_j)
+ \le30\beta^{4L-1}\le\beta^{6L}.
+\]
+For all real times, the fitting statement bounds normalized operators by
+nine and \(\|w\|_2/\sqrt n\le2Y/\sqrt\lambda\).  To check the
+remaining population comparison directly, Minkowski and linear activation
+growth give
+\(\sqrt{Q^{(j)}_{11}}\le b+s\sqrt{Q^{(j-1)}_{11}}\), starting at
+\(Q^{(0)}_{11}=1\).  The local recursion for \(H_j\) dominates this
+recursion, so \(\lambda\le Q^{(L)}_{11}\le H_L^2\).
+Hence \(2Y/\sqrt\lambda\le SH_L\).  The same forward and backward
+recursions with operator bound nine give \(H_j,Sk_j,S\tau_j\)
+on the whole real trajectory.  Their parameter limits give the endpoint
+bounds as well.  This proves \eqref{cp:source-rms} in both stated domains.
+
+The working finite-query claim has exactly the public time radius.  Its
+prediction envelope is \(SH_L^2\le16\beta^{6L}Ym/\gamma\), proving
+\eqref{cp:finite-time}.  Its all-time training-carrier envelope is
+\(2SK_{\rm src}\sqrt\ell\le32\beta^{21L}(Ym/\gamma)\sqrt\ell\).
+Substituting the explicit definition of \(k^{(j)}\) proves
+\eqref{cp:carrier}, without exporting that auxiliary notation.
+
+For the finite panel, choose \(r_b=\varrho(t_b)\) in the working
+domain's adaptive partition.  Its disk containment and half-radius
+intervals are exactly those in (iii), and its source envelopes have just
+been bounded in canonical quantities.  Its defining coefficients depend
+only on the width, \(m,\gamma,Y\), activations and depth, so these choices
+are deterministic.  Finally
+\[
+ 40960\frac{U_{\rm fin}}a\le40960\beta^{27L}\le\beta^{30L},
+ \qquad 80\mathcal K\le80\beta^{14L}\le\beta^{16L},
+\]
+because \(40960\le\beta^{3L}\) and \(80\le\beta^{2L}\).
+Applying these inequalities to \eqref{cp:src-panel-count} proves
+\eqref{cp:panel-source}.  For any requested finite collection of the
+source domains, split the fixed failure allowance and intersect their
+events.  This supplies the single event asserted in the proposition and
+completes its proof.
+\end{proof}
