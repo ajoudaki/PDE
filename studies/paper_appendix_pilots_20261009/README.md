@@ -1,5 +1,112 @@
 # Bounded appendix figure pilots
 
+## Figure4 uniform three-seed repair (2026-10-10)
+
+Before new runs: preserve the original Figure4 data (circle d2 and raw digits
+1/7 d64, data seed47, eight training and30 declared plus30 undeclared inputs),
+dense width4096, depth2/tanh, Euler1/160 to time32 with65 observations. Use
+reference seeds903/904/905; every model and independent dense partner is rebuilt
+against its own reference. No changing queries, replacing seeds, smoothing,
+monotonicity-based selection or parameter search. All runtime/source settings
+are uniform across seeds within each panel. JSON inputs are
+`figure4_circle_three_seeds.json` and `figure4_digits_three_seeds.json`.
+
+Check original seed903 first. Harmonic initial repair: spatial degree25,
+time degree12, source cap64, compact width1024 (old5/8/37/512). If the maximum
+pointwise query RMS divided by its dense-pair RMS exceeds1 at any positive
+saved time on any seed, allow one uniform fallback: degree33/time16/rank96/
+width1536, rerunning Harmonic for ALL three seeds. Preserve failed attempts;
+after that report unresolved failures without further search. Other methods
+retain their old budgets: circle Legendre4/Taylor512-r37, digits Legendre2/
+Taylor512-r32. Include dense512, frozen readout and one low-rank control
+(rank30 circle,23 digits, budget-matched to Taylor) for every repetition.
+The enlarged Harmonic budget is not claimed size-matched to those controls.
+
+Each source/fit has a120-second cap. Two GPUs run independent panels. Mean and
+sample SD of the three paired pointwise ratios are shown without smoothing;
+all individual endpoint and maximum-pointwise ratios are retained. This is a
+finite65-time,30-query Euler experiment using full-horizon RK4 source setup,
+not an initialization-only or continuum guarantee. The bounded-experiment
+workflow separates a measured RMS miss from a constructor or numerical failure.
+
+After the first two circle seeds: repaired Harmonic passed (maximum pointwise
+ratios0.16746 and0.50546). Circle Taylor512/r37 seed904 could not be built:
+best source condition16.636386 exceeded the unchanged limit16 after64
+coordinate candidates. Before retrying, fix256 candidates for Taylor on ALL
+three circle seeds, keeping width512/rank37/time8 and condition16 unchanged.
+This is a uniform constructor retry, not a prediction-error/seed search; retain
+the original64-candidate outcomes. Source and training settings remain fixed.
+
+### Completed outcome
+
+All15 compression trajectories (three seeds for each of three circle and two
+digits methods) are below their OWN independent dense-pair query RMS at EVERY
+positive recorded time. This is stronger than comparing the two separate
+maxima. Harmonic required no fallback: the initial25/12/64/1024 repair passes
+all three seeds. This combined resolution/size change does not isolate which
+individual order caused the old failure. No monotonic shape was imposed.
+
+Maximum pointwise RMS ratio over the64 positive saved times, by reference seed:
+
+| Task/method |903|904|905| Learned | Fixed |
+|---|---:|---:|---:|---:|---:|
+|Circle Legendre4|0.189449|0.133943|0.221256|339970|16777224|
+|Circle Harmonic1024/r64|0.167459|0.505520|0.293166|1051656|3145728|
+|Circle Taylor512/r37|0.944087|0.612703|0.644958|263688|786433|
+|Digits Legendre2|0.127050|0.102463|0.075082|462850|16777220|
+|Digits Taylor512/r32|0.763273|0.386589|0.264787|295432|786433|
+
+Every method/control has three independently paired repetitions,33 plotted
+trajectories in total, plus the six dense reference/independent pairs. The
+uniform256-candidate circle Taylor retry successfully constructs all three;
+it keeps the original learned/fixed sizes, source cap37/time8 and condition16.
+It replaces ALL three64-candidate Taylor outcomes, not only the failed seed.
+Both regenerated dense trajectories match their base arrays bitwise. The
+canonical circle JSON now includes256 candidates for that method only; digits
+keeps64. There is no seed-specific configuration or omitted repetition.
+
+Current figure: `data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/figures_final/figure4_trajectory.png`
+(PDF, raw per-seed metrics/configs/provenance and caption are alongside).
+Curves are arithmetic mean pointwise ratios with one sample SD, not ratios of
+mean errors; time0 is omitted because0/0. The dense-control SD crosses zero at
+nine circle times, so its lower band is clipped on the logarithmic display;
+the exact SD and clipping locations remain in metrics. Dips and seed variation
+are not smoothed away. Taylor is the paper's current name for Logarithmic;
+the Python family key remains `logarithmic`.
+
+The two original seed903 datasets, dense initializations and complete dense
+trajectories reproduce bitwise. Final checks verified all selected prediction
+and source hashes, common65-time grids, distinct reference/partner seeds,
+identical per-method effective settings across seeds, actual Harmonic rank64
+in every layer/source, absence of extra constructor truncation, storage sums,
+and arithmetic mean/sample-SD reconstruction. All requested training runs
+completed; no timeouts or integration failures. Dense runs cost3.8--4.2s;
+Legendre10.8--11.3s, Harmonic11.5--11.6s, Taylor14.4--14.7s per trajectory.
+These timings exclude setup, which remains separately recorded in reports.
+The numerical step is unchanged and no new step-halving audit was requested.
+
+Reproduce the final configurations with the ordinary runner (use fresh output
+directories because the preserved pilot/candidate roots have older fingerprints):
+
+```bash
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py run --config studies/paper_appendix_pilots_20261009/figure4_circle_three_seeds.json --execution.output data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/reproduce_circle
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py run --config studies/paper_appendix_pilots_20261009/figure4_digits_three_seeds.json --execution.output data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/reproduce_digits
+```
+
+Replot the saved actual batch without retraining:
+
+```bash
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py figure4-paired-plot --circle-runs data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/circle_pilot data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/circle --digits-runs data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/digits --taylor-runs data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/circle_taylor_retry --output data/generated/paper_appendix_pilots_20261009/figure4_three_seeds/figures_final
+```
+
+The bounded-experiment workflow kept the constructor retry separate from an
+RMS miss and required each change to apply to all repetitions. These remain
+development repetitions on one fixed dataset per panel, not a new theorem or
+a demonstration of initialization-only setup. Harmonic still is not attempted
+on d64. Controls match Taylor's learned budget approximately, not the enlarged
+Harmonic budget. No equal-total-storage or optimally tuned-baseline claim is
+made. There is no pending run.
+
 ## Figure3 independent coupled repetitions
 
 ### Outcome

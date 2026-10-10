@@ -14143,6 +14143,180 @@ def trajectory_task_plot(argv):
     return 0
 
 
+def figure4_paired_plot(argv):
+    """Plot fixed-budget query-error ratios from three fully paired experiment seeds."""
+    import copy
+    import io
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    parser = argparse.ArgumentParser(description=figure4_paired_plot.__doc__)
+    for panel in ('circle', 'digits'):
+        parser.add_argument('--'+panel+'-runs', type=Path, nargs='+', required=True)
+    parser.add_argument('--taylor-runs', type=Path, nargs='+', default=[])
+    parser.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args(argv)
+    seeds, times = [903, 904, 905], np.linspace(0, 32, 65)
+    styles = dict(legendre=('Legendre', '#4477AA'), harmonic=('Harmonic', '#EE7733'),
+        logarithmic=('Taylor', '#228833'), dense=('Dense', '#666666'),
+        low_rank=('Low rank', '#CC6677'), frozen_features=('Frozen features', '#AA4499'))
+    panels, inputs, clipped = {}, [], []
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    def scientific(config):
+        result = copy.deepcopy(config)
+        for key in ('seeds', 'execution', 'plots', 'output'):
+            result.pop(key, None)
+        result['methods']['oblivious']['frozen_features'].pop('plot', None)
+        result['tf32'] = config['execution']['tf32']
+        return result
+
+    def load(roots, label):
+        repetitions, contract, data_hashes = {}, None, None
+        for value in roots:
+            root = (value.parent if value.name == 'run.json' else value).resolve()
+            raw = (root/'run.json').read_bytes(); manifest = json.loads(raw)
+            config, identity = manifest['config'], manifest['identity']
+            source_hash = sha((root/'source.py').read_bytes())
+            require(json.loads((root/'config.json').read_text()) == config, f'Config mismatch: {root}')
+            require(source_hash == manifest['source_sha256'] == identity['source_sha256']
+                    and sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode()) == manifest['fingerprint'],
+                    f'Invalid source or fingerprint: {root}')
+            current = scientific(config)
+            require(current == scientific(identity['config']), f'Identity config mismatch: {root}')
+            require(contract is None or current == contract, f'Scientific configuration differs: {label}')
+            require(data_hashes is None or data_hashes == identity['data_sha256'], f'Data differs: {label}')
+            contract, data_hashes = current, identity['data_sha256']
+            inputs.append(dict(panel=label, root=str(root), config=config, run_sha256=sha(raw),
+                config_sha256=sha((root/'config.json').read_bytes()), source_sha256=source_hash))
+            require(len(config['seeds']) == len(set(config['seeds'])), f'Duplicate configured seeds: {root}')
+            for seed in config['seeds']:
+                require(seed in seeds and seed not in repetitions, f'Unexpected or duplicate seed: {label}/{seed}')
+                path = (root/manifest['repetitions'][str(seed)]).resolve()
+                require(path != root and path.is_relative_to(root), f'Invalid repetition path: {path}')
+                report_raw = (path/'report.json').read_bytes(); report = json.loads(report_raw)
+                archive = (path/'trajectories.npz').read_bytes()
+                require(report['seed'] == report['seeds']['reference'] == seed
+                        and report['fingerprint'] == manifest['fingerprint'] and report['source_sha256'] == source_hash
+                        and sha(archive) == report['trajectories_sha256'], f'Provenance mismatch: {path}')
+                with np.load(io.BytesIO(archive), allow_pickle=False) as saved:
+                    arrays = {key: saved[key] for key in saved.files}
+                require({key: array_sha(arrays[key]) for key in data_hashes} == data_hashes == report['data_sha256'],
+                        f'Data hash mismatch: {path}')
+                m, count = len(arrays['train_inputs']), len(arrays['query_inputs'])
+                require(m == config['dataset']['train_samples'] and count == config['dataset']['test_samples'] > 0,
+                        f'Dataset size mismatch: {path}')
+                provenance = dict(root=str(root), repetition=str(path), seed=seed, fingerprint=manifest['fingerprint'],
+                    report_sha256=sha(report_raw), trajectories_sha256=sha(archive), source_sha256=source_hash,
+                    data_sha256=data_hashes, reference_initial_state_sha256=report['reference_initial_state_sha256'],
+                    role_seeds=report['seeds'], sources=report.get('sources', {}), reported_errors=report.get('errors', {}))
+                repetitions[seed] = dict(report=report, arrays=arrays, m=m, count=count, provenance=provenance)
+        require(sorted(repetitions) == seeds, f'{label} requires exactly seeds {seeds}')
+        return repetitions, contract
+
+    def prediction(rep, name):
+        report, arrays = rep['report'], rep['arrays']
+        require(report['runs'].get(name, {}).get('complete') and name not in report.get('errors', {}),
+                f'Incomplete model: {rep["provenance"]["repetition"]}/{name}')
+        value = np.asarray(arrays[name], dtype=np.float64)
+        require(value.shape == (len(times), rep['m']+rep['count']) and np.isfinite(value).all()
+                and np.array_equal(arrays['times_'+name], times)
+                and np.array_equal(np.asarray(report['runs'][name]['times']), times), f'Invalid trajectory: {name}')
+        return value[:, rep['m']:rep['m']+rep['count']]
+
+    replacements, replacement_config = load(args.taylor_runs, 'circle_taylor') if args.taylor_runs else ({}, None)
+    for panel, roots, order, rank, taylor_rank in (
+            ('circle', args.circle_runs, 4, 30, 37), ('digits', args.digits_runs, 2, 23, 32)):
+        repetitions, config = load(roots, panel)
+        require(config['model'] == dict(width=4096, depth=2, activation='tanh')
+                and config['training']['horizon'] == 32, f'Unexpected reference or horizon: {panel}')
+        if panel == 'circle' and replacements:
+            require(all(config[key] == replacement_config[key] for key in ('dataset', 'model', 'training', 'tf32')),
+                    'Taylor replacement changes base experiment')
+        wanted = dict(legendre=dict(order=order), logarithmic=dict(width=512, source_rank=taylor_rank),
+                      dense=dict(width=512), low_rank=dict(rank=rank), frozen_features={})
+        if panel == 'circle':
+            wanted = dict(legendre=wanted.pop('legendre'), harmonic=dict(width=1024, source_rank=64), **wanted)
+        records = {family: [] for family in wanted}
+        for seed, rep in sorted(repetitions.items()):
+            reference, independent = prediction(rep, 'reference'), prediction(rep, 'dense_4096')
+            require(rep['report']['seeds']['dense_4096'] != seed, 'Dense benchmark is not independently initialized')
+            denominator = np.sqrt(np.mean((independent-reference)**2, axis=1))
+            require(np.isfinite(denominator).all() and np.all(denominator[1:] > 0), 'Invalid dense denominator')
+            for family, budget in wanted.items():
+                source = replacements[seed] if panel == 'circle' and family == 'logarithmic' and replacements else rep
+                if source is not rep:
+                    require(source['provenance']['data_sha256'] == rep['provenance']['data_sha256']
+                            and source['provenance']['reference_initial_state_sha256'] == rep['provenance']['reference_initial_state_sha256']
+                            and np.array_equal(prediction(source, 'reference'), reference)
+                            and np.array_equal(prediction(source, 'dense_4096'), independent)
+                            and all(array_sha(source['arrays'][key]) == array_sha(rep['arrays'][key])
+                                    for key in ('reference', 'dense_4096')), 'Replacement reference or dense benchmark differs')
+                names = [name for name, model in source['report']['models'].items() if model['family'] == family
+                         and all(model.get(key) == value for key, value in budget.items())]
+                require(len(names) == 1, f'Expected one {panel}/{family}/{seed}: {names}')
+                name = names[0]; model = source['report']['models'][name]
+                require(all(isinstance(model[key], int) and model[key] >= 0 for key in ('moving', 'fixed', 'total'))
+                        and model['moving'] > 0 and model['total'] == model['moving']+model['fixed'], 'Invalid storage')
+                error = np.sqrt(np.mean((prediction(source, name)-reference)**2, axis=1)); ratio = error[1:]/denominator[1:]
+                require(np.isfinite(error).all() and np.isfinite(ratio).all(), f'Nonfinite error: {panel}/{name}/{seed}')
+                records[family].append(dict(seed=seed, name=name, learned=model['moving'], fixed=model['fixed'], total=model['total'],
+                    endpoint_ratio=float(ratio[-1]), max_pointwise_ratio=float(ratio.max()),
+                    max_error_over_max_dense_error=float(error.max()/denominator.max()), raw_query_rms=error.tolist(),
+                    raw_dense_query_rms=denominator.tolist(), pointwise_ratio=ratio.tolist(), provenance=source['provenance'],
+                    paired_provenance=rep['provenance'], reference_array_sha256=array_sha(rep['arrays']['reference']),
+                    dense_array_sha256=array_sha(rep['arrays']['dense_4096'])))
+        summaries = {}
+        for family, rows in records.items():
+            require(len({(row['learned'], row['fixed']) for row in rows}) == 1, f'Storage varies: {panel}/{family}')
+            values = np.asarray([row['pointwise_ratio'] for row in rows])
+            summaries[family] = dict(mean=values.mean(axis=0).tolist(), sd=values.std(axis=0, ddof=1).tolist())
+        panels[panel] = dict(config=config, samples=records, summaries=summaries)
+    caption = ('Figure 4. Query RMS error relative to the independently initialized width-4096 dense benchmark, '
+        'each compared with its own seed-matched dense reference. Curves are arithmetic means of the three '
+        'individual pointwise ratios for seeds 903, 904, 905; shading is one sample SD (ddof=1). '
+        'Only declared query inputs are scored; separately saved extra-query arrays are excluded. '
+        'Time zero is omitted because its ratio is 0/0. Saved times are joined without smoothing. '
+        'Fixed and learned retained storage and individual scores are in metrics.json. '
+        'These are sampled Euler-trajectory errors, not continuous-time error certificates. ')
+    with plt.rc_context({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False, 'pdf.fonttype': 42}):
+        figure, axes = plt.subplots(1, 2, figsize=(11.8, 4.8), sharex=True, sharey=True)
+        for axis, panel, title in zip(axes, ('circle', 'digits'), ('Circle', 'Digits 1 vs 7')):
+            for family, summary in panels[panel]['summaries'].items():
+                mean, sd = np.asarray(summary['mean']), np.asarray(summary['sd']); label, color = styles[family]
+                require(np.all(mean > 0), f'Zero mean cannot be represented on log axis: {panel}/{family}')
+                floor = float(mean.min())*1e-3
+                if np.any(mean-sd <= 0):
+                    clipped.append(dict(panel=panel, family=family, floor=floor, times=times[1:][mean-sd <= 0].tolist()))
+                axis.plot(times[1:], mean, color=color, label=label, linewidth=1.5)
+                axis.fill_between(times[1:], np.where(mean-sd > 0, mean-sd, floor), mean+sd, color=color, alpha=.12, linewidth=0)
+            axis.axhline(1, color='#333333', linestyle='--', linewidth=1, label='Dense benchmark')
+            axis.set(yscale='log', xlabel='Training time', title=title, xlim=(0, 32)); axis.grid(alpha=.15)
+        axes[0].set_ylabel('RMS / dense–dense')
+        handles, labels = axes[0].get_legend_handles_labels()
+        figure.legend(handles, labels, loc='upper center', ncol=4, frameon=False, fontsize=8.5)
+        figure.tight_layout(rect=(0, 0, 1, .91)); args.output.mkdir(parents=True, exist_ok=True)
+        for extension in ('png', 'pdf'):
+            figure.savefig(args.output/f'figure4_trajectory.{extension}', dpi=180)
+        plt.close(figure)
+    if clipped:
+        caption += ('Nonpositive mean-minus-SD bounds are clipped to a positive plotting floor; this is a display '
+                    'limit, not a smaller SD. All unmodified SDs and clipping locations are retained in metrics.json. ')
+    if replacements:
+        caption += ('Circle Taylor uses a separate, consistently configured three-seed retry, with bitwise matching '
+                    'reference and independent dense trajectories; its full setup and provenance are in metrics.json. ')
+    (args.output/'captions.txt').write_text(caption+'\n')
+    save_json(args.output/'metrics.json', dict(status='complete', caption=caption, seeds=seeds, times=times[1:].tolist(),
+        raw_error_times=times.tolist(), inputs=inputs, panels=panels, nonpositive_sd_bounds=clipped,
+        taylor_replacement_config=replacement_config, plotting_source_sha256=sha(Path(__file__).read_bytes()),
+        argv=argv, cwd=str(Path.cwd()), aggregation='Arithmetic mean and sample SD of individual pointwise ratios'))
+    print(json.dumps(dict(event='figure4_paired_plot', output=str(args.output), status='complete')), flush=True)
+    return 0
+
+
 def budget_comparison_plot(argv):
     """Compare paired six-width, three-seed Legendre and Logarithmic audits."""
     import matplotlib
@@ -14260,6 +14434,8 @@ def budget_comparison_plot(argv):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'figure4-paired-plot':
+        sys.exit(figure4_paired_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'figure3-paired':
         sys.exit(figure3_paired_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'figure3-paired-plot':
