@@ -10,21 +10,29 @@ The target is the stated source-response Gaussian recursion, deterministic limit
 
 ## Current status
 
-**The MFP source addition has passed both fresh scientific reviews and the
-v3 integration review.** A final concurrency check found a newly committed
-addition in the unrelated maintained trajectory-compression chapter. The MFP
-addition and its proof dependencies are unchanged. Candidate v4 was blocked
-by overwide HTML equations. The corrected v6 candidate contains thirteen
-display-only reflows with unchanged mathematical content and code; it is
-undergoing final format validation and fresh complete integration review. Start with the [concrete proposal](promotion_proposal.md)
-and the [corrected API guide](promotion_code__MFP_CALCULUS.md). The original
-prototype files below are retained research history: promotion review found
-and corrected a fixed-seed state-substitution bug in the candidate, as recorded
-in [the correction report](promotion_code_correction_v1.md). Run the complete
-standalone candidate from `data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v6/edition/`
-with `PYTHONPATH=code`; no maintained files have changed yet.
+**Promoted into the established book and code with the user's explicit approval.**
+The exact reviewed v7 package is installed in Part I, Chapter 2 and `code/`.
+All 116 live source/dependency files match the reviewed edition; selection,
+both scientific reviews, final independent integration review, live code checks
+and the full approved HTML/PDF/editable-LaTeX renders pass. The book's existing
+part/chapter organization and concurrent additions are preserved.
 
-A complete proof is in [master_proof.md](master_proof.md). It proves a uniform all-order raw-entry derivative moment lemma by finite-difference cancellation, applies uniform clipping and error interpolation to pass from globally Lipschitz programs to polynomially smooth programs, and supplies the conditioning/singularity, derivative compilation and restricted activation-moment arguments. Both fresh independent full reconstructions returned PASS without a correctness-blocking objection: [review one](review_one_v1.md) and [review two](review_two_v1.md). The root agent read both complete reports and checked their findings against the proof. The result is internally checked for the declared language; it has not been promoted into the maintained book.
+Start with the maintained [theorem, proof and rulebook](../../docs/02-gaussian-reuse.qmd#sec-mfp-finite-derivative-programs),
+[compiler guide](../../code/MFP_CALCULUS.md), and
+[worked-example producer](../../code/scripts/example_mfp_kernel_jets.py).
+The [promotion proposal](promotion_proposal.md), [approval record](promotion_approval_v7.json),
+[final integration review](promotion_integration_review_v7.md), and
+[live code check](promotion_live_code_check.md) retain scope and validation.
+The [live correspondence and commit record](../../data/generated/mfp_gaussian_master_proof_20261010/promotion_live_integration_v1/)
+records exact final hashes and the scoped promotion commit.
+
+The prototype files below remain research history. Use the maintained compiler;
+it contains the fixed-seed correction recorded in
+[promotion_code_correction_v1.md](promotion_code_correction_v1.md).
+The final standalone reviewed edition remains available under
+`data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v7/edition/`.
+
+A complete proof is in [master_proof.md](master_proof.md). It proves a uniform all-order raw-entry derivative moment lemma by finite-difference cancellation, applies uniform clipping and error interpolation to pass from globally Lipschitz programs to polynomially smooth programs, and supplies the conditioning/singularity, derivative compilation and restricted activation-moment arguments. Both fresh independent full reconstructions returned PASS without a correctness-blocking objection: [review one](review_one_v1.md) and [review two](review_two_v1.md). The root agent read both complete reports and checked their findings against the proof. That original result was internally checked for the declared language. The final reviewed version is now promoted at the maintained links above; the original study proof is retained as research history.
 
 At the user's explicit request, the same study now adds an operational presentation and executable calculus. The theorem's scientific text is unchanged. Start with:
 
@@ -60,7 +68,7 @@ Alternative routes are retained with their actual status: [route_meyer.md](route
 
 ## Contributors and ownership
 
-The root agent owns this README and the combined proof. Fresh prompt-only agents master_moment_proof, master_moment_alternative, and master_adversarial investigated moments, an alternative route, and counterexamples. The moment agent subsequently audited the newly supplied Appendix J and gave the mixed finite-difference refinement. Fresh isolated reviewers master_review_one and master_review_two reconstructed the complete frozen candidate without author discussion or route files. No Git staging or shared-book edits were performed by this study.
+The root agent owns this README and the combined proof. Fresh prompt-only agents master_moment_proof, master_moment_alternative, and master_adversarial investigated moments, an alternative route, and counterexamples. The moment agent subsequently audited the newly supplied Appendix J and gave the mixed finite-difference refinement. Fresh isolated reviewers master_review_one and master_review_two reconstructed the complete frozen candidate without author discussion or route files. No Git staging or shared-book edits were performed during that original proof stage.
 
 For the operational addition, `calculus_rulebook` authored the two mathematical companions, `calculus_scalar` authored the symbolic kernel and its tests, and `calculus_oracles` authored the independent finite interpreter and initial compiler tests. The root authored the typed compiler, usage guide, executable examples and additional regression checks. The fresh isolated `calculus_math_review` reviewed only the complete mathematical companions and master proof. The fresh isolated `calculus_code_review` reviewed the complete frozen implementation, tests, usage guide and master proof, then verified the exact scope of the final corrections. These are internal reviews, not promotion approvals.
 
@@ -239,3 +247,85 @@ Fresh isolated `promotion_final_layout_integration` has received the complete
 review verdicts or author history. Full PDF/LaTeX builds and the final
 independent integration report are pending. No established files, staging or
 commits have been changed by this task.
+
+The v6 full PDF (1,752 pages), editable-LaTeX export, structural validation and
+15-file patch dry run all passed. The coordinator read the complete
+[v6 integration report](promotion_integration_review_v6.md), which records no
+required correction but explicitly withholds final acceptance pending the
+announced current-book refresh. A second concurrency check found committed
+changes in `docs/07-observable-closure.qmd`, `docs/08b-trajectory-compression.qmd`
+and `docs/references.bib`. The coordinator read all changed maintained-source
+passages completely. No other study was read.
+
+Candidate v7 preserves these additions over `promotion_baseline_v7/`.
+[Exact byte correspondence](promotion_input_correspondence_v7.json) verifies
+113 unchanged candidate sources and an identical complete 18-file review
+packet; only the three current-book context files differ. The bibliography
+retains the newly established citation and appends the same reviewed MFP
+entry. The ongoing independent review has a
+[neutral refreshed assignment](promotion_integration_assignment_v7.md), with
+complete new context and explicit source-correspondence requirements before
+carrying its own v6 checks. Final whole-edition renders/checks are being
+refreshed. Scientific verdicts are not transferred to the concurrent results.
+
+All v7 operational format checks now pass: full HTML (88.103 seconds), PDF
+(190.955 seconds; 1,762 pages), and editable LaTeX (142.734 seconds). HTML has
+7,515 valid local targets across 18 pages. All 44 new displays fit at both
+checked viewport sizes after actual MathJax typesetting and font loading.
+Structural checks verify all 116 frozen sources and 18 packet files, preserve
+466 older Chapter 2 anchors and resolve 50 new ones. The exact chapter preview
+is pages 117–137; the exact 15-file patch (210,481 bytes) passes its baseline
+application dry run. All 105 current maintained sources still match the v7
+baseline. Final independent acceptance and concrete-package user approval
+remain pending.
+
+The [final v7 independent integration review](promotion_integration_review_v7.md)
+returns **PASS**, with no required correction or missing validation. The
+coordinator read every line and matched all reported input/output hashes;
+`promotion_candidate_v7/integration_report_check.json` records that check.
+The review was fresh for the corrected v6 material and withheld its final
+verdict for the v7 context refresh. It fully reads all changed current-book
+context, carries only independently byte-verified unchanged-input evidence,
+and refreshes every whole-edition presentation/export check. Its original
+reports and all eight handwritten check scripts are retained, with hashes in
+`promotion_review_evidence_sources.json`.
+
+The final `promotion_candidate_v7/preapproval_check.json` passes. It verifies
+both fully read scientific reviews, the fully read independent integration
+report, exact mathematical/layout correspondence, all 116 frozen source files,
+all output archives, preview and patch, and all 105 current maintained sources
+against the baseline. It also records the unchanged 92 code/requirements inputs
+supporting the executed validation. The reviewed 15-file changed-manifest is
+`818448d710ec30218386805442e113415965f09764f080503f1de7e652549a48`;
+patch hash is `f8c05aaa9fcada19262f4e6306abe392a3a824874d525184e4401ea62c411a4d`.
+The final approval request is for exactly this package. Integration into the
+live book/code has not yet occurred.
+
+## Approved live integration
+
+On 2026-10-10 the user answered **"great, yes I approve"** to the exact final
+15-file v7 package. [The approval record](promotion_approval_v7.json) identifies
+its source, patch and destination hashes. Immediately before application,
+all 105 maintained baseline files still matched; no dependency refresh was
+needed. The root copied only the 15 approved paths and verified all 116 live
+source/dependency files against the approved edition. The theorem starts at
+Chapter 2 line 252, after exact Gaussian-expectation rules and before the
+existing reusable finite calculus and forest factorization.
+
+The live check reruns all 72 MFP tests, the library boundary check, all five
+Python guide examples and the three kernel-jet producer variants. Every final
+check passes; the six formula text/JSON outputs exactly reproduce the reviewed
+outputs. The initial guide-check harness incorrectly matched no snippets;
+that invalid run is retained, its regex was fixed, and the final helper
+requires exactly five snippets before executing them. The guarded fresh run
+executes all five successfully. This affected only the check harness.
+
+The already fully rendered and independently reviewed book outputs remain
+applicable because every one of their 116 source inputs is byte-identical to
+the installed edition. Live placement, index, notation, configuration and
+bibliography correspondence are checked in `book_correspondence.json` in the
+live integration evidence directory. No scientific scope was added after
+approval. Unrelated shared-checkout changes were preserved; only declared
+promotion paths and this study's evidence enter the scoped commit. Its actual
+hash and staged-path verification are recorded in `git_commit.json` in that
+evidence directory. No unresolved promotion checks or exclusions remain; the scoped commit completes the promotion.

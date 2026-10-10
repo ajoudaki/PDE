@@ -1,0 +1,22 @@
+{
+  "packet_byte_changes": [
+    "promotion_theory.qmd"
+  ],
+  "other_17_packet_files_identical": true,
+  "identical_required_scientific_edition_reads": 17,
+  "changed_required_read": "docs/references.bib",
+  "bibliography_current_baseline_preserved_with_identical_MFP_attribution": true,
+  "theory_and_chapter_exactly_restored_to_v3_by_13_layout_patches": true,
+  "layout_equivalence_record": "promotion_layout_equivalence_v6.json",
+  "layout_equivalence_sha256": "ed5f30d154cd62cc4371d7f54167e51db6cbbba5e9f1f50d03d8b8b2a04fae37",
+  "code_and_requirements_byte_identical_to_validation_run": 92,
+  "code_validation_run": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v4",
+  "scientific_reports": [
+    "promotion_review_one_v3.md",
+    "promotion_review_two_v3.md"
+  ],
+  "scope": "MFP scientific content and code unchanged. Concurrent established Chapter07/08b context and its citation are preserved; no MFP scientific verdict is transferred to those results. Final whole-edition integration review includes that context.",
+  "candidate_manifest_sha256": "9e70dacf8d37890e03697d0678a29114c53cc498ee167e9b9ae8501968b204ab",
+  "changed_manifest_sha256": "818448d710ec30218386805442e113415965f09764f080503f1de7e652549a48",
+  "packet_manifest_sha256": "20ceb2e4f57fbc2593c294306bc08b47c61e3d8bd2e28698bccad9bdad4a87da"
+}

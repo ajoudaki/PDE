@@ -1,0 +1,67 @@
+{
+  "previous": "promotion_candidate_v6",
+  "current": "promotion_candidate_v7",
+  "unchanged_source_count": 113,
+  "changed_sources": {
+    "docs/07-observable-closure.qmd": {
+      "v6": "6872261310c15149868c44300a687d201e75e023e8d792c463c8d85318bf80cf",
+      "v7": "61c07f5813112b18011944618059cf3a1155feab476762aa8602442fd98e36e4"
+    },
+    "docs/08b-trajectory-compression.qmd": {
+      "v6": "5d068eaac00fe6b6ec8149e13d5320dc6c40f6935a7c2e467ab55e38abaf5bb8",
+      "v7": "405c8e0a4d99d8b5bebcb4c13d5534317050aa0a10d33b0476b9d90c9cc5bdf5"
+    },
+    "docs/references.bib": {
+      "v6": "58b93ea048f23043234eb2e6f05c151a6f0b78be006c115b37ef3ed2a5e491d0",
+      "v7": "5fa1272b98a6748cd624ab1aeb0badb3654437e90dfd0ff136bf67103331ebc7"
+    }
+  },
+  "identical_complete_packet": {
+    "dependency_chapter2_finite_jets.qmd": "c0b29d15cb9cb4d33ae9bcd87f1390b513bb412fb333816b6c7dbf687ec83f3c",
+    "dependency_chapter2_finite_jets.qmd.origin.json": "e8dfa3fea0469e9b9cf5c383ddd5aef7077b90509935603a23979fb60323d8a8",
+    "dependency_chapter2_opening.qmd": "e18642af7b5c488228b943a7249b259db2e3826c7ea93c230e0329e620e50cc7",
+    "dependency_chapter2_opening.qmd.origin.json": "372e01960795658c163355a25dbf0a95c199c6e680aac46256463385d2cc619c",
+    "dependency_chapter2_specialization.qmd": "35bee12f8ac530798eff41a39c0aecea8e2ccacfcaa963a52091dff176363f66",
+    "dependency_chapter2_specialization.qmd.origin.json": "d221abe407ac9c4458ab877710f0e2c97fd6231dad1069bbb6bc04c866aaec5f",
+    "dependency_finite_gaussian_law.qmd": "4710e129a6b13043b6c4ffabe37d26ee3bdd7645babe7f01e11f75174c1e72a3",
+    "dependency_finite_gaussian_law.qmd.origin.json": "c3b96e0dea3322ea0b9ab8e16d8ab6c04e57ea2eb83eb0cd867a60362b16868b",
+    "promotion_assemble.py": "9dd43ac8f0afec7411c95baee4e38a57e3eb5cd26d9685563070b25b189667e0",
+    "promotion_bibliography.bib": "560c91f80d729c0e27157150a518ab33157e834b94554060e056f53e804e3881",
+    "promotion_book_patches.json": "2292e0c53386636362165a6b9c3aa774c7d25ec3caa33fae0cb5217e8c21b032",
+    "promotion_code_mapping.json": "08fd2e44978ca836ce9e70970912ea9e24fc1d9ffa510d5a5d0db12a3125ba9c",
+    "promotion_code_readme_patches.json": "af0af04b3252c269517f01ea82d887869651b49826341da098cb9cba643d008f",
+    "promotion_quarto_patches.json": "e41ec799f90fad539223c356e489d99342c594b13687d5d105a0b9013657aadb",
+    "promotion_theory.qmd": "67239164e536b588794056bf581e041b665854cefb60d5da8df17f4fd97c665e",
+    "provenance_appendices_H_I_J.txt": "9b04aa0f45aa8a7eebd72d4105b5fe1a07b1dce391e4597441318882fe46bdb0",
+    "provenance_non_gaussian_tp_main.txt": "b7bd14f1255015d5feedd8ecb1bee9b4928e96d94b679aa5f69d5afa19d3e0bc",
+    "provenance_sources.json": "d90fae34b6c7a941ce5ac76fa9b8deae45aced9ef79d51a6b081f88aa4c4dc25"
+  },
+  "identical_required_edition_reads": [
+    "code/MFP_CALCULUS.md",
+    "code/README.md",
+    "code/pde/__init__.py",
+    "code/pde/gaussian_moments.py",
+    "code/pde/mfp_compiler.py",
+    "code/pde/mfp_expr.py",
+    "code/pde/mfp_finite.py",
+    "code/scripts/example_mfp_calculus.py",
+    "code/scripts/example_mfp_kernel_jets.py",
+    "code/scripts/example_mfp_mlp_derivative.py",
+    "code/tests/test_mfp_compiler.py",
+    "code/tests/test_mfp_expr.py",
+    "code/tests/test_mfp_kernel_jets.py",
+    "code/tests/test_mfp_mlp_example.py",
+    "docs/_quarto.yml",
+    "docs/index.qmd",
+    "docs/notation.qmd"
+  ],
+  "changed_required_edition_reads": [
+    "docs/references.bib"
+  ],
+  "manifests": {
+    "candidate_manifest.json": "9e70dacf8d37890e03697d0678a29114c53cc498ee167e9b9ae8501968b204ab",
+    "changed_manifest.json": "818448d710ec30218386805442e113415965f09764f080503f1de7e652549a48",
+    "review_packet/manifest.json": "20ceb2e4f57fbc2593c294306bc08b47c61e3d8bd2e28698bccad9bdad4a87da"
+  },
+  "source_scope": "Current maintained sources; no other study inputs. No mathematical verdict is conveyed by this byte-correspondence record."
+}

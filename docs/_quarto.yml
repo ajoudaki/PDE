@@ -49,7 +49,7 @@ format:
       - \usepackage{mathtools}
       - \usepackage{fvextra}
       - \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true}
-      - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}}
+      - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}\counterwithout{definition}{section}}
     pdf-engine: xelatex
     keep-tex: true
     latex-auto-install: false
@@ -62,7 +62,7 @@ format:
       - \usepackage{mathtools}
       - \usepackage{fvextra}
       - \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true}
-      - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}}
+      - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}\counterwithout{definition}{section}}
     filters:
       - pdf_breakable_tables.lua
       - print_code_links.lua

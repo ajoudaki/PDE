@@ -9,8 +9,9 @@ infinite-width limit. Separate small modules provide exact rational Gaussian
 moments, a two-hidden-layer one-sample physical-flow jet through order three,
 colored-forest keys, finite rational certificates and Euler pullback weights.
 A separate module evaluates finite quadratic/identity and differentiated RMS
-models. Their narrower contracts
-are stated below; they are not a general symbolic population compiler.
+models. An explicitly imported symbolic MFP compiler now handles fixed finite
+typed Gaussian derivative programs; its scope and exact arithmetic conventions
+are documented in [the MFP calculus guide](MFP_CALCULUS.md).
 
 ## Optional compression, datasets and prediction views
 
@@ -184,6 +185,17 @@ Moment tests check known uni-/bi-/trivariate formulas, negative correlations,
 independent coordinates, singular/zero covariances, exact near-boundary PSD
 rejection, input types/shapes/degrees, and absence of input mutation or shared
 cross-call caches.
+
+## Symbolic finite Gaussian programs
+
+`from pde.mfp_compiler import Program` builds typed finite expressions, exact
+physical derivatives, normalized gradients, represented updates and finite jets.
+Gaussian compilation returns the scalar width limit as an explicit expectation
+graph; it does not compute a finite-width expectation or numerical quadrature.
+The [MFP calculus guide](MFP_CALCULUS.md) gives the supported language, rational
+and float conventions, frozen seed semantics, source derivatives, examples and
+checks. Arbitrary fixed orders are admitted in principle, with potentially rapid
+expression growth; this is not a positive-time population solver.
 
 ## Moving physical-flow jets
 

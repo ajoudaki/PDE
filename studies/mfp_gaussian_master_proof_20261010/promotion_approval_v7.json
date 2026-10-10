@@ -1,0 +1,26 @@
+{
+  "user_message": "great, yes I approve",
+  "approved_package": "promotion_candidate_v7",
+  "recorded_utc": "2026-10-10T19:37:53.452236+00:00",
+  "candidate_manifest_sha256": "9e70dacf8d37890e03697d0678a29114c53cc498ee167e9b9ae8501968b204ab",
+  "changed_manifest_sha256": "818448d710ec30218386805442e113415965f09764f080503f1de7e652549a48",
+  "approved_patch_sha256": "f8c05aaa9fcada19262f4e6306abe392a3a824874d525184e4401ea62c411a4d",
+  "destinations": {
+    "code/MFP_CALCULUS.md": "a3adc8d2d5d0e91f4f9b48111a95d58f4549f62e041d4db093bc6c59625e08c9",
+    "code/README.md": "5302e48be28bf0cba8c6ccc10d0a6a61eca9b00dc5f09b792466e236f3344146",
+    "code/pde/mfp_compiler.py": "19e862cf6863b28fc2949be3c9fa2a60ab13f985e2d4c7bb97928423127f12b6",
+    "code/pde/mfp_expr.py": "1340df2e1cd7279d568aa07610bfba033eaf95d8fc75426d8149b2b4d9cbcfa8",
+    "code/pde/mfp_finite.py": "84060153c467172eaabaed073ece4e8fd0d77fbc1ed2fee3e8a66542d2c7c037",
+    "code/scripts/example_mfp_calculus.py": "20b727df8e386907f1ae17de427b3f41ff86b4f29f33a0cea9711bbc7a679d07",
+    "code/scripts/example_mfp_kernel_jets.py": "3298421fad2776bf306b0928611517b938529429de7606efd53ecf1caaa2d03c",
+    "code/scripts/example_mfp_mlp_derivative.py": "9c7fefb3ac2dcc50c90f1bef45cf64bf4f7f37d0c0b1b5e26c8c30a4478d4527",
+    "code/tests/test_mfp_compiler.py": "4b0f6b38cc0f9d35d82cfc38a5a95aafd91053d80ace4bed451b4589451995de",
+    "code/tests/test_mfp_expr.py": "06dac966c1b74ba8dfe9ebfb9a2dde1abccc175102aef435cf8ba110c1824d65",
+    "code/tests/test_mfp_kernel_jets.py": "a2fd1f7f64bfdf7dde921991f15f84992d30859f662dd71cd33e0996e156e3ce",
+    "code/tests/test_mfp_mlp_example.py": "e3dfffb2e8bb28b128903d92df84567225b81e7957f04d166dfc755972d15ad5",
+    "docs/02-gaussian-reuse.qmd": "9766e44c1b880e70b98e2e402be090d81113d1eb2dab51f3a8bc3edc71aee365",
+    "docs/_quarto.yml": "3a64f59b5923060d7196ffaf7ad8494ec3a6f906c90d2801e86ecdb3027d5a2e",
+    "docs/references.bib": "5fa1272b98a6748cd624ab1aeb0badb3654437e90dfd0ff136bf67103331ebc7"
+  },
+  "scope": "Exact 15-file package presented in the immediately preceding final answer; no scientific changes after approval."
+}

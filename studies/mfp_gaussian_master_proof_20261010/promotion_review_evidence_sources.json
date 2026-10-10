@@ -98,5 +98,50 @@
     "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v4__browser_check.py",
     "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v4/integration_reviewer/browser_check.py",
     "sha256": "e59db6fc9c56268254cb91a772c64590b9b00e48e2e8d6fd1636834cbec312e3"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v6__browser_measure_ready.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v6/integration_reviewer/browser_measure_ready.py",
+    "sha256": "1907184ec5fb44793ae6b1ba49e24848f9da2f320988f8fd49c2497b9f44521f"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v6__browser_review.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v6/integration_reviewer/browser_review.py",
+    "sha256": "255a2d2f8767785d9b59a1ab56107311d56b9b311cd1d5b878d6b1d9a5d89633"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v6__browser_review_scoped.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v6/integration_reviewer/browser_review_scoped.py",
+    "sha256": "49b6677b82d49b6872d233c44d88730b0df87af411e197b2ce42cd7de6860c44"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v6__check_exports.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v6/integration_reviewer/check_exports.py",
+    "sha256": "d81b81dedbbeaa2e0960679c713f24bf9de6b9d088796cbdf7823824ea43990d"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v6__check_sources.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v6/integration_reviewer/check_sources.py",
+    "sha256": "6c7221fe64fcff48f9de390ac611d3fa3d1e501936ae1ca75061e02da17ea1a9"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v7__browser_review_scoped.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v7/integration_reviewer/browser_review_scoped.py",
+    "sha256": "49b6677b82d49b6872d233c44d88730b0df87af411e197b2ce42cd7de6860c44"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v7__check_exports.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v7/integration_reviewer/check_exports.py",
+    "sha256": "d81b81dedbbeaa2e0960679c713f24bf9de6b9d088796cbdf7823824ea43990d"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v7__check_sources.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v7/integration_reviewer/check_sources.py",
+    "sha256": "e35eb3f623f5e7eede37edff9cece6547a4c98aa4cbf791adda59c93491ac559"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_live_code_commands.md",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_live_integration_v1/code_check/command_ledger.md",
+    "sha256": "41a7bb262121e0a939aa5a72d4083dd16988ef82e37334544fff96cd961b21c4"
   }
 ]

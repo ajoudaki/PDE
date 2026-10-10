@@ -12,8 +12,8 @@ from promotion_assemble import digest, inventory
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--integration-sha256', required=True)
-parser.add_argument('--run', default='promotion_candidate_v6')
-parser.add_argument('--integration-report', default='promotion_integration_review_v6.md')
+parser.add_argument('--run', default='promotion_candidate_v7')
+parser.add_argument('--integration-report', default='promotion_integration_review_v7.md')
 args = parser.parse_args()
 study = Path(__file__).resolve().parent
 root = study.parents[1]
@@ -51,11 +51,20 @@ for name, value in packet['packet_sha256'].items():
     else:
         assert digest(prior / 'review_packet' / name) == value, name
 for name in packet['required_edition_reads']:
-    assert digest(run / 'edition' / name) == digest(prior / 'edition' / name), name
+    if name != 'docs/references.bib':
+        assert digest(run / 'edition' / name) == digest(prior / 'edition' / name), name
+# Preserve the entire current bibliography while appending exactly the same
+# reviewed MFP attribution. Concurrent established entries are context, not
+# newly certified scientific inputs of the MFP proof.
+bibliography = 'docs/references.bib'
+current_bib = (root / bibliography).read_text()
+assert digest(root / bibliography) == baseline[bibliography]
+addition = (run / 'review_packet/promotion_bibliography.bib').read_text()
+assert (run / 'edition' / bibliography).read_text() == current_bib.rstrip() + '\n\n' + addition
 assert restore_layout((run / 'edition/docs/02-gaussian-reuse.qmd').read_text()) == (
     prior / 'edition/docs/02-gaussian-reuse.qmd').read_text()
 for name in changed:
-    if name != 'docs/02-gaussian-reuse.qmd':
+    if name not in {'docs/02-gaussian-reuse.qmd', bibliography}:
         assert digest(run / 'edition' / name) == digest(prior / 'edition' / name)
 for name, value in candidate.items():
     if name.startswith('code/') or name == 'requirements.txt':
@@ -98,8 +107,9 @@ report = {
     'frozen_candidate_sources_verified': len(candidate),
     'identical_scientific_packet_inputs': len(packet['packet_sha256']) - 1,
     'theory_identical_after_reversing_13_reviewed_layout_patches': True,
-    'identical_scientific_edition_reads': len(packet['required_edition_reads']),
-    'identical_proposed_changes': len(changed) - 1,
+    'identical_scientific_edition_reads': len(packet['required_edition_reads']) - 1,
+    'current_bibliography_preserved_with_identical_reviewed_attribution': True,
+    'identical_proposed_changes': len(changed) - 2,
     'chapter_identical_after_reversing_13_reviewed_layout_patches': True,
     'scientific_reports': scientific['checks'],
     'integration_report': str(integration.relative_to(root)),
