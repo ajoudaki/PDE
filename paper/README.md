@@ -88,6 +88,16 @@ These are scoped checks of the supplied feedback, not a fresh independent
 review of the entire manuscript. Decisions and verification are recorded in
 the framing study linked above.
 
+## Plot the figure inventory
+
+Run `python paper/plot_figures.py` from the repository root to render the
+selected main and appendix figures from saved data, including the legacy
+radial and spherical plots. No training or GPU work is launched. Use
+`--list`, `--check`, or `--only storage accuracy trajectory` to inspect or
+select figures. Outputs go to a fresh generated-data folder, not over the
+manuscript assets. [Plotting instructions](scripts/README.md) describe
+dependencies and exporting a portable data package.
+
 ## Build
 
 From `paper/`, use a fresh study-owned output directory to keep auxiliary

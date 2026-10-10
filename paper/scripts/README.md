@@ -1,5 +1,58 @@
 # Paper figure tools
 
+## Unified plotting-only entry point
+
+[`../plot_figures.py`](../plot_figures.py) renders the selected main and
+appendix inventory, including the older radial galleries, spherical views,
+history-moment illustration and projection schematic. It loads saved
+JSON/NPZ inputs; **it never runs training or uses a GPU**. Missing inputs
+are errors, not requests to rerun experiments. Existing numerical results,
+missing points, seed aggregation and scientific qualifications are retained.
+
+From the repository root:
+
+```bash
+python paper/plot_figures.py                         # entire selected inventory
+python paper/plot_figures.py --list                  # figure IDs and inputs
+python paper/plot_figures.py --check                 # verify input availability
+python paper/plot_figures.py --only radial_gallery sphere_orders
+python paper/plot_figures.py --only storage accuracy trajectory --out /tmp/paper-main-plots
+```
+
+Output is PNG/PDF plus captions and a provenance/checksum manifest. The
+default is a fresh timestamped folder under
+`data/generated/paper_appendix_pilots_20261009/paper_plots/`; an explicit
+`--out` must also be new. This does not overwrite manuscript figures.
+Captions distinguish common-time comparisons from legacy individually
+fitted endpoints, learned from fixed storage, and empirical from certified
+results. Taylor's saved data key remains `logarithmic`.
+
+The selected newer results live in generated-data folders. To reproduce
+plots elsewhere without their complete experiment archives, export the
+small plotting-input package and keep it alongside the code:
+
+```bash
+python paper/plot_figures.py --export-data /tmp/paper-plot-data
+python paper/plot_figures.py --data-dir /tmp/paper-plot-data --out /tmp/paper-replot
+```
+
+The second command checks input hashes. Reproduction here means rebuilding
+figures from saved results, not rerunning or independently validating the
+experiments. Legacy drawing functions in `scripts/figures.py`,
+`scripts/tikz_figures.py` and `figures/experimental_figures.py` are reused;
+their training entry points are not called.
+
+Dependencies: NumPy, Matplotlib, SciPy, Pillow, ReportLab, threadpoolctl;
+`pdflatex`, `pdftoppm`, and DejaVu fonts for the legacy artwork. The tested
+interpreter on this host is `/home/amir/miniconda3/bin/python`.
+The deterministic moments illustration is already cached as
+`data/generated/paper_appendix_pilots_20261009/plotting_inputs/moments.npz`.
+Its separate, explicitly invoked one-time producer is
+`studies/paper_appendix_pilots_20261009/cache_moments_plot.py`; the plotter
+does not invoke it, even when the cache is absent.
+
+## Legacy figure tools
+
 The legacy circle/sphere renderers are in **`figures.py`**. This guide replaces
 the three separate circle, sphere and training-stage guides. The existing
 `order_decay.tex` is the independent TeX source for the Cartesian order plot.

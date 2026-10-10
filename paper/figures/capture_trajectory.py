@@ -14579,7 +14579,984 @@ def budget_comparison_plot(argv):
     return 0
 
 
+def appendix_scope_refresh_main(argv):
+    """Replot saved transfer and panel-size evidence without running any model."""
+    import argparse
+    import hashlib
+    import json
+    from pathlib import Path
+
+    import numpy as np
+
+    parser = argparse.ArgumentParser(description=appendix_scope_refresh_main.__doc__)
+    parser.add_argument('--out', type=Path)
+    parser.add_argument('--check-only', action='store_true')
+    args = parser.parse_args(argv)
+    study = Path(ROOT)/'data/generated/paper_appendix_pilots_20261009'
+    if not args.check_only:
+        if args.out is None:
+            parser.error('--out is required unless --check-only is used')
+        out = args.out.resolve()
+        if not out.is_relative_to(study.resolve()) or out == study.resolve():
+            raise ValueError('Choose a fresh output folder inside this study generated namespace')
+        if out.exists():
+            raise FileExistsError('Output already exists; preserve the original plots')
+
+    def require(condition, message):
+        if not condition:
+            raise AssertionError(message)
+
+    def digest(payload):
+        return hashlib.sha256(payload).hexdigest()
+
+    provenance = []
+
+    def load_run(folder, source_folder=None):
+        source_folder = folder if source_folder is None else source_folder
+        report_bytes = (folder/'report.json').read_bytes()
+        record = json.loads(report_bytes)
+        payload = (folder/'trajectories.npz').read_bytes()
+        require(digest(payload) == record['trajectories_sha256'], f'Trajectory hash mismatch: {folder}')
+        source_bytes = (source_folder/'source.py').read_bytes()
+        require(digest(source_bytes) == record['source_sha256'], f'Producer hash mismatch: {folder}')
+        with np.load(folder/'trajectories.npz', allow_pickle=False) as archive:
+            arrays = {key: archive[key] for key in archive.files}
+        for key, expected in record.get('data_sha256', {}).items():
+            require(key in arrays and digest(np.ascontiguousarray(arrays[key]).tobytes()) == expected,
+                    f'Data hash mismatch: {folder}/{key}')
+        require(not record.get('errors'), f'Saved run contains errors: {folder}')
+        provenance.append(dict(report=str(folder/'report.json'), report_sha256=digest(report_bytes),
+            trajectories=str(folder/'trajectories.npz'), trajectories_sha256=digest(payload),
+            producer=str(source_folder/'source.py'), source_sha256=digest(source_bytes)))
+        return record, arrays
+
+    def error_metric(prediction, reference, baseline):
+        error = np.sqrt(np.mean((prediction.astype(float)-reference.astype(float))**2, axis=1))
+        require(np.isfinite(error).all() and baseline[-1] > 0 and baseline.max() > 0,
+                'Invalid error curve or dense-pair denominator')
+        return dict(endpoint_rms=float(error[-1]), worst_recorded_rms=float(error.max()),
+            endpoint_ratio=float(error[-1]/baseline[-1]),
+            worst_recorded_ratio=float(error.max()/baseline.max()), curve=error.tolist())
+
+    def checked_curve(arrays, name, expected_times, columns):
+        require(np.array_equal(arrays['times_'+name], expected_times), f'Time grid differs: {name}')
+        value = arrays[name]
+        require(value.shape == (len(expected_times), columns) and np.isfinite(value).all(),
+                f'Invalid prediction shape or values: {name}')
+        return value
+
+    sizes, m, width = (8, 30, 60), 8, 2048
+    model_names = ('logarithmic_256_r15', 'logarithmic_512_r37')
+    scope_rows, scope_data, scope_records, scope_configs = [], {}, {}, {}
+    for p in sizes:
+        root = study/'feedback/scope'/f'p{p}'
+        manifest = json.loads((root/'run.json').read_text())
+        config = manifest['config']
+        require(config['seeds'] == [901] and config['model'] ==
+                dict(width=width, depth=2, activation='tanh'), 'Unexpected scope model/seed')
+        attempt = (root/manifest['repetitions']['901']).resolve()
+        require(attempt.is_relative_to(root.resolve()), 'Scope attempt escaped its run folder')
+        record, arrays = load_run(attempt, root)
+        require(record['complete'] and arrays['query_inputs'].shape == (p, 10),
+                'Incomplete scope run or unexpected query panel')
+        require(record['sources']['logarithmic']['passive_count'] == p,
+                'Controlled path inputs entered source setup')
+        scope_data[p], scope_records[p], scope_configs[p] = arrays, record, config
+
+    base = scope_data[8]
+    times = base['times_reference']
+    require(len(times) == 65 and times[0] == 0 and times[-1] == 32 and
+            np.all(np.diff(times) > 0), 'Unexpected scope observation grid')
+    for p in sizes:
+        arrays, record, config = scope_data[p], scope_records[p], scope_configs[p]
+        require(config['training'] == scope_configs[8]['training'] and
+                config['execution']['tf32'] == scope_configs[8]['execution']['tf32'],
+                'Scope numerical contracts differ')
+        require(record['reference_initial_state_sha256'] ==
+                scope_records[8]['reference_initial_state_sha256'] and
+                record['seeds'] == scope_records[8]['seeds'], 'Scope coupling or role seeds differ')
+        for key in ('train_inputs', 'train_labels'):
+            # The p30 NPZ loader renormalizes unit inputs at ~1e-16. The actual
+            # float32 training inputs must nevertheless agree exactly.
+            require(np.array_equal(arrays[key].astype(np.float32), base[key].astype(np.float32)),
+                    f'Executed training data differ at p={p}: {key}')
+        distances = np.abs(base['query_inputs'][:, None, :]-arrays['query_inputs'][None, :, :]).max(axis=2)
+        indices = distances.argmin(axis=1)
+        require(len(set(indices.tolist())) == 8 and float(distances.min(axis=1).max()) <= 1e-13,
+                f'The original eight queries are not a unique subset at p={p}')
+        require(np.array_equal(arrays['query_inputs'][indices].astype(np.float32),
+                               base['query_inputs'].astype(np.float32)),
+                'Executed common query inputs differ')
+        require(np.allclose(arrays['query_labels'][indices], base['query_labels'], rtol=0, atol=1e-13),
+                'Common query labels differ')
+        for name in ('reference', 'dense_2048')+model_names:
+            require(record['runs'][name]['complete'], f'Incomplete scope trajectory: {name}')
+            checked_curve(arrays, name, times, m+p)
+        reference = arrays['reference'][:, m+indices]
+        independent = arrays['dense_2048'][:, m+indices]
+        # A different query batch size can change GEMM rounding without
+        # changing training or initialization; record rather than hide it.
+        roundoff = {name: float(np.abs(arrays[name][:, m+indices].astype(float)-
+                                      base[name][:, m:].astype(float)).max())
+                    for name in ('reference', 'dense_2048')}
+        require(max(roundoff.values()) <= 2e-6, 'Common dense curves differ beyond query-batch roundoff')
+        common_baseline = np.sqrt(np.mean((independent.astype(float)-reference.astype(float))**2, axis=1))
+        full_reference = arrays['reference'][:, m:]
+        full_baseline = np.sqrt(np.mean((arrays['dense_2048'][:, m:].astype(float)-
+                                        full_reference.astype(float))**2, axis=1))
+        row = dict(source_panel_size=p, evaluation_panel_size=8,
+            common_query_indices_in_source_panel=indices.tolist(),
+            common_input_max_abs_difference=float(distances.min(axis=1).max()),
+            common_dense_roundoff_max_abs=roundoff,
+            common_dense_pair=dict(endpoint_rms=float(common_baseline[-1]),
+                                  worst_recorded_rms=float(common_baseline.max())),
+            original_full_panel_dense_pair=dict(endpoint_rms=float(full_baseline[-1]),
+                                               worst_recorded_rms=float(full_baseline.max())),
+            common_panel_models={}, original_full_panel_models={})
+        for name in model_names:
+            model = record['models'][name]
+            require(model['moving'] == scope_records[8]['models'][name]['moving'] and
+                    model['fixed'] == scope_records[8]['models'][name]['fixed'],
+                    'Retained state differs across panel sizes')
+            common = error_metric(arrays[name][:, m+indices], reference, common_baseline)
+            common.update(learned=model['moving'], fixed=model['fixed'], total=model['total'],
+                          source_ranks=model['diagnostics']['source_ranks'])
+            row['common_panel_models'][name] = common
+            row['original_full_panel_models'][name] = error_metric(
+                arrays[name][:, m:], full_reference, full_baseline)
+        scope_rows.append(row)
+
+    transfer_root = study/'transfer'
+    pooled_root = study/'feedback/pooled_transfer'
+    transferred, transfer_arrays = load_run(transfer_root)
+    pooled, pooled_arrays = load_run(pooled_root)
+    require(pooled['complete'] and pooled['old_only_reproduction']['pass'],
+            'Pooled-transfer validity checks did not pass')
+    require(digest((pooled_root/'sources.npz').read_bytes()) == pooled['sources_sha256'],
+            'Pooled source-array hash mismatch')
+    require(pooled['input_trajectories_sha256'] == transferred['trajectories_sha256'] and
+            pooled['input_source_sha256'] == transferred['source_sha256'] and
+            pooled['input_report_sha256'] == digest((transfer_root/'report.json').read_bytes()),
+            'Pooled run does not use these exact transfer inputs')
+    transfer_times = transfer_arrays['times_reference']
+    require(np.array_equal(transfer_times, times), 'Transfer observation grid differs')
+    for name in ('reference', 'independent_dense', 'transferred', 'rebuilt'):
+        require(transferred['models'][name]['run']['complete'], f'Incomplete transfer curve: {name}')
+        checked_curve(transfer_arrays, name, transfer_times, 38)
+        require(np.array_equal(transfer_arrays[name], pooled_arrays[name]),
+                f'Pooled comparison changed a saved curve: {name}')
+        require(np.array_equal(pooled_arrays['times_'+name], transfer_times), 'Pooled saved grid differs')
+    require(np.array_equal(pooled_arrays['old_only'], transfer_arrays['transferred']),
+            'Old-only rerun no longer exactly reproduces saved transfer')
+    require(transferred['transferred_geometry_unchanged'] and
+            pooled['models']['pooled']['geometry_unchanged'], 'Changed labels altered frozen geometry')
+    for name in ('transferred', 'rebuilt'):
+        require(not any(item['truncated'] for item in
+                        transferred['models'][name]['diagnostics']['source_truncations']),
+                'Original transfer constructor truncated its source')
+    require(pooled['models']['pooled']['run']['complete'] and
+            not any(item['truncated'] for item in pooled['models']['pooled']['diagnostics']['source_truncations']),
+            'Pooled model is incomplete or constructor-truncated')
+    checked_curve(pooled_arrays, 'pooled', transfer_times, 38)
+    reference = transfer_arrays['reference'][:, m:]
+    independent = transfer_arrays['independent_dense'][:, m:]
+    baseline = np.sqrt(np.mean((independent.astype(float)-reference.astype(float))**2, axis=1))
+    transfer_metrics = {}
+    for name in ('rebuilt', 'transferred', 'pooled'):
+        arrays = pooled_arrays if name == 'pooled' else transfer_arrays
+        model = pooled['models'][name] if name == 'pooled' else transferred['models'][name]
+        metric = error_metric(arrays[name][:, m:], reference, baseline)
+        metric.update(learned=model['learned'], fixed=model['fixed'],
+                      final_training_mse=model['run']['losses'][-1])
+        require(metric['learned'] == 66312 and metric['fixed'] == 196609,
+                'Transfer retained-state budget changed')
+        transfer_metrics[name] = metric
+    dilution = {name: dict(retained_rank=item['retained_rank'],
+        input_column_count=item['concatenated_shape'][1],
+        discarded_concatenated_energy_fraction=item['relative_frobenius_tail']**2,
+        discarded_old_block_energy_fraction=item['per_task_residual_frobenius'][0]**2/15)
+        for name, item in pooled['pooling'].items()}
+    report = dict(training_rerun=False, provenance=provenance, times=times.tolist(),
+        checks=dict(common_input_tolerance=1e-13, common_dense_roundoff_tolerance=2e-6,
+            executed_float32_training_and_common_inputs_identical=True,
+            exact_transfer_reuse_and_old_only_reproduction=True),
+        panel_size=dict(evaluation='The same original eight declared queries at every source panel size',
+            original_panel_sizes=list(sizes), records=scope_rows),
+        transfer=dict(metrics=transfer_metrics, baseline_curve=baseline.tolist(),
+            dense_pair_endpoint_rms=float(baseline[-1]), dense_pair_worst_recorded_rms=float(baseline.max()),
+            old_new_training_label_cosine=transferred['old_new_label_cosine'], pooling_dilution=dilution,
+            scope='Changed training labels test reuse outside the fixed-task theorem. Full-horizon empirical sources.'))
+    if args.check_only:
+        print(json.dumps(dict(valid=True, training_rerun=False,
+            common_panel_endpoint_ratios={name: [row['common_panel_models'][name]['endpoint_ratio']
+                for row in scope_rows] for name in model_names},
+            transfer_endpoint_ratios={name: row['endpoint_ratio'] for name, row in transfer_metrics.items()})))
+        return 0
+
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    out.mkdir(parents=True)
+    captions = []
+    fig, ax = plt.subplots(figsize=(6.4, 3.8))
+    for name, label, color in zip(model_names, ('Taylor width 256, rank 15', 'Taylor width 512, rank 37'),
+                                   ('#009E73', '#0072B2')):
+        ax.plot(sizes, [row['common_panel_models'][name]['endpoint_rms'] for row in scope_rows],
+                'o-', label=label, color=color)
+    ax.plot(sizes, [row['common_dense_pair']['endpoint_rms'] for row in scope_rows],
+            '--', color='#333333', label='Independent dense pair, common 8')
+    ax.set(xlabel='Declared source query-panel size', ylabel='Endpoint prediction RMS on common 8 queries',
+           title='Fixed compact budgets, fixed evaluation queries', xticks=sizes)
+    ax.grid(alpha=.15)
+    ax.legend(frameon=False, fontsize=8)
+    fig.tight_layout()
+    for suffix in ('png', 'pdf'):
+        fig.savefig(out/f'appendix_common_panel_size.{suffix}', dpi=220)
+    plt.close(fig)
+    storage = '; '.join(f"{name}: {scope_rows[0]['common_panel_models'][name]['learned']:,} learned + "
+        f"{scope_rows[0]['common_panel_models'][name]['fixed']:,} fixed scalars" for name in model_names)
+    captions.append('Panel-size comparison: source setup declares 8, 30 or 60 query inputs, while every '
+        'plotted error is evaluated on the same original eight inputs against its coupled dense reference. '
+        'The dashed independent-dense error uses those same eight inputs. Training data, reference '
+        'initialization, role seeds, time grid and executed float32 common inputs agree; query-batch '
+        'roundoff is recorded in metrics.json. Both compact budgets are held fixed: '+storage+'. '
+        'Shared data and temporary setup workspace are excluded. Original full-panel 8/30/60 metrics '
+        'are preserved separately in metrics.json and the original figure is unchanged. This single-seed '
+        'finite Euler comparison tests a fixed budget as the source panel grows, not the theorem\'s '
+        'panel-dependent sufficient budget. d=10, n=2048, eight training examples, T=32, step=1/160.')
+
+    fig, ax = plt.subplots(figsize=(6.4, 3.8))
+    for name, label, color in (('rebuilt', 'Rebuilt for changed target', '#0072B2'),
+                              ('transferred', 'Original target sources', '#009E73'),
+                              ('pooled', 'Pooled non-target sources', '#D55E00')):
+        curve = np.asarray(transfer_metrics[name]['curve'])
+        valid = (transfer_times > 0) & (curve > 0)
+        ax.plot(transfer_times[valid], curve[valid], color=color, label=label)
+    valid = (transfer_times > 0) & (baseline > 0)
+    ax.plot(transfer_times[valid], baseline[valid], '--', color='#333333', label='Independent dense pair')
+    ax.set(xlabel='Training time', ylabel='Declared-query prediction RMS', yscale='log',
+           title='Changed-label source transfer at one fixed budget')
+    ax.grid(alpha=.15)
+    ax.legend(frameon=False, fontsize=8)
+    fig.tight_layout()
+    for suffix in ('png', 'pdf'):
+        fig.savefig(out/f'appendix_source_transfer.{suffix}', dpi=220)
+    plt.close(fig)
+    energy = [item['discarded_concatenated_energy_fraction'] for item in dilution.values()]
+    captions.append('Source transfer: all curves use the same changed-target dense reference and 30 '
+        'declared queries. Rebuilt sources use the changed training labels; transferred sources use '
+        'the old labels; pooled sources combine the old task and two fixed auxiliary label tasks. '
+        'Only the initial label deficit is reset for transfer. All three compact models have width 256, '
+        'source rank 15, 66,312 learned and 196,609 fixed scalars. Pooling compresses 45 columns to 15 '
+        f'per source block, discarding {100*min(energy):.1f}–{100*max(energy):.1f}% of their combined '
+        'squared Frobenius norm. This shows source dilution, without uniquely attributing the prediction '
+        'change to it. No extra constructor truncation occurred; the original-source rerun reproduced '
+        'its saved curve exactly and is not drawn twice. Changing training labels while freezing '
+        'source geometry is outside the fixed-task theorem, whose initializer may use training labels. '
+        'These practical sources additionally use full-horizon dense RK4 rollouts, not certified '
+        'initialization jets. n=1024, eight training examples, one seed, T=32, Euler step=1/160. '
+        'The comparison measures fidelity to dense predictions; smaller training loss does not imply '
+        'smaller discrepancy. Original transfer and pooled-transfer plots are preserved.')
+    report['figures'] = ['appendix_common_panel_size', 'appendix_source_transfer']
+    (out/'metrics.json').write_text(json.dumps(report, indent=2, allow_nan=False)+'\n')
+    (out/'captions.txt').write_text('\n\n'.join(captions)+'\n')
+    print(json.dumps(dict(output=str(out), training_rerun=False, figures=report['figures'])))
+    return 0
+
+
+def appendix_current_costs_main(argv):
+    """Plot recorded costs for the three paired seeds in the selected Figure 4."""
+    import argparse
+    import hashlib
+    import json
+    from pathlib import Path
+    import numpy as np
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    base = ROOT / 'data/generated/paper_appendix_pilots_20261009'
+    parser = argparse.ArgumentParser(description=appendix_current_costs_main.__doc__)
+    parser.add_argument('--metrics', type=Path,
+        default=base / 'figure4_three_seeds/figures_raw_rms/metrics.json')
+    parser.add_argument('--output', type=Path, default=base / 'refresh_20261010/costs')
+    args = parser.parse_args(argv)
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    def digest(payload):
+        return hashlib.sha256(payload).hexdigest()
+
+    def scoped(path):
+        path = Path(path).resolve()
+        require(path.is_relative_to(base.resolve()), f'Out-of-scope input/output: {path}')
+        return path
+
+    metric_path = scoped(args.metrics)
+    payload = metric_path.read_bytes()
+    figure = json.loads(payload)
+    seeds = [903, 904, 905]
+    require(figure['seeds'] == seeds, 'Expected the selected fixed-data Figure 4 seeds')
+    out = scoped(args.output)
+    require(not out.exists(), f'Choose a fresh output directory: {out}')
+    report_cache = {}
+    provenance = []
+
+    def read_report(sample):
+        origin = sample['provenance']
+        repetition, root = scoped(origin['repetition']), scoped(origin['root'])
+        require(repetition.is_relative_to(root), 'Repetition is outside its run root')
+        path = repetition / 'report.json'
+        if path in report_cache:
+            report, config = report_cache[path]
+            require(digest(path.read_bytes()) == origin['report_sha256'], 'Conflicting report provenance')
+            return report, config
+        raw = path.read_bytes()
+        report = json.loads(raw)
+        config_bytes = (root / 'config.json').read_bytes()
+        config = json.loads(config_bytes)
+        source_bytes = (root / 'source.py').read_bytes()
+        archive = repetition / 'trajectories.npz'
+        require(digest(raw) == origin['report_sha256'], f'Report hash mismatch: {path}')
+        require(digest(source_bytes) == report['source_sha256'] == origin['source_sha256'],
+                f'Source hash mismatch: {root}')
+        require(digest(archive.read_bytes()) == report['trajectories_sha256']
+                == origin['trajectories_sha256'], f'Archive hash mismatch: {archive}')
+        require(report['seed'] == sample['seed'] == origin['seed'], 'Seed mismatch')
+        require(report['data_sha256'] == origin['data_sha256'], 'Data identity mismatch')
+        require(report['fingerprint'] == origin['fingerprint'], 'Run fingerprint mismatch')
+        require(config['model']['width'] == 4096 and config['model']['depth'] == 2
+                and config['model']['activation'] == 'tanh', 'Changed dense architecture')
+        require(config['dataset']['train_samples'] == 8
+                and config['dataset']['test_samples'] == 30
+                and config['dataset']['undeclared_samples'] == 30
+                and not config['dataset'].get('resplit_pool'), 'Changed fixed-data protocol')
+        require(config['training']['step'] == 1 / 160
+                and config['training']['horizon'] == 32, 'Changed numerical protocol')
+        provenance.append(dict(root=str(root), report_path=str(path), report_sha256=digest(raw),
+            config_path=str(root / 'config.json'), config_sha256=digest(config_bytes),
+            source_path=str(root / 'source.py'), source_sha256=digest(source_bytes),
+            archive_path=str(archive), archive_sha256=report['trajectories_sha256']))
+        report_cache[path] = report, config
+        return report, config
+
+    rows = []
+    for panel, families in [('circle', ['legendre', 'harmonic', 'logarithmic']),
+                            ('digits', ['legendre', 'logarithmic'])]:
+        samples = figure['panels'][panel]['samples']
+        for family in ['reference', *families]:
+            chosen = samples['legendre'] if family == 'reference' else samples[family]
+            require(sorted(row['seed'] for row in chosen) == seeds,
+                    f'Expected exactly three independent paired samples: {panel}/{family}')
+            members, contracts = [], []
+            for sample in sorted(chosen, key=lambda item: item['seed']):
+                report, config = read_report(sample)
+                name = 'reference' if family == 'reference' else sample['name']
+                model, run = report['models'][name], report['runs'][name]
+                source = report['sources'].get(model.get('shared_source'), {})
+                require(run['complete'] and run['horizon_reached']
+                        and run['dtype'] == 'torch.float32' and run['steps'] == 5120
+                        and np.array_equal(run['times'], figure['raw_error_times']),
+                        f'Incomplete or incompatible run: {panel}/{sample["seed"]}/{name}')
+                require(model['family'] == family and model['total'] == model['moving'] + model['fixed'],
+                        f'Model/count mismatch: {name}')
+                if family != 'reference':
+                    require(sample['max_pointwise_ratio'] <= 1, f'Selected model does not pass: {name}')
+                    require(model['moving'] == sample['learned'] and model['fixed'] == sample['fixed'],
+                            f'Selected model storage differs: {name}')
+                source_seconds = source.get('total_setup_seconds', source.get('seconds', 0.0))
+                times = dict(source_seconds=float(source_seconds), build_seconds=float(model['setup_seconds']),
+                    training_seconds=float(run['training_seconds']),
+                    query_seconds=float(run['query_seconds'] + run['query_refresh_seconds']))
+                require(all(np.isfinite(value) and value >= 0 for value in times.values()), 'Invalid timings')
+                settings = dict(order=model.get('order'), width=model.get('width'),
+                    source_rank=model.get('source_rank'), effective_setup=source.get('effective_setup'),
+                    spatial_degree=source.get('spatial_degree'))
+                contracts.append((settings, model['moving'], model['fixed']))
+                members.append(dict(seed=sample['seed'], name=name, **times,
+                    learned_scalars=model['moving'], fixed_scalars=model['fixed'], total_scalars=model['total'],
+                    learned_mib=4 * model['moving'] / 2**20, fixed_mib=4 * model['fixed'] / 2**20,
+                    total_mib=4 * model['total'] / 2**20,
+                    training_loss_seconds=run['training_loss_seconds'], export_seconds=run['export_seconds'],
+                    runtime_wall_seconds=run['seconds'], device=report['device'], hardware=report['hardware'],
+                    process_peak_cuda_bytes=run['process_peak_cuda_bytes'], peak_scope=run['peak_scope'],
+                    source_timing_scope=source.get('timing_scope', 'saved full source stage' if source else 'none'),
+                    source_provenance=source.get('source_contract', source.get('source_provenance', 'none')),
+                    report_path=str(Path(sample['provenance']['repetition']) / 'report.json'),
+                    maximum_pointwise_error_ratio=sample.get('max_pointwise_ratio') if family != 'reference' else None,
+                    settings=settings))
+            require(all(contract == contracts[0] for contract in contracts), f'Nonuniform model settings: {panel}/{family}')
+            fields = ['source_seconds', 'build_seconds', 'training_seconds', 'query_seconds',
+                      'learned_mib', 'fixed_mib', 'total_mib']
+            summary = {field: dict(mean=float(np.mean([r[field] for r in members])),
+                                  sample_sd=float(np.std([r[field] for r in members], ddof=1)))
+                       for field in fields}
+            order = contracts[0][0]['order']
+            width, rank = contracts[0][0]['width'], contracts[0][0]['source_rank']
+            label = ('Dense' if family == 'reference' else f'Legendre q={order}' if family == 'legendre'
+                     else f'{"Harmonic" if family == "harmonic" else "Taylor"} k={width}, r={rank}')
+            rows.append(dict(panel=panel, family=family, label=label, count=3, members=members, summary=summary))
+
+    caption = ('Recorded costs of the selected fixed-data Figure 4 models at dense width 4096, '
+        'two tanh hidden layers, eight training inputs, 30 declared queries and 30 undeclared queries. '
+        'Arithmetic means and sample standard deviations use reference seeds 903, 904 and 905; '
+        'all compressed models pass their own dense-pair query RMS at every positive saved time. '
+        'The dense cost is its coupled reference run. Source is the saved complete offline source stage, '
+        'including full-horizon RK4 rollout and Taylor residual precursor; its shared timing is not a '
+        'native single-model preprocessing benchmark. Build is subsequent model assembly, including '
+        'coordinate selection. Circle Taylor uses the uniform 256-candidate retry for all seeds. '
+        'Updates cover 5120 Euler steps of size 1/160 to time 32. Queries cover 65 batches of 68 inputs, '
+        'including readout refresh; training-loss checks and host export are retained separately in metrics. '
+        'Timings were recorded during the existing runs on RTX 3090 GPUs, not isolated performance trials. '
+        'Retained payload uses four bytes per real scalar; storage is identical across seeds, hence its '
+        'sample SD is zero. Learned and fixed storage exclude common data, transient workspace and source '
+        'temporaries. Legendre retains the dense mixer, so its learned-state reduction is not total-memory '
+        'compression. Process GPU peaks include resident references and are preserved only in metrics, '
+        'not presented as model memory. These implementations do not show a training-time speedup. '
+        'This figure reuses saved data and performs no new training or source construction.')
+    plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 9, 'pdf.fonttype': 42})
+    fig, axes = plt.subplots(2, 1, figsize=(12.4, 5.0))
+    for axis, panel, title in zip(axes, ['circle', 'digits'], ['Circle', '8×8 digits 1 vs 7']):
+        axis.axis('off')
+        axis.set_title(title + ' · selected Figure 4 configurations · three paired seeds', fontsize=11, pad=8)
+        cells = []
+        for row in [r for r in rows if r['panel'] == panel]:
+            formatted = []
+            for field in fields:
+                value = row['summary'][field]
+                precision = 3 if field.endswith('_mib') or field in ('build_seconds', 'query_seconds') else 2
+                formatted.append(f'{value["mean"]:.{precision}f}' if field.endswith('_mib')
+                    else f'{value["mean"]:.{precision}f} ± {value["sample_sd"]:.{precision}f}')
+            cells.append([row['label'], *formatted])
+        table = axis.table(cellText=cells, cellLoc='center', loc='center',
+            colLabels=['Model', 'Source (s)', 'Build (s)', 'Updates (s)', 'Queries (s)',
+                       'Learned (MiB)', 'Fixed (MiB)', 'Total (MiB)'],
+            colWidths=[.21, .105, .105, .12, .12, .115, .115, .115])
+        table.auto_set_font_size(False)
+        table.set_fontsize(8)
+        table.scale(1, 1.9)
+        for (i, j), cell in table.get_celld().items():
+            cell.set_edgecolor('#dddddd')
+            cell.set_linewidth(.5)
+            if i == 0:
+                cell.set_facecolor('#edf1f5')
+                cell.set_text_props(weight='bold')
+            elif i % 2 == 0:
+                cell.set_facecolor('#f8f9fb')
+    fig.suptitle('Recorded runtime and retained storage · mean ± sample SD', fontsize=13, y=.99)
+    fig.text(.5, .015, 'Saved offline setup and Euler runtimes; retained storage excludes workspace. '
+             'No new benchmark runs.', ha='center', fontsize=9, color='#444444')
+    fig.tight_layout(rect=(0, .05, 1, .94), h_pad=2)
+    out.mkdir(parents=True)
+    for suffix in ('png', 'pdf'):
+        fig.savefig(out / f'appendix_recorded_costs.{suffix}', dpi=200, bbox_inches='tight')
+    plt.close(fig)
+    (out / 'captions.txt').write_text(caption + '\n')
+    result = dict(status='saved-data-only', source_metrics_path=str(metric_path),
+        source_metrics_sha256=digest(payload), rows=rows, provenance=provenance, caption=caption,
+        plotted_process_memory=False, arithmetic_counts_included=False, new_experiments=False)
+    (out / 'metrics.json').write_text(json.dumps(result, indent=2, allow_nan=False) + '\n')
+    print(json.dumps(dict(output=str(out), groups=len(rows), seeds=seeds, new_experiments=False)))
+    return 0
+
+
+def appendix_fixed_budget_refresh_main(argv):
+    """Replot every saved width-512 candidate on the common four-width grid."""
+    import argparse
+    import hashlib
+    import json
+    from pathlib import Path
+    import numpy as np
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+
+    base = ROOT / 'data/generated/paper_appendix_pilots_20261009'
+    parser = argparse.ArgumentParser(description=appendix_fixed_budget_refresh_main.__doc__)
+    parser.add_argument('--output', type=Path, default=base / 'refresh_20261010/fixed_budget')
+    args = parser.parse_args(argv)
+    out = args.output.resolve()
+    if not out.is_relative_to(base.resolve()) or out.exists():
+        raise ValueError('Choose a fresh output directory inside this study generated namespace')
+    widths = [2048, 4096, 8192, 16384]
+    specs = [
+        ('circle', 'harmonic', [1701, 1702, 1703], 'harmonic_full_width_seeds/figures_extended/metrics.json'),
+        ('circle', 'logarithmic', [1701, 1702, 1703], 'logarithmic_three_seeds/figures/metrics.json'),
+        ('digits', 'logarithmic', [1901, 1902, 1903],
+         'digits_logarithmic_three_seeds/trajectory_rms_polylog_fit/metrics.json')]
+    records, inputs, summaries = [], [], []
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    def digest(payload):
+        return hashlib.sha256(payload).hexdigest()
+
+    for panel, family, seeds, relative in specs:
+        path = base / relative
+        payload = path.read_bytes()
+        document = json.loads(payload)
+        inputs.append(dict(panel=panel, family=family, metrics_path=str(path),
+            metrics_sha256=digest(payload), common=document['common'],
+            compiled_source=document.get('compiled_source'),
+            source_orders_by_width=document.get('logarithmic_source_orders_by_width')))
+        for width in widths:
+            matched = [row for row in document['individuals']
+                if row['width'] == width and row.get('family', family) == family]
+            require(sorted(row['seed'] for row in matched) == seeds,
+                    f'Incomplete or duplicate repetition group: {panel}/{family}/{width}')
+            group = []
+            for row in sorted(matched, key=lambda item: item['seed']):
+                candidates = [candidate for candidate in row['candidates'] if candidate['q'] == 512]
+                require(len(candidates) == 1, f'Expected one fixed-width candidate: {row["root"]}')
+                candidate = candidates[0]
+                require(candidate['status'] in ('pass', 'fail'), 'Fixed-width candidate is incomplete')
+                pair = row['dense_pair']
+                for error, ratio in [('endpoint_rms', 'endpoint_ratio'),
+                                     ('worst_recorded_rms', 'worst_recorded_ratio')]:
+                    require(np.isfinite(candidate[error]) and candidate[error] > 0
+                            and np.isfinite(pair[error]) and pair[error] > 0,
+                            'Invalid saved RMS or denominator')
+                    require(np.isclose(candidate[ratio], candidate[error] / pair[error], rtol=1e-10, atol=1e-12),
+                            f'Saved ratio mismatch: {row["root"]}/{candidate["name"]}')
+                root = Path(row['root']).resolve()
+                require(root.is_relative_to(base.resolve()), 'Out-of-scope candidate root')
+                run_path = root / 'run.json'
+                run_bytes = run_path.read_bytes()
+                run = json.loads(run_bytes)
+                repetition = (root / run['repetitions'][str(row['seed'])]).resolve()
+                require(repetition.is_relative_to(root), 'Invalid repetition path')
+                report_path, archive_path = repetition / 'report.json', repetition / 'trajectories.npz'
+                report_bytes = report_path.read_bytes()
+                report = json.loads(report_bytes)
+                require(digest(archive_path.read_bytes()) == row['trajectories_sha256']
+                        == report['trajectories_sha256'], 'Saved candidate archive hash mismatch')
+                require(digest((root / 'source.py').read_bytes()) == row['source_sha256'],
+                        'Saved candidate source hash mismatch')
+                source_orders = row.get('source_orders',
+                    document.get('logarithmic_source_orders_by_width', {}).get(str(width),
+                        document['common'].get('search', {}).get('source_orders')))
+                record = dict(panel=panel, family=family, dense_width=width, seed=row['seed'],
+                    compact_width=512, candidate=dict(candidate), dense_pair=dict(pair), source_orders=source_orders,
+                    endpoint_ratio=float(candidate['endpoint_rms'] / pair['endpoint_rms']),
+                    worst_recorded_ratio=float(candidate['worst_recorded_rms'] / pair['worst_recorded_rms']),
+                    root=str(root), metrics_path=str(path), metrics_sha256=digest(payload),
+                    run_path=str(run_path), run_sha256=digest(run_bytes),
+                    report_path=str(report_path), report_sha256=digest(report_bytes),
+                    archive_path=str(archive_path), archive_sha256=row['trajectories_sha256'],
+                    source_path=str(root / 'source.py'), source_sha256=row['source_sha256'])
+                records.append(record)
+                group.append(record)
+            summaries.append(dict(panel=panel, family=family, dense_width=width, count=3,
+                **{field: dict(mean=float(np.mean([row[field] for row in group])),
+                               sample_sd=float(np.std([row[field] for row in group], ddof=1)),
+                               values=[row[field] for row in group])
+                   for field in ['worst_recorded_ratio', 'endpoint_ratio']}))
+
+    plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 10, 'pdf.fonttype': 42,
+                         'axes.spines.top': False, 'axes.spines.right': False})
+    fig, axes = plt.subplots(1, 2, figsize=(10.3, 4.1), sharey=True)
+    colors = {'harmonic': '#EE7733', 'logarithmic': '#228833'}
+    labels = {'harmonic': 'Harmonic', 'logarithmic': 'Taylor'}
+    omitted_lower_sd = []
+    for axis, panel, title in zip(axes, ['circle', 'digits'], ['Circle', '8×8 digits 1 vs 7']):
+        for family in ['harmonic', 'logarithmic']:
+            rows = [row for row in summaries if row['panel'] == panel and row['family'] == family]
+            if not rows:
+                continue
+            x = np.asarray([row['dense_width'] for row in rows])
+            mean = np.asarray([row['worst_recorded_ratio']['mean'] for row in rows])
+            sd = np.asarray([row['worst_recorded_ratio']['sample_sd'] for row in rows])
+            lower = np.where(mean > sd, sd, 0.0)
+            for row, average, spread in zip(rows, mean, sd):
+                if average <= spread:
+                    omitted_lower_sd.append(dict(panel=panel, family=family,
+                        dense_width=row['dense_width'], mean=float(average), sample_sd=float(spread)))
+            axis.errorbar(x, mean, yerr=[lower, sd], fmt='o-', color=colors[family],
+                          capsize=3, markersize=5, linewidth=1.6, label=labels[family])
+            for row in rows:
+                axis.scatter([row['dense_width']] * 3, row['worst_recorded_ratio']['values'],
+                             color=colors[family], s=23, marker='x', alpha=.58, zorder=4)
+        axis.axhline(1, color='#555555', linestyle=':', linewidth=1.2)
+        axis.set(xscale='log', yscale='log', xlabel='Dense width', title=title)
+        axis.set_xticks(widths, [str(width) for width in widths])
+        from matplotlib.ticker import NullFormatter
+        axis.xaxis.set_minor_formatter(NullFormatter())
+        axis.grid(alpha=.16)
+        axis.legend(frameon=False, loc='upper left')
+    axes[0].set_ylabel('Relative test RMS')
+    fig.suptitle('Fixed compact width 512', fontsize=13)
+    footer = 'Mean ± sample SD; × individual pairs. Lines connect saved observations.'
+    if omitted_lower_sd:
+        footer += ' Nonpositive lower SD bounds are not drawn.'
+    fig.text(.5, .01, footer, ha='center', fontsize=8.5)
+    fig.tight_layout(rect=(0, .055, 1, .92))
+    caption = ('Fixed compact-width diagnostic using every complete k=512 candidate on the common '
+        'dense-width grid 2048, 4096, 8192 and 16384. Circle reference seeds are 1701/1702/1703; '
+        'digits seeds are 1901/1902/1903, with each compression compared to its own coupled dense '
+        'reference and independent dense partner. At every width there are exactly three samples '
+        'per displayed method; candidate inclusion depends on compact width and availability, never '
+        'on passing the accuracy threshold. For each pair, the plotted value is max_t E(t)/max_t D(t), '
+        'where E is compression-versus-reference RMS on 30 declared queries and D is independent '
+        'dense-pair RMS. Maxima use the same 65 saved times through T=32, with Euler step 1/160. '
+        'Markers and bars are the arithmetic mean and sample SD of the three ratios, not a ratio '
+        'of averaged errors; crosses show all three ratios. The horizontal line is one. Endpoint '
+        'RMS and endpoint ratios are saved separately in metrics. The ratio of maxima is not '
+        'pointwise domination. Nonpositive lower SD bounds cannot be shown on the logarithmic '
+        'axis and are omitted, with exact values recorded. Circle Harmonic has retained source '
+        'rank 37, spatial degree 25, temporal degree 8 and source cap 42. Circle Taylor has rank '
+        '36 at n=2048 and rank 37 thereafter; its source caps are 36/42/48/79, so fixed compact '
+        'width does not mean all source-construction settings are fixed. Digits Taylor uses rank '
+        '32, source cap 32 and temporal degree 8 throughout. All sources use existing full-horizon '
+        'RK4 rollout compilation. This fixed-size finite-grid diagnostic does not implement the '
+        'theorem\'s width-dependent sufficient-size schedule, initialization-only construction, '
+        'all-time supremum norm or vanishing relative-error guarantee. Nonmonotonic samples are '
+        'retained without smoothing, fitting, replacement seeds or new training. Legendre is omitted '
+        'because no common q=4 three-seed group exists on the four-width grid.')
+    out.mkdir(parents=True)
+    for suffix in ['png', 'pdf']:
+        fig.savefig(out / f'appendix_fixed_budget_ratios.{suffix}', dpi=210, bbox_inches='tight')
+    plt.close(fig)
+    (out / 'captions.txt').write_text(caption + '\n')
+    result = dict(widths=widths, compact_width=512, inputs=inputs, individuals=records,
+        summaries=summaries, omitted_nonpositive_lower_sd=omitted_lower_sd, caption=caption,
+        primary_metric='max_recorded_query_RMS / max_recorded_dense_pair_query_RMS',
+        selection='Exact compact width 512; all expected seeds; no success-based filtering',
+        new_experiments=False, smoothing=False, fitted_exponents=None)
+    (out / 'metrics.json').write_text(json.dumps(result, indent=2, allow_nan=False) + '\n')
+    print(json.dumps(dict(output=str(out), cases=len(records), groups=len(summaries), new_experiments=False)))
+    return 0
+
+
+
+def appendix_robustness_refresh_main(argv=None):
+    """Plot corrected appendix dimension evidence and a uniform architecture batch."""
+    import argparse
+    import copy
+    import hashlib
+    import io
+    import json
+    from pathlib import Path
+    import numpy as np
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+
+    repo = Path(globals().get('ROOT', '/home/amir/Codes/PDE')).resolve()
+    base = repo/'data/generated/paper_appendix_pilots_20261009'
+    parser = argparse.ArgumentParser(description=appendix_robustness_refresh_main.__doc__)
+    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--architecture-root', type=Path, default=base/'refresh_20261010/architecture')
+    parser.add_argument('--dimension-harmonic-root', type=Path, default=base/'refresh_20261010/dimension_harmonic')
+    parser.add_argument('--m16-refinement-root', type=Path,
+                        help='Optional matched finer-step m16 run; a >0.1 coarse/fine gate marks m16 unresolved')
+    args = parser.parse_args(argv)
+    if args.m16_refinement_root is None and (args.architecture_root/'m16_halfstep/run.json').exists():
+        args.m16_refinement_root = args.architecture_root/'m16_halfstep'
+    if args.output.exists():
+        raise ValueError('Choose a fresh --output directory; existing outputs are preserved')
+    sha = lambda value: hashlib.sha256(value).hexdigest()
+    ash = lambda value: sha(np.ascontiguousarray(value).tobytes())
+    times = np.linspace(0, 32, 65)
+    provenance, notices = [], []
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    def load(root):
+        root = root.resolve()
+        require(root.is_relative_to(base), f'Out-of-scope run: {root}')
+        if not (root/'run.json').exists():
+            return None
+        raw = (root/'run.json').read_bytes()
+        manifest = json.loads(raw)
+        config, identity = manifest['config'], manifest['identity']
+        source = (root/'source.py').read_bytes()
+        require(sha(source) == manifest['source_sha256'] == identity['source_sha256'], f'Source mismatch: {root}')
+        require(sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode()) == manifest['fingerprint'],
+                f'Fingerprint mismatch: {root}')
+        require(json.loads((root/'config.json').read_text()) == config, f'Config mismatch: {root}')
+        require(config['seeds'] == [901], f'Unexpected seeds: {root}')
+        path = (root/manifest['repetitions']['901']).resolve()
+        require(path.is_relative_to(root) and path != root, f'Invalid repetition path: {path}')
+        item = dict(root=str(root), run_sha256=sha(raw), source_sha256=sha(source), fingerprint=manifest['fingerprint'])
+        provenance.append(item)
+        if not (path/'report.json').exists() or not (path/'trajectories.npz').exists():
+            return dict(config=config, report={}, arrays={}, provenance=item)
+        report_raw = (path/'report.json').read_bytes()
+        report = json.loads(report_raw)
+        archive = (path/'trajectories.npz').read_bytes()
+        require(sha(archive) == report['trajectories_sha256'], f'Archive mismatch or active snapshot write: {path}')
+        require(report['fingerprint'] == manifest['fingerprint'] and report['source_sha256'] == sha(source)
+                and report['seed'] == report['seeds']['reference'] == 901, f'Report identity mismatch: {path}')
+        with np.load(io.BytesIO(archive), allow_pickle=False) as saved:
+            arrays = {key: saved[key] for key in saved.files}
+        expected = identity.get('repetition_data_sha256', {}).get('901', identity['data_sha256'])
+        require({key: ash(arrays[key]) for key in expected} == expected == report['data_sha256'], f'Data mismatch: {path}')
+        item.update(report_sha256=sha(report_raw), trajectories_sha256=sha(archive), data_sha256=expected)
+        return dict(config=config, report=report, arrays=arrays, provenance=item)
+
+    def prediction(run, name):
+        report, arrays = run['report'], run['arrays']
+        require(report.get('runs', {}).get(name, {}).get('complete') and name not in report.get('errors', {}),
+                f'Incomplete model {name}: {run["provenance"]["root"]}')
+        m = run['config']['dataset']['train_samples']
+        p = run['config']['dataset']['test_samples']
+        value = np.asarray(arrays[name], dtype=float)
+        require(value.shape == (65, m+p) and np.isfinite(value).all()
+                and np.array_equal(arrays['times_'+name], times)
+                and np.array_equal(report['runs'][name]['times'], times), f'Invalid trajectory {name}')
+        return value[:, m:m+p]
+
+    def score(value, reference, pair):
+        error = np.sqrt(np.mean((value-reference)**2, axis=1))
+        dense = np.sqrt(np.mean((pair-reference)**2, axis=1))
+        require(np.isfinite(error).all() and np.isfinite(dense).all() and dense[-1] > 0 and dense.max() > 0,
+                'Invalid or zero dense benchmark')
+        endpoint, maximum = float(error[-1]/dense[-1]), float(error.max()/dense.max())
+        return dict(endpoint_ratio=endpoint, maximum_ratio=maximum,
+                    endpoint_rms=float(error[-1]), maximum_rms=float(error.max()),
+                    dense_endpoint_rms=float(dense[-1]), dense_maximum_rms=float(dense.max()),
+                    pass_primary=maximum <= 1, pass_endpoint=endpoint <= 1,
+                    error_curve=error.tolist(), dense_curve=dense.tolist())
+
+    def rows(run):
+        if run is None:
+            return []
+        config, report = run['config'], run['report']
+        result = []
+        for family in ('harmonic', 'logarithmic'):
+            for budget in config['methods']['non_oblivious'][family]['budgets']:
+                name = f"{family}_{budget['width']}_r{budget['source_rank']}"
+                row = dict(family=family, name=name, **budget, status='inconclusive', provenance=run['provenance'])
+                try:
+                    reference = prediction(run, 'reference')
+                    independent = f"dense_{config['model']['width']}"
+                    require(report['seeds'][independent] != 901, 'Dense comparator is not independent')
+                    pair = prediction(run, independent)
+                    value = prediction(run, name)
+                    model = report['models'][name]
+                    require(not any(t['truncated'] for t in model.get('diagnostics', {}).get('source_truncations', [])),
+                            'Additional source truncation')
+                    learned, fixed, total = (model[k] for k in ('moving', 'fixed', 'total'))
+                    require(all(isinstance(v, int) and v >= 0 for v in (learned, fixed, total))
+                            and learned > 0 and total == learned+fixed, 'Invalid storage counts')
+                    row.update(score(value, reference, pair), learned=learned, fixed=fixed, total=total,
+                               diagnostics=model.get('diagnostics', {}))
+                    row['status'] = 'pass' if row['pass_primary'] else 'fail'
+                except (ValueError, KeyError) as error:
+                    row['reason'] = str(error)
+                    row['reported_errors'] = report.get('errors', {})
+                result.append(row)
+        return result
+
+    dimensions, originals = {}, {}
+    for d in (2, 3, 10, 64, 784):
+        run = load(base/f'dimension_d{d}')
+        originals[d] = run
+        dimensions[str(d)] = rows(run)
+    # The full-coordinate d784 exclusion remains visible in the audit.
+    dimensions['784'].append(dict(family='logarithmic', status='infeasible', variant='original full coordinates',
+        reason='Original widths 256/512 cannot retain the mandatory 784-coordinate span'))
+    projected = rows(load(base/'feedback/panel_d784'))
+    for row in projected:
+        row['variant'] = 'panel-span projection; basis storage included'
+    dimensions['784'].extend(projected)
+
+    correction_root = base/'feedback/conditioning'
+    correction_raw = (correction_root/'report.json').read_bytes()
+    correction_report = json.loads(correction_raw)
+    correction = correction_report['cases']['dimension_d64']
+    require(sha((correction_root/'source.py').read_bytes()) == correction_report['source_sha256'], 'd64 correction source mismatch')
+    correction_config = repo/'studies/paper_appendix_pilots_20261009/feedback_conditioning.json'
+    require(sha(correction_config.read_bytes()) == correction_report['config_sha256']
+            and json.loads(correction_config.read_text()) == json.loads((correction_root/'config.json').read_text()),
+            'd64 correction config mismatch')
+    payload = (correction_root/'dimension_d64/trajectory.npz').read_bytes()
+    require(sha(payload) == correction['trajectory_sha256'], 'd64 correction archive mismatch')
+    require(correction['original_trajectories_sha256'] == originals[64]['provenance']['trajectories_sha256'],
+            'd64 correction reference archive mismatch')
+    with np.load(io.BytesIO(payload), allow_pickle=False) as saved:
+        require(np.array_equal(saved['times'], times), 'd64 correction times mismatch')
+        require(np.array_equal(saved['reference'], originals[64]['arrays']['reference'])
+                and np.array_equal(saved['dense_pair'], originals[64]['arrays']['dense_2048']), 'd64 correction dense pair mismatch')
+        value = np.asarray(saved['prediction'], dtype=float)
+        require(value.shape == (65, 38) and np.isfinite(value).all() and correction['run']['complete'], 'Invalid d64 correction')
+        metrics = score(value[:, 8:], prediction(originals[64], 'reference'), prediction(originals[64], 'dense_2048'))
+    model = correction['model']
+    require(not any(t['truncated'] for t in model['source_truncations']), 'd64 correction truncation')
+    dimensions['64'].append(dict(family='logarithmic', name='logarithmic_256_r15_qr', width=256, source_rank=15,
+        variant='QR selector repair', status='pass' if metrics['pass_primary'] else 'fail', **metrics,
+        learned=model['moving_scalars'], fixed=model['fixed_scalars'], total=model['moving_scalars']+model['fixed_scalars'],
+        provenance=dict(report_sha256=sha(correction_raw), trajectories_sha256=sha(payload), source_sha256=correction_report['source_sha256'])))
+    repaired_harmonic = load(args.dimension_harmonic_root)
+    if repaired_harmonic is not None:
+        require(repaired_harmonic['provenance'].get('data_sha256') == originals[2]['provenance']['data_sha256'],
+                'd2 Harmonic repair changes data')
+        for row in rows(repaired_harmonic):
+            row['variant'] = 'spatial-resolution repair'
+            dimensions['2'].append(row)
+
+    architecture, arch_runs, shared = {}, {}, None
+    specifications = dict(baseline=(2, 'tanh', 8), depth3=(3, 'tanh', 8), depth4=(4, 'tanh', 8),
+                          silu=(2, 'silu', 8), m16=(2, 'tanh', 16))
+    for case, (depth, activation, samples) in specifications.items():
+        run = load(args.architecture_root/case)
+        arch_runs[case] = run
+        if run is None:
+            architecture[case] = [dict(status='inconclusive', reason='Run missing')]
+            continue
+        config = run['config']
+        require(config['model'] == dict(width=2048, depth=depth, activation=activation)
+                and config['dataset']['dimension'] == 2 and config['dataset']['train_samples'] == samples
+                and config['dataset']['test_samples'] == 30 and config['dataset']['seed'] == 47,
+                f'Unexpected architecture case: {case}')
+        contract = dict(methods=copy.deepcopy(config['methods']), training=config['training'],
+                        tf32=config['execution']['tf32'], source_sha256=run['provenance']['source_sha256'])
+        require(shared is None or contract == shared, 'Architecture cases do not share method/numerical settings')
+        shared = contract
+        architecture[case] = rows(run)
+        require(len(architecture[case]) == 1 and architecture[case][0]['family'] == 'logarithmic',
+                'Expected exactly one Taylor architecture candidate')
+    refinement = None
+    if args.m16_refinement_root:
+        fine, coarse = load(args.m16_refinement_root), arch_runs['m16']
+        require(fine is not None and coarse is not None, 'Missing m16 refinement run')
+        require(fine['provenance'].get('data_sha256') == coarse['provenance'].get('data_sha256'), 'm16 refinement data differ')
+        require(fine['config']['model'] == coarse['config']['model']
+                and fine['config']['methods'] == coarse['config']['methods']
+                and fine['config']['execution']['tf32'] == coarse['config']['execution']['tf32']
+                and fine['provenance']['source_sha256'] == coarse['provenance']['source_sha256'],
+                'm16 refinement changes the model/source protocol')
+        a, b = fine['config']['training'], coarse['config']['training']
+        require(a['step'] < b['step'] and all(a[k] == b[k] for k in ('solver', 'horizon', 'dtype')), 'Invalid m16 refinement settings')
+        name = architecture['m16'][0]['name']
+        reference, pair = prediction(coarse, 'reference'), prediction(coarse, 'dense_2048')
+        dense = np.sqrt(np.mean((pair-reference)**2, axis=1))
+        refinement = dict(root=str(args.m16_refinement_root), threshold=0.1, comparisons={})
+        for model_name in ('reference', 'dense_2048', name):
+            difference = np.sqrt(np.mean((prediction(fine, model_name)-prediction(coarse, model_name))**2, axis=1))
+            refinement['comparisons'][model_name] = dict(endpoint_ratio=float(difference[-1]/dense[-1]),
+                                                        maximum_ratio=float(difference.max()/dense.max()))
+        refinement['valid'] = all(max(v.values()) <= 0.1 for v in refinement['comparisons'].values())
+        if not refinement['valid']:
+            for row in architecture['m16']:
+                row['status'] = 'numerically_unresolved'
+                row['numerical_gate_passed'] = False
+                row['pass_primary'] = False
+            notices.append('m16 fails the matched-step refinement gate; plotted ratios are numerically unresolved')
+
+    selected = {}
+    colors = dict(harmonic='#EE7733', logarithmic='#228833')
+    labels = dict(harmonic='Harmonic', logarithmic='Taylor')
+    with plt.rc_context({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False, 'pdf.fonttype': 42}):
+        figure, axes = plt.subplots(1, 2, figsize=(12.5, 4.8))
+        ds = [2, 3, 10, 64, 784]
+        for family in ('harmonic', 'logarithmic'):
+            for j, d in enumerate(ds):
+                candidates = [v for v in dimensions[str(d)] if v['family'] == family]
+                passing = [v for v in candidates if v['status'] == 'pass']
+                if not passing:
+                    if candidates:
+                        axes[0].text(j, .035+(.08 if family == 'harmonic' else 0), labels[family]+': no pass',
+                                     transform=axes[0].get_xaxis_transform(), ha='center', fontsize=7, rotation=25, color=colors[family])
+                    continue
+                best = min(passing, key=lambda v: (v['learned'], v['total']))
+                selected.setdefault(str(d), {})[family] = best
+                offset = -.05 if family == 'harmonic' else .05
+                projected_point = d == 784
+                axes[0].scatter(j+offset, best['learned'], marker='o' if family == 'logarithmic' else 'D',
+                                facecolors='none' if projected_point else colors[family], edgecolors=colors[family], s=45)
+                axes[0].scatter(j+offset, best['total'], marker='s', facecolors='none', edgecolors=colors[family], s=35)
+                if projected_point:
+                    axes[0].annotate('panel projection', (j+offset, best['learned']), xytext=(-5, -18),
+                                     textcoords='offset points', ha='right', fontsize=8, color=colors[family])
+        # The new predeclared small Harmonic probe stays visible even when a larger old candidate passes.
+        for row in dimensions['2']:
+            if row.get('variant') == 'spatial-resolution repair' and row['family'] == 'harmonic' and row['status'] == 'fail':
+                axes[0].scatter(-.12, row['learned'], marker='x', color=colors['harmonic'], s=55)
+                axes[0].scatter(-.12, row['total'], marker='x', color='.55', s=35)
+                axes[0].annotate(f"probe {row['maximum_ratio']:.3f}×", (-.12, row['learned']), xytext=(5, 8),
+                                 textcoords='offset points', fontsize=8, color=colors['harmonic'])
+        from matplotlib.lines import Line2D
+        handles = [Line2D([], [], color=colors[f], marker='o', linestyle='none', label=labels[f]) for f in colors]
+        handles += [Line2D([], [], color='black', marker='o', linestyle='none', label='Learned'),
+                    Line2D([], [], color='black', marker='s', markerfacecolor='none', linestyle='none', label='Total'),
+                    Line2D([], [], color=colors['harmonic'], marker='x', linestyle='none', label='Failed small probe')]
+        axes[0].legend(handles=handles, fontsize=8, frameon=False, ncol=2)
+        axes[0].set(xticks=range(5), xticklabels=ds, yscale='log', xlabel='Input dimension d',
+                    ylabel='Retained scalars', title='Smallest TESTED passing learned state')
+        axes[0].margins(y=.23)
+        axes[0].text(.02, .98, 'Selection: max(error) / max(dense pair) ≤ 1\nDifferent targets/variants; no scaling curve fitted',
+                     transform=axes[0].transAxes, va='top', fontsize=8)
+        for j, case in enumerate(specifications):
+            row = architecture[case][0]
+            if 'maximum_ratio' not in row:
+                axes[1].text(j, .06, 'inconclusive', transform=axes[1].get_xaxis_transform(), ha='center', fontsize=8, rotation=25)
+                continue
+            unresolved = row['status'] == 'numerically_unresolved'
+            for offset, key, marker in ((-.06, 'endpoint_ratio', 'o'), (.06, 'maximum_ratio', 's')):
+                axes[1].scatter(j+offset, row[key], marker=marker, s=45,
+                    facecolors='none' if unresolved else colors['logarithmic'], edgecolors=colors['logarithmic'],
+                    label=('Endpoint' if key == 'endpoint_ratio' else 'Max / max recorded') if j == 0 else None)
+            if unresolved:
+                axes[1].annotate('numerically unresolved', (j, row['maximum_ratio']), xytext=(0, 10),
+                                 textcoords='offset points', ha='center', fontsize=7, color='#AA3344')
+        axes[1].axhline(1, color='.4', linestyle='--', linewidth=1)
+        axes[1].set(xticks=range(5), xticklabels=['Baseline\nL=2, tanh, m=8', 'L=3', 'L=4', 'SiLU', 'm=16'],
+                    yscale='log', ylabel='RMS / paired dense RMS', title='One shared Taylor configuration')
+        axes[1].legend(frameon=False, fontsize=8)
+        for axis in axes:
+            axis.grid(alpha=.15)
+        figure.tight_layout(rect=(0, .075, 1, 1))
+        figure.text(.02, .015, 'Single seed. Full-horizon source compilation. Finite Euler measurements; no minimum-size or continuum guarantee.', fontsize=8)
+        args.output.mkdir(parents=True, exist_ok=False)
+        for extension in ('png', 'pdf'):
+            figure.savefig(args.output/f'appendix_dimensions_architecture.{extension}', dpi=180)
+        plt.close(figure)
+    caption = ('Dimension points select the smallest tested passing learned count under the primary ratio '
+        'max_t E(t)/max_t E_dense(t) <= 1 on the 65 recorded times; total storage belongs to that SAME model. '
+        'Endpoint ratios are reported separately and are not an additional selection filter. '
+        'The new small d2 Harmonic spatial-resolution probe is marked by crosses if it misses the primary criterion; '
+        'this is a measured failed candidate, not a lower bound on feasible size. '
+        'All original candidates, failures and corrected candidates remain in metrics.json. '
+        'd64 includes its QR selector repair; d784 is a separately marked panel-span variant whose fixed projection is counted. '
+        'Dimension changes also change sampled inputs and target normalization; d2 and d>=3 use different target formulas. '
+        'No line implies monotonic dependence on dimension. Architecture uses one shared method, floor, source and Euler configuration '
+        'across the five declared cases; an explicit readout floor is a regularized empirical extension. '
+        'A point above one is retained. Source/constructor failures are inconclusive. '
+        'These are single-seed tests with full-horizon offline source compilation, not an optimized minimum, '
+        'initialization-only construction, independent confirmation, or continuous-time guarantee. ')
+    if refinement:
+        caption += 'The m16 matched-step check uses a 0.1 dense-benchmark gate; hollow architecture markers indicate a failed numerical gate. '
+    status = ('incomplete' if not all('maximum_ratio' in rows_[0] for rows_ in architecture.values())
+              else 'numerically_unresolved' if refinement and not refinement['valid'] else 'complete')
+    output = dict(status=status,
+        primary_criterion='max_t query RMS / max_t dense-pair query RMS <= 1',
+        dimensions=dimensions, selected=selected, architecture=architecture, shared_architecture=shared,
+        m16_refinement=refinement, notices=notices, provenance=provenance, caption=caption,
+        plotting_source_sha256=sha(Path(__file__).read_bytes()), argv=argv)
+    (args.output/'metrics.json').write_text(json.dumps(output, indent=2, allow_nan=False)+'\n')
+    (args.output/'captions.txt').write_text(caption+'\n')
+    print(json.dumps(dict(event='appendix_robustness_refresh', output=str(args.output), status=output['status'])), flush=True)
+    return 0
+
+
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'appendix-robustness-refresh':
+        sys.exit(appendix_robustness_refresh_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'appendix-scope-refresh':
+        sys.exit(appendix_scope_refresh_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'appendix-current-costs':
+        sys.exit(appendix_current_costs_main(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == 'appendix-fixed-budget-refresh':
+        sys.exit(appendix_fixed_budget_refresh_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'figure4-paired-plot':
         sys.exit(figure4_paired_plot(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == 'figure3-paired':
