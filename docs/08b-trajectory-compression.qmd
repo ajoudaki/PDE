@@ -4490,6 +4490,528 @@ and finishes the construction.
 
 :::::::::::::::
 
+## Nonlinear feature learning preserved by compression {#sec-compression-nonlinear-learning}
+
+A moving kernel alone does not distinguish nonlinear learning from a deep
+linear network. We therefore separate nonaffinity of the predictor, departure
+from frozen-feature training, and motion of the dense hidden features.
+The frozen-kernel comparator belongs to the coupled dense reference, not to
+the compressed model. Because $W^{(L+1)}(0)=0$, its initial tangent features
+are precisely its initial last-layer features. Define its predictor by
+
+$$
+\partial_t f_{\mathrm{NTK},n}(t,x)
+ =\frac{2}{mn}\sum_{a=1}^m
+ h^{(L)}(0,x)^\top h^{(L)}(0,x_a)
+ [y_a-f_{\mathrm{NTK},n}(t,x_a)],\qquad
+ f_{\mathrm{NTK},n}(0,x)=0.
+$$ {#eq-compression-fl-frozen}
+
+This is exactly readout-only gradient flow with all hidden features fixed.
+
+::: {#thm-compression-nonlinear-learning}
+### Nonlinear feature learning preserved by compression
+
+Under @thm-compression-headline's assumptions, suppose additionally that
+every activation is nonaffine and $|x_a^\top x_b|<d$ for $a\ne b$.
+For Taylor, augment $\mathcal X$ by at most four deterministic passive
+witness inputs, declared before initialization without their labels.
+There are $c_*,t_*>0$, depending on the fixed problem but not on width,
+such that for every fixed $0<t\le t_*$, each compressed predictor satisfies,
+with probability tending to one as $n\to\infty$,
+
+$$
+\begin{aligned}
+\inf_{a\in\mathbb R^d,\,b\in\mathbb R}\sup_{x\in\mathcal X}
+ |f_{\rm model}(t,x)-a^\top x-b|&\ge c_*t,\\
+\sup_{x\in\mathcal X}
+ |f_{\rm model}(t,x)-f_{\mathrm{NTK},n}(t,x)|&\ge c_*t^3.
+\end{aligned}
+$$ {#eq-compression-fl-prediction-gaps}
+
+The storage orders and approximation conclusions are unchanged; Taylor's
+bound uses the augmented panel count, at most $p+4$ instead of $p$.
+In the dense reference, every hidden layer satisfies
+
+$$
+\left({\frac1n\sum_{a=1}^m
+ \|h^{(\ell)}(t,x_a)-h^{(\ell)}(0,x_a)\|_2^2}\right)^{1/2}
+ \ge c_*t^2\qquad(1\le\ell\le L)
+$$ {#eq-compression-fl-layer-motion}
+
+with the same probability convention. The nonlinear part of the dense
+first-layer feature increment has mean-square size at least $c_*t^4$,
+as specified in @eq-compression-fl-nonlinear-increment.
+:::
+
+The first gap excludes every deep linear predictor, including biases and
+time-dependent weights. The second excludes the dense reference's frozen
+initial kernel, not all conceivable kernel methods. The internal conclusions
+further rule out a frozen nonlinear feature component accompanied only by an
+affine feature change. They do not identify compressed coordinates with dense
+neurons. The additional hypotheses are local to this theorem and its proof;
+the broader compression theorem does not require them.
+
+The mechanism has three time scales. The initially zero readout grows at
+order $t$; hidden features move at order $t^2$; the output departs from
+frozen-feature training at order $t^3$. The leading departure in the label
+direction is a sum of squared hidden-layer accelerations, so layers cannot
+cancel one another's contribution. Separately, the initial feature kernel
+has nonlinear input components that no nonzero label vector can cancel
+completely. Both signals survive a vanishing absolute compression error.
+
+These are early-time certificates, not endpoint or test-risk comparisons.
+Time is fixed before taking the width limit: no compressed-model lower bound
+uniform over arbitrary sequences $t_n\downarrow0$ is asserted. The new
+constants may depend on the entire fixed problem, unlike the chapter's
+activation-and-depth-only constant $C$.
+
+### Initial geometry {#sec-compression-fl-initial-geometry}
+
+The proof uses @lem-compression-fit and the absolute approximation bounds
+already proved for the three constructions. All auxiliary notation below
+is local to the supporting argument; constants in remainder estimates may
+depend on the fixed problem, but not on width.
+
+::: {#lem-compression-fl-input}
+### Nonlinear initial velocity
+
+Every $Q^{(\ell)}$, $\ell\ge1$, is positive definite. The limiting initial
+prediction velocity is nonaffine on the sphere, witnessed by an
+affine-annihilating combination of four deterministic inputs chosen before
+initialization.
+:::
+
+[]{#proof-compression-fl-input}
+
+::: {.proof}
+
+Write $v=x/\sqrt d$. Gaussian covariance recursion gives
+$Q^{(\ell)}_{ab}=F_\ell(v_a^\top v_b)$, $F_0(s)=s$, with
+
+$$
+F_\ell(s)=\sum_{k\ge0}c_{\ell,k}s^k,\qquad
+c_{\ell,k}\ge0,\qquad \sum_kc_{\ell,k}<\infty,
+$$ {#eq-compression-fl-positive-series}
+
+and unbounded positive coefficient support. To see this directly, expand
+$\phi^{(\ell)}(\sqrt q G)$ in orthonormal Gaussian Hermite polynomials,
+with coefficients $\alpha_k$. Its covariance at correlation $r$ is
+$\sum_k\alpha_k^2r^k$. The identity follows by comparing coefficients in
+$\mathbb E[e^{zG-z^2/2}e^{wG'-w^2/2}]=e^{rzw}$.
+Completeness follows because a function orthogonal to all polynomials has
+entire transform $\mathbb E[h(G)e^{zG}]$ identically zero, hence zero Fourier
+transform. Linear growth gives Gaussian $L^2$ integrability. Finite Hermite
+support would make the activation a polynomial, hence affine by its bounded
+derivative. Composing these covariance series with
+$F_{\ell-1}(s)/F_{\ell-1}(1)$ proves @eq-compression-fl-positive-series:
+Tonelli at $s=1$ gives summability, and a positive inner coefficient of
+degree $j\ge1$ and outer degree $k$ produces degree $jk$. The recursion
+starts with $F_0(s)=s$ and positive variance at every layer. Nonzero means
+are allowed, and convergence is uniform and absolute on $[-1,1]$.
+The tensor Grams $[(v_a^\top v_b)^k]$ are positive semidefinite and converge
+to $I_m$ by the nonparallel-input hypothesis. Thus every $Q^{(\ell)}\succ0$.
+
+Let $P$ project onto affine functions in spherical $L^2$ with normalized
+surface measure $\sigma$:
+$Ph(v)=\int h\,d\sigma+d\,v^\top\int uh(u)\,d\sigma(u)$.
+Projecting the tensor feature in both variables gives the positive kernel
+
+$$
+R_k(v,u)=(v^\top u)^k-a_k-b_kv^\top u,\qquad
+a_k=\int(z^\top u)^k\,d\sigma(z),\qquad
+b_k=d\int(z^\top u)^{k+1}\,d\sigma(z).
+$$
+
+Here $a_k,b_k\to0$ by dominated convergence: the local input hypothesis
+and $m\ge2$ imply $d\ge2$. Hence $[R_k(v_a,v_b)]\to I_m$.
+The limiting velocity $g(v)=(2/m)\sum_a y_aF_L(v^\top v_a)$ cannot be affine,
+since otherwise
+
+$$
+0=\sum_a y_a[(I-P)g](v_a)
+ =\frac2m\sum_kc_{L,k}\,y^\top[R_k(v_a,v_b)]y>0.
+$$
+
+Every term is nonnegative and some large-degree term is positive. Uniform
+convergence justifies projection and summation.
+
+Some great circle witnesses this nonaffinity. Otherwise the antipodal
+average of $g$ is constant, and the odd remainder extends homogeneously
+to a function linear on every plane, hence globally linear. On such a
+circle, interpolate three distinct points by an affine function and take
+a fourth where it fails. Sign and normalize their affine dependence to obtain
+unit vectors $u_i$ and coefficients satisfying
+
+$$
+\sum_{i=1}^4|c_i|=1,\qquad \sum_{i=1}^4c_i=0,\qquad
+\sum_{i=1}^4c_i u_i=0,\qquad \sum_{i=1}^4c_i g(u_i)>0.
+$$ {#eq-compression-fl-witnesses}
+
+These inputs depend on the fixed problem only. The finite-query Gram
+argument in @lem-compression-fit applies to this augmented list. Together
+with
+$\dot f_n(0,x)=(2/(mn))\sum_a y_a h^{(L)}(0,x_a)^\top h^{(L)}(0,x)$,
+it gives convergence of the four initial velocities.
+:::
+
+::: {#lem-compression-fl-initial-fields}
+### Initial backward fields and hidden forces
+
+The initialized forward fields and first backward derivatives, including
+the vectors before derivative gates, have deterministic joint empirical
+row-law limits with second moments. This includes the full first-layer
+weight and acceleration rows. Every hidden block's squared initial
+acceleration in inverse-mobility norm converges to a positive constant.
+:::
+
+[]{#proof-compression-fl-initial-fields}
+
+::: {.proof}
+
+All unmarked fields in this proof are at zero. Put $k=2/m$ and define
+the pre-gated vectors $P$ and their gated versions $B$ by
+
+$$
+P_a^{(L)}=\sum_b y_bh_b^{(L)},\qquad
+B_a^{(\ell)}=(\phi^{(\ell)})'(z_a^{(\ell)})\odot P_a^{(\ell)},\qquad
+P_a^{(\ell-1)}=(W^{(\ell)})^T B_a^{(\ell)}\quad(2\le\ell\le L).
+$$
+
+Thus $\dot\delta_a^{(\ell)}(0)=kB_a^{(\ell)}$. Since hidden velocities
+initially vanish, differentiation of @eq-compression-flow gives
+
+$$
+\ddot W^{(1)}(0)=k^2\sum_a y_aB_a^{(1)}v_a^T,\qquad
+\ddot W^{(\ell)}(0)=\frac{k^2}{n}\sum_a y_aB_a^{(\ell)}(h_a^{(\ell-1)})^T
+\quad(2\le\ell\le L).
+$$ {#eq-compression-fl-forces}
+
+Only one forward pass and one backward pass are needed for their joint
+limits. For a hidden Gaussian matrix $W$, after revealing $WH=Z$, its
+conditional law on the full-column-rank event is
+$Z(H^T H)^{-1}H^T+\widetilde W(I-\Pi_H)$, where
+$\Pi_H=H(H^T H)^{-1}H^T$ and $\widetilde W$ is fresh with entries
+$\mathcal N(0,1/n)$. This is orthogonal Gaussian conditioning on a linear
+constraint. For a reverse query $U$ known from the preceding answers,
+
+$$
+\begin{aligned}
+W^T U&\overset{\mathrm d}=H Q_n^{-1}C_n+(I-\Pi_H)\Xi D_n^{1/2},\\
+Q_n&=H^T H/n,\qquad C_n=Z^T U/n,\qquad D_n=U^T U/n,
+\end{aligned}
+$$ {#eq-compression-fl-conditioning}
+
+where $\Xi$ has independent standard Gaussian rows. Conditioned on the
+revealed data, the removed projection has expected squared Frobenius norm
+divided by $n$ equal to
+$\operatorname{rank}(H)\operatorname{tr}(D_n)/n$.
+The row-law induction below makes $D_n$ tight, so conditional Markov's
+inequality shows that this term vanishes in probability.
+
+Adaptive queries do not create an unobserved matrix dependence. In the
+forward pass, each new query is fixed by the previous answers. Conditioning
+on its Gaussian action leaves independent residuals in the other matrices.
+In the descending reverse pass, the query for a given matrix is determined
+by the forward transcript and the reverse answers of higher matrices, not
+by that matrix's unrevealed residual. No matrix is queried again after its
+reverse answer. Thus @eq-compression-fl-conditioning applies at each step.
+
+The induction uses empirical $\mathcal W_2$ convergence in probability on
+the finite-dimensional space of row coordinates, with its Euclidean metric.
+Appending independent Gaussian rows preserves a deterministic such limit:
+conditional variances of bounded test averages are $O(1/n)$, and appended
+second moments obey the law of large numbers. Continuous coordinate maps
+of at most linear growth preserve this convergence by an $L^2$ coupling
+and uniform integrability; these include $\phi(z)$ and $\phi'(z)u$.
+Same-layer products consequently converge. Inverse Grams and covariance
+square roots converge when their limiting Grams are, respectively,
+positive definite and positive semidefinite. A row array with vanishing
+mean squared norm does not change the limit, which disposes of the projected
+term in @eq-compression-fl-conditioning.
+
+Starting with the full independent first-layer rows, these rules prove the
+forward and then backward limits, including pre-gated fields. Every forward
+Gram inverted here is $Q^{(\ell)}$ with $\ell\ge1$, positive definite by
+@lem-compression-fl-input, so the full-rank events have probability tending
+to one; $Q^{(0)}$ is never inverted. The first-row acceleration is a linear
+combination of the $B$ fields, so its joint limit is included.
+
+Let $D^{(\ell)}$ be the limiting Gram of $B^{(\ell)}$.
+At the top it is positive definite: a null vector $c$ would imply
+
+$$
+\left(\sum_b y_b\phi^{(L)}(z_b)\right)
+\left(\sum_a c_a(\phi^{(L)})'(z_a)\right)=0
+\qquad(z\in\mathbb R^m).
+$$
+
+Indeed $L\ge2$ gives full Gaussian support. The first factor is not
+identically zero since $y^T Q^{(L)}y>0$; analyticity forces the second
+to vanish everywhere. Varying each coordinate and using the nonconstant
+derivative gives $c=0$. Downward, the fresh reverse innovation is independent
+of the lower-layer fields, with covariance $D^{(\ell+1)}$, so
+
+$$
+c^T D^{(\ell)}c\ge\lambda_{\min}(D^{(\ell+1)})
+ \sum_a c_a^2\mathbb E[((\phi^{(\ell)})'(Z_a^{(\ell)}))^2]>0
+\qquad(c\ne0).
+$$
+
+Each Gaussian marginal is nondegenerate; a nonzero analytic derivative
+has a zero set of measure zero. Expanding @eq-compression-fl-forces, the
+layer-$\ell$ squared acceleration in inverse-mobility norm has limit
+$k^4y^T(Q^{(\ell-1)}\circ D^{(\ell)})y>0$, where $\circ$ is entrywise
+multiplication. For $Q\succeq0$ and $D\succ0$,
+$Q\circ D\succeq\lambda_{\min}(D)\operatorname{diag}(Q)$: decompose $Q$
+into rank-one terms and apply the lower bound for $D$ to each term.
+Every relevant $Q$ has positive diagonal. This also covers singular input
+Grams. The inverse-mobility squares here are
+$\|\ddot W^{(1)}(0)\|_F^2/n$ and $\|\ddot W^{(\ell)}(0)\|_F^2$ for $\ell\ge2$.
+:::
+
+### Actual motion and the cubic departure {#sec-compression-fl-actual-motion}
+
+::: {#lem-compression-fl-motion}
+### Adjoint test of the actual motion
+
+Every hidden layer satisfies @eq-compression-fl-layer-motion. On the training
+set, regarding predictions as vectors in $\mathbb R^m$,
+
+$$
+y^T(f_n(t)-f_{\mathrm{NTK},n}(t))
+=\frac m3 t^3\left[\frac{\|\ddot W^{(1)}(0)\|_F^2}{n}
+ +\sum_{\ell=2}^L\|\ddot W^{(\ell)}(0)\|_F^2\right]+o_*(t^3).
+$$ {#eq-compression-fl-cubic}
+
+In this argument, $R_n(t)=o_*(t^j)$ means: for every $\varepsilon>0$ there
+is a deterministic $T_\varepsilon>0$ such that
+$\mathbb P(\sup_{0<t\le T_\varepsilon}|R_n(t)|/t^j>\varepsilon)\to0$.
+For a vector or tuple remainder, replace absolute value by its stated norm.
+:::
+
+[]{#proof-compression-fl-motion}
+
+::: {.proof}
+
+On the probability-tending-to-one event of @lem-compression-fit, all relevant
+operators, feature RMS and residuals have deterministic bounds. The readout
+equation gives $\|W^{(L+1)}(t)\|_2/\sqrt n=O(t)$; backpropagation gives
+$\|\delta_a^{(\ell)}(t)\|_2/\sqrt n=O(t)$.
+For hidden parameter tuples use the norm $\|\cdot\|_{\mathrm{par}}$ from
+@lem-compression-fit with a zero readout component. Integration of hidden
+updates and forward subtraction give, uniformly over the input sphere and
+$0\le t\le1$,
+
+$$
+\begin{aligned}
+\|(W^{(\ell)}(t)-W^{(\ell)}(0))_{\ell=1}^L\|_{\mathrm{par}}&=O(t^2),\\
+\frac{\|z^{(\ell)}(t,x)-z^{(\ell)}(0,x)\|_2
+ +\|h^{(\ell)}(t,x)-h^{(\ell)}(0,x)\|_2}{\sqrt n}&=O(t^2),\\
+f_n(t,x)&=t\dot f_n(0,x)+O(t^2).
+\end{aligned}
+$$ {#eq-compression-fl-real-bounds}
+
+For the last line, the readout equation gives
+$\|\dot W^{(L+1)}(t)-\dot W^{(L+1)}(0)\|_2/\sqrt n=O(t)$;
+integrate and use $f_n=(W^{(L+1)})^T h^{(L)}/n$. No new bootstrap is needed.
+
+The remainder control uses an elementary estimate. For bounded Lipschitz
+$g$ and an initial vector $u$,
+
+$$
+\frac{\|[g(z)-g(z_0)]\odot u\|_2^2}{n}
+\le \operatorname{Lip}(g)^2D^2\frac{\|z-z_0\|_2^2}{n}
+ +4\|g\|_\infty^2\frac{\|u\mathbf1_{|u|>D}\|_2^2}{n}.
+$$ {#eq-compression-fl-multiplier}
+
+Split at $|u_i|=D$. The deterministic row-law limits with second moments
+in @lem-compression-fl-initial-fields imply that, for every $\eta>0$, a
+fixed cutoff $D$ makes the probability of any needed initial squared tail
+exceeding $\eta$ tend to zero. Choose $D$ first, then a small time in
+@eq-compression-fl-real-bounds. Gate differences times initial fields are
+therefore $o_*(1)$ in Euclidean norm divided by $\sqrt n$, uniformly also
+along the segment joining $z_0$ to $z$.
+
+For this proof put $k=2/m$ and define initial vectors by
+$P_a^{(L)}=\sum_b y_bh_b^{(L)}(0)$,
+$B_a^{(\ell)}=(\phi^{(\ell)})'(z_a^{(\ell)}(0))\odot P_a^{(\ell)}$, and
+$P_a^{(\ell-1)}=(W^{(\ell)}(0))^T B_a^{(\ell)}$ for $\ell\ge2$.
+The readout divided by $t$ differs from its initial velocity by $O(t)$ in
+Euclidean norm divided by $\sqrt n$. Downward subtraction of the backward
+recursion and then integration of the hidden updates yield
+
+$$
+\begin{aligned}
+\frac{\|\delta_a^{(\ell)}(t)-ktB_a^{(\ell)}\|_2}{\sqrt n}&=o_*(t),\\
+\left\|\left(W^{(\ell)}(t)-W^{(\ell)}(0)
+ -\tfrac12t^2\ddot W^{(\ell)}(0)\right)_{\ell=1}^L
+ \right\|_{\mathrm{par}}&=o_*(t^2).
+\end{aligned}
+$$ {#eq-compression-fl-weight-expansion}
+
+For completeness, each backward difference is the next-layer error through
+bounded operators, an $O(t^2)$ operator increment acting on $B$, and a gate
+difference acting on $P$, controlled by @eq-compression-fl-multiplier.
+Insert this into the updates with $r=-y+O(t)$ and
+$\|h(t)-h(0)\|_2/\sqrt n=O(t^2)$, and integrate.
+The identities $\|uv^T\|_F/\sqrt n=(\|u\|_2/\sqrt n)\|v\|_2$ and
+$\|uh^T\|_F/n=(\|u\|_2/\sqrt n)(\|h\|_2/\sqrt n)$ give the stated
+matrix-norm remainder.
+
+Rather than expanding each forward feature, test its increment against $P$.
+Locally write $E_{1,n}=\|\ddot W^{(1)}(0)\|_F^2/n$ and
+$E_{\ell,n}=\|\ddot W^{(\ell)}(0)\|_F^2$ for $\ell\ge2$.
+The integral formula for an activation increment and
+@eq-compression-fl-multiplier give
+
+$$
+\frac{(P_a^{(\ell)})^T[h_a^{(\ell)}(t)-h_a^{(\ell)}(0)]}{n}
+=\frac{(B_a^{(\ell)})^T[z_a^{(\ell)}(t)-z_a^{(\ell)}(0)]}{n}
+ +o_*(t^2).
+$$
+
+Indeed the error is bounded by the RMS gate difference times $P$, multiplied
+by $\|z(t)-z(0)\|_2/\sqrt n=O(t^2)$. Expand the preactivation increment as
+
+$$
+\begin{split}
+z_a^{(\ell)}(t)-z_a^{(\ell)}(0)
+={}&[W^{(\ell)}(t)-W^{(\ell)}(0)]h_a^{(\ell-1)}(0)\\
+&+W^{(\ell)}(0)[h_a^{(\ell-1)}(t)-h_a^{(\ell-1)}(0)]\\
+&+[W^{(\ell)}(t)-W^{(\ell)}(0)]
+ [h_a^{(\ell-1)}(t)-h_a^{(\ell-1)}(0)].
+\end{split}
+$$
+
+The last term has RMS $O(t^4)$. Sum the first term's pairings with
+$y_aB_a^{(\ell)}$ and use @eq-compression-fl-forces and
+@eq-compression-fl-weight-expansion: the result is
+$t^2E_{\ell,n}/(2k^2)+o_*(t^2)$. The second term pairs the lower feature
+increment with $P_a^{(\ell-1)}$. At the first layer only the first term
+is present, with the fixed input $v_a$. Telescoping gives
+
+$$
+\sum_a y_a\frac{(P_a^{(\ell)})^T
+ [h_a^{(\ell)}(t)-h_a^{(\ell)}(0)]}{n}
+=\frac{t^2}{2k^2}\sum_{j\le\ell}E_{j,n}+o_*(t^2).
+$$ {#eq-compression-fl-adjoint}
+
+All energies have positive limits. Cauchy--Schwarz, using the bounded quantity
+$\sum_a y_a^2\|P_a^{(\ell)}\|_2^2/n$, proves the claimed feature-motion
+lower bound in every layer on one deterministic small interval.
+
+The tangent kernel on the training set is
+
+$$
+\begin{split}
+K_{ab}(t)={}&\frac{(h_a^{(L)})^T h_b^{(L)}}n
+ +(v_a^T v_b)\frac{(\delta_a^{(1)})^T\delta_b^{(1)}}n\\
+&+\sum_{\ell=2}^L
+ \frac{(\delta_a^{(\ell)})^T\delta_b^{(\ell)}}n
+ \frac{(h_a^{(\ell-1)})^T h_b^{(\ell-1)}}n.
+\end{split}
+$$
+
+All fields on the right are evaluated at $t$.
+@eq-compression-fl-real-bounds gives $K(t)-K(0)=O(t^2)$ in
+operator norm. Its readout part, contracted with $y$, is twice the
+top pairing in @eq-compression-fl-adjoint, plus $O(t^4)$.
+By @eq-compression-fl-weight-expansion and the squared outer products in
+@eq-compression-fl-forces, the hidden contribution has the same coefficient.
+Consequently
+
+$$
+y^T[K(t)-K(0)]y=\frac{2t^2}{k^2}\sum_{\ell=1}^L E_{\ell,n}+o_*(t^2).
+$$
+
+The dense flow satisfies $\dot f_n=kK(t)(y-f_n)$; the frozen flow uses $K(0)$.
+Their difference is exactly
+
+$$
+k\int_0^t e^{-kK(0)(t-s)}[K(s)-K(0)](y-f_n(s))\,ds.
+$$
+
+Here $f_n(s)=O(s)$ and the exponential is $I+O(t-s)$ since $K(0)$ is
+bounded. Pair with $y$ and integrate the preceding display for the kernel.
+The extra terms are $O(t^4)$, giving $2/(3k)=m/3$ in
+@eq-compression-fl-cubic.
+:::
+
+::: {#lem-compression-fl-nonlinear-increment}
+### The nonlinear feature component moves
+
+Let $V=\operatorname{span}\{x_1,\ldots,x_m\}$, with normalized surface measure
+$\sigma_V$ on its unit sphere $S(V)$. For sufficiently small fixed $t>0$,
+with probability tending to one,
+
+$$
+\frac1n\sum_{i=1}^n\inf_{a\in V,\,b\in\mathbb R}
+\int_{S(V)}\left|h_i^{(1)}(t,\sqrt d\,v)-h_i^{(1)}(0,\sqrt d\,v)
+ -a^T v-b\right|^2\,d\sigma_V(v)\ge c_*t^4.
+$$ {#eq-compression-fl-nonlinear-increment}
+:::
+
+[]{#proof-compression-fl-nonlinear-increment}
+
+::: {.proof}
+
+Since $\dim V\ge2$, for nonzero $g,r\in V$ the function
+$(\phi^{(1)})'(g^T v)(r^T v)$ is not affine on $S(V)$.
+Otherwise its values on $r^\perp$ and antipodes force that affine function
+to equal $\lambda r^T v$. Off the equator divide by $r^T v$, then use
+continuity: $(\phi^{(1)})'$ would be constant on $[-\|g\|_2,\|g\|_2]$,
+contradicting analyticity and nonaffineness.
+
+Project the initial first-layer row onto $V$ and call it $g_i$; call its
+acceleration row $r_i\in V$. By @lem-compression-fl-initial-fields, their
+joint empirical law converges with second moments; $g$ is nondegenerate
+Gaussian and $\mathbb E\|r\|_2^2>0$. The squared distance of
+$(\phi^{(1)})'(g^T v)(r^T v)$ from affine functions in $L^2(\sigma_V)$ is
+continuous in $(g,r)$, bounded by
+$\|(\phi^{(1)})'\|_\infty^2\|r\|_2^2$, and positive whenever both are
+nonzero. Its empirical mean therefore tends to a positive constant.
+
+The first-layer expansion in @eq-compression-fl-weight-expansion and the
+bounded first derivative reduce the actual increment to the fixed row
+direction $t^2r_i/2$. On $\|r_i\|_2\le D$, its Taylor remainder divided
+by $t^2$ is at most $\|(\phi^{(1)})''\|_\infty t^2D^2/8$; on the complement
+it is at most $\|(\phi^{(1)})'\|_\infty\|r_i\|_2$.
+The deterministic second-moment limit, choosing $D$ and then time, gives
+$o_*(t^2)$ in the $L^2$ space with measure
+$n^{-1}\sum_i\delta_i\otimes\sigma_V$ (here $\delta_i$ is a point mass).
+Orthogonal projection off affine functions is contractive, so the positive
+limiting projected acceleration proves the claim.
+:::
+
+[]{#proof-compression-nonlinear-learning}
+
+::: {.proof}
+
+**Proof of @thm-compression-nonlinear-learning.**
+The four-point combination in @eq-compression-fl-witnesses, initial velocity
+convergence, and @eq-compression-fl-real-bounds give a positive multiple
+of $t$ for the dense predictor on a width-independent small interval.
+It annihilates every affine predictor and has coefficient absolute sum one,
+so it bounds their uniform distance below. The positive energy limit in
+@eq-compression-fl-cubic, divided by $\|y\|_1$, similarly gives a training-input
+gap of order $t^3$ from the frozen kernel. The two preceding lemmas supply
+the internal feature conclusions.
+
+For each fixed positive time, the vanishing absolute errors of
+@prp-compression-legendre, @prp-compression-harmonic, and
+@prp-compression-panel transfer both prediction gaps by the triangle
+inequality. Eventual bounds at every confidence imply convergence in
+probability; the relative-variability statement alone is not needed for
+this step. Choose common smaller $c_*,t_*>0$.
+Legendre and Harmonic already cover the witnesses. Taylor appends them
+before initialization, without labels or additional training terms.
+Replacing $p$ by at most $p+4$ multiplies the quadratic panel factor by at
+most $9$ and the linear data factor by at most $3$, since $m+p\ge2$.
+No endpoint gap or identification of compressed coordinates with dense
+neurons is used or asserted.
+:::
+
 ## Assembly of the headline theorem {#sec-compression-assembly}
 
 []{#proof-compression-headline}
