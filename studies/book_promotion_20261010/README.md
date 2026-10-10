@@ -302,7 +302,7 @@ records the approval, before/after hashes and candidate-to-live mapping.
 Final live-path checks PASS: all 103 files match, all 54 tests pass without skips,
 both examples succeed, and the source/reference validator reports no errors.
 [Live-check evidence](../../data/generated/book_promotion_20261010/live_promotion_check/check_results.json).
-The promotion commit is recorded in the application receipt. The unchanged
+The promotion commit is `e184cd790c8c9f751aed153bb55584c2e3fc62e6`; it is also recorded in the application receipt. The unchanged
 edition's complete render and independent review evidence above remains valid;
 no scientific source was modified during application.
 

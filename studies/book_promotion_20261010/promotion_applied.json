@@ -334,5 +334,7 @@
       }
     ]
   },
-  "source_correspondence": "All 103 maintained book/code files match the approved packet"
+  "source_correspondence": "All 103 maintained book/code files match the approved packet",
+  "promotion_commit": "e184cd790c8c9f751aed153bb55584c2e3fc62e6",
+  "commit_parent": "1dba30ab2b1f728247b9b93b93a4df9f772886c4"
 }
