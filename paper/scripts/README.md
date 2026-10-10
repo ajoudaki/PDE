@@ -38,13 +38,14 @@ python paper/plot_figures.py --data-dir /tmp/paper-plot-data --out /tmp/paper-re
 
 The second command checks input hashes. Reproduction here means rebuilding
 figures from saved results, not rerunning or independently validating the
-experiments. Legacy drawing functions in `scripts/figures.py`,
-`scripts/tikz_figures.py` and `figures/experimental_figures.py` are reused;
-their training entry points are not called.
+experiments. Every figure, including the earlier radial and sphere plots,
+is drawn by `plot_figures.py` in one shared style (method colours, fonts and
+direct labels are defined there); only the sphere-surface interpolation of
+`scripts/figures.py` is reused, and no training entry point is called.
 
-Dependencies: NumPy, Matplotlib, SciPy, Pillow, ReportLab, threadpoolctl;
-`pdflatex`, `pdftoppm`, and DejaVu fonts for the legacy artwork. The tested
-interpreter on this host is `/home/amir/miniconda3/bin/python`.
+Dependencies: NumPy, Matplotlib, SciPy, threadpoolctl. No LaTeX, ReportLab
+or GPU is needed. The tested interpreter on this host is
+`/home/amir/miniconda3/bin/python`.
 The deterministic moments illustration is already cached as
 `data/generated/paper_appendix_pilots_20261009/plotting_inputs/moments.npz`.
 Its separate, explicitly invoked one-time producer is
