@@ -41,7 +41,7 @@ def main():
     geomean = lambda curves: np.exp(np.mean(np.log(np.maximum(curves, 1e-300)), axis=0))
     small = geomean(smalls)  # smooth; a pointwise median would jump between seeds
     methods = [('Legendre', '#2a78d6', 'sphere3_other_points', 'legendre'),
-               ('Logarithmic', '#eb6834', 'sphere3_new_4_trials64', 'budget_4'),
+               ('Taylor', '#eb6834', 'sphere3_new_4_trials64', 'budget_4'),
                ('Harmonic', '#1baf7a', 'sphere3_other_points', 'harmonic')]
     keep = t > 0  # every model equals the dense run at t = 0 (zero readout)
     t = t[keep]

@@ -16,7 +16,7 @@ pass, metric-adjoint backward pass, and a training-feature Gram solve for
 the readout correction. The solve is part of training, not an uncounted
 oracle. Refreshing the corrected readout once per state permits later
 queries to use a plain small forward pass. Passive labels are absent from
-all these operations. For Logarithmic, the certified passive queries
+all these operations. For Taylor, the certified passive queries
 were declared during setup; the existence of an evaluable network on other
 inputs is not a guarantee of accuracy there.
 
@@ -51,7 +51,7 @@ are not uniform as labels shrink or dimension grows. The latter samples a fresh
 coupled dense reference: it cannot read a supplied dense matrix in
 subquadratic time. Their temporary arrays are discarded before deployment.
 
-The new Logarithmic theorem does not inherit either setup-time bound merely
+The new Taylor theorem does not inherit either setup-time bound merely
 because its runtime is the same. Its enlarged source domain and finite-jet
 compiler prove the cubic-logarithmic retained state, not a corresponding
 fast preprocessing algorithm. \Cref{app:execution-costs} preserves the

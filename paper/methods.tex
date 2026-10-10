@@ -11,9 +11,9 @@ need not be the most economical state in which to describe them.
 There are two reductions. Legendre compresses the temporal histories while
 keeping their original neuron coordinates. The selected-coordinate
 construction compresses the neuron spaces needed to realize the interactions.
-Harmonic and Logarithmic use that same selected architecture and optimizer;
+Harmonic and Taylor use that same selected architecture and optimizer;
 they build its source spaces for different query sets. Harmonic covers the
-whole sphere through joint time and input regularity. Logarithmic covers a
+whole sphere through joint time and input regularity. Taylor covers a
 finite panel declared before initialization, and uses the increasing temporal
 regularity of a fitting trajectory. All three models then evolve from time
 zero without consulting their coupled dense reference.
@@ -382,8 +382,8 @@ zero. Their preprocessing costs are separate from the retained state and
 are stated in \Cref{sec:costs}. The time and spherical coefficients are
 setup objects; inference applies the selected nonlinear network directly.
 
-\subsection{Logarithmic: a declared input panel and expanding time disks}
-\label{sec:logarithmic-method}
+\subsection{Taylor: a declared input panel and expanding time disks}
+\label{sec:taylor-method}
 \label{sec:panel-method}
 
 Suppose the requested queries are the $m$ training inputs and $p$ passive

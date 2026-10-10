@@ -1,4 +1,4 @@
-<svg width="100%" viewBox="0 0 680 330" role="img"><title>Figure 10: response block compressed along different axes</title><desc>Legendre keeps all neuron rows but few time modes; the selected model keeps few neuron rows; Harmonic covers the whole sphere while Logarithmic keeps a few input fibres.</desc>
+<svg width="100%" viewBox="0 0 680 330" role="img"><title>Figure 10: response block compressed along different axes</title><desc>Legendre keeps all neuron rows but few time modes; the selected model keeps few neuron rows; Harmonic covers the whole sphere while Taylor keeps a few input fibres.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <text class="th" x="120" y="40" text-anchor="middle">Legendre</text>
 <text class="ts" x="120" y="58" text-anchor="middle">compress time</text>
@@ -24,7 +24,7 @@
 <circle class="c-coral" cx="598" cy="146" r="5" stroke-width="0.5"/>
 <circle class="c-coral" cx="622" cy="158" r="5" stroke-width="0.5"/>
 <circle class="c-coral" cx="604" cy="176" r="5" stroke-width="0.5"/>
-<text class="ts" x="610" y="218" text-anchor="middle">Logarithmic</text>
+<text class="ts" x="610" y="218" text-anchor="middle">Taylor</text>
 <text class="ts" x="610" y="234" text-anchor="middle">declared panel</text>
 <line x1="50" y1="295" x2="190" y2="295" class="arr" marker-end="url(#arrow)"/>
 <text class="ts" x="120" y="315" text-anchor="middle">time (clock τ)</text>

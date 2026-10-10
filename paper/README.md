@@ -3,7 +3,7 @@
 The working manuscript is [main.tex](main.tex), compiled to [main.pdf](main.pdf).
 The 2026-10-08 revision presents a unified response-compression framework:
 Legendre history compression, and a shared selected-coordinate runtime
-with Harmonic (whole-sphere) and Logarithmic (declared finite-panel) source
+with Harmonic (whole-sphere) and Taylor (declared finite-panel) source
 builders. It is a working paper, not promotion into the maintained Quarto book.
 
 ## Reading and source structure
@@ -27,7 +27,7 @@ Main-text constants depend only on activation and fixed depth. All three
 headline constructions have compression error divided by actual independent
 dense-run discrepancy tending to zero in probability, on the same promised
 query domain and over the entire training trajectory including its endpoint.
-Harmonic and Logarithmic additionally attain absolute error `Y/n` at every
+Harmonic and Taylor additionally attain absolute error `Y/n` at every
 fixed confidence for sufficiently large width, with the displayed storage
 orders unchanged. The older quantile/factor-three comparison belongs only
 to the separate supplementary seeded decoder and historical experiments.
@@ -42,14 +42,14 @@ The following distinctions are intentional:
 - Harmonic tracks a coupled dense reference. Its explicit and implicit
   initializers have different setup costs; the latter samples a fresh latent
   reference rather than reading a supplied dense matrix cheaply.
-- Logarithmic now denotes the finite-panel, cubic-logarithmic real-coordinate
+- Taylor denotes the finite-panel, cubic-logarithmic real-coordinate
   construction. Its passive inputs, but not their labels, are available at
   setup. It tracks a coupled dense reference with the same selected nonlinear
   runtime as Harmonic. The finite initialization-only compiler has no proved
   near-linear or near-quadratic work bound.
 - The older independent-reference finite-word construction is called the
   **seeded decoder** in the appendices. Its words and bits must not be
-  confused with the new Logarithmic model's real-coordinate count.
+  confused with the new Taylor model's real-coordinate count.
 - The dense lower bound is transient, not an endpoint result. All three main
   stochastic width thresholds remain qualitative. The seeded decoder's additive and
   analytic absolute certificates have an explicit conservative gate; its purely
@@ -80,7 +80,7 @@ the inherited proof library was not freshly re-reviewed in its entirety.
 The subsequent targeted feedback revision corrects the panel propagator's
 summed-exponent gate, explicitly specializes both Harmonic setup bounds to
 the exact `Y/n` target, and makes label-sensitive eventual-width qualifications
-prominent. It also separates `Seed` from the finite-panel Logarithmic model,
+prominent. It also separates `Seed` from the finite-panel Taylor model,
 disambiguates proof-local radii, thresholds and quantiles, states the source
 event formally, and repairs identified proof-interface and cross-reference
 omissions. The headline storage orders and error conclusions are unchanged.
@@ -147,7 +147,7 @@ are intentional and must not be deduplicated against the evolving manuscript.
 
 The same executable now provides a self-contained two-layer tanh Legendre
 closure, geometric Harmonic setup in dimensions2/3, and the latest rank-safe
-finite-panel Logarithmic optimizer. The unified suite compares their Euler
+finite-panel Taylor optimizer. The unified suite compares their Euler
 trajectories with learned-state-matched small dense and two-block low-rank
 models, plus the exact initial-NTK Euler control. Fixed matrices are charged
 separately; the NTK control deliberately uses a smaller state. There is no PCA.
@@ -164,7 +164,7 @@ python paper/figures/capture_trajectory.py unified-plot \
 The [fixed protocol and outcome record](../studies/unified_compression_empirics_20261008/README.md)
 separate two engineering pilots from twelve width-comparison cases. Eight
 training inputs and thirty test inputs are used throughout. Harmonic uses
-independent sphere nodes; finite-panel Logarithmic setup sees the test inputs,
+independent sphere nodes; finite-panel Taylor setup sees the test inputs,
 never their labels. Both practical source builders use full-horizon offline
 dense rollouts. These experiments do **not** validate initialization-only
 setup, arbitrary unseen-input decoding by the finite-panel method, asymptotic

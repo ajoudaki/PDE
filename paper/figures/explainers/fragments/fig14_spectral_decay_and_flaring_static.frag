@@ -1,4 +1,4 @@
-<svg width="100%" viewBox="0 0 680 400" role="img"><title>Figure 14: why the source span is small</title><desc>Left: Harmonic coefficient magnitudes decay in time and input degree, keep a triangle. Right: Logarithmic disks of analyticity widen along real time.</desc>
+<svg width="100%" viewBox="0 0 680 400" role="img"><title>Figure 14: why the source span is small</title><desc>Left: Harmonic coefficient magnitudes decay in time and input degree, keep a triangle. Right: Taylor disks of analyticity widen along real time.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <text class="th" x="170" y="30" text-anchor="middle">Harmonic: whole input sphere</text>
 <rect x="60" y="60" width="16" height="16" fill="#1D9E75" opacity="1"/><rect x="78" y="60" width="16" height="16" fill="#1D9E75" opacity="0.8"/><rect x="96" y="60" width="16" height="16" fill="#1D9E75" opacity="0.62"/><rect x="114" y="60" width="16" height="16" fill="#1D9E75" opacity="0.48"/><rect x="132" y="60" width="16" height="16" fill="#1D9E75" opacity="0.36"/><rect x="150" y="60" width="16" height="16" fill="#1D9E75" opacity="0.27"/><rect x="168" y="60" width="16" height="16" fill="#1D9E75" opacity="0.2"/><rect x="186" y="60" width="16" height="16" fill="#B4B2A9" opacity="0.25"/><rect x="204" y="60" width="16" height="16" fill="#B4B2A9" opacity="0.18"/><rect x="222" y="60" width="16" height="16" fill="#B4B2A9" opacity="0.12"/>
@@ -16,7 +16,7 @@
 <text class="ts" x="40" y="280">analytic in time and input ⇒ coefficients</text>
 <text class="ts" x="40" y="298">decay exponentially; keep a triangle</text>
 <text class="ts" x="40" y="326">span: (log n)^(3d/2+1), grows with dimension d</text>
-<text class="th" x="510" y="30" text-anchor="middle">Logarithmic: declared panel</text>
+<text class="th" x="510" y="30" text-anchor="middle">Taylor: declared panel</text>
 <circle cx="390" cy="200" r="7" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
 <circle cx="400" cy="200" r="9" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
 <circle cx="413" cy="200" r="12" fill="#F5C4B3" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>

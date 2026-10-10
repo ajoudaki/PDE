@@ -89,7 +89,7 @@ Shared initialization options live under `methods.non_oblivious.setup`; an
 optional method-local `setup` overrides individual fields. Add budgets for curves
 and seeds for independent repetitions. The dataset seed is separate and stays fixed.
 
-Each repetition rebuilds Legendre, Harmonic and Logarithmic from its own dense
+Each repetition rebuilds Legendre, Harmonic and Taylor from its own dense
 reference. Independent dense widths, low-rank factors, sources and selectors use
 recorded, deterministic role-specific seeds. `devices="auto"` schedules one
 repetition per available GPU; use `"cpu"`, `"cuda:0"`, or `["cuda:0","cuda:1"]`
@@ -102,7 +102,7 @@ configured row counts are sampled reproducibly and input rows normalized to unit
 length. Labels are multiplied by `label_scale`. Test labels are used only for
 scoring. For high-dimensional inputs disable Harmonic with `budgets=[]`.
 Current Legendre, low-rank, frozen-features and Harmonic implementations require
-two tanh hidden layers; other architectures are supported by dense and Logarithmic.
+two tanh hidden layers; other architectures are supported by dense and Taylor.
 Unsupported combinations fail explicitly. The current non-oblivious setup uses
 full-horizon RK4 rollouts and empirical source ranks, not the paper's jet compiler.
 Extra constructor truncation is rejected rather than silently changing a model.
@@ -143,13 +143,17 @@ To combine completed batches without rerunning them, use `plot` with
 the families to show. Set `execution.output` to a fresh analysis directory.
 The plotter checks compatible producer/data/training/method settings, rejects
 duplicate repetition seeds, and keeps each original reference pairing and
-run provenance. For the three-seed Dense/Legendre/Logarithmic comparison:
+run provenance. For the three-seed Dense/Legendre/Taylor comparison:
 
 ```bash
 python -B paper/figures/capture_trajectory.py plot --config studies/cubic_log_comparison_20261008/runner_three_seeds_plot.json
 ```
 
 ## Earlier Harmonic and Logarithmic validation commands
+
+Here Logarithmic names the historical seeded decoder; the current finite-panel
+method is called Taylor compression, while existing `logarithmic` command options,
+configuration keys and stored result identifiers remain unchanged.
 
 One implementation, `paper/figures/capture_trajectory.py`, contains both new
 closures, their numerical checks, dense/NTK/small-MLP/LoRA controls, capture

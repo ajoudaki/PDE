@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 INK, MUTED = '#1f1f1e', '#6b6b68'
 METHODS = [  # key prefix, label, colour, marker
     ('legendre', 'Legendre', '#2a78d6', 'o'),
-    ('logarithmic', 'Logarithmic', '#eb6834', 's'),
+    ('logarithmic', 'Taylor', '#eb6834', 's'),
     ('harmonic', 'Harmonic', '#1baf7a', 'D'),
 ]
 FILES = {'max_time_rms': 'max_time_point_check_median_thinned_clean_paired.json',

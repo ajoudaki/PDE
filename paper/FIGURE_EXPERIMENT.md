@@ -1,6 +1,6 @@
 # Experimental figure edition
 
-For the current Harmonic/Logarithmic experiments and portable figure bundle,
+For the Harmonic/seeded-decoder experiments and portable figure bundle,
 see [scripts/README.md](scripts/README.md) and the empirical appendix in
 [main.pdf](main.pdf). The fresh campaign ran on two RTX 3090 GPUs; the
 historical no-training statements below describe only the older edition.

@@ -1,7 +1,7 @@
 # Explainer figures
 
 Interactive sketches of the three compression mechanisms (Legendre, Harmonic,
-Logarithmic). Open `index.html` in a browser for a grid of clickable thumbnails. Every
+Taylor). Open `index.html` in a browser for a grid of clickable thumbnails. Every
 page in `html/` is self-contained (inline data, no network access).
 
 To add an explainer, put its widget code in `fragments/figNN_name.frag` (optionally
@@ -34,7 +34,7 @@ Large arrays live outside Git in `data/generated/explainer_figures_20261009/`
 | 16c The clock folds an infinite run into a finite interval (appendix) | Legendre | Real: dense run to t = 112 |
 | 17c Only like pairs with like | Legendre | Real normalized moments of three links; identity check against the direct integral |
 | 18b Pick and weigh, don't mix | Selection | Illustrative, twelve neurons |
-| 19c The price of random neurons | Selection (Harmonic, Logarithmic) | Illustrative 2-D source space |
+| 19c The price of random neurons | Selection (Harmonic, Taylor) | Illustrative 2-D source space |
 | 20c Every petal is spelled with the same few shapes | Harmonic, circle | Exact Fourier coefficients of tanh ridges |
 | 21c A real neuron, spelled in spherical harmonics | Harmonic, sphere | Real: network trained on a degree-3/5 target |
 

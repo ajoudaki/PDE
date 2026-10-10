@@ -2,7 +2,7 @@
 """Capture trajectories and validate response compression in one executable.
 
 ``unified-case`` compares self-contained Legendre, geometric Harmonic and
-rank-safe finite-panel Logarithmic models, with moving-state-matched small
+rank-safe finite-panel Taylor models, with moving-state-matched small
 dense/low-rank and exact Euler frozen-NTK controls. ``unified-check`` runs tiny
 algebra oracles; ``compression-sweep --protocol unified`` executes a frozen
 manifest on two GPUs; ``unified-plot`` renders its figures. Practical spectral
@@ -6419,18 +6419,18 @@ def cubic_budget_main(argv):
 
 @torch.no_grad()
 def sphere_points_main(argv):
-    """Bounded sphere3 additions, reusing the saved dense and Logarithmic runs."""
+    """Bounded sphere3 additions, reusing the saved dense and Taylor runs."""
     from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
     parser = argparse.ArgumentParser(description=sphere_points_main.__doc__)
     parser.add_argument('--reference', type=Path, required=True)
     parser.add_argument('--logarithmic', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--devices', nargs=2, default=['cuda:0', 'cuda:1'])
-    parser.add_argument('--tradeoff', action='store_true', help='Three dense sizes, Legendre orders, and Logarithmic budgets')
+    parser.add_argument('--tradeoff', action='store_true', help='Three dense sizes, Legendre orders, and Taylor budgets')
     parser.add_argument('--seed-check', action='store_true', help='Two more width-1446 dense seeds and one NTK fit')
     parser.add_argument('--harmonic-curve', action='store_true', help='Three smaller Harmonic budgets')
     parser.add_argument('--compression-larger', action='store_true',
-                        help='Two larger learned-state budgets each for Harmonic and Logarithmic')
+                        help='Two larger learned-state budgets each for Harmonic and Taylor')
     parser.add_argument('--lowrank-curve', action='store_true', help='Width-4096 low-rank adapters at ranks 1, 4, 8, 20')
     parser.add_argument('--lowrank-legendre', action='store_true', help='Match Legendre ranks: reuse rank8, add ranks16/24/96')
     parser.add_argument('--dense-smaller', action='store_true', help='Two dense sizes within half/quarter of width1446 parameter count')
@@ -6719,7 +6719,7 @@ def sphere_points_main(argv):
                             sources, source_info = unified_harmonic_sources(dense, inputs, labels, 32., spec['rank'], 601)
                     else:
                         if log_sources is None:
-                            raise RuntimeError('Shared Logarithmic source setup failed')
+                            raise RuntimeError('Shared Taylor source setup failed')
                         sources = log_sources['new'][spec['rank']]
                         source_info = dict(shared_source='logarithmic_sources', source_seed=501,
                             source_contract='full-horizon rollout, declared passive inputs, labels withheld')
@@ -6998,7 +6998,7 @@ def sphere_points_plot_main(argv):
         if not points:
             continue
         target = axis
-        label = 'Low rank' if family == 'lowrank' else family.capitalize()
+        label = 'Low rank' if family == 'lowrank' else 'Taylor' if family == 'logarithmic' else family.capitalize()
         target.plot([point['moving'] for _, point in points], [point[metric] for _, point in points],
             color=color, marker=marker, ms=6, lw=1.2, label=label, zorder=3)
         for name, point in points:
@@ -7070,7 +7070,7 @@ def sphere_points_plot_main(argv):
             amount = (str(max(fixed)) if max(fixed) < 10000 else
                       f'{min(fixed)/1e6:.3f}–{max(fixed)/1e6:.3f}M'
                       if round(min(fixed)/1e6, 3) != round(max(fixed)/1e6, 3) else f'{max(fixed)/1e6:.3f}M')
-            fixed_notes.append(f'{"Low-rank" if family == "lowrank" else family.capitalize()} {amount}')
+            fixed_notes.append(f'{"Low-rank" if family == "lowrank" else "Taylor" if family == "logarithmic" else family.capitalize()} {amount}')
     caption += '\nAdditional fixed scalars: ' + '; '.join(fixed_notes) + '.'
     if 'ntk' in displayed:
         caption += ('\nFrozen features: 4,096 trained readout weights plus 16,789,504 frozen backbone weights; equivalent dual-Euler predictions.'
@@ -7094,7 +7094,7 @@ def sphere_points_plot_main(argv):
         for family, field in order_fields.items():
             values = sorted(model_info[name][field] for name in displayed if name.split('_')[0] == family)
             if values:
-                detail.append(f'{"Low-rank control" if family == "lowrank" else family.capitalize()} '
+                detail.append(f'{"Low-rank control" if family == "lowrank" else "Taylor" if family == "logarithmic" else family.capitalize()} '
                               f'{"widths" if "width" in field else field+"s"}: '+', '.join(map(str, values))+'.')
         if args.independent_references:
             detail += [f'Dense widths {seeded_widths} pair stored seeds 10601,10602,10603 with large references '
@@ -7127,14 +7127,14 @@ def sphere_points_plot_main(argv):
             values = [point['fixed'] for name, point in displayed.items() if name.split('_')[0] == family]
             if values:
                 count = str(min(values)) if min(values) == max(values) else f'{min(values)}--{max(values)}'
-                fixed_details.append(f'{"low rank" if family == "lowrank" else family} {count}')
+                fixed_details.append(f'{"low rank" if family == "lowrank" else "Taylor" if family == "logarithmic" else family} {count}')
         detail.append('Additional fixed scalar counts: '+', '.join(fixed_details)+'.')
         if matched_orders is not None:
             detail.append('Low-rank hidden-increment capacities match Legendre via rank = 8 times order; '
                           'their actual learned-state counts are plotted.')
-        detail += ['Harmonic and Logarithmic use empirical full-horizon dense-rollout initialization, not the certified '
+        detail += ['Harmonic and Taylor use empirical full-horizon dense-rollout initialization, not the certified '
                    'initialization-jet compiler. Harmonic uses 72 fixed sphere quadrature nodes independent of the scored inputs; '
-                   'Logarithmic setup sees the test inputs, never their labels.',
+                   'Taylor setup sees the test inputs, never their labels.',
                    'These are finite-step measurements without a new per-budget numerical refinement certificate.']
         caption = '\n'.join(detail)
         (destination/(figure_name+'.caption.txt')).write_text(caption+'\n')
@@ -7454,7 +7454,7 @@ def unified_plot_main(argv):
     plt.rcParams.update({'font.size': 9, 'axes.titlesize': 10, 'axes.labelsize': 9,
                          'axes.spines.top': False, 'axes.spines.right': False,
                          'pdf.fonttype': 42, 'savefig.facecolor': 'white'})
-    method_handles = [Line2D([], [], color=colors[name], lw=2, label=name.capitalize())
+    method_handles = [Line2D([], [], color=colors[name], lw=2, label='Taylor' if name == 'logarithmic' else name.capitalize())
                       for name in methods]
     figure, axes = plt.subplots(2, 2, figsize=(10.3, 6.6), constrained_layout=False)
     for axis, dataset, label in zip(axes.flat, datasets, dataset_labels):
@@ -7541,7 +7541,7 @@ def unified_plot_main(argv):
             if column == 0:
                 axis.set_ylabel('Maximum-time RMS / dense-pair RMS' if row == 0 else 'Final training MSE')
             if row == 0:
-                axis.set_title(method.capitalize(), color=colors[method], loc='left')
+                axis.set_title('Taylor' if method == 'logarithmic' else method.capitalize(), color=colors[method], loc='left')
     role_handles = [Line2D([], [], color='#555D66', ls=style, marker=marker, ms=4,
                           label=role_labels[role]) for role, style, marker in roles]
     figure.legend(handles=role_handles, loc='upper center', ncol=4, frameon=False,
@@ -7581,7 +7581,7 @@ def unified_plot_main(argv):
     figure.text(.5, .025, 'Solid: total retained model; dashed: moving state. '
                  'Fixed matrices and metrics are counted.\n'
                  'Common data, source construction, and workspace are excluded. '
-                 'Harmonic/Logarithmic storage curves overlap in d=2,3.',
+                 'Harmonic/Taylor storage curves overlap in d=2,3.',
                  ha='center', va='bottom', fontsize=8)
     figure.subplots_adjust(top=.91, bottom=.15, hspace=.42, wspace=.30)
     save(figure, 'unified_state_storage')
@@ -7635,7 +7635,7 @@ def experiment_scaling_plot(argv):
     args = parser.parse_args(argv)
     roots = [path.resolve() for path in args.runs]
     families = dict(legendre=('Legendre', '#d18624'), harmonic=('Harmonic', '#297c8e'),
-                    logarithmic=('Logarithmic', '#9768b0'))
+                    logarithmic=('Taylor', '#9768b0'))
     families = {key: value for key, value in families.items() if key in args.families}
 
     def require(condition, message):
@@ -8012,7 +8012,7 @@ def experiment_scaling_plot(argv):
         f'errors after the initial time; exceedance at {args.factor:g}x is also reported separately. Zero benchmarks '
         'after initialization are counted separately. Moving, fixed and total counts refer to retained model '
         'coordinates, excluding common data, integrator workspace and offline source construction. '
-        'Logarithmic setup uses query inputs but not their labels. Candidate selection uses these query errors; '
+        'Taylor setup uses query inputs but not their labels. Candidate selection uses these query errors; '
         f'there is no independent post-selection test. {len(roots)} selected or tuned width points are not asymptotic proof. '
         'Finite recorded Euler trajectories are not a gradient-flow refinement certificate.')
     if probe_paths:
@@ -8210,7 +8210,7 @@ def experiment_plot(config):
     frozen_style = config.get('methods', {}).get('oblivious', {}).get('frozen_features', {}).get('plot', 'dashed')
     require(frozen_style in ('dashed', 'point'), 'Invalid frozen-features plot style')
     families = dict(dense=('Dense', '#40566c'), legendre=('Legendre', '#d18624'),
-                    harmonic=('Harmonic', '#297c8e'), logarithmic=('Logarithmic', '#9768b0'),
+                    harmonic=('Harmonic', '#297c8e'), logarithmic=('Taylor', '#9768b0'),
                     low_rank=('Low rank', '#648d4f'), frozen_features=('Frozen features', '#777777'))
     methods = options.get('methods', list(families))
     run_paths = options.get('runs', [])
@@ -8729,7 +8729,7 @@ def _experiment_validate(config):
     if group['harmonic']['spatial_degree'] < 0:
         raise ValueError('Harmonic spatial_degree must be nonnegative')
     if group['logarithmic']['budgets'] and not group['logarithmic']['test_inputs_at_setup']:
-        raise ValueError('The current Logarithmic construction requires declared test inputs (never labels)')
+        raise ValueError('The current Taylor construction requires declared test inputs (never labels)')
     for name in ('harmonic', 'logarithmic'):
         method = group[name]
         budgets = [(v['width'], v['source_rank']) for v in method['budgets']]
@@ -8921,7 +8921,7 @@ def feedback_scope_main(argv):
         plan = dict(config_sha256=config_hash, source_sha256=sha(source), cases=[],
             scope='One seed and dense pair; fixed budgets; no rescue selections or crossing fit. '
                   'The ambient dimension is 10 but the toy target uses only its first three coordinates. '
-                  'Extra path inputs and all query labels are withheld from Logarithmic source setup.')
+                  'Extra path inputs and all query labels are withheld from Taylor source setup.')
         for panel_size in config['panel_sizes']:
             case = _experiment_merge(base, dict(dataset=dict(test_samples=panel_size),
                 execution=dict(output=str(out/f'p{panel_size}'))))
@@ -9663,7 +9663,7 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                          +('fresh train/query split of a fixed pool' if config['dataset'].get('resplit_pool') else 'fixed dataset')),
             accuracy='finite held-out RMS at common recorded Euler times; no GF refinement certificate',
             source_setup='full-horizon RK4 rollouts, empirical source-rank truncation, not initialization jets',
-            queries='Logarithmic setup sees declared query inputs, never labels or the separate extra query panel',
+            queries='Taylor setup sees declared query inputs, never labels or the separate extra query panel',
             storage='retained model coordinates, common data/integrator/temporary setup excluded'))
     if config['dataset'].get('resplit_pool'):
         report['seeds']['dataset_split'] = _experiment_seed(seed, 'dataset_split')
@@ -11046,7 +11046,7 @@ def appendix_saved_plot(argv):
     plot_source_hash = sha(Path(__file__).read_bytes())
     styles = {'legendre': ('Legendre, q=4', '#2a78d6', 'o'),
               'harmonic': ('Harmonic, width 512', '#1b9970', 'D'),
-              'logarithmic': ('Logarithmic, width 512', '#eb6834', 's')}
+              'logarithmic': ('Taylor, width 512', '#eb6834', 's')}
     records, scope, ratios, costs = [], [], [], []
 
     def require(condition, message):
@@ -11152,7 +11152,7 @@ def appendix_saved_plot(argv):
             row = dict(task=task['name'], title=task['title'], width=width, model=log_name,
                        nearest_input_set='training inputs plus declared query inputs; labels unused in distance',
                        declared_input_count=len(declared), distance_radians=distance.tolist(), models={})
-            for name, label in ((log_name, 'Logarithmic'), (iid, 'Independent dense')):
+            for name, label in ((log_name, 'Taylor'), (iid, 'Independent dense')):
                 declared_error = np.abs(arrays[name][-1, train_count:].astype(float)
                                         -arrays['reference'][-1, train_count:].astype(float))
                 extra_error = np.abs(arrays['extra_'+name][-1].astype(float)
@@ -11235,7 +11235,7 @@ def appendix_saved_plot(argv):
         strip.set_ylim(bottom=0)
         ax.legend(frameon=False, fontsize=7, loc='upper left')
     fig.subplots_adjust(bottom=.19, top=.81)
-    fig.suptitle('Logarithmic width 512, dense width 4096 · observational scope comparison', y=.99, fontsize=10)
+    fig.suptitle('Taylor width 512, dense width 4096 · observational scope comparison', y=.99, fontsize=10)
     save(fig, 'appendix_query_distance')
 
     fig, axes = plt.subplots(1, 2, figsize=(8, 3.5))
@@ -11375,7 +11375,7 @@ def appendix_saved_plot(argv):
     save(fig, 'appendix_response_history_spectra')
 
     captions = [
-        'Scope. At dense width n=4096 and largest saved Logarithmic width 512 (source rank 37 on '
+        'Scope. At dense width n=4096 and largest saved Taylor width 512 (source rank 37 on '
         'circle, 32 on digits), each point is |f_model(T,x)-f_dense(T,x)| at T=32. The extra-input '
         'angle is min_z arccos(<x,z>/(||x|| ||z||)), where z ranges over the 8 training and 30 '
         'declared query inputs supplied to setup. Query labels do not enter setup or distance. '
@@ -11398,7 +11398,7 @@ def appendix_saved_plot(argv):
         'inputs. Training-loss checks and final host export are separate fields in metrics. '
         'Zero source time means no offline source stage. Each source setup was shared across '
         'three compact budgets; the displayed full setup is not an apportioned or isolated '
-        'single-model benchmark. Logarithmic setup includes its disposable precursor and dense '
+        'single-model benchmark. Taylor setup includes its disposable precursor and dense '
         'full-horizon rollout. Model construction excludes the shared source stage. Dense uses '
         'the reference run. Dense and compression update kernels differ; recorded timings do '
         'not establish optimized algorithmic speedups. Tables convert retained scalar counts to '
@@ -11409,7 +11409,7 @@ def appendix_saved_plot(argv):
         'Arithmetic counts. One multiply-accumulate is one MAC. For two hidden layers, training '
         'batch m, input dimension d, dense width n, compact width k and Legendre order q, the '
         'leading product counts per training RHS evaluation are: Dense, 3 n^2 m+2 n d m+O(n m); '
-        'Legendre, 2 n^2 m+8 q n m^2+2 n d m+O(q n m+n m); Harmonic and Logarithmic, '
+        'Legendre, 2 n^2 m+8 q n m^2+2 n d m+O(q n m+n m); Harmonic and Taylor, '
         '10 k^2 m+2 k d m+5 k m^2+d m^2+O(k^2+k m+m^3). The table evaluates the displayed '
         'polynomial terms in millions of MACs (10^6), with m=8 and q=4. The compact counts '
         'include retained metric products and duplicated training-Gram products; the additional '
@@ -11627,12 +11627,12 @@ def appendix_sweep_plot(argv):
                       for case in case_names]
             offset = (j-.5)*.08 if len(families) > 1 else 0
             ax.plot(np.arange(len(labels))+offset, values, color=colors[family], marker='o' if j == 0 else 'D',
-                    markersize=5, linewidth=1.3, label=family.capitalize()+' learned')
+                    markersize=5, linewidth=1.3, label=('Taylor' if family == 'logarithmic' else family.capitalize())+' learned')
             totals = [records[case]['minimum_tested_passing'].get(family, {}).get('total_scalars', np.nan)
                       for case in case_names]
             ax.plot(np.arange(len(labels))+offset, totals, color=colors[family], linestyle='--',
                     marker='o' if j == 0 else 'D', markersize=3, linewidth=.9,
-                    label=family.capitalize()+' total')
+                    label=('Taylor' if family == 'logarithmic' else family.capitalize())+' total')
             for i, case in enumerate(case_names):
                 candidates = [candidate for candidate in records[case]['candidates'] if candidate['family'] == family]
                 if np.isfinite(values[i]):
@@ -11739,7 +11739,7 @@ def appendix_sweep_plot(argv):
         'only three coordinates; this sweep does not demonstrate increasing intrinsic target '
         'complexity. The architecture panel changes one baseline setting (two tanh hidden '
         'layers, eight training points): hidden depth 3, hidden depth 4, SiLU, or 16 training '
-        'points. All use Logarithmic width 512 and source rank 37. The two displayed ratios '
+        'points. All use Taylor width 512 and source rank 37. The two displayed ratios '
         'use their respective endpoint and maximum-recorded dense-pair denominators. A small '
         'prediction ratio does not imply successful training: dense and compact final training '
         'MSEs are retained in the accompanying metrics, with the horizon unchanged.',
@@ -11787,7 +11787,7 @@ def paper_draft_plot(argv):
     destination.mkdir(parents=True, exist_ok=True)
     families = dict(legendre=('Legendre', '#2a78d6', 'o'),
                     harmonic=('Harmonic', '#1b9970', 'D'),
-                    logarithmic=('Logarithmic', '#eb6834', 's'))
+                    logarithmic=('Taylor', '#eb6834', 's'))
     control_styles = dict(dense=('Small dense', '#6e6e68', '^'),
                           low_rank=('Low rank', '#9274a5', 'v'),
                           frozen_features=('Frozen features', '#768da4', '*'))
@@ -12219,7 +12219,7 @@ def paper_draft_plot(argv):
         'The ≤ annotation marks a passing lowest tested budget: the crossing is left-censored '
         'by the grid, and smaller untested budgets are unresolved. No-tested-pass widths are '
         'explicitly labelled; their crossing remains open. Lines connect tested widths; no '
-        'crossing interpolation or growth exponent is fitted. Harmonic and Logarithmic markers '
+        'crossing interpolation or growth exponent is fitted. Harmonic and Taylor markers '
         'are displaced horizontally by -1.5% and +1.5% to separate overlaps; underlying widths '
         'are identical. This is a tested-budget minimum, not a global minimum or an asymptotic '
         'scaling result. The dotted Dense formula line counts '
@@ -12227,9 +12227,9 @@ def paper_draft_plot(argv):
         'Figure 3. Endpoint prediction RMS to the coupled dense reference versus learned-state count '
         '(top) and total retained scalar count, including fixed state (bottom), at the stated fixed '
         'width. Hollow markers retain their query-scope meaning and do not encode storage. '
-        'Filled compression markers use declared query inputs. Logarithmic '
+        'Filled compression markers use declared query inputs. Taylor '
         'setup sees these inputs but never their labels; Harmonic setup uses input geometry independently '
-        'of scored query inputs. Hollow Logarithmic markers use entirely undeclared inputs, checked '
+        'of scored query inputs. Hollow Taylor markers use entirely undeclared inputs, checked '
         'disjoint from both the training and declared-query panels, and their own dense reference '
         'predictions. The thin undeclared dense line uses the same extra panel. The independent-dense '
         'line is the observed RMS, without the selection multiplier. Small-dense and low-rank controls '
@@ -12243,7 +12243,7 @@ def paper_draft_plot(argv):
         'minimizing max{E(T)/E_iid(T), max_t E(t)/max_t E_iid(t)}; it is a failed candidate. '
         'One small-dense or low-rank control '
         'is chosen nearest in logarithmic learned-state '
-        'distance to the selected Logarithmic model, or the last available compression. The independent '
+        'distance to the selected Taylor model, or the last available compression. The independent '
         'dense-pair reference is the horizontal ratio 1. Initialization t=0 and every zero '
         'dense-pair denominator are omitted; zero ratios are omitted on logarithmic axes. '
         'The Figure 2 maximum criterion is a ratio of separate recorded maxima, not the maximum '
@@ -12326,7 +12326,7 @@ def restored_paper_plot(argv):
     plt.rcParams.update({'font.size': 9, 'axes.spines.top': False, 'axes.spines.right': False,
                          'pdf.fonttype': 42, 'savefig.facecolor': 'white'})
     styles = dict(legendre=('Legendre', '#4477AA', 's'), harmonic=('Harmonic', '#EE7733', '^'),
-                  logarithmic=('Logarithmic', '#228833', 'o'), dense=('Dense', '#666666', 'D'),
+                  logarithmic=('Taylor', '#228833', 'o'), dense=('Dense', '#666666', 'D'),
                   low_rank=('Low rank', '#CC6677', 'v'), frozen_features=('Frozen features', '#AA4499', '*'))
 
     def finish(figure, axes, name):
@@ -12393,7 +12393,7 @@ def restored_paper_plot(argv):
                           max(row['dense_learned'] for row in rows)*1.8)
             missing = [str(row['width']) for row in rows if 'harmonic' not in row['selected']]
             note = ('Harmonic: no pass at '+', '.join(missing) if task == 'circle' and missing else
-                    '≤  Logarithmic: lower budgets inconclusive' if task == 'digits' else '')
+                    '≤  Taylor: lower budgets inconclusive' if task == 'digits' else '')
             axis.text(.03, .94, note,
                       transform=axis.transAxes, fontsize=7, va='top', color='#555555')
     finish(fig, axes, 'figure2_storage')
@@ -12491,16 +12491,16 @@ def restored_paper_plot(argv):
         'Top: learned scalars; bottom: learned plus fixed retained scalars. The dense formula is '
         '(L−1)n²+n(d+1), with L=2 hidden layers and input dimension d=2 (circle) or 64 (images). '
         'Vertical bars span a measured failing lower candidate and the selected passing candidate; '
-        'they are local tested brackets, not confidence intervals or global minima. Circle Harmonic/Logarithmic '
+        'they are local tested brackets, not confidence intervals or global minima. Circle Harmonic/Taylor '
         'passing width brackets have upper/lower ratio ≤1.2. Harmonic at n=8192 is nonmonotone across budgets; '
         'no Harmonic pass is available at n=16384, and all failed/incomplete runs remain recorded. '
         'Legendre order 1 is the lowest allowed order; higher-order brackets remain discrete.',
         'Circle points reuse the original adaptive six-width measurements (n=512–16384, reference seeds '
         '701–706, Euler step 1/640). Dashed curves are descriptive fits of learned storage '
         'C(log n)^p to measured passing budgets only: Harmonic p=3.50871 from five widths, '
-        'Logarithmic p=5.19661 from six. They are selected-budget summaries, not identified asymptotic laws; '
+        'Taylor p=5.19661 from six. They are selected-budget summaries, not identified asymptotic laws; '
         'no interpolated budget is a measured model. Image points reuse dense seeds 901–903 at n=1024,2048,4096 '
-        'and Euler step 0.00625. Refinement tried Logarithmic widths 128,192,224 with source ranks 5,10,13 '
+        'and Euler step 0.00625. Refinement tried Taylor widths 128,192,224 with source ranks 5,10,13 '
         'using prefixes of each original maximum-rank source; every new constructor failed condition cap 16 '
         'before training. These are inconclusive gates, not accuracy failures. The passing width-256/rank-8 '
         'models retain 82,184 learned scalars each; ≤ marks upper bounds on unresolved minima. '
@@ -12508,14 +12508,14 @@ def restored_paper_plot(argv):
         'Harmonic was outside this image pilot scope.',
         'Figure 3. Endpoint declared-query RMS against the coupled dense width-4096 reference versus '
         'learned scalars (top) and total retained scalars (bottom). The 3D-sphere panel restores exactly the '
-        'saved screenshot trajectory chain: Legendre orders 1,2,3,12; Harmonic and Logarithmic widths '
+        'saved screenshot trajectory chain: Legendre orders 1,2,3,12; Harmonic and Taylor widths '
         '148,210,299,424,600,850 (the last two source ranks are 44,65); low-rank capacities 8,16,24,96; '
         'the thinned small-dense controls; and frozen features. Sphere Euler step remains 1/640, '
         'reference seed 601. Small-dense medians and observed min–max bars use seeds 10601,10602,10603 '
         'against that SAME fixed reference and data; the width-4096 dense pair is a single pair. '
         'All compression points remain single saved runs: these are not three independently rebuilt '
         'compression repetitions, and no new higher-order training was performed. The image panel retains '
-        'all saved width-4096 raw-image points and controls, including hollow Logarithmic markers for inputs '
+        'all saved width-4096 raw-image points and controls, including hollow Taylor markers for inputs '
         'entirely undeclared at setup; their dense comparison uses the same undeclared panel. '
         'Hollows encode query scope, not storage. Dotted dense-pair lines show actual RMS, without the 3× '
         'selection multiplier. Dashed frozen-feature lines retain their actual errors; markers count the '
@@ -12524,8 +12524,8 @@ def restored_paper_plot(argv):
         'cubic_log_comparison_20261008/sphere3_compression_larger and its recorded dependencies; '
         'paper_figure_drafts_20261009/digits17_n4096 via the hash-checked feedback figure metrics; '
         'paper_appendix_pilots_20261009/restored/digits_budget for the bounded image refinement. '
-        'All tasks use eight training and thirty declared query inputs. Harmonic/Logarithmic setup uses '
-        'offline full-horizon dense-rollout source construction; Logarithmic setup sees declared inputs '
+        'All tasks use eight training and thirty declared query inputs. Harmonic/Taylor setup uses '
+        'offline full-horizon dense-rollout source construction; Taylor setup sees declared inputs '
         'but never query labels. Circle/images use RK4 source step 0.125 with float64 coefficient setup. '
         'Selection uses declared query errors, not an independent post-selection test. Retained storage '
         'excludes common data, solver workspace and temporary offline source construction. These are '
@@ -12748,7 +12748,7 @@ def budget_seed_plot(argv):
                       help='Fit mean and median learned storage to C*n^p when all >=3 widths are complete')
     args = parser.parse_args(argv)
     roots = [root.resolve() for root in args.runs]
-    family, family_label = args.family, args.family.capitalize()
+    family, family_label = args.family, 'Taylor' if args.family == 'logarithmic' else args.family.capitalize()
 
     def require(condition, message):
         if not condition:
@@ -13194,10 +13194,10 @@ def trajectory_budget_plot(argv):
     parser.add_argument('--metrics', nargs=2, type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--fit-polylog', action='store_true',
-                        help='Overlay descriptive C*(log n)^a fits to Logarithmic mean/median storage')
+                        help='Overlay descriptive C*(log n)^a fits to Taylor mean/median storage')
     parser.add_argument('--compare-exponents', nargs='+', type=float, default=[],
                         help='Overlay fixed polylog exponents with independently fitted prefactors')
-    parser.add_argument('--hide-legendre', action='store_true', help='Show only Logarithmic storage')
+    parser.add_argument('--hide-legendre', action='store_true', help='Show only Taylor storage')
     parser.add_argument('--y-scale', choices=('log', 'linear'), default='log')
     args = parser.parse_args(argv)
     if args.compare_exponents and (not args.fit_polylog
@@ -13210,7 +13210,7 @@ def trajectory_budget_plot(argv):
 
     inputs = [json.loads(path.read_text()) for path in args.metrics]
     require({item['family'] for item in inputs} == {'legendre', 'logarithmic'},
-            'Supply one Legendre and one Logarithmic audit')
+            'Supply one Legendre and one Taylor audit')
     audits = {item['family']: item for item in inputs}
     indexed = {family: {(row['width'], row['seed']): row for row in audit['individuals']}
                for family, audit in audits.items()}
@@ -13234,7 +13234,7 @@ def trajectory_budget_plot(argv):
             'Expected Digits 1 vs 7, eight training and thirty query inputs, 65 times')
     require(all(order == dict(time_degree=8, source_max_rank=32)
                 for order in right['source_orders_by_width'].values()),
-            'Expected the unchanged Logarithmic degree-eight, rank-32 source cap')
+            'Expected the unchanged Taylor degree-eight, rank-32 source cap')
     for key in sorted(keys):
         a, b = indexed['legendre'][key], indexed['logarithmic'][key]
         require(all(field in a and field in b and a[field] == b[field] for field in
@@ -13382,12 +13382,12 @@ def trajectory_budget_plot(argv):
         'maximum RMS. There is no separate endpoint test. Solid curves show arithmetic mean and median '
         'of selected learned storage; faint curves show individual seeds. These are smallest tested '
         'passing states, not new searches or certified global minima. Fixed storage and offline source '
-        'costs are additional. Logarithmic sources retain temporal degree 8 and maximum rank 32. '
+        'costs are additional. Taylor sources retain temporal degree 8 and maximum rank 32. '
         'No model was retrained. The separately recorded panel diagnostic '
         'compares maximum absolute error over all 65 times and 38 training-plus-query inputs to the '
         'same dense-pair maximum; its independently normalized criterion is not equivalent to RMS. '
         'Neither recorded-grid criterion certifies continuous time or unseen inputs.\n')
-    caption += ('Dashed curves fit C*(log n)^a to Logarithmic storage by unweighted least squares '
+    caption += ('Dashed curves fit C*(log n)^a to Taylor storage by unweighted least squares '
         'in log storage versus log log n, over all six widths. Fits are descriptive, not asymptotic '
         'or minimum-budget guarantees. ' + '; '.join(
             f'{statistic}: a={fit["exponent"]:.6f}, log-space R^2={fit["log_space_r2"]:.6f}'
@@ -13444,7 +13444,7 @@ def trajectory_budget_plot(argv):
                           color=color, alpha=.20, linewidth=.9)
             axis.plot(widths, [group[statistic] if group[statistic] is not None else np.nan
                 for group in groups['selected'][family]], color=color, marker=marker,
-                linewidth=2, markersize=5, label=family.capitalize())
+                linewidth=2, markersize=5, label='Taylor' if family == 'logarithmic' else family.capitalize())
         if fits:
             fit = fits[statistic]
             grid = np.geomspace(widths[0], widths[-1], 250)
@@ -14066,7 +14066,7 @@ def trajectory_task_plot(argv):
     from matplotlib.ticker import NullFormatter
     parser = argparse.ArgumentParser(description=trajectory_task_plot.__doc__)
     parser.add_argument('--toy-metrics', nargs=3, type=Path, required=True,
-                        metavar=('LEGENDRE', 'HARMONIC', 'LOGARITHMIC'))
+                        metavar=('LEGENDRE', 'HARMONIC', 'TAYLOR'))
     parser.add_argument('--digits-metrics', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args(argv)
@@ -14080,7 +14080,7 @@ def trajectory_task_plot(argv):
     widths = digits['widths']
     rows, pairs = [], {}
     for family, audit in zip(('legendre', 'harmonic', 'logarithmic'), audits):
-        require(audit.get('family', 'harmonic') == family, 'Toy audits must be Legendre, Harmonic, Logarithmic')
+        require(audit.get('family', 'harmonic') == family, 'Toy audits must be Legendre, Harmonic, Taylor')
         common = audit['common']
         require(common['dataset']['name'] == 'sphere' and common['dataset']['dimension'] == 2
                 and common['dataset']['train_samples'] == 8 and common['dataset']['test_samples'] == 30,
@@ -14153,7 +14153,7 @@ def trajectory_task_plot(argv):
                 continue
             values = np.array([group['mean'] for group in groups[family]])
             axis.plot(widths, values, color=color, marker=marker, linewidth=2,
-                      markersize=5, label=family.capitalize())
+                      markersize=5, label='Taylor' if family == 'logarithmic' else family.capitalize())
             if family != 'legendre':
                 x, y = np.log(np.log(np.asarray(widths, dtype=float))), np.log(values)
                 exponent, intercept = np.polyfit(x, y, 1)
@@ -14163,7 +14163,7 @@ def trajectory_task_plot(argv):
                 grid = np.geomspace(widths[0], widths[-1], 250)
                 axis.plot(grid, fit['coefficient']*np.log(grid)**fit['exponent'],
                           color=color if family == 'harmonic' else '#333333', linestyle='--', linewidth=1.5,
-                          label=rf'{family.capitalize()} fit: $(\log n)^{{{exponent:.2f}}}$')
+                          label=rf'{"Taylor" if family == "logarithmic" else family.capitalize()} fit: $(\log n)^{{{exponent:.2f}}}$')
         axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=title)
         axis.set_xticks(widths, [str(n) for n in widths])
         axis.xaxis.set_minor_formatter(NullFormatter())
@@ -14186,7 +14186,7 @@ def trajectory_task_plot(argv):
         'included. Dashed curves are unweighted log-space fits to C*(log n)^a, not asymptotic or '
         'optimal-budget guarantees. Fixed storage and full-horizon empirical rollout setup are '
         'additional; no new training or time-step refinement. Circle sources retain their original '
-        'width-dependent Logarithmic rank caps and fixed Harmonic spatial/source settings.\n')
+        'width-dependent Taylor rank caps and fixed Harmonic spatial/source settings.\n')
     (args.out/'captions.txt').write_text(caption)
     save_json(args.out/'metrics.json', dict(scope=caption.strip(), widths=widths,
         toy_seeds=toy_seeds, digits_seeds=digits['seeds'], toy_individuals=rows,
@@ -14464,7 +14464,7 @@ def figure4_paired_plot(argv):
 
 
 def budget_comparison_plot(argv):
-    """Compare paired six-width, three-seed Legendre and Logarithmic audits."""
+    """Compare paired six-width, three-seed Legendre and Taylor audits."""
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -14480,7 +14480,7 @@ def budget_comparison_plot(argv):
 
     inputs = [json.loads(path.read_text()) for path in args.metrics]
     require({item['family'] for item in inputs} == {'legendre', 'logarithmic'},
-            'Supply one Legendre and one Logarithmic metrics file')
+            'Supply one Legendre and one Taylor metrics file')
     audits = {item['family']: item for item in inputs}
     indexed = {family: {(row['width'], row['seed']): row for row in audit['individuals']}
                for family, audit in audits.items()}
@@ -14524,7 +14524,7 @@ def budget_comparison_plot(argv):
         'meet their own 1x dense-pair benchmarks. Solid curves summarize learned storage; faint curves show '
         'individual smallest tested passing witnesses. Filled markers require three resolved searches; '
         'hollow markers summarize three passing witnesses with unresolved lower budgets. Groups missing a '
-        'passing witness have no mean or median. Legendre uses exact integer minima; Logarithmic uses 20% '
+        'passing witness have no mean or median. Legendre uses exact integer minima; Taylor uses 20% '
         'local width brackets, not global minima. Fixed retained storage and offline source costs are additional. '
         'Dashed fits, when available, are descriptive and require all six groups resolved.\n')
     figure, axes = plt.subplots(1, 2, figsize=(11.2, 4.8), sharex=True, sharey=True)
@@ -14535,7 +14535,7 @@ def budget_comparison_plot(argv):
                     if indexed[family][n, seed]['selected'] else np.nan for n in widths],
                     color=color, alpha=.18, linewidth=.9)
             values = [group[statistic] if group[statistic] is not None else np.nan for group in groups[family]]
-            axis.plot(widths, values, color=color, linewidth=2, label=family.capitalize())
+            axis.plot(widths, values, color=color, linewidth=2, label='Taylor' if family == 'logarithmic' else family.capitalize())
             for complete in (True, False):
                 points = [group for group in groups[family]
                           if group['complete'] == complete and group[statistic] is not None]
@@ -14550,7 +14550,7 @@ def budget_comparison_plot(argv):
                 coordinate = grid if family == 'legendre' else np.log(grid)
                 axis.plot(grid, fit['C']*coordinate**fit['p'], '--', color=color, alpha=.75, linewidth=1.2,
                           label=(rf"Legendre fit: $n^{{{fit['p']:.3f}}}$" if family == 'legendre'
-                                 else rf"Logarithmic fit: $(\log n)^{{{fit['p']:.3f}}}$"))
+                                 else rf"Taylor fit: $(\log n)^{{{fit['p']:.3f}}}$"))
         axis.set(xscale='log', yscale='log', xlabel='Dense width n', title=statistic.capitalize())
         axis.set_xticks(widths, [str(n) for n in widths])
         axis.xaxis.set_minor_formatter(NullFormatter())
@@ -14560,7 +14560,7 @@ def budget_comparison_plot(argv):
     axes[0].set_ylabel('Learned scalars')
     dataset = left['common']['dataset']
     title = (f"Digits {dataset['digit_pair'][0]} vs {dataset['digit_pair'][1]}"
-             if dataset['name'] == 'digits' else 'Legendre and Logarithmic')
+             if dataset['name'] == 'digits' else 'Legendre and Taylor')
     figure.suptitle(title+': three seeds')
     figure.text(.02, .02, 'Both 1x RMS criteria; fixed storage excluded. Hollow markers: unresolved lower budgets.', fontsize=8)
     figure.tight_layout(rect=(0, .06, 1, .95))

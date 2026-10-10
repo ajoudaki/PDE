@@ -21,7 +21,7 @@ Here $f_n$ is its coupled ordinary dense reference, $\widetilde f_n$
 is an independent dense run, and $\mathcal X$ is the query domain
 specified below. Both norms cover that entire domain, all physical
 training times and the fitted endpoint. In addition, Harmonic and
-Logarithmic attain
+Taylor attain
 \begin{equation}
  \norm{f_{\mathrm{model}}-f_n}_{\mathcal X}\le\frac Yn
  \qquad\text{with probability at least }1-\delta
@@ -44,7 +44,7 @@ the bounds below. Here $C$ depends only on activations and fixed depth.
  \label{eq:headline-harmonic}
 \end{align}
 Legendre additionally retains $(L-1)n^2$ fixed mixer coordinates.
-For Logarithmic, $\mathcal X=\{x_1,\ldots,x_{m+p}\}$, and the total is
+For Taylor, $\mathcal X=\{x_1,\ldots,x_{m+p}\}$, and the total is
 \begin{equation}
 \begin{split}
  C(m+p)^2\bigg[
@@ -54,7 +54,7 @@ For Logarithmic, $\mathcal X=\{x_1,\ldots,x_{m+p}\}$, and the total is
 \end{split}
 \label{eq:headline-panel}
 \end{equation}
-Harmonic and Logarithmic include the data, selected mixers, metrics,
+Harmonic and Taylor include the data, selected mixers, metrics,
 initial copies and working arrays. The fixed activation evaluator's
 description and scratch, when not treated as primitives, are charged
 separately for each method.

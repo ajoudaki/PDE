@@ -40,7 +40,7 @@
 \setcounter{tocdepth}{1}
 \title{{\fontsize{14}{17}\selectfont\bfseries
 Compressing Global Dynamics of Deep Nonlinear Feature Learning}}
-\author{Amir Joudaki}
+\author{Amir Joudaki \and Thomas Hofmann}
 \date{October 8, 2026}
 
 \begin{document}
@@ -57,12 +57,12 @@ $n^{5/4+o(1)}$ moving coordinates while retaining fixed dense mixers.
 Two realizations of a shared reduced nonlinear dynamics also compress the
 neuron coordinate: Harmonic compression uses joint time--input regularity
 and retains $O((\log n)^{3d+2})$ real coordinates over the whole input sphere;
-Logarithmic compression uses residual-adapted temporal approximation and
+Taylor compression uses residual-adapted temporal approximation and
 retains $O((\log n)^3)$ real coordinates on any fixed panel of inputs declared
 at initialization. Passive labels are not used. Each tracks a coupled dense
 trajectory, uniformly over all physical times including the fitted limit,
 with error negligible in probability relative to independent dense-run
-variability. Harmonic and Logarithmic attain absolute error $Y/n$, where
+variability. Harmonic and Taylor attain absolute error $Y/n$, where
 $Y$ is the fixed RMS label scale. The proof retains
 Gram dissipation and finite residual activity; a readout correction cancels
 the feedback that would otherwise give a poor stability estimate. We expose
@@ -104,9 +104,9 @@ bound is witnessed during early training; it is not an endpoint lower bound.
 A learned matrix increment integrates paired forward and backward responses.
 The first reduction, Legendre, compresses the history while retaining every
 neuron. The second compresses the response space itself and realizes its
-geometry on a small set of neuron coordinates. Harmonic and Logarithmic
+geometry on a small set of neuron coordinates. Harmonic and Taylor
 are two source builders for this same reduced dynamics. Harmonic represents
-responses jointly in time and input; Logarithmic represents only the finitely
+responses jointly in time and input; Taylor represents only the finitely
 many requested input curves and spends fewer temporal pieces as learning
 slows. The latter removes the dimension-dependent logarithmic exponent by
 giving up a uniform guarantee for inputs first revealed after setup.
@@ -185,7 +185,7 @@ The appendix retains the larger original recurrence-defined allowance and
 its full certificates. $Y$ is fixed, not width-dependent; zero labels give
 the exact zero predictor separately. Dense, Legendre and Harmonic require
 no orthogonality, centering or input-rank assumption. Neither does the new
-Logarithmic construction. For it, fix $p\ge0$ further sphere inputs before
+Taylor construction. For it, fix $p\ge0$ further sphere inputs before
 initialization and write the full panel as $x_1,\ldots,x_{m+p}$.
 Only the first $m$ inputs have labels or enter the training sums.
 
@@ -197,7 +197,7 @@ For the promised query set $\mathcal X$, write
  \label{eq:test-norm}
 \end{equation}
 Take $\mathcal X$ to be the whole sphere for Legendre and Harmonic, and the
-declared panel for Logarithmic. This includes fitted limits. Let
+declared panel for Taylor. This includes fitted limits. Let
 $f_n$ be the compressed model's coupled ordinary dense reference and
 $\widetilde f_n$ an independently initialized ordinary dense run.
 Their discrepancy $\norm{f_n-\widetilde f_n}_{\mathcal X}$ is the
@@ -210,7 +210,7 @@ events have probability tending to zero under the theorem's assumptions.
 All errors are absolute, with no implicit division by $Y$.
 We do not spend the label cap to reduce powers of
 $m/\gamma$: the learned-storage envelopes remain cubic for Legendre and
-quartic for Harmonic and in the leading Logarithmic term.
+quartic for Harmonic and in the leading Taylor term.
 The panel and sphere discrepancies need not agree: both sides of a comparison
 always use the same query set. In the detailed sphere proofs,
 $\norm{\cdot}_*$ denotes the sphere instance of this norm.
@@ -235,7 +235,7 @@ not as inputs to the headline theorem. Moving state and complete retained
 state are distinguished.
 All three track a coupled dense reference. The implicit
 Harmonic implementation generates that reference jointly instead of
-materializing its hidden matrices. For Logarithmic, initialization jets
+materializing its hidden matrices. For Taylor, initialization jets
 determine a finite response-space construction; the resulting small model
 then evolves autonomously. Its temporal pieces are preparation devices,
 not a growing runtime history or a prescribed prediction trajectory.
@@ -273,7 +273,7 @@ subspace. No fresh-noise approximation replaces a reused trained matrix.
 Legendre makes the evolving memory small but retains a quadratic fixed
 environment. Harmonic removes that environment from the retained state
 and has polylogarithmic query work at fixed dimension, with near-linear
-implicit setup. The new Logarithmic model uses the same selected runtime
+implicit setup. The new Taylor model uses the same selected runtime
 but specializes its response space to declared input curves. This removes
 the dimension-dependent logarithmic exponent, not the cost of preparing
 that space or the restriction on which inputs are certified. These are
@@ -298,7 +298,7 @@ selected predictor remains a separate question.
 \Cref{app:earlier-illustrations} preserves existing Legendre and Harmonic
 illustrations and experiments for an older seeded finite-word decoder.
 That decoder is a separate supplementary construction, not the present
-finite-panel Logarithmic model. Those measurements are not empirical
+finite-panel Taylor model. Those measurements are not empirical
 validation of the new cubic-logarithmic guarantee.
 
 \bibliographystyle{plainnat}
@@ -327,7 +327,7 @@ by numerical certificates and proofs. The shared source construction,
 both efficient Harmonic initializers, the new residual-adapted panel proof,
 and the supplementary seeded decoder are included in the manuscript itself,
 not left as dependencies on research notes. The last is retained as a
-distinct result, not an alternative definition of the new Logarithmic model.
+distinct result, not an alternative definition of the new Taylor model.
 Historical review records and superseded paper theorems are not premises.
 
 \medskip
@@ -341,7 +341,7 @@ Detailed component & Page\\
 & \pageref{int:detailed-statements}\\
 \hyperref[sec:panel-headline-proof]{Assembly of the unified compression theorem}
 & \pageref{sec:panel-headline-proof}\\
-\hyperref[sec:panel-proof]{Residual-adapted Logarithmic construction and complete proof}
+\hyperref[sec:panel-proof]{Residual-adapted Taylor construction and complete proof}
 & \pageref{sec:panel-proof}\\
 \hyperref[int:source-foundations]{Shared source construction and analytic estimates}
 & \pageref{int:source-foundations}\\

@@ -1,11 +1,11 @@
-<h2 class="sr-only">Figure 19. Random neurons estimate the Gram with noise, selected weighted neurons reproduce it exactly; the neurons needed to match a second dense run grow like n for random neurons and polylogarithmically for Harmonic and Logarithmic.</h2>
+<h2 class="sr-only">Figure 19. Random neurons estimate the Gram with noise, selected weighted neurons reproduce it exactly; the neurons needed to match a second dense run grow like n for random neurons and polylogarithmically for Harmonic and Taylor.</h2>
 <div style="font-size:15px;font-weight:500;color:var(--text-primary);margin:0 0 8px">Figure 19 · The price of random neurons, both selected models</div>
 <div style="display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:13px;color:var(--text-secondary)">
 <button id="rs" style="font-size:13px;padding:4px 10px">Resample</button>
 <span>Width n</span><input type="range" id="ns" min="12" max="30" step="1" value="12" style="flex:1">
 <span id="nl" style="min-width:90px;text-align:right"></span>
 </div>
-<svg id="sv" width="100%" viewBox="0 0 680 330" role="img"><title>Figure 19: the price of random neurons, both selected models</title><desc>Left: a neuron cloud with its Gram ellipse, six iid neurons and six selected weighted neurons. Right: neurons needed versus width for smaller dense networks, Harmonic, and Logarithmic.</desc></svg>
+<svg id="sv" width="100%" viewBox="0 0 680 330" role="img"><title>Figure 19: the price of random neurons, both selected models</title><desc>Left: a neuron cloud with its Gram ellipse, six iid neurons and six selected weighted neurons. Right: neurons needed versus width for smaller dense networks, Harmonic, and Taylor.</desc></svg>
 <div id="rd" style="font-size:13px;color:var(--text-secondary);margin-top:2px"></div>
 <script>
 (()=>{
@@ -34,7 +34,7 @@ left.appendChild(E('text',{x:290,y:22,'text-anchor':'middle',class:'th'},'6 sele
 const wm=Math.max(...w);SP.forEach((p,j)=>{if(w[j]>1e-6){left.appendChild(E('circle',{cx:290+p[0]*sc,cy:140-p[1]*sc,r:3+6*Math.sqrt(w[j]/wm),fill:GN,opacity:0.75}));left.appendChild(E('circle',{cx:290+p[0]*sc,cy:140-p[1]*sc,r:3+6*Math.sqrt(w[j]/wm),fill:'none',stroke:OR,'stroke-width':1.2,'stroke-dasharray':'2 2'}))}});
 left.appendChild(ell(290,140,mom(SP,w),sc,{stroke:GN,'stroke-width':2}));
 left.appendChild(E('text',{x:290,y:250,'text-anchor':'middle',class:'ts'},`Gram error ${(100*selErr).toFixed(2)}%`));
-left.appendChild(E('text',{x:290,y:268,'text-anchor':'middle',class:'ts'},'same step in Harmonic and Logarithmic'));
+left.appendChild(E('text',{x:290,y:268,'text-anchor':'middle',class:'ts'},'same step in Harmonic and Taylor'));
 left.appendChild(E('text',{x:40,y:300,class:'ts'},'dashed ellipse: Gram of all n neurons on the source space E'))}
 const CH=210/Math.pow(Math.log(4096),5.5),CL=158/Math.pow(Math.log(4096),1.5);
 const qD=n=>n/2,qH=n=>CH*Math.pow(Math.log(n),5.5),qL=n=>CL*Math.pow(Math.log(n),1.5);
@@ -42,7 +42,7 @@ function drawRight(){right.innerHTML='';const p=+document.getElementById('ns').v
 const X0=432,PW=210,Y0=40,PH=210,lx=e=>X0+PW*(e-12)/18,ly=q=>Y0+PH*(1-(Math.log10(q)-1)/8);
 right.appendChild(E('text',{x:X0-10,y:22,class:'th'},'Neurons to match a second dense run'));
 right.appendChild(E('line',{x1:X0,y1:Y0+PH,x2:X0+PW,y2:Y0+PH,stroke:'var(--b)','stroke-width':0.5}));right.appendChild(E('line',{x1:X0,y1:Y0,x2:X0,y2:Y0+PH,stroke:'var(--b)','stroke-width':0.5}));
-[[qD,GR,'smaller dense ∝ n'],[qH,GN,'Harmonic ∝ (log n)^5.5'],[qL,OR,'Logarithmic ∝ (log n)^1.5']].forEach(([f,c,lab],k)=>{let d='';for(let e=12;e<=30.001;e+=0.25)d+=(e===12?'M':'L')+lx(e).toFixed(1)+' '+ly(f(Math.pow(2,e))).toFixed(1);
+[[qD,GR,'smaller dense ∝ n'],[qH,GN,'Harmonic ∝ (log n)^5.5'],[qL,OR,'Taylor ∝ (log n)^1.5']].forEach(([f,c,lab],k)=>{let d='';for(let e=12;e<=30.001;e+=0.25)d+=(e===12?'M':'L')+lx(e).toFixed(1)+' '+ly(f(Math.pow(2,e))).toFixed(1);
 right.appendChild(E('path',{d,fill:'none',stroke:c,'stroke-width':2}));
 const ty=[ly(qD(2**26))-8,ly(qH(2**30))-10,ly(qL(2**30))+26][k];right.appendChild(E('text',{x:k===0?lx(26):X0+PW,y:ty,'text-anchor':'end',class:'ts'},lab))});
 [[2048,GR],[210,GN],[158,OR]].forEach(([q,c])=>right.appendChild(E('circle',{cx:lx(12),cy:ly(q),r:4.5,fill:'none',stroke:c,'stroke-width':1.6})));
@@ -53,7 +53,7 @@ right.appendChild(E('line',{x1:lx(p),y1:Y0,x2:lx(p),y2:Y0+PH,stroke:GR,'stroke-w
 right.appendChild(E('text',{x:X0+PW/2,y:Y0+PH+34,'text-anchor':'middle',class:'ts'},'width n (log); rings: runs at n = 4,096'));
 document.getElementById('nl').textContent='n = '+(n>=1e6?(n/1048576).toFixed(0)+'M':n.toLocaleString());
 const f=v=>Math.round(v).toLocaleString(),s2=v=>(v*v).toExponential(1);
-document.getElementById('rd').textContent=`Neurons kept (state ≈ q²): smaller dense ${f(qD(n))} (${s2(qD(n))}) · Harmonic ${f(qH(n))} (${s2(qH(n))}) · Logarithmic ${f(qL(n))} (${s2(qL(n))})`}
+document.getElementById('rd').textContent=`Neurons kept (state ≈ q²): smaller dense ${f(qD(n))} (${s2(qD(n))}) · Harmonic ${f(qH(n))} (${s2(qH(n))}) · Taylor ${f(qL(n))} (${s2(qL(n))})`}
 document.getElementById('rs').onclick=drawLeft;document.getElementById('ns').oninput=drawRight;drawLeft();drawRight();
 })();
 </script>
