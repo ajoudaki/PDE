@@ -1625,9 +1625,8 @@ existence.
 
 ### 2. A fixed Hilbert source and a complete parameter space {#sec-docs-gaussian-calculus-l8649}
 
-The maintained dependency for the Gaussian identification is [Section 9](07-observable-closure.qmd#sec-docs-gaussian-calculus-l3305),
-“A Gaussian source lemma with contained norm and Wick proofs,” in the
-observable-closure chapter. Its hypotheses are exactly the independent
+The maintained dependency for the Gaussian identification is [A Gaussian source lemma with contained norm and Wick proofs](09-trainability.qmd#sec-docs-linear-dynamics-l1734), in the
+trainability chapter. Its hypotheses are exactly the independent
 $N(0,1/n)$ connectors and two independent $N(0,I_n/n)$ endpoint
 vectors in ([-@eq-docs-gaussian-calculus-l8584]). It applies to any fixed finite number of labels and
 to typed compatible words. We spell out the source it supplies.
@@ -1781,7 +1780,7 @@ output, to the value in ([-@eq-docs-gaussian-calculus-l8795]).
 
 For completeness this also gives convergence of expected outputs; no
 unjustified passage from probability to expectation is needed. The
-Gaussian net argument in [Section 9](07-observable-closure.qmd#sec-docs-gaussian-calculus-l3305) of the observable-closure chapter, with its
+Gaussian net argument in [the Gaussian source lemma](09-trainability.qmd#sec-docs-linear-dynamics-l1734) of the trainability chapter, with its
 threshold left variable, gives
 
 $$

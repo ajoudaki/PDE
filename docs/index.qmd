@@ -154,7 +154,7 @@ that evolution, and finally the learning and prediction it produces.
 ### I. Population dynamics of deep networks
 
 1. [Geometry of network training](01-training-geometry.qmd#ch-training-geometry)
-2. [Gaussian calculus for reused matrices](02-gaussian-reuse.qmd#ch-gaussian-reuse)
+2. [Mean-Field Peeling: A Gaussian Calculus for Deep Networks](02-gaussian-reuse.qmd#ch-gaussian-reuse)
 3. [Local population evolution and exact capture](03-local-population.qmd#ch-local-population)
 4. [Continuing nonlinear population flows](04-continuing-flows.qmd#ch-continuing-flows)
 5. [Compactness, regularity and continuation boundaries](05-continuation-boundaries.qmd#ch-continuation-boundaries)
