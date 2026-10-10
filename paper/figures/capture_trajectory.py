@@ -8479,7 +8479,8 @@ EXPERIMENT_DEFAULTS = {
         'non_oblivious': {
             'setup': dict(initializer='dense_rollout', rollout_solver='rk4', rollout_step=.125,
                           rollout_dtype='float32', coefficient_dtype='float64', time_degree=8,
-                          selection_trials=64, condition_limit=16., selection_strategy='uniform'),
+                          selection_trials=64, condition_limit=16., selection_strategy='uniform',
+                          readout_floor=None),
             'harmonic': dict(budgets=[dict(width=424, source_rank=29)], spatial_degree=5),
             'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True,
                                 panel_span=False)}},
@@ -8573,6 +8574,9 @@ def _experiment_merge(base, patch, path='', schema=None):
             continue
         if name == 'execution.devices' and isinstance(value, list):
             valid = all(isinstance(v, str) for v in value) and bool(value)
+        elif expected is None and key == 'readout_floor':
+            valid = value is None or (not isinstance(value, bool) and isinstance(value, (int, float))
+                                     and math.isfinite(value))
         elif expected is None:
             valid = value is None or isinstance(value, str)
         elif isinstance(expected, bool):
@@ -8624,6 +8628,8 @@ def _experiment_config(argv, validate_run=True):
             options['action'] = argparse.BooleanOptionalAction
         elif isinstance(default, list):
             options.update(nargs='*', metavar='VALUE')
+        elif path.endswith('.readout_floor'):
+            options['type'] = json.loads
         else:
             options['type'] = str if default is None or isinstance(default, str) else type(default)
         parser.add_argument('--'+path, **options)
@@ -8732,6 +8738,9 @@ def _experiment_validate(config):
         if any(width >= model['width'] or rank > model['width'] for width, rank in budgets):
             raise ValueError(f'{name} requires compact width < dense width and source_rank <= dense width')
         setup = _experiment_setup(config, name)
+        if setup['readout_floor'] is not None and (not math.isfinite(setup['readout_floor'])
+                                                 or setup['readout_floor'] <= 0):
+            raise ValueError('Explicit readout_floor must be finite and positive')
         if (setup['initializer'] != 'dense_rollout' or setup['rollout_solver'] != 'rk4'
                 or setup['rollout_dtype'] not in ('float32', 'float64')
                 or setup['coefficient_dtype'] != 'float64'):
@@ -9793,20 +9802,25 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                                for rank in ranks}
                     del source
                     info['prefix_diagnostics_scope'] = 'Source checks describe largest rank; smaller prefixes are not separately checked'
-                    floor = None
+                    floor = setup['readout_floor']
                 else:
                     sources, info = cubic_rollout_sources(setup_dense, setup_inputs, labels, setup_queries,
                         training['horizon'], seed=source_seed, ranks=tuple(ranks), partitions=('new',), **options)
                     sources = sources['new']
                     features = dense.fields(dense.initial_state, inputs)[0][-1]
                     gap = float(torch.linalg.eigvalsh(features.T@features/(n*len(labels)))[0])
-                    if gap <= 0:
+                    if gap <= 0 and setup['readout_floor'] is None:
                         raise ArithmeticError('Initial normalized training feature Gram has no positive gap')
-                    floor = min(1e-4, gap/8)
+                    floor = (setup['readout_floor'] if setup['readout_floor'] is not None
+                             else min(1e-4, gap/8))
                     info['readout_floor'] = floor
+                    info['initial_dense_feature_gap'] = gap
                     if panel_info is not None:
                         info['panel_span'] = panel_info
                 info['effective_setup'] = setup
+                info['readout_floor'] = floor
+                info['readout_floor_policy'] = ('explicit fixed regularization; empirical extension at singular data'
+                    if setup['readout_floor'] is not None else 'inherited method default')
                 report['sources'][family] = info
                 for index, budget in enumerate(method['budgets']):
                     width, rank = budget['width'], budget['source_rank']
@@ -14200,6 +14214,7 @@ def figure4_paired_plot(argv):
     parser.add_argument('--compressions-only', action='store_true', help='Hide control curves and the dense benchmark line')
     parser.add_argument('--raw-rms', action='store_true', help='Plot unnormalized RMS and the independent dense-pair RMS curve')
     parser.add_argument('--allow-incomplete', action='store_true', help='Show incomplete groups as individual runs, never a partial mean')
+    parser.add_argument('--tuned-on-shown-seeds', action='store_true', help='Disclose that orders were selected using the displayed repetitions')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     seeds, times = sorted(args.seeds), np.linspace(0, 32, 65)
@@ -14292,6 +14307,19 @@ def figure4_paired_plot(argv):
             wanted = {family: budget for family, budget in wanted.items() if family in ('legendre', 'logarithmic')}
         if panel == 'circle':
             wanted = dict(legendre=wanted.pop('legendre'), harmonic=dict(width=1024, source_rank=64), **wanted)
+        if args.compressions_only:
+            # Uniform trajectory comparisons select the one configured budget,
+            # rather than silently requiring a historical plotting budget.
+            orders = config['methods']['oblivious']['legendre']['orders']
+            require(len(orders) == 1, 'Figure4 needs one shared Legendre order per panel')
+            wanted['legendre'] = dict(order=orders[0])
+            for family in ('harmonic', 'logarithmic'):
+                if family not in wanted:
+                    continue
+                selected_config = replacement_config if panel == 'circle' and replacements and family == 'logarithmic' else config
+                budgets = selected_config['methods']['non_oblivious'][family]['budgets']
+                require(len(budgets) == 1, f'Figure4 needs one shared {family} budget per panel')
+                wanted[family] = budgets[0]
         records = {family: [] for family in wanted}
         missing = {family: [] for family in wanted}
         for seed, rep in sorted(repetitions.items()):
@@ -14354,10 +14382,21 @@ def figure4_paired_plot(argv):
         'These are sampled Euler-trajectory errors, not continuous-time error certificates. ')
     if args.raw_rms:
         caption += 'The dashed dense–dense curve is the RMS between each independent dense pair; no ratio normalization is applied. '
+    if args.tuned_on_shown_seeds:
+        caption += ('The circle configuration was tuned using the displayed repetitions, then rerun uniformly; '
+                    'these are not untouched confirmation seeds or an asymptotic compression certificate. ')
     if any(panel['config']['dataset'].get('resplit_pool') for panel in panels.values()):
         caption += ('Each repetition uses a fresh train/test partition of the same 38-point pool and fresh network '
                     'initialization; the band therefore reflects both split and initialization variation. '
                     'Training/test membership is disjoint within repetitions but may overlap between repetitions. ')
+    for panel_name, panel in panels.items():
+        for family in ('harmonic', 'logarithmic'):
+            group = panel['config']['methods']['non_oblivious']
+            floor = group[family].get('setup', {}).get('readout_floor', group['setup'].get('readout_floor'))
+            if group[family]['budgets'] and floor is not None:
+                caption += (f'{panel_name}/{styles[family][0]} uses the same explicit smooth readout floor '
+                            f'{floor:g} in all repetitions; this regularized empirical extension does not '
+                            'assert the positive-Gram theorem on singular training sets. ')
     with plt.rc_context({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False, 'pdf.fonttype': 42}):
         figure, axes = plt.subplots(1, 2, figsize=(11.8, 4.8), sharex=True, sharey=True)
         for axis, panel, title in zip(axes, ('circle', 'digits'), ('Circle', 'Digits 1 vs 7')):
