@@ -1,0 +1,62 @@
+\subsection{The compressed dynamics are nonlinear and feature-learning}
+\label{sec:nonlinear-learning}
+
+A moving kernel alone does not distinguish nonlinear learning from a deep
+linear network. We therefore separate two comparisons. In this subsection,
+$f_{\mathrm{NTK},n}$ is the predictor obtained by freezing the coupled
+dense reference's initial tangent kernel. Since $w(0)=0$, this is exactly its readout-only flow
+with all hidden features fixed at initialization.
+
+\begin{samepage}
+\begin{theorem}[Compression preserves nonlinear feature learning]
+\label{thm:nonlinear-learning}
+Under the compression theorem's assumptions, suppose additionally that every
+activation is nonaffine and $|x_a^\top x_b|<d$ for $a\ne b$.
+For Taylor, augment $\mathcal X$ by at most four deterministic passive
+witness inputs, declared before initialization without their labels.
+There are $c_*,t_*>0$, depending on the fixed problem but not on width,
+such that for every fixed $0<t\le t_*$, each compressed predictor satisfies,
+with probability tending to one as $n\to\infty$,
+\begin{align}
+ \inf_{a\in\R^d,\,b\in\R}\sup_{x\in\mathcal X}
+ |f_{\rm model}(t,x)-a^\top x-b|&\ge c_*t,
+ \label{fl:input-gap}\\
+ \sup_{x\in\mathcal X}
+ |f_{\rm model}(t,x)-f_{\mathrm{NTK},n}(t,x)|&\ge c_*t^3.
+ \label{fl:kernel-gap}
+\end{align}
+The storage orders and approximation conclusions are unchanged; Taylor's
+bound uses the augmented panel count, at most $p+4$ instead of $p$.
+
+In the dense reference, every hidden layer satisfies
+\begin{equation}
+ \left(\frac1n\sum_{a=1}^m
+ \|h^{(\ell)}(t,x_a)-h^{(\ell)}(0,x_a)\|_2^2\right)^{1/2}
+ \ge c_*t^2\qquad(1\le\ell\le L)
+ \label{fl:layer-motion}
+\end{equation}
+with the same probability convention. In the first layer, the nonlinear
+part of the feature increment itself has positive mean-square size of order
+$t^4$, in the precise sense of \eqref{fl:nonlinear-increment}.
+\end{theorem}
+\end{samepage}
+
+The first inequality excludes every deep linear predictor, even with biases,
+an arbitrary optimizer and time-dependent weights. The second excludes the
+reference network's frozen-feature training. The internal statement further
+rules out a frozen nonlinear feature component accompanied only by an affine
+feature change. It does not identify the compressed coordinates with dense
+neurons. The additional hypotheses belong only to this activity theorem;
+the broader compression theorem does not require them.
+
+The mechanism has three time scales. The initially zero readout first grows
+at order $t$; hidden features move at order $t^2$; the output departs from
+frozen-feature training at order $t^3$. The leading departure in the label
+direction is a sum of squared hidden-layer accelerations, so contributions
+from different layers cannot cancel. Separately, the initial feature kernel
+has nonlinear input components that no nonzero label vector can cancel
+completely on the sphere. Both signals persist while compression error
+vanishes. The proof in \Cref{sec:nonlinear-learning-proof} uses only
+initial Gaussian conditioning and real short-time estimates, not a
+width-independent complex-time radius or a trained population-flow theorem.
+These are early-time certificates, not endpoint or test-risk comparisons.

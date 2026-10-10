@@ -1,0 +1,335 @@
+\section{Nonlinearity and feature learning}
+\label{sec:nonlinear-learning-proof}
+
+We prove \Cref{thm:nonlinear-learning} using the real bounds already
+established in \Cref{cp:fit}. All auxiliary notation below is local;
+constants and $O(\cdot)$ bounds may depend on the entire fixed problem,
+but not on width. The key simplification is to test feature increments
+against their initial adjoints, rather than follow every feature acceleration.
+
+\begin{lemma}[Nonlinear initial velocity]
+\label{fl:input-lemma}
+Every $Q^{(\ell)}$, $\ell\ge1$, is positive definite. The limiting initial
+prediction velocity is nonaffine on the sphere, witnessed by an affine-annihilating
+combination of four deterministic inputs chosen before initialization.
+\end{lemma}
+\begin{proof}
+Write $v=x/\sqrt d$. Gaussian covariance recursion gives
+$Q^{(\ell)}_{ab}=F_\ell(v_a^\top v_b)$, $F_0(s)=s$, with
+\begin{equation}
+ F_\ell(s)=\sum_{k\ge0}c_{\ell,k}s^k,\qquad
+ c_{\ell,k}\ge0,\quad \sum_kc_{\ell,k}<\infty,
+ \label{fl:positive-series}
+\end{equation}
+and unbounded positive coefficient support. Here is a direct justification.
+The orthonormal Gaussian Hermite expansion of
+$\phi_\ell(\sqrt qG)$ has coefficients $\alpha_k$ and covariance
+$\sum_k\alpha_k^2r^k$ for Gaussian correlation $r$. The covariance identity
+follows by comparing coefficients in
+$\E[e^{zG-z^2/2}e^{wG'-w^2/2}]=e^{rzw}$.
+Completeness follows because a function orthogonal to all polynomials has
+entire transform $\E[h(G)e^{zG}]$ identically zero, hence zero Fourier
+transform. Linear growth gives Gaussian $L^2$ integrability. Finite Hermite
+support would make the activation a polynomial, hence affine by its bounded
+derivative. Composing the covariance series with
+$F_{\ell-1}(s)/F_{\ell-1}(1)$ proves \eqref{fl:positive-series}:
+Tonelli at $s=1$ gives summability, and a positive inner coefficient of
+degree $j\ge1$ and outer degree $k$ produces degree $jk$. These arguments
+allow nonzero means and justify uniform absolute convergence on $[-1,1]$.
+The tensor Grams $[(v_a^\top v_b)^k]$ are positive semidefinite and converge
+to $I_m$ by the nonparallel-input hypothesis. Thus every $Q^{(\ell)}\succ0$.
+
+Let $P$ be the orthogonal projection onto affine functions in spherical
+$L^2$, with normalized surface measure $\sigma$:
+$Ph(v)=\int h\,d\sigma+d\,v^\top\int uh(u)\,d\sigma(u)$.
+Projecting the tensor feature in both variables gives the positive kernel
+\[
+ R_k(v,u)=(v^\top u)^k-a_k-b_kv^\top u,
+ \quad a_k=\int(z^\top u)^k\,d\sigma(z),\quad
+ b_k=d\int(z^\top u)^{k+1}\,d\sigma(z).
+\]
+Here $a_k,b_k\to0$ by dominated convergence, since $d\ge2$, so
+$[R_k(v_a,v_b)]\to I_m$. The limiting velocity
+$g(v)=(2/m)\sum_a y_aF_L(v^\top v_a)$ is not affine: otherwise
+\[
+ 0=\sum_a y_a[(I-P)g](v_a)
+   =\frac2m\sum_kc_{L,k}\,y^\top[R_k(v_a,v_b)]y>0.
+\]
+Every term is nonnegative and some large-degree term is positive.
+Uniform convergence justifies the projection and sums.
+
+Some great circle witnesses this nonaffinity. Otherwise the antipodal
+average of $g$ is constant, and the odd remainder extends homogeneously
+to a function linear on every plane, hence globally linear. On such a
+circle, interpolate three distinct points by an affine function and take
+a fourth where it fails. The resulting dependence can be signed and normalized
+so that, for unit vectors $u_i$,
+\begin{equation}
+ \sum_i|c_i|=1,\qquad \sum_i c_i=0,\qquad
+ \sum_i c_i u_i=0,\qquad \sum_i c_i g(u_i)>0.
+ \label{fl:four-witness}
+\end{equation}
+These inputs depend on the fixed problem only. The finite-query Gram
+convergence proved in \Cref{cp:fit}, applied to this augmented list, and
+$\dot f_n(0,x)=(2/mn)\sum_a y_a h_a^{(L)}(0)^\top h^{(L)}(0,x)$
+give convergence of their initial velocities.
+\end{proof}
+
+\begin{lemma}[Initial backward fields and hidden forces]
+\label{fl:initial-activity}
+The initialized forward fields and first backward derivatives, including
+the vectors before derivative gates, have deterministic joint empirical
+row-law limits with second moments. This includes the full first-layer
+weight and acceleration rows. Every hidden block's squared initial
+acceleration in inverse-mobility norm converges to a positive constant.
+\end{lemma}
+\begin{proof}
+All unmarked fields in this proof are at zero. Put $k=2/m$ and define
+the pre-gated vectors $P$ and their gated versions $B$ by
+\[
+ P_a^{(L)}=\sum_b y_bh_b^{(L)},\qquad
+ B_a^{(\ell)}=\phi_\ell'(z_a^{(\ell)})\od P_a^{(\ell)},\qquad
+ P_a^{(\ell-1)}=W^{(\ell)\top}B_a^{(\ell)}.
+\]
+Thus $\dot\delta_a^{(\ell)}(0)=kB_a^{(\ell)}$. Differentiating
+\eqref{cp:flow}, since all hidden velocities initially vanish, gives
+\begin{equation}
+ \ddot W^{(1)}(0)=k^2\sum_a y_aB_a^{(1)}v_a^\top,\qquad
+ \ddot W^{(\ell)}(0)=\frac{k^2}{n}\sum_a y_aB_a^{(\ell)}h_a^{(\ell-1)\top}.
+ \label{fl:initial-forces}
+\end{equation}
+
+Only a forward pass and a backward pass are needed for their joint limits.
+For one hidden Gaussian matrix $W$, after revealing $WH=Z$, its conditional
+law is $Z(H^\top H)^{-1}H^\top+\widetilde W(I-\Pi_H)$, where
+$\Pi_H=H(H^\top H)^{-1}H^\top$ and $\widetilde W$ is fresh with
+entries $N(0,1/n)$. This is orthogonal Gaussian conditioning on the
+linear constraint. For a reverse query $U$, known from the previous answers,
+\begin{equation}
+ W^\top U\ \overset d=\ H Q_n^{-1}C_n+(I-\Pi_H)\Xi D_n^{1/2},
+ \quad Q_n=H^\top H/n,\ C_n=Z^\top U/n,\ D_n=U^\top U/n,
+ \label{fl:reverse-conditioning}
+\end{equation}
+with independent standard Gaussian rows in $\Xi$. The removed projection
+has conditional squared RMS
+$\operatorname{rank}(H)\operatorname{tr}(D_n)/n$, hence vanishes in
+probability. Adaptive queries cause no extra dependence: conditional on the
+global transcript, the next query is fixed; revealing one Gaussian action
+leaves the other matrices' residuals independent. In forward-then-backward
+order no matrix is queried again after its reverse answer.
+
+For precision, the induction uses empirical quadratic Wasserstein convergence.
+Appending independent Gaussian rows preserves a deterministic such limit:
+conditional variances for bounded tests are $O(1/n)$, and the appended
+second moment obeys the law of large numbers. Continuous coordinate maps
+of at most linear growth preserve this convergence, by an $L^2$ coupling
+and uniform integrability. These include $\phi(z)$ and $\phi'(z)u$.
+Same-layer products consequently converge; inverse Grams and positive
+covariance square roots converge when their limiting Grams are, respectively,
+positive definite or positive semidefinite. The vanishing projected term
+in \eqref{fl:reverse-conditioning} does not change the row-law limit.
+Starting with the full iid first-layer rows, these rules prove the forward
+limits and then the backward limits, including all pre-gated fields.
+The forward Grams being inverted are positive by \Cref{fl:input-lemma};
+$Q^{(0)}$ is never inverted. The first-row acceleration is a linear
+combination of the $B$ fields, so its joint limit is included.
+
+Let $D^{(\ell)}$ be the limiting Gram of $B^{(\ell)}$.
+At the top it is positive definite: a null vector $c$ would give
+\[
+ \Big(\sum_b y_b\phi_L(z_b)\Big)
+ \Big(\sum_a c_a\phi_L'(z_a)\Big)=0\qquad(z\in\R^m).
+\]
+Indeed $L\ge2$ gives full Gaussian support. The first factor is not
+identically zero since $y^\top Q^{(L)}y>0$; analyticity forces the
+second to vanish everywhere. Varying each coordinate, the nonconstant
+derivative gives $c=0$. Downward, the fresh reverse innovation in
+\eqref{fl:reverse-conditioning} is independent of the lower-layer fields,
+with covariance $D^{(\ell+1)}$, so
+\[
+ c^\top D^{(\ell)}c\ge\lambda_{\min}(D^{(\ell+1)})
+       \sum_a c_a^2\E[\phi_\ell'(Z_a^{(\ell)})^2]>0.
+\]
+Each Gaussian marginal is nondegenerate and a nonzero analytic derivative
+has a zero set of measure zero. Finally, expanding \eqref{fl:initial-forces},
+the layer-$\ell$ squared acceleration limit is
+$k^4y^\top(Q^{(\ell-1)}\circ D^{(\ell)})y>0$:
+for $Q\succeq0$, $D\succ0$,
+$Q\circ D\succeq\lambda_{\min}(D)\operatorname{diag}(Q)$ by decomposing
+$Q$ into rank-one terms, and every
+relevant $Q$ has positive diagonal. This also covers singular input Grams.
+\end{proof}
+
+\begin{lemma}[Adjoint test of the actual motion]
+\label{fl:strong-time}
+Every hidden layer satisfies \eqref{fl:layer-motion}. On the training set,
+\begin{equation}
+ y^\top(f_n(t)-f_{\mathrm{NTK},n}(t))
+  =\frac m3t^3\left[\frac{\|\ddot W^{(1)}(0)\|_F^2}{n}
+                 +\sum_{\ell=2}^L\|\ddot W^{(\ell)}(0)\|_F^2\right]+o_*(t^3).
+ \label{fl:cubic-identity}
+\end{equation}
+Here $o_*(t^j)$ means: for every $\varepsilon>0$, some deterministic
+$T_\varepsilon>0$ makes the probability that the normalized remainder
+exceeds $\varepsilon$ anywhere on $0<t\le T_\varepsilon$ tend to zero.
+\end{lemma}
+\begin{proof}
+Use $\|u\|_n=\|u\|_2/\sqrt n$ and the inverse-mobility norm
+$\|U\|_{\rm mob}^2=\|U^{(1)}\|_F^2/n+\sum_{\ell\ge2}\|U^{(\ell)}\|_F^2$
+on hidden matrices. On the event of \Cref{cp:fit}, all relevant operators,
+feature RMS and residuals have deterministic bounds. The readout equation
+therefore gives $\|w(t)\|_n=O(t)$; backpropagation gives
+$\|\delta_a^{(\ell)}(t)\|_n=O(t)$; integration of the hidden updates and
+forward subtraction give, uniformly on the sphere for $0\le t\le1$,
+\begin{equation}
+ \|W(t)-W(0)\|_{\rm mob}=O(t^2),\qquad
+ \|\Delta z^{(\ell)}\|_n+\|\Delta h^{(\ell)}\|_n=O(t^2),\qquad
+ f_n(t,x)=t\dot f_n(0,x)+O(t^2).
+ \label{fl:real-bounds}
+\end{equation}
+Here $\Delta$ means the increment from zero. For the last assertion,
+the readout equation gives $\|\dot w(t)-\dot w(0)\|_n=O(t)$; integrate
+and use $f=w^\top h/n$. No new bootstrap is needed.
+
+The remainder control uses one elementary estimate. For bounded Lipschitz
+$g$ and an initial vector $u$,
+\begin{equation}
+ \|[g(z)-g(z_0)]\od u\|_n^2
+ \le\operatorname{Lip}(g)^2D^2\|z-z_0\|_n^2
+       +4\|g\|_\infty^2\|u\mathbf1_{|u|>D}\|_n^2.
+ \label{fl:multiplier}
+\end{equation}
+Split at $|u_i|=D$. The deterministic row-law limits with second moments
+in \Cref{fl:initial-activity} give, for every $\eta>0$, a fixed cutoff
+$D$ for which the probability that any needed initial squared tail exceeds
+$\eta$ tends to zero. Choose $D$ first, then a small time in
+\eqref{fl:real-bounds}. Thus gate differences times initial fields are
+$o_*(1)$, uniformly also along the segment from $z_0$ to $z$.
+
+For this proof define $k=2/m$, $P_a^{(L)}=\sum_b y_bh_b^{(L)}(0)$,
+$B_a^{(\ell)}=\phi_\ell'(z_a^{(\ell)}(0))\od P_a^{(\ell)}$, and
+$P_a^{(\ell-1)}=W^{(\ell)}(0)^\top B_a^{(\ell)}$.
+Since $w(t)/t=\dot w(0)+O_{\|\cdot\|_n}(t)$, downward subtraction of
+the backward recursion yields
+\begin{equation}
+ \delta_a^{(\ell)}(t)=ktB_a^{(\ell)}+o_{*,\|\cdot\|_n}(t),\qquad
+ \Delta W=\tfrac12t^2\ddot W(0)+o_{*,\|\cdot\|_{\rm mob}}(t^2).
+ \label{fl:weight-expansion}
+\end{equation}
+Indeed each backward difference is the next-layer error through bounded
+operators, an $O(t^2)$ operator increment acting on $B$, and a gate
+difference acting on $P$, controlled by \eqref{fl:multiplier}.
+Insert this into the hidden updates with $r=-y+O(t)$ and
+$h=h(0)+O_{\|\cdot\|_n}(t^2)$, then integrate. The normalized outer-product
+identities $\|uv^\top\|_F/\sqrt n=\|u\|_n\|v\|_2$ and
+$\|uh^\top\|_F/n=\|u\|_n\|h\|_n$ justify the matrix-norm remainder.
+
+Instead of expanding each forward feature, test its increment against $P$.
+Put $E_{1,n}=\|\ddot W^{(1)}(0)\|_F^2/n$ and
+$E_{\ell,n}=\|\ddot W^{(\ell)}(0)\|_F^2$ for $\ell\ge2$.
+The integral formula for an activation increment and \eqref{fl:multiplier}
+give
+\[
+ \langle P_a^{(\ell)},\Delta h_a^{(\ell)}\rangle_n
+  =\langle B_a^{(\ell)},\Delta z_a^{(\ell)}\rangle_n+o_*(t^2),
+ \qquad \langle u,v\rangle_n=u^\top v/n.
+\]
+The error is bounded by the RMS gate difference times $P$, multiplied by
+$\|\Delta z\|_n=O(t^2)$. In
+$\Delta z=\Delta W h(0)+W(0)\Delta h+\Delta W\Delta h$,
+the last term is $O(t^4)$ in RMS. Summing the first term's pairings with
+$y_aB_a$ and using \eqref{fl:initial-forces} gives
+$t^2E_{\ell,n}/(2k^2)+o_*(t^2)$; the second pairs the lower feature
+increment with $P_a^{(\ell-1)}$. Telescoping to the first layer yields
+\begin{equation}
+ \sum_a y_a\langle P_a^{(\ell)},\Delta h_a^{(\ell)}\rangle_n
+   =\frac{t^2}{2k^2}\sum_{j\le\ell}E_{j,n}+o_*(t^2).
+ \label{fl:adjoint-increment}
+\end{equation}
+All energies have positive limits. Cauchy--Schwarz, with bounded
+$\sum_a y_a^2\|P_a^{(\ell)}\|_n^2$, therefore proves the feature-motion
+lower bound in every layer on one deterministic small interval.
+
+The tangent kernel is the readout Gram plus the hidden terms
+\[
+ K_{ab}(t)=\langle h_a^{(L)},h_b^{(L)}\rangle_n
+ +(v_a^\top v_b)\langle\delta_a^{(1)},\delta_b^{(1)}\rangle_n
+ +\sum_{\ell=2}^L\langle\delta_a^{(\ell)},\delta_b^{(\ell)}\rangle_n
+                 \langle h_a^{(\ell-1)},h_b^{(\ell-1)}\rangle_n.
+\]
+Equation \eqref{fl:real-bounds} gives $K(t)-K(0)=O(t^2)$.
+Its readout part, contracted with $y$, is twice the top pairing in
+\eqref{fl:adjoint-increment}, plus $O(t^4)$.
+By \eqref{fl:weight-expansion} and the squared outer products in
+\eqref{fl:initial-forces}, the hidden contribution has the same coefficient.
+Consequently
+\[
+ y^\top[K(t)-K(0)]y
+       =\frac{2t^2}{k^2}\sum_\ell E_{\ell,n}+o_*(t^2).
+\]
+Finally $\dot f_n=kK(t)(y-f_n)$, whereas the frozen flow uses $K(0)$.
+Variation of constants gives their difference as
+$k\int_0^t e^{-kK(0)(t-s)}[K(s)-K(0)](y-f_n(s))\,ds$.
+Here $f_n(s)=O(s)$ and the exponential is $I+O(t-s)$ because $K(0)$
+is bounded. Pair with $y$ and integrate the last display. The additional
+terms are $O(t^4)$, giving $2/(3k)=m/3$ in \eqref{fl:cubic-identity}.
+\end{proof}
+
+\begin{lemma}[The nonlinear feature component moves]
+\label{fl:nonlinear-feature}
+Let $V=\operatorname{span}\{x_1,\ldots,x_m\}$, with normalized surface
+measure $\sigma_V$ on its unit sphere. For sufficiently small fixed $t>0$,
+with probability tending to one,
+\begin{equation}
+ \frac1n\sum_i\inf_{a\in V,\,b\in\R}
+ \int_{S(V)}|h_i^{(1)}(t,\sqrt d\,v)-h_i^{(1)}(0,\sqrt d\,v)
+                  -a^\top v-b|^2\,d\sigma_V(v)\ge c_*t^4.
+ \label{fl:nonlinear-increment}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Since $\dim V\ge2$, for nonzero $g,r\in V$ the function
+$\phi_1'(g^\top v)(r^\top v)$ is not affine on $S(V)$.
+Otherwise its values on $r^\perp$ and antipodes force the affine function
+to be $\lambda r^\top v$. Off the equator, division and then continuity
+make $\phi_1'$ constant on $[-\|g\|,\|g\|]$, contradicting analyticity
+and nonaffineness. Project the initial first-layer row onto $V$ and call it
+$g_i$; call its acceleration row $r_i\in V$. By \Cref{fl:initial-activity},
+their joint empirical law converges with second moments; $g$ is nondegenerate
+Gaussian and $\E\|r\|^2>0$. The squared distance of
+$\phi_1'(g^\top v)(r^\top v)$ from affine functions in $L^2(\sigma_V)$
+is continuous in $(g,r)$, bounded by $\|\phi_1'\|_\infty^2\|r\|^2$,
+and positive when both are nonzero. Its empirical mean therefore tends to
+a positive constant.
+
+The first-layer expansion in \eqref{fl:weight-expansion} and bounded
+$\phi_1'$ reduce the actual increment to the fixed row direction
+$t^2r_i/2$. On $\|r_i\|\le D$, its Taylor remainder divided by $t^2$
+is at most $\|\phi_1''\|_\infty t^2D^2/8$; on the complement it is
+at most $\|\phi_1'\|_\infty\|r_i\|$. The deterministic second-moment
+limit, choosing $D$ and then time, gives $o_*(t^2)$ in neuron-index-times-sphere
+$L^2$. Orthogonal projection off affine functions is contractive, so the
+positive limiting projected acceleration proves the claim.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:nonlinear-learning}]
+The four-point combination \eqref{fl:four-witness}, initial velocity
+convergence and \eqref{fl:real-bounds} give a positive multiple of $t$
+for the dense predictor on a width-independent small interval.
+It annihilates every affine predictor and has coefficient absolute sum one,
+so it bounds their uniform distance below. The positive energy limit in
+\eqref{fl:cubic-identity}, divided by $\|y\|_1$, similarly gives a
+training-input gap of order $t^3$ from the frozen kernel.
+The two preceding lemmas supply all internal feature conclusions.
+
+For each fixed positive time, the vanishing absolute compression errors
+in \Cref{cp:legendre,cp:harmonic,cp:panel} transfer both prediction gaps
+by the triangle inequality; eventual estimates at every confidence imply
+convergence in probability. Choose common smaller $c_*,t_*>0$.
+Legendre and Harmonic already cover the witnesses. Taylor appends them
+before initialization, without labels. Its bound replaces $p$ by at most
+$p+4$, multiplying the quadratic panel factor by at most $9$ and the
+linear data factor by at most $3$, since $m+p\ge2$.
+No endpoint gap or identification of compressed coordinates with dense
+neurons is used or asserted.
+\end{proof}

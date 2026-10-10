@@ -68,6 +68,10 @@ Gram dissipation and finite residual activity; a readout correction cancels
 the feedback that would otherwise give a poor stability estimate. We expose
 the trade between query scope, moving memory and retained state, and separate
 initialization-only information from the work needed to process it.
+For nonaffine activations and nonparallel training inputs, an additional
+theorem certifies that compression preserves separation from both affine
+predictors and the dense reference's frozen initial kernel; every dense
+hidden layer moves, including a nonlinear first-layer feature component.
 \end{abstract}
 
 \section{Introduction}
@@ -125,8 +129,12 @@ mechanisms before the appendix supplies their quantitative estimates.
 The results allow arbitrary fixed depth, compatible finite sphere data,
 and analytic activations with unbounded values. Labels are small but fixed
 as width grows. The feature-learning mobilities are retained rather than
-replaced by a frozen-kernel scaling. This permits hidden learning; it does
+replaced by a frozen-kernel scaling. The general compression theorem does
 not assert nonzero feature motion for every activation and dataset.
+Under nonaffine activations and pairwise nonparallel inputs,
+\Cref{thm:nonlinear-learning} additionally certifies nonlinear predictions,
+motion in every hidden layer, and evolution of the nonlinear part of the
+first-layer features.
 The guarantees concern prediction fidelity, not risk against unknown test
 labels. Sufficient stochastic widths remain qualitative. The logarithmic
 storage counts real coordinates, not fixed-precision words; its finite
@@ -305,6 +313,8 @@ validation of the new cubic-logarithmic guarantee.
 \bibliography{references}
 \clearpage
 \appendix
+\input{feature_learning_proof}
+\clearpage
 \input{empirical_appendix}
 \clearpage
 \input{cost_appendix}

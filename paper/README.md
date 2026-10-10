@@ -13,6 +13,14 @@ builders. It is a working paper, not promotion into the maintained Quarto book.
   negligible error relative to actual dense variability and the theoretical
   consequences.
 - `methods.tex`: retained states, update rules and the core theoretical ideas.
+- `feature_learning_theorem.tex`, `feature_learning_proof.tex`, and
+  `feature_learning_initialization.tex`: the additional nonlinear
+  feature-learning theorem and its self-contained early-time proof,
+  shared by the main and compact manuscripts. Its extra assumptions
+  (nonaffine activations and no parallel or antiparallel training inputs)
+  do not narrow the compression theorem. Taylor may append four predeclared
+  passive witness inputs. Constants in this additional theorem depend on
+  the whole fixed problem, not just activation and depth.
 - `costs.tex`: interpretation of setup, runtime and query resources;
   initialization-only information is distinct from cheap initialization.
 - `integrated_appendix.tex`: complete parameter-explicit scientific statements,
@@ -101,15 +109,18 @@ dependencies and exporting a portable data package.
 ## Build
 
 From `paper/`, use a fresh study-owned output directory to keep auxiliary
-files out of the manuscript folder. The current integration build is:
+files out of the manuscript folder. The latest additional-theorem build is:
 
 ```bash
 latexmk -pdf -interaction=nonstopmode -halt-on-error \
-  -outdir=/home/amir/Codes/PDE/data/generated/response_compression_framework_20261008/paper_polylog_wording_mCvoqI \
+  -outdir=/home/amir/Codes/PDE/data/generated/nonlinear_feature_learning_certificate_20261010/paper_build_19s6aj \
   main.tex
 ```
 
-The checked combined PDF is copied to `paper/main.pdf` for convenient reading.
+Use `compact.tex` with the same command to build the shorter proof manuscript.
+The checked PDFs are copied to `paper/main.pdf` and `paper/compact.pdf` for
+convenient reading; their pre-integration copies are preserved in that build
+directory as `prior_main.pdf` and `prior_compact.pdf`.
 The static TeX sources, bibliography and included figures suffice to compile
 the manuscript; regenerating the appendix is not a build prerequisite.
 
