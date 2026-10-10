@@ -1,4 +1,4 @@
-# 11. Quantitative nonlinear perturbations across shape and depth {#ch-shape-and-depth}
+# 12. Quantitative nonlinear perturbations across shape and depth {#ch-shape-and-depth}
 
 The perturbative learning mechanism develops from a specific odd family to broader activation shapes and every separately fixed depth, with the quantitative scales and regularity assumptions kept explicit.
 

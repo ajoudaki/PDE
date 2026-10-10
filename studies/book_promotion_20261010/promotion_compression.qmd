@@ -1,0 +1,4537 @@
+# Complete-trajectory compression {#ch-trajectory-compression}
+
+This chapter constructs three autonomous approximations to finite-width,
+Gaussian-initialized deep nonlinear gradient flow. Their error is negligible
+relative to the variability between independent dense runs, uniformly over
+the promised input domain and the entire physical training trajectory,
+including its fitted limit. Legendre retains $n^{5/4+o(1)}$ moving coordinates
+and fixed dense mixers. Harmonic retains $O((\log n)^{3d+2})$ total real
+coordinates for the whole input sphere. Taylor retains $O((\log n)^3)$
+coordinates for a fixed input panel declared before initialization.
+
+These results use a fixed dataset, fixed depth, a positive population feature
+Gram gap, and an explicit small-label condition. They compare finite neural
+systems and do not assert a population limit, a raw-GD approximation, a
+finite-precision guarantee, or efficient preprocessing. The selected
+constructions also attain absolute error $Y/n$. Their theoretical compilers
+use initialization derivatives; empirical rollout-based implementations have
+a different setup contract.
+
+The layer convention agrees with [the shared notation contract](notation.qmd#sec-docs-notation-l1): the stored readout is
+$W^{(L+1)}$ and the activation in hidden layer $\ell$ is $\phi^{(\ell)}$.
+The initialization here sets $W^{(L+1)}(0)=0$ exactly, which is a separately
+stated model from the book's finite small-Gaussian-readout convention.
+
+## Setup and the headline theorem {#sec-compression-setup}
+
+There are $m\ge2$ training pairs $(x_a,y_a)$ with
+$x_a\in\mathbb R^d$, $\left\lVert x_a\right\rVert_2=\sqrt d$, width $n$, and a fixed number
+$L\ge2$ of hidden layers. Write $v=x/\sqrt d$. The first matrix is
+$W^{(1)}\in\mathbb R^{n\times d}$, the hidden matrices are
+$W^{(\ell)}\in\mathbb R^{n\times n}$, and the readout is $W^{(L+1)}\in\mathbb R^n$.
+The activation may depend on the layer; the superscript is suppressed when
+the same equation applies to every layer. When a response is indexed by
+the normalized query $v$, its network input is $x=\sqrt d\,v$.
+The canonical network is
+
+$$
+\begin{aligned}
+z^{(1)}(x)&=W^{(1)}v,&
+ z^{(\ell)}(x)&=W^{(\ell)}h^{(\ell-1)}(x),&
+ h^{(\ell)}(x)&=\phi^{(\ell)}(z^{(\ell)}(x)),\\
+ f_n(x)&=\frac{W^{(L+1)\top} h^{(L)}(x)}n,&
+ r_a&=f_n(x_a)-y_a,&
+ \mathcal L&=\frac1m\sum_{a=1}^m r_a^2.
+\end{aligned}
+$$ {#eq-compression-network}
+
+The residual-free backward responses are
+
+$$
+\delta_a^{(L)}=W^{(L+1)}\mathbin{\odot}(\phi^{(L)})'(z_a^{(L)}),\qquad
+ \delta_a^{(\ell)}=(\phi^{(\ell)})'(z_a^{(\ell)})\mathbin{\odot}
+                W^{(\ell+1)\top}\delta_a^{(\ell+1)}.
+$$ {#eq-compression-backward}
+
+At a passive input use the same forward and backward recursions, without
+supplying a label or adding a training term.
+Dots denote physical training time. Gradient flow with block mobilities
+$(n,1,\ldots,1,n)$ is exactly
+
+$$
+\begin{aligned}
+\dot W^{(1)}&=-\frac2m\sum_a r_a\delta_a^{(1)}v_a^\top,
+ \\
+ \dot W^{(\ell)}&=-\frac2{nm}\sum_a
+          r_a\delta_a^{(\ell)}h_a^{(\ell-1)\top}\quad(2\le\ell\le L),
+ &\dot W^{(L+1)}&=-\frac2m\sum_a r_a h_a^{(L)}.
+\end{aligned}
+$$ {#eq-compression-flow}
+
+First-layer entries are independent $\mathcal N(0,1)$; hidden entries are
+independent $\mathcal N(0,1/n)$; all blocks are independent; and $W^{(L+1)}(0)=0$.
+Nothing freezes the hidden features.
+
+[Activations, data, and constants.]{#sec-compression-activations-data-and-constants}
+
+Each $\phi^{(\ell)}$ is real on the real axis, holomorphic on
+$|\operatorname{Im}z|<a$ for a common $a>0$, and has bounded first derivative
+on that strip. Its values need not be bounded. For explicit estimates put
+
+$$
+\beta=\max\left\{10,1+\max_\ell|\phi^{(\ell)}(0)|,16/a,
+ \max_{\ell,\,j\in\{1,2\}}
+ \sup_{|\operatorname{Im}z|\le a/2}|(\phi^{(\ell)})^{(j)}(z)|\right\}.
+$$
+
+The second derivative is bounded on the smaller strip by Cauchy's formula.
+Define the uncentered population feature Gram and the label scale by
+
+$$
+\begin{gathered}
+Q^{(0)}_{ab}=v_a^\top v_b,\qquad
+ Q^{(\ell)}_{ab}=\mathbb E[\phi^{(\ell)}(Z_a)\phi^{(\ell)}(Z_b)],\quad
+ Z\sim\mathcal N(0,Q^{(\ell-1)}),\\
+ \gamma=\lambda_{\min}(Q^{(L)})>0,\qquad
+ Y=\left\lVert y\right\rVert_2/\sqrt m>0.
+\end{gathered}
+$$ {#eq-compression-data}
+
+Assume $m/\gamma\ge1$ and the same sufficient small-label condition
+
+$$
+0<Y\le\frac\gamma m\beta^{-30L}.
+$$ {#eq-compression-labels}
+
+No input-rank, centering, orthogonality, or label-sign hypothesis is imposed.
+All data, $m,d,L,\gamma,Y$, and activations are fixed separately as $n$ grows.
+Throughout the stated bounds, $C>0$ depends only on activations and depth, never on
+$n,m,d,\gamma,Y$ or a passive-panel size. Its value may change between occurrences.
+All other constants are defined in the statement or proof using them.
+
+[Query domains and probability.]{#sec-compression-query-domains-and-probability}
+
+For a query set $\mathcal X$, use
+
+$$
+\left\lVert f-g\right\rVert_{\mathcal X}
+   =\sup_{t\in[0,\infty]}\sup_{x\in\mathcal X}|f(t,x)-g(t,x)|.
+$$ {#eq-compression-norm}
+
+The endpoint $t=\infty$ means the fitted limit. For Legendre and Harmonic,
+$\mathcal X=\{x:\left\lVert x\right\rVert_2=\sqrt d\}$. For Taylor, fix $p\ge0$
+additional inputs on this same sphere before initialization and take
+$\mathcal X=\{x_1,\ldots,x_{m+p}\}$. Their labels are never supplied.
+Let $\widetilde f_n$ be an independently initialized dense run on the same
+training problem.
+
+An eventual assertion at confidence $1-\delta$ means: for every fixed
+admissible problem and $0<\delta<1$, there is a finite width threshold such
+that the assertion holds at each larger individual width. That threshold
+may depend on every fixed problem parameter, including the positive $Y$,
+and is not proved polynomial or practically small. No simultaneous event
+over infinitely many independently initialized widths, uniform growing-data
+limit, or uniform limit as $Y\downarrow0$ is asserted. For a ratio below,
+missing fitted limits or a zero denominator count as failure.
+
+All neural-network statements below inherit this setup and these probability
+conventions. Every storage count charges a nonprimitive activation evaluator's
+description and scratch separately.
+
+::::::::::::::: {#thm-compression-headline}
+
+### Compression of the complete learning trajectory
+
+Under the preceding assumptions, each construction can be chosen so that
+
+$$
+\frac{\left\lVert f_{\rm model}-f_n\right\rVert_{\mathcal X}}
+      {\left\lVert f_n-\widetilde f_n\right\rVert_{\mathcal X}}
+       \xrightarrow{\mathbb P}0.
+$$ {#eq-compression-relative}
+
+Here $f_n$ is the construction's coupled ordinary dense reference, and both
+norms use the same promised query domain and all physical times, including
+the fitted endpoint. Sufficient real-coordinate counts are
+
+$$
+\begin{aligned}
+\textnormal{Legendre moving state:}\quad&
+ Cm\left(\frac m\gamma\right)^3 n^{5/4}
+ [\log(en)]^2e^{\sqrt{\log(en)}/2},
+\end{aligned}
+$$ {#eq-compression-legendre-size}
+
+$$
+\begin{aligned}
+\textnormal{Harmonic total state:}\quad&
+ C(m+d)^2+\left(\frac Cd\right)^{d+1}
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^{3d+2},
+\end{aligned}
+$$ {#eq-compression-harmonic-size}
+
+and the Taylor total state is at most
+
+$$
+\begin{split}
+ C(m+p)^2\bigg[&
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^3
+       \\ &+\left(\frac m\gamma\right)^2[\log(en)]^2
+                     [\log(e+\log(en))]^2\bigg]
+       +C(m+p)d.
+ \end{split}
+$$ {#eq-compression-panel-size}
+
+Legendre additionally retains $(L-1)n^2$ fixed mixer coordinates.
+Harmonic and Taylor include the data, selected mixers, metrics, initial
+copies, and working arrays. Their predictions additionally satisfy
+
+$$
+\left\lVert f_{\rm model}-f_n\right\rVert_{\mathcal X}\le Y/n
+$$ {#eq-compression-absolute}
+
+at every fixed confidence for sufficiently large width, with the same
+storage orders. The theoretical initializers use the dense initialization,
+training data, and finitely many initialization derivatives; no later trained
+weight or dense training trajectory is an input. Subsequent evolution is an
+autonomous nonlinear system with the retained state.
+
+:::::::::::::::
+
+These are sufficient sizes, not optimality claims. Dense itself has
+$(L-1)n^2+n(d+1)$ weight coordinates. Data storage is additional to the
+Legendre moving-state count. Coordinate counts do not bound precision or
+preprocessing time.
+The finite-panel theorem makes no accuracy promise on inputs first supplied
+after initialization. Zero labels give the stationary zero predictor instead.
+
+[Proof architecture.]{#sec-compression-proof-architecture}
+
+First establish fitting and finite residual activity without a source
+approximation. A common probabilistic source lemma then controls forward and
+backward responses on the two analytic domains. Legendre approximates their
+history integrals. The other two methods share one geometry-preserving
+selection and one corrected nonlinear optimizer; only their finite source
+bases differ. A last-layer innovation and a deterministic analytic estimate
+give a dense lower bound at a training input. The final section combines
+these ingredients. Every dependency of that argument is supplied below;
+these statements concern exact arithmetic and do not assert efficient
+preprocessing or empirical performance.
+
+## Initialization, fitting, and a signed perturbation estimate {#sec-compression-fitting-section}
+
+::::::::::::::: {#lem-compression-fit}
+
+### Initialization and real fitting
+
+For this lemma put
+
+$$
+H=\max_{0\le j\le L}\sqrt{Q^{(j)}_{11}},\qquad
+ \mathsf H(t)=[h^{(L)}(t,v_1),\ldots,h^{(L)}(t,v_m)].
+$$
+
+For the parameter tuple
+$\theta=(W^{(1)},\ldots,W^{(L)},W^{(L+1)})$ use the norm
+
+$$
+\|\theta\|_{\mathrm{par}}^2
+ =\|W^{(1)}\|_F^2/n+\sum_{j=2}^L\|W^{(j)}\|_F^2+\|W^{(L+1)}\|^2/n.
+$$
+
+The initialized training Grams satisfy
+
+$$
+\left(\frac{h_0^{(j)}(v_a)^\top h_0^{(j)}(v_b)}n\right)_{a,b=1}^m
+ \xrightarrow{\mathbb P}Q^{(j)}
+ \qquad(1\le j\le L).
+$$ {#eq-compression-initial-gram-limit}
+
+With probability tending to one,
+
+$$
+\begin{gathered}
+ \frac{\|W_0^{(1)}\|_{\mathrm{op}}}{\sqrt n}\le8,\qquad
+ \max_{2\le j\le L}\|W_0^{(j)}\|_{\mathrm{op}}\le8,\\
+ \sup_{\|v\|=1,\,1\le j\le L}\frac{\|h_0^{(j)}(v)\|}{\sqrt n}
+ \le\frac{3H}{2},\qquad
+ \frac{\mathsf H_0^\top\mathsf H_0}{mn}\succeq\frac{\gamma}{2m}I_m.
+ \end{gathered}
+$$ {#eq-compression-initialization-event}
+
+On this event the flow is global, converges in parameters, fits the labels,
+and satisfies, for all $t\ge0$,
+
+$$
+\begin{gathered}
+\begin{gathered}
+ \frac{\|W^{(1)}(t)\|_{\mathrm{op}}}{\sqrt n}<9,\qquad
+ \max_{2\le j\le L}\|W^{(j)}(t)\|_{\mathrm{op}}<9,\\
+ \sup_{\|v\|=1,\,1\le j\le L}\frac{\|h^{(j)}(t,v)\|}{\sqrt n}<2H,\qquad
+ \frac{\mathsf H(t)^\top\mathsf H(t)}{mn}\succeq\frac{\gamma}{4m}I_m
+ \end{gathered}
+\end{gathered}
+$$ {#eq-compression-real-tube}
+
+$$
+\begin{gathered}
+\begin{gathered}
+ \frac{\|r(t)\|_2}{\sqrt m}\le Ye^{-\gamma t/(2m)},\qquad
+ \frac{\|W^{(L+1)}(t)\|}{\sqrt n}\le2Y\sqrt{\frac m\gamma},\\
+ \int_t^\infty\|\dot\theta(u)\|_{\mathrm{par}}\,du
+       \le\frac{2\|r(t)\|_2}{\sqrt\gamma}.
+ \end{gathered}
+\end{gathered}
+$$ {#eq-compression-dense-tail}
+
+The output converges uniformly on the sphere, with
+
+$$
+\sup_{\|v\|=1}|f_n(\infty,v)-f_n(t,v)|
+ \le C\frac m\gamma\frac{\|r(t)\|_2}{\sqrt m}.
+$$ {#eq-compression-dense-output-tail}
+
+These assertions hold jointly for all rectangular cavities deleting any
+fixed bounded number of coordinates per layer, with the original width-$n$
+variances, flow factors, and denominators unchanged.
+
+:::::::::::::::
+
+[]{#proof-compression-fit}
+
+::::::::::::::: {.proof}
+
+All auxiliary coefficients in this proof are local. Put
+$\lambda=\gamma/m$, $\rho=\|r\|_2/\sqrt m$,
+
+$$
+s=\max\left\{1,\max_j\sup_{|\operatorname{Im}z|\le a/2}
+ |(\phi^{(j)})'(z)|\right\},\qquad b=\max_j|\phi^{(j)}(0)|,
+$$
+
+and retain $H$ as defined in this lemma's statement. Thus
+$|\phi^{(j)}(z)|\le b+s|z|$ on the half strip. Define
+
+$$
+\begin{aligned}
+D_j&=s(9s)^{L-j},&
+ U_1&=D_1,& U_j&=2HD_j\quad(j\ge2),\\
+ F_1&=sU_1,&F_j&=s(2HU_j+9F_{j-1}),&F&=F_L.
+\end{aligned}
+$$ {#eq-compression-fitting-coefficients}
+
+Equal input norms give $Q^{(j)}_{aa}=Q^{(j)}_{11}$, hence
+$\lambda\le H^2$. The coefficients satisfy
+
+$$
+H\le(2\beta)^L,\qquad
+ F=s^2\left[(9s)^{2L-2}+4H^2\sum_{j=0}^{L-2}(9s)^{2j}\right],
+ \qquad8H\sqrt F\le\beta^{5L}.
+$$ {#eq-compression-fitting-powers}
+
+The first inequality follows from Minkowski's inequality and
+$\sqrt{Q^{(j)}_{11}}\le b+s\sqrt{Q^{(j-1)}_{11}}$.
+For the last, summing the geometric series gives
+$F\le(21/20)H^2s^2(9s)^{2L-2}$, and then
+$8H\sqrt F\le H^2(9s)^L\le36^L\beta^{3L}\le\beta^{5L}$.
+Consequently the assumed cap
+$Y\le\lambda\beta^{-30L}$ implies
+$Y\le\lambda/(8H\sqrt F)$, which will close the real-flow estimates.
+
+A maximal $1/4$-separated subset of the unit sphere in $\mathbb R^k$
+has at most $9^k$ points: disjoint radius-$1/8$ balls fit inside the
+radius-$9/8$ ball.  Approximating each side of a maximizing bilinear
+pair gives $\|M\|_{\mathrm{op}}\le2\max|u^\top Mv|$ over these nets.
+Each pairing for $W_0^{(\ell)}$, $\ell\ge2$, or
+$W_0^{(1)}/\sqrt n$ is $N(0,1/n)$.  The exponential Gaussian tail and
+a union bound prove the operator assertions, with failure bounded by
+$2(L-1)e^{-(8-2\log9)n}+2e^{-(8-\log9)n+d\log9}$.
+
+On any fixed finite query list, condition on the preceding initialized
+layers.  Each next empirical Gram is an average of independent
+Gaussian-row feature products, with conditional mean
+$\Psi_\ell(C)_{ab}=\mathbb E\phi^{(\ell)}(Z_a)\phi^{(\ell)}(Z_b)$,
+$Z\sim N(0,C)$.  On bounded covariance sets the conditional variances
+are bounded, by linear growth and Gaussian fourth moments.  Moreover
+$\Psi_\ell$ is continuous on the entire positive semidefinite cone:
+write $Z=C^{1/2}G$ with a standard Gaussian vector $G$ of the matching
+dimension, use continuity of the positive square root, and
+dominate by a fixed Gaussian polynomial.  Conditional Chebyshev and
+induction therefore prove convergence of each empirical Gram to
+$Q^{(\ell)}$, including when intermediate covariances are singular.
+Apply this to the training inputs and a fixed sphere net of mesh
+$h\le H/[4(8s)^L]$.  On the operator event the initialized layer-$\ell$
+feature map, in neuron RMS, is $(8s)^\ell$-Lipschitz.  Its norm at net
+points is eventually at most $\sqrt{5/4}H$, with probability tending to
+one; the off-net increment is at most $H/4$.  This proves the sphere
+bound and the training Gram assertion in
+@eq-compression-initialization-event.
+
+Here is also a uniform justification for the cavity assertion, without
+a union bound over deletion sets.  On a sphere net of mesh $n^{-2}$,
+the preceding RMS bounds and conditional Gaussian tails give
+$\max_{i,\ell,v}|h_{0,i}^{(\ell)}(v)|=O(\sqrt{\log(en)})$
+with probability tending to one.  The net has only a fixed power of $n$
+points; the coordinate Lipschitz bound is at most
+$\sqrt n(8s)^\ell$, so the same bound holds off the net.  Zero-extend
+each cavity's features into $\mathbb R^n$.  At a deleted layer, at most
+a fixed number of original coordinates are removed.  At an undeleted
+coordinate the activation difference is at most $s$ times the
+preactivation difference.  Thus successive RMS differences are bounded
+by $8s$ times the preceding difference plus
+$O(\sqrt{\log(en)/n})$.  At fixed depth their supremum, simultaneously
+over all such cavities and sphere queries, tends to zero.  Submatrix
+operator norms do not increase.  Taking strictly smaller initial
+feature and Gram margins before this comparison gives
+@eq-compression-initialization-event for every cavity.  This also shows
+directly that each cavity's training Gram has the same limit $Q^{(L)}$.
+
+Stop any one of these flows at the first failure of
+@eq-compression-real-tube.  Backward propagation gives
+$\|\delta_a^{(\ell)}\|/\sqrt n\le D_\ell\|W^{(L+1)}\|/\sqrt n$.
+In Euclidean mobility coordinates
+$(W^{(1)}/\sqrt n,\allowbreak W^{(2)},\allowbreak \ldots,\allowbreak W^{(L)},\allowbreak W^{(L+1)}/\sqrt n)$,
+the vector field is minus the gradient of $\rho^2$.  Consequently
+
+$$
+-\partial_t\rho^2=\|\dot\theta\|_{\mathrm{par}}^2
+ \ge\lambda\rho^2.
+$$
+
+The last inequality uses only the readout contribution and the stopped
+Gram gap.  For any stopped interval $[t,T]$, Cauchy--Schwarz gives
+
+$$
+\left(\int_t^T\|\dot\theta\|_{\mathrm{par}}\right)^2
+ \le\left(\int_t^T\frac{\|\dot\theta\|_{\mathrm{par}}^2}{\rho}\right)
+      \left(\int_t^T\rho\right)
+ \le2\rho(t)\,\frac{2\rho(t)}\lambda.
+$$
+
+If a residual vanishes, all velocities vanish, so the estimate extends
+without division by zero.  In particular $\|W^{(L+1)}\|/\sqrt n\le2Y/\sqrt\lambda$.
+Sample Cauchy--Schwarz bounds each normalized hidden-block velocity by
+$2\rho U_\ell\|W^{(L+1)}\|/\sqrt n$.  Integration and forward subtraction give
+
+$$
+\begin{gathered}
+\frac{\|W^{(1)}-W_0^{(1)}\|_F}{\sqrt n}
+       \le\frac{8U_1Y^2}{\lambda^{3/2}},\qquad
+ \|W^{(\ell)}-W_0^{(\ell)}\|_F
+       \le\frac{8U_\ell Y^2}{\lambda^{3/2}},\\
+ \sup_v\frac{\|h^{(\ell)}-h_0^{(\ell)}\|}{\sqrt n}
+       \le\frac{8F_\ell Y^2}{\lambda^{3/2}}.
+\end{gathered}
+$$ {#eq-compression-dense-displacements}
+
+Indeed each later feature difference is bounded by $s$ times
+$2H\|W^{(\ell)}-W_0^{(\ell)}\|_F$ plus nine times the preceding
+feature difference, which is exactly the recursion defining $F_\ell$.
+The label restriction implies
+$8FY^2/\lambda^{3/2}\le\sqrt\lambda/(8H^2)\le1/(8H)$.
+Thus the operators remain below $8+1/8$, the features below
+$3H/2+H/8$, and the smallest singular value of
+$\mathsf H/\sqrt{mn}$ above
+$(1/\sqrt2-1/8)\sqrt\lambda>\sqrt\lambda/2$.
+Every stop has a strict margin.  At fixed width the bounded parameters
+and locally Lipschitz vector field give global continuation.  The
+finite parameter length proves convergence, and residual decay proves
+fitting.  The argument uses only the retained dimensions and the
+original denominators $n$, and hence also proves cavity fitting.
+
+Finally the same forward recursion gives
+
+$$
+\|\dot W^{(L+1)}\|/\sqrt n\le4H\rho,\qquad
+ \sup_v\|\dot h^{(L)}(v)\|/\sqrt n\le2F\rho\|W^{(L+1)}\|/\sqrt n.
+$$
+
+Therefore
+
+$$
+\sup_{\|v\|=1}|f_n(\infty,v)-f_n(t,v)|
+ \le\frac{16}{\lambda}
+       \left(H^2+\frac{FY^2}{\lambda}\right)\rho(t).
+$$
+
+The coefficients $H,F$ depend only on activations and depth, and the
+headline cap with $\lambda\le1$ gives $Y^2/\lambda\le1$.
+This proves @eq-compression-dense-output-tail, including its uniform endpoint.
+
+:::::::::::::::
+
+::::::::::::::: {#lem-compression-signed}
+
+### Signed perturbation estimate
+
+Let a differentiable prediction map $F$ take Euclidean parameter space
+to sample space with inner product
+$\langle u,v\rangle_m=m^{-1}u^\top v$.  Write $r=F(\theta)-y$,
+$r'=F(\theta')-y$, $\rho=\|r\|_m$, $\rho'=\|r'\|_m$, and
+$J=DF(\theta)$, $J'=DF(\theta')$.  Suppose
+$\dot\theta=-2J^*r+\mathcal E$ and
+$\dot\theta'=-2J'^*r'$. Here $J^*$ and $J'^*$ are adjoints for the
+stated parameter and sample inner products. If a constant $K\ge0$
+satisfies, for $e=\|\theta-\theta'\|$,
+
+$$
+\|r-r'-J'(\theta-\theta')\|_m\le Ke^2/2,
+ \qquad\|(J-J')(\theta-\theta')\|_m\le Ke^2,
+$$
+
+then, on every finite interval,
+
+$$
+e(t)\le
+ \left(e(0)+\int_0^t\|\mathcal E(u)\|\,du\right)
+ \exp\left\{K\int_0^t(\rho'+3\rho)\,du\right\}.
+$$ {#eq-compression-signed-stability}
+
+:::::::::::::::
+
+[]{#proof-compression-signed}
+
+::::::::::::::: {.proof}
+
+Put $d=\theta-\theta'$ and
+$R=r-r'-J'd$.  Exact subtraction gives
+
+$$
+\tfrac12\partial_t e^2
+ =-2\|r-r'\|_m^2+2\langle r-r',R\rangle_m
+   -2\langle r,(J-J')d\rangle_m+\langle d,\mathcal E\rangle
+ \le K(\rho'+3\rho)e^2+e\|\mathcal E\|.
+$$
+
+Apply the integrating factor to $\sqrt{e^2+\epsilon^2}$ and let
+$\epsilon\downarrow0$.  This proves the assertion also through zeros
+of the parameter discrepancy.
+
+:::::::::::::::
+
+## One source argument on two analytic domains {#sec-compression-foundations}
+
+The following interface supplies the analytic approximation domains and
+real-time bounds used by the compression constructions.  Its proof contains
+the stopped-cavity argument and all its auxiliary coefficient estimates.
+
+::::::::::::::: {#prp-compression-source}
+
+### Analytic sources and real-time response bounds
+
+Fix the finite query lists below before initialization. Eventually at each
+fixed confidence, the following hold on one event. In this proposition put
+
+$$
+T=32\frac m\gamma\log(en),\qquad
+ r_t=\frac{\gamma}{\beta^{30L}Y^2m\sqrt{(d+3)\log(en)}},\qquad
+ r_q=\frac1{\beta^{3L}\sqrt{(d+3)\log(en)}}.
+$$
+
+Write $k^{(L)}=W^{(L+1)}$, $k^{(j)}=W^{(j+1)\top}\delta^{(j+1)}$ ($j<L$) for
+the backward responses before the activation derivative. The four source
+families are
+
+$$
+h^{(j)},\qquad W^{(j)}(0)h^{(j-1)},\qquad
+ \delta^{(j)},\qquad W^{(j+1)}(0)^\top\delta^{(j+1)},
+$$ {#eq-compression-source-families}
+
+omitting the forward image for $j=1$ and reverse image for $j=L$.
+
+**(i)** The forward and backward fields are holomorphic on a neighborhood of
+
+$$
+([-r_t,T+r_t]+i[-r_t,r_t])\times
+ \{v\in\mathbb C^d:v^\top v=1,
+                      \|\operatorname{Im}v\|_2\le\sinh r_q\}.
+$$
+
+Query holomorphy is relative to the quadric; for $d=1$ use $\{-1,1\}$.
+Here and for $t\in[0,\infty]$ over the real sphere, the first-layer
+operator divided by $\sqrt n$ and all hidden operators have norm at most
+ten, and
+
+$$
+\frac{\|h^{(j)}\|_2}{\sqrt n}\le\beta^{3L},\qquad
+ \frac{\max\{\|\delta^{(j)}\|_2,\|k^{(j)}\|_2\}}{\sqrt n}
+ \le16\beta^{4L}\frac{Ym}{\gamma}.
+$$ {#eq-compression-source-rms}
+
+Each source coordinate has modulus at most $\beta^{6L}\sqrt n$
+on the complex domain.
+
+**(ii)** On each fixed finite query list, the predictions are holomorphic near
+$[-r,T+r]+i[-r,r]$, where
+
+$$
+r=\frac m{\gamma\sqrt{\log(en)}},\qquad
+ |f_n(t,\sqrt d\,v)|\le16\beta^{6L}\frac{Ym}{\gamma}.
+$$ {#eq-compression-finite-time}
+
+On the entire real training trajectory,
+
+$$
+\sup_{t\in[0,\infty]}\max_{a,j,i}|k_{a,i}^{(j)}(t)|
+ \le32\beta^{21L}\frac{Ym}{\gamma}\sqrt{\log(en)}.
+$$ {#eq-compression-carrier}
+
+**(iii)** For a declared finite panel containing the training inputs, there are
+$0=t_0<\cdots<t_J=T$ and $r_b>0$, $0\le b<J$, with
+$t_{b+1}-t_b\le r_b/2$. The sources are holomorphic near
+$|t-t_b|\le r_b$, with the operator, RMS and coordinate bounds in (i):
+forward queries range over the panel, backward queries over training inputs.
+The partition and radii depend deterministically only on
+$n,m,\gamma,Y$, activations and depth, and
+
+$$
+J\le1+\beta^{30L}\left(\frac{Ym}{\gamma}\right)^2\sqrt{\log(en)}
+       +\beta^{16L}\frac m\gamma
+             \log\left(1+\frac{4\log(en)}{\log2}\right).
+$$ {#eq-compression-panel-source}
+
+:::::::::::::::
+
+[]{#proof-compression-source}
+
+::::::::::::::: {.proof}
+
+We prove stronger intermediate domains with explicitly calculated bounds,
+then compare them with the displayed interface.  All symbols introduced
+from here through the end of this proof are private to this argument;
+the subsequent constructions use only the proposition's stated bounds.
+All probability statements concern one sufficiently large width, with the
+data, depth, activations and confidence fixed.  Write
+$\lambda=\gamma/m$, $Y=\|y\|_2/\sqrt m$,
+$S=16Y/\lambda$, and $\ell=\log(en)$.  We treat $Y>0$;
+zero labels give the stationary zero predictor.  For each full or cavity
+trajectory write $\rho=\|r\|_2/\sqrt m$, also at complex times using
+the Euclidean norm of the complex residual vector.  Write
+$W_0^{(j)}=W^{(j)}(0)$ for initialized matrices.  Put
+
+$$
+\begin{aligned}
+b&=\max_j|\phi^{(j)}(0)|,\\
+ s&=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|(\phi^{(j)})'(z)|\},
+ \\
+ t_2&=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|(\phi^{(j)})''(z)|\}.
+\end{aligned}
+$$
+
+Thus $1+b,s,t_2,16/a\le\beta$, and the bound used for
+activation values is $|\phi^{(j)}(z)|\le b+s|z|$, not boundedness.
+Write $v=x/\sqrt d$.  Backward fields at a passive input are defined
+by the same algebraic recursion as at a training input,
+
+$$
+k^{(L)}(t,v)=W^{(L+1)}(t),\qquad
+ \delta^{(j)}(t,v)=(\phi^{(j)})'(z^{(j)}(t,v))\odot k^{(j)}(t,v),
+ \qquad k^{(j)}=W^{(j+1)\top}\delta^{(j+1)}.
+$$
+
+This definition uses no passive label and does not add a training term.
+
+[1. Local coefficient estimates and working domains.]{#sec-compression-src-coefficients}
+
+The following scalars are bounds, not coordinates of a model:
+
+$$
+\begin{aligned}
+H_1&=\max(1,b+20s),& H_j&=\max(1,b+10sH_{j-1}),\\
+ k_L&=H_L,& k_j&=10sk_{j+1},& \tau_j&=sk_j,\\
+ P_1&=3,&P_j&=H_{j-1}+10sP_{j-1}+1,&f_j&=sP_j,\\
+ A_*&=2sP_L+2s^2\sum_{j=2}^Lk_jP_{j-1},&
+ D_*&=t_2\sum_{j=1}^LP_j^2,&
+ H_*&=A_*+t_2\sum_{j=1}^LP_j^2k_j.
+\end{aligned}
+$$ {#eq-compression-src-basic}
+
+Set $f_* =\max_jf_j$, $k_* =\max_jk_j$,
+$H_{\max}=\max_jH_j$, and define
+
+$$
+\begin{aligned}
+E_*&=t_2\sum_{j=1}^L(10s)^{2(j-1)}k_j,&
+ T_*&=2H_*^2+4A_*^2(e^2-1),\\
+ D_0&=(1+b+s)(1+T_*+E_*+s^2k_*^2),&
+ D_1&=576e^3(1+b+s)D_*^3,\\
+ C_F&=s(8f_*^2+H_{\max}^2+1),&
+ C_{\rm abs}&=8(D_0+1),\\
+ V_1^0&=\tau_1,&V_j^0&=\tau_jH_{j-1}^2+10sV_{j-1}^0,\\
+ G_L^0&=sH_L+14t_2V_L^0+s,&
+ G_j^0&=10sG_{j+1}^0+s^3k_{j+1}^2H_j+14t_2V_j^0+s,\\
+ W_G&=128(1+H_{\max}+s\max_jV_j^0+\max_jG_j^0).
+\end{aligned}
+$$ {#eq-compression-src-absorption-coefficients}
+
+Choose the exponential-budget constants in this order:
+
+$$
+\begin{aligned}
+\eta_*&=\min\{1,(1024C_{\rm abs}W_G)^{-1}\},&
+ \mathcal B&=1024e^2L,&
+ \Lambda_*&=\log(e+\mathcal B)+\log(1/\eta_*).
+\end{aligned}
+$$
+
+$$
+\begin{split}
+ S_*={}&\min\left\{1,(4A_*)^{-1},
+ \sqrt{\frac{\eta_*}{4000D_*}},
+ \sqrt{\frac{\eta_*}{16eD_*\sqrt{2\mathcal B}}},\right.\\
+ &\hspace{19mm}\left.\sqrt{\frac{\eta_*}{\Lambda_*}},
+ \left(\frac{\eta_*^3}{D_1\mathcal B}\right)^{1/4},
+ (8D_0C_F)^{-1/2}\right\}. 
+\end{split}
+$$ {#eq-compression-src-allowance}
+
+These quantities depend only on the activation bounds and depth.
+Further put
+
+$$
+\begin{aligned}
+C_G&=32\max(1,H_{\max},\max_j\tau_j),&
+ K_{\rm src}&=16C_{\rm abs}(1+C_G),\\
+ g_*&=\tau_1+\sum_{j=2}^L\tau_jH_{j-1},&
+ r_j^*&=P_jg_*,&q_j^*&=f_jg_*,\\
+ j_j^*&=20(10s)^{j-1},&b_j^*&=sj_j^*,\\
+ e_1&=t_2r_1^*P_1,&
+ e_j&=t_2r_j^*P_j+s(q_{j-1}^*+\tau_jH_{j-1}f_{j-1}+10e_{j-1}),\\
+ a_1^*&=t_2j_1^*P_1+2s,&
+ a_j^*&=t_2j_j^*P_j+s(b_{j-1}^*+10a_{j-1}^*),\\
+ T_Q&=8f_*\max_j(f_jH_*+e_j),&T_J&=8f_*\max_ja_j^*.
+\end{aligned}
+$$ {#eq-compression-src-response-coefficients}
+
+For a Gaussian multiplier $G$, define
+
+$$
+\begin{aligned}
+U_1(G)&=4sK_{\rm src},\\
+ U_j(G)&=2\{sK_{\rm src}(H_{j-1}^2+f_{j-1}^2+ST_Q
+                  +S^2H_{j-1}q_{j-1}^*)+Gq_{j-1}^*+1\},\\
+ V_1(G)&=2(2G+2sK_{\rm src}S^2+1),\\
+ V_j(G)&=2\{Gb_{j-1}^*+sK_{\rm src}S^2
+                    (T_J+H_{j-1}b_{j-1}^*)+1\}.
+\end{aligned}
+$$ {#eq-compression-src-uv}
+
+Use $U=\max_jU_j(16\sqrt{d+3})$,
+$V=\max_jV_j(16\sqrt{d+3})$ for the sphere, and
+$U_{\rm fin}=\max_jU_j(64)$ for a fixed finite list of inputs.
+Finally let
+
+$$
+\mathcal K=H_L^2+S^2\left(\tau_1^2+
+            \sum_{j=2}^L\tau_j^2H_{j-1}^2\right),\qquad
+ D_W=\max\{\tau_1,\max_{j\ge2}\tau_jH_{j-1}\}.
+$$ {#eq-compression-src-k}
+
+::::::::::::: {#lem-compression-src-powers}
+
+### Local power bounds
+
+If $Y/\lambda\le\beta^{-30L}$, then $S\le\beta^{-26L}\le S_*$.
+Moreover
+
+$$
+\begin{gathered}
+H_j\le3\beta^{2j},\quad P_j\le\beta^{3j-2},\quad
+ k_j\le3\beta^{4L-2j},\quad\tau_j\le3\beta^{4L-2j+1},
+ \quad K_{\rm src}\le\beta^{21L},
+\end{gathered}
+$$ {#eq-compression-src-powers-basic}
+
+$$
+\begin{gathered}
+U\le\beta^{26L}\sqrt{d+3},\qquad
+ V\le\beta^{2L}\sqrt{d+3},\qquad
+ U_{\rm fin}\le\beta^{26L},\qquad
+ \mathcal K\le\beta^{14L}.
+\end{gathered}
+$$ {#eq-compression-src-powers-uv}
+
+:::::::::::::
+
+[]{#proof-compression-src-powers}
+
+::::::::::::: {.proof}
+
+Unroll the affine recurrences using $10s\le\beta^2$,
+$4j\le\beta^j$, $L,L+1\le\beta^{L-1}$, and
+$\sum_{j=1}^L\beta^{cj}\le\beta^{cL}/(1-\beta^{-c})$.
+They give $H_j\le22\beta(10\beta)^{j-1}\le3\beta^{2j}$
+and $P_j\le4j(10\beta)^{j-1}\le\beta^{3j-2}$.
+Substitution gives the following bounds; both columns are included to
+account for the numerical factors.
+
+| quantity | intermediate bound | power bound |
+|---|---|---|
+| $A_*$ | $7\beta^{5L-3}$ | $\beta^{5L-2}$ |
+| $D_*$ | $2\beta^{6L-3}$ | $\beta^{6L-2}$ |
+| $H_*$ | $4\beta^{8L-3}$ | $\beta^{8L-2}$ |
+| $E_*$ | $4\beta^{6L-3}$ | $\beta^{6L-2}$ |
+| $T_*$ | $3\beta^{16L-4}$ | $\beta^{16L-3}$ |
+| $D_0$ | $8\beta^{16L-3}$ | $\beta^{16L-2}$ |
+| $D_1$ | $9216e^3\beta^{18L-8}$ | $\beta^{18L-2}$ |
+| $C_F$ | $9\beta^{6L-1}$ | $\beta^{6L}$ |
+| $C_{\rm abs}$ | $65\beta^{16L-3}$ | $\beta^{16L-1}$ |
+
+For instance, the summands of $A_*$'s mixed part, $H_*$'s
+curvature part, and $E_*$ are at most
+$6\beta^{4L+j-3},3\beta^{4L+4j-3},3\beta^{4L+2j-3}$.
+The inner sum in $D_0$ is at most
+$1+3\beta^{16L-4}+4\beta^{6L-3}+9\beta^{8L-2}
+\le4\beta^{16L-4}$, and $9216e^3<\beta^6$.
+Unrolling the two activity recurrences gives
+
+$$
+V_j^0\le27j\beta^{4L+2j-3},\quad \max_jV_j^0\le\beta^{7L-2},
+ \quad G_j^0\le66L\beta^{8L-2j-1},\quad
+ W_G\le\beta^{9L+1}.
+$$
+
+In the reverse recurrence the propagated terminal, mixer and curvature
+contributions are bounded respectively by
+$380L\beta^{8L-2j-2},27L\beta^{8L-2j-1},
+379L\beta^{8L-2j-6}$; the constant contribution is at most
+$2\beta^{2L-2j-1}$.  Hence
+$\eta_*^{-1}\le\beta^{25L+4}$,
+$\mathcal B\le\beta^{L+3}$, and $\Lambda_*\le\beta^{2L}$.
+The six nonconstant entries of @eq-compression-src-allowance are at least
+$\beta^{-c}$, with exponents
+
+$$
+5L-1,\quad(31L+6)/2,\quad(63L+12)/4,\quad
+ (27L+4)/2,\quad(94L+13)/4,\quad(22L-1)/2.
+$$
+
+All are at most $26L$.  Also $16\beta^{-30L}\le\beta^{-26L}$.
+The remaining recurrences give
+
+$$
+\begin{gathered}
+g_*\le\beta^{5L-1},\qquad r_j^*\le\beta^{5L+3j-3},\qquad
+ q_j^*\le\beta^{5L+3j-2},\\
+ e_j\le2\beta^{5L+6j-4},\qquad a_j^*\le3\beta^{5j-2},
+ \qquad T_Q\le\beta^{14L-3},\qquad T_J\le\beta^{8L-1}.
+\end{gathered}
+$$
+
+For $e_j$, its three forcing exponents are at most
+$5L+6j-4,5L+3j-4,4L+3j-4$, with coefficient nine
+in the last term; geometric propagation by $\beta^2$ gives the
+displayed factor two.  The same calculation gives the factor three
+for $a_j^*$.  Further
+$K_{\rm src}\le1552\beta^{20L-2}\le\beta^{20L+2}$.
+Now $ST_Q,S^2H_{j-1}q_{j-1}^*\le1$, and the bracket in
+@eq-compression-src-uv is at most $11\beta^{6L-8}$.
+Thus for $j\ge2$
+
+$$
+U_j(16\sqrt{d+3})\le22\beta^{26L-5}
+       +32\sqrt{d+3}\beta^{8L-5}+2,
+ \quad U_j(64)\le22\beta^{26L-5}+128\beta^{8L-5}+2.
+$$
+
+The first-layer bound is $4\beta^{20L+3}$.  These give the
+asserted bounds on $U,U_{\rm fin}$.  In $V_j$, the term
+containing $S^2$ is at most one, giving
+$V_j\le64\sqrt{d+3}\beta^{2L-2}+4$ for $j\ge2$;
+the first value is at most $67\sqrt{d+3}$.
+Finally substitute @eq-compression-src-powers-basic in
+@eq-compression-src-k; $S\le1$ and the same geometric sum give
+$\mathcal K\le\beta^{14L}$.  Every comparison above holds
+already at $L=2,\beta=10$, and improves as either increases.
+
+:::::::::::::
+
+[Working whole-sphere estimates.]{#sec-compression-working-whole-sphere-estimates}
+
+The estimates below in fact require only the conclusion of the fitting
+lemma and $S\le S_*$, both already implied by the headline assumptions.
+For the remainder of this proof redefine the working radii by
+
+$$
+T=32\ell/\lambda,\quad c_t=\frac a{64YSU},\quad
+ c_q=\min\{1/8,a/(8V)\},\quad r_t=c_t/\sqrt\ell,
+ \quad r_q=c_q/\sqrt\ell.
+$$
+
+For every fixed confidence, eventually with that confidence all forward
+and backward fields extend holomorphically to a neighborhood of
+
+$$
+([-r_t,T+r_t]+i[-r_t,r_t])\times\mathcal Q_{r_q},\qquad
+ \mathcal Q_r=\{v\in\mathbb C^d:v^\top v=1,
+                           \|\operatorname{Im}v\|_2\le\sinh r\}.
+$$
+
+For $d=1$, replace $\mathcal Q_r$ by the two points $\{-1,1\}$.
+Holomorphy in the query is relative to the complex quadric.
+Normalized first-layer and hidden operator norms are at most ten, and
+
+$$
+\|h^{(j)}\|_2/\sqrt n\le H_j,\qquad
+ \|k^{(j)}\|_2/\sqrt n\le Sk_j,\qquad
+ \|\delta^{(j)}\|_2/\sqrt n\le S\tau_j.
+$$
+
+For training points,
+$\max|z_{a,i}^{(j)}|\le K_{\rm src}\sqrt\ell$ and
+$\max|k_{a,i}^{(j)}|\le SK_{\rm src}\sqrt\ell$.
+In mobility coordinates
+$\Theta=(W^{(1)},\sqrt nW^{(2)},\ldots,\sqrt nW^{(L)},W^{(L+1)})$,
+put $F_a=nf_n(v_a)$.  Then
+
+$$
+\max_{a,j,i,v}|(D_\Theta z^{(j)}(v)\nabla_\Theta F_a)_i|
+       \le SU\sqrt\ell,\qquad
+ \max_{j,i}|\partial_\zeta z_i^{(j)}(u\cos\zeta+v\sin\zeta)|
+       \le V\sqrt\ell
+$$
+
+for real orthonormal frames $(u,v)$ in the query tube.
+All four source families
+
+$$
+h^{(j)},\qquad W_0^{(j)}h^{(j-1)},\qquad\delta^{(j)},\qquad
+ W_0^{(j+1)\top}\delta^{(j+1)},
+$$
+
+omitting boundary images, have
+coordinate modulus at most $M_0\sqrt n$, where
+$M_0=10\max_j(H_j,\tau_j)$.  The real fitting trajectory and its
+endpoint are those of @lem-compression-fit.
+The proof below also establishes the finite-query and expanding-domain
+variants.  Its probability step is shared; the domain verifications are
+given last.
+
+[2. Independent stops and deterministic differentiation.]{#sec-compression-src-local}
+
+Delete a fixed number $u$ of neurons at one layer, preserving the
+original normalization $n$ in every rectangular matrix.  For each
+deleted interior neuron, its initialized incoming row transpose $y_i$
+and outgoing column $x_i$ are independent $N(0,I/n)$, independent
+of the retained initialization and other omitted pairs.  At the first
+layer the incoming row instead has covariance $I_d$ and evaluates
+only its own initial preactivation; at the top there is no outgoing
+root.  Use a separate initial test for each cavity, and set its
+reference coefficient paths identically zero if it fails.  All such
+paths are defined before integrating an omitted root.
+
+For a nested domain $D_s$, stop each cavity at its own first exit
+level.  Stop every training sample's budget
+
+$$
+\mathcal H_a=\frac1n\sum_{j,i}
+ \exp\{\eta_*(Z_{a,i}^{(j)}+K_{a,i}^{(j)}/S)\},\quad
+ Z_{a,i}^{(j)}=\sup_{D_s}|z_{a,i}^{(j)}|,\quad
+ K_{a,i}^{(j)}=\sup_{D_s}|k_{a,i}^{(j)}|,
+$$ {#eq-compression-src-budget}
+
+at $\mathcal B$ for the full network and $2\mathcal B$ for
+cavities.  Also stop operators at ten, contour activity at
+$2\int\rho|dt|=S$, and imaginary preactivations at $3a/8$
+and $7a/16$, respectively.  Impose provisional coordinate and
+response maxima twice the claimed full bounds and four times the
+cavity bounds, as well as the passive size and row bounds used below.
+These have strict margins on the successful prefix.
+
+For rectangles use $D_s=sD_1$ and coordinate clipping $P_s$.
+For the query tube also clip its imaginary great-circle coordinate,
+retaining every real frame.  If a cavity stops at $s_c$, extend a
+coefficient by $b_c(P_{s_c}z)$.  With
+$a_0(z)=\operatorname{clip}_{[0,T]}\operatorname{Re}z$,
+
+$$
+P_{s_c}a_0(z)=a_0(P_{s_c}z),\qquad
+ b_c(P_{s_c}z)-b_c(P_{s_c}a_0(z))
+   =b_c(P_{s_c}z)-b_c(a_0(P_{s_c}z)).
+$$ {#eq-compression-src-clipped}
+
+Clipping is measurable in retained initialization, is Lipschitz, and
+fixes the successful prefix.  Its real anchors traverse a monotone
+interval and then freeze.  Different cavities are extended separately
+before subtraction.  The expanding domain below has the same
+properties with a uniformly bounded Lipschitz constant.  These
+extensions need not be holomorphic outside their own domains.
+
+Write $\Theta_0=\Theta(0)$, $\bar u=(\Theta-\Theta_0)/S$,
+$\bar F_a=F_a(\Theta_0+S\bar u,e_a)/S$,
+$\bar r_a=\bar F_a/n-y_a/S$, and put bars on backward
+fields divided by $S$.  Here $e_a$ is an additive forward port.
+The two actual ports of a deletion are
+$e_a=\sum_iW_{:,i}^{(j+1)}h_{a,i}^{(j)}$ and
+$\bar q_a=\sum_iW_{i,:}^{(j)\top}\bar\delta_{a,i}^{(j)}$.
+The exact retained equation is
+
+$$
+\dot{\bar u}=-\frac2m\sum_a\bar r_a
+   \left(\nabla_{\bar u}\bar F_a+
+           D_{\bar u}h_a^{(j-1)\top}\bar q_a\right).
+$$ {#eq-compression-src-retained}
+
+At the top add $n^{-1}\sum_i\bar u_{W^{(L+1)},i}h_{a,i}^{(L)}$
+to $\bar r_a$, multiplying both terms.  The reverse port does
+not enter the forward residual.  The gradient blocks of $\bar F_a$
+are $S\bar\delta_a^{(1)}v_a^\top$,
+$S\bar\delta_a^{(j)}h_a^{(j-1)\top}/\sqrt n$, and
+$h_a^{(L)}$.
+
+The physical recurrences and linear activation growth give
+@eq-compression-src-basic's RMS bounds whenever the operator and activity
+stops hold.  For augmented mobility/port directions $U$, write
+$Z_a^{(j)}U=Dz_a^{(j)}[U]$.  The exact derivative recursion is
+
+$$
+\begin{aligned}
+Z_a^{(1)}U&=U_{W^{(1)}}v_a+U_{e^{(1)}},\\
+ Z_a^{(j)}U&=U_{\sqrt nW^{(j)}}h_a^{(j-1)}/\sqrt n
+       +W^{(j)}\operatorname{diag}((\phi^{(j-1)})')Z_a^{(j-1)}U
+       +U_{e^{(j)}}.
+\end{aligned}
+$$ {#eq-compression-src-first-derivative}
+
+It is bounded by $P_j$; its activated version is bounded by $f_j$.
+The Hessian, with all activations evaluated at the reference state, is
+
+$$
+\begin{aligned}
+D^2F_a[U,V]={}&U_{W^{(L+1)}}^\top\operatorname{diag}((\phi^{(L)})')Z_a^{(L)}V
+ +V_{W^{(L+1)}}^\top\operatorname{diag}((\phi^{(L)})')Z_a^{(L)}U\\
+ &+\sum_j(Z_a^{(j)}U)^\top
+       \operatorname{diag}(k_a^{(j)}(\phi^{(j)})'')Z_a^{(j)}V\\
+ &+\sum_{j\ge2}\frac{\delta_a^{(j)\top}}{\sqrt n}
+ \{U_{\sqrt nW^{(j)}}\operatorname{diag}((\phi^{(j-1)})')Z_a^{(j-1)}V
+ +(U\leftrightarrow V)\}.
+\end{aligned}
+$$ {#eq-compression-src-hessian}
+
+For a rectangular matrix let $\sigma_i(B)$ be its singular values
+and define its ordinary Schatten norm by
+$\|B\|_{S_p}=(\sum_i\sigma_i(B)^p)^{1/p}$.
+The budget implies
+$\|k_a^{(j)}\|_p/n^{1/p}\le(S/\eta_*)p(2\mathcal B)^{1/p}$,
+because $x^p\le(p/e)^pe^x$.  Each noncurvature Hessian block
+factors through at most $n$ coordinates, and each curvature block
+contains one carrier diagonal.  Matrix ideal inequalities in
+@eq-compression-src-hessian therefore give
+
+$$
+\begin{aligned}
+\frac{\|D^2F_a\|_{S_p}}{n^{1/p}}&\le A_*+(SD_*/\eta_*)p(2\mathcal B)^{1/p},
+ \qquad \|D^2F_a\|_{\rm HS}/\sqrt n\le H_*,\\
+ \|D^2F_a\|_{\rm op}&\le A_*+(SD_*/\eta_*)\log(2n\mathcal B).
+\end{aligned}
+$$ {#eq-compression-src-schatten}
+
+These bounds also cover $D_\Theta\delta$, since
+$\partial_{e^{(j)}}F_a=\delta_a^{(j)}$.  Residual mixtures
+preserve the bounds by $\sum_a|r_a|/(m\rho)\le1$.
+
+Suppose for now that products of the negative-Gram propagators on
+ordered disjoint contour pieces have norm at most two, and
+$\rho/S\le\lambda/8$.  The variational generator is
+
+$$
+-\frac2{mn}\sum_ag_ag_a^\top-\frac2m\sum_ar_aD^2F_a,
+ \qquad g_a=\nabla_\Theta F_a.
+$$
+
+Its full propagator obeys
+
+$$
+\|J(t,s)\|\le2\exp\{SA_*+(S^2D_*/\eta_*)\log(2n\mathcal B)\}
+ \le Cn^{\kappa},\qquad \kappa=1/4000.
+$$ {#eq-compression-src-propagator}
+
+Here and only in qualitative local estimates, $C$ and powers of
+$\ell$ may depend on the fixed problem and deletion count.
+The coefficient of $\log n$ is bounded by
+@eq-compression-src-allowance; it has not been hidden in a width threshold.
+
+::::::::::::: {#lem-compression-src-local-lemma}
+
+### Local maps, remainders, and passive observables
+
+On the independent stops just specified, with contours of length
+$O(\ell)$, all first insertion maps have norm
+$n^\kappa\operatorname{poly}(\ell)$.  Their dependence on the
+supremum norm of scalar controls is Lipschitz with that bound, and
+their raw terminal/time/frame derivatives are bounded by
+$\sqrt n n^\kappa\operatorname{poly}(\ell)$.
+On the uniform Gaussian event proved below, the retained full/cavity
+differences in preactivations, scaled carriers, responses and angular
+derivatives are at most $n^{-1/30}$ per coordinate and at most
+$2n^{1/100}$ in Euclidean norm, for every fixed deletion count.
+
+:::::::::::::
+
+[]{#proof-compression-src-local-lemma}
+
+::::::::::::: {.proof}
+
+For deterministic controls $\alpha_{a,i},b_{a,i}$, use ports
+$e_a=\sum_ix_i\alpha_{a,i}$, $\bar q_a=\sum_iy_ib_{a,i}$.
+The three port derivatives of @eq-compression-src-retained at zero ports are
+
+$$
+-\frac2{mn}\nabla_{\bar u}\bar F_a\bar\delta_a^{(j+1)\top},
+ \qquad -\frac2m\bar r_a(D_{\bar u}\bar\delta_a^{(j+1)})^\top,
+ \qquad -\frac2m\bar r_a(D_{\bar u}h_a^{(j-1)})^\top.
+$$
+
+The first term accounts for the changed residual.  Integrating them
+against @eq-compression-src-propagator, using gradient norm
+$O(\sqrt n)$, response RMS, and contour length $O(\ell)$,
+gives an insertion-map bound $\sqrt u n^\kappa O(\ell^2)$.
+The differentiated forward/backward recursions are exactly
+
+$$
+\begin{aligned}
+z_{[1]}^{(j)}&=SV_{\sqrt nW^{(j)}}h^{(j-1)}/\sqrt n
+                      +W^{(j)}h_{[1]}^{(j-1)}+e_{[1]}^{(j)},\\
+ h_{[1]}^{(j)}&=(\phi^{(j)})'\odot z_{[1]}^{(j)},\\
+ \bar k_{[1]}^{(j)}&=W^{(j+1)\top}\bar\delta_{[1]}^{(j+1)}
+       +SV_{\sqrt nW^{(j+1)}}^\top\bar\delta^{(j+1)}/\sqrt n
+       +\bar q_{[1]}^{(j)},\\
+ \bar\delta_{[1]}^{(j)}&=(\phi^{(j)})'\odot\bar k_{[1]}^{(j)}
+       +(\phi^{(j)})''\odot\bar k^{(j)}\odot z_{[1]}^{(j)}.
+\end{aligned}
+$$
+
+At the first layer replace the matrix product by $SV_{W^{(1)}}v$;
+at the top $\bar k_{[1]}=V_{W^{(L+1)}}$.  A reference carrier costs
+$O(\ell)$ once in the inhomogeneous last term.  Homogeneous
+propagation costs $10s$.  Induction gives the asserted map bounds;
+subtracting controls gives their Lipschitz bounds because the linear
+variational equation is linear in these controls.  Differentiating
+these displayed recursions introduces only the terms
+$\phi''z_t$,
+$\phi'''z_tz_{[1]}\bar k+\phi''z_{[1]}\bar k_t
++\phi''\bar k z_{[1],t}$, and ordinary product derivatives.
+There is at most one raw reference coordinate derivative, bounded by
+$\sqrt n\operatorname{poly}(\ell)$.  This proves the derivative
+claim without a width power depending on depth.  Cauchy's formula on
+the strict strip bounds $\phi'''$ by $4\beta^2$.
+
+Here are the nonlinear estimates needed to justify this linearization.
+Decompose the augmented displacement into $(V,e)+(U,0)$, and let
+$N$ bound its linear Euclidean variations, $d_0$ their coordinate
+maxima, and $u_0$ bound $\|U\|$.  Put
+
+$$
+R=d_0N+d_0u_0+u_0^2,\qquad P=(N+u_0)^2/\sqrt n.
+$$
+
+Assume $N\ge1$, $d_0,u_0\le1$, $N+u_0\le\sqrt n$,
+and $u_0+R+P\le1$.  If $E_g=g_1-g_0-Dg_0(V+U,e)$
+and $g_i=\phi'(z_i)$ in the third line below, the exact identities are
+
+$$
+\begin{aligned}
+E_{z^{(j)}}&=W_1^{(j)}E_{h^{(j-1)}}+
+              S\Delta\bar u_{\sqrt nW^{(j)}}h_{[1]}^{(j-1)}/\sqrt n,
+ \\
+ E_{\bar k^{(j)}}&=W_1^{(j+1)\top}E_{\bar\delta^{(j+1)}}+
+ S\Delta\bar u_{\sqrt nW^{(j+1)}}^\top\bar\delta_{[1]}^{(j+1)}/\sqrt n,
+ \\
+ E_{\bar\delta}&=g_1\odot E_{\bar k}
+ +(g_1-g_0)\odot\bar k_{[1]}
+ +\bar k_0\odot(g_1-g_0-\phi''(z_0)z_{[1]}).
+\end{aligned}
+$$ {#eq-compression-src-exact-remainders}
+
+The first and top boundary remainders vanish.  Forward and backward
+first derivatives are bounded by $J_f=\beta^{10L}$ and
+$J_b=\beta^{20L}(1+M)$, where $M\ge1$ is a common
+provisional bound for the absolute preactivations and scaled carriers
+of the reference and full paths, including the deleted-neuron values
+that define the scalar controls. Such an envelope is
+$\operatorname{poly}(\ell)$ under the stated stops.
+The localized product estimate is
+$\|z_{[1]}^{\odot2}\|_2\le3J_f^2R$.
+Insert $z_0+z_{[1]}$ into activation subtraction.  Taylor's formula
+and @eq-compression-src-exact-remainders, summed by geometric propagation,
+give
+
+$$
+\max(\|E_z\|_2,\|E_h\|_2)\le\beta^{30L}(R+P),\qquad
+ \max(\|E_{\bar k}\|_2,\|E_{\bar\delta}\|_2)
+       \le\beta^{60L}(1+M)(R+P).
+$$ {#eq-compression-src-remainder-bounds}
+
+Indeed the two gate cross terms cost at most
+$\beta[3J_fJ_bR+\beta^{30L}(R+P)(d_0+J_bu_0)]$ and
+$M[\beta\|E_z\|+\beta^2\|z_{[1]}^{\odot2}\|/2]$;
+the matrix cross term costs $J_bP$.  No changed carrier is used
+as a presumed reference bound.
+
+The hidden gradient remainder is
+
+$$
+\frac S{\sqrt n}
+ [E_{\bar\delta}h_1^\top+
+       \bar\delta_{[1]}(h_1-h_0)^\top+\bar\delta_0E_h^\top],
+$$
+
+bounded by $\beta^{70L}(1+M)(R+P)$.
+The Hessian identity along partial joining segments bounds the
+residual difference by $\beta^{13L}(N+u_0)/\sqrt n$ and its
+linearization error by
+$\beta^{87L}(1+M)(N+u_0)^2/(2n)$.
+For a product of residual and gradient, its exact remainder is
+$\bar r_0E_g+(\Delta\bar r-D\bar r_0\Delta)g_0
++\Delta\bar r(g_1-g_0)$.
+
+For the reverse force one additionally needs a lower adjoint probe.
+For an omitted root $y_i$, include all derivatives of
+$y_i^\top h^{(j-1)}$ in the Gaussian coordinate event.
+For $q=\sum_iy_ib_{a,i}$, let $Q=2u\beta M$,
+$P_q=u\beta Md_0$.  Subtracting its adjoint recursion gives
+
+$$
+\max_j\|k_{q,1}^{(j)}-k_{q,0}^{(j)}\|_2
+ \le\beta^{20L}(P_q+Q/\sqrt n)(N+u_0),
+$$
+
+since the changed gate multiplies the reference probe maximum, the
+changed matrix costs $Q(N+u_0)/\sqrt n$, and propagation costs
+$11s$.  Integrating the corresponding Hessian gives
+
+$$
+\|(Dh_1-Dh_0)^\top q\|_2
+ \le\beta^{50L}(P_q+Q/\sqrt n)[N+u_0+(N+u_0)^2].
+$$
+
+Combining these estimates in @eq-compression-src-retained yields the
+vector-field remainder bound
+
+$$
+\beta^{240L}(1+u)(1+M)
+ \{\bar\rho[R+d_0(N^2+Nu_0+u_0^2)]+(1+\bar\rho)P\},
+ \qquad \bar\rho=\rho/S.
+$$ {#eq-compression-src-force-remainder}
+
+This also holds on the complex joining segments: the sufficient gate
+$d_0+\beta^{10L}u_0+\beta^{30L}(R+P)<a/32$
+keeps the segments and auxiliary Taylor points inside $15a/32$.
+A first-exit argument proves the gate's use before Taylor expansion;
+the factor $\beta^{240L}$ pays for the Cauchy third-derivative
+bound.  Scaling introduced no inverse power of $S$: in the
+effective network with readout $\bar u_{W^{(L+1)}}$, the affine change of
+variables multiplies hidden directions by $S\le1$.
+
+For every existing outgoing column, and for an incoming row at a
+layer $j\ge2$, integrating the omitted-parameter equations gives
+
+$$
+\|\Delta W^{(j+1)}_{:,i}\|
+       \le S^2(\max_r\tau_r)(b+sM)/\sqrt n,
+ \qquad
+ \|\Delta W^{(j)}_{i,:}\|
+       \le S^2H_{\max}sM/\sqrt n.
+$$
+
+At the first layer the incoming-row estimate is instead
+$\|\Delta W^{(1)}_{i,:}\|\le sS^2M$.
+There is no retained reverse port below that layer: this row's
+motion is included in the deleted neuron's scalar controls, rather
+than in the learned retained-port remainder. Thus every existing
+learned port entering the retained equation still induces a force
+at most
+$S^2\beta^{260L}(1+u)^2(1+M)^3(1+\bar\rho)/\sqrt n$.
+The top residual offset is at most $uM(b+sM)/n$; its product
+with both retained terms has the same enclosing bound.
+
+It remains to specify all passive quantities in the local claim.
+For evaluated input $q$ and training driver $a$, let
+$C_q^{(j)}=D_\Theta h_q^{(j)}$,
+$\bar R_{qa}^{(j)}=S^{-1}D_\Theta z_q^{(j)}g_a$, and
+$\bar Q_{qa}^{(j)}=(\phi^{(j)})'\odot\bar R_{qa}^{(j)}$.  Then
+
+$$
+\begin{aligned}
+\bar R_{qa}^{(1)}&=\bar\delta_a^{(1)}v_a^\top q,&
+ \bar R_{qa}^{(j)}&=\bar\delta_a^{(j)}c_{aq}^{(j-1)}
+                         +W^{(j)}\bar Q_{qa}^{(j-1)},&
+ c_{aq}^{(j-1)}&=h_a^{(j-1)\top}h_q^{(j-1)}/n.
+\end{aligned}
+$$ {#eq-compression-src-response-recursion}
+
+Angular fields satisfy $J^{(1)}=W^{(1)}q'$,
+$J^{(j)}=W^{(j)}I^{(j-1)}$, $I=\phi'\odot J$.
+Differentiate these product formulas: the four response terms are
+$\bar\delta_{[1]}c+\bar\delta c_{[1]}$,
+$SV_{\sqrt nW}\bar Q/\sqrt n$, and
+$W\bar Q_{[1]}$, together with the omitted port
+$\sum_ix_i\bar Q_{qa,i}$.  The activated variation adds
+$\phi''\bar R z_{[1]}$.  Angular variations have the same
+matrix and gate terms, with omitted port $\sum_ix_iI_i$.
+Below a deletion there is also the direct reverse observable
+
+$$
+S^{-1}(Q_{qa,\mathrm{full}}-C_qg_a)=C_qC_a^\top\bar q_a.
+$$ {#eq-compression-src-direct-reverse}
+
+Include the forward images of $C_a^{0\top}y_i$ in the Gaussian
+event; their coefficient maps are independent of that root.
+
+Product subtraction gives
+
+$$
+|c_{[1]}|\le\beta^{10L}(N+u_0)/\sqrt n,\qquad
+ |E_c|\le\beta^{40L}[(R+P)/\sqrt n+(N+u_0)^2/n].
+$$
+
+The exact response remainder is
+$E_{\bar\delta}c_1+\bar\delta_{[1]}(c_1-c_0)
++\bar\delta_0E_c+W_1E_{\bar Q}+\Delta W\bar Q_{[1]}
++E_{\rm ports}$; its gate remainder is the third line of
+@eq-compression-src-exact-remainders with $\bar k$ replaced by
+$\bar R$.  The angular case uses that same identity with $J$.
+Reference response RMS cancels the $1/\sqrt n$ in $E_c$.
+For $\xi=C_a^{0\top}y_i$, forward directional subtraction gives
+$\|(C_q^1-C_q^0)\xi\|\le
+\beta^{50L}(d_0+n^{-1/2})(N+u_0)$.
+The other changed factor in @eq-compression-src-direct-reverse uses the
+adjoint-probe estimate above.  Their sum is bounded by
+
+$$
+\beta^{70L}(1+u)(1+M)(d_0+n^{-1/2})
+                       [N+u_0+(N+u_0)^2].
+$$
+
+Missing feature products cost $u(b+sM)^2/n$, and learned ports
+cost $n^{-1/2}\operatorname{poly}(\ell)$.  These enumerate all
+additional remainders.  Their time and frame derivatives have the
+same product structure already checked.  The probabilistic and
+first-exit conclusion follows in the next paragraph.
+
+:::::::::::::
+
+[The uniform Gaussian event and closing the local comparison.]{#sec-compression-the-uniform-gaussian-event-and-closing-the-local-comparison}
+
+For fixed controls, a pairing of an omitted root with a linear
+variation has the form $g^\top Rg$, where
+$R=(E_i^\top L+L^\top E_i)/2$.  Consequently
+$\|R\|\le\|L\|$, and only its same-root diagonal block has a
+mean $\operatorname{tr}R/n$.  Cross-root forms are centered.
+On $\|g\|\le2\sqrt{2u}$, interpolation of a centered form costs
+at most $10u\|\Delta R\|$, including its trace.
+All stopped scalar controls have polynomial-logarithmic amplitudes
+and speeds $\sqrt n\operatorname{poly}(\ell)$; this follows by
+differentiating the forward, backward and response recursions above.
+A scalar control with amplitude $M_c$, speed $D_c\sqrt n$
+on a contour of length $T_c$ has an $n^{-1/8}$-net of
+logarithmic cardinality at most
+
+$$
+(2+8T_cD_cn^{5/8})\log(1+8M_cn^{1/8}).
+$$
+
+Indeed sample it at spacing $n^{-1/8}/(8D_c\sqrt n)$, round
+on mesh $n^{-1/8}/4$, and interpolate.  Apply this separately to
+the finitely many real and imaginary controls.  They are deterministic
+one-dimensional histories on a prescribed contour; no arbitrary
+two-dimensional analytic continuation of controls is assumed.
+
+After eventual absorption of the fixed logarithmic factors, all
+linear and quadratic maps have norm at most $n^{1/200}$.
+A linear coordinate has variance at most $n^{-99/100}$.
+For a real symmetric form, diagonalization and
+
+$$
+\mathbb E e^{t(G^\top RG-\operatorname{tr}R)}
+ =\prod_i e^{-t\lambda_i}(1-2t\lambda_i)^{-1/2},\qquad
+ -\log(1-v)-v\le\frac{v^2}{2(1-|v|)}
+$$
+
+give, for $g\sim N(0,I/n)$,
+
+$$
+\Pr\{|g^\top Rg-\operatorname{tr}R/n|>t\}
+ \le2\exp\left[-c\min\left\{
+       \frac{n^2t^2}{\|R\|_{\rm HS}^2},
+       \frac{nt}{\|R\|_{\rm op}}\right\}\right]
+$$
+
+with an absolute $c>0$, by applying exponential Markov with
+$|2t\lambda_i|\le1/2$ and optimizing the parameter.
+Here $\|R\|_{\rm HS}\le\sqrt{2un}\|R\|$.  At threshold
+$n^{-1/10}/8$, real/imaginary splitting gives
+$4e^{-n^{.78}}$ eventually.  Root-norm failure is at most
+$e^{-un}$.  The control interpolation error is
+$n^{-1/8+1/200}\operatorname{poly}(\ell)=o(n^{-1/10})$.
+A terminal/time/frame mesh of spacing
+$n^{-2}/\operatorname{poly}(\ell)$ has polynomial size;
+the sphere frame has $2d$ ambient coordinates.  Together with
+all coordinates, probes and at most $uLn^u$ deletion sets, the
+logarithmic union cost is eventually less than $n^{.65}$.
+Thus the uniform event fails with probability at most $e^{-n^{.7}}$.
+Only after this event is established are the actual adaptive controls
+substituted.  Root-norm bounds also make the total linear vector
+variation at most $n^{1/100}$, distributing a fixed share among
+the finitely many components.
+
+Let $U$ be the retained scaled displacement minus its linear
+variation.  It satisfies Duhamel's formula with
+@eq-compression-src-force-remainder, the learned ports, and the top offset.
+Set $N=n^{1/100}$, $d_0=n^{-1/10}$, $u_0=n^{-1/25}$.
+On a first-exit prefix $\|U\|\le u_0$,
+
+$$
+\|U\|\le n^\kappa\operatorname{poly}(\ell)
+ [n^{-.08}+u_0^2+n^{-.48}+n^{-1/2}]=o(u_0).
+$$ {#eq-compression-src-local-close}
+
+The activity integral bounds the residual-weighted terms and the
+contour length bounds the others.  This strictly improves the stop.
+The explicit remainders then give coordinate discrepancies
+$n^{-1/30}$ and vector discrepancies $2n^{1/100}$, including
+passive responses and angular fields.  The joining-strip gate also
+holds eventually. For every deterministic frozen control history, the
+retained linear variations are centered Gaussian images conditional on
+the cavity. After substituting adaptive controls, we use only the
+uniform bounds already proved; we assert neither Gaussianity nor
+centering of the resulting variations. Pairing a frozen-control
+variation again with an omitted root produces a quadratic form. Its
+nonzero trace is retained before adaptive substitution, as treated next.
+This completes @lem-compression-src-local-lemma.
+
+[3. Trace absorption and Gaussian moments.]{#sec-compression-src-moments}
+
+[Every noncentered contraction.]{#sec-compression-every-noncentered-contraction}
+
+Throughout this paragraph, conditional means and centered forms refer
+to deterministic frozen controls, conditional on the cavity. The
+resulting trace bounds hold uniformly over those controls and are
+then evaluated at the actual adaptive controls.
+For one interior omitted neuron work in unscaled mobility coordinates,
+and set $C_a=D_\Theta h_a^{(j-1)}$,
+$B_a=D_\Theta\delta_a^{(j+1)}$,
+$E_a=D_{e_a^{(j+1)}}\delta_a^{(j+1)}$, all at the zero-source
+cavity.  With $\alpha_b=h_{b,i}^{(j)}$,
+$b_b=\delta_{b,i}^{(j)}$, and $d_b=\delta_b^{(j+1)}$,
+the linear parameter variation is
+
+$$
+V(t)=-\frac2m\sum_b\int_0^tJ(t,s)
+ \{g_b(s)d_b(s)^\top x_i\alpha_b(s)/n
+       +r_b(s)B_b(s)^\top x_i\alpha_b(s)
+       +r_b(s)C_b(s)^\top y_i b_b(s)\}\,ds.
+$$
+
+The scalar expansions are
+
+$$
+\begin{aligned}
+z_{a,i}&=y_i^\top h_a^0+y_i^\top C_aV
+                      +(\Delta W_{i,:})h_a+o(1),\\
+ k_{a,i}&=x_i^\top\delta_a^0+x_i^\top B_aV
+                  +x_i^\top E_ax_i\alpha_a
+                  +(\Delta W_{:,i})^\top\delta_a+o(S).
+\end{aligned}
+$$
+
+The errors follow in scaled coordinates from
+@lem-compression-src-local-lemma.  The four nonzero conditional means are
+
+$$
+\begin{aligned}
+&-\frac2m\sum_b\int r_bb_b
+           \frac{\operatorname{tr}(C_aJ C_b^\top)}n\,ds,
+ &&-\frac2m\sum_b\int r_b\alpha_b
+           \frac{\operatorname{tr}(B_aJ B_b^\top)}n\,ds,\\
+ &\alpha_a\operatorname{tr}(E_a)/n,
+ &&-\frac2{mn^2}\sum_b\int\alpha_b d_b^\top B_aJg_b\,ds.
+\end{aligned}
+$$ {#eq-compression-src-traces}
+
+All other forms are centered same-root or independent-root forms
+covered by the uniform Gaussian event.  The last displayed mean is
+$n^{-1+\kappa}\operatorname{poly}(\ell)=o(1)$, since
+$\|d_b\|,\|g_b\|=O(\sqrt n)$.
+
+Expand $J$ around its negative-Gram base.  A term with $h$
+residual-Hessian insertions has ordered activity integral at most
+$S^h/h!$.  The product of its base propagators costs at most two.
+Normalized Schatten Hölder, with exponent $h+2$ on both
+endpoint Hessian blocks and the $h$ insertions, gives
+
+$$
+\frac{2S^h}{h!}
+ [A_*+(SD_*/\eta_*)(h+2)(2\mathcal B)^{1/(h+2)}]^{h+2}.
+$$
+
+The zero-insertion term is at most $2H_*^2$.  Split the other
+powers by $(x+y)^{h+2}\le2^{h+1}(x^{h+2}+y^{h+2})$.
+The bounded part sums to $4A_*^2(e^{2SA_*}-1)$; the carrier part is
+
+$$
+\frac{8e^2D_*^2S^2\mathcal B}{\eta_*^2}
+ \sum_{h\ge1}(2eD_*S^2/\eta_*)^h(h+2)^2
+ \le\frac{576e^3D_*^3\mathcal B S^4}{\eta_*^3}.
+$$
+
+Indeed $h!\ge(h/e)^h$, $(1+2/h)^h\le e^2$, and
+$\sum_{h\ge1}q^h(h+2)^2\le36q$ for $q\le1/2$, by
+differentiating the geometric series.  The allowance gives this last
+condition.  For forward endpoints give one exponent two, the other
+infinity, and the $h$ Hessians exponent $2h$.  The two series
+are bounded by $e^{2SA_*}-1$ and
+$\sqrt{2\mathcal B}\sum_{h\ge1}(4eD_*S^2/\eta_*)^h$,
+each at most one by @eq-compression-src-allowance.  Including the zero term,
+
+$$
+|\operatorname{tr}(C_aJC_b^\top)|/n\le8f_*^2.
+$$ {#eq-compression-src-forward-trace}
+
+Reciprocal exponents sum to one, giving normalization exactly
+$n^{-1}$, independent of parameter-space dimension.
+The direct port Hessian is
+$E_a=\sum_{r>j}T_{r,j+1}^\top
+\operatorname{diag}(k_a^{(r)}(\phi^{(r)})'')T_{r,j+1}$, with
+$\|T_{r,j+1}\|\le(10s)^{r-j-1}$; hence carrier RMS gives
+$|\operatorname{tr}E_a|/n\le SE_*$.
+
+Let $G_{h,a,i}$, $G_{\delta,a,i}$ denote suprema of the
+corresponding cavity Gaussian pairings.  Set
+$Z_i=(m^{-1}\sum_aZ_{a,i}^2)^{1/2}$ and
+$U_i=(m^{-1}\sum_a(K_{a,i}/S)^2)^{1/2}$.
+At every driving time Cauchy--Schwarz gives
+$m^{-1}\sum_b|r_bh_{b,i}|\le\rho(b+sZ_i)$ and
+$m^{-1}\sum_b|r_b\delta_{b,i}|\le\rho sSU_i$.
+Integrating the rank-one updates and pairing retained factors in RMS,
+the learned outgoing column costs $s^2k_*^2S^3$ times its driving
+amplitude, and the learned incoming row costs
+$sS^2U_iH_{j-1}^2$; at the first layer the latter is $sS^2U_i$.
+Thus @eq-compression-src-traces gives
+
+$$
+\begin{aligned}
+K_{a,i}/S&\le G_{\delta,a,i}/S+
+ (D_0+D_1\mathcal BS^4/\eta_*^3)(1+Z_{a,i}+Z_i)+o(1),\\
+ Z_{a,i}&\le G_{h,a,i}+C_FS^2U_i+o(1).
+\end{aligned}
+$$ {#eq-compression-src-scalar-feedback}
+
+The direct external trace keeps the evaluated sample's amplitude
+$Z_{a,i}$; only integrated terms use the driving-sample RMS.
+At the first layer $G_{h,a,i}=|W_{0,i}^{(1)}v_a|$; at the top
+$\sup|W_i^{(L+1)}|/S\le b+sZ_i$ and there is no outgoing root.
+These endpoint formulas obey the same enclosing inequalities.
+
+Put $\overline G_h=(m^{-1}\sum_aG_{h,a,i}^2)^{1/2}$ and
+$\overline G_\delta=(m^{-1}\sum_a(G_{\delta,a,i}/S)^2)^{1/2}$.
+The backward coefficient is at most $2D_0$ and
+$D=C_FS^2\le1/(8D_0)$.  Taking sample RMS gives
+
+$$
+U_i\le\overline G_\delta+2D_0(1+2Z_i)+o(1),\qquad
+ Z_i\le\overline G_h+DU_i+o(1).
+$$
+
+Since $4D_0D\le1/2$, solve these two inequalities and substitute
+back sample by sample to obtain
+
+$$
+Z_{a,i}+K_{a,i}/S\le C_{\rm abs}
+ (1+G_{h,a,i}+G_{\delta,a,i}/S+
+                     \overline G_h+\overline G_\delta)+o(1).
+$$ {#eq-compression-src-scalar-absorption}
+
+This coefficient is independent of sample and deletion counts.
+
+[Real reference moments.]{#sec-compression-real-reference-moments}
+
+Parameterize a real stopped cavity by its own normalized activity
+$u=2\int_0^t\rho/S\in[0,1]$, freezing after its endpoint.
+For $v=|u-u'|$, integrating the updates gives
+
+$$
+\begin{gathered}
+\|\Delta W^{(L+1)}\|_2/\sqrt n\le H_LSv,\qquad
+ \|\Delta W^{(1)}\|_F/\sqrt n\le\tau_1S^2v,\\
+ \|\Delta W^{(j)}\|_F\le\tau_jH_{j-1}S^2v,\qquad
+ \|\Delta z_a^{(j)}\|_2/\sqrt n\le V_j^0S^2v.
+\end{gathered}
+$$
+
+The feature difference has the last bound multiplied by $s$.
+Split a reference carrier at $SR$.  Its high part satisfies
+$\|k\mathbf1_{|k|>SR}\|_2/\sqrt n
+\le(4S/\eta_*)\sqrt{2\mathcal B}e^{-\eta_*R/4}$, by the
+budget and $x^2e^{-x/2}\le16$.
+Choose $R=(4/\eta_*)\log[8\sqrt{2\mathcal B}/(\eta_*v)]$
+when $v>0$.  The high changed-gate part is at most $sSv$;
+the low part is at most $t_2V_j^0S^3Rv$.  Since
+$R\le\eta_*^{-1}(10\Lambda_*+4\log(1/v))$,
+$S^2\Lambda_*/\eta_*\le1$, and
+$v\log(1/v)\le2\sqrt v/e$, the low part is bounded by
+$14t_2V_j^0S\sqrt v$.  At the top add $sH_LSv$;
+below it add the changed-matrix term
+$s^3k_{j+1}^2H_jS^3v$ and propagated difference.  This proves
+
+$$
+\|\delta_a^{(j)}(u)-\delta_a^{(j)}(u')\|_2/(S\sqrt n)
+                 \le G_j^0\sqrt{|u-u'|}.
+$$ {#eq-compression-src-real-modulus}
+
+The top carrier was included; no coordinate readout bound was used.
+
+Conditioned on the cavity, a Gaussian reference has bounded initial
+variance and this square-root activity modulus.  Grids of spacing
+$4^{-q}$ have at most $2\cdot4^q$ increments of standard
+deviation at most $2G2^{-q}$.  Gaussian tails at thresholds
+proportional to $2^{-q}\sqrt{z^2+4(q+1)}$, summed over levels
+and the initial value, give
+
+$$
+\Pr\{X>W_G(1+z)\mid\text{cavity}\}\le4e^{-z^2},\qquad
+ \mathbb E[e^{X^2/(16W_G^2)}\mid\text{cavity}]<2.
+$$
+
+The factor 128 in $W_G$ bounds the geometric threshold sums.
+For the moment, $(1+z)^2\le2(1+z^2)$ and tail integration give
+$\mathbb E e^{Z^2/8}\le1+4/7$, with
+$e^{1/8}(1+4/7)<2$.  Jensen gives the same bound for sample RMS:
+$e^{\overline X^2/(16W_G^2)}\le
+m^{-1}\sum_ae^{X_a^2/(16W_G^2)}$, without sample independence.
+Completing the square and Hölder for the four terms in
+@eq-compression-src-scalar-absorption give the one-neuron moment base
+
+$$
+2\exp\{qC_{\rm abs}+64q^2C_{\rm abs}^2W_G^2\}<4,
+                    \qquad 0\le q\le8\eta_*.
+$$ {#eq-compression-src-main-moment}
+
+The chosen $\eta_*$ verifies the last inequality.
+
+::::::::::::: {#lem-compression-src-gaussian}
+
+### Local Gaussian rectangle bound
+
+Let a deterministic complex coefficient map on a rectangle of sides at
+most $H$ satisfy $\sup_z\|b_z\|\le D$ and
+$\|b_z-b_{z'}\|\le K\|z-z'\|$.  For a standard real Gaussian
+vector $G$, put $X=\sup_z|G^\top b_z|$.  Then
+
+$$
+M=256D\sqrt{\log(e+HK/D)},\qquad
+ \log\mathbb E e^{qX}\le qM+2q^2D^2\quad(q\ge0).
+$$
+
+For sample RMS with the same bounds, replace $M$ by $M+2D$.
+If $D=0$, the process is zero.  For covariance $I/n$, divide
+coefficient norms by $\sqrt n$.
+
+:::::::::::::
+
+[]{#proof-compression-src-gaussian}
+
+::::::::::::: {.proof}
+
+Use dyadic coefficient meshes with spacing proportional to
+$D2^{-j}/K$, having at most $4(1+HK/D)^2 4^j$ points.
+Connect each point to the preceding mesh; increment standard deviations
+are at most $3D2^{-j}$.  Gaussian exponential moments give
+$\mathbb E\max_{r\le N}|Z_r|\le\sigma\sqrt{2\log(2N)}$
+when standard deviations are at most $\sigma$.  Summing uses
+$\sum_{j\ge1}2^{-j}=1$, $\sum_{j\ge1}2^{-j}\sqrt j\le2$.
+A factor 128 covers the real process, and real/imaginary splitting
+gives 256.
+
+An $a$-Lipschitz Gaussian function satisfies
+$\log\mathbb E e^{t(F-\mathbb EF)}\le a^2t^2/2$ and
+$\operatorname{Var}F\le a^2$.  Here is a derivation.
+For $P_tg(x)=\mathbb E g(e^{-t}x+\sqrt{1-e^{-2t}}G)$,
+differentiating invariant entropy and Gaussian integration by parts give
+
+$$
+\operatorname{Ent}_\gamma(g)
+ =\int_0^\infty\mathbb E\frac{|\nabla P_tg|^2}{P_tg}\,dt
+ \le\tfrac12\mathbb E\frac{|\nabla g|^2}{g}.
+$$
+
+Use $\nabla P_tg=e^{-t}P_t\nabla g$ and weighted
+Cauchy--Schwarz for the inequality.  Apply it to $g=e^{uF}$ and
+integrate the resulting derivative inequality for
+$u^{-1}\log\mathbb E e^{uF}$.  Truncation and smoothing extend
+the calculation to Lipschitz functions; their linear growth supplies
+exponential integrability.  Differentiating at zero gives the variance.
+Here $X$ is at most $2D$-Lipschitz, proving the estimate.
+The sample RMS is also $2D$-Lipschitz; its mean is at most
+$M+2D$ by the variance bound and Cauchy--Schwarz.  Independence
+among sample processes is unnecessary.
+
+:::::::::::::
+
+[Initial cavities and maximum improvements.]{#sec-compression-initial-cavities-and-maximum-improvements}
+
+The initialization event of @lem-compression-fit applies jointly to
+fixed-size rectangular cavities.  To see why weak covariance estimates
+need not be union-bounded over deletion sets, zero-embed their features.
+On the full initial operator event, conditional fresh-row Gaussian
+tails give initial training maxima $Z_0=C\sqrt\ell$ with
+probability tending to one.  Deleting $u$ coordinates changes each
+later initialized feature vector by at most
+
+$$
+D_{\rm init}=(8s)^L\sqrt u(b+sZ_0)=O_u(\sqrt\ell).
+$$
+
+Normalized feature and singular-value changes therefore vanish
+uniformly over deletion sets, transferring the strict fitting margins.
+For coordinate localization above a deletion, project the complete
+lower feature difference onto this deterministic ball before pairing
+with the independent current row.  At threshold $n^{-1/10}$,
+the tail $2\exp[-n^{4/5}/(2D_{\rm init}^2)]$ pays for the
+$O_u(n^{u+1})$ tests.  A cavity's covariance retains normalization
+$n$; it is not identified with the full covariance.
+Initial budgets are below $\mathcal B/2$ with probability tending
+to one: their conditional means are below
+$2e^{\eta_*^2H_{\max}^2/2}<3$, their second exponential
+moments are bounded, and conditional Chebyshev applies layer by layer.
+The coordinate-small deletion comparison transfers this event to all
+cavities.  Their own initial tests remain part of each globally
+extended reference's definition.
+
+Under the provisional stops, Gaussian coefficient RMS is bounded by
+$H_{\max}$ or $S\max_j\tau_j$.  A mesh of spacing $n^{-2}$
+has polynomial size, with vanishing off-grid error from the normalized
+coefficient derivative bounds.  Complex Gaussian splitting has tail
+$4e^{-u^2/(4\sigma^2)}$.  The multiplier $C_G$, followed by
+@eq-compression-src-scalar-absorption, improves the full training stops to
+
+$$
+\max|z_{a,i}^{(j)}|\le K_{\rm src}\sqrt\ell,
+ \qquad\max|k_{a,i}^{(j)}|\le SK_{\rm src}\sqrt\ell.
+$$ {#eq-compression-src-improved-maxima}
+
+There are at most $n^7$ tests eventually on the original rectangle
+and $n^{10}$ on the expanding finite-panel rectangle; the factor
+32 leaves strict margin.  This step uses Gaussian tails on a mesh,
+not already removed budgets or Gaussian supremum moments.
+
+For response and angular stops, differentiate $Q_{qa}=C_qg_a$:
+$DQ_{qa}=C_qDg_a+(DC_q)[\cdot]g_a$.
+The first term has normalized Hilbert--Schmidt norm at most $f_jH_*$.
+Curvature, changed matrix, changed feature and propagation in the
+second give respectively
+$t_2r_j^*P_j,sq_{j-1}^*,s\tau_jH_{j-1}f_{j-1},10se_{j-1}$.
+These are the recurrence for $e_j$.  Angular fields give the
+recurrence for $a_j^*$, including the first-layer map
+$U_{W^{(1)}}q'$ of normalized norm at most two.
+Apply @eq-compression-src-forward-trace with these endpoints.  The four
+noncentered response terms are exactly the direct feature pairing,
+the direct reverse term @eq-compression-src-direct-reverse, the integrated
+mixed endpoint, and the learned incoming row.  After division by $S$,
+their coefficients are
+
+$$
+sK_{\rm src}H_{j-1}^2,\quad sK_{\rm src}f_{j-1}^2,\quad
+ sK_{\rm src}ST_Q,\quad sK_{\rm src}S^2H_{j-1}q_{j-1}^*.
+$$
+
+The centered incoming pairing contributes $Gq_{j-1}^*$.
+Angular terms are $Gb_{j-1}^*$ and
+$sK_{\rm src}S^2(T_J+H_{j-1}b_{j-1}^*)$.
+Thus the factor two in @eq-compression-src-uv strictly improves these stops.
+For sphere frames, at most $n^{4d+10}$ mesh points require
+$G=16\sqrt{d+3}$; polar normalization of nearby frames gives
+bounded frame derivatives for interpolation.  A fixed finite input
+list has no frame mesh and at most $n^{10}$ tests eventually;
+$G=64$ gives failure $4n^{10}e^{-1024\ell}$.
+The number of passive inputs affects only the qualifying width.
+
+Use the provisional passive-preactivation cap
+$2(GH_{\max}+1+U_0S^2+a)\ell^2$, where $U_0$ is the
+applicable response bound.  Its initial maximum is
+$(GH_{\max}+1)\sqrt\ell$, by the same fresh-row argument;
+real activity adds at most $U_0S^2\sqrt\ell$.
+The domain checks below control the complex displacement and improve
+this stop without a passive exponential budget.
+
+::::::::::::: {#lem-compression-src-time-derivative}
+
+### Local time derivative under provisional stops
+
+Let $U_0=U$ or $U_{\rm fin}$, as appropriate, and put
+$N_* =\max_j\{r_j^*,4U_0\}$,
+$B_n=1+(S^2/\eta_*)\log(e+\ell)$.  Define
+
+$$
+J_L=2sH_L+4et_2N_*,\qquad
+ J_j=10sJ_{j+1}+2s^3k_{j+1}^2H_j+4et_2N_*,\qquad J_* =\max_jJ_j.
+$$
+
+For $\ell\ge\max(e^2,2\mathcal B)$, on each independently
+stopped cavity,
+
+$$
+\|\dot h_a^{(j)}\|_2/\sqrt n\le2\rho Sq_j^*,\qquad
+ \|\dot\delta_a^{(j)}\|_2/\sqrt n\le J_*B_n\rho.
+$$
+
+These bounds use the provisional response stops, not their improvement.
+
+:::::::::::::
+
+[]{#proof-compression-src-time-derivative}
+
+::::::::::::: {.proof}
+
+The exact response identity gives
+$\|\dot z\|_2/\sqrt n\le2\rho Sr_j^*$,
+$\|\dot z\|_\infty\le8\rho SU_0\sqrt\ell$.
+Interpolate to exponent $2v/(v-2)$ and use the carrier
+$v$-norm supplied by @eq-compression-src-budget.  For $v\ge4$,
+
+$$
+\|k\odot\dot z\|_2/\sqrt n
+ \le(2\rho S^2N_*/\eta_*)v(2\mathcal B\ell)^{1/v}.
+$$
+
+Choose $v=\max(4,\log(2\mathcal B\ell))$.  The exponential
+factor is at most $e$, and $v\le2\log(e+\ell)$.
+Backward differentiation now gives the readout term $2sH_L$,
+propagated derivative, changed-matrix term
+$2s^3k_{j+1}^2H_j$, and changed-gate term $4et_2N_*$.
+They are the displayed recursion.  Forward differentiation gives the
+first bound.  This growing real exponent is a deterministic budget
+inequality and does not use growing deletion sets.
+
+:::::::::::::
+
+[Removing budgets on complete independently stopped paths.]{#sec-compression-removing-budgets-on-complete-independently-stopped-paths}
+
+The domain checks below will supply a bounding rectangle of side
+$O(\ell)$, uniformly Lipschitz retractions commuting with real
+anchors, and normalized complex-minus-real coefficient radius
+$D_n=O(B_n/\sqrt\ell)$ with global modulus $O(B_n)$.
+@lem-compression-src-gaussian then gives mean
+$O((\log(e+\ell))^{3/2}/\sqrt\ell)$ and vanishing tail radius.
+Every fixed exponential moment of these corrections tends to one.
+Fixed squared-exponential moments do also, by integrating the
+sub-Gaussian tail; sample RMS uses Jensen.  Notice that the modulus
+here is polylogarithmic, not an arbitrary polynomial in $n$.
+
+For singleton/common-cavity differences, first extend each path by
+its own retraction, then project their difference onto the deterministic
+ball of radius $4n^{1/100}$.  Both paths omit the paired root.
+Projection preserves this independence and equals the actual difference
+on the successful prefix.  Its normalized Gaussian radius is
+$4n^{-49/100}$, and its modulus is at most a fixed power of
+$n$, by the already proved derivative bounds.  The Gaussian
+rectangle claim again gives moments tending to one at every fixed
+order.  The two coefficient paths need not be independent of each other.
+
+Fix a positive integer moment order $u$, a sample and a layer.
+Distinct roots in an empirical $u$th moment are independent given
+their common cavity.  Apply Cauchy--Schwarz to separate products of
+main real references from products of corrections, and then Hölder
+over the finitely many roots and four reference families for the
+corrections.  Main moments use exponent at most $8\eta_*$ in
+@eq-compression-src-main-moment; corrections use fixed orders proportional
+to $u$ and tend to one.  The limiting per-root base is therefore
+below sixteen.  Drop full-event indicators only after dominating by
+these nonnegative, globally defined cavity bounds.  A tuple with
+$k<u$ distinct roots has normalized multiplicity
+$O_u(n^{k-u})$.  On @eq-compression-src-improved-maxima, repeated
+weights cost at most $e^{2u\eta_*K_{\rm src}\sqrt\ell}=n^{o(1)}$,
+so collision contributions vanish.  Local exceptional events are
+superpolynomially small, and the stopped budgets are bounded.
+
+Cavities cannot stop first on the successful full prefix: their
+coordinate differences are $n^{-1/30}$, maxima and poles have
+strict transferred margins, and
+
+$$
+\mathcal H_a^{\rm cavity}\le
+ e^{2\eta_*n^{-1/30}}\mathcal H_a+O_u(1/n)<2\mathcal B.
+$$
+
+Operator and activity margins are established in the domain checks.
+If a full budget is hit, some sample/layer mean is at least
+$\mathcal B/L$.  Markov's inequality and the fixed sample/layer
+union give
+
+$$
+\limsup_{n\to\infty}\Pr\{\text{a full budget is hit}\}
+              \le mL(16L/\mathcal B)^u.
+$$ {#eq-compression-src-budget-removal}
+
+Take the width limit at each fixed $u$, then the infimum over
+positive integers.  Since $16L/\mathcal B<1$, the result is zero.
+The label allowance precedes the moment order and does not shrink
+with confidence or sample count.  This is the shared probability step.
+
+[4. Verification of the working domains.]{#sec-compression-4-verification-of-the-working-domains}
+
+[]{#proof-compression-source-whole-sphere-verification}
+
+::::::::::::: {.proof}
+
+**Verification of the working whole-sphere estimates.**
+
+@lem-compression-fit independently supplies the real trajectory, strict
+operator caps below nine, and real activity at most $S/2$.
+The same holds for the independently tested cavities.  Impose the
+eventual deterministic gates
+
+$$
+n^{-1}\le\min(Y,S,1),\qquad \ell\ge\max(e^2,2\mathcal B),
+ \qquad \sqrt\ell\ge c_t
+       \max\{8,\lambda,4\mathcal K/\log2,32YSD_W\}.
+$$ {#eq-compression-src-rectangle-gates}
+
+Follow the real solution to its nearest anchor in $[0,T]$, then
+at most two short contour pieces of total length $2r_t$.
+The algebraic residual Gram and the negative-Gram variational
+generator, divided by their factor two, have norm at most
+$\mathcal K$, by the explicit gradient blocks.  No complex
+positivity is used.  Residual growth and products of the base
+propagators cost at most $e^{4\mathcal Kr_t}\le2$.
+Additional activity is at most $8Yr_t\le S/2$;
+normalized hidden increments are at most $8YSD_Wr_t\le1/4$.
+Thus operators have strict margins inside ten and $\rho/S\le\lambda/8$.
+The total contour length is $O(\ell)$.
+
+These are the premises of the local insertion and trace argument,
+which improves maxima and response/angular caps.  The exact velocity
+$\partial_tz^{(j)}=-(2/m)\sum_ar_aR_a^{(j)}$ now bounds the
+complex-time preactivation displacement by $8c_tYSU=a/8$.
+Every query in the intrinsic tube has the form
+$u\cosh h+iv\sinh h$ for a real orthonormal frame and
+$|h|\le r_q$.  Its additional displacement is at most
+$c_qV\le a/8$.  Thus the full pole stop improves strictly;
+the local coordinate comparison transfers this margin to cavities.
+The passive size stop also improves as already shown.
+
+Under the provisional response stops, @lem-compression-src-time-derivative
+bounds normalized complex-minus-real reference radii by
+$C r_tB_n=O(B_n/\sqrt\ell)$, and their global time moduli
+by $CB_n$.  This holds on complete independently stopped paths:
+the clipped arguments commute with the real-anchor map as in
+@eq-compression-src-clipped.  Their parameter rectangle has side
+$O(\ell)$.  The budget-removal argument therefore applies,
+with probability of failure tending to zero.  The logical order is
+provisional deterministic bounds, local insertion, maximum/response
+improvement, strict pole/cavity transfer, and then complete-path
+Gaussian moments and budget removal.  None of these steps conditions
+an omitted Gaussian root on full-network survival.
+
+Before each stop, finite-width bounded parameters and strict separation
+from the activation singularities give local holomorphic ODE
+continuation.  Compactness and uniqueness glue the local continuations
+on the nested rectangles.  At a first exit the strict derivative strip
+allows one-sided estimates; the strict improvements continue the
+solution across the closed boundary.  Query holomorphy follows by
+forward composition on the quadric.  Passive backward fields are then
+holomorphic by their finite downward recursion, with RMS bounds
+$Sk_j,S\tau_j$, using the same readout and operator bounds;
+they require no new probabilistic budget.  Initialized operator norm
+eight proves the four-family coordinate bound.  All failures tend to
+zero, hence each prescribed fixed confidence is attained eventually.
+
+:::::::::::::
+
+::::::::::::: {#lem-compression-src-finite-working}
+
+### Working finite-query time domain and all-time carriers
+
+Under $Y/\lambda\le\beta^{-30L}$, for any fixed finite list of
+real unit inputs, eventually with every fixed confidence its predictions
+are holomorphic on a neighborhood of
+
+$$
+[-r,T+r]+i[-r,r],\qquad
+ T=32\ell/\lambda,\qquad r=1/(\lambda\sqrt\ell),
+$$
+
+and $|f_n(t,v)|\le SH_L^2$ there.  Two independent copies thus
+satisfy $|f_n-\widetilde f_n|\le32\beta^{6L}Y/\lambda$
+on their common event.  In particular the Bernstein ellipse of
+parameter two on $[0,r]$ is contained in this rectangle.
+On the real all-time trajectory, also
+
+$$
+\sup_{t\in[0,\infty]}\max_{a,j,i}|k_{a,i}^{(j)}(t)|
+               \le2SK_{\rm src}\sqrt\ell.
+$$ {#eq-compression-src-carrier-working}
+
+The fitted endpoint is included.
+
+:::::::::::::
+
+[]{#proof-compression-src-finite-working}
+
+::::::::::::: {.proof}
+
+Use the same proof without angular fields or the frame mesh, replacing
+the Gaussian multiplier by 64.  The finite-list response bound is
+$SU_{\rm fin}\sqrt\ell$.  The time-radius coefficient may be any
+$c\le a/(64YSU_{\rm fin})=a/(4\lambda S^2U_{\rm fin})$.
+By @lem-compression-src-powers,
+
+$$
+\frac a{4S^2U_{\rm fin}}
+ \ge\frac{\beta^{34L-1}}{64}>1,
+$$
+
+so $c=1/\lambda$ is permitted.  All other rectangle gates are
+eventual.  Cauchy--Schwarz gives $|f_n|\le SH_L^2$; use
+$H_L\le\beta^{3L}$ for the difference bound.  The parameter-two
+ellipse on $[0,r]$ has real range $[-r/8,9r/8]$ and imaginary
+height $3r/8$, hence lies inside the stated rectangle eventually.
+
+It remains to extend the carrier maximum beyond $T$; no complex
+late-time extension is required.  Let $\|\Delta\theta\|$ denote
+the physical parameter norm with blocks
+$(W^{(1)}/\sqrt n,\allowbreak W^{(2)},\allowbreak \ldots,\allowbreak W^{(L)},\allowbreak W^{(L+1)}/\sqrt n)$.
+Forward subtraction in the real fitting tube gives feature RMS
+changes bounded by $P_j\|\Delta\theta\|$.  Backward subtraction
+then gives
+
+$$
+\max_{a,j}\|k_a^{(j)}(t)-k_a^{(j)}(T)\|_\infty
+ \le C_k n\|\theta(t)-\theta(T)\|,
+$$
+
+where $C_L^k=1$,
+$C_j^k=S\tau_{j+1}+10sC_{j+1}^k+
+10t_2SP_{j+1}k_{j+1}$, and $C_k=\max_jC_j^k\le\beta^{20L}$.
+The terms are the changed mixer, propagated upper difference, and
+changed activation gate; RMS-to-coordinate conversions account for
+the two factors $\sqrt n$.  The real segment has bounded
+operators and real activations, so this subtraction needs no complex
+strip hypothesis.  @lem-compression-fit gives
+$\|\theta(t)-\theta(T)\|\le2Y e^{-16\ell}/\sqrt\lambda$.
+Consequently the last display is eventually at most
+$SK_{\rm src}\sqrt\ell$, including at $t=\infty$.
+Add @eq-compression-src-improved-maxima at $T$.
+
+:::::::::::::
+
+::::::::::::: {#lem-compression-src-panel-working}
+
+### Working residual-adapted finite-panel domain
+
+Fix the training inputs and any finite list of passive inputs before
+initialization.  Use the same allowance as the working whole-sphere estimates,
+and let
+
+$$
+\begin{gathered}
+\nu=\lambda/4,\quad T=32\ell/\lambda,\quad
+ r_n=\frac a{64YSU_{\rm fin}\sqrt\ell},\\
+ h(t)=\frac1{2\mathcal K}\log(1+2\mathcal K r_ne^{\nu t}),
+ \quad d_h=\frac\nu{2\mathcal K},\quad T_+=T+h(T)+r_n.
+\end{gathered}
+$$
+
+Eventually with every fixed confidence, the required forward and
+backward fields are holomorphic on a neighborhood of
+
+$$
+D_1=\{x+iy:-h(0)\le x\le T_+,\quad |y|\le h(\max(x,0))\},
+$$
+
+with the same operator, RMS, training-maximum, and four-family
+coordinate bounds as in the working whole-sphere estimates; the response
+bound is $SU_{\rm fin}\sqrt\ell$.  In particular it suffices
+to retain forward families on all declared inputs and backward
+families only on training inputs.
+For $0\le t\le T$, the disk of radius
+$\varrho(t)=h(t)/(2(1+d_h))$ about $t$ lies in $D_1$.
+The adaptive subdivision
+$t_0=0$, $t_{b+1}=\min(T,t_b+\varrho(t_b)/2)$
+has at most
+
+$$
+J\le1+40960\frac{U_{\rm fin}}a
+                  \left(\frac Y\lambda\right)^2\sqrt\ell
+       +80\frac{\mathcal K}{\lambda}
+                  \log\left(1+\frac{4\ell}{\log2}\right)
+$$ {#eq-compression-src-panel-count}
+
+panels.  Here $U_{\rm fin}/a\le\beta^{27L}$ and
+$\mathcal K\le\beta^{14L}$, independently of the input dimension
+and the size of the fixed passive list.
+
+:::::::::::::
+
+[]{#proof-compression-src-panel-working}
+
+::::::::::::: {.proof}
+
+Population RMS and the Gram gap give
+$\lambda\le H_L^2\le\mathcal K$.  Thus
+$0\le h'\le d_h\le1/8$, $h(0)\le r_n$, and
+$h(t)\le r_n+d_ht$.  Define the nested domains by
+
+$$
+D_s=\{x+iy:-s h(0)\le x\le sT_+,\quad
+                      |y|\le s h(\max(x,0))\},\quad0\le s\le1.
+$$
+
+For $X_s(x)=\operatorname{clip}_{[-s h(0),sT_+]}x$, their
+retractions are
+
+$$
+P_s(x+iy)=X_s(x)+i\operatorname{clip}_{[-s h(X_s(x)_+),
+                                           s h(X_s(x)_+)]}y.
+$$
+
+With $a_0(z)=\operatorname{clip}_{[0,T_+]}\operatorname{Re}z$,
+$P_sa_0=a_0P_s$, and $\operatorname{Lip}(P_s)\le1+d_h$.
+Indeed $|\Delta X_s|\le|\Delta x|$ and the imaginary
+increment is at most $|\Delta y|+d_h|\Delta x|$; the shear
+has norm at most $1+d_h$.  Integrate derivatives along the image
+under $P_s$ of a straight segment to get global coefficient
+Lipschitz bounds.  Convexity of $D_s$ is unnecessary.  The real
+anchors remain monotone and freeze, as required by the moment proof.
+
+We verify the base-propagator premise before Gaussian insertion.
+Under each cavity's provisional response stop, use
+@lem-compression-src-time-derivative with $U_0=U_{\rm fin}$.
+For
+$G=(mn)^{-1/2}[\nabla_\Theta F_1,\ldots,\nabla_\Theta F_m]$,
+the explicit gradient blocks give
+
+$$
+\|G\|\le\sqrt{\mathcal K},\qquad
+ \|\dot G\|\le C_gB_n\rho,\qquad
+ C_g=J_*\left(1+\sum_{j=2}^LH_{j-1}\right)
+    +2S^2\sum_{j=2}^L\tau_jq_{j-1}^*+2Sq_L^*.
+$$ {#eq-compression-src-gradient-derivative}
+
+For the second estimate differentiate each column block
+$m^{-1/2}\delta_a^{(1)}v_a^\top/\sqrt n$,
+$m^{-1/2}\delta_a^{(j)}h_a^{(j-1)\top}/n$, and
+$m^{-1/2}h_a^{(L)}/\sqrt n$, then bound Frobenius norm.
+The division by $\sqrt m$ prevents a sample factor.
+
+The exact residual equation is $\dot r=-2G^\top Gr$.
+On a vertical segment based at real $t\ge0$, norm
+differentiation and real fitting give
+
+$$
+\rho(t\pm iv)\le Ye^{-\nu t}e^{2\mathcal Kv},\qquad
+ \int_0^{h(t)}\rho(t\pm iv)\,dv\le Yr_n.
+$$ {#eq-compression-src-vertical}
+
+The second bound is the defining identity for $h(t)$.  It also
+gives $\rho\le Y+2\mathcal KYr_n\le2Y$ eventually.
+The base variational equation is $\dot P=-2GG^\top P$, with
+algebraic transposes.  At a real anchor,
+$A_t=2G(t)G(t)^\top$ is real symmetric, so $-iA_t$
+generates unitary motion.  Freeze this generator on the vertical
+segment and use @eq-compression-src-gradient-derivative:
+
+$$
+\|2G(t\pm iv)G(t\pm iv)^\top-A_t\|
+ \le4\sqrt{\mathcal K}C_gB_n\int_0^v\rho(t\pm iu)\,du.
+$$
+
+Conjugating by the frozen unitary bounds its propagator by
+
+$$
+\exp\left(4\sqrt{\mathcal K}C_gB_n
+       \int_0^{h(t)}(h(t)-v)\rho(t\pm iv)\,dv\right)
+ \le\exp\left(\frac{2C_g}{\sqrt{\mathcal K}}B_nYr_n\right).
+$$
+
+For the last inequality, integrate the exponential bound in
+@eq-compression-src-vertical; the double integral is at most
+$Yr_n/(2\mathcal K)$.  Products on ordered disjoint subsegments
+obey the same bound, since their growth integrals add.  Forward real
+segments contract.  The negative-real corner has total exceptional
+length at most $2r_n$, costing at most $e^{4\mathcal Kr_n}$.
+Hence impose the directly checkable eventual gate
+
+$$
+4\mathcal Kr_n+(2C_g/\sqrt{\mathcal K})B_nYr_n<\log(3/2).
+$$ {#eq-compression-src-flaring-gate}
+
+It supplies the factor-two base premise, without treating a complex
+Gram matrix as positive.  Its left side tends to zero because
+$B_nr_n=O(\log(e+\ell)/\sqrt\ell)$.
+
+Also impose @eq-compression-src-rectangle-gates with
+$c_t=a/(64YSU_{\rm fin})$.  Additional activity is at most
+$8Yr_n$, and normalized parameter increments are at most
+$8YSD_Wr_n\le1/4$.  Thus operators, activity and
+$\rho/S\le\lambda/8$ meet the shared premises.
+All canonical anchor contours have length $O(\ell)$, and the
+bounding rectangle
+$[-h(0),T_+]+i[-h(T_+),h(T_+)]$ has sides $O(\ell)$.
+The local map/remainder argument is therefore unchanged: the
+one-dimensional control entropy is
+$n^{5/8}\operatorname{poly}(\ell)$, endpoint meshes are
+polynomial, and the same $n^{.78}$ Gaussian tail dominates them.
+After the improved response bound, vertical displacement is at most
+$2YSU_{\rm fin}\sqrt\ell r_n=a/32$; the negative corner costs
+at most $a/8$.  The pole and passive-size stops improve, and
+cavity transfer is strict.
+
+Finally @lem-compression-src-time-derivative, integrated over these
+segments, gives the complete-path normalized correction radius
+
+$$
+D_n=4Yr_n\max\{2S\max_jq_j^*,J_*B_n/S\}
+                 =O(\log(e+\ell)/\sqrt\ell).
+$$
+
+The commuting retractions preserve this estimate and give global
+modulus $O(B_n)$.  Thus the shared Gaussian moment and budget
+argument applies.  Local holomorphic continuation glues because the
+domain is vertically fibered, retracts onto its real interval, and
+is simply connected; strict stopped margins continue across its
+compact boundary.  This proves the source event and its confidence.
+
+For the disk claim, if its real coordinate is nonnegative, then
+$h(x)\ge h(t)-d_h\varrho(t)\ge\varrho(t)$.
+If it is negative, $t<\varrho(t)$ and
+$h(t)\le h(0)+d_ht$ imply $\varrho(t)<h(0)$.
+The right endpoint is below $T+h(T)<T_+$.
+The radius is nondecreasing with Lipschitz constant
+$C_r=d_h/[2(1+d_h)]$.  Each complete adaptive panel contributes
+at least $1/(2+C_r)$ to $\int dt/\varrho(t)$, by bounding
+the radius on that panel by $(1+C_r/2)\varrho(t_b)$.
+Consequently $J\le1+5\int_0^Tdt/h(t)$.
+Split at $2\mathcal Kr_ne^{\nu t}=1$.  Before this point use
+$\log(1+x)\ge x/2$; afterward the logarithm grows at least
+with slope $\nu/2$.  This bounds the integral by
+
+$$
+\frac2{\nu r_n}+\frac{4\mathcal K}{\nu}
+             \log\left(1+\frac{\nu T}{2\log2}\right).
+$$
+
+Substitute $\nu=\lambda/4$, $S=16Y/\lambda$ and $T$
+to obtain @eq-compression-src-panel-count.  The coefficient bounds follow
+from @lem-compression-src-powers and $a^{-1}\le\beta/16$.
+
+:::::::::::::
+
+[5. Reduction to the public bounds.]{#sec-compression-5-reduction-to-the-public-bounds}
+
+We now compare the stronger working estimates with the statement, so no
+coefficient from this proof is needed by a later construction.  The working
+whole-sphere time radius is
+
+$$
+\frac{a}{64YSU\sqrt\ell}
+   =\frac{a\lambda}{1024Y^2U\sqrt\ell}.
+$$
+
+Since $U\le\beta^{26L}\sqrt{d+3}$ and $a^{-1}\le\beta/16$,
+
+$$
+\frac{1024U}{a}
+ \le64\beta^{26L+1}\sqrt{d+3}
+ \le\beta^{30L}\sqrt{d+3}.
+$$
+
+The last inequality uses $64\le\beta^{4L-1}$, valid for
+$L\ge2$, $\beta\ge10$.  This gives at least the public time
+radius.  Likewise $V\le\beta^{2L}\sqrt{d+3}$ gives
+
+$$
+\max\{8,8V/a\}
+ \le\max\{8,\tfrac12\beta^{2L+1}\sqrt{d+3}\}
+ \le\beta^{3L}\sqrt{d+3},
+$$
+
+so the working query tube contains the stated tube.
+
+The local power bounds yield, for every layer,
+
+$$
+H_j\le3\beta^{2j}\le\beta^{3L},\qquad
+ \max(k_j,\tau_j)\le3\beta^{4L-1}\le\beta^{4L}.
+$$
+
+Multiplication by $S=16Ym/\gamma$ gives the backward bounds.
+The four-family coordinate envelope obeys
+
+$$
+M_0=10\max_j(H_j,\tau_j)
+ \le30\beta^{4L-1}\le\beta^{6L}.
+$$
+
+For all real times, the fitting statement bounds normalized operators by
+nine and $\|W^{(L+1)}\|_2/\sqrt n\le2Y/\sqrt\lambda$.  To check the
+remaining population comparison directly, Minkowski and linear activation
+growth give
+$\sqrt{Q^{(j)}_{11}}\le b+s\sqrt{Q^{(j-1)}_{11}}$, starting at
+$Q^{(0)}_{11}=1$.  The local recursion for $H_j$ dominates this
+recursion, so $\lambda\le Q^{(L)}_{11}\le H_L^2$.
+Hence $2Y/\sqrt\lambda\le SH_L$.  The same forward and backward
+recursions with operator bound nine give $H_j,Sk_j,S\tau_j$
+on the whole real trajectory.  Their parameter limits give the endpoint
+bounds as well.  This proves @eq-compression-source-rms in both stated domains.
+
+The working finite-query claim has exactly the public time radius.  Its
+prediction envelope is $SH_L^2\le16\beta^{6L}Ym/\gamma$, proving
+@eq-compression-finite-time.  Its all-time training-carrier envelope is
+$2SK_{\rm src}\sqrt\ell\le32\beta^{21L}(Ym/\gamma)\sqrt\ell$.
+Substituting the explicit definition of $k^{(j)}$ proves
+@eq-compression-carrier, without exporting that auxiliary notation.
+
+For the finite panel, choose $r_b=\varrho(t_b)$ in the working
+domain's adaptive partition.  Its disk containment and half-radius
+intervals are exactly those in (iii), and its source envelopes have just
+been bounded in canonical quantities.  Its defining coefficients depend
+only on the width, $m,\gamma,Y$, activations and depth, so these choices
+are deterministic.  Finally
+
+$$
+40960\frac{U_{\rm fin}}a\le40960\beta^{27L}\le\beta^{30L},
+ \qquad 80\mathcal K\le80\beta^{14L}\le\beta^{16L},
+$$
+
+because $40960\le\beta^{3L}$ and $80\le\beta^{2L}$.
+Applying these inequalities to @eq-compression-src-panel-count proves
+@eq-compression-panel-source.  For any requested finite collection of the
+source domains, split the fixed failure allowance and intersect their
+events.  This supplies the single event asserted in the proposition and
+completes its proof.
+
+:::::::::::::::
+
+## Legendre history compression {#sec-compression-legendre-section}
+
+::::::::::::::: {#lem-compression-projection}
+
+### Projection identities
+
+Let $A>0$ and let $q\ge1$ be an integer. Set
+$p_j^A(\xi)=P_j(2\xi/A-1)$, where $P_j$ is the Legendre
+polynomial, and let $\Pi_q^A$ project onto degrees below $q$ in
+$L^2([0,A])$.  For an absolutely continuous Hilbert-valued history $u$,
+
+$$
+\begin{aligned}
+\|(I-\Pi_q^A)u\|_{L^2}^2
+ &\le\frac1{q(q+1)}\int_0^A\xi(A-\xi)\|u'(\xi)\|^2\,d\xi,
+\end{aligned}
+$$ {#eq-compression-projection-tail}
+
+$$
+\begin{aligned}
+\|u(A)-(\Pi_q^Au)(A)\|
+ &\le\sqrt{A/(3q)}\,\|u'\|_{L^2},&
+ \|(\Pi_q^Au)(A)\|&\le64\sqrt q\,\|u\|_{L^\infty}.
+\end{aligned}
+$$ {#eq-compression-projection-endpoint}
+
+For a fixed absolutely continuous history $g$, the growing-interval error obeys
+
+$$
+\frac d{dA}\int_0^A\|g-\Pi_q^Ag\|^2\,d\xi
+       =\|g(A)-(\Pi_q^Ag)(A)\|^2.
+$$ {#eq-compression-projection-growth}
+
+:::::::::::::::
+
+[]{#proof-compression-projection}
+
+::::::::::::::: {.proof}
+
+Rodrigues' formula and integration by parts give
+$\int_0^Ap_i^Ap_j^A=A\mathbf1_{i=j}/(2j+1)$ and
+$-[\xi(A-\xi)(p_j^A)']'=j(j+1)p_j^A$.
+The derivative polynomials are orthogonal for the weight
+$\xi(A-\xi)$.  Bessel's inequality followed by the ordinary expansion
+therefore proves @eq-compression-projection-tail; polynomial approximation
+and increasing finite-dimensional projections give the stated
+absolutely continuous, Hilbert-valued version.
+Integration against each lower polynomial also gives
+$P_j'=\sum_{i<j,\ j-i\ \mathrm{odd}}(2i+1)P_i$.  Thus the endpoint kernel is
+
+$$
+K_q^A(A,\xi)=\frac1A\sum_{j<q}(2j+1)p_j^A(\xi)
+            =\tfrac12[(p_q^A)'(\xi)+(p_{q-1}^A)'(\xi)].
+$$
+
+Its integral is one, and integration by parts gives
+$u(A)-(\Pi_q^Au)(A)=\tfrac12\int_0^A(p_q^A+p_{q-1}^A)u'$.
+The squared $L^2$ norm of this multiplier is
+$A[(2q+1)^{-1}+(2q-1)^{-1}]/4\le A/(3q)$.
+
+For completeness the needed kernel $L^1$ estimate has a short
+one-dimensional proof.  Put
+$v(\theta)=\sqrt{\sin\theta}P_k(\cos\theta)$ and
+$a_k=(k+1/2)^2+(4\sin^2\theta)^{-1}$.  The Legendre equation implies
+$v''+a_kv=0$, whence
+$\partial_\theta(v^2+v'^2/a_k)=-a_k'v'^2/a_k^2\ge0$ on
+$(0,\pi/2)$.  At the midpoint use
+$P_{2j}(0)=(-1)^j\binom{2j}j/4^j$,
+$P_{2j+1}'(0)=(2j+1)P_{2j}(0)$, and
+$(\binom{2j}j/4^j)^2\le1/(j+1)$; the last inequality follows by
+induction.  The midpoint energy is at most $4/k$.  Differentiating
+$P_k=v/\sqrt{\sin\theta}$ now yields
+
+$$
+|\partial_\theta P_k(\cos\theta)|
+ \le3\sqrt{k}(\sin\theta)^{-1/2}
+       +2k^{-1/2}(\sin\theta)^{-3/2}.
+$$
+
+On $[1/k,\pi/2]$ its integral is at most $3\pi\sqrt{k}+8$,
+using $\sin\theta\ge2\theta/\pi$.  On $[0,1/k]$ use
+$|P_k'|\le k(k+1)/2$ to obtain at most $1/2$.
+This derivative bound follows from the derivative expansion and
+$|P_j|\le1$, the latter following from the integral formula
+$P_j(\cos\theta)=\pi^{-1}\int_0^\pi
+(\cos\theta+i\sin\theta\cos\psi)^j\,d\psi$ (expand its generating
+function).  Reflection gives total variation at most $36\sqrt k$.
+The endpoint kernel consequently has $L^1$ norm at most
+$36\sqrt q\le64\sqrt q$; $q=1$ is the averaging kernel.
+Finally differentiation of the squared projection error proves
+@eq-compression-projection-growth: the interior term vanishes because
+$\partial_A\Pi_q^Ag$ is still a polynomial of degree below $q$.
+
+:::::::::::::::
+
+::::::::::::::: {#prp-compression-legendre}
+
+### Legendre approximation at the prescribed size
+
+Eventually at each fixed confidence, there is an initialization-only
+Legendre model with
+
+$$
+q=\left\lceil C\left(\frac m\gamma\right)^3n^{1/4}
+             [\log(en)]^2e^{\sqrt{\log(en)}/2}\right\rceil
+$$ {#eq-compression-legendre-order}
+
+such that
+
+$$
+\sup_{t\in[0,\infty],\ \|x\|=\sqrt d}
+       |f_{\rm Leg}(t,x)-f_n(t,x)|
+ \le\frac{CY}{\sqrt n[\log(en)]^3}.
+$$ {#eq-compression-legendre-accuracy}
+
+Its moving storage is at most
+
+$$
+Cm(m/\gamma)^3n^{5/4}[\log(en)]^2e^{\sqrt{\log(en)}/2};
+$$
+
+the fixed storage is the additional $(L-1)n^2$.
+
+:::::::::::::::
+
+[]{#proof-compression-legendre}
+
+::::::::::::::: {.proof}
+
+**Local notation and construction.** 
+All auxiliary quantities below belong to this proof. Put
+
+$$
+\begin{aligned}
+\lambda&=\gamma/m,\\
+ H&=\max_{0\le j\le L}\sqrt{Q^{(j)}_{11}},\\
+ s&=\max\left\{1,\max_j\sup_{|\operatorname{Im}z|\le a/2}
+                     |(\phi^{(j)})'(z)|\right\},\\
+ b&=\max_j|\phi^{(j)}(0)|,
+\end{aligned}
+$$
+
+and define $D_j=s(9s)^{L-j}$. These definitions are made here;
+no coefficient from the proof of @lem-compression-fit is imported.
+In particular $H\le(2\beta)^L$, by the affine population-RMS recursion,
+and $s,b\le\beta$.
+
+The Legendre model constructed here shares the realized dense initialization and physical
+time.  Here the whole-sphere version of @eq-compression-norm is abbreviated by
+
+$$
+\|g\|_*=\sup_{t\in[0,\infty],\,\|x\|=\sqrt d}|g(t,x)|,
+$$
+
+including the fitted limit at $t=\infty$.
+Write $\widehat f=f_{\rm Leg}=n^{-1}\widehat W^{(L+1)\top}\widehat h^{(L)}$,
+$\widehat r_a=\widehat f(x_a)-y_a$ and
+$\widehat\rho=\|\widehat r\|_2/\sqrt m$. We first construct the model for
+an arbitrary integer $q\ge1$ and then take the order in the statement.
+At each hidden interface
+$\ell=2,\ldots,L$, sample $a$, and order $j=0,\ldots,q-1$, retain
+$\bar h_{a,j}^{(\ell-1)},\bar\delta_{a,j}^{(\ell)}\in\mathbb R^n$.
+Together with $\widehat W^{(1)}$, $\widehat W^{(L+1)}$, and a scalar $\tau$,
+these are the moving state.  Reconstruct
+
+$$
+\widehat W^{(\ell)}=W_0^{(\ell)}-
+ \frac2{mn\tau}\sum_{a=1}^m\sum_{j=0}^{q-1}(2j+1)
+       \bar\delta_{a,j}^{(\ell)}\bar h_{a,j}^{(\ell-1)\top}.
+$$ {#eq-compression-legendre-reconstruction}
+
+Use these matrices in the ordinary forward pass and in
+$\widehat k_a^{(L)}=\widehat W^{(L+1)}$,
+$\widehat\delta_a^{(\ell)}=
+(\phi^{(\ell)})'(\widehat z_a^{(\ell)})\odot\widehat k_a^{(\ell)}$,
+$\widehat k_a^{(\ell)}=
+\widehat W^{(\ell+1)\top}\widehat\delta_a^{(\ell+1)}$.
+The autonomous physical-time equations are
+
+$$
+\begin{aligned}
+\dot{\widehat W}^{(1)}&=-\frac2m\sum_a
+     \widehat r_a\widehat\delta_a^{(1)}v_a^\top,&
+ \dot{\widehat W}^{(L+1)}&=-\frac2m\sum_a\widehat r_a\widehat h_a^{(L)},&
+ \dot\tau&=\widehat\rho,\\
+ \dot{\bar h}_{a,j}^{(\ell-1)}
+ &=\widehat\rho\widehat h_a^{(\ell-1)}-
+ \frac{\widehat\rho}{\tau}
+ \left(j\bar h_{a,j}^{(\ell-1)}+
+       \sum_{i<j}(2i+1)\bar h_{a,i}^{(\ell-1)}\right),\\
+ \dot{\bar\delta}_{a,j}^{(\ell)}
+ &=\widehat r_a\widehat\delta_a^{(\ell)}-
+ \frac{\widehat\rho}{\tau}
+ \left(j\bar\delta_{a,j}^{(\ell)}+
+       \sum_{i<j}(2i+1)\bar\delta_{a,i}^{(\ell)}\right).
+\end{aligned}
+$$ {#eq-compression-legendre-flow}
+
+Initially $\tau=1$, $\widehat W^{(1)}=W_0^{(1)}$, $\widehat W^{(L+1)}=0$,
+$\bar h_{a,0}^{(\ell-1)}=h_{0,a}^{(\ell-1)}$, and all other moments
+vanish.  No equation divides by a residual.  At $\widehat\rho=0$ all
+velocities vanish, and the vector field is locally Lipschitz for
+$\tau>0$.  The exact inventory is
+
+$$
+S_{\rm moving}=n(d+1)+1+2(L-1)mnq,\qquad
+ S_{\rm fixed}=(L-1)n^2.
+$$ {#eq-compression-legendre-count}
+
+The latter entries are the initialized mixers.  Data storage is
+additional; reconstructed matrices need not be retained independently.
+
+**Moment identities and the physical defect.** 
+For use in this proof, let $p_j^A(\xi)=P_j(2\xi/A-1)$ and let
+$\Pi_q^A$ be the degree-below-$q$ orthogonal projection in $L^2([0,A])$,
+as in @lem-compression-projection.
+The histories in the proof are specified by
+$h_a(\tau(t))=\widehat h_a(t)$ and
+$b_a(\tau(t))=(\widehat r_a/\widehat\rho)\widehat\delta_a(t)$.
+On the prefix $[0,1]$ they equal the initialized forward feature and
+zero, respectively.  The backward history is continuous at the join
+because the initial readout is zero.  The moments in
+@eq-compression-legendre-flow are exactly $\int_0^\tau p_j^\tau h_a$
+and $\int_0^\tau p_j^\tau b_a$; differentiating these integrals proves
+the equations, including their factors $j$ and $2i+1$.
+Differentiating their bilinear projection pairing gives the exact defect
+
+$$
+\dot{\widehat W}^{(\ell)}
+ =-\frac2{mn}\sum_a\widehat r_a\widehat\delta_a^{(\ell)}
+                       \widehat h_a^{(\ell-1)\top}+\mathcal E_\ell,
+ \qquad
+ \mathcal E_\ell=\frac{2\widehat\rho}{mn}
+       \sum_a e_{b,a}^{(\ell)}e_{h,a}^{(\ell-1)\top},
+$$ {#eq-compression-legendre-defect}
+
+where $e_g=g(\tau)-(\Pi_q^\tau g)(\tau)$.
+Indeed the derivative of the pairing of the two projected histories
+equals the full endpoint product minus the product of their endpoint
+errors, by orthogonality.  These identities hold until a residual zero
+and extend there by stationary continuation.  Histories are proof
+objects, not extra state.
+
+::::::::::::: {#lem-compression-legendre-fit}
+
+### Order-independent physical bounds
+
+On @eq-compression-initialization-event, under
+$Y\le\lambda\beta^{-30L}$, every finite order is globally defined,
+has convergent physical parameters and moments, and fits the labels.
+Its operator and feature bounds are those of
+@eq-compression-real-tube, and
+
+$$
+\widehat\rho(t)\le Ye^{-\lambda t/4},\qquad
+ \tau(t)\le1+4Y/\lambda,\qquad
+ \|\widehat W^{(L+1)}(t)\|/\sqrt n\le4Y/\sqrt\lambda.
+$$ {#eq-compression-legendre-physical}
+
+:::::::::::::
+
+[]{#proof-compression-legendre-fit}
+
+::::::::::::: {.proof}
+
+**Order-independent physical bounds.**
+
+Let $\sigma=8Y/\lambda$, $R=\sigma\sqrt\lambda$, and
+$\kappa=\lambda/4$. Define, within the present construction proof,
+
+$$
+C_1=4s^2D_1^2,\quad
+ C_\ell=3s^2(64H^4D_\ell^2+82C_{\ell-1}),\quad
+ E_*=130\sum_{\ell=2}^LD_\ell\sqrt{C_{\ell-1}}.
+$$
+
+It suffices that
+
+$$
+\sigma\le\min\left\{1,\frac1{64H^2D_1},
+ \frac1{\sqrt{8\sqrt{C_L}}},
+ \left(\frac1{8H^2D_1E_*}\right)^{2/7}\right\}.
+$$ {#eq-compression-legendre-fitting-smallness}
+
+The present label cap implies this: $D_\ell\le\beta^{2L}$,
+$\sqrt{C_\ell}\le\beta^{8L}$, and $E_*\le\beta^{12L}$.
+For the middle estimate unroll
+$C_\ell=192s^2H^4D_\ell^2+246s^2C_{\ell-1}$, bound
+$192s^2,246s^2\le\beta^5$, $H^4D_\ell^2\le\beta^{10L}$,
+and sum at most $L$ terms.  For the last use
+$130L\le(\beta^L)^2$.  Substitution gives a lower bound
+$\beta^{-8L}$ for the minimum in
+@eq-compression-legendre-fitting-smallness, whereas
+$\sigma\le8\beta^{-30L}$.
+
+Stop at clock activity $\sigma$, readout RMS $R$, operator norm nine,
+or feature RMS $2H$.  Before the stop,
+$\|\widehat\delta_a^{(\ell)}\|/\sqrt n\le D_\ell R$.
+Projection contraction, sample Cauchy--Schwarz, and the zero backward
+prefix give
+
+$$
+\|\widehat W^{(\ell)}-W_0^{(\ell)}\|_F
+ \le4HD_\ell R\sqrt{(1+\sigma)\sigma},\qquad
+ \|\widehat W^{(1)}-W_0^{(1)}\|_F/\sqrt n\le2D_1R\sigma.
+$$
+
+These are strictly below one by
+@eq-compression-legendre-fitting-smallness and $\sqrt\lambda\le H$.
+Let $Z_\ell$ be the supremum, over queries and stopped horizons, of
+$n^{-1}\int_1^{\tau(t)}\|\partial_\xi h^{(\ell)}(\xi,v)\|^2d\xi$.
+The polynomial endpoint norm on $L^2([0,A])$ is $q/\sqrt A$,
+since the sum of squared normalized basis values at $A$ is
+$\sum_{j<q}(2j+1)/A=q^2/A$. Thus the aggregate backward endpoint
+error is at most $(q+1)D_\ell R$.  By
+@eq-compression-projection-growth, @eq-compression-projection-tail, and
+@eq-compression-legendre-defect,
+
+$$
+\int_0^t\widehat\rho
+       \|\mathcal E_\ell/\widehat\rho\|_F^2du
+ \le2(1+\sigma)^2D_\ell^2R^2Z_{\ell-1}.
+$$
+
+Here the forward prefix error is zero,
+$\xi(A-\xi)\le A^2/4$, and $(q+1)/q\le2$.
+The first-layer chain rule and the three later derivative terms
+(gradient update, defect, and propagated feature derivative) now give
+
+$$
+Z_1\le4\sigma s^2D_1^2R^2,\qquad
+ Z_\ell\le3s^2\{64\sigma H^4D_\ell^2R^2+
+                 [81+32H^2D_\ell^2R^2]Z_{\ell-1}\}
+          \le C_\ell\sigma R^2.
+$$
+
+The last step uses $32H^2D_\ell^2R^2<1$.
+Consequently every feature moves in RMS by at most
+$\sqrt{\sigma Z_\ell}\le\sqrt{C_L}\sigma^2\sqrt\lambda
+\le\sqrt\lambda/8$.  This excludes the feature boundary and preserves
+the top Gram gap $\lambda/4$ by singular-value perturbation.
+
+For the pointwise defect use the sharper bounds
+@eq-compression-projection-endpoint.  The two endpoint errors are at most
+$65\sqrt qD_\ell R$ and
+$\sqrt{(1+\sigma)/(3q)}\sqrt{Z_{\ell-1}}$, respectively.  Hence
+
+$$
+\sum_{\ell=2}^L\|\mathcal E_\ell\|_F
+          \le E_*\sqrt\sigma R^2\widehat\rho.
+$$ {#eq-compression-legendre-pointwise-defect}
+
+The prediction Jacobian applied to this hidden defect has sample RMS
+at most $2HD_1R\sum\|\mathcal E_\ell\|_F
+\le\lambda\widehat\rho/4$, by the last entry in
+@eq-compression-legendre-fitting-smallness. Let $J$ be the Jacobian of
+the training prediction vector in mobility coordinates
+$(W^{(1)}/\sqrt n,\allowbreak W^{(2)},\allowbreak \ldots,\allowbreak W^{(L)},\allowbreak W^{(L+1)}/\sqrt n)$, evaluated at
+the reconstructed state, and put $\Gamma=JJ^\top/m$.
+The mean full tangent Gram then gives
+$\dot{\widehat r}=-2\Gamma\widehat r+J\mathcal E$ with
+$\Gamma\succeq\lambda I/4$.  Thus
+$\dot{\widehat\rho}\le-\kappa\widehat\rho$ and
+$\int_t^T\widehat\rho\le\widehat\rho(t)/\kappa$ on every stopped
+interval.  The clock activity is at most $\sigma/2$.
+
+Let $\mathcal F$ be the dense gradient vector field at the reconstructed
+parameters, in the norm of @lem-compression-fit.  Its squared norm is
+$4\widehat r^\top\Gamma\widehat r/m\ge\lambda\widehat\rho^2$,
+and the defect estimate implies
+$-\partial_t\widehat\rho^2\ge\|\mathcal F\|_{\rm par}^2/2$.
+Multiplying by $e^{\kappa t}$, integrating by parts, and using
+$\widehat\rho\le Ye^{-\kappa t}$ gives
+$\int e^{\kappa t}\|\mathcal F\|_{\rm par}^2dt\le4Y^2$.
+Weighted Cauchy--Schwarz then gives
+$\int\|\mathcal F\|_{\rm par}\le2Y/\sqrt\kappa=R/2$.
+The readout has no defect, so its boundary is excluded as well.
+Every stopped inequality improves strictly.  The integral formulas
+bound all moments at finite $n,q$, proving global continuation.
+Uniqueness excludes a finite first residual zero when $Y>0$, since
+zero residual is an equilibrium of the entire stored-state ODE.
+The integrable gradient and defect lengths yield physical limits;
+the moment equations also have integrable velocities.  This proves
+@eq-compression-legendre-physical and fitting at the limit.
+This finishes the local fitting claim. The coefficients $C_j$
+just defined remain private to this construction proof.
+
+:::::::::::::
+
+**Comparison with dense training.** 
+Intersect the initialization event and the all-time training-carrier
+bound @eq-compression-carrier of @prp-compression-source. Set
+$X=\beta^L$, $z=Y/\lambda$, $\chi=1+\lambda^{-1}$,
+$u=\sqrt{\log(en)}$, and $M=32X^{21}zu$.
+Write $\rho_D=\|r\|_2/\sqrt m$ for the dense residual RMS.
+For the backward comparison at any parameter state, define its pre-gated
+training responses by $k_a^{(L)}=W^{(L+1)}$ and
+$k_a^{(j)}=W^{(j+1)\top}\delta_a^{(j+1)}$ for $j<L$.
+Only actual dense training carriers, not closure carriers or passive
+query carriers, are bounded by $M$.  Throughout this proof
+$z\le X^{-30}$, $X\ge100$. Use the Euclidean mobility coordinates
+$(W^{(1)}/\sqrt n,\allowbreak W^{(2)},\allowbreak \ldots,\allowbreak W^{(L)},\allowbreak W^{(L+1)}/\sqrt n)$,
+whose Euclidean norm is the parameter norm of @lem-compression-fit.
+Let $e$ be the Euclidean discrepancy and $D$ the
+sum of its $L+1$ block norms, so $D\le\sqrt{L+1}e$.
+
+We first verify the signed comparison with no reciprocal-gap factor
+inserted into its Jacobian coefficient.  Put $T_0=9s$,
+$R=8z\sqrt\lambda$, $B_\delta=sT_0^{L-1}R$, and define
+
+$$
+\begin{gathered}
+Q_1=b+9s,\quad Q_\ell=b+9sQ_{\ell-1},\quad
+ Q=\max(1,Q_1,\ldots,Q_L),\\
+ F_{\rm seg}=QT_0^{L-1},\quad P=1+Q(L-1),\\
+ d_0=sT_0^{L-1}(1+B_\delta),\quad
+ d_1=Lt_2F_{\rm seg}T_0^{L-1},\\
+ K_0=\sqrt{L+1}\{Pd_0+[1+(L-1)B_\delta]sF_{\rm seg}\},
+ \qquad K_1=\sqrt{L+1}Pd_1,
+\end{gathered}
+$$
+
+where $t_2=\max\{1,\max_\ell\sup_{|\operatorname{Im}z|\le a/2}
+|(\phi^{(\ell)})''(z)|\}\le\beta$.
+On the straight parameter segment from dense to closure, matrix and
+readout norms keep their bounds by convexity; linear growth gives
+feature RMS at most $Q$.  Forward subtraction therefore bounds the
+preactivation difference at segment fraction $\vartheta\in[0,1]$ by $F_{\rm seg}\vartheta D$.
+In backward subtraction use
+
+$$
+\delta_\vartheta-\delta_D
+ =\phi'(z_\vartheta)\odot(k_\vartheta-k_D)
+       +[\phi'(z_\vartheta)-\phi'(z_D)]\odot k_D.
+$$
+
+Propagation costs $T_0$, a changed mixer acts on a response of RMS at
+most $B_\delta$, and the changed gate uses only the dense carrier $M$.
+Induction gives response difference at most $(d_0+d_1M)\vartheta D$.
+Writing $f_a(\theta)=f_\theta(x_a)$, the gradient blocks of a training output are
+$\delta_a^{(1)}v_a^\top/\sqrt n$,
+$\delta_a^{(\ell)}h_a^{(\ell-1)\top}/n$, and
+$h_a^{(L)}/\sqrt n$.
+Subtract each hidden product as
+$(\delta_\vartheta-\delta_D)h_\vartheta^\top+\delta_D(h_\vartheta-h_D)^\top$.
+Their block bounds give
+$\|\nabla f_a(\theta_\vartheta)-\nabla f_a(\theta_D)\|
+\le(K_0+K_1M)\vartheta e$.
+Segment integration proves both hypotheses of @lem-compression-signed
+with $K=K_0+K_1M$.  The residual integrals are at most $2z$ and $4z$,
+so for every finite horizon
+
+$$
+\sup_{t\le T}D(t)\le\mathcal A_n\mathcal D_T,
+ \quad\mathcal A_n=\sqrt{L+1}e^{14(K_0+K_1M)z},
+ \quad\mathcal D_T=\int_0^T\sum_{\ell=2}^L\|\mathcal E_\ell\|_Fdt.
+$$ {#eq-compression-legendre-signed}
+
+In particular the carrier contribution is additive in $K$, not
+multiplied once per layer.
+
+Here are coefficient bounds needed to control the forcing.  Their
+dependence on the gap and labels is displayed before any simplification.
+Put $a_0=4z$, $\kappa=\lambda/4$, $F_z=2HT_0^{L-1}$,
+$P_0=1+2H(L-1)$, retain the local coefficients $C_\ell$ defined above, and define
+
+$$
+\begin{aligned}
+B_d&=sT_0^{L-1}(1+B_\delta)+Lt_2F_zT_0^{L-1}M,\\
+ V_z&=2F_zB_\delta P_0,\\
+ V_\delta&=T_0^{L-1}
+   [4sH+4sH(L-1)B_\delta^2+Lt_2MV_z],\\
+ T_1&=2D_1R,\qquad
+ T_\ell=4HD_\ell R+130D_\ell\sqrt{8zC_{\ell-1}}R^2,\\
+ V_1&=sT_1,\qquad V_\ell=s(2HT_\ell+9V_{\ell-1}),
+       \qquad V_h=\max_\ell V_\ell,\\
+ C_c&=4\left(4H^2+D_1^2R^2+
+                    4H^2R^2\sum_{\ell=2}^LD_\ell^2\right)+\lambda/2,\\
+ F_h&=V_ha_0\sqrt{(1+a_0)/2},\\
+ b_0&=\sqrt{1+a_0}(Y/\kappa)V_\delta+2B_\delta\sqrt{a_0},
+       \qquad b_1=2\sqrt{1+a_0}\,C_cB_\delta/\kappa,\\
+ C_f&=2H+RsF_z.
+\end{aligned}
+$$
+
+The meanings follow directly from the recursions: $B_dD$ bounds the
+response discrepancy between the two actual trajectories; $V_z\rho_D$
+and $V_\delta\rho_D$ bound dense preactivation and response speeds;
+$V_h\widehat\rho$ bounds closure feature speeds, using
+@eq-compression-legendre-pointwise-defect.  Finally
+$\|\partial_t(\widehat r/\widehat\rho)\|_m\le C_c$ follows by
+differentiating the normalized residual and bounding its tangent Gram
+by its trace and its defect by $\lambda\widehat\rho/4$.
+
+We spell out sufficient power bounds to fix the exponential rate.
+The preceding finite recursions imply
+
+$$
+\begin{aligned}
+&K_0\le X^9,\quad K_1\le X^{13},\quad
+ 14(K_0+K_1M)z\le X^{10}z+X^{36}z^2u,\\
+ &V_h\le X^{20}R,\quad C_c\le X^{11},\quad
+ B_d\le X^{33}(1+zu),\quad V_\delta\le X^{40}(1+zu),\\
+ &F_h/Y\le X^{22}z\sqrt\chi,\quad
+ b_0\le X^{42}z(1+zu),\quad b_1\le X^{16}z\sqrt\chi,
+ \quad C_f\le X^7.
+\end{aligned}
+$$ {#eq-compression-legendre-ledger}
+
+To check the first line, $Q\le X^2$, $F_{\rm seg}\le X^4$,
+$d_0\le2X^3$, $d_1\le X^8$, $P\le X^4$ give the first two
+bounds; insert $M\le32X^{21}zu$ and use $448\le X^2$.
+For the second line, $R\le X^{-27}$, $\sqrt{C_\ell}\le X^8$,
+and $D_\ell\le X^2$ give $T_\ell\le X^{12}R$.
+The $V_\ell$ recursion has forcing at most $2X^{15}R$, propagation
+at most $T_0^L\le X^2$, and at most $L\le X$ terms.
+The trace defining $C_c$ gives its stated bound.
+Also $F_z\le X^5$, $P_0\le X^4$, and $V_z\le2X^{12}R$.
+The non-carrier and carrier terms of $V_\delta$ are at most
+$4LX^5$ and $64LX^{36}Rzu$, respectively; those of $B_d$ are
+at most $2X^3$ and $32LX^{29}zu$.
+For the final line retain the normalization:
+$F_h/Y\le32X^{20}z/\sqrt\lambda$,
+$b_1\le96X^{14}z/\sqrt\lambda$, and
+$b_0\le6X^{40}z(1+zu)+32X^5z^{3/2}$.
+These inequalities imply @eq-compression-legendre-ledger because
+$X\ge100$, $z\le1$, and $\lambda^{-1/2}\le\sqrt\chi$.
+In particular
+
+$$
+\mathcal A_n\le eX e^u,
+ \qquad \log\mathcal A_n=O_{\rm problem}(\sqrt{\log(en)}).
+$$ {#eq-compression-legendre-exponent}
+
+The universal coefficient of $u$ follows from $X^{36}z^2\le1$;
+no extra power of $m/\gamma$ occurs in that exponent.
+
+By @eq-compression-projection-tail, the forward history tail on
+$[0,A]$, $A\le1+a_0$, has aggregate RMS $L^2$ norm at most $F_h/q$:
+use its clock derivative bound $V_h$ and
+$\int_1^A\xi(A-\xi)d\xi\le A(A-1)^2/2$.
+For the backward history compare it with
+$\widetilde b_a(\tau(t))=
+(\widehat r_a/\widehat\rho)\delta_{D,a}(t)$, with zero prefix.
+Its physical derivative has aggregate RMS at most
+$C_cB_\delta+V_\delta\rho_D$.
+Freeze it after $t_q=2\log q/\kappa$ (or the current horizon if
+earlier).  Since $A-\tau(t)\le\widehat\rho(t)/\kappa$, the weighted
+derivative energy cancels the inverse clock speed and is at most
+
+$$
+\frac{1+a_0}{\kappa}
+ \left[2t_qC_c^2B_\delta^2+
+       2V_\delta^2\int_0^{t_q}\rho_D(t)^2dt\right].
+$$
+
+The frozen tail is therefore at most
+$(b_1\sqrt{\log q}+\sqrt{1+a_0}(Y/\kappa)V_\delta)/q$.
+The freezing error is at most
+$2B_\delta\sqrt{a_0}e^{-\kappa t_q/2}
+=2B_\delta\sqrt{a_0}/q$.
+The difference between closure and dense response histories contributes
+at most $B_d\sqrt{a_0}\sup_{t\le T}D(t)$; the normalized residual has
+sample norm one.  All aggregate history norms here use the factor
+$(mn)^{-1/2}$.
+
+Use Cauchy--Schwarz in samples and then in $dA=\widehat\rho\,dt$
+in @eq-compression-legendre-defect.  The initial projection errors vanish,
+so @eq-compression-projection-growth gives
+
+$$
+\mathcal D_T\le2(L-1)F_h\left[
+ \frac{b_0+b_1\sqrt{\log q}}{q^2}
+ +\frac{B_d\sqrt{a_0}\sup_{t\le T}D(t)}q\right].
+$$ {#eq-compression-legendre-absorption}
+
+For
+$q\ge q_{\rm abs}:=4(L-1)F_hB_d\sqrt{a_0}\mathcal A_n$,
+@eq-compression-legendre-signed absorbs the last term with factor
+at most one half.  Whole-sphere forward/readout subtraction costs
+$C_fD$.  The coefficients do not depend on $T$, so increasing horizons
+and the already constructed physical limits yield
+
+$$
+\|f_{\rm Leg}-f_n\|_*
+ \le\frac{4(L-1)C_f\mathcal A_nF_h}{q^2}
+                         (b_0+b_1\sqrt{\log q}).
+$$
+
+By the ledger its numerator divided by $Y$ is at most
+$eX^{75}z^2\chi(1+zu)e^u\sqrt{\log(eq)}$.
+The cap and $\lambda\le H^2\le X^4$ imply $Y\le X^{-26}\le1$,
+so $z\le\lambda^{-1}\le\chi$.  Consequently
+
+$$
+\|f_{\rm Leg}-f_n\|_*
+ \le C Y\chi^6 e^{\sqrt{\log(en)}}
+       \frac{\sqrt{\log(en)\log(eq)}}{q^2}\qquad(q\ge q_{\rm abs}).
+$$ {#eq-compression-legendre-forward}
+
+This enlargement preserves the displayed sample/gap power without
+spending the label cap to reduce it.  All coefficients except
+$\mathcal A_n$ grow at most polynomially in $u$, hence
+$q_{\rm abs}=n^{o(1)}$ for the fixed problem.  The prescribed order
+@eq-compression-legendre-order eventually exceeds it.  Since
+$m/\gamma\ge1$, $\chi\le2m/\gamma$, and
+$\log(eq)\le C\log(en)$ eventually, substitution proves
+@eq-compression-legendre-accuracy.  The count follows from
+@eq-compression-legendre-count; $nd$ and rounding are absorbed only after
+taking sufficiently large width for the fixed problem.  One event
+supports every order used here, so no order-dependent failure union is
+needed.  All initialization data are the specified dense initialization
+and initialized training features.
+
+:::::::::::::::
+
+## An actual dense-trajectory fluctuation {#sec-compression-dense-lower-section}
+
+::::::::::::::: {#lem-compression-derivative-transfer}
+
+### Derivative to trajectory
+
+Let $r>0$ and $M\ge0$. If the scalar function $g$ is holomorphic on a
+neighborhood of the filled parameter-two
+Bernstein ellipse for $[0,r]$ and bounded there by $M$, then for every
+integer $N\ge1$,
+
+$$
+\sup_{0\le t\le r}|g(t)|
+       \ge\frac r{2N^2}|g'(0)|-24M2^{-N}.
+$$ {#eq-compression-derivative-transfer}
+
+:::::::::::::::
+
+[]{#proof-compression-derivative-transfer}
+
+::::::::::::::: {.proof}
+
+Set $t=r(x+1)/2$.  The Joukowski map
+$x=(z+z^{-1})/2$ and Cauchy's coefficient formula give Chebyshev
+coefficients $|a_k|\le2M2^{-k}$.  The degree-$N$ truncation has
+uniform tail at most $2M2^{-N}$; its physical derivative tail at zero
+is at most
+$4M r^{-1}2^{-N}(N^2+4N+6)$, by summing
+$\sum_{k>N}k^22^{-k}$.
+For a degree-$N$ polynomial, including complex coefficients,
+$|P'(-1)|\le N^2\|P\|_{[-1,1]}$.
+Indeed interpolate at $x_j=\cos(j\pi/N)$: the endpoint derivative
+weights have alternating signs, and their absolute sum equals
+$|T_N'(-1)|=N^2$ by evaluating on $T_N(x_j)=(-1)^j$.
+The sign assertion follows directly from the products defining the
+Lagrange basis; the endpoint weight is
+$\sum_{j<N}(-1-x_j)^{-1}<0$.
+Apply this inequality to the truncation, include the physical factor
+$2/r$, and add the two tails.  Rearranging gives error coefficient
+$4+8/N+12/N^2\le24$, as required.
+
+:::::::::::::::
+
+::::::::::::::: {#prp-compression-dense-lower}
+
+### Positive-time dense variability
+
+Under the assumptions of [the setup](#sec-compression-setup), for every fixed $0<\delta<1$,
+there is a constant
+$c_{\phi,L,\delta}>0$, depending only on the activations, depth and
+this confidence, such that all sufficiently large individual widths satisfy
+
+$$
+\Pr\left\{\|f_n-\widetilde f_n\|_{\mathcal X}
+       \ge c_{\phi,L,\delta}\frac{Y\sqrt\gamma}
+              {\sqrt n[\log(en)]^{5/2}}\right\}\ge1-\delta.
+$$ {#eq-compression-dense-lower}
+
+This holds for either the whole sphere or any declared panel containing
+the training inputs.  The witness is at a positive training time;
+no endpoint lower bound is asserted.
+
+:::::::::::::::
+
+[]{#proof-compression-dense-lower}
+
+::::::::::::::: {.proof}
+
+All moments and fluctuation variables introduced here are private to this
+proof. Let $G\sim N(0,1)$, define
+
+$$
+\mu_{2,j}=Q^{(j)}_{11}\quad(j=L-1,L),\qquad
+ \mu_4=\mathbb E\phi^{(L)}(\sqrt{\mu_{2,L-1}}G)^4,
+$$
+
+and write $\Phi$ for the standard normal distribution function.
+Let $Z\sim N(0,Q^{(L-1)})$, $U_a=\phi^{(L)}(Z_a)$ and
+$Q=\mathbb E UU^\top=Q^{(L)}$. We first establish the innovation and
+conditional fluctuation needed below, then convert an initial derivative
+into a positive-time trajectory separation.
+
+::::::::::::: {#lem-compression-innovation}
+
+### A final-layer innovation
+
+For $m\ge2$ and $Y>0$, some deterministic training index $a_*$ satisfies
+
+$$
+\operatorname{Var}\{U_{a_*}(U^\top y)\}
+       \ge\frac{\gamma^3\mu_{2,L}}{16\mu_4}Y^2>0.
+$$ {#eq-compression-innovation}
+
+:::::::::::::
+
+[]{#proof-compression-innovation}
+
+::::::::::::: {.proof}
+
+All fourth moments are finite by linear growth.  The positive gap gives
+$\mu_{2,L}>0$ and $\mu_4>0$.  Put $c=Qy$, $A=\|c\|$,
+$T=\operatorname{tr}Q$, $M_4=\mathbb E\|U\|^4$, and
+$D=T-c^\top Qc/A^2>0$.  The last inequality holds because $m\ge2$
+and $Q\succeq\gamma I$.  For $V=\mathbb E\|U(U^\top y)-c\|^2$,
+the squared-area identity gives
+
+$$
+A^2\|U\|^2-(c^\top U)^2
+ \le\|U(U^\top y)-c\|^2\|U\|^2.
+$$
+
+Splitting at $\|U\|=R_0$ yields
+$A^2D\le R_0^2V+A^2M_4/R_0^2$.
+Choose $R_0^2=2M_4/D$ to obtain
+$V\ge[y^\top Q^2(TI-Q)y]^2/(4M_4\|Qy\|^2)$.
+Here $M_4\le m^2\mu_4$ and $T=m\mu_{2,L}$.
+Every eigenvalue $x$ of $Q$ lies in
+$[\gamma,T-(m-1)\gamma]$.  Thus, for
+$N=y^\top Q^2(TI-Q)y$,
+
+$$
+N\ge(m-1)\gamma\|Qy\|^2,\qquad
+ N\ge\gamma^2(T-\gamma)\|y\|^2.
+$$
+
+The second uses
+$x(T-x)-\gamma(T-\gamma)=(x-\gamma)(T-\gamma-x)\ge0$
+and then $x\ge\gamma$.  Multiplying these lower bounds gives
+
+$$
+V\ge\frac{(m-1)\gamma^3(m\mu_{2,L}-\gamma)}{4m^2\mu_4}\|y\|^2
+ \ge\frac{\gamma^3\mu_{2,L}}{16\mu_4}\|y\|^2,
+$$
+
+because $\gamma\le\mu_{2,L}$ and $(m-1)^2/m^2\ge1/4$.
+At least one of the $m$ coordinate variances is at least $V/m$,
+which proves @eq-compression-innovation.
+
+:::::::::::::
+
+::::::::::::: {#lem-compression-scalar-fluctuation}
+
+### Conditional scalar fluctuation
+
+For the index in the preceding local claim, put
+$g_n(t)=f_n(t,x_{a_*})-\widetilde f_n(t,x_{a_*})$, where the two
+dense initializations are independent.  There is a fixed $s_*>0$ with
+
+$$
+s_*^2\ge\frac{\gamma^3\mu_{2,L}Y^2}{2m^2\mu_4},\qquad
+ \liminf_{n\to\infty}\Pr\{\sqrt n|g_n'(0)|\ge u s_*\}
+       \ge2[1-\Phi(u)]\quad(u>0),
+$$ {#eq-compression-scalar-fluctuation}
+
+where $\Phi$ is the standard normal distribution function.
+
+:::::::::::::
+
+[]{#proof-compression-scalar-fluctuation}
+
+::::::::::::: {.proof}
+
+Let $\mathcal F_n$ contain both initializations through layer $L-1$.
+Their training empirical Grams converge to $Q^{(L-1)}$ by
+@eq-compression-initial-gram-limit of @lem-compression-fit, including when this
+matrix is singular.
+Conditionally on $\mathcal F_n$, the last-layer preactivation rows of
+each run are independent Gaussian vectors. Applying $\phi^{(L)}$ gives
+independent feature vectors, generally non-Gaussian; the two groups are
+also independent.
+For either run write $U_{i,a}=h_{0,i}^{(L)}(v_a)$ for its initialized
+top-layer feature entries. The zero readout gives exactly
+
+$$
+\dot f_n(0,x_a)=\frac2{mn}\sum_{i=1}^n U_{i,a}(U_i^\top y).
+$$
+
+Write $v_* =\operatorname{Var}[U_{a_*}(U^\top y)]>0$ and
+$s_*^2=8v_*/m^2$.  Conditional variances of the row products converge
+to $v_*$: couple their Gaussian vectors with the continuous covariance
+square root and dominate the fourth-degree products by Gaussian
+polynomials.  Their centered absolute third moments are uniformly
+bounded on bounded covariance sets, since linear growth requires only
+Gaussian sixth moments.
+
+For a centered row product $X$, Taylor's remainder gives
+$|\mathbb E(e^{itX/\sqrt n}\mid\mathcal F_n)
+-1+t^2\mathbb E(X^2\mid\mathcal F_n)/(2n)|
+\le |t|^3\mathbb E(|X|^3\mid\mathcal F_n)/(6n^{3/2})$.
+Raise this identity to the $n$th power in each of the two independent
+groups.  It proves that the conditional law of
+$Z_n=\sqrt n(g_n'(0)-\mathbb E[g_n'(0)\mid\mathcal F_n])$
+converges weakly in probability to $N(0,s_*^2)$.
+To justify this random-law statement, every subsequence has a further
+subsequence on which both covariance matrices converge almost surely;
+the preceding characteristic-function calculation and the continuity
+theorem then apply deterministically on almost every such outcome.
+For a continuous limiting CDF, weak convergence is uniform in its
+argument: choose finite grids with small Gaussian CDF increments and
+small tails, and use monotonicity between grid points.  Therefore the
+conditional Kolmogorov distance $d_n$ tends to zero in probability,
+and $\mathbb E d_n\to0$ since $0\le d_n\le1$.
+
+For any $\mathcal F_n$-measurable shift $b_n$, a centered Gaussian has
+its largest interval probability at the interval centered at zero.
+Consequently
+
+$$
+\Pr\{|Z_n+b_n|\le us_*\mid\mathcal F_n\}
+ \le2\Phi(u)-1+2d_n.
+$$
+
+The Gaussian assertion follows by differentiating the interval mass
+with respect to its center and using the even, decreasing Gaussian
+density.  Take
+$b_n=\sqrt n\,\mathbb E[g_n'(0)\mid\mathcal F_n]$ and average.
+This proves @eq-compression-scalar-fluctuation; previous layers may
+produce an arbitrary shift and cannot increase the limiting small-ball
+probability.  No recursive matrix central limit theorem is needed.
+
+:::::::::::::
+
+**From the derivative to the trajectory.** 
+Use the finite-query conclusion @eq-compression-finite-time of
+@prp-compression-source for the two runs and the finite training query list.
+Put $\lambda=\gamma/m$, $\ell=\log(en)$ and
+$r=1/(\lambda\sqrt\ell)$. Each run is bounded there by
+$16\beta^{6L}Y/\lambda$, so their difference has twice this bound.
+The parameter-two ellipse of $[0,r]$ has real projection
+$[-r/8,9r/8]$ and imaginary projection $[-3r/8,3r/8]$, and hence lies
+inside the supplied rectangle.  On its event, $g_n$ is bounded by
+$32\beta^{6L}Y/\lambda$.  Choose
+$N=\lceil2\ell/\log2\rceil\le4\ell$.
+@lem-compression-derivative-transfer gives
+
+$$
+\sup_{0\le t\le r}|g_n(t)|
+ \ge\frac{|g_n'(0)|}{32\lambda\ell^{5/2}}
+       -\frac{768\beta^{6L}Y}{\lambda n^2}.
+$$
+
+For fixed $u>0$, the second term is eventually at most half the first
+on $|g_n'(0)|\ge us_*/\sqrt n$.  The two source failures tend to zero;
+no independence from the derivative event is required.  Thus
+the conditional fluctuation claim gives a limiting lower probability
+at least $2[1-\Phi(u)]$ for threshold
+$us_*/(64\lambda\sqrt n\ell^{5/2})$.
+Insert the lower bound on $s_*$, use $\lambda=\gamma/m$ and
+$1/(64\sqrt2)\ge1/128$, and choose
+$u=\Phi^{-1}(1/2+\delta/4)$.  The limiting probability is at least
+$1-\delta/2$, leaving a strict margin to obtain $1-\delta$ eventually.
+Since $g_n(0)=0$, a positive threshold on the compact witness interval
+requires a strictly positive time.  That training query belongs to
+each promised domain.  At its fitted endpoint the predictions equal
+the same label, consistently with the asserted scope.
+The asserted constant can therefore be chosen as the following local
+quantity:
+
+$$
+c_{\phi,L,\delta}=
+ \frac{\Phi^{-1}(1/2+\delta/4)}{128}
+ \sqrt{\frac{\mu_{2,L}}{\mu_4}}>0.
+$$
+
+Its moment ratio depends only on the activations and depth, as required.
+
+:::::::::::::::
+
+## One selected nonlinear dynamics for both source constructions {#sec-compression-selected-section}
+
+The sparse-metric lemma first supplies exact geometry on any finite source
+space. The transfer proposition then constructs and analyzes one autonomous
+selected model, with its optimizer and comparison coefficients local to that
+proof. Two later propositions supply its source spaces from whole-sphere
+polynomials or finite-panel Taylor expansions. They use only the transfer
+statement's error and storage interface.
+
+::::::::::::::: {#lem-compression-selection}
+
+### Sparse coordinates with an exact source metric
+
+Let $E\subset\mathbb R^n$ be a linear subspace containing $\mathbf1_n$,
+with $r=\dim E$.
+There are a set $I$ of at most $9r$ coordinates, a positive diagonal
+matrix $D$ on $I$, and a positive definite matrix $M$ such that
+
+$$
+u_I^\top Mv_I=u^\top v/n\quad(u,v\in E),\qquad
+ D/4\preceq M\preceq D,\qquad
+ \mathbf1^\top M\mathbf1=1,\quad\mathbf1^\top D\mathbf1\le4.
+$$
+
+Write $\|u\|_M=(u^\top Mu)^{1/2}$. Consequently a coordinate
+multiplication operator $B$ satisfies
+$\|B\|_{M\to M}\le2\max_i|B_{ii}|$, and an activation with
+$|\phi'|\le s$, $|\phi(0)|\le b$ satisfies
+$\|\phi(u)-\phi(v)\|_M\le2s\|u-v\|_M$ and
+$\|\phi(u)\|_M\le2b+2s\|u\|_M$.
+
+:::::::::::::::
+
+[]{#proof-compression-selection}
+
+::::::::::::::: {.proof}
+
+We give the finite sparsification argument. For vectors $v_i\in\mathbb R^r$
+with $\sum_i v_iv_i^\top=I$, start with $A=0$, lower barrier $l=-3r$
+and upper barrier $u=6r$. Maintain
+
+$$
+lI\prec A\prec uI,\qquad
+ \Phi_l(A)=\operatorname{tr}(A-lI)^{-1}\le\tfrac13,
+ \quad\Phi^u(A)=\operatorname{tr}(uI-A)^{-1}\le\tfrac16.
+$$
+
+Set $l'=l+1$, $u'=u+2$, and define
+
+$$
+U(v)=\frac{v^\top(u'I-A)^{-2}v}{\Phi^u(A)-\Phi^{u'}(A)}
+       +v^\top(u'I-A)^{-1}v,\qquad
+ L(v)=\frac{v^\top(A-l'I)^{-2}v}{\Phi_{l'}(A)-\Phi_l(A)}
+       -v^\top(A-l'I)^{-1}v.
+$$
+
+The lower potential implies that every eigenvalue is at least three
+above $l$, so both inverse matrices and both denominators are positive.
+The identity
+$(B+t vv^\top)^{-1}=B^{-1}-B^{-1}vv^\top B^{-1}/(t^{-1}+v^\top B^{-1}v)$
+shows that $U(v)\le t^{-1}\le L(v)$ preserves the two potential
+inequalities at the shifted barriers. For the upper potential, the
+positive first term of $U(v)$ also preserves the strict spectral barrier.
+
+Such a nonzero $v_i$ exists. If $a_j$ are the eigenvalues of $A$, then
+$(u-a_j)^{-1}-(u'-a_j)^{-1}\ge2(u'-a_j)^{-2}$, hence
+$\sum_iU(v_i)\le1/2+\Phi^{u'}(A)\le2/3$.
+For the lower sum put $a'_j=(a_j-l')^{-1}$,
+$b'_j=(a_j-l)^{-1}=a'_j/(1+a'_j)$ and
+$\Delta=\sum_j a'_jb'_j=\Phi_{l'}-\Phi_l$.
+Weighted Cauchy--Schwarz gives
+
+$$
+\Delta^2\le\Big(\sum_j(a'_j)^2b'_j\Big)\sum_jb'_j
+ \le\sum_j(a'_j)^2-\Delta.
+$$
+
+Therefore $\sum_iL(v_i)\ge1-\Phi_l(A)\ge2/3$.
+Choose $t>0$ with reciprocal in the resulting nonempty interval and
+add $t v_iv_i^\top$. After $9r$ iterations the barriers are $6r,24r$.
+Dividing all accumulated weights by $6r$ gives nonnegative weights
+$s_i$, supported on at most $9r$ indices, with
+$I\preceq\sum_i s_i v_iv_i^\top\preceq4I$.
+
+Choose $U$ with range $E$ and $U^\top U/n=I$, apply this result to
+$v_i=U_{i,:}^\top/\sqrt n$, and set
+$P=U_I$, $D=\operatorname{diag}(s_i/n)$, $G=P^\top DP$ and
+$Z=D^{1/2}P$. Define
+
+$$
+M=D^{1/2}\{ZG^{-2}Z^\top+I-ZG^{-1}Z^\top\}D^{1/2}.
+$$ {#eq-compression-metric}
+
+On $\operatorname{ran}Z$ the middle matrix has eigenvalues those of
+$G^{-1}$, and on its orthogonal complement it is the identity.
+Thus $D/4\preceq M\preceq D$, while multiplication gives $P^\top MP=I$.
+The constant source proves the two mass assertions. Finally
+$\|Bu\|_M\le\|Bu\|_D\le\max_i|B_{ii}|\|u\|_D\le
+2\max_i|B_{ii}|\|u\|_M$. Apply this to coordinate divided differences
+and use $\|\mathbf1\|_M=1$ for the activation claims.
+
+:::::::::::::::
+
+### A portable source-to-runtime construction {#sec-compression-a-portable-source-to-runtime-construction}
+
+::::::::::::::: {#prp-compression-selected}
+
+### Source-to-runtime transfer
+
+Work on the fitting and analytic-source event of @lem-compression-fit and @prp-compression-source.
+Write $W_0^{(j)}=W^{(j)}(0)$ for the initialized matrices in this statement.
+Fix
+
+$$
+T=32\frac m\gamma\log(en),\qquad
+ 0<\eta\le\min\{1,Y,16Ym/\gamma\},\qquad
+ q\ge\max\{m,d\}.
+$$
+
+For each layer let $E_j\subset\mathbb R^n$ have dimension at most $q$ and contain
+the constant, exact initialized training features and their initialized
+forward images when present, and (at the first layer) the columns of
+$W_0^{(1)}$. Suppose these spaces approximate the families
+@eq-compression-source-families to coordinate accuracy $\eta$ on $[0,T]$,
+with forward queries in $\mathcal X$ and backward queries at training inputs.
+Require exact initialized-image pairing: each image approximant is the
+corresponding initialized map applied to its base approximant.
+There is an autonomous selected nonlinear predictor satisfying
+
+$$
+\begin{aligned}
+\|f_{\rm model}-f_n\|_{\mathcal X}
+ &\le C\frac{Ym}\gamma\left(1+\sqrt{\frac m\gamma}\right)
+       (1+\sqrt{\log(en)})e^{\sqrt{\log(en)}}\eta
+ \\
+ &\quad+C\frac{Ym}\gamma\left(1+\sqrt{\frac m\gamma}\right)
+                      e^{-\gamma T/(4m)}.
+\end{aligned}
+$$ {#eq-compression-smallcap-comparison}
+
+It fits, has a fitted limit, and retains at most
+
+$$
+1020(L+1)q^2+36q+10m(d+1)
+$$ {#eq-compression-selected-inventory}
+
+real coordinates, including data, selected indices, metrics, initial copies
+and working arrays. Here $C\ge1$.
+In particular, the permissible choice
+
+$$
+\eta=\min\left\{1,Y,\frac{16Ym}\gamma,
+ \frac{\gamma}{2Cmn(1+\sqrt{m/\gamma})
+          (1+\sqrt{\log(en)})e^{\sqrt{\log(en)}}}\right\}
+$$ {#eq-compression-selected-tolerance}
+
+gives error at most $Y/n$ eventually. Source bases, dense coefficients and
+compilation scratch are discarded after the selected initial arrays are formed.
+
+:::::::::::::::
+
+[]{#proof-compression-selected}
+
+::::::::::::::: {.proof}
+
+All auxiliary quantities in this proof belong to this construction.
+Put $\lambda=\gamma/m$, $z=Y/\lambda$, $\alpha=Y/\sqrt\lambda$,
+$S=16z$, and $\ell=\log(en)$, so $0<\lambda\le1$ and
+$0<z\le\beta^{-30L}$. For activation estimates use the envelopes
+$b=\beta-1$ and $s=t_2=\beta$; thus $|\phi^{(j)}(0)|\le b$,
+$|(\phi^{(j)})'|\le s$ and $|(\phi^{(j)})''|\le t_2$ on the real line.
+Write $c_n=(y_a-f_n(t,x_a))_{a=1}^m$ for the dense training deficits and
+$\rho_n=\|c_n\|_2/\sqrt m$ for their RMS.
+The public source bounds permit the local envelopes
+
+$$
+u_0=\beta^{3L},\qquad \tau=\beta^{4L},\qquad
+ K_{\rm src}=\beta^{21L}.
+$$
+
+Dense feature norms are at most $u_0$ and dense training response norms
+at most $S\tau$ in neuron RMS. Dense training carriers on $[0,T]$
+are the local fields
+$k_{n,a}^{(L)}=W^{(L+1)}$ and
+$k_{n,a}^{(j)}=W^{(j+1)\top}\delta_{n,a}^{(j+1)}$; by
+@eq-compression-carrier they are bounded coordinatewise by
+$32zK_{\rm src}\sqrt\ell$.
+Dense finite vectors use ordinary Euclidean norms, with $1/\sqrt n$
+displayed explicitly. Selected layer norms use the stated metrics $M_j$. Every query $v$ denotes $x/\sqrt d$
+for an input $x$ in the promised domain.
+
+[Autonomous selected model.]{#sec-compression-autonomous-selected-model}
+
+Apply @lem-compression-selection to obtain $(I_j,M_j,D_j)$ and let
+$q_j=|I_j|\le9q$. The selected moving variables are
+$W_C^{(1)}\in\mathbb R^{q_1\times d}$,
+$B_C^{(j)}\in\mathbb R^{q_j\times q_{j-1}}$ ($2\le j\le L$),
+$W_C^{(L+1)}\in\mathbb R^{q_L}$ and $c_C\in\mathbb R^m$.
+For $v=x/\sqrt d$ the forward pass is
+
+$$
+z_C^{(1)}=W_C^{(1)}v,\qquad
+ z_C^{(j)}=B_C^{(j)}h_C^{(j-1)},\qquad
+ h_C^{(j)}=\phi^{(j)}(z_C^{(j)}).
+$$
+
+All layer norms and adjoints below use $M_j$; in particular
+$(B_C^{(j)})^*=M_{j-1}^{-1}B_C^{(j)\top}M_j$.
+Let $V_C$ have columns $h_C^{(L)}(v_a)/\sqrt m$ and define
+
+$$
+\begin{aligned}
+Q_C&=V_C^*V_C,\\
+ \widehat W_C^{(L+1)}&=W_C^{(L+1)}+V_CQ_C^{-1}
+       \{(y-c_C)/\sqrt m-V_C^*W_C^{(L+1)}\},\\
+ f_C(v)&=\langle\widehat W_C^{(L+1)},h_C^{(L)}(v)\rangle_{M_L}.
+\end{aligned}
+$$ {#eq-compression-selected-readout}
+
+The statement's predictor is $f_{\rm model}(t,x)=f_C(t,x/\sqrt d)$;
+physical time is suppressed in the local forward formulas.
+Thus $f_C(v_a)=y_a-c_{C,a}$ exactly. Define training signals by
+$k_{C,a}^{(L)}=\widehat W_C^{(L+1)}$,
+$\delta_{C,a}^{(j)}=(\phi^{(j)})'(z_{C,a}^{(j)})\odot k_{C,a}^{(j)}$ and
+$k_{C,a}^{(j)}=(B_C^{(j+1)})^*\delta_{C,a}^{(j+1)}$.
+The unnormalized sample matrix is
+
+$$
+\begin{aligned}
+K_{C,ab}={}&\langle h_{C,a}^{(L)},h_{C,b}^{(L)}\rangle_{M_L}
+ +\langle\delta_{C,a}^{(1)},\delta_{C,b}^{(1)}\rangle_{M_1}v_a^\top v_b
+ \\
+ &+\sum_{j=2}^L\langle\delta_{C,a}^{(j)},\delta_{C,b}^{(j)}\rangle_{M_j}
+                  \langle h_{C,a}^{(j-1)},h_{C,b}^{(j-1)}\rangle_{M_{j-1}}.
+\end{aligned}
+$$ {#eq-compression-selected-gram}
+
+The autonomous optimizer is
+
+$$
+\begin{aligned}
+\dot W_C^{(1)}&=\frac2m\sum_a c_{C,a}\delta_{C,a}^{(1)}v_a^\top,
+ &\dot B_C^{(j)}&=\frac2m\sum_a c_{C,a}\delta_{C,a}^{(j)}
+                                      h_{C,a}^{(j-1)\top}M_{j-1},
+ \\
+ \dot W_C^{(L+1)}&=\frac2m\sum_a c_{C,a}h_{C,a}^{(L)},
+ &\dot c_C&=-2K_Cc_C/m.
+\end{aligned}
+$$ {#eq-compression-selected-flow}
+
+These are prescribed directions; coordinate gates need not be self-adjoint
+in $M_j$, and no gradient interpretation of the corrected predictor is used.
+
+For bases $U_j$ of $E_j$ with $U_j^\top U_j/n=I$, set $P_j=(U_j)_{I_j}$.
+Initialize
+
+$$
+W_C^{(1)}(0)=(W_0^{(1)})_{I_1},\quad W_C^{(L+1)}(0)=0,\quad c_C(0)=y,
+ \qquad
+ B_C^{(j)}(0)=P_j\frac{U_j^\top W_0^{(j)}U_{j-1}}n
+                         P_{j-1}^\top M_{j-1}.
+$$ {#eq-compression-selected-initial}
+
+Since $P_j^\top M_jP_j=I$, these operators have norms at most eight.
+They reproduce an initialized forward image exactly whenever both members
+belong to the source spaces; their metric adjoints reproduce paired reverse
+images. The exact additions therefore preserve the entire initialized
+training forward pass and Gram. All bases, dense arrays and source
+coefficients are discarded after these finite initial arrays are formed.
+
+::::::::::::: {#lem-compression-selected-fitting}
+
+### Independent fitting and endpoint tails
+
+With the notation of this construction, the following local bounds hold.
+The selected dynamics exist for every $t\ge0$, have $Q_C\succeq\lambda I/4$,
+fit the training labels and converge in parameter space. Write
+
+$$
+\begin{aligned}
+H_1^c&=2b+16s,\\ H_j^c&=2b+18sH_{j-1}^c,\\ H_c&=H_L^c,
+ \\ d_j^c&=2s(18s)^{L-j},\\
+ F_c&=(d_1^c)^2+4H_c^2\sum_{j=2}^L(d_j^c)^2.
+\end{aligned}
+$$
+
+For the selected parameter tuple
+$\theta_C=(W_C^{(1)},(B_C^{(j)})_{j=2}^L,W_C^{(L+1)})$ use
+
+$$
+\|\theta_C\|_{\rm par}^2=
+ \operatorname{tr}(W_C^{(1)\top}M_1W_C^{(1)})+
+ \sum_{j=2}^L\|M_j^{1/2}B_C^{(j)}M_{j-1}^{-1/2}\|_F^2+
+ \|W_C^{(L+1)}\|_{M_L}^2.
+$$
+
+Then $\|h_C^{(j)}\|\le2H_c$, $\|\widehat W_C^{(L+1)}\|\le5\alpha$,
+$\rho_C:=\|c_C\|/\sqrt m\le Ye^{-\lambda t/2}$ and
+$\int_0^\infty\|\dot\theta_C\|_{\rm par}\le2\alpha$.
+There is a coefficient $\mathcal D\le C z(1+\lambda^{-1/2})$ such that
+comparison on $[0,T]$ extends to all times and the fitted endpoint with
+additional error at most $\mathcal D e^{-\lambda T/4}$.
+Here and below $C$ depends only on activations and depth.
+
+:::::::::::::
+
+[]{#proof-compression-selected-fitting}
+
+::::::::::::: {.proof}
+
+**Proof of the claim.**
+
+Stop at operator norm nine, feature norm $2H_c$, or Gram margin $\lambda/4$.
+Expanding the velocities, with all cross-sample terms, gives
+
+$$
+-\frac d{dt}\rho_C^2=4c_C^\top K_Cc_C/m^2
+       =\|\dot\theta_C\|_{\rm par}^2,
+ \qquad K_C/m\succeq Q_C.
+$$ {#eq-compression-selected-energy}
+
+Thus $-\dot\rho_C\ge\lambda\rho_C/2$ and
+$\|\dot\theta_C\|\le2(-\dot\rho_C)/\sqrt\lambda$.
+Integration gives the asserted residual and path bounds, as well as
+$\int\rho_C\le2z$ and $\|W_C^{(L+1)}\|\le2\alpha$.
+With $T_C=V_CQ_C^{-1}$ and $P_C=T_CV_C^*$, the readout is the
+orthogonal sum $(I-P_C)W_C^{(L+1)}+T_C(y-c_C)/\sqrt m$.
+Its squared norm is at most $4\alpha^2+16\alpha^2$.
+
+Set $R_c=5\alpha$, $U_1^c=d_1^c$, $U_j^c=2H_cd_j^c$ for $j\ge2$,
+and $F_1^c=2sU_1^c$, $F_j^c=2s(2H_cU_j^c+9F_{j-1}^c)$.
+The latter recurrence has $F_L^c=F_c$. Backward propagation bounds
+$\|\delta_C^{(j)}\|\le d_j^cR_c$, and integration bounds each hidden
+parameter displacement by $20U_j^cY^2/\lambda^{3/2}$ and each feature
+displacement by $20F_j^cY^2/\lambda^{3/2}$.
+Under the stated cap, $H_c\le\beta^{3L}$, $F_c\le\beta^{15L}$ and
+$z\le(16H_c\sqrt{F_c})^{-1}$; hence the last bound is at most
+$5\sqrt\lambda/(64H_c^2)<\min\{1/(8H_c),\sqrt\lambda/8\}$.
+The operator and feature stops improve strictly. The normalized training
+feature matrix starts with smallest singular value at least
+$\sqrt{\lambda/2}$ and moves by less than $\sqrt\lambda/8$, so the
+Gram stop improves too. Smoothness on this strict Gram-positive domain
+and bounded parameters give global existence. Finite path length and
+@eq-compression-selected-readout give convergence; $c_C\to0$ gives fitting.
+
+For quantitative tails, differentiating the inverse gives
+
+$$
+\dot T_C=(I-P_C)\dot V_CQ_C^{-1}-T_C\dot V_C^*T_C,\qquad
+ \dot P_C=(I-P_C)\dot V_CT_C^*+T_C\dot V_C^*(I-P_C).
+$$
+
+Thus $\|\dot T_C\|\le8\|\dot V_C\|/\lambda$,
+$\|\dot P_C\|\le4\|\dot V_C\|/\sqrt\lambda$ and
+$\|\dot V_C\|\le2R_cF_c\rho_C$.
+Put $G_c=4H_c^2+R_c^2F_c$ and
+
+$$
+B_{L+1}=4H_c+48R_cF_cz+4G_c/\sqrt\lambda,
+ \qquad B_f=2H_cB_{L+1}+2R_c^2F_c.
+$$
+
+Differentiating the orthogonal readout formula proves
+$\|\dot{\widehat W}_C^{(L+1)}\|\le B_{L+1}\rho_C$ and
+$|\dot f_C(v)|\le B_f\rho_C$ uniformly over unit inputs.
+Therefore $|f_C(\infty,v)-f_C(t,v)|\le2B_fz e^{-\lambda t/2}$.
+For the dense tail, the RMS bounds hold at every real time, not merely
+on the finite complex source domain. Indeed @lem-compression-fit bounds all
+normalized operators by nine and gives
+$\|W^{(L+1)}\|/\sqrt n\le2Y/\sqrt\lambda\le Su_0$.
+The all-time RMS bounds of @prp-compression-source, or the same real
+forward/backward induction, give
+$\|h^{(j)}\|/\sqrt n\le u_0$ and
+$\|\delta^{(j)}\|/\sqrt n\le S\tau$ for all real times.
+The flow equations and sample Cauchy--Schwarz therefore imply
+$|\dot f_n(v)|\le2\mathcal K\rho_n$, where
+
+$$
+\mathcal K=u_0^2+S^2\tau^2[1+(L-1)u_0^2].
+$$
+
+Comparing each flow with its value at $T$ proves the claimed extension with
+$\mathcal D=z(16\mathcal K+4B_f)$.
+The small cap gives $\mathcal K\le C$, $B_f\le C(1+\lambda^{-1/2})$,
+which establishes the stated parameter dependence.
+
+:::::::::::::
+
+[Comparison coefficients.]{#sec-compression-comparison-coefficients}
+
+Here is an explicit coefficient ledger for the comparison. Its size is
+independent of the number of sources. Use the local envelopes
+$u_0,\tau,K_{\rm src}$ fixed at this proof's start, and put
+
+$$
+H_r=u_0+3,\quad H_C=2H_c,\quad
+ P_h=6u_0+9,\quad P_\delta=6\tau+9,
+$$
+
+$$
+A_f=18+S^2(\tau+3)P_h,\qquad
+ A_b=18+S^2H_rP_\delta.
+$$
+
+Define the forward-error recursion and the reference-response bounds by
+
+$$
+\begin{aligned}
+F_1^z&=1,\quad F_1^h=2s,\\
+ F_j^z&=9F_{j-1}^h+H_r+A_f,\quad
+ F_j^h=2sF_j^z\quad(j\ge2),\quad F=\max_jF_j^h,\\
+ d_j^E&=2s(9s)^{L-j}+3H_c,\quad J_C=5\sqrt{F_c},\\
+ J_R&=\left[(d_1^E)^2+H_r^2\sum_{j=2}^L(d_j^E)^2\right]^{1/2},\\
+ D_s&=P_h+16zP_\delta\{1+(L-1)H_r^2\}
+                   +(L-1)(16z)^2\tau^2P_h.
+\end{aligned}
+$$
+
+The backward-error recursion is
+
+$$
+\begin{aligned}
+B_L&=2s(1+6zF+32zP_h)+2t_2F_L^z,\\
+ B_j&=18sB_{j+1}+2s(d_{j+1}^EzH_C+A_b)+2t_2F_j^z
+                       \quad(j<L),\\
+ B_h&=\sqrt L\{H_C\max_jB_j+(\max_jd_j^E)zH_CF\},\\
+ K_1&=12F+2B_h+20z(J_C+J_R)B_h+20D_s.
+\end{aligned}
+$$
+
+Increasing any of these positive coefficients is harmless. Finally set
+
+$$
+\begin{aligned}
+\mathcal B_n={}&400z^2F_c+2zK_1+40zF
+                         +64z^2K_1K_{\rm src}\sqrt\ell,\\
+ \mathcal A_n={}&[H_C(1+6zF)+3\alpha F]
+             (1+\lambda^{-1/2})(e^{\mathcal B_n}-1)\\
+ &+6H_CzF+32H_CzP_h/\sqrt\lambda+3\alpha F+16zP_h.
+\end{aligned}
+$$ {#eq-compression-selected-coefficients}
+
+::::::::::::: {#lem-compression-selected-comparison}
+
+### Finite-horizon comparison
+
+With the local coefficients @eq-compression-selected-coefficients,
+
+$$
+\sup_{0\le t\le T}\sup_{x\in\mathcal X}
+ |f_C(t,x/\sqrt d)-f_n(t,x)|\le\mathcal A_n\eta.
+$$
+
+:::::::::::::
+
+[]{#proof-compression-selected-comparison}
+
+::::::::::::: {.proof}
+
+**Proof of the comparison claim.**
+
+We record both the source-energy estimate and the cancellation that
+make the parameter dependence possible. For one layer abbreviate
+$E=E_j$, $I=I_j$ and $M=M_j$. If $p\in E$ approximates $u$
+to coordinate accuracy $e_u$, exact isometry and the mass bound give
+
+$$
+\frac{\|u-p\|_2}{\sqrt n}\le e_u,\quad \|u_I-p_I\|_M\le2e_u,
+ \quad\|u_I\|_M\le\frac{\|u\|_2}{\sqrt n}+3e_u.
+$$
+
+Expanding two inner products about $p,q\in E$ therefore gives
+
+$$
+|\langle u_I,v_I\rangle_M-u^\top v/n|
+ \le3e_u\frac{\|v\|_2}{\sqrt n}+3e_v\frac{\|u\|_2}{\sqrt n}+9e_ue_v.
+$$ {#eq-compression-pair-defect}
+
+Thus feature-pair defects are at most $P_h\eta$, and response-pair
+defects at most $SP_\delta\eta$; here $\eta\le1,S$ is used.
+
+Let the proof reference have first layer and readout equal to the
+coordinate restrictions of the dense ones, and hidden operators
+
+$$
+B_R^{(j)}(t)=B_C^{(j)}(0)+\frac2m\int_0^t\sum_a
+ c_{n,a}(u)(\delta_{n,a}^{(j)}(u))_{I_j}
+              (h_{n,a}^{(j-1)}(u))_{I_{j-1}}^\top M_{j-1}\,du.
+$$
+
+Its preactivation, feature and response symbols below mean the restricted
+dense values, not a fresh forward pass; its carrier symbols
+mean $k_{R,a}^{(j)}=(k_{n,a}^{(j)})_{I_j}$ as well.
+The exact initialized
+pairing and operator bound eight make an initialized action defect at
+most $18\eta$. In each learned action, subtract the dense outer-product
+integral and use @eq-compression-pair-defect together with
+$\int\rho_n\le2z$, $\frac{\|\delta_n^{(j)}\|_2}{\sqrt n}\le S\tau$ and
+$\frac{\|h_n^{(j)}\|_2}{\sqrt n}\le u_0$. The resulting forward and reverse defects
+are at most $A_f\eta$ and $A_b\eta$. The identical calculation for
+the integrated raw readout gives
+
+$$
+|\langle W_R^{(L+1)},h_R^{(L)}(v)\rangle_{M_L}-f_n(v)|\le16zP_h\eta.
+$$ {#eq-compression-readout-observation}
+
+Write $V_n,V_R$ for the dense and restricted top feature maps, with
+columns divided by $\sqrt m$. Their common approximants and exact
+isometry give, for every $a\in\mathbb R^m$,
+$\|V_Ra\|\le\|V_na\|_2/\sqrt n+3\eta\|a\|$.
+For $\nu=\|V_Rc_n/\sqrt m\|$, the dense energy identity gives
+
+$$
+\int_0^T\nu\le\alpha+6\eta z\le2\alpha.
+$$ {#eq-compression-source-energy}
+
+Here let $\theta_n=(W^{(1)}/\sqrt n,\allowbreak W^{(2)},\allowbreak \ldots,\allowbreak W^{(L)},\allowbreak W^{(L+1)}/\sqrt n)$
+with its Euclidean block norm. Indeed
+$2\|V_nc_n/\sqrt m\|_2/\sqrt n\le\|\dot\theta_n\|$,
+whose integral is at most $2\alpha$.
+Integrating source approximants for $\dot W_n^{(L+1)}=2V_nc_n/\sqrt m$
+gives a vector in $E_L$ at coordinate error at most $4\eta z$.
+Consequently $\|W_R^{(L+1)}\|\le2\alpha+12\eta z\le3\alpha$.
+Likewise the restricted responses have norm at most $d_j^E\alpha$.
+These arguments never differentiate an approximation error.
+
+Use the hidden-parameter Hilbert norms of the preceding local fitting claim,
+and let $\theta_{h,C},\theta_{h,R}$ denote the selected and reference tuples
+of first-layer and hidden-layer matrices. Let
+$\mathcal J_C,\mathcal J_R$ have sample columns, divided by $\sqrt m$,
+equal respectively to the tuples
+
+$$
+(\delta^{(1)}v_a^\top,
+       (\delta^{(j)}h_a^{(j-1)\top}M_{j-1})_{j=2}^L).
+$$
+
+Thus $K_C/m=V_C^*V_C+\mathcal J_C^*\mathcal J_C$ and
+$\dot\theta_{h,C}=2\mathcal J_Cc_C/\sqrt m$; the reference satisfies
+the latter identity with $R,n$. Moreover
+$\|\mathcal J_C\|\le J_C\alpha$,
+$\|\mathcal J_R\|\le J_R\alpha$.
+Put
+
+$$
+a_h=\|\theta_{h,C}-\theta_{h,R}\|,\quad
+ e=(c_C-c_n)/\sqrt m,\quad u=\|e\|,\quad z_{L+1}=W_C^{(L+1)}-W_R^{(L+1)},
+$$
+
+$$
+T_C=V_CQ_C^{-1},\quad P_C=T_CV_C^*,\quad
+ p=T_Ce,\quad \zeta=z_{L+1}+p,\quad b_e=\|p\|+\|\zeta\|,
+ \quad E=a_h+b_e.
+$$
+
+All these error variables vanish at zero. Forward induction, first
+subtracting the reference action and then the nonlinear gate, gives
+
+$$
+\|h_C^{(j)}-h_R^{(j)}\|\le F_j^h(a_h+\eta),
+ \qquad \|V_C-V_R\|\le F(a_h+\eta).
+$$ {#eq-compression-forward-error}
+
+The first-layer preactivation error is $a_h$; at layer $j$ it is at
+most $9F_{j-1}^h(a_h+\eta)+H_ra_h+A_f\eta$, which proves the displayed
+recursion rather than presuming an ambient Lipschitz bound.
+
+Set $d_R=V_R^*W_R^{(L+1)}-(y-c_n)/\sqrt m$ and $\Delta V=V_C-V_R$.
+Subtracting the exact readout formula yields
+
+$$
+\widehat W_C^{(L+1)}-W_R^{(L+1)}=(I-P_C)z_{L+1}-p-T_C\Delta V^*W_R^{(L+1)}-T_Cd_R.
+$$ {#eq-compression-readout-deficit}
+
+Since $p\in\operatorname{ran}V_C$, $(I-P_C)z_{L+1}=(I-P_C)\zeta$.
+Equations @eq-compression-readout-observation through @eq-compression-forward-error and
+$\|T_C\|\le2/\sqrt\lambda$ imply
+
+$$
+\begin{aligned}
+\|\widehat W_C^{(L+1)}-W_R^{(L+1)}\|&\le b_e+6zF(a_h+\eta)
+                                      +32zP_h\eta/\sqrt\lambda,
+\end{aligned}
+$$ {#eq-compression-readout-error}
+
+$$
+\begin{aligned}
+|f_C(v)-f_n(v)|&\le H_C\{b_e+6zF(a_h+\eta)
+                         +32zP_h\eta/\sqrt\lambda\}
+                     +3\alpha F(a_h+\eta)+16zP_h\eta.
+\end{aligned}
+$$ {#eq-compression-output-error}
+
+Let $K_n$ be the dense training tangent Gram: it is the formula
+@eq-compression-selected-gram with dense fields and the inner products
+$n^{-1}u^\top v$ in each neuron layer. The dense deficit therefore obeys
+$\dot c_n=-2K_nc_n/m$. The source-only Gram defect
+$D=V_R^*V_R+\mathcal J_R^*\mathcal J_R-K_n/m$ satisfies
+$\|D\|\le D_s\eta$. To see this without an extra factor $m$, split
+each product of two pairings, use @eq-compression-pair-defect, and recall
+that the sample matrix entries carry the factor $1/m$; a matrix all
+of whose entries have magnitude at most $a/m$ has operator norm at
+most $a$. With $\Delta\mathcal J=\mathcal J_C-\mathcal J_R$, write
+
+$$
+\Delta\mathcal K=
+ V_C^*\Delta V+\Delta V^*V_R+
+ \mathcal J_C^*\Delta\mathcal J+
+ \Delta\mathcal J^*\mathcal J_R+D.
+$$
+
+The error equations are exactly
+
+$$
+\begin{aligned}
+\dot e&=-2(Q_C+\mathcal J_C^*\mathcal J_C)e
+                           -2\Delta\mathcal Kc_n/\sqrt m,\\
+ \dot z_{L+1}&=2V_Ce+2\Delta Vc_n/\sqrt m,\\
+ \dot\zeta&=2\Delta Vc_n/\sqrt m+\dot T_Ce
+        -2T_C\mathcal J_C^*\mathcal J_Ce
+        -2T_C\Delta\mathcal Kc_n/\sqrt m.
+\end{aligned}
+$$
+
+The term $2V_Ce$ cancels because $T_CQ_C=V_C$.
+This is why estimating $c_C-c_n$ by an unconstrained Gronwall
+inequality would lose the result.
+
+Here are the needed norm estimates, including the dissipative one.
+The derivative formula for $T_C$, and
+$\|\dot V_C\|\le10\alpha F_c\rho_C$, give
+$\|\dot T_Ce\|\le40zF_c\rho_C\|p\|$.
+In the derivative of $\|p\|^2/2$, the $Q_C$ term is $-2u^2$.
+The possible absolute contribution from the hidden Gram is at most
+$8\|\mathcal J_C\|^2u^2/\lambda\le200z^2F_cu^2$;
+the label cap bounds this by $25u^2/(32H_c^2)$, leaving at least
+$39u^2/32$. Define
+
+$$
+\mathfrak f=2\|T_C\Delta\mathcal Kc_n/\sqrt m\|,\qquad
+ I(t)=\int_0^t\{40zF_c\rho_C b_e+\mathfrak f\}.
+$$
+
+Dividing the dissipative inequality by $\|p\|$ gives
+
+$$
+\|p(t)\|+\int_0^t u^2/\|p\|\le I(t),\qquad
+ \int_0^t u\le2I(t)/\sqrt\lambda.
+$$
+
+At zeros use $(\|p\|^2+\epsilon^2)^{1/2}$ and let
+$\epsilon\downarrow0$; $p=0$ implies $e=0$ because $Q_C$ is invertible.
+The second inequality also follows directly from
+$\|p\|\le2u/\sqrt\lambda$.
+Integrating the $\zeta$ equation bounds its hidden-Gram term by
+$200z^2F_c I\le25I/32$. Therefore
+
+$$
+b_e\le2F\int_0^t\rho_n(a_h+\eta)+3I(t).
+$$ {#eq-compression-cancelled-energy}
+
+For completeness, the remaining response estimate can be checked
+layer by layer. The dense training preactivation carriers are bounded
+coordinatewise by
+$M=1+32zK_{\rm src}\sqrt\ell$ on $[0,T]$.
+At each gate split
+$\phi'(z_C)k_C-\phi'(z_R)k_R$
+as $\phi'(z_C)(k_C-k_R)+(\phi'(z_C)-\phi'(z_R))k_R$.
+The first multiplication costs $2s$, and the second at most
+$2t_2MF_j^z(a_h+\eta)$. Subtracting the initialized and learned reverse
+actions costs $A_b\eta$, and the hidden parameter difference costs
+$d_{j+1}^E\alpha a_h$. Starting with @eq-compression-readout-error, the
+displayed $B_j$ recursion, followed by the outer-product split, gives
+
+$$
+\|\Delta\mathcal J\|
+ \le B_h\{b_e+M(a_h+\eta)+\eta/\sqrt\lambda\}.
+$$
+
+Only the carrier factor contains $M$; it is not multiplied once per
+layer. Applying this to the four terms of $\Delta\mathcal K$ gives
+
+$$
+\begin{aligned}
+\mathfrak f\le{}&2F\rho_n(a_h+\eta)
+       +4F\nu(a_h+\eta)/\sqrt\lambda+4D_s\eta\rho_n/\sqrt\lambda\\
+ &+4z(J_C+J_R)B_h\rho_n
+                  \{b_e+M(a_h+\eta)+\eta/\sqrt\lambda\}.
+\end{aligned}
+$$
+
+The hidden-parameter equation, $\int u\le2I/\sqrt\lambda$ and
+$4zJ_C\le5/4$ similarly yield
+
+$$
+a_h\le\tfrac54 I+2B_h\int_0^t\rho_n
+                    \{b_e+M(a_h+\eta)+\eta/\sqrt\lambda\}.
+$$
+
+Combining with @eq-compression-cancelled-energy proves the scalar inequality
+
+$$
+E(t)\le\int_0^t
+ \{200zF_c\rho_C+K_1M\rho_n+20F\nu/\sqrt\lambda\}
+                \{E+\eta(1+\lambda^{-1/2})\}.
+$$
+
+The integral of its coefficient is at most $\mathcal B_n$, by
+$\int\rho_n,\int\rho_C\le2z$ and @eq-compression-source-energy.
+The integrating-factor formula gives
+$E\le\eta(1+\lambda^{-1/2})(e^{\mathcal B_n}-1)$.
+Substitution in @eq-compression-output-error proves the finite-horizon
+claim with precisely @eq-compression-selected-coefficients.
+
+:::::::::::::
+
+[Canonical error bound and retained inventory.]{#sec-compression-canonical-error-bound-and-retained-inventory}
+
+The local fitting claim supplies the tails and endpoint. Thus
+
+$$
+\|f_{\rm model}-f_n\|_{\mathcal X}\le
+             \mathcal A_n\eta+\mathcal D e^{-\lambda T/4}.
+$$
+
+We verify that the explicit ledger has the promised dependence.
+Put $X=\beta^L\ge100$. The local envelopes and fitting bounds give
+$u_0,H_c\le X^3$, $\tau\le X^4$ and $K_{\rm src}\le X^{21}$.
+For example $16z\le16X^{-30}$ makes both additional terms in
+$A_f,A_b$ less than one; hence $A_f,A_b\le19$.
+The forward recursion then gives $F\le X^6$.
+For further detail, $d_j^E\le X^4$, $H_C\le2X^3$ and
+$P_h,P_\delta\le X^4,X^5$. In the backward recursion the additive
+term is at most $X^7$, and $18s\le\beta^3$. Geometric summation
+over at most $L$ layers gives $\max_jB_j\le X^{11}$ and then
+$B_h\le X^{15}$. Also $J_C,J_R\le X^9$ and $D_s\le X^5$.
+Substitution gives $K_1\le X^{18}$; here the generous powers
+absorb $L\le X$, all numerical factors, and $H_C=2H_c$.
+The selected fitting recursion already gives $F_c\le X^{15}$.
+Consequently
+
+$$
+\mathcal B_n\le
+ 400X^{-45}+2X^{-12}+40X^{-24}
+                      +64X^{-21}\sqrt\ell
+ \le1+\sqrt\ell,
+$$
+
+and $\mathcal B_n/z\le C(1+\sqrt\ell)$ with $C$ depending only
+on $X$. Since $e^u-1\le ue^u$, @eq-compression-selected-coefficients
+gives
+
+$$
+\mathcal A_n\le C z(1+\lambda^{-1/2})
+                   (1+\sqrt\ell)e^{\sqrt\ell},\qquad
+ \mathcal D\le C z(1+\lambda^{-1/2}),
+$$
+
+after increasing the activation/depth constant to absorb $e$.
+These are exactly the canonical factors in
+@eq-compression-smallcap-comparison. This is a small-cap proof,
+not a claim on a larger recurrence-defined label interval.
+Finally $T=32\ell/\lambda$ makes the tail $\mathcal D e^{-8\ell}$.
+For fixed positive $Y$ it is at most $Y/(2n)$ eventually; the other
+half is @eq-compression-selected-tolerance.
+
+[Retained inventory.]{#sec-compression-retained-inventory}
+
+Retain both moving and initial copies of the first matrix, mixers and
+raw readout; the selected indices; each $M_j$, its inverse or factorization,
+and $D_j$; the training data and labels; current training forward and
+backward arrays; $c_C$, $V_C$, $Q_C$ and its inverse or factorization;
+the corrected readout; direction arrays; and one-query forward workspace.
+Every selected width is at most $9q$. Each mixer or metric therefore
+costs at most $81q^2$, each first matrix at most $9qd$, each layer's
+training arrays at most a fixed multiple of $9mq$, and each sample
+matrix at most $m^2$. Since $m,d\le q$, these arrays total at most
+$1020(L+1)q^2+36q+10m(d+1)$, including simultaneous initial copies
+and working arrays. A nonprimitive activation evaluator is charged
+separately. Dense mixers, source bases, coefficient vectors and
+coefficient-compilation scratch are not retained by the runtime.
+The construction itself uses the finite source spaces only through
+its initial arrays; the separate compiler below will establish their
+initialization-only provenance for the two methods.
+
+:::::::::::::::
+
+### Finite initialized jets suffice {#sec-compression-finite-initialized-jets-suffice}
+
+::::::::::::::: {#prp-compression-jets}
+
+### Initialization-only coefficient compiler
+
+On the initialized operator event of @lem-compression-fit, fix $T,r_0,M>0$.
+Let finitely many sources from @prp-compression-source extend coordinatewise
+holomorphically near $[-r_0,T+r_0]+i[-r_0,r_0]$, bounded by $M$ uniformly
+over their compact query domain. For sphere queries assume also the joint
+holomorphic extension of @prp-compression-source.
+Any finite list of their integrals against specified polynomial time--sphere
+bases, or derivatives at real anchors in $[0,T]$, can be approximated to
+arbitrary positive accuracy using finitely many derivatives of the dense ODE
+and passive recursions at time zero, with exact initialized-image pairing.
+No later dense state or trajectory sample is needed; no bound on
+initialization time or working storage is asserted.
+
+:::::::::::::::
+
+[]{#proof-compression-jets}
+
+::::::::::::::: {.proof}
+
+We first prove the continuation assertion that makes initialized jets
+sufficient. For any one scalar source $g$, use its common bound $M$
+on the closed rectangle
+$\{-r_0\le\Re t\le T+r_0,\ |\Im t|\le r_0\}$, with a slightly
+larger open domain. The source rectangle, or a finite closed-disk cover
+with the real interval strictly inside its union, supplies such a
+positive $r_0$ by compactness. Put
+
+$$
+\chi=\frac{\pi T}{8r_0},\quad b_0=\tanh\chi,\quad
+ b_1=\tanh(\chi+\pi/4),\quad \theta=b_0/b_1,
+ \quad \psi(\xi)=\frac{\xi-\theta}{1-\theta\xi},
+$$
+
+$$
+\mathfrak t(\xi)=\frac T2+\frac{2r_0}{\pi}
+       \log\frac{1+b_1\psi(\xi)}{1-b_1\psi(\xi)},
+ \qquad \xi_*=\frac{2\theta}{1+\theta^2}<1.
+$$
+
+The logarithm is the branch equal to a real number on the real
+interval. For $|\xi|<1$, $|\psi(\xi)|<1$; the ratio in the logarithm
+has positive real part and modulus between
+$(1-b_1)/(1+b_1)$ and its reciprocal. Thus
+$|\Im\mathfrak t|<r_0$ and
+$-r_0<\Re\mathfrak t<T+r_0$.
+Direct substitution gives $\mathfrak t(0)=0$ and
+$\mathfrak t(\xi_*)=T$, and the derivative is nonzero on
+$[0,\xi_*]$. This proves continuation from the origin onto the
+entire physical interval, without stepping a dense trajectory.
+
+The Taylor coefficients of $g\circ\mathfrak t$ are
+
+$$
+a_j=\sum_{k=0}^j\frac{g^{(k)}(0)}{k!}
+                       [\xi^j]\mathfrak t(\xi)^k.
+$$
+
+Cauchy's coefficient formula gives $|a_j|\le M$, so truncation at
+$N$ has error at most $M\xi_*^{N+1}/(1-\xi_*)$ on the whole interval.
+This bound is uniform over all passive inputs in the compact domain
+and over all source coordinates. Derivatives at finitely many later
+anchors are also recovered: choose $\xi_*<\rho_*<1$ and
+$0<\epsilon_*<\rho_*-\xi_*$. On $|\xi|\le\rho_*$ the tail is
+$M\rho_*^{N+1}/(1-\rho_*)$, hence its $k$th derivative at any real
+anchor is at most
+$k!M\rho_*^{N+1}/\{\epsilon_*^k(1-\rho_*)\}$.
+Repeated application of $(\mathfrak t')^{-1}\partial_\xi$ converts
+these to the finitely many required time derivatives. All its
+coefficients are bounded on that compact interval. A finite $N$
+therefore achieves every prescribed finite list of accuracies.
+
+Let $\Theta=(W^{(1)},\ldots,W^{(L)},W^{(L+1)})$ be the dense parameter tuple
+and $\mathcal F$ its autonomous vector field. For the initialized ODE
+$\dot\Theta=\mathcal F(\Theta)$ the formal
+coefficients are computed successively by
+
+$$
+\Theta_{j+1}=\frac1{j+1}[t^j]
+          \mathcal F\!\left(\sum_{i=0}^j\Theta_i t^i\right).
+$$
+
+The analytic local solution has precisely these coefficients, by
+coefficient comparison and uniqueness of the local ODE. The forward
+and passive backward recursions then give their source jets by finite
+addition, multiplication and composition at time zero. Any scalar
+activation derivatives required here are part of the fixed analytic
+activation evaluator; their description, evaluation and scratch are
+not asserted to have unit cost unless taken as primitives.
+
+For time--sphere integral coefficients, insert the uniformly convergent
+continued polynomials into their defining integrals. Each integrand is
+continuous on the compact time interval times sphere. Finite partitions
+and weighted Riemann sums converge uniformly for the finite collection
+of integrands. A finite mesh can be chosen from their modulus of
+continuity: the source strip gives derivative bounds by Cauchy's
+formula, and the finitely many basis functions are known polynomials.
+Thus the required integral approximations use only finitely many
+evaluations of the continued origin-jet polynomial. For $d=1$ the
+spatial integral is simply the two-point average.
+
+Finally perform every scalar linear coefficient operation on a base
+source and set its image coefficient equal to the initialized matrix
+times that vector. Linear operations commute with this fixed matrix.
+Since its Euclidean operator norm is at most eight, approximating a
+base coefficient in Euclidean norm to $\epsilon/8$ approximates both
+the base and its image to $\epsilon$. There are only finitely many
+coefficients and a finite sum of their basis suprema; choose each
+coefficient tolerance smaller than the desired final error divided
+by this sum. This imposes exact pairing while retaining the chosen
+uniform source tolerance. No coefficient is retained after the
+selected initial arrays are formed.
+
+:::::::::::::::
+
+### Whole-sphere polynomial sources {#sec-compression-whole-sphere-polynomial-sources}
+
+::::::::::::::: {#lem-compression-harmonic-approximation}
+
+### Joint time--sphere approximation and its dimension
+
+Let $T,r_t,r_q,M_n>0$ and $0<\eta\le\min\{1,M_n\}$, and put
+$\alpha_T=r_t/(4T)$. Suppose a real $\mathbb R^n$-valued source on
+$[0,T]\times S^{d-1}$ extends coordinatewise holomorphically to a neighborhood of
+
+$$
+([-r_t,T+r_t]+i[-r_t,r_t])\times
+ \{v\in\mathbb C^d:v^\top v=1,\ \|\operatorname{Im}v\|_2\le\sinh r_q\},
+$$
+
+with coordinate modulus at most $M_n$ on this set. Query holomorphy is
+relative to the quadric; for $d=1$ use its two real points.
+For $d\ge2$ put
+
+$$
+b_d=2d-2,\quad
+ D_d=2^{d+1}d^{d-2},\quad
+ P_T=\frac{18D_db_d!\,2^{b_d+1}}{\alpha_T r_q^{b_d+1}},
+ \quad H_*=2\log\frac{16M_nP_T}{\eta}.
+$$
+
+For $\alpha_T,r_q\le1$, a real expansion in Chebyshev time polynomials and
+real spherical harmonics with $\alpha_Tk+r_qj\le H_*$ approximates the source
+to coordinate error $\eta/8$ using at most
+
+$$
+N\le\frac{2\{H_*+\alpha_T+(d-1)r_q\}^d}
+                {d!\,\alpha_T r_q^{d-1}}
+$$ {#eq-compression-harmonic-dimension}
+
+coefficient vectors. For the dense sources of @prp-compression-source,
+@prp-compression-jets gives initialized-jet coefficients with total coordinate
+error at most $\eta$ and exact initialized-image pairing.
+For $d=1$, use the two points of $S^0$ and at most $2N_1$ vectors,
+where $N_1=1+\lfloor H_1/\alpha_T\rfloor$ and
+$H_1=\log(64M_n/(\alpha_T\eta))$.
+
+:::::::::::::::
+
+[]{#proof-compression-harmonic-approximation}
+
+::::::::::::::: {.proof}
+
+Fix one coordinate and call its scalar source $g$.
+We supply the spatial decay argument. For $d\ge2$ let
+$\mathcal H_j$ be the restrictions of homogeneous harmonic
+polynomials of degree $j$ to $S^{d-1}$, with probability surface
+measure. Its dimension is
+
+$$
+h_j=\binom{j+d-1}{d-1}-\binom{j+d-3}{d-1}
+       \le2\binom{j+d-2}{d-2},
+$$
+
+where a binomial coefficient with negative upper index is zero.
+Indeed, applying the Laplacian to $|x|^{2k}H_l(x)$ gives
+$2k(2l+2k+d-2)|x|^{2k-2}H_l(x)$; induction decomposes every
+homogeneous polynomial into these summands and gives the dimension
+formula by subtraction. The spherical Laplacian eigenvalues
+$-j(j+d-2)$ give orthogonality of different degrees by integration
+by parts. Polynomials contain constants and separate points on the
+compact sphere, so their uniform density (the real Stone--Weierstrass
+theorem) proves completeness. For an orthonormal basis $Y_{j\nu}$,
+rotational invariance and integration give the addition identity
+$\sum_\nu Y_{j\nu}(v)^2=h_j$; consequently
+$|Y_{j\nu}(v)|\le\sqrt{h_j}$ and the projection $\Pi_j$ has
+supremum operator norm at most $h_j$.
+
+For fixed $v$, average an analytic function over the complex tangent
+circle $\cos\zeta\,v+\sin\zeta\,u$, $u\perp v$, $|u|=1$.
+On $\mathcal H_j$ this averaging is scalar: rotations fixing $v$
+leave a one-dimensional zonal eigenspace, and its normalized
+eigenfunction solves
+$(1-x^2)p''-(d-1)xp'+j(j+d-2)p=0$, $p(1)=1$.
+Coefficient comparison gives
+$p(x)=C_j^{(d-2)/2}(x)/C_j^{(d-2)/2}(1)$ for $d>2$.
+For real $\zeta$ the averaging is self-adjoint because the joint
+law of its two endpoints is symmetric. Apply this to each harmonic
+coefficient and continue analytically in $\zeta$; it follows that
+the averaged analytic source has $j$th projection equal to
+$p(\cos\zeta)\Pi_jg$. At $\zeta=ir_q$ its arguments satisfy
+$z^\top z=1$, $|\Im z|\le\sinh r_q$, so its supremum is at most
+$M_n$. Thus $\|\Pi_jg\|_\infty\le h_jM_n/p(\cosh r_q)$.
+
+For $\nu=(d-2)/2>0$, the generating function
+$(1-2xw+w^2)^{-\nu}=\sum_j C_j^\nu(x)w^j$
+at $x=\cosh r$, for any $r>0$, factors as
+$(1-e^rw)^{-\nu}(1-e^{-r}w)^{-\nu}$ with nonnegative coefficients.
+It gives $C_j^\nu(\cosh r)\ge e^{rj}(\nu)_j/j!$ and
+$C_j^\nu(1)=(2\nu)_j/j!$. For $j\ge1$ their ratio is
+$2\prod_{i=1}^{j-1}(1+\nu/(\nu+i))$.
+Its logarithm is at most
+$\log2+\nu\int_0^{j-1}(\nu+x)^{-1}\,dx$.
+Since $\nu\ge1/2$, the ratio is at most $2(2j)^\nu$, and hence
+at most $2^d(j+1)^d$; the $j=0$ inequality is immediate.
+Together with
+$h_j\le2d^{d-2}(j+1)^{d-2}$ this proves
+
+$$
+\|\Pi_jg\|_\infty\le M_nD_d(j+1)^{b_d}e^{-r_qj}.
+$$ {#eq-compression-spatial-decay}
+
+For $d=2$, the basis is the constant and the sine--cosine pair at
+each positive integer, and the averaging multiplier is
+$\cosh(jr)\ge e^{jr}/2$; the same loose bound with $D_2=8$, $b_2=2$
+holds directly.
+
+Set $t=T(1+\cos u)/2$. For $|\Im u|\le\alpha_T\le1$ this lies
+inside the time rectangle, since its displacement from $[0,T]$ is
+at most $T\alpha_T$. The resulting even periodic function has
+cosine coefficients whose $j$th harmonic block is bounded by
+$2M_nD_d(j+1)^{b_d}e^{-\alpha_Tk-r_qj}$: shift the Fourier contour
+to $\Im u=\pm\alpha_T$ and use @eq-compression-spatial-decay there.
+The series is absolutely uniformly convergent. Discarding indices
+with $\alpha_Tk+r_qj>H_*$ bounds the tail by
+
+$$
+2M_nD_de^{-H_*/2}
+ \sum_{k\ge0}e^{-\alpha_Tk/2}
+ \sum_{j\ge0}(j+1)^{b_d}e^{-r_qj/2}
+ \le M_nP_Te^{-H_*/2}\le\eta/16.
+$$
+
+Here $\sum_ke^{-\alpha_Tk/2}\le3/\alpha_T$ and
+$\sum_j(j+1)^be^{-r_qj/2}\le3b!(2/r_q)^{b+1}$, obtained by
+comparison with the gamma integral after shifting each unit interval.
+
+The number of retained coefficients is
+$N=\sum_{r_qj\le H_*}h_j(1+\lfloor(H_*-r_qj)/\alpha_T\rfloor)$.
+Replace $h_j$ by twice the number of weak compositions of $j$ into
+$d-1$ parts. The corresponding nonnegative lattice points have
+weighted sum $\alpha_Tk+r_q\sum l_i\le H_*$. Their disjoint unit
+cubes lie in the simplex with right-hand side
+$H_*+\alpha_T+(d-1)r_q$, whose volume is exactly the right-hand
+side of @eq-compression-harmonic-dimension. This proves the count.
+For the finite collection of coefficients, choose the Euclidean
+approximation tolerance in @prp-compression-jets so that its product with
+$8\sum_{k,j,\nu}\|Y_{j\nu}\|_\infty$ is at most $\eta/16$.
+Both a base source and its paired image then have total error below
+$\eta$, without increasing the coefficient count.
+
+If $d=1$, there is no spatial approximation: apply the preceding
+one-variable Fourier contour argument separately at the two points.
+The geometric tail after degree $\lfloor H_1/\alpha_T\rfloor$ is
+at most $6M_ne^{-H_1}/\alpha_T<\eta/8$; the same finite coefficient
+accuracy argument finishes this case.
+
+:::::::::::::::
+
+::::::::::::::: {#prp-compression-harmonic}
+
+### Harmonic: whole-sphere accuracy and total state
+
+Eventually at each fixed confidence, the initialized-jet construction gives
+a selected nonlinear model with $\|f_{\rm Harm}-f_n\|_{\mathcal X}\le Y/n$
+on the whole sphere and total retained real-coordinate count at most
+
+$$
+C(m+d)^2+\left(\frac Cd\right)^{d+1}
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^{3d+2}.
+$$
+
+:::::::::::::::
+
+[]{#proof-compression-harmonic}
+
+::::::::::::::: {.proof}
+
+For this whole-sphere construction put $\lambda=\gamma/m$,
+$z=Y/\lambda$, $\ell=\log(en)$, and $T=32\ell/\lambda$.
+Choose $\eta$ by the canonical tolerance formula
+@eq-compression-selected-tolerance. The public source proposition supplies
+the radii and coordinate bound
+
+$$
+r_t=\frac{\gamma}
+ {\beta^{30L}Y^2m\sqrt{(d+3)\ell}},\qquad
+ r_q=\frac1{\beta^{3L}\sqrt{(d+3)\ell}},\qquad
+ M_n=\beta^{6L}\sqrt n.
+$$
+
+Set $\alpha_T=r_t/(4T)$. For $d\ge2$, let $N$ be the coefficient
+count in @lem-compression-harmonic-approximation, with its explicitly defined
+$P_T,H_*$ evaluated at these local parameters. For $d=1$, let $N_1$
+be the two-point time count defined in that same statement.
+Apply the approximation lemma to the four joint time--sphere families
+from @prp-compression-source, including its passive backward family; hence
+the same coefficient vectors serve all training inputs. In layer $j$
+include the approximate feature and response coefficients and the
+paired initialized forward and reverse image coefficients. Add
+$\mathbf1_n$, the at most $2m$ exact initialized training vectors
+needed for forward-image pairing, and the $d$ first-layer columns.
+Each source space has rank at most
+
+$$
+R=2m+d+1+4N\quad(d\ge2),\qquad
+ R=2m+d+1+8N_1\quad(d=1).
+$$
+
+The source contract is now satisfied. Invoke @prp-compression-selected with
+its source-dimension bound $q=R$; it selects at most $9R$ coordinates
+per layer and gives
+the claimed absolute error. All choices use initialized jets only.
+
+We spell out the asymptotic count because dropping the label factor
+here would change the theorem. The exact source radius gives
+
+$$
+\alpha_T^{-1}=\frac{4T}{r_t}
+       =128\beta^{30L}z^2\sqrt{d+3}\,\ell^{3/2},\qquad
+ r_q^{-1}=\beta^{3L}\sqrt{(d+3)\ell}.
+$$ {#eq-compression-time-radius-count}
+
+For each fixed admissible problem, @eq-compression-smallcap-comparison
+and @eq-compression-selected-tolerance imply
+$\log(1/\eta)\le2\ell$ eventually. Every other fixed parameter
+inside the logarithm defining $H_*$ is additive, whereas
+$\log P_T=O_{d,\mathrm{problem}}(\log\ell)$.
+Thus $H_*+\alpha_T+(d-1)r_q\le8\ell$ eventually. The dimension
+bound gives
+
+$$
+N\le C^d\beta^{CLd}\frac{(d+3)^{d/2}}{d!}\,
+                    z^2\ell^{3d/2+1}.
+$$
+
+For $d=1$, the direct two-point count gives the same form with
+$N_1\le C\beta^{CL}z^2\ell^{5/2}$.
+
+The public inventory @eq-compression-selected-inventory, with $q=R$,
+is $1020(L+1)R^2+36R+10m(d+1)$, plus the separately charged
+activation evaluator. It already includes selected mixers, metrics,
+initial copies, data and working arrays. No dense mixer, source basis,
+initialized jet, quadrature table or coefficient vector is retained.
+
+Finally, for $d\ge2$, $R^2\le C(m+d)^2+CN^2$ and
+$d!\ge(d/e)^d$ imply
+
+$$
+\frac{(d+3)^d}{(d!)^2}
+ \le\frac{(8e^2)^d}{d^{d+1}}.
+$$
+
+Indeed, for $d\ge2$, $(1+3/d)^d\le(5/2)^d$ and $d\le2^d$
+give the stronger numerator $(5e^2)^d$. Absorb activation/depth
+powers into $C^d$ to obtain the asserted count. For $d=1$, use
+$R^2\le C(m+1)^2+CN_1^2$ and the already proved bound on $N_1$;
+this gives the stated logarithmic exponent five. If a finite small
+width makes $9R\ge n$, retaining all coordinates is a valid fallback;
+the claimed polylogarithmic bound concerns the eventual range only.
+
+:::::::::::::::
+
+### Finite-panel sources on an adaptive time partition {#sec-compression-finite-panel-sources-on-an-adaptive-time-partition}
+
+::::::::::::::: {#prp-compression-panel}
+
+### Taylor: panel accuracy and total state
+
+On the declared $(m+p)$-input panel of [the setup](#sec-compression-setup), eventually at each
+fixed confidence there is an initialization-only selected model with
+$\|f_{\rm Taylor}-f_n\|_{\mathcal X}\le Y/n$ and total state at most
+
+$$
+C(m+p)^2\left[\left(\frac{Ym}\gamma\right)^4[\log(en)]^3+
+       \left(\frac m\gamma\right)^2[\log(en)]^2
+       \{\log(e+\log(en))\}^2\right]+C(m+p)d.
+$$
+
+Only training inputs enter the deficit equation and Gram inverse.
+Accuracy outside the panel is not asserted.
+
+:::::::::::::::
+
+[]{#proof-compression-panel}
+
+::::::::::::::: {.proof}
+
+For this finite-panel construction put $\lambda=\gamma/m$,
+$z=Y/\lambda$, $\ell=\log(en)$ and $T=32\ell/\lambda$.
+Use the public disk-and-partition interface of @prp-compression-source:
+there are $0=t_0<\cdots<t_J=T$ and radii $r_b>0$ such that each
+source is holomorphic near $|t-t_b|\le r_b$ and
+$t_{b+1}-t_b\le r_b/2$. Its count @eq-compression-panel-source gives
+
+$$
+J\le1+\beta^{30L}z^2\sqrt\ell
+             +\frac{\beta^{16L}}\lambda
+                        \log(1+4\ell/\log2).
+$$ {#eq-compression-panel-count}
+
+The centers and radii are deterministic functions of the problem
+parameters, as that public interface guarantees, so they require
+no later dense training data.
+
+There are at most $2(2m+p)$ source curves per layer: forward features
+and their initialized images at all declared inputs, and backward
+responses and their initialized transpose images at training inputs.
+Each coordinate is bounded by $M_n=\beta^{6L}\sqrt n$ on its disks.
+Choose the source tolerance @eq-compression-selected-tolerance and
+
+$$
+K=\max\{0,\lceil\log_2(8M_n/\eta)\rceil\}.
+$$
+
+On panel $b$, retain coefficient vectors
+$r_b^ku^{(k)}(t_b)/k!$ for $0\le k\le K$, where $u$ denotes
+one of the source curves.
+They have coordinate magnitude at most $M_n$. Since
+$|t-t_b|/r_b\le1/2$, the discarded Taylor tail is at
+most $M_n2^{-K}\le\eta/8$. The vectors from all panels span one
+time-independent space of dimension at most $J(K+1)$ per curve.
+The local approximants may differ at a panel boundary: both
+approximate the same source there, and the comparison theorem
+uses values, never their derivatives or a boundary matching rule.
+
+Apply @prp-compression-jets to approximate every scaled base coefficient
+in Euclidean norm to $\eta/128$, and form its initialized image
+exactly. The base reconstruction error is at most
+$(\eta/128)\sum_{k\ge0}2^{-k}=\eta/64$; initialized operator norm
+eight gives image error at most $\eta/8$. Adding their independently
+controlled Taylor tails leaves both below $\eta$.
+Include the constant, exact initial training vectors and paired
+images, and first-weight columns required by @prp-compression-selected.
+Before input
+reduction the rank per layer is at most
+$2m+d+1+2(2m+p)J(K+1)$.
+This verifies the identical source contract, so the same selected
+runtime, fitting, cancellation, and endpoint proofs apply. In
+particular taking a maximum over the passive inputs does not
+introduce $p$ into any comparison coefficient. No passive deficit
+or additional sample Gram is introduced.
+
+There is an exact reduction of the first-layer dimension. Let
+$U_0\in\mathbb R^{d\times k}$ have orthonormal columns spanning all
+declared normalized inputs, where $k\le\min(d,m+p)$.
+Replace $v_i$ by $U_0^\top v_i$ and the first matrix by
+$W^{(1)}U_0$. Every first-layer derivative is a sum of outer
+products with $v_a$, hence the component on the orthogonal
+complement of this input span is constant. Induction through
+the layers proves equality of the original and reduced coupled
+trajectories on the panel. The reduced inputs remain unit vectors;
+there is no new normalization factor. Each initialized Gaussian
+row multiplied by $U_0$ is exactly standard Gaussian in $\mathbb R^k$,
+and the sample inner products and population feature Gram are
+unchanged. Thus the same source event applies to the reduced
+system, whose public panel-count coefficients depend only on activations
+and depth, not on $k$ or $d$. The source rank is now
+
+$$
+R=2m+k+1+2(2m+p)J(K+1).
+$$
+
+Invoke @prp-compression-selected with source-dimension bound $q=R$ and
+input dimension $k$. To its public inventory
+@eq-compression-selected-inventory, add the passive inputs and output
+buffer and retain the input map. A safe explicit count is
+
+$$
+1020(L+1)R^2+36R+10m(k+1)+pk+(m+p)
+                         +3(m+p)d,
+$$
+
+plus the separately charged nonprimitive activation evaluator.
+This includes original and transformed data, the map, all metrics
+and inverse caches, initial and moving weights, direction arrays,
+training feature/response and sample-matrix buffers, and query
+workspace. Discard the dense arrays, source coefficients, origin
+jets, panel anchors and partition schedule. The optimizer is
+autonomous; a partition used to prove source approximation is not
+a retained forcing table.
+
+For each fixed problem, @eq-compression-selected-tolerance implies
+$K+1\le8\ell$ eventually. The coefficients $\beta^{30L}$ and
+$\beta^{16L}$ in @eq-compression-panel-count depend only on activations
+and depth. Squaring that bound with
+$(a+b+c)^2\le3(a^2+b^2+c^2)$, and using $k\le m+p$, yields
+
+$$
+R^2\le C(m+p)^2\left[
+    z^4\ell^3+\lambda^{-2}\ell^2\{\log(e+\ell)\}^2\right].
+$$
+
+The second term absorbs the initial rank and plain $\ell^2$ terms
+because $\lambda\le1$. Crucially, the $z^2$ in the first term of
+the panel count was retained before squaring, so its storage
+contribution remains $z^4=(Ym/\gamma)^4$; it was not replaced
+by a label-independent constant. This proves the stated inventory
+and finishes the construction.
+
+:::::::::::::::
+
+## Assembly of the headline theorem {#sec-compression-assembly}
+
+[]{#proof-compression-headline}
+
+::::::::::::::: {.proof}
+
+**Proof of @thm-compression-headline.**
+
+The preceding constructions provide the stated retained counts and
+initialization-only provenance. Here we verify the probabilistic comparison,
+whose reference is actual dense variability rather than an upper bound.
+Fix a confidence budget $0<\delta_0<1$. By @prp-compression-dense-lower, for
+sufficiently large width,
+
+$$
+\Pr\left\{\left\lVert f_n-\widetilde f_n\right\rVert_{\mathcal X}
+ \ge c_{\phi,L,\delta_0}
+       \frac{Y\sqrt\gamma}{\sqrt n[\log(en)]^{5/2}}\right\}
+ \ge1-\delta_0.
+$$
+
+Its witness is a training input, so the same lower bound applies on either
+promised domain. The source and fitting events give all required limits.
+The Legendre order of @prp-compression-legendre gives error at most
+$CY/(\sqrt n[\log(en)]^3)$; its ratio to the displayed lower bound is
+at most a fixed-problem, fixed-confidence multiple of
+$[\log(en)]^{-1/2}$. For the two selected models,
+@prp-compression-harmonic and @prp-compression-panel give error at most $Y/n$, and the corresponding
+ratio is at most
+
+$$
+\frac{[\log(en)]^{5/2}}
+ {c_{\phi,L,\delta_0}\sqrt{\gamma n}}\longrightarrow0.
+$$
+
+Intersecting each approximation event with the lower event costs at most
+$2\delta_0$ by the union bound, without any independence requirement.
+For every fixed positive ratio tolerance the limiting superior of its failure
+probability is therefore at most $2\delta_0$. Letting $\delta_0\downarrow0$
+proves @eq-compression-relative, including the stated failure convention.
+For @eq-compression-absolute, use the selected-model event at the requested
+confidence. The label assumption stays fixed throughout; no label inequality
+is used to reduce a displayed sample/gap power.
+
+:::::::::::::::

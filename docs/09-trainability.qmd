@@ -1,4 +1,4 @@
-# 9. Trainability and mechanisms of fitting {#ch-trainability}
+# 10. Trainability and mechanisms of fitting {#ch-trainability}
 
 Energy dissipation leads to fitting only when the relevant trainability is sustained. Linear and affine benchmarks, finite optimization, a global nonlinear family, protected geometry, confinement and fitting-distance boundaries are collected here with their scopes kept separate.
 
@@ -7058,3 +7058,805 @@ is conditional, and no positive-nonlinearity theorem for
 $(1-\theta)(z+1)+\theta\arctan z$ is inferred.
 
 :::
+
+## Geometry and fitting of fixed-order population closures {#sec-fixed-closure-trainability}
+
+The finite-order population model has its own optimization geometry. Absence
+of suboptimal local minima, a nonsingular prediction differential, and
+convergence of its initialized gradient flow are distinct conclusions. This
+section proves the first two in stated population spaces and a scalar
+mechanism that proves the third on specific invariant families. These results
+concern the exact closure, without a finite-width or all-time closure-error
+assertion.
+
+### The fixed-order model and its physical metric {#sec-fixed-closure-model}
+
+Take normalized directions $u_a=x_a/\sqrt d\in S^{d-1}$, labels
+$y_a\in\mathbb R$, and positive weights $\mu_a$ of sum one, for
+$a=1,\ldots,m$. Write $\phi=\tanh$. On separate fixed probability spaces
+$\Omega_1,\Omega_2$, with expectations $\mathbb E_1,\mathbb E_2$, let the
+bounded feature columns be $b_1\in\mathbb R^{K_1}$ and
+$b_2\in\mathbb R^{K_2}$. The moving state is
+$X=(w,c,M)\in L^2(\Omega_1;\mathbb R^d)\oplus L^2(\Omega_2)
+\oplus\mathbb R^{K_2\times K_1}$. The physical squared norm is the sum
+of the two squared $L^2$ norms and the squared Frobenius norm. Define
+
+$$
+\begin{aligned}
+Z_a^{(1)}&=w\cdot u_a,&H_a^{(1)}&=\phi(Z_a^{(1)}),&
+a_a&=\mathbb E_1[b_1H_a^{(1)}],\\
+v_a&=Ma_a,&Z_a^{(2)}&=b_2^\top v_a,&H_a^{(2)}&=\phi(Z_a^{(2)}),\\
+f_a&=\mathbb E_2[cH_a^{(2)}],&r_a&=f_a-y_a,&
+d_a&=\mathbb E_2[b_2c\phi'(Z_a^{(2)})],\qquad
+\mathcal L=\sum_a\mu_ar_a^2.
+\end{aligned}
+$$ {#eq-fixed-closure-forward}
+
+Here $a_a,d_a$ are finite coefficient vectors, while $d$ is input dimension.
+In layer notation, $w$ is the population first weight $W^{(1)}$,
+$c=W^{(3)}$, and the second weight action is
+$W^{(2)}v=b_2^\top M\mathbb E_1[b_1v]$. Its actual adjoint is
+$W^{(2)*}v=b_1^\top M^\top\mathbb E_2[b_2v]$.
+The coefficient metric is Frobenius in $M$, as in
+[the autonomous closure equations](07-observable-closure.qmd#sec-docs-global-nonlinear-l12249); it is not an independently chosen metric
+on all operators $W^{(2)}$.
+
+Differentiating the finite contractions gives
+
+$$
+\begin{aligned}
+\dot w&=-2\sum_a\mu_ar_a\phi'(w\cdot u_a)
+                  (b_1^\top M^\top d_a)u_a,\\
+\dot c&=-2\sum_a\mu_ar_aH_a^{(2)},\qquad
+\dot M=-2\sum_a\mu_ar_a d_aa_a^\top,\\
+\dot{\mathcal L}&=-\|\dot w\|_{L^2}^2-\|\dot c\|_{L^2}^2
+                         -\|\dot M\|_F^2.
+\end{aligned}
+$$ {#eq-fixed-closure-flow}
+
+For example, $Df_a[\delta M]=d_a^\top\delta M a_a$; differentiating
+$a_a$ supplies the first line. Thus the factors of two belong to the
+unhalved weighted square loss. The equivalent saved state consists of the
+complete joint laws $\operatorname{Law}(b_1,g,w)$ and
+$\operatorname{Law}(b_2,c)$, together with $M$; separate marginals lose
+the needed correlations.
+
+The dictionaries and initialization are those of
+[the exact coefficient target](07-observable-closure.qmd#sec-docs-observable-p1-l28) and [the compatible hierarchy](08-autonomous-computation.qmd#sec-docs-global-nonlinear-l13161).
+We recall their finite definitions to fix every coefficient used below.
+Let $g_i,\zeta_i^0$ be independent standard Gaussians on $\Omega_1$,
+and let $\widetilde g_i$ be independent standard Gaussians on
+$\Omega_2$, for $i=1,\ldots,d$. Put
+
+$$
+\begin{gathered}
+\nu=\mathbb E\phi(G)^2,\quad
+\tau=\mathbb E\phi(\sqrt\nu G)^2,\quad\alpha=1-\tau,\\
+h_i=\phi(g_i),\quad R_i=\sqrt\tau\zeta_i^0+\alpha h_i,
+\quad k_i=\phi(R_i),\quad B_i=\phi(\sqrt\nu\widetilde g_i),\\
+\beta=\mathbb E[h_ik_i],\quad s=\mathbb E k_i^2,\quad\gamma=1-s,
+\quad\eta=1/4096,\\
+\ell_h=\sqrt{\nu+\eta},\quad
+\ell_k=\sqrt{s+\eta-\beta^2/(\nu+\eta)},\quad
+\ell_2=\sqrt{\tau+\eta},\\
+b_1=(h/\ell_h,\{k-\beta h/(\nu+\eta)\}/\ell_k),
+\quad b_2=B/\ell_2,\\
+D=(d_hI_d\ \ d_kI_d),\qquad
+d_h=\frac{\alpha\nu}{\ell_h\ell_2},\quad
+d_k=\frac{\alpha\beta\eta/(\nu+\eta)+\tau\gamma}{\ell_k\ell_2}.
+\end{gathered}
+$$ {#eq-fixed-closure-p1-marks}
+
+Here $G$ denotes a scalar standard Gaussian only inside the fixed scalar
+expectations. All denominators are positive: $\beta^2\le\nu s$ gives
+$\ell_k^2\ge\eta+s\eta/(\nu+\eta)>0$. Also $\beta>0$, since
+$h\mapsto\mathbb E\phi(\sqrt\tau G+\alpha h)$ is odd and strictly
+increasing. The prescribed state is $(w,c,M)_0=(g,0,D)$. Both the
+correlation in $R_i$ and the response contribution $\tau\gamma$ are
+retained.
+
+These order-one lists omit only the inactive constant coordinates. Under
+simultaneous negation of the lower marks, $w,b_1$ are odd; under upper
+negation, $c,b_2$ are odd. Then $H_a^{(1)},Z_a^{(2)},H_a^{(2)}$ are
+odd, their gates are even, and the constant pairings
+$\mathbb E_1H_a^{(1)}$ and $\mathbb E_2[c\phi'(Z_a^{(2)})]$ vanish.
+Every velocity in @eq-fixed-closure-flow preserves this parity, and the
+constant row and column have zero velocity. This is the exact invariant
+sector of [the exact antithetic folding](07-observable-closure.qmd#sec-docs-observable-p1-l197), with arbitrary full
+$M\in\mathbb R^{d\times2d}$.
+
+For $d=2$ and full orders $p=1,2,3$, retain instead all total-degree-at-most-$p$
+Chebyshev products in $(h_1,h_2,k_1,k_2)$ and $(B_1,B_2)$, including
+constants. The initialized-word prefixes add no bounded feature at these
+orders. For the resulting raw columns $\psi_\ell$, set
+
+$$
+L_\ell L_\ell^\top=\mathbb E_\ell[\psi_\ell\psi_\ell^\top]+\eta_pI,
+\quad b_\ell=L_\ell^{-1}\psi_\ell,\quad
+D=L_2^{-1}CL_1^{-\top},\qquad\eta_p=[1024(p+1)^2]^{-1}.
+$$ {#eq-fixed-closure-polynomial-dictionary}
+
+The complete construction and contraction formula for $C$ are
+@eq-docs-global-nonlinear-l13279 and @eq-docs-global-nonlinear-l13303.
+In particular their dimensions are $(5,3),(15,6),(35,10)$. Positive
+density of the transformed Gaussian core on its open cube implies that
+the raw polynomial Gram is positive definite: an almost-sure zero
+polynomial vanishes on that cube by continuity, then identically by the
+one-variable polynomial root property in each coordinate. Distinct leading
+monomials give independence of the Chebyshev products. In the order-one
+odd sector, the same argument applies to the nonconstant linear features.
+
+All these normalized coefficient-to-field maps are contractions, since
+$\mathbb E[b_\ell b_\ell^\top]
+=I-\eta_pL_\ell^{-1}L_\ell^{-\top}\preceq I$.
+The lower carriers are nonatomic. In the odd order-one sector $b_1$ has
+positive density on an open neighborhood of zero, and $b_2$ on an open
+cube about zero: the inverse map is
+$g_i=\operatorname{arctanh}h_i$,
+$\sqrt\tau\zeta_i^0=\operatorname{arctanh}k_i-\alpha h_i$,
+followed by invertible linear normalization.
+
+For completeness, the finite-time characteristic existence needed below
+does not require a fitting hypothesis. With
+$\mathcal B_\ell=\operatorname*{ess\,sup}|b_\ell|$ and
+$Y=\sqrt{\mathcal L(0)}$, the locally Lipschitz vector field in
+$L^\infty(w-g)\oplus L^\infty(c)\oplus\mathbb R^{K_2\times K_1}$
+has, at the zero-readout initialization,
+
+$$
+\|c(t)\|_\infty\le2Yt,\qquad
+\|M(t)-D\|_F\le2Y^2t^2,\qquad
+\|\dot w(t)\|_\infty\le4Y^2t\mathcal B_1(\|D\|_{\rm op}+2Y^2t^2).
+$$ {#eq-fixed-closure-finite-time-bounds}
+
+Indeed energy bounds $\sum_a\mu_a|r_a|\le Y$, and contraction bounds
+$|a_a|\le1$, $|d_a|\le\|c\|_2$ give these inequalities. Bounded
+marks and bounded derivatives of $\tanh$ make the integral equation a
+contraction on a sufficiently short continuous-path ball. The displayed
+bounds keep every finite-time path in such a bounded state ball; bounded
+velocities give a Cauchy endpoint at any putative finite maximal time,
+where the same contraction continues it. This proves existence and
+uniqueness through every finite time, consistently with
+[closure well-posedness and restart](07-observable-closure.qmd#sec-docs-global-nonlinear-l12310).
+
+### The initialized coefficient map retains each input coordinate {#sec-fixed-closure-initial-map}
+
+::: {#lem-fixed-closure-initial-map}
+For the order-one initialization in @eq-fixed-closure-p1-marks there is
+one continuous, odd, strictly increasing function $F_0:[-1,1]\to\mathbb R$
+such that, in every finite dimension,
+
+$$
+H_0^{(2)}(u)=\phi\!\left(\sum_{i=1}^d B_iF_0(u_i)\right),
+\qquad Da_0(u)=\ell_2(F_0(u_1),\ldots,F_0(u_d))^\top.
+$$ {#eq-fixed-closure-initial-map}
+
+Thus this code is nonzero for every unit input, is injective, and takes
+opposite values exactly on opposite inputs.
+:::
+
+[]{#proof-fixed-closure-initial-map}
+
+::: {.proof}
+Define the fixed coefficients $a_{\rm reg},b_{\rm reg}$ by
+
+$$
+(a_{\rm reg},b_{\rm reg})=(\alpha\nu,\alpha\beta+\tau\gamma)
+ \begin{pmatrix}\nu+\eta&\beta\\\beta&s+\eta\end{pmatrix}^{-1},
+\quad m_0(x)=\mathbb E_\zeta\phi(\zeta+\alpha x),\quad
+j(g)=a_{\rm reg}\phi(g)+b_{\rm reg}m_0(\phi(g)),
+$$ {#eq-fixed-closure-regression}
+
+where $\zeta\sim\mathcal N(0,\tau)$ is independent. Multiplying the two ridge inverses in
+@eq-fixed-closure-polynomial-dictionary and conditioning on $g_i$ gives
+
+$$
+F_0(t)=\frac1{\tau+\eta}\mathbb E[j(G)
+ \phi(tG+\sqrt{1-t^2}V)],\qquad G,V\text{ independent }\mathcal N(0,1).
+$$ {#eq-fixed-closure-scalar-map}
+
+This also proves @eq-fixed-closure-initial-map, because the conditional
+law of $g\cdot u$ given $g_i$ has mean $u_ig_i$ and variance $1-u_i^2$.
+We prove strict monotonicity without assuming $a_{\rm reg}\ge0$.
+
+The inequalities $\sinh|z|\ge|z|$ and Cauchy--Schwarz give, for a
+centered Gaussian $V_\sigma$ of variance $\sigma^2$,
+
+$$
+\mathbb E\phi(V_\sigma)^2\ge
+\mathbb E\frac{V_\sigma^2}{1+V_\sigma^2}
+\ge\frac{\sigma^2}{1+3\sigma^2}.
+$$ {#eq-fixed-closure-variance-lower}
+
+For the second inequality pair $|V_\sigma|/\sqrt{1+V_\sigma^2}$
+with $|V_\sigma|\sqrt{1+V_\sigma^2}$. Consequently
+$\nu\ge1/4$, $\tau\ge1/7$, and $\alpha\le6/7$.
+Write $J(x)=\mathbb E_\zeta\operatorname{sech}^2(\zeta+\alpha x)$,
+$J_0=J(0)$ and $q_0=529/1024>1/2$. Then, for $|x|\le1$,
+
+$$
+q_0J_0\le J(x)\le J_0.
+$$ {#eq-fixed-closure-gate-bound}
+
+For the upper bound, represent $\operatorname{sech}^2$ by its centered
+interval level sets. The Gaussian probability of $[-R-a,R-a]$ decreases
+for $a\ge0$, since its derivative is the density at $R+a$ minus that
+at $R-a$. Integrating over levels proves the bound. For the lower bound,
+the addition identity gives
+
+$$
+\frac{\operatorname{sech}^2(z+a)+\operatorname{sech}^2(z-a)}2
+=\operatorname{sech}^2z\operatorname{sech}^2a
+ \frac{1+\tanh^2z\tanh^2a}{(1-\tanh^2z\tanh^2a)^2}
+\ge\operatorname{sech}^2z\operatorname{sech}^2a.
+$$ {#eq-fixed-closure-gate-addition}
+
+Gaussian symmetry and $|\alpha x|\le6/7$ reduce this to
+$\operatorname{sech}^2(6/7)\ge q_0$. Indeed
+$(2n)!\ge2\,12^{n-1}$ for $n\ge1$, so
+$\cosh z\le1+(z^2/2)/(1-z^2/12)\le32/23$ on $[0,6/7]$.
+
+Gaussian integration by parts, with vanishing boundary terms because the
+activation is bounded, gives
+$\mathbb E[\zeta k\mid h]=\tau J(h)$. Conditional Cauchy--Schwarz
+therefore yields $\operatorname{Var}(k\mid h)\ge\tau J(h)^2$.
+Since $\beta=\mathbb E[h m_0(h)]$,
+
+$$
+s+\eta-\frac{\beta^2}{\nu+\eta}\ge\tau\gamma^2+\eta,
+\qquad 0<\beta\le\alpha J_0\nu\le\alpha\nu,
+\qquad
+0<b_{\rm reg}=\frac{\alpha\beta\eta/(\nu+\eta)+\tau\gamma}
+ {s+\eta-\beta^2/(\nu+\eta)}\le\frac1\gamma\le\frac1{q_0J_0}.
+$$ {#eq-fixed-closure-regression-bound}
+
+Here $\mathbb EJ(h)=\gamma$; the upper bound on the numerator uses
+$\alpha\beta/(\nu+\eta)\le1\le1/\gamma$.
+Set $R_\eta=\nu/(\nu+\eta)\ge1024/1025>q_0$. The first normal
+equation for @eq-fixed-closure-regression now gives
+
+$$
+\begin{aligned}
+a_{\rm reg}+\alpha b_{\rm reg}J(x)
+&=\alpha R_\eta+b_{\rm reg}\left(\alpha J(x)-\frac\beta{\nu+\eta}\right)\\
+&\ge\alpha R_\eta-b_{\rm reg}\alpha J_0(R_\eta-q_0)
+\ge\alpha[1-R_\eta(q_0^{-1}-1)]
+\ge34\alpha/529>0.
+\end{aligned}
+$$ {#eq-fixed-closure-combined-derivative}
+
+Thus $j'(g)>0$. Differentiating @eq-fixed-closure-scalar-map on compact
+subintervals of $(-1,1)$ and integrating by parts in $G,V$ gives
+
+$$
+F_0'(t)=\frac1{\tau+\eta}\mathbb E[j'(G)
+ \phi'(tG+\sqrt{1-t^2}V)]>0.
+$$ {#eq-fixed-closure-map-derivative}
+
+Explicitly the derivative before integration by parts contains
+$G-tV/\sqrt{1-t^2}$; the $G$ integration produces a term
+$t\mathbb E[j(G)\phi''(tG+\sqrt{1-t^2}V)]$, which the $V$
+integration cancels. Bounded derivatives and Gaussian first moments
+justify these operations. Dominated convergence gives endpoint continuity;
+strict interior increase implies strict increase on the closed interval.
+Oddness follows by Gaussian symmetry. Coordinatewise injectivity and
+oddness finish the proof.
+:::
+
+### The architectural floor and absence of suboptimal minima {#sec-fixed-closure-landscape}
+
+Every represented predictor satisfies $f(-u)=-f(u)$ at every state.
+Group observations modulo sign, choose a representative $u_g$, and write
+$u_a=\epsilon_au_g$ with $\epsilon_a\in\{-1,1\}$. Define
+
+$$
+\pi_g=\sum_{a\in g}\mu_a,\qquad
+\bar y_g=\pi_g^{-1}\sum_{a\in g}\mu_a\epsilon_ay_a,\qquad
+\mathcal L_{\rm arch}=\sum_g\sum_{a\in g}
+ \mu_a(\epsilon_ay_a-\bar y_g)^2.
+$$ {#eq-fixed-closure-floor}
+
+Expansion of the squares, whose cross terms vanish by the definition of
+$\bar y_g$, proves the statewise identity
+
+$$
+\mathcal L=\mathcal L_{\rm arch}
+ +\sum_g\pi_g\{f(u_g)-\bar y_g\}^2.
+$$ {#eq-fixed-closure-floor-decomposition}
+
+::: {#thm-fixed-closure-landscape}
+Every local minimum in the physical product norm attains
+$\mathcal L_{\rm arch}$, and this floor is attained, in either of the
+following spaces:
+
+1. Order one, $d\ge2$, with arbitrary odd $L^2$ fields $w,c$ and
+   arbitrary $M\in\mathbb R^{d\times2d}$ in the canonical invariant sector.
+2. Full canonical orders $p=2,3$ on the circle ($d=2$), with all
+   constant and polynomial coordinates, arbitrary $L^2$ fields and full $M$.
+
+There is no sample-count, input-linear-independence, bounded-displacement
+or matrix-rank restriction. For inputs distinct modulo sign the floor is
+zero. This is a population landscape statement, not convergence of an
+initialized optimizer.
+:::
+
+[]{#proof-fixed-closure-landscape}
+
+::: {.proof}
+By @eq-fixed-closure-floor-decomposition it suffices to consider directions
+distinct modulo sign and prove zero loss. We first establish two facts
+shared by both spaces.
+
+The functions $z\mapsto\tanh(z\cdot u_a)$ are independent. Choose
+$e$ outside the finitely many hyperplanes perpendicular to $u_a$ and
+$u_a\pm u_b$. The nonzero numbers $e\cdot u_a$ have distinct squares.
+Writing $\tanh t=\sum_{j\ge0}(-1)^jA_jt^{2j+1}$, the identity
+$\phi'=1-\phi^2$ gives $A_0=1$ and
+$(2j+1)A_j=\sum_{k+\ell=j-1}A_kA_\ell>0$ for $j\ge1$. The first $m$ odd
+coefficients of a relation restricted to $z=te$ form an invertible
+Vandermonde system. The same proof shows independence of upper ridges
+with nonzero coefficient vectors distinct modulo sign, on any upper law
+with positive density on an open neighborhood of zero.
+
+At a local minimum one necessarily has
+
+$$
+r_aM^\top d_a=0\qquad(a=1,\ldots,m).
+$$ {#eq-fixed-closure-small-set-condition}
+
+To prove this, fix $c,M$ and put
+$Q_\omega(z)=\sum_a\mu_ar_a(b_1(\omega)^\top M^\top d_a)
+\phi(z\cdot u_a)$. The loss is $C^2$ in the finitely many moments
+$a_a$, with a uniform quadratic remainder near the current moments;
+bounded marks, bounded gates, and $\mathbb E|c|\le\|c\|_2$ justify
+this assertion. If $w(\omega)$ fails to minimize $Q_\omega$ over
+finite $z$ on a positive-measure set, countability of rational trial
+vectors and positive rational margins supplies a fixed $z$, $\delta>0$
+and a positive-measure set where $|w|\le R$ and
+$Q_\omega(z)-Q_\omega(w)\le-\delta$. Nonatomicity supplies subsets
+$E$ of arbitrarily small measure $\varepsilon>0$. Replacing $w$ by
+$z$ on $E$ changes its squared $L^2$ norm by $O(\varepsilon)$,
+each $a_a$ by $O(\varepsilon)$, and the loss by at most
+$-2\delta\varepsilon+O(\varepsilon^2)<0$. In the odd sector work
+on $\{g_1>0\}$ and make the reflected change $-z$ on $-E$;
+both the leading decrease and the moment changes are doubled and parity
+is preserved. Such subsets exist because
+$t\mapsto\mathbb P(E_0\cap\{g_1\le t\})$ is continuous for any
+measurable $E_0$. Hence $w$ minimizes $Q_\omega$ almost surely.
+
+Since $Q_\omega(0)=0$, this gives $Q_\omega(w)\le0$. Matrix
+stationarity yields
+$\mathbb E_1Q_\omega(w)=\frac12\langle\nabla_M\mathcal L,M\rangle_F=0$.
+The odd function $Q_\omega$ therefore has minimum zero and is identically
+zero. Ridge independence and positivity of the lower feature Gram prove
+@eq-fixed-closure-small-set-condition.
+
+Let $\mathcal H_2=\operatorname{span}\{H_a^{(2)}\}$ and let
+$V_M=\{b_2^\top Mv:v\in\mathbb R^{K_1}\}$ be the current upper
+preactivation space. Replacing $c$ by $c+\varepsilon k$ with
+$k\perp\mathcal H_2$ preserves all predictions. A sufficiently nearby
+equal-value state remains a local minimum in a smaller ball. Applying
+@eq-fixed-closure-small-set-condition before and after the change shows
+that any nonzero residual forces
+
+$$
+\phi'(Z_a^{(2)})V_M\subseteq\mathcal H_2.
+$$ {#eq-fixed-closure-forced-inclusion}
+
+Indeed subtract the two conditions and pair with any coefficient vector;
+orthogonal decomposition in $L^2$ gives the inclusion. In the odd sector
+all functions used here are odd, so the required orthogonal residual is
+an allowed readout variation.
+
+For the odd order-one sector, $M\ne0$ makes
+@eq-fixed-closure-forced-inclusion impossible. More precisely, for any
+$z\ne0$ and any $v,v_1,\ldots,v_m$,
+$(b^\top z)\operatorname{sech}^2(b^\top v)$ is outside the span of
+$\tanh(b^\top v_j)$. An alleged relation holds on the open upper cube
+by continuity and density. On a line $b=te$ chosen with $e\cdot z\ne0$
+and, if $v\ne0$, $e\cdot v\ne0$, it reads
+$ct\operatorname{sech}^2(at)=\sum_jc_j\tanh(a_jt)$.
+If $a=0$, real-analytic continuation makes the unbounded left side equal
+to a bounded function on the real line. If $a\ne0$, the left side has
+a double pole at $t=i\pi/(2a)$, whereas every right-hand term has at
+most a simple pole there. This comparison is legitimate: multiplication
+by $\cosh^2(at)\prod_j\cosh(a_jt)$ gives entire functions agreeing
+on a real interval, hence everywhere by their Taylor series and analytic
+continuation. Their unequal pole orders contradict the identity.
+Taking $z=Mv\ne0$ proves that all residuals vanish when $M\ne0$.
+
+If $M=0$, predictions vanish for every $w,c$. Write
+$v_c=\mathbb E_2[b_2c]$ and
+$A_y(w)=\sum_a\mu_ay_aa_a(w)$. Then
+$\nabla_M\mathcal L=-2v_cA_y^\top$.
+Unless every label is zero, the odd ridge function
+$Q(z)=\sum_a\mu_ay_a\phi(z\cdot u_a)$ is nonzero.
+Arbitrarily small odd readout changes make $v_c\ne0$, by adding a
+linear feature and using the positive upper Gram. Arbitrarily small odd
+lower changes make $A_y\ne0$: if it is zero, some component of
+$b_1[Q(z)-Q(w)]$ has a fixed nonzero sign on a positive-measure bounded-$w$
+set, for a rational $z$. Otherwise countability, continuity and
+$b_1\ne0$ almost surely would make $Q$ constant, contrary to its
+oddness and nonzero character. A small reflected-set replacement changes
+that component by a nonzero amount. Both changes preserve zero prediction
+at $M=0$. At the resulting nearby state, the direction
+$\delta M=v_cA_y^\top$ has loss derivative
+$-2|v_c|^2|A_y|^2<0$. This excludes a positive-loss local minimum at
+$M=0$ and proves the first case.
+
+For the full polynomial dictionaries, $V_M$ is a finite-dimensional
+space of polynomials in $(B_1,B_2)$. If it contains a nonconstant
+polynomial, @eq-fixed-closure-forced-inclusion is again impossible.
+If $P=Z_a^{(2)}$ is nonconstant, use $P\in V_M$ itself. A proposed
+identity $P\operatorname{sech}^2P=\sum_jc_j\tanh P_j$ holds on
+the open cube. Restrict to a real affine line along which $P$ is
+nonconstant. The restricted nonconstant polynomials have only finitely
+many complex critical points. Among the infinitely many preimages of
+$i\pi(n+1/2)$ under the nonconstant polynomial $P$, choose one outside
+all those critical points. At it $P\operatorname{sech}^2P$ has a
+double pole with nonzero coefficient and every $\tanh P_j$ has at most
+a simple pole. Multiplication by the finitely many entire denominators,
+as above, justifies meromorphic continuation and gives a contradiction.
+If $P$ is constant, use any nonconstant element of $V_M$ on a line
+where it is nonconstant: its product with the positive constant
+$\operatorname{sech}^2P$ is unbounded on the real line, while the
+finite tanh sum is bounded. Thus every residual vanishes unless
+$V_M\subseteq\operatorname{span}\{1\}$.
+
+In the remaining case write $b_2^\top M=v^\top$, so
+$f_a=(\mathbb E_2c)\phi(v\cdot a_a)$. At a positive-loss local
+minimum, @eq-fixed-closure-small-set-condition makes $\mathbb E_2c=0$
+if $v\ne0$; if $v=0$ predictions already vanish. All lower-field
+changes then preserve zero prediction. We show
+$\mathbb E_2[b_2c]=0$. If this vector were nonzero, matrix stationarity
+at all nearby lower fields would give
+
+$$
+\sum_a\mu_ar_a\phi'(v\cdot a_a)a_a=0.
+$$ {#eq-fixed-closure-constant-image}
+
+Replace $w$ by a bounded truncation still inside the local-minimum ball.
+Along $w_t=(1-t)w_b+tz$ for any fixed finite $z$, the expression in
+@eq-fixed-closure-constant-image is real analytic for all real $t$.
+On compact $t$ intervals all tanh arguments are bounded, so a small
+complex neighborhood avoids poles uniformly; bounded marks permit
+integration of these holomorphic functions. The outer gates have the same
+property. The identity near zero therefore extends to $t=1$.
+With $a_0=\mathbb E_1b_1\ne0$ and $\kappa=v\cdot a_0$, this gives
+$\sum_a\mu_ar_a h_\kappa(z\cdot u_a)=0$ for every $z$, where
+$h_\kappa(t)=\phi(t)\phi'(\kappa\phi(t))$.
+This bounded, odd, real-analytic function has derivative one at zero and
+infinitely many nonzero odd Taylor coefficients: a finite series would
+make it a bounded nonconstant polynomial on the real line. Choose any
+$m$ nonzero coefficients and the same generic line used above. The
+resulting generalized Vandermonde matrix at distinct positive squared
+projections is invertible. To verify this, a polynomial with $m$ nonzero
+monomials has at most $m-1$ positive roots: divide by the lowest monomial
+and use induction and Rolle's theorem on its derivative. A singular
+evaluation matrix would contradict this bound. Thus $r=0$, contradicting
+positive loss, and proving $\mathbb E_2[b_2c]=0$.
+
+If $v=0$, add a small constant to $c$; predictions stay zero but
+$\mathbb E_2[b_2c]$ changes by a nonzero multiple of
+$\mathbb E_2b_2\ne0$. If $v\ne0$, add
+$\varepsilon(B-\mathbb E_2B)$ for any nonconstant upper mark combination
+$B=e^\top b_2$. Its mean is zero, so predictions again stay zero, but
+$e^\top\mathbb E_2[b_2(B-\mathbb E_2B)]=\operatorname{Var}(B)>0$.
+Both contradict the necessary condition just proved. This completes the
+local-minimum argument for all full orders stated.
+
+Finally zero loss is attainable. In the odd sector choose a vector $z$
+with distinct nonzero squared projections $z\cdot u_a$. Put
+$e=\operatorname{sign}(g_1)$ and $A=\mathbb E_1[b_1e]$, choose a
+coefficient vector $q$ selecting the first forward mark, and set
+$w=ez$, $M=e_1q^\top$. Then $q^\top A>0$ and the upper features
+are $\phi(t_ab_{2,1})$ with nonzero, distinct squared $t_a$.
+Their Gram is positive definite by the ridge argument. Its inverse gives
+a bounded odd readout fitting any labels. For a full dictionary use
+$w\equiv z$, $a_0=\mathbb E_1b_1\ne0$, choose $e$ with
+$b_2^\top e=B_1$, and take $M=ea_0^\top/|a_0|^2$; the same
+argument applies. Applying these constructions to the signed-group
+averages in @eq-fixed-closure-floor-decomposition attains the floor.
+:::
+
+A limited dynamical consequence is worth separating: no neighborhood of
+a suboptimal equilibrium is contained in its point basin for exact GF.
+Every such neighborhood contains a state of strictly smaller loss by
+@thm-fixed-closure-landscape. Its nonincreasing loss prevents convergence
+to that equilibrium, because the finite contractions make loss continuous
+in the physical topology. This gives no basin-measure or stochastic-escape
+statement and no initialized convergence theorem.
+
+### Lower-layer trainability despite upper collapse {#sec-fixed-closure-lower-trainability}
+
+::: {#lem-fixed-closure-lower-submersion}
+For three pairwise nonparallel directions in $S^1$, use the order-one
+odd sector with $w-g\in L^\infty$. The differential of
+$w\mapsto(a_1,a_2,a_3)\in\mathbb R^{4\times3}$ is onto using bounded
+odd perturbations.
+:::
+
+[]{#proof-fixed-closure-lower-submersion}
+
+::: {.proof}
+The adjoint kernel condition for coefficient vectors $\xi_a\in\mathbb R^4$
+is
+
+$$
+\sum_{a=1}^3(b_1\cdot\xi_a)\phi'(w\cdot u_a)u_a=0
+\quad\text{almost surely}.
+$$ {#eq-fixed-closure-lower-kernel}
+
+The unique dependence $\sum_a\lambda_au_a=0$ has all
+$\lambda_a\ne0$. If one $\xi_a=0$, independence of the other two
+directions and positive lower density force all three to vanish.
+Otherwise @eq-fixed-closure-lower-kernel makes
+$(b_1\cdot\xi_a)\phi'(w\cdot u_a)/\lambda_a$ equal for every $a$.
+On a small ball about zero in the lower-mark support, the recovered $g$
+is bounded. Bounded $w-g$ therefore bounds every gate between a common
+positive constant and one. Thus
+$|b_1\cdot\xi_a|\le C|b_1\cdot\xi_b|$ there, first almost surely
+and then everywhere by positive density and continuity. Kernel inclusion
+for nonzero linear forms makes all $\xi_a$ proportional. Cancel their
+common linear form outside its null hyperplane. The gate ratios must then
+be positive constants almost surely. Since
+
+$$
+\log\operatorname{sech}^2z
+=-2|z|+\log4-2\log(1+e^{-2|z|}),
+$$ {#eq-fixed-closure-log-gate}
+
+this bounds $\big||w\cdot u_a|-|w\cdot u_b|\big|$, and hence the
+same expression with $g$, almost surely. The latter is unbounded: near
+$g=tu_a$ it grows as $t(1-|u_a\cdot u_b|)$, and neighborhoods of
+arbitrarily large such points have positive Gaussian measure.
+This contradiction proves injectivity of the adjoint $J^*$.
+Consequently $JJ^*$ is positive definite and $J^*(JJ^*)^{-1}$ is a
+right inverse. Its outputs are bounded because marks and gates are
+bounded, and odd because the gates are even at an odd $w$.
+:::
+
+::: {#prp-fixed-closure-collapse-trainability}
+For every such triple there is a bounded-displacement odd state fitting
+$(1,1,-1)$ whose upper feature Gram has rank one but whose complete
+prediction differential has rank three.
+:::
+
+[]{#proof-fixed-closure-collapse-trainability}
+
+::: {.proof}
+The preceding right inverse permits a bounded odd perturbation of $w=g$
+for which $a_1,a_2,a_3$ are independent. To verify this last step directly,
+if the initial $4\times3$ matrix has rank $r$, use singular-vector
+coordinates and prescribe a differential equal to one in its missing
+diagonal positions and zero in the existing nonzero block. A three-row
+minor along the perturbation has determinant a nonzero constant times
+$t^{3-r}+O(t^{4-r})$; hence it is nonzero for sufficiently small $t>0$.
+Complete the columns to a basis $(a_1,a_2,a_3,a_4)$ and choose independent
+$z,z_\perp\in\mathbb R^2$. Define
+
+$$
+Ma_1=Ma_2=z,\quad Ma_3=-z,\quad Ma_4=z_\perp,\qquad
+H=\tanh(b_2^\top z),\quad c=H/\mathbb E_2H^2.
+$$ {#eq-fixed-closure-collapsed-state}
+
+Then $M$ has rank two and the predictions are $(1,1,-1)$, with upper
+features $(H,H,-H)$. Their common backward vector $d$ is nonzero because
+
+$$
+z^\top d=\frac{\mathbb E_2[(b_2^\top z)\tanh(b_2^\top z)
+                  \operatorname{sech}^2(b_2^\top z)]}{\mathbb E_2H^2}>0.
+$$ {#eq-fixed-closure-collapse-backward}
+
+The integrand is positive off a null hyperplane. A vector
+$\xi\in\mathbb R^3$ annihilating the full prediction differential
+must in particular annihilate all lower variations. Lower submersion
+then gives $\xi_aM^\top d=0$ separately for each $a$. Since $M^\top$
+is injective and $d\ne0$, this forces $\xi=0$.
+More generally, the complete annihilator condition at any state in this
+class is
+
+$$
+\sum_{a\in C}\epsilon_a\xi_a=0\text{ for each nonzero code class }C,
+\qquad \xi_aM^\top d_a=0\text{ for every }a,
+\qquad \sum_a\xi_a d_aa_a^\top=0,
+$$ {#eq-fixed-closure-full-annihilator}
+
+where $v_a=\epsilon_av_C$ in each nonzero sign class and zero codes
+contribute no readout condition. These are precisely the readout, lower
+and matrix block conditions: ridge independence proves the first,
+@lem-fixed-closure-lower-submersion the second, and direct matrix pairing
+the third. Positive data weights do not change rank.
+:::
+
+These are constructed states, without a claim of initialized reachability.
+The lower differential is onto at each such finite state; no uniform
+lower singular-value bound along an unbounded trajectory is implied.
+
+### A scalar prediction that protects its own feature norm {#sec-fixed-closure-scalar-clock}
+
+::: {#lem-fixed-closure-scalar-clock}
+In the fixed-order model, let
+$U(w,M)=\sum_a\theta_aH_a^{(2)}$, with fixed real coefficients satisfying
+$\sum_a|\theta_a|\le1$, and let $F(X)=\mathbb E_2[cU]$.
+Start from $(g,0,D)$ and assume only
+$C_0=\mathbb E_2U(g,D)^2>0$. The full ascent equation
+$X_s=\nabla F(X)$ has a solution for every finite $s\ge0$ and obeys
+
+$$
+F_s=K,\quad q_s=2F,\quad
+K=\|\nabla F\|^2=C+\|\nabla_{(w,M)}F\|^2,\quad
+C=\mathbb E_2U^2,\quad q=\mathbb E_2c^2,
+\qquad C\ge C_0,\quad K\ge C_0.
+$$ {#eq-fixed-closure-scalar-identities}
+
+For any $A>0$ there is a unique $s_*\le A/C_0$ with $F(X(s_*))=A$.
+If the actual loss gradient on an invariant initialized trajectory is
+$-2b(A-F)\nabla F$, with fixed $b>0$, its physical clock
+$\dot s=2b(A-F)$ tends to $s_*$, and
+
+$$
+(A-F(t))^2\le A^2e^{-4bC_0t},\qquad
+\int_t^\infty\|\dot X(v)\|\,dv\le\frac{A-F(t)}{\sqrt{C_0}}.
+$$ {#eq-fixed-closure-scalar-rate}
+
+The full state converges to $X(s_*)$ in the physical norm, in
+$L^\infty$ for $w-g,c$, and in Frobenius norm for $M$.
+:::
+
+[]{#proof-fixed-closure-scalar-clock}
+
+::: {.proof}
+The same bounded-gate contraction argument used above applies to the
+ascent equation. With $\mathcal B=\mathcal B_1\mathcal B_2$ and $D_0=\|D\|_F$, its exact
+gradients give
+
+$$
+\|c(s)\|_\infty\le s,\qquad
+\|M(s)\|_F\le D_0+\mathcal B s^2/2,\qquad
+\|w(s)-g\|_\infty\le \mathcal B D_0s^2/2+\mathcal B^2s^4/8.
+$$ {#eq-fixed-closure-ascent-bounds}
+
+Indeed $|a_a|\le\mathcal B_1$, $|d_a|\le\mathcal B_2s$ imply matrix speed at
+most $\mathcal B s$ and lower speed at most $\mathcal B s(D_0+\mathcal B s^2/2)$.
+These bounds and bounded velocities give continuation through every finite
+$s$, before making any fitting argument.
+
+Linearity in $c$ gives $c_s=U$, $q_s=2F$ and $F_s=K$.
+At zero the hidden gradients vanish, so
+$c(s)=sU_0+o(s)$, $F(s)=sC_0+o(s)$ and
+$q(s)=s^2C_0+o(s^2)$. Thus $F,q>0$ for $s>0$, and
+Cauchy--Schwarz gives $F^2\le qC\le qK$. Therefore
+
+$$
+\left(\frac q{F^2}\right)_s
+=-\frac{2(qK-F^2)}{F^3}\le0,\qquad
+\lim_{s\downarrow0}\frac q{F^2}=\frac1{C_0},\qquad
+q\le F^2/C_0,\quad C\ge F^2/q\ge C_0.
+$$ {#eq-fixed-closure-normalized-readout}
+
+Integrate from a positive lower endpoint and then let it decrease to zero;
+no continuous ambient extension of the ratio is assumed. The inequality
+$F_s\ge C_0$ proves the unique crossing and its bound. On $[0,s_*]$,
+$K$ is continuous and bounded. The residual $e=A-F$ under the physical
+clock satisfies $\dot e=-2bKe$, hence
+$e(t)=A\exp(-2b\int_0^tK(s(v))\,dv)>0$ at finite time. The clock
+increases to $s_*$: any smaller limit would have positive speed. This
+proves the exponential bound and identifies the physical solution by
+uniqueness. Finally $\|\dot X\|=2be\sqrt K\le-\dot e/\sqrt{C_0}$,
+which gives the length bound. Continuity at the finite ascent endpoint
+gives convergence in the stronger characteristic norms. Coupling the
+complete frozen marks identically also gives $\mathcal W_2$ convergence
+of both saved joint laws.
+:::
+
+### Initialized training that reaches a positive architectural floor {#sec-fixed-closure-plateau}
+
+::: {#thm-fixed-closure-plateau}
+Use $d=3,p=1$, choose $0<a<1/2$, put $b=1-2a$, and take
+
+$$
+(x_1,y_1,\mu_1)=(\sqrt3e_1,1,a),\quad
+(x_2,y_2,\mu_2)=(-\sqrt3e_1,1,a),\quad
+(x_3,y_3,\mu_3)=(\sqrt3e_2,-1,b).
+$$ {#eq-fixed-closure-plateau-data}
+
+Define the initialized constants
+
+$$
+\ell=d_h\nu/\ell_h+d_k\beta\eta/\{(\nu+\eta)\ell_k\}>0,
+\qquad k=\mathbb E_2\tanh^2(\ell b_2\cdot e_2)>0.
+$$ {#eq-fixed-closure-plateau-initial}
+
+Then the canonical full flow converges to a bounded state of loss $2a$,
+with strict loss decrease at every finite time and
+
+$$
+\mathcal L(0)=1,\quad\dot{\mathcal L}(0)=-4b^2k,
+\qquad0<\mathcal L(t)-2a\le be^{-4bkt}.
+$$ {#eq-fixed-closure-plateau-rate}
+
+Both hidden blocks have nonzero velocity for every $t>0$. There are
+$\kappa_*\ge k$ and $C_*>0$ such that
+$\mathcal L(t)=2a+bC_*^2e^{-4b\kappa_*t}(1+o(1))$, and the
+characteristic state converges at rate $O(e^{-2b\kappa_*t})$.
+:::
+
+[]{#proof-fixed-closure-plateau}
+
+::: {.proof}
+Write $v=-e_2$ and $F=f(v)$. Oddness gives the exact ambient identity
+
+$$
+\mathcal L=2a+2af(e_1)^2+b(1-F)^2\ge2a.
+$$ {#eq-fixed-closure-plateau-floor}
+
+Reflect coordinate one of both Gaussian populations, using
+$R=\operatorname{diag}(-1,1,1)$ and $R_1=\operatorname{diag}(R,R)$.
+The measure-preserving maps $T_1,T_2$ satisfy
+$b_1\circ T_1=R_1b_1$, $g\circ T_1=Rg$,
+$b_2\circ T_2=Rb_2$, and $RDR_1=D$.
+The physical isometry
+$(w,c,M)\mapsto(Rw\circ T_1,c\circ T_2,RMR_1)$ fixes initialization
+and sends $f(u)$ to $f(Ru)$. Since $Rv=v$, it preserves $F$ and its
+ascent equation. Uniqueness makes the ascent path fixed by this isometry,
+so $f(e_1)=f(-e_1)=0$. The full physical gradient along it is therefore
+$2b(1-F)\nabla F$, without discarding a parameter block.
+
+At $v=-e_2$, the two nonzero coordinate entries of $a_0(v)$ give
+$Da_0(v)=\ell v$, with $\ell$ as displayed. Its positivity follows
+from the positive constants in @eq-fixed-closure-p1-marks. The upper
+coordinate is nondegenerate, hence $k>0$.
+Apply @lem-fixed-closure-scalar-clock with $U=H^{(2)}(v)$ and target
+one. It gives $s_*\le1/k$, $F(s_*)=1$, and
+$\kappa(s)=\|\nabla F(X(s))\|^2\ge k$. The excess loss
+$E=b(1-F)^2$ obeys $\dot E=-4b\kappa E$, proving
+@eq-fixed-closure-plateau-rate, strict descent and attainment of the floor.
+
+On the finite ascent interval bounded derivatives of $\tanh$ make
+$\kappa$ locally Lipschitz and
+$1-F(s)=\kappa_*(s_*-s)+O((s_*-s)^2)$, where
+$\kappa_*=\kappa(s_*)\ge k$. Consequently
+
+$$
+\int_0^\infty|\kappa(s(t))-\kappa_*|\,dt
+=\int_0^{s_*}\frac{|\kappa(s)-\kappa_*|}{2b(1-F(s))}\,ds<\infty.
+$$ {#eq-fixed-closure-terminal-integral}
+
+Near $s_*$ both numerator and denominator are of order $s_*-s$;
+away from it the integrand is continuous. Thus
+$C_*:=\exp[-2b\int_0^\infty(\kappa(s(t))-\kappa_*)\,dt]$
+is finite and positive, and
+$1-F(t)=C_*e^{-2b\kappa_*t}(1+o(1))$. Bounded ascent speed and the
+linear endpoint relation give the state rate.
+
+It remains to verify actual hidden motion. Reflecting each coordinate
+orthogonal to $v$ as above makes $Ma(v)=\rho v$ throughout ascent.
+Then $c_s=\tanh(\rho B)$, where $B=b_2\cdot v$, so $c$ depends
+only on $B$. Independence and centering of the other upper coordinates
+give $d(v)=\delta v$. Initially $\rho=\ell>0$. As long as
+$\rho>0$, the integral
+$c(s,B)=\int_0^s\tanh(\rho(\sigma)B)\,d\sigma$ has the sign of
+$B$ for $s>0$, and hence
+$\delta=\mathbb E_2[Bc\operatorname{sech}^2(\rho B)]>0$.
+With $S=\mathbb E_1[b_1b_1^\top\operatorname{sech}^4(w\cdot v)]
+\succeq0$, the exact equations give $a_s=SM^\top d$,
+$M_s=da^\top$, and
+
+$$
+\rho_s=\delta\{\|a\|^2+v^\top MSM^\top v\}\ge0.
+$$ {#eq-fixed-closure-plateau-hidden-motion}
+
+A first-zero argument keeps $\rho\ge\ell$ forever. Thus $a\ne0$,
+$\delta>0$ and $M_s\ne0$. Also $M^\top v\ne0$, and the positive
+lower Gram makes $b_1^\top M^\top v$ nonzero in $L^2$. Multiplication
+by the strictly positive lower gate shows $w_s\ne0$. The physical
+clock is positive at every finite time, proving both motion statements.
+:::
+
+For $a=1/4$ the label masses are balanced, the limiting loss is $1/2$,
+and $\mathcal L(t)-1/2\le\tfrac12e^{-2kt}$. The distinct inputs span
+a plane. The positive limit is the architectural floor from incompatible
+same-label antipodes; it is not failure to reach an available zero-loss
+predictor.
+

@@ -1,4 +1,4 @@
-# 14. Generalization and the predictive value of feature learning {#ch-generalization}
+# 15. Generalization and the predictive value of feature learning {#ch-generalization}
 
 Statistical usefulness requires additional arguments connecting the learned predictor to unseen risk and meaningful alternatives. Influence, sampling fluctuations, finite-episode generalization and the scoped frozen-feature comparison are kept distinct.
 

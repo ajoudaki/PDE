@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "component": "compression_core",
+  "source_inputs": [
+    {
+      "path": "studies/book_promotion_20261010/compact.tex",
+      "sha256": "47199d5c9e374b80b9eafefd60699c2f4bfe06dde00ebd0a1c53e2805598a0c4",
+      "role": "frozen compact mathematical source"
+    },
+    {
+      "path": "studies/book_promotion_20261010/compact_fitting.tex",
+      "sha256": "6efe077759c846c4b3d79f999c37d2d1478bae549d49fc9666837efbf9f1a01f",
+      "role": "frozen compact mathematical source"
+    },
+    {
+      "path": "studies/book_promotion_20261010/compact_foundations.tex",
+      "sha256": "6a49f8e35bb637416b7e330f7ace06286e482c942302bf57a46c8253a4cffbf0",
+      "role": "frozen compact mathematical source"
+    },
+    {
+      "path": "studies/book_promotion_20261010/compact_legendre.tex",
+      "sha256": "862aa37139ad9af67ac04b52949f838031e91077021b2da9060244d36ab4e0f9",
+      "role": "frozen compact mathematical source"
+    },
+    {
+      "path": "studies/book_promotion_20261010/compact_selected.tex",
+      "sha256": "3add2b694f38a4d7dbce90e51dafd375a7e8dee2e06d26b2d5af451bddb44885",
+      "role": "frozen compact mathematical source"
+    },
+    {
+      "path": "paper/figures/capture_trajectory.py",
+      "sha256": "199a05d6ceba1ada532dd2db13774c9529424525cffdf3655e5aefa67639b0e3",
+      "role": "selected implementation definitions; never imported at runtime"
+    },
+    {
+      "path": "docs/notation.qmd",
+      "sha256": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023",
+      "role": "maintained notation and model contract"
+    }
+  ],
+  "implementation_definitions": [
+    {
+      "name": "_deep_activation",
+      "start_line": 132,
+      "end_line": 160,
+      "sha256": "bf0066739e3c107ffd4f896052392f8eb2963d647ccb008d69fb7f24388fdfa6"
+    },
+    {
+      "name": "DeepDense",
+      "start_line": 163,
+      "end_line": 232,
+      "sha256": "54f2b02d1071769907a66336297bd58d517734c6f5309b3b463a366f5d6d6ea6"
+    },
+    {
+      "name": "DeepHarmonic",
+      "start_line": 349,
+      "end_line": 529,
+      "sha256": "732813ce1a9948f5978d656094b237dd84a0b78ae6b5ddb9d5ee1826a8f0260e"
+    },
+    {
+      "name": "LegendreCompression",
+      "start_line": 660,
+      "end_line": 768,
+      "sha256": "e9607b527d386d3804b9d3b3c707e567184503f28b8a5bbf7da6b70b5ff9c7c1"
+    },
+    {
+      "name": "integrate",
+      "start_line": 1406,
+      "end_line": 1476,
+      "sha256": "07dffd9230d763f13a67ed188cb1f659ac217a3fe189b58e769e700c5d4c67a7"
+    },
+    {
+      "name": "_unified_harmonic_geometry",
+      "start_line": 1557,
+      "end_line": 1599,
+      "sha256": "8cca36c2a5f97b88f502662a735702b853bc9fd2d2ac5a8468c2e564537063d4"
+    },
+    {
+      "name": "unified_harmonic_sources",
+      "start_line": 1603,
+      "end_line": 1743,
+      "sha256": "c82fbd479677bf0c1b2c306b95db8871fbc169137a20a3280a6a93f1ea45445f"
+    },
+    {
+      "name": "_harmonic_source_basis",
+      "start_line": 1927,
+      "end_line": 1950,
+      "sha256": "9be7aaa5918810f7730b00910f6733213022289c20ff94e119d45a48f847024d"
+    },
+    {
+      "name": "_harmonic_bss_metric",
+      "start_line": 1953,
+      "end_line": 1999,
+      "sha256": "b08d3fdaad39e278b107c7dec5966f996e7dcf71e800f9b1e1761f48030102c3"
+    },
+    {
+      "name": "_panel_coordinate_metric",
+      "start_line": 2002,
+      "end_line": 2084,
+      "sha256": "f11d5d79017e127c0666cbbc2c310a542765568822acab0882faeeeb4847d15c"
+    },
+    {
+      "name": "finite_panel_rollout_sources",
+      "start_line": 4444,
+      "end_line": 4551,
+      "sha256": "ce922fd078f431d6897cddbfc007bf27c6a9c2d4af634cc9c67b4225fc4b35ba"
+    },
+    {
+      "name": "finite_panel_initial_jets",
+      "start_line": 4555,
+      "end_line": 4584,
+      "sha256": "565fe9f56e0cad606257decae4967763d00239441cdb0206a5db376e4efc77e0"
+    },
+    {
+      "name": "cubic_rollout_sources",
+      "start_line": 5281,
+      "end_line": 5566,
+      "sha256": "9297c9a864e8068ad808cf06277dcd227617b4cfa3a7b3150a526e42e15ae11b"
+    }
+  ],
+  "runtime_dependencies": [
+    "numpy",
+    "torch"
+  ],
+  "runtime_repository_dependencies": [],
+  "artifacts": [
+    {
+      "path": "studies/book_promotion_20261010/compression_core.py",
+      "sha256": "770ceab1dc5917eb14759071002d824ae45feaabfc85be1e7f228945d3cdb3a6"
+    },
+    {
+      "path": "studies/book_promotion_20261010/test_compression_core.py",
+      "sha256": "9c365aede9d1f7bd60530c0e912a4a51a290680ca3cfc4121bfa4ff50781f716"
+    },
+    {
+      "path": "studies/book_promotion_20261010/CODE.md",
+      "sha256": "2eda3877e23da26f9ebd305582149fd8f777dd1c78568cde3ab706d5f7c2eeae"
+    }
+  ],
+  "adaptations": [
+    "direct compact Legendre equations; no lifted fields or residual division",
+    "arbitrary fixed depth and six common activations for numerical source setup",
+    "exact order-two origin source jets extended by zero-readout differentiation",
+    "one-interval field buffering for empirical Chebyshev source fitting",
+    "exact deterministic SVD replaces randomized campaign source fitting",
+    "mandatory-source subtraction rank cutoff includes pre-subtraction source scale"
+  ],
+  "omitted": [
+    "certified global initialization-only analytic-continuation compiler",
+    "source-uniform error certificates and theorem-selected orders",
+    "general-dimensional Harmonic geometry beyond d=2,3",
+    "rank-deficient spectral-floor selected runtime",
+    "campaigns, plotting, frozen decoders and legacy ZIP import"
+  ],
+  "validation": {
+    "tests": 15,
+    "passed": 15,
+    "unittest_seconds": 0.623,
+    "device": "cpu",
+    "evidence": "data/generated/book_promotion_20261010/core/validation.json"
+  }
+}

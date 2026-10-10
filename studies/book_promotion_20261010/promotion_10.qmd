@@ -1,0 +1,288 @@
+## Protected pairs in the order-one population closure {#sec-fixed-closure-pairs}
+
+The fixed-order closure of [the fixed-order model](09-trainability.qmd#sec-fixed-closure-model) has a separate pair
+theory. Exact dictionary symmetries protect opposite-label fitting at
+arbitrary amplitude. For any other nondegenerate orientation, a proved
+small-label basin gives convergence of the same full nonlinear flow.
+Throughout this section $d=2$, $p=1$, $\phi=\tanh$, initialization is
+@eq-fixed-closure-p1-marks, and physical inputs are $x=\sqrt2u$.
+The loss and parameter metric are @eq-fixed-closure-forward and
+@eq-fixed-closure-flow.
+
+### Reflected and antipodal pairs at arbitrary amplitude {#sec-fixed-closure-protected-pairs}
+
+::: {#thm-fixed-closure-protected-pairs}
+Let the targets be $(+A,-A)$ with any $A>0$. The complete initialized
+flow fits and converges for either of the following data families:
+
+* Equal probabilities on distinct $u,Pu$, where $P$ is one of
+  $\operatorname{diag}(1,-1)$, $\operatorname{diag}(-1,1)$,
+  the coordinate swap, or the negative coordinate swap.
+* Arbitrary positive probabilities of sum one on $u,-u$, for any
+  $u\in S^1$.
+
+Writing $H_\pm=H^{(2)}(u_\pm)$, define
+
+$$
+U=(H_+-H_-)/2,\qquad F=\mathbb E_2[cU],\qquad
+C=\mathbb E_2U^2,\qquad q=\mathbb E_2c^2,\qquad
+C_0=\mathbb E_2U_0^2>0.
+$$ {#eq-fixed-closure-pair-contrast}
+
+Then $\mathcal L=(A-F)^2$ along the initialized path, and
+
+$$
+\mathcal L(t)\le A^2e^{-4C_0t},\qquad
+C(t)\ge C_0,\qquad q(t)\le A^2/C_0,\qquad
+\int_t^\infty\|\dot X(v)\|\,dv\le\sqrt{\mathcal L(t)/C_0}.
+$$ {#eq-fixed-closure-pair-rate}
+
+The complete state converges in the physical metric and in the
+characteristic supremum/Frobenius norms, its saved joint laws converge in
+$\mathcal W_2$, and the fitted endpoint satisfies $C(X_\infty)>C_0$.
+:::
+
+[]{#proof-fixed-closure-protected-pairs}
+
+::: {.proof}
+For a listed reflection let $S_1(g,\zeta^0)=(Pg,P\zeta^0)$ and
+$S_2\widetilde g=P\widetilde g$. Put $P_1=\operatorname{diag}(P,P)$.
+The identical scalar normalizations in @eq-fixed-closure-p1-marks give
+$b_1\circ S_1=P_1b_1$, $b_2\circ S_2=Pb_2$ and
+$PD P_1^\top=D$. All these transformations are orthogonal involutions
+and preserve the exact Gaussian mark laws. Thus
+
+$$
+\mathcal T_P(w,c,M)=(P w\circ S_1,-c\circ S_2,PM P_1^\top)
+$$ {#eq-fixed-closure-pair-isometry}
+
+is a physical isometry fixing initialization. Changes of variables in
+the two contractions show that it sends $f(u)$ to $-f(Pu)$. It preserves
+the equally weighted loss and the scalar $F$ in
+@eq-fixed-closure-pair-contrast. Hence both gradient equations are
+equivariant. Uniqueness preserves the fixed space, where
+$f(Pu)=-f(u)$ and the full physical flow is
+$\dot X=2(A-F)\nabla F$. This identifies the gradient in the entire
+parameter space, not just derivatives tangent to a restricted ansatz.
+
+For antipodes, $H(-u)=-H(u)$ and $f(-u)=-f(u)$ hold at every state.
+Both weighted loss terms equal $(A-f(u))^2$ even for unequal weights.
+The same scalar equation holds without any input rotation.
+
+By @lem-fixed-closure-initial-map, distinct inputs have distinct
+initialized upper coefficient vectors. Positive upper density and strict
+injectivity of $\tanh$ therefore imply $C_0>0$ in the reflection
+case; nonzero initialized code gives the same conclusion for antipodes.
+Apply @lem-fixed-closure-scalar-clock with $b=1$ to obtain every bound
+and convergence assertion in @eq-fixed-closure-pair-rate.
+
+We verify strict endpoint contrast gain separately. Let $h=(w,M)$ and
+consider the ascent clock from that lemma. For a reflection, the initialized
+codes obey $v_-=Pv_+$. With $P_-=(I-P)/2$, use the admissible matrix
+variation $\delta M=P_-D$, holding $w$ fixed. If
+$Z_\pm=b_2^\top v_\pm$, then
+$\delta Z_+=(Z_+-Z_-)/2$ and $\delta Z_-=-\delta Z_+$. Consequently
+
+$$
+\delta C=\mathbb E_2\!\left[
+ U\frac{Z_+-Z_-}{2}\{\phi'(Z_+)+\phi'(Z_-)\}\right]>0.
+$$ {#eq-fixed-closure-pair-strict-variation}
+
+The integrand is positive wherever $U\ne0$, an event of positive
+probability. For antipodes use $\delta M=D$ instead, obtaining
+$\delta C=2\mathbb E_2[\tanh(Z)Z\operatorname{sech}^2Z]>0$.
+Thus $\nabla_hC(h_0)\ne0$ in both cases.
+
+The exact ascent identities give $h_s=DU(h)^*c$ and
+$c=sU_0+o(s)$, hence
+$h_s=(s/2)\nabla_hC(h_0)+o(s)$. Continuity of this derivative follows
+from bounded marks and gates in the finite contraction maps; no
+unrestricted $L^2\to L^2$ differentiability claim for a nonlinear
+pointwise map is needed. Thus $\|h_s\|>0$ on an initial positive
+interval. In @eq-fixed-closure-normalized-readout the numerator has the
+exact decomposition
+
+$$
+qK-F^2=(qC-F^2)+q\|h_s\|^2.
+$$ {#eq-fixed-closure-pair-strict-deficit}
+
+It is strictly positive on that interval and nonnegative later. The ratio
+$q/F^2$ therefore decreases strictly initially and remains nonincreasing.
+At the positive fitting clock $s_*$ it is strictly below $1/C_0$, so
+$C(X_\infty)\ge F(s_*)^2/q(s_*)>C_0$.
+:::
+
+There is also a regular current-state potential. With
+$K=\|\nabla F\|^2$ as in @eq-fixed-closure-scalar-identities, set
+
+$$
+\Phi(X)=\frac{1+q}{C_0+F^2},\qquad
+\dot\Phi=-\frac{4(A-F)F\{(qK-F^2)+(K-C_0)\}}
+                         {(C_0+F^2)^2}\le0.
+$$ {#eq-fixed-closure-pair-regular-potential}
+
+The derivative follows by the quotient rule, $q_s=2F$, $F_s=K$, and
+$\dot s=2(A-F)$. Its sign uses the already proved $K\ge C_0$.
+The potential is regular at initialization; the singular ratio $q/F^2$
+was used only at positive times with its proved one-sided limit. Neither
+calculation asserts monotonicity of $C$ itself at every intermediate time.
+
+The family $(a,b),(a,-b)$ with $a\ge0$, $b>0$ and $a^2+b^2=1$
+covers every separation angle in $(0,\pi]$. It does not cover every
+orientation at each angle. Gaussian-root isotropy alone does not enlarge
+the dictionary symmetry: if $ab\ne0$, the function
+$\tanh(ag_1+bg_2)$ is outside
+$\operatorname{span}\{1,\tanh g_1,\tanh g_2,\tanh R_1,\tanh R_2\}$.
+Indeed positive joint density makes an alleged identity hold everywhere;
+differentiating in the independent reverse Gaussian coordinates removes
+the $R_i$ coefficients, whereas the remaining additive coordinate
+functions have zero mixed $g_1,g_2$ derivative and the target has
+$ab\tanh''(ag_1+bg_2)\not\equiv0$.
+
+### A basin for every orientation with sufficiently small labels {#sec-fixed-closure-small-label-pairs}
+
+::: {#thm-fixed-closure-small-label-pairs}
+Let $u,v\in S^1$ with $v\ne\pm u$, and use equal data probabilities.
+Define the positive initialized number
+
+$$
+\lambda=\lambda_{\min}\!\left[
+\frac12\begin{pmatrix}
+\mathbb E_2H_0^{(2)}(u)^2&\mathbb E_2H_0^{(2)}(u)H_0^{(2)}(v)\\
+\mathbb E_2H_0^{(2)}(u)H_0^{(2)}(v)&\mathbb E_2H_0^{(2)}(v)^2
+\end{pmatrix}\right].
+$$ {#eq-fixed-closure-pair-initial-lambda}
+
+For any labels with $A:=\sqrt{(y_u^2+y_v^2)/2}\le\lambda/(8\sqrt5)$,
+the canonical full flow converges to a fitted state and obeys
+
+$$
+\mathcal L(t)\le A^2e^{-\lambda t},\qquad
+\int_t^\infty\|\dot X(s)\|\,ds
+ \le\frac{2A}{\sqrt\lambda}e^{-\lambda t/2},\qquad
+\|X(t)-X_0\|\le\frac{\sqrt\lambda}{4\sqrt5}.
+$$ {#eq-fixed-closure-pair-small-label-rate}
+
+The increments $w-g,c$ converge in supremum norm, $M$ in Frobenius norm,
+and the complete joint laws in $\mathcal W_2$. Near the endpoint the
+fitting set is a $C^1$ Hilbert submanifold of codimension two. The loss
+Hessian there has two positive normal eigenvalues and an infinite-dimensional
+tangent kernel.
+:::
+
+[]{#proof-fixed-closure-small-label-pairs}
+
+::: {.proof}
+First verify every initialized bound. The coefficient vectors
+$\vartheta(u)=(F_0(u_1),F_0(u_2))$ from @lem-fixed-closure-initial-map are
+not collinear unless $v=\pm u$: if $\vartheta(v)=t\vartheta(u)$ with $t>1$,
+strict increase of $|F_0|$ makes every nonzero $|v_i|>|u_i|$, contrary
+to both unit norms; $0<t<1$ reverses this contradiction, $t=1$ gives
+$v=u$, and negative $t$ reduces to the same argument using oddness.
+A null Gram vector in @eq-fixed-closure-pair-initial-lambda would give
+a linear identity between the two tanh ridges on the open upper cube.
+Differentiating at zero would contradict this coefficient independence.
+Thus $\lambda>0$.
+
+The canonical matrix also satisfies $\|D\|_{\rm op}\le2$. Here is
+a direct check from its coefficients. Gaussian integration by parts for
+$\xi\sim\mathcal N(0,\nu)$ gives
+$\mathbb E[\xi\tanh\xi]=\nu\alpha$, so
+$\nu\alpha^2\le\tau$ by Cauchy--Schwarz. For a lower coefficient
+vector $z=(z_h,z_k)$ and its normalized field $V=b_1^\top z$,
+the displayed bands of $D$ yield
+
+$$
+Dz=\frac\alpha{\ell_2}\mathbb E_1[hV]
+       +\frac{\tau\gamma}{\ell_2\ell_k}z_k.
+$$ {#eq-fixed-closure-initial-operator-bound}
+
+The coordinates $h_i/\sqrt\nu$ are orthonormal, hence
+$|\mathbb E_1[hV]|\le\sqrt\nu\|V\|_2\le\sqrt\nu|z|$.
+Also @eq-fixed-closure-regression-bound gives $\ell_k^2\ge\tau\gamma^2$.
+Each summand in @eq-fixed-closure-initial-operator-bound has norm at
+most $|z|$, proving the claim.
+
+Use the physical Hilbert space of increments $(w-g,c,M-D)$ and put
+$\mathcal F(X)=2^{-1/2}(f(u),f(v))$,
+$Y=2^{-1/2}(y_u,y_v)$, $R=\mathcal F-Y$, and $J=D\mathcal F$.
+The readout part of $J$ is
+$T_Xc_*=2^{-1/2}(\mathbb E_2[c_*H^{(2)}(u)],
+\mathbb E_2[c_*H^{(2)}(v)])$.
+Then $JJ^*\succeq T_XT_X^*$ and
+$\dot X=-2J^*R$, $\mathcal L=|R|^2$.
+The map $\mathcal F$ is $C^1$ on this Hilbert space: the lower
+finite-moment Taylor remainder is $O(\|\delta w\|_2^2)$ by bounded
+marks and $\phi''$, and its derivative changes by
+$O(\|\delta w\|_2)$. All subsequent nonlinearities act on finite
+vectors and their products with $c$ are bounded by $\|c\|_2$.
+The same estimates make $J$ locally Lipschitz.
+
+Contraction of both dictionaries, $\|D\|\le2$ and the Lipschitz
+activation give uniformly for unit $z$,
+
+$$
+\|H_X^{(2)}(z)-H_0^{(2)}(z)\|_2
+\le\|M-D\|_F+2\|w-g\|_2
+\le\sqrt5\|X-X_0\|.
+$$ {#eq-fixed-closure-pair-feature-lipschitz}
+
+The same bound controls $\|T_X-T_0\|_{\rm op}$. On the ball of
+radius $\rho=\sqrt\lambda/(2\sqrt5)$, the least singular value of
+$T_X$ is at least $\sqrt\lambda/2$, so
+$T_XT_X^*\succeq\kappa I$, where $\kappa=\lambda/4$.
+Consequently $\|\dot X\|\ge2\sqrt{\kappa\mathcal L}$ and
+$\dot{\mathcal L}=-\|\dot X\|^2\le-4\kappa\mathcal L$.
+Before a possible first exit, integration gives
+
+$$
+\int_a^b\|\dot X\|\,dt
+\le\frac{\sqrt{\mathcal L(a)}-\sqrt{\mathcal L(b)}}{\sqrt\kappa}.
+$$ {#eq-fixed-closure-pair-basin-length}
+
+This follows by dividing the energy identity by
+$\|\dot X\|\ge2\sqrt{\kappa\mathcal L}$ where the loss is positive;
+at zero loss the state remains stationary. The total length from zero
+is at most $A/\sqrt\kappa\le\rho/2$. A first exit at radius $\rho$
+is therefore impossible. Finite-time existence from
+@eq-fixed-closure-finite-time-bounds completes the global argument and
+proves @eq-fixed-closure-pair-small-label-rate.
+
+For the stronger convergence, the exact equations give
+$\|\dot c\|_\infty\le2\sqrt{\mathcal L}$,
+$\|\dot M\|_F\le2\|c\|_2\sqrt{\mathcal L}$ and
+$\|\dot w\|_\infty\le2\mathcal B_1\|M\|_{\rm op}\|c\|_2
+\sqrt{\mathcal L}$. Their non-residual factors are bounded in the
+trapping ball and $\sqrt{\mathcal L}$ is integrable. The state is
+Cauchy in all claimed norms and its limit fits by continuity.
+
+We finish with an explicit local graph rather than assuming an isolated
+minimum. At a fitting state $X_*$ in this ball write $h=(w-g,M)$,
+$T_*=T_{X_*}$, $P_*=T_*^*(T_*T_*^*)^{-1}$, and $N=\ker T_*$.
+For $h$ close to $h_*$, the matrix $A(h)=T_hP_*$ is invertible because
+it is close to the identity; the geometric series gives its inverse.
+Every nearby fitting readout has exactly the representation
+
+$$
+c=k+P_*A(h)^{-1}\{Y-T_hk\},\qquad k\in N.
+$$ {#eq-fixed-closure-pair-fitting-graph}
+
+Indeed $T_hc=Y$, and the decomposition into $N$ and
+$\operatorname{ran}P_*$ is unique because $T_*P_*=I$.
+The displayed maps are $C^1$ by the contraction differentiability
+already proved. The graph has tangent $\ker J_*$ and normal
+$\operatorname{ran}J_*^*$. At a fit the gradient derivative is
+$2J_*^*J_*$, since $R(X_*+\delta X)=J_*\delta X+o(\|\delta X\|)$
+and $J$ is locally Lipschitz. Its two nonzero eigenvalues are those of
+$2J_*J_*^*\succeq2\kappa I$, and its remaining kernel is the
+infinite-dimensional tangent space.
+:::
+
+The smallness condition is determined by fixed initialization expectations,
+and the future Gram bound is proved by the first-exit argument. For a
+generic pair with labels $\pm A$, writing
+$G=(f(u)+f(v))/2$ gives instead
+$\mathcal L=(A-F)^2+G^2$ and
+$\dot X=2(A-F)\nabla F-2G\nabla G$. Initial $G=0$ need not persist.
+The protected scalar proof therefore supplies no arbitrary-orientation
+unit-label theorem outside the stated basin.

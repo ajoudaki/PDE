@@ -1,0 +1,750 @@
+\section{Legendre history compression}
+\label{cp:legendre-section}
+
+\begin{lemma}[Projection identities]
+\label{cp:projection}
+Let $A>0$ and let $q\ge1$ be an integer. Set
+$p_j^A(\xi)=P_j(2\xi/A-1)$, where $P_j$ is the Legendre
+polynomial, and let $\Pi_q^A$ project onto degrees below $q$ in
+$L^2([0,A])$.  For an absolutely continuous Hilbert-valued history $u$,
+\begin{align}
+ \|(I-\Pi_q^A)u\|_{L^2}^2
+ &\le\frac1{q(q+1)}\int_0^A\xi(A-\xi)\|u'(\xi)\|^2\,d\xi,
+ \label{cp:eq-projection-tail}\\
+ \|u(A)-(\Pi_q^Au)(A)\|
+ &\le\sqrt{A/(3q)}\,\|u'\|_{L^2},&
+ \|(\Pi_q^Au)(A)\|&\le64\sqrt q\,\|u\|_{L^\infty}.
+ \label{cp:eq-projection-endpoint}
+\end{align}
+For a fixed absolutely continuous history $g$, the growing-interval error obeys
+\begin{equation}
+ \frac d{dA}\int_0^A\|g-\Pi_q^Ag\|^2\,d\xi
+       =\|g(A)-(\Pi_q^Ag)(A)\|^2.
+ \label{cp:eq-projection-growth}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Rodrigues' formula and integration by parts give
+$\int_0^Ap_i^Ap_j^A=A\mathbf1_{i=j}/(2j+1)$ and
+$-[\xi(A-\xi)(p_j^A)']'=j(j+1)p_j^A$.
+The derivative polynomials are orthogonal for the weight
+$\xi(A-\xi)$.  Bessel's inequality followed by the ordinary expansion
+therefore proves \eqref{cp:eq-projection-tail}; polynomial approximation
+and increasing finite-dimensional projections give the stated
+absolutely continuous, Hilbert-valued version.
+Integration against each lower polynomial also gives
+$P_j'=\sum_{i<j,\ j-i\ \mathrm{odd}}(2i+1)P_i$.  Thus the endpoint kernel is
+\[
+ K_q^A(A,\xi)=\frac1A\sum_{j<q}(2j+1)p_j^A(\xi)
+            =\tfrac12[(p_q^A)'(\xi)+(p_{q-1}^A)'(\xi)].
+\]
+Its integral is one, and integration by parts gives
+$u(A)-(\Pi_q^Au)(A)=\tfrac12\int_0^A(p_q^A+p_{q-1}^A)u'$.
+The squared $L^2$ norm of this multiplier is
+$A[(2q+1)^{-1}+(2q-1)^{-1}]/4\le A/(3q)$.
+
+For completeness the needed kernel $L^1$ estimate has a short
+one-dimensional proof.  Put
+$v(\theta)=\sqrt{\sin\theta}P_k(\cos\theta)$ and
+$a_k=(k+1/2)^2+(4\sin^2\theta)^{-1}$.  The Legendre equation implies
+$v''+a_kv=0$, whence
+$\partial_\theta(v^2+v'^2/a_k)=-a_k'v'^2/a_k^2\ge0$ on
+$(0,\pi/2)$.  At the midpoint use
+$P_{2j}(0)=(-1)^j\binom{2j}j/4^j$,
+$P_{2j+1}'(0)=(2j+1)P_{2j}(0)$, and
+$(\binom{2j}j/4^j)^2\le1/(j+1)$; the last inequality follows by
+induction.  The midpoint energy is at most $4/k$.  Differentiating
+$P_k=v/\sqrt{\sin\theta}$ now yields
+\[
+ |\partial_\theta P_k(\cos\theta)|
+ \le3\sqrt{k}(\sin\theta)^{-1/2}
+       +2k^{-1/2}(\sin\theta)^{-3/2}.
+\]
+On $[1/k,\pi/2]$ its integral is at most $3\pi\sqrt{k}+8$,
+using $\sin\theta\ge2\theta/\pi$.  On $[0,1/k]$ use
+$|P_k'|\le k(k+1)/2$ to obtain at most $1/2$.
+This derivative bound follows from the derivative expansion and
+$|P_j|\le1$, the latter following from the integral formula
+$P_j(\cos\theta)=\pi^{-1}\int_0^\pi
+(\cos\theta+i\sin\theta\cos\psi)^j\,d\psi$ (expand its generating
+function).  Reflection gives total variation at most $36\sqrt k$.
+The endpoint kernel consequently has $L^1$ norm at most
+$36\sqrt q\le64\sqrt q$; $q=1$ is the averaging kernel.
+Finally differentiation of the squared projection error proves
+\eqref{cp:eq-projection-growth}: the interior term vanishes because
+$\partial_A\Pi_q^Ag$ is still a polynomial of degree below $q$.
+\end{proof}
+
+\begin{proposition}[Legendre approximation at the prescribed size]
+\label{cp:legendre}
+Eventually at each fixed confidence, there is an initialization-only
+Legendre model with
+\begin{equation}
+ q=\left\lceil C\left(\frac m\gamma\right)^3n^{1/4}
+             [\log(en)]^2e^{\sqrt{\log(en)}/2}\right\rceil
+ \label{cp:eq-legendre-order}
+\end{equation}
+such that
+\begin{equation}
+ \sup_{t\in[0,\infty],\ \|x\|=\sqrt d}
+       |f_{\rm Leg}(t,x)-f_n(t,x)|
+ \le\frac{CY}{\sqrt n[\log(en)]^3}.
+ \label{cp:eq-legendre-accuracy}
+\end{equation}
+Its moving storage is at most
+\[
+ Cm(m/\gamma)^3n^{5/4}[\log(en)]^2e^{\sqrt{\log(en)}/2};
+\]
+the fixed storage is the additional $(L-1)n^2$.
+\end{proposition}
+
+\begin{proof}
+\noindent\textbf{Local notation and construction.}\quad
+All auxiliary quantities below belong to this proof. Put
+\[
+ \lambda=\gamma/m,\qquad
+ H=\max_{0\le j\le L}\sqrt{Q^{(j)}_{11}},\qquad
+ s=\max\left\{1,\max_j\sup_{|\operatorname{Im}z|\le a/2}
+                     |\phi_j'(z)|\right\},\qquad
+ b=\max_j|\phi_j(0)|,
+\]
+and define $D_j=s(9s)^{L-j}$. These definitions are made here;
+no coefficient from the proof of \Cref{cp:fit} is imported.
+In particular $H\le(2\beta)^L$, by the affine population-RMS recursion,
+and $s,b\le\beta$.
+
+The Legendre model constructed here shares the realized dense initialization and physical
+time.  Here the whole-sphere version of \eqref{cp:norm} is abbreviated by
+\[
+ \|g\|_*=\sup_{t\in[0,\infty],\,\|x\|=\sqrt d}|g(t,x)|,
+\]
+including the fitted limit at $t=\infty$.
+Write $\widehat f=f_{\rm Leg}=n^{-1}\widehat w^\top\widehat h^{(L)}$,
+$\widehat r_a=\widehat f(x_a)-y_a$ and
+$\widehat\rho=\|\widehat r\|_2/\sqrt m$. We first construct the model for
+an arbitrary integer $q\ge1$ and then take the order in the statement.
+At each hidden interface
+$\ell=2,\ldots,L$, sample $a$, and order $j=0,\ldots,q-1$, retain
+$\bar h_{a,j}^{(\ell-1)},\bar\delta_{a,j}^{(\ell)}\in\mathbb R^n$.
+Together with $\widehat W^{(1)}$, $\widehat w$, and a scalar $\tau$,
+these are the moving state.  Reconstruct
+\begin{equation}
+ \widehat W^{(\ell)}=W_0^{(\ell)}-
+ \frac2{mn\tau}\sum_{a=1}^m\sum_{j=0}^{q-1}(2j+1)
+       \bar\delta_{a,j}^{(\ell)}\bar h_{a,j}^{(\ell-1)\top}.
+ \label{cp:eq-legendre-reconstruction}
+\end{equation}
+Use these matrices in the ordinary forward pass and in
+$\widehat k_a^{(L)}=\widehat w$,
+$\widehat\delta_a^{(\ell)}=
+\phi_\ell'(\widehat z_a^{(\ell)})\odot\widehat k_a^{(\ell)}$,
+$\widehat k_a^{(\ell)}=
+\widehat W^{(\ell+1)\top}\widehat\delta_a^{(\ell+1)}$.
+The autonomous physical-time equations are
+\begin{align}
+ \dot{\widehat W}^{(1)}&=-\frac2m\sum_a
+     \widehat r_a\widehat\delta_a^{(1)}v_a^\top,&
+ \dot{\widehat w}&=-\frac2m\sum_a\widehat r_a\widehat h_a^{(L)},&
+ \dot\tau&=\widehat\rho,\nonumber\\
+ \dot{\bar h}_{a,j}^{(\ell-1)}
+ &=\widehat\rho\widehat h_a^{(\ell-1)}-
+ \frac{\widehat\rho}{\tau}
+ \left(j\bar h_{a,j}^{(\ell-1)}+
+       \sum_{i<j}(2i+1)\bar h_{a,i}^{(\ell-1)}\right),\nonumber\\
+ \dot{\bar\delta}_{a,j}^{(\ell)}
+ &=\widehat r_a\widehat\delta_a^{(\ell)}-
+ \frac{\widehat\rho}{\tau}
+ \left(j\bar\delta_{a,j}^{(\ell)}+
+       \sum_{i<j}(2i+1)\bar\delta_{a,i}^{(\ell)}\right).
+ \label{cp:eq-legendre-flow}
+\end{align}
+Initially $\tau=1$, $\widehat W^{(1)}=W_0^{(1)}$, $\widehat w=0$,
+$\bar h_{a,0}^{(\ell-1)}=h_{0,a}^{(\ell-1)}$, and all other moments
+vanish.  No equation divides by a residual.  At $\widehat\rho=0$ all
+velocities vanish, and the vector field is locally Lipschitz for
+$\tau>0$.  The exact inventory is
+\begin{equation}
+ S_{\rm moving}=n(d+1)+1+2(L-1)mnq,\qquad
+ S_{\rm fixed}=(L-1)n^2.
+ \label{cp:eq-legendre-count}
+\end{equation}
+The latter entries are the initialized mixers.  Data storage is
+additional; reconstructed matrices need not be retained independently.
+
+\noindent\textbf{Moment identities and the physical defect.}\quad
+For use in this proof, let $p_j^A(\xi)=P_j(2\xi/A-1)$ and let
+$\Pi_q^A$ be the degree-below-$q$ orthogonal projection in $L^2([0,A])$,
+as in \Cref{cp:projection}.
+The histories in the proof are specified by
+$h_a(\tau(t))=\widehat h_a(t)$ and
+$b_a(\tau(t))=(\widehat r_a/\widehat\rho)\widehat\delta_a(t)$.
+On the prefix $[0,1]$ they equal the initialized forward feature and
+zero, respectively.  The backward history is continuous at the join
+because the initial readout is zero.  The moments in
+\eqref{cp:eq-legendre-flow} are exactly $\int_0^\tau p_j^\tau h_a$
+and $\int_0^\tau p_j^\tau b_a$; differentiating these integrals proves
+the equations, including their factors $j$ and $2i+1$.
+Differentiating their bilinear projection pairing gives the exact defect
+\begin{equation}
+ \dot{\widehat W}^{(\ell)}
+ =-\frac2{mn}\sum_a\widehat r_a\widehat\delta_a^{(\ell)}
+                       \widehat h_a^{(\ell-1)\top}+\mathcal E_\ell,
+ \qquad
+ \mathcal E_\ell=\frac{2\widehat\rho}{mn}
+       \sum_a e_{b,a}^{(\ell)}e_{h,a}^{(\ell-1)\top},
+ \label{cp:eq-legendre-defect}
+\end{equation}
+where $e_g=g(\tau)-(\Pi_q^\tau g)(\tau)$.
+Indeed the derivative of the pairing of the two projected histories
+equals the full endpoint product minus the product of their endpoint
+errors, by orthogonality.  These identities hold until a residual zero
+and extend there by stationary continuation.  Histories are proof
+objects, not extra state.
+
+\begin{claim}[Order-independent physical bounds]
+\label{cp:legendre-fit}
+On \eqref{cp:eq-initialization-event}, under
+$Y\le\lambda\beta^{-30L}$, every finite order is globally defined,
+has convergent physical parameters and moments, and fits the labels.
+Its operator and feature bounds are those of
+\eqref{cp:eq-real-tube}, and
+\begin{equation}
+ \widehat\rho(t)\le Ye^{-\lambda t/4},\qquad
+ \tau(t)\le1+4Y/\lambda,\qquad
+ \|\widehat w(t)\|/\sqrt n\le4Y/\sqrt\lambda.
+ \label{cp:eq-legendre-physical}
+\end{equation}
+\end{claim}
+\emph{Verification of the local claim.}
+Let $\sigma=8Y/\lambda$, $R=\sigma\sqrt\lambda$, and
+$\kappa=\lambda/4$. Define, within the present construction proof,
+\[
+ C_1=4s^2D_1^2,\quad
+ C_\ell=3s^2(64H^4D_\ell^2+82C_{\ell-1}),\quad
+ E_*=130\sum_{\ell=2}^LD_\ell\sqrt{C_{\ell-1}}.
+\]
+It suffices that
+\begin{equation}
+ \sigma\le\min\left\{1,\frac1{64H^2D_1},
+ \frac1{\sqrt{8\sqrt{C_L}}},
+ \left(\frac1{8H^2D_1E_*}\right)^{2/7}\right\}.
+ \label{cp:eq-legendre-fitting-smallness}
+\end{equation}
+The present label cap implies this: $D_\ell\le\beta^{2L}$,
+$\sqrt{C_\ell}\le\beta^{8L}$, and $E_*\le\beta^{12L}$.
+For the middle estimate unroll
+$C_\ell=192s^2H^4D_\ell^2+246s^2C_{\ell-1}$, bound
+$192s^2,246s^2\le\beta^5$, $H^4D_\ell^2\le\beta^{10L}$,
+and sum at most $L$ terms.  For the last use
+$130L\le(\beta^L)^2$.  Substitution gives a lower bound
+$\beta^{-8L}$ for the minimum in
+\eqref{cp:eq-legendre-fitting-smallness}, whereas
+$\sigma\le8\beta^{-30L}$.
+
+Stop at clock activity $\sigma$, readout RMS $R$, operator norm nine,
+or feature RMS $2H$.  Before the stop,
+$\|\widehat\delta_a^{(\ell)}\|/\sqrt n\le D_\ell R$.
+Projection contraction, sample Cauchy--Schwarz, and the zero backward
+prefix give
+\[
+ \|\widehat W^{(\ell)}-W_0^{(\ell)}\|_F
+ \le4HD_\ell R\sqrt{(1+\sigma)\sigma},\qquad
+ \|\widehat W^{(1)}-W_0^{(1)}\|_F/\sqrt n\le2D_1R\sigma.
+\]
+These are strictly below one by
+\eqref{cp:eq-legendre-fitting-smallness} and $\sqrt\lambda\le H$.
+Let $Z_\ell$ be the supremum, over queries and stopped horizons, of
+$n^{-1}\int_1^{\tau(t)}\|\partial_\xi h^{(\ell)}(\xi,v)\|^2d\xi$.
+The polynomial endpoint norm on $L^2([0,A])$ is $q/\sqrt A$,
+since the sum of squared normalized basis values at $A$ is
+$\sum_{j<q}(2j+1)/A=q^2/A$. Thus the aggregate backward endpoint
+error is at most $(q+1)D_\ell R$.  By
+\eqref{cp:eq-projection-growth}, \eqref{cp:eq-projection-tail}, and
+\eqref{cp:eq-legendre-defect},
+\[
+ \int_0^t\widehat\rho
+       \|\mathcal E_\ell/\widehat\rho\|_F^2du
+ \le2(1+\sigma)^2D_\ell^2R^2Z_{\ell-1}.
+\]
+Here the forward prefix error is zero,
+$\xi(A-\xi)\le A^2/4$, and $(q+1)/q\le2$.
+The first-layer chain rule and the three later derivative terms
+(gradient update, defect, and propagated feature derivative) now give
+\[
+ Z_1\le4\sigma s^2D_1^2R^2,\qquad
+ Z_\ell\le3s^2\{64\sigma H^4D_\ell^2R^2+
+                 [81+32H^2D_\ell^2R^2]Z_{\ell-1}\}
+          \le C_\ell\sigma R^2.
+\]
+The last step uses $32H^2D_\ell^2R^2<1$.
+Consequently every feature moves in RMS by at most
+$\sqrt{\sigma Z_\ell}\le\sqrt{C_L}\sigma^2\sqrt\lambda
+\le\sqrt\lambda/8$.  This excludes the feature boundary and preserves
+the top Gram gap $\lambda/4$ by singular-value perturbation.
+
+For the pointwise defect use the sharper bounds
+\eqref{cp:eq-projection-endpoint}.  The two endpoint errors are at most
+$65\sqrt qD_\ell R$ and
+$\sqrt{(1+\sigma)/(3q)}\sqrt{Z_{\ell-1}}$, respectively.  Hence
+\begin{equation}
+ \sum_{\ell=2}^L\|\mathcal E_\ell\|_F
+          \le E_*\sqrt\sigma R^2\widehat\rho.
+ \label{cp:eq-legendre-pointwise-defect}
+\end{equation}
+The prediction Jacobian applied to this hidden defect has sample RMS
+at most $2HD_1R\sum\|\mathcal E_\ell\|_F
+\le\lambda\widehat\rho/4$, by the last entry in
+\eqref{cp:eq-legendre-fitting-smallness}. Let $J$ be the Jacobian of
+the training prediction vector in mobility coordinates
+$(W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)$, evaluated at
+the reconstructed state, and put $\Gamma=JJ^\top/m$.
+The mean full tangent Gram then gives
+$\dot{\widehat r}=-2\Gamma\widehat r+J\mathcal E$ with
+$\Gamma\succeq\lambda I/4$.  Thus
+$\dot{\widehat\rho}\le-\kappa\widehat\rho$ and
+$\int_t^T\widehat\rho\le\widehat\rho(t)/\kappa$ on every stopped
+interval.  The clock activity is at most $\sigma/2$.
+
+Let $\mathcal F$ be the dense gradient vector field at the reconstructed
+parameters, in the norm of Lemma~\ref{cp:fit}.  Its squared norm is
+$4\widehat r^\top\Gamma\widehat r/m\ge\lambda\widehat\rho^2$,
+and the defect estimate implies
+$-\partial_t\widehat\rho^2\ge\|\mathcal F\|_{\rm par}^2/2$.
+Multiplying by $e^{\kappa t}$, integrating by parts, and using
+$\widehat\rho\le Ye^{-\kappa t}$ gives
+$\int e^{\kappa t}\|\mathcal F\|_{\rm par}^2dt\le4Y^2$.
+Weighted Cauchy--Schwarz then gives
+$\int\|\mathcal F\|_{\rm par}\le2Y/\sqrt\kappa=R/2$.
+The readout has no defect, so its boundary is excluded as well.
+Every stopped inequality improves strictly.  The integral formulas
+bound all moments at finite $n,q$, proving global continuation.
+Uniqueness excludes a finite first residual zero when $Y>0$, since
+zero residual is an equilibrium of the entire stored-state ODE.
+The integrable gradient and defect lengths yield physical limits;
+the moment equations also have integrable velocities.  This proves
+\eqref{cp:eq-legendre-physical} and fitting at the limit.
+This finishes the local fitting claim. The coefficients $C_j$
+just defined remain private to this construction proof.
+
+\noindent\textbf{Comparison with dense training.}\quad
+Intersect the initialization event and the all-time training-carrier
+bound \eqref{cp:carrier} of \Cref{cp:source}. Set
+$X=\beta^L$, $z=Y/\lambda$, $\chi=1+\lambda^{-1}$,
+$u=\sqrt{\log(en)}$, and $M=32X^{21}zu$.
+Write $\rho_D=\|r\|_2/\sqrt m$ for the dense residual RMS.
+For the backward comparison at any parameter state, define its pre-gated
+training responses by $k_a^{(L)}=w$ and
+$k_a^{(j)}=W^{(j+1)\top}\delta_a^{(j+1)}$ for $j<L$.
+Only actual dense training carriers, not closure carriers or passive
+query carriers, are bounded by $M$.  Throughout this proof
+$z\le X^{-30}$, $X\ge100$. Use the Euclidean mobility coordinates
+$(W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)$,
+whose Euclidean norm is the parameter norm of \Cref{cp:fit}.
+Let $e$ be the Euclidean discrepancy and $D$ the
+sum of its $L+1$ block norms, so $D\le\sqrt{L+1}e$.
+
+We first verify the signed comparison with no reciprocal-gap factor
+inserted into its Jacobian coefficient.  Put $T_0=9s$,
+$R=8z\sqrt\lambda$, $B_\delta=sT_0^{L-1}R$, and define
+\begin{gather*}
+ Q_1=b+9s,\quad Q_\ell=b+9sQ_{\ell-1},\quad
+ Q=\max(1,Q_1,\ldots,Q_L),\\
+ F_{\rm seg}=QT_0^{L-1},\quad P=1+Q(L-1),\\
+ d_0=sT_0^{L-1}(1+B_\delta),\quad
+ d_1=Lt_2F_{\rm seg}T_0^{L-1},\\
+ K_0=\sqrt{L+1}\{Pd_0+[1+(L-1)B_\delta]sF_{\rm seg}\},
+ \qquad K_1=\sqrt{L+1}Pd_1,
+\end{gather*}
+where $t_2=\max\{1,\max_\ell\sup_{|\operatorname{Im}z|\le a/2}
+|\phi_\ell''(z)|\}\le\beta$.
+On the straight parameter segment from dense to closure, matrix and
+readout norms keep their bounds by convexity; linear growth gives
+feature RMS at most $Q$.  Forward subtraction therefore bounds the
+preactivation difference at segment fraction $\vartheta\in[0,1]$ by $F_{\rm seg}\vartheta D$.
+In backward subtraction use
+\[
+ \delta_\vartheta-\delta_D
+ =\phi'(z_\vartheta)\odot(k_\vartheta-k_D)
+       +[\phi'(z_\vartheta)-\phi'(z_D)]\odot k_D.
+\]
+Propagation costs $T_0$, a changed mixer acts on a response of RMS at
+most $B_\delta$, and the changed gate uses only the dense carrier $M$.
+Induction gives response difference at most $(d_0+d_1M)\vartheta D$.
+Writing $f_a(\theta)=f_\theta(x_a)$, the gradient blocks of a training output are
+$\delta_a^{(1)}v_a^\top/\sqrt n$,
+$\delta_a^{(\ell)}h_a^{(\ell-1)\top}/n$, and
+$h_a^{(L)}/\sqrt n$.
+Subtract each hidden product as
+$(\delta_\vartheta-\delta_D)h_\vartheta^\top+\delta_D(h_\vartheta-h_D)^\top$.
+Their block bounds give
+$\|\nabla f_a(\theta_\vartheta)-\nabla f_a(\theta_D)\|
+\le(K_0+K_1M)\vartheta e$.
+Segment integration proves both hypotheses of Lemma~\ref{cp:signed}
+with $K=K_0+K_1M$.  The residual integrals are at most $2z$ and $4z$,
+so for every finite horizon
+\begin{equation}
+ \sup_{t\le T}D(t)\le\mathcal A_n\mathcal D_T,
+ \quad\mathcal A_n=\sqrt{L+1}e^{14(K_0+K_1M)z},
+ \quad\mathcal D_T=\int_0^T\sum_{\ell=2}^L\|\mathcal E_\ell\|_Fdt.
+ \label{cp:eq-legendre-signed}
+\end{equation}
+In particular the carrier contribution is additive in $K$, not
+multiplied once per layer.
+
+Here are coefficient bounds needed to control the forcing.  Their
+dependence on the gap and labels is displayed before any simplification.
+Put $a_0=4z$, $\kappa=\lambda/4$, $F_z=2HT_0^{L-1}$,
+$P_0=1+2H(L-1)$, retain the local coefficients $C_\ell$ defined above, and define
+\begin{align*}
+ B_d&=sT_0^{L-1}(1+B_\delta)+Lt_2F_zT_0^{L-1}M,\\
+ V_z&=2F_zB_\delta P_0,\\
+ V_\delta&=T_0^{L-1}
+   [4sH+4sH(L-1)B_\delta^2+Lt_2MV_z],\\
+ T_1&=2D_1R,\qquad
+ T_\ell=4HD_\ell R+130D_\ell\sqrt{8zC_{\ell-1}}R^2,\\
+ V_1&=sT_1,\qquad V_\ell=s(2HT_\ell+9V_{\ell-1}),
+       \qquad V_h=\max_\ell V_\ell,\\
+ C_c&=4\left(4H^2+D_1^2R^2+
+                    4H^2R^2\sum_{\ell=2}^LD_\ell^2\right)+\lambda/2,\\
+ F_h&=V_ha_0\sqrt{(1+a_0)/2},\\
+ b_0&=\sqrt{1+a_0}(Y/\kappa)V_\delta+2B_\delta\sqrt{a_0},
+       \qquad b_1=2\sqrt{1+a_0}\,C_cB_\delta/\kappa,\\
+ C_f&=2H+RsF_z.
+\end{align*}
+The meanings follow directly from the recursions: $B_dD$ bounds the
+response discrepancy between the two actual trajectories; $V_z\rho_D$
+and $V_\delta\rho_D$ bound dense preactivation and response speeds;
+$V_h\widehat\rho$ bounds closure feature speeds, using
+\eqref{cp:eq-legendre-pointwise-defect}.  Finally
+$\|\partial_t(\widehat r/\widehat\rho)\|_m\le C_c$ follows by
+differentiating the normalized residual and bounding its tangent Gram
+by its trace and its defect by $\lambda\widehat\rho/4$.
+
+We spell out sufficient power bounds to fix the exponential rate.
+The preceding finite recursions imply
+\begin{align}
+ &K_0\le X^9,\quad K_1\le X^{13},\quad
+ 14(K_0+K_1M)z\le X^{10}z+X^{36}z^2u,\nonumber\\
+ &V_h\le X^{20}R,\quad C_c\le X^{11},\quad
+ B_d\le X^{33}(1+zu),\quad V_\delta\le X^{40}(1+zu),\nonumber\\
+ &F_h/Y\le X^{22}z\sqrt\chi,\quad
+ b_0\le X^{42}z(1+zu),\quad b_1\le X^{16}z\sqrt\chi,
+ \quad C_f\le X^7.
+ \label{cp:eq-legendre-ledger}
+\end{align}
+To check the first line, $Q\le X^2$, $F_{\rm seg}\le X^4$,
+$d_0\le2X^3$, $d_1\le X^8$, $P\le X^4$ give the first two
+bounds; insert $M\le32X^{21}zu$ and use $448\le X^2$.
+For the second line, $R\le X^{-27}$, $\sqrt{C_\ell}\le X^8$,
+and $D_\ell\le X^2$ give $T_\ell\le X^{12}R$.
+The $V_\ell$ recursion has forcing at most $2X^{15}R$, propagation
+at most $T_0^L\le X^2$, and at most $L\le X$ terms.
+The trace defining $C_c$ gives its stated bound.
+Also $F_z\le X^5$, $P_0\le X^4$, and $V_z\le2X^{12}R$.
+The non-carrier and carrier terms of $V_\delta$ are at most
+$4LX^5$ and $64LX^{36}Rzu$, respectively; those of $B_d$ are
+at most $2X^3$ and $32LX^{29}zu$.
+For the final line retain the normalization:
+$F_h/Y\le32X^{20}z/\sqrt\lambda$,
+$b_1\le96X^{14}z/\sqrt\lambda$, and
+$b_0\le6X^{40}z(1+zu)+32X^5z^{3/2}$.
+These inequalities imply \eqref{cp:eq-legendre-ledger} because
+$X\ge100$, $z\le1$, and $\lambda^{-1/2}\le\sqrt\chi$.
+In particular
+\begin{equation}
+ \mathcal A_n\le eX e^u,
+ \qquad \log\mathcal A_n=O_{\rm problem}(\sqrt{\log(en)}).
+ \label{cp:eq-legendre-exponent}
+\end{equation}
+The universal coefficient of $u$ follows from $X^{36}z^2\le1$;
+no extra power of $m/\gamma$ occurs in that exponent.
+
+By \eqref{cp:eq-projection-tail}, the forward history tail on
+$[0,A]$, $A\le1+a_0$, has aggregate RMS $L^2$ norm at most $F_h/q$:
+use its clock derivative bound $V_h$ and
+$\int_1^A\xi(A-\xi)d\xi\le A(A-1)^2/2$.
+For the backward history compare it with
+$\widetilde b_a(\tau(t))=
+(\widehat r_a/\widehat\rho)\delta_{D,a}(t)$, with zero prefix.
+Its physical derivative has aggregate RMS at most
+$C_cB_\delta+V_\delta\rho_D$.
+Freeze it after $t_q=2\log q/\kappa$ (or the current horizon if
+earlier).  Since $A-\tau(t)\le\widehat\rho(t)/\kappa$, the weighted
+derivative energy cancels the inverse clock speed and is at most
+\[
+ \frac{1+a_0}{\kappa}
+ \left[2t_qC_c^2B_\delta^2+
+       2V_\delta^2\int_0^{t_q}\rho_D(t)^2dt\right].
+\]
+The frozen tail is therefore at most
+$(b_1\sqrt{\log q}+\sqrt{1+a_0}(Y/\kappa)V_\delta)/q$.
+The freezing error is at most
+$2B_\delta\sqrt{a_0}e^{-\kappa t_q/2}
+=2B_\delta\sqrt{a_0}/q$.
+The difference between closure and dense response histories contributes
+at most $B_d\sqrt{a_0}\sup_{t\le T}D(t)$; the normalized residual has
+sample norm one.  All aggregate history norms here use the factor
+$(mn)^{-1/2}$.
+
+Use Cauchy--Schwarz in samples and then in $dA=\widehat\rho\,dt$
+in \eqref{cp:eq-legendre-defect}.  The initial projection errors vanish,
+so \eqref{cp:eq-projection-growth} gives
+\begin{equation}
+ \mathcal D_T\le2(L-1)F_h\left[
+ \frac{b_0+b_1\sqrt{\log q}}{q^2}
+ +\frac{B_d\sqrt{a_0}\sup_{t\le T}D(t)}q\right].
+ \label{cp:eq-legendre-absorption}
+\end{equation}
+For
+$q\ge q_{\rm abs}:=4(L-1)F_hB_d\sqrt{a_0}\mathcal A_n$,
+\eqref{cp:eq-legendre-signed} absorbs the last term with factor
+at most one half.  Whole-sphere forward/readout subtraction costs
+$C_fD$.  The coefficients do not depend on $T$, so increasing horizons
+and the already constructed physical limits yield
+\[
+ \|f_{\rm Leg}-f_n\|_*
+ \le\frac{4(L-1)C_f\mathcal A_nF_h}{q^2}
+                         (b_0+b_1\sqrt{\log q}).
+\]
+By the ledger its numerator divided by $Y$ is at most
+$eX^{75}z^2\chi(1+zu)e^u\sqrt{\log(eq)}$.
+The cap and $\lambda\le H^2\le X^4$ imply $Y\le X^{-26}\le1$,
+so $z\le\lambda^{-1}\le\chi$.  Consequently
+\begin{equation}
+ \|f_{\rm Leg}-f_n\|_*
+ \le C Y\chi^6 e^{\sqrt{\log(en)}}
+       \frac{\sqrt{\log(en)\log(eq)}}{q^2}\qquad(q\ge q_{\rm abs}).
+ \label{cp:eq-legendre-forward}
+\end{equation}
+This enlargement preserves the displayed sample/gap power without
+spending the label cap to reduce it.  All coefficients except
+$\mathcal A_n$ grow at most polynomially in $u$, hence
+$q_{\rm abs}=n^{o(1)}$ for the fixed problem.  The prescribed order
+\eqref{cp:eq-legendre-order} eventually exceeds it.  Since
+$m/\gamma\ge1$, $\chi\le2m/\gamma$, and
+$\log(eq)\le C\log(en)$ eventually, substitution proves
+\eqref{cp:eq-legendre-accuracy}.  The count follows from
+\eqref{cp:eq-legendre-count}; $nd$ and rounding are absorbed only after
+taking sufficiently large width for the fixed problem.  One event
+supports every order used here, so no order-dependent failure union is
+needed.  All initialization data are the specified dense initialization
+and initialized training features.
+\end{proof}
+
+\section{An actual dense-trajectory fluctuation}
+\label{cp:dense-lower-section}
+
+\begin{lemma}[Derivative to trajectory]
+\label{cp:derivative-transfer}
+Let $r>0$ and $M\ge0$. If the scalar function $g$ is holomorphic on a
+neighborhood of the filled parameter-two
+Bernstein ellipse for $[0,r]$ and bounded there by $M$, then for every
+integer $N\ge1$,
+\begin{equation}
+ \sup_{0\le t\le r}|g(t)|
+       \ge\frac r{2N^2}|g'(0)|-24M2^{-N}.
+ \label{cp:eq-derivative-transfer}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Set $t=r(x+1)/2$.  The Joukowski map
+$x=(z+z^{-1})/2$ and Cauchy's coefficient formula give Chebyshev
+coefficients $|a_k|\le2M2^{-k}$.  The degree-$N$ truncation has
+uniform tail at most $2M2^{-N}$; its physical derivative tail at zero
+is at most
+$4M r^{-1}2^{-N}(N^2+4N+6)$, by summing
+$\sum_{k>N}k^22^{-k}$.
+For a degree-$N$ polynomial, including complex coefficients,
+$|P'(-1)|\le N^2\|P\|_{[-1,1]}$.
+Indeed interpolate at $x_j=\cos(j\pi/N)$: the endpoint derivative
+weights have alternating signs, and their absolute sum equals
+$|T_N'(-1)|=N^2$ by evaluating on $T_N(x_j)=(-1)^j$.
+The sign assertion follows directly from the products defining the
+Lagrange basis; the endpoint weight is
+$\sum_{j<N}(-1-x_j)^{-1}<0$.
+Apply this inequality to the truncation, include the physical factor
+$2/r$, and add the two tails.  Rearranging gives error coefficient
+$4+8/N+12/N^2\le24$, as required.
+\end{proof}
+
+\begin{proposition}[Positive-time dense variability]
+\label{cp:dense-lower}
+Under the assumptions of \Cref{cp:setup}, for every fixed $0<\delta<1$,
+there is a constant
+$c_{\phi,L,\delta}>0$, depending only on the activations, depth and
+this confidence, such that all sufficiently large individual widths satisfy
+\begin{equation}
+ \Pr\left\{\|f_n-\widetilde f_n\|_{\mathcal X}
+       \ge c_{\phi,L,\delta}\frac{Y\sqrt\gamma}
+              {\sqrt n[\log(en)]^{5/2}}\right\}\ge1-\delta.
+ \label{cp:eq-dense-lower}
+\end{equation}
+This holds for either the whole sphere or any declared panel containing
+the training inputs.  The witness is at a positive training time;
+no endpoint lower bound is asserted.
+\end{proposition}
+
+\begin{proof}
+All moments and fluctuation variables introduced here are private to this
+proof. Let $G\sim N(0,1)$, define
+\[
+ \mu_{2,j}=Q^{(j)}_{11}\quad(j=L-1,L),\qquad
+ \mu_4=\mathbb E\phi_L(\sqrt{\mu_{2,L-1}}G)^4,
+\]
+and write $\Phi$ for the standard normal distribution function.
+Let $Z\sim N(0,Q^{(L-1)})$, $U_a=\phi_L(Z_a)$ and
+$Q=\mathbb E UU^\top=Q^{(L)}$. We first establish the innovation and
+conditional fluctuation needed below, then convert an initial derivative
+into a positive-time trajectory separation.
+
+\begin{claim}[A final-layer innovation]
+\label{cp:innovation}
+For $m\ge2$ and $Y>0$, some deterministic training index $a_*$ satisfies
+\begin{equation}
+ \operatorname{Var}\{U_{a_*}(U^\top y)\}
+       \ge\frac{\gamma^3\mu_{2,L}}{16\mu_4}Y^2>0.
+ \label{cp:eq-innovation}
+\end{equation}
+\end{claim}
+\emph{Verification.}
+All fourth moments are finite by linear growth.  The positive gap gives
+$\mu_{2,L}>0$ and $\mu_4>0$.  Put $c=Qy$, $A=\|c\|$,
+$T=\operatorname{tr}Q$, $M_4=\mathbb E\|U\|^4$, and
+$D=T-c^\top Qc/A^2>0$.  The last inequality holds because $m\ge2$
+and $Q\succeq\gamma I$.  For $V=\mathbb E\|U(U^\top y)-c\|^2$,
+the squared-area identity gives
+\[
+ A^2\|U\|^2-(c^\top U)^2
+ \le\|U(U^\top y)-c\|^2\|U\|^2.
+\]
+Splitting at $\|U\|=R_0$ yields
+$A^2D\le R_0^2V+A^2M_4/R_0^2$.
+Choose $R_0^2=2M_4/D$ to obtain
+$V\ge[y^\top Q^2(TI-Q)y]^2/(4M_4\|Qy\|^2)$.
+Here $M_4\le m^2\mu_4$ and $T=m\mu_{2,L}$.
+Every eigenvalue $x$ of $Q$ lies in
+$[\gamma,T-(m-1)\gamma]$.  Thus, for
+$N=y^\top Q^2(TI-Q)y$,
+\[
+ N\ge(m-1)\gamma\|Qy\|^2,\qquad
+ N\ge\gamma^2(T-\gamma)\|y\|^2.
+\]
+The second uses
+$x(T-x)-\gamma(T-\gamma)=(x-\gamma)(T-\gamma-x)\ge0$
+and then $x\ge\gamma$.  Multiplying these lower bounds gives
+\[
+ V\ge\frac{(m-1)\gamma^3(m\mu_{2,L}-\gamma)}{4m^2\mu_4}\|y\|^2
+ \ge\frac{\gamma^3\mu_{2,L}}{16\mu_4}\|y\|^2,
+\]
+because $\gamma\le\mu_{2,L}$ and $(m-1)^2/m^2\ge1/4$.
+At least one of the $m$ coordinate variances is at least $V/m$,
+which proves \eqref{cp:eq-innovation}.
+
+\begin{claim}[Conditional scalar fluctuation]
+\label{cp:scalar-fluctuation}
+For the index in the preceding local claim, put
+$g_n(t)=f_n(t,x_{a_*})-\widetilde f_n(t,x_{a_*})$, where the two
+dense initializations are independent.  There is a fixed $s_*>0$ with
+\begin{equation}
+ s_*^2\ge\frac{\gamma^3\mu_{2,L}Y^2}{2m^2\mu_4},\qquad
+ \liminf_{n\to\infty}\Pr\{\sqrt n|g_n'(0)|\ge u s_*\}
+       \ge2[1-\Phi(u)]\quad(u>0),
+ \label{cp:eq-scalar-fluctuation}
+\end{equation}
+where $\Phi$ is the standard normal distribution function.
+\end{claim}
+\emph{Verification.}
+Let $\mathcal F_n$ contain both initializations through layer $L-1$.
+Their training empirical Grams converge to $Q^{(L-1)}$ by
+\eqref{cp:eq-initial-gram-limit} of \Cref{cp:fit}, including when this
+matrix is singular.
+Conditionally on $\mathcal F_n$, the last-layer preactivation rows of
+each run are independent Gaussian vectors. Applying $\phi_L$ gives
+independent feature vectors, generally non-Gaussian; the two groups are
+also independent.
+For either run write $U_{i,a}=h_{0,i}^{(L)}(v_a)$ for its initialized
+top-layer feature entries. The zero readout gives exactly
+\[
+ \dot f_n(0,x_a)=\frac2{mn}\sum_{i=1}^n U_{i,a}(U_i^\top y).
+\]
+Write $v_* =\operatorname{Var}[U_{a_*}(U^\top y)]>0$ and
+$s_*^2=8v_*/m^2$.  Conditional variances of the row products converge
+to $v_*$: couple their Gaussian vectors with the continuous covariance
+square root and dominate the fourth-degree products by Gaussian
+polynomials.  Their centered absolute third moments are uniformly
+bounded on bounded covariance sets, since linear growth requires only
+Gaussian sixth moments.
+
+For a centered row product $X$, Taylor's remainder gives
+$|\mathbb E(e^{itX/\sqrt n}\mid\mathcal F_n)
+-1+t^2\mathbb E(X^2\mid\mathcal F_n)/(2n)|
+\le |t|^3\mathbb E(|X|^3\mid\mathcal F_n)/(6n^{3/2})$.
+Raise this identity to the $n$th power in each of the two independent
+groups.  It proves that the conditional law of
+$Z_n=\sqrt n(g_n'(0)-\mathbb E[g_n'(0)\mid\mathcal F_n])$
+converges weakly in probability to $N(0,s_*^2)$.
+To justify this random-law statement, every subsequence has a further
+subsequence on which both covariance matrices converge almost surely;
+the preceding characteristic-function calculation and the continuity
+theorem then apply deterministically on almost every such outcome.
+For a continuous limiting CDF, weak convergence is uniform in its
+argument: choose finite grids with small Gaussian CDF increments and
+small tails, and use monotonicity between grid points.  Therefore the
+conditional Kolmogorov distance $d_n$ tends to zero in probability,
+and $\mathbb E d_n\to0$ since $0\le d_n\le1$.
+
+For any $\mathcal F_n$-measurable shift $b_n$, a centered Gaussian has
+its largest interval probability at the interval centered at zero.
+Consequently
+\[
+ \Pr\{|Z_n+b_n|\le us_*\mid\mathcal F_n\}
+ \le2\Phi(u)-1+2d_n.
+\]
+The Gaussian assertion follows by differentiating the interval mass
+with respect to its center and using the even, decreasing Gaussian
+density.  Take
+$b_n=\sqrt n\,\mathbb E[g_n'(0)\mid\mathcal F_n]$ and average.
+This proves \eqref{cp:eq-scalar-fluctuation}; previous layers may
+produce an arbitrary shift and cannot increase the limiting small-ball
+probability.  No recursive matrix central limit theorem is needed.
+
+\noindent\textbf{From the derivative to the trajectory.}\quad
+Use the finite-query conclusion \eqref{cp:finite-time} of
+\Cref{cp:source} for the two runs and the finite training query list.
+Put $\lambda=\gamma/m$, $\ell=\log(en)$ and
+$r=1/(\lambda\sqrt\ell)$. Each run is bounded there by
+$16\beta^{6L}Y/\lambda$, so their difference has twice this bound.
+The parameter-two ellipse of $[0,r]$ has real projection
+$[-r/8,9r/8]$ and imaginary projection $[-3r/8,3r/8]$, and hence lies
+inside the supplied rectangle.  On its event, $g_n$ is bounded by
+$32\beta^{6L}Y/\lambda$.  Choose
+$N=\lceil2\ell/\log2\rceil\le4\ell$.
+Lemma~\ref{cp:derivative-transfer} gives
+\[
+ \sup_{0\le t\le r}|g_n(t)|
+ \ge\frac{|g_n'(0)|}{32\lambda\ell^{5/2}}
+       -\frac{768\beta^{6L}Y}{\lambda n^2}.
+\]
+For fixed $u>0$, the second term is eventually at most half the first
+on $|g_n'(0)|\ge us_*/\sqrt n$.  The two source failures tend to zero;
+no independence from the derivative event is required.  Thus
+the conditional fluctuation claim gives a limiting lower probability
+at least $2[1-\Phi(u)]$ for threshold
+$us_*/(64\lambda\sqrt n\ell^{5/2})$.
+Insert the lower bound on $s_*$, use $\lambda=\gamma/m$ and
+$1/(64\sqrt2)\ge1/128$, and choose
+$u=\Phi^{-1}(1/2+\delta/4)$.  The limiting probability is at least
+$1-\delta/2$, leaving a strict margin to obtain $1-\delta$ eventually.
+Since $g_n(0)=0$, a positive threshold on the compact witness interval
+requires a strictly positive time.  That training query belongs to
+each promised domain.  At its fitted endpoint the predictions equal
+the same label, consistently with the asserted scope.
+The asserted constant can therefore be chosen as the following local
+quantity:
+\[
+ c_{\phi,L,\delta}=
+ \frac{\Phi^{-1}(1/2+\delta/4)}{128}
+ \sqrt{\frac{\mu_{2,L}}{\mu_4}}>0.
+\]
+Its moment ratio depends only on the activations and depth, as required.
+\end{proof}

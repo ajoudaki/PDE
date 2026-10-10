@@ -1,0 +1,103 @@
+{
+  "scope": "Unified compact-paper and selected older-result assembly; not promotion approval",
+  "sources": [
+    {
+      "role": "compact_theory",
+      "source": "paper/compact.tex",
+      "snapshot": "compact.tex",
+      "sha256": "47199d5c9e374b80b9eafefd60699c2f4bfe06dde00ebd0a1c53e2805598a0c4",
+      "bytes": 13061
+    },
+    {
+      "role": "compact_theory",
+      "source": "paper/compact_fitting.tex",
+      "snapshot": "compact_fitting.tex",
+      "sha256": "6efe077759c846c4b3d79f999c37d2d1478bae549d49fc9666837efbf9f1a01f",
+      "bytes": 10189
+    },
+    {
+      "role": "compact_theory",
+      "source": "paper/compact_foundations.tex",
+      "snapshot": "compact_foundations.tex",
+      "sha256": "6a49f8e35bb637416b7e330f7ace06286e482c942302bf57a46c8253a4cffbf0",
+      "bytes": 67863
+    },
+    {
+      "role": "compact_theory",
+      "source": "paper/compact_legendre.tex",
+      "snapshot": "compact_legendre.tex",
+      "sha256": "862aa37139ad9af67ac04b52949f838031e91077021b2da9060244d36ab4e0f9",
+      "bytes": 32334
+    },
+    {
+      "role": "compact_theory",
+      "source": "paper/compact_selected.tex",
+      "snapshot": "compact_selected.tex",
+      "sha256": "3add2b694f38a4d7dbce90e51dafd375a7e8dee2e06d26b2d5af451bddb44885",
+      "bytes": 47843
+    },
+    {
+      "role": "established_contract",
+      "source": "docs/notation.qmd",
+      "snapshot": null,
+      "sha256": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023",
+      "bytes": 5386
+    },
+    {
+      "role": "established_contract",
+      "source": "docs/index.qmd",
+      "snapshot": null,
+      "sha256": "f7a21b794e21f145ebad87fb1d7bde05f5f55e5877c92440109c1b22232b06de",
+      "bytes": 16261
+    },
+    {
+      "role": "established_contract",
+      "source": "code/README.md",
+      "snapshot": null,
+      "sha256": "eff216bb238d7d1a406ad4d628a66b3e9dee9ace5b47ef7082b5037d5c41cda5",
+      "bytes": 70272
+    }
+  ],
+  "supporting_sources": [
+    {
+      "source": "paper/figures/capture_trajectory.py",
+      "sha256": "199a05d6ceba1ada532dd2db13774c9529424525cffdf3655e5aefa67639b0e3",
+      "scope": "validation_data toy branch; _experiment_data MNIST branch; defaults and data validation"
+    },
+    {
+      "source": "paper/figures/compression_experiment.json",
+      "sha256": "28fe038a72bb35a42698c84d8853a4c8e0eb3c45d1486f79fbda529eb59827be",
+      "scope": "complete data configuration"
+    },
+    {
+      "source": "paper/scripts/figures.py",
+      "sha256": "2c6e6385fd4add52ae3af2c589bf7f291914aaab6e4eb71a4047f8a484704c0a",
+      "scope": "radial and sphere encodings; source functions identified in VISUALS.md"
+    },
+    {
+      "source": "paper/scripts/README.md",
+      "sha256": "fab5bdb4b5e6f38c65332958bb118dc67dc156aa64b6bc748c07f91721eede21",
+      "scope": "data contracts and radial/sphere sections"
+    },
+    {
+      "source": "paper/interactive/README.md",
+      "sha256": "805e899fb9641043d3ff891fe7bbeaa206364c64c4134d7d66712128e10efd2c",
+      "scope": "offline time/model control design; no archived data copied"
+    },
+    {
+      "source": "paper/README.md",
+      "sha256": "7c0ba06997ad654be97743952a1325e5f695d06580dcdc4ca902e4d9259b448c",
+      "scope": "dataset and implementation scope"
+    },
+    {
+      "source": "docs/notation.qmd",
+      "sha256": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023",
+      "scope": "normalized model inputs and notation"
+    },
+    {
+      "source": "paper/interactive/circle_explorer.html",
+      "sha256": "39b857a0ea2c8b4081bdebfc0c8f1bffba8dfc640de42489bdeb985524f5ae37",
+      "scope": "Original multi-experiment radial UI and inlined D3; campaign payload removed; adapter and interpretation documented in RADIAL.md"
+    }
+  ]
+}

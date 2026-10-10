@@ -1,0 +1,338 @@
+{
+  "approval": "I approve the promotion",
+  "recorded_at": "2026-10-10T11:11:51.063703+00:00",
+  "packet": "promotion_packet_v5.tar.gz",
+  "packet_sha256": "a8882cd38656089f9a29aa7c23f7f119d0ea809ca5ff289fcbb6102e863be15a",
+  "before_head": "1dba30ab2b1f728247b9b93b93a4df9f772886c4",
+  "changes": [
+    {
+      "source": "edition/code/COMPRESSION.md",
+      "destination": "code/COMPRESSION.md",
+      "before_sha256": null,
+      "sha256": "ee0e45144c46184d45eb74c6b4dcab88a6e6c4d86c4060ea38ecf379a682e202"
+    },
+    {
+      "source": "edition/code/COMPRESSION_DATA.md",
+      "destination": "code/COMPRESSION_DATA.md",
+      "before_sha256": null,
+      "sha256": "189c0a7ffd62364d47d3670f9667f9f83af0ff7fb09c9ff1c3d4c0a2c400f346"
+    },
+    {
+      "source": "edition/code/OBSERVABLE_DICTIONARIES.md",
+      "destination": "code/OBSERVABLE_DICTIONARIES.md",
+      "before_sha256": null,
+      "sha256": "807e679baa162ea151e419fef58e0bb570fb253a7e54307f27c9cc61c861ad87"
+    },
+    {
+      "source": "edition/code/PREDICTION_VIEWS.md",
+      "destination": "code/PREDICTION_VIEWS.md",
+      "before_sha256": null,
+      "sha256": "ea1cce40fcc7d253309351e0e2a0e0c9b9fe1ab4ac79f3fbf36c59dbc31979d5"
+    },
+    {
+      "source": "edition/code/RADIAL_EXPLORER.md",
+      "destination": "code/RADIAL_EXPLORER.md",
+      "before_sha256": null,
+      "sha256": "c15d04bad246ab801ded97674fdb205cd7f38423ef1890855ad5732d53873f18"
+    },
+    {
+      "source": "edition/code/README.md",
+      "destination": "code/README.md",
+      "before_sha256": "eff216bb238d7d1a406ad4d628a66b3e9dee9ace5b47ef7082b5037d5c41cda5",
+      "sha256": "b038f6033e8e387c602b0e7947ab08a793fb825f179d5afa161d6c12d4495807"
+    },
+    {
+      "source": "edition/code/pde/compression.py",
+      "destination": "code/pde/compression.py",
+      "before_sha256": null,
+      "sha256": "92ec3c763f8fe11c197ef1370963f16ed8f047287adcd1a25f255d0fb58315da"
+    },
+    {
+      "source": "edition/code/pde/compression_data.py",
+      "destination": "code/pde/compression_data.py",
+      "before_sha256": null,
+      "sha256": "12b8e9c351d368660f8655587e05e828fee4608e369c5ce128c982c19f5557d6"
+    },
+    {
+      "source": "edition/code/pde/observable_dictionaries.py",
+      "destination": "code/pde/observable_dictionaries.py",
+      "before_sha256": null,
+      "sha256": "4ac8d595f8250e8e2e90cb12e9ad83c61dfb50210057f07060b2a551fe05d5b3"
+    },
+    {
+      "source": "edition/code/pde/prediction_views.py",
+      "destination": "code/pde/prediction_views.py",
+      "before_sha256": null,
+      "sha256": "9f1fa503ed0f4a60e63c0cdda80ea33b9b443be8993c722e52b32ed0a6af2e5f"
+    },
+    {
+      "source": "edition/code/pde/radial_explorer.html",
+      "destination": "code/pde/radial_explorer.html",
+      "before_sha256": null,
+      "sha256": "390499a83fcaba395614cebf31dc2935b072aa0b9cfbd7cdd5832fe8fc08296c"
+    },
+    {
+      "source": "edition/code/pde/radial_explorer.py",
+      "destination": "code/pde/radial_explorer.py",
+      "before_sha256": null,
+      "sha256": "61412b5c2202a1ed45f49c56ce2092da5234c2fd231119f3bc796833fc903506"
+    },
+    {
+      "source": "edition/code/scripts/example_compression.py",
+      "destination": "code/scripts/example_compression.py",
+      "before_sha256": null,
+      "sha256": "90df9f20cef5fb0964b8b09ee7a1970695fbeeb98ba2641adbd316eef8279435"
+    },
+    {
+      "source": "edition/code/scripts/example_radial_explorer.py",
+      "destination": "code/scripts/example_radial_explorer.py",
+      "before_sha256": null,
+      "sha256": "706636fcd3868dc2b6f4f19efce073d31fdf17433df8ba917b3222c865d9f525"
+    },
+    {
+      "source": "edition/code/tests/test_compression.py",
+      "destination": "code/tests/test_compression.py",
+      "before_sha256": null,
+      "sha256": "d21b4d83343dbfb7c80d88797bd46ae4508280af42d8411245bac22a23a7f757"
+    },
+    {
+      "source": "edition/code/tests/test_compression_data.py",
+      "destination": "code/tests/test_compression_data.py",
+      "before_sha256": null,
+      "sha256": "24115018f7f1231bc2b1bdcb8ccb8096bf067e75d0b0837008006cc00bda11d7"
+    },
+    {
+      "source": "edition/code/tests/test_observable_dictionaries.py",
+      "destination": "code/tests/test_observable_dictionaries.py",
+      "before_sha256": null,
+      "sha256": "149b3d8be11fed0689b1d8e0389d6e3ab057924b750952277bfdafdfbceb8457"
+    },
+    {
+      "source": "edition/code/tests/test_prediction_views.py",
+      "destination": "code/tests/test_prediction_views.py",
+      "before_sha256": null,
+      "sha256": "4d808ba2bb1a8e832685d09f6a843987eb969044bbe4eac08962d5f6ddead4f7"
+    },
+    {
+      "source": "edition/code/tests/test_radial_data.py",
+      "destination": "code/tests/test_radial_data.py",
+      "before_sha256": null,
+      "sha256": "4db24ee6165e6d00144fb0a77664052a0f60d951e0bf002090171962a8e6db58"
+    },
+    {
+      "source": "edition/code/tests/test_radial_viewer.py",
+      "destination": "code/tests/test_radial_viewer.py",
+      "before_sha256": null,
+      "sha256": "a37a4e2ab0e301bd8069146e1e9c2e2cce53e1c3c81e37168e6dadad85702c0a"
+    },
+    {
+      "source": "edition/code/tools/check_library.py",
+      "destination": "code/tools/check_library.py",
+      "before_sha256": "7e57e54dd1978ae093b29be9b027da917cb9ead8be43d17aa89feb3d7f76c7f8",
+      "sha256": "c47052910683fff26a448f854a55a5f1378346836b9a8c03cccadc373d794054"
+    },
+    {
+      "source": "edition/code/tools/two_layer_risk/README.md",
+      "destination": "code/tools/two_layer_risk/README.md",
+      "before_sha256": "cdc21dbe3d62187700f2504d05ff3562e80b0f9836018fbc58f913d31b6870d6",
+      "sha256": "ad842c0921e88e996b999d52b8c4614961655fe5857b2329670de1911e5ee221"
+    },
+    {
+      "source": "edition/docs/08b-trajectory-compression.qmd",
+      "destination": "docs/08b-trajectory-compression.qmd",
+      "before_sha256": null,
+      "sha256": "4aeaa51c0da24b65acf8b26edb4c4437dbb5dee14a3f336034de7c787faa6571"
+    },
+    {
+      "source": "edition/docs/09-trainability.qmd",
+      "destination": "docs/09-trainability.qmd",
+      "before_sha256": "b2f57e5adf7e0314bc738d99b7f959caa0037287ce5844fbbab39de63914bcc1",
+      "sha256": "2bd293017b66125c00f3ed338117affcc4d21977b707229091cc80e6c722e477"
+    },
+    {
+      "source": "edition/docs/10-correlated-pairs.qmd",
+      "destination": "docs/10-correlated-pairs.qmd",
+      "before_sha256": "375655f8ef4324488af10f2726231310010748de11758af725c182bd375f39d7",
+      "sha256": "d07a14b99a51daf1a0c8c95414d28c1ca3cabcb07ad22a6bcc7d8231096e4a05"
+    },
+    {
+      "source": "edition/docs/11-shape-and-depth.qmd",
+      "destination": "docs/11-shape-and-depth.qmd",
+      "before_sha256": "19c3d7156ab2bf1129f7d5f13b2b2c3f4a651e058d0bae09f54dd2d962be8d01",
+      "sha256": "81014ee297553b03fa17669b9e30840723f7334b4dbbf4d9f85b11ef5760c3d8"
+    },
+    {
+      "source": "edition/docs/12-three-sample-learning.qmd",
+      "destination": "docs/12-three-sample-learning.qmd",
+      "before_sha256": "06d6e45f1d7d6c280fb0c5dcac3303b49d56bec4d4a7df632cd73af5091d1d15",
+      "sha256": "6811e9e8c0557416920c9a1bd8a144807c4f3a9d4aaac134259130c81c7f148d"
+    },
+    {
+      "source": "edition/docs/13-predictor-selection.qmd",
+      "destination": "docs/13-predictor-selection.qmd",
+      "before_sha256": "885acf561e679b3ae996085064b219ca9e589bbd97c3f6e8791730a240919c74",
+      "sha256": "4a866037ab9bfb1ac9940ccefdc70ad347def651545ef0bd33dedc044c05808d"
+    },
+    {
+      "source": "edition/docs/14-generalization.qmd",
+      "destination": "docs/14-generalization.qmd",
+      "before_sha256": "d1971b7763650ef7bfc6bf8c10045b777791a4b48525f9591a6e3fefa147d2e6",
+      "sha256": "2d1cddf57aea48ca596b2b2b3072e3fee5bc42f84223f6951cfe5cb8b396b766"
+    },
+    {
+      "source": "edition/docs/_quarto.yml",
+      "destination": "docs/_quarto.yml",
+      "before_sha256": "12ef8e7d50f800165b31170182d0a9d7034b59ec42ce5e207c939993a58d434a",
+      "sha256": "2195d36a6f5b1c82a874dc82e872767f606c8544c9f8a6c70b01fe31dc5136f7"
+    },
+    {
+      "source": "edition/docs/index.qmd",
+      "destination": "docs/index.qmd",
+      "before_sha256": "f7a21b794e21f145ebad87fb1d7bde05f5f55e5877c92440109c1b22232b06de",
+      "sha256": "f9f46a53c71d7cc87d4848ab9f79a3d10df73f3f3ef5c7cb6ff47b07b19105d8"
+    },
+    {
+      "source": "edition/docs/package_code_links.py",
+      "destination": "docs/package_code_links.py",
+      "before_sha256": null,
+      "sha256": "9b6013ee40957732da7ce4b8e7f2cae019eeae77b3adb15799de7833a1e8fdd2"
+    },
+    {
+      "source": "edition/docs/print_code_links.lua",
+      "destination": "docs/print_code_links.lua",
+      "before_sha256": null,
+      "sha256": "5540e06477f1030e25013e86e0028a3ac853889d26bb4fa1f5b1921903774745"
+    }
+  ],
+  "validation": {
+    "status": "PASS",
+    "evidence": "data/generated/book_promotion_20261010/live_promotion_check/check_results.json",
+    "evidence_sha256": "ecc32d55548fb634e6d79f6b6ba3f0675c674b386f111722d8e26424375d6354",
+    "live_files_matched": 103,
+    "tests_passed": 54,
+    "tests_skipped": 0,
+    "examples_passed": 2,
+    "checks": [
+      {
+        "name": "example_compression",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "/home/amir/Codes/PDE/code/scripts/example_compression.py",
+          "--out",
+          "/home/amir/Codes/PDE/data/generated/book_promotion_20261010/live_promotion_check/example_compression/output"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "example_radial_explorer",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "/home/amir/Codes/PDE/code/scripts/example_radial_explorer.py",
+          "--out",
+          "/home/amir/Codes/PDE/data/generated/book_promotion_20261010/live_promotion_check/example_radial_explorer/output"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "promotion_validate",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "/home/amir/Codes/PDE/studies/book_promotion_20261010/promotion_validate.py",
+          "/home/amir/Codes/PDE"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "test_compression",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/home/amir/Codes/PDE/code/tests",
+          "-p",
+          "test_compression.py",
+          "-v"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "test_compression_data",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/home/amir/Codes/PDE/code/tests",
+          "-p",
+          "test_compression_data.py",
+          "-v"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "test_observable_dictionaries",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/home/amir/Codes/PDE/code/tests",
+          "-p",
+          "test_observable_dictionaries.py",
+          "-v"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "test_prediction_views",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/home/amir/Codes/PDE/code/tests",
+          "-p",
+          "test_prediction_views.py",
+          "-v"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "test_radial_data",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/home/amir/Codes/PDE/code/tests",
+          "-p",
+          "test_radial_data.py",
+          "-v"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "test_radial_viewer",
+        "argv": [
+          "/home/amir/miniconda3/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/home/amir/Codes/PDE/code/tests",
+          "-p",
+          "test_radial_viewer.py",
+          "-v"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "source_correspondence": "All 103 maintained book/code files match the approved packet"
+}

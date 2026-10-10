@@ -1,5 +1,7 @@
 project:
   type: book
+  post-render:
+    - python package_code_links.py
 
 book:
   title: "PDE: population dynamics of deep learning"
@@ -18,6 +20,7 @@ book:
       chapters:
         - 07-observable-closure.qmd
         - 08-autonomous-computation.qmd
+        - 08b-trajectory-compression.qmd
     - part: "III. Nonlinear learning and inductive bias"
       chapters:
         - 09-trainability.qmd
@@ -35,20 +38,27 @@ crossref:
   chapters: false
 
 classoption: enabledeprecatedfontcommands
-header-includes:
-  - \usepackage{mathtools}
-  - \usepackage{fvextra}
-  - \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true}
-  - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}}
 format:
   html: default
   pdf:
+    header-includes:
+      - \usepackage{mathtools}
+      - \usepackage{fvextra}
+      - \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true}
+      - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}}
     pdf-engine: xelatex
     keep-tex: true
     latex-auto-install: false
     latex-tinytex: false
     filters:
       - pdf_breakable_tables.lua
+      - print_code_links.lua
   latex:
+    header-includes:
+      - \usepackage{mathtools}
+      - \usepackage{fvextra}
+      - \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true}
+      - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}}
     filters:
       - pdf_breakable_tables.lua
+      - print_code_links.lua

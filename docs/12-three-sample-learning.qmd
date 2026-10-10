@@ -1,4 +1,4 @@
-# 12. Three-sample learning and activation design {#ch-three-sample-learning}
+# 13. Three-sample learning and activation design {#ch-three-sample-learning}
 
 The three-sample constructions reveal how activation design sustains learning across the proved depth regimes. The bounded-shape and large-gain families are presented together so that their mechanisms and restrictions can be compared.
 
@@ -4718,6 +4718,115 @@ $$
 Adding the two contributions proves the coefficient 18. Because every hidden block is nonzero, $\|V\|_{\mathrm{hidden}}>0$, and the projected total kernel strictly increases from its initial value at all sufficiently small positive physical times. This is the actual kernel along training, with no scalar-clock or permutation argument.
 
 <!-- moved verbatim from special-data-limits.qmd:30580-30616; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
+
+## Uniform fitting of cyclic triples in a fixed-order closure {#sec-fixed-closure-cyclic-triples}
+
+There is a complementary three-sample result for the exact order-one
+closure of [the fixed-order model](09-trainability.qmd#sec-fixed-closure-model). Here the activation is fixed as
+$\tanh$, the input dimension is three, and the two hidden layers use
+@eq-fixed-closure-p1-marks. The conclusion is about this fixed-order
+population flow, separately from the dense-network and depth results in
+the preceding sections.
+
+::: {#thm-fixed-closure-cyclic-triples}
+Let $P$ cyclically permute the three coordinates. For every $u\in S^2$,
+train on the equally weighted inputs
+$\sqrt3u,\sqrt3Pu,\sqrt3P^2u$, all with target $+1$, from
+$(w,c,M)_0=(g,0,D)$. Define the fixed initialized quantity
+
+$$
+k_*:=\min_{u\in S^2}\mathbb E_2\left[
+ \frac13\sum_{j=0}^2\tanh\{b_2^\top P^jDa_0(u)\}\right]^2.
+$$ {#eq-fixed-closure-cyclic-constant}
+
+Then $k_*>0$, and every such full flow satisfies
+$\dot{\mathcal L}\le-4k_*\mathcal L$,
+$\mathcal L(t)\le e^{-4k_*t}$, and converges to an actual fitted
+endpoint. Bounds on $w-g,c$ in supremum norm and $M$ in Frobenius norm
+can be chosen uniformly over $u$. Compatible repeated inputs are included.
+Simultaneously negating any subset of the inputs and their labels preserves
+all these conclusions and the complete trajectory.
+:::
+
+[]{#proof-fixed-closure-cyclic-triples}
+
+::: {.proof}
+By @lem-fixed-closure-initial-map,
+$z(u):=Da_0(u)=\ell_2(F_0(u_1),F_0(u_2),F_0(u_3))^\top$ is continuous
+and nonzero on the unit sphere, and $z(P^ju)=P^jz(u)$.
+For any nonzero $z\in\mathbb R^3$ put
+$\ell_j(b)=b^\top P^jz$. The analytic function
+$U_z(b)=\frac13\sum_{j=0}^2\tanh\ell_j(b)$ is not identically zero
+near $b=0$. If $z_1+z_2+z_3\ne0$, its linear Taylor term is nonzero.
+Otherwise $\ell_0+\ell_1+\ell_2=0$, so
+
+$$
+\ell_0^3+\ell_1^3+\ell_2^3=3\ell_0\ell_1\ell_2\not\equiv0.
+$$ {#eq-fixed-closure-cyclic-cubic}
+
+Each linear factor is nonzero because $P^jz\ne0$, and a product of
+nonzero polynomials is nonzero. Since
+$\tanh t=t-t^3/3+O(t^5)$, the cubic term is nonzero in this case.
+Positive upper density on the open cube then gives
+$\mathbb E_2U_{z(u)}(b_2)^2>0$ for every $u$. This expectation is
+continuous in $u$ by dominated convergence, using $|U_z|\le1$.
+Compactness of $S^2$ proves that the minimum in
+@eq-fixed-closure-cyclic-constant is strictly positive.
+
+To verify the dynamical symmetry, let $S_1$ and $S_2$ permute their
+respective Gaussian coordinates by $P$, and set
+$P_1=\operatorname{diag}(P,P)$. Then
+$b_1\circ S_1=P_1b_1$, $b_2\circ S_2=Pb_2$ and
+$PD=DP_1$. The isometry
+
+$$
+(w,c,M)\longmapsto
+(P^\top w\circ S_1,c\circ S_2,P^\top MP_1)
+$$ {#eq-fixed-closure-cyclic-isometry}
+
+fixes initialization and sends $f(v)$ to $f(Pv)$, as direct changes of
+variables in the two populations verify. The equally weighted data loss
+and $F=\frac13\sum_{j=0}^2f(P^ju)$ are invariant. Uniqueness therefore
+keeps all three predictions equal along both the initialized ascent and
+physical flows. With
+$U=\frac13\sum_jH^{(2)}(P^ju)$, the exact full physical equation is
+$\dot X=2(1-F)\nabla F$. The initialized number
+$C_0=\mathbb E_2U_0^2$ is at least $k_*$.
+Apply @lem-fixed-closure-scalar-clock to obtain the stated rate and an
+endpoint at ascent time $s_*\le1/k_*$. The bounds
+@eq-fixed-closure-ascent-bounds are uniform because the feature envelopes,
+$D$, and this upper bound on $s_*$ do not depend on $u$.
+
+Finally $f(-v)=-f(v)$ at every state. Negating a labeled pair $(v,y)$
+changes its residual to its negative and its prediction gradient to its
+negative, so the loss and every parameter velocity remain unchanged.
+This proves the last assertion without introducing another symmetry
+assumption.
+:::
+
+For a concrete range of geometries put
+
+$$
+u_\theta=\cos\theta\frac{(1,1,1)}{\sqrt3}
+ +\sin\theta\frac{(2,-1,-1)}{\sqrt6},\qquad
+0\le\theta\le\pi/2.
+$$ {#eq-fixed-closure-cyclic-opening}
+
+The normalized input Gram of $u_\theta,Pu_\theta,P^2u_\theta$ has
+eigenvalues $3\cos^2\theta$ and $\tfrac32\sin^2\theta$ twice.
+Indeed the common coordinate direction contributes the rank-one
+$\cos^2\theta$ matrix, while the three planar components sum to zero,
+have unit lengths and pairwise inner products $-1/2$. Every interior
+triple is independent; the first endpoint has three equal inputs and the
+second is a planar $120$-degree triple. The same $k_*$ works throughout.
+At the planar endpoint, negate the last input and label. Then
+$x_3=x_1+x_2$, the labels are $(1,1,-1)$, and the label-weighted first
+input moment is zero. A homogeneous linear predictor fitting the first
+two labels would give value two at $x_3$, whereas the initialized nonlinear
+closure fits all three. This comparison is with homogeneous linear
+predictors. The mixed label masses are $2/3$ and $1/3$; no stability
+under arbitrary rotations, unequal weights or independent perturbations
+is asserted.
 
 ## Scope of the completed families {#sec-docs-special-data-limits-l27238}
 

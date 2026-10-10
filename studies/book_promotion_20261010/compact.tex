@@ -1,0 +1,295 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs,array,longtable,enumitem,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{bookmark}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}{Claim}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\od}{\mathbin{\odot}}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\HS}{\mathrm{HS}}
+\newcommand{\Law}{\operatorname{Law}}
+\setlist{itemsep=2pt,topsep=4pt,parsep=0pt}
+\setlength{\emergencystretch}{1.5em}
+\allowdisplaybreaks[2]
+\setcounter{tocdepth}{1}
+\title{Compressing Global Dynamics of Deep Nonlinear Feature Learning\\
+  \large A theorem-focused proof}
+\author{Amir Joudaki}
+\date{October 9, 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We give a modular proof of three trajectory-compression constructions for
+Gaussian-initialized deep nonlinear networks with learned hidden features.
+Legendre compression retains $n^{5/4+o(1)}$ moving coordinates and fixed dense
+mixers. Harmonic compression retains $O((\log n)^{3d+2})$ real coordinates
+for the whole input sphere. Taylor compression retains
+$O((\log n)^3)$ real coordinates on a fixed panel declared at initialization.
+All three have error negligible relative to actual independent dense-run
+variability, uniformly over their query domain and the complete training
+trajectory, including the fitted limit. The two selected constructions also
+attain absolute error $Y/n$. The common ingredients are finite residual
+activity, analytic response approximation, and geometry-preserving reduction;
+the selected dynamics use an additional readout correction to cancel unstable
+feedback. This copy isolates the theorem and its proof: it makes no empirical,
+finite-precision, or efficient-preprocessing claim.
+\end{abstract}
+
+\section{Setup and the headline theorem}
+\label{cp:setup}
+
+There are $m\ge2$ training pairs $(x_a,y_a)$ with
+$x_a\in\R^d$, $\norm{x_a}_2=\sqrt d$, width $n$, and a fixed number
+$L\ge2$ of hidden layers. Write $v=x/\sqrt d$. The first matrix is
+$W^{(1)}\in\R^{n\times d}$, the hidden matrices are
+$W^{(\ell)}\in\R^{n\times n}$, and the readout is $w\in\R^n$.
+The activation may depend on the layer; the superscript is suppressed when
+the same equation applies to every layer. When a response is indexed by
+the normalized query $v$, its network input is $x=\sqrt d\,v$.
+The canonical network is
+\begin{align}
+ z^{(1)}(x)&=W^{(1)}v,&
+ z^{(\ell)}(x)&=W^{(\ell)}h^{(\ell-1)}(x),&
+ h^{(\ell)}(x)&=\phi_\ell(z^{(\ell)}(x)),\nonumber\\
+ f_n(x)&=\frac{w^\top h^{(L)}(x)}n,&
+ r_a&=f_n(x_a)-y_a,&
+ \cL&=\frac1m\sum_{a=1}^m r_a^2.
+ \label{cp:network}
+\end{align}
+The residual-free backward responses are
+\begin{equation}
+ \delta_a^{(L)}=w\od\phi_L'(z_a^{(L)}),\qquad
+ \delta_a^{(\ell)}=\phi_\ell'(z_a^{(\ell)})\od
+                W^{(\ell+1)\top}\delta_a^{(\ell+1)}.
+ \label{cp:backward}
+\end{equation}
+At a passive input use the same forward and backward recursions, without
+supplying a label or adding a training term.
+Dots denote physical training time. Gradient flow with block mobilities
+$(n,1,\ldots,1,n)$ is exactly
+\begin{align}
+ \dot W^{(1)}&=-\frac2m\sum_a r_a\delta_a^{(1)}v_a^\top,
+ \nonumber\\
+ \dot W^{(\ell)}&=-\frac2{nm}\sum_a
+          r_a\delta_a^{(\ell)}h_a^{(\ell-1)\top}\quad(2\le\ell\le L),
+ &\dot w&=-\frac2m\sum_a r_a h_a^{(L)}.
+ \label{cp:flow}
+\end{align}
+First-layer entries are independent $\mathcal N(0,1)$; hidden entries are
+independent $\mathcal N(0,1/n)$; all blocks are independent; and $w(0)=0$.
+Nothing freezes the hidden features.
+
+\paragraph{Activations, data, and constants.}
+Each $\phi_\ell$ is real on the real axis, holomorphic on
+$|\operatorname{Im}z|<a$ for a common $a>0$, and has bounded first derivative
+on that strip. Its values need not be bounded. For explicit estimates put
+\[
+ \beta=\max\left\{10,1+\max_\ell|\phi_\ell(0)|,16/a,
+ \max_{\ell,\,j\in\{1,2\}}
+ \sup_{|\operatorname{Im}z|\le a/2}|\phi_\ell^{(j)}(z)|\right\}.
+\]
+The second derivative is bounded on the smaller strip by Cauchy's formula.
+Define the uncentered population feature Gram and the label scale by
+\begin{gather}
+ Q^{(0)}_{ab}=v_a^\top v_b,\qquad
+ Q^{(\ell)}_{ab}=\E[\phi_\ell(Z_a)\phi_\ell(Z_b)],\quad
+ Z\sim\mathcal N(0,Q^{(\ell-1)}),\nonumber\\
+ \gamma=\lambda_{\min}(Q^{(L)})>0,\qquad
+ Y=\norm{y}_2/\sqrt m>0.
+ \label{cp:data}
+\end{gather}
+Assume $m/\gamma\ge1$ and the same sufficient small-label condition
+\begin{equation}
+ 0<Y\le\frac\gamma m\beta^{-30L}.
+ \label{cp:labels}
+\end{equation}
+No input-rank, centering, orthogonality, or label-sign hypothesis is imposed.
+All data, $m,d,L,\gamma,Y$, and activations are fixed separately as $n$ grows.
+Throughout the stated bounds, $C>0$ depends only on activations and depth, never on
+$n,m,d,\gamma,Y$ or a passive-panel size. Its value may change between occurrences.
+All other constants are defined in the statement or proof using them.
+
+\paragraph{Query domains and probability.}
+For a query set $\mathcal X$, use
+\begin{equation}
+ \norm{f-g}_{\mathcal X}
+   =\sup_{t\in[0,\infty]}\sup_{x\in\mathcal X}|f(t,x)-g(t,x)|.
+ \label{cp:norm}
+\end{equation}
+The endpoint $t=\infty$ means the fitted limit. For Legendre and Harmonic,
+$\mathcal X=\{x:\norm{x}_2=\sqrt d\}$. For Taylor, fix $p\ge0$
+additional inputs on this same sphere before initialization and take
+$\mathcal X=\{x_1,\ldots,x_{m+p}\}$. Their labels are never supplied.
+Let $\widetilde f_n$ be an independently initialized dense run on the same
+training problem.
+
+An eventual assertion at confidence $1-\delta$ means: for every fixed
+admissible problem and $0<\delta<1$, there is a finite width threshold such
+that the assertion holds at each larger individual width. That threshold
+may depend on every fixed problem parameter, including the positive $Y$,
+and is not proved polynomial or practically small. No simultaneous event
+over infinitely many independently initialized widths, uniform growing-data
+limit, or uniform limit as $Y\downarrow0$ is asserted. For a ratio below,
+missing fitted limits or a zero denominator count as failure.
+
+All neural-network statements below inherit this setup and these probability
+conventions. Every storage count charges a nonprimitive activation evaluator's
+description and scratch separately.
+
+\paragraph{What must be remembered.}
+The following is the complete persistent notation. A row with several entries
+counts each entry separately; layer and sample indices do not create new
+objects. The two uses of $\delta$ are counted separately.
+\begin{center}\small
+\begin{tabular}{@{}p{0.24\linewidth}p{0.65\linewidth}r@{}}
+\toprule
+Symbols&Meaning&Count\\
+\midrule
+$n,m,d,L,p$&width, training count, dimension, depth, passive count&5\\
+$x,v=x/\sqrt d,y,t$&input, normalized input, labels, physical time&4\\
+$W,w,z,h,r,\delta_a^{(\ell)}$&weights, readout, preactivations, features,
+ residuals, backward responses&6\\
+$\phi,a,\beta,Q,\gamma,Y$&activations, strip, envelope, population Gram,
+ gap, label RMS&6\\
+$\cL,\mathcal X,\|\cdot\|_{\mathcal X}$&loss, query domain, trajectory norm&3\\
+$\delta,C$&failure probability, activation/depth constant&2\\
+$f_n,\widetilde f_n,f_{\rm model}$&dense, independent dense, compressed predictor&3\\
+\midrule
+&&29\\
+\bottomrule
+\end{tabular}
+\end{center}
+Subscripts naming a compression method specialize $f_{\rm model}$. Ordinary
+mathematical operations and bound indices have their usual meanings.
+Every other symbol is bound to the statement and proof that introduce it:
+it can be forgotten afterward. In particular, approximation orders, clocks,
+source spaces, selected metrics, and numerical ledgers are not additional
+global notation. Later arguments use the stated conclusions, not private
+coefficients from their proofs.
+
+\begin{theorem}[Compression of the complete learning trajectory]
+\label{cp:headline}
+Under the preceding assumptions, each construction can be chosen so that
+\begin{equation}
+ \frac{\norm{f_{\rm model}-f_n}_{\mathcal X}}
+      {\norm{f_n-\widetilde f_n}_{\mathcal X}}
+       \xrightarrow{\mathbb P}0.
+ \label{cp:relative}
+\end{equation}
+Here $f_n$ is the construction's coupled ordinary dense reference, and both
+norms use the same promised query domain and all physical times, including
+the fitted endpoint. Sufficient real-coordinate counts are
+\begin{align}
+ \textnormal{Legendre moving state:}\quad&
+ Cm\left(\frac m\gamma\right)^3 n^{5/4}
+ [\log(en)]^2e^{\sqrt{\log(en)}/2},
+ \label{cp:legendre-size}\\
+ \textnormal{Harmonic total state:}\quad&
+ C(m+d)^2+\left(\frac Cd\right)^{d+1}
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^{3d+2},
+ \label{cp:harmonic-size}
+\end{align}
+and the Taylor total state is at most
+\begin{equation}
+ \begin{split}
+ C(m+p)^2\bigg[&
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^3
+       \\ &+\left(\frac m\gamma\right)^2[\log(en)]^2
+                     [\log(e+\log(en))]^2\bigg]
+       +C(m+p)d.
+ \end{split}
+ \label{cp:panel-size}
+\end{equation}
+Legendre additionally retains $(L-1)n^2$ fixed mixer coordinates.
+Harmonic and Taylor include the data, selected mixers, metrics, initial
+copies, and working arrays. Their predictions additionally satisfy
+\begin{equation}
+ \norm{f_{\rm model}-f_n}_{\mathcal X}\le Y/n
+ \label{cp:absolute}
+\end{equation}
+at every fixed confidence for sufficiently large width, with the same
+storage orders. The theoretical initializers use the dense initialization,
+training data, and finitely many initialization derivatives; no later trained
+weight or dense training trajectory is an input. Subsequent evolution is an
+autonomous nonlinear system with the retained state.
+\end{theorem}
+
+These are sufficient sizes, not optimality claims. Dense itself has
+$(L-1)n^2+n(d+1)$ weight coordinates. Data storage is additional to the
+Legendre moving-state count. Coordinate counts do not bound precision or
+preprocessing time.
+The finite-panel theorem makes no accuracy promise on inputs first supplied
+after initialization. Zero labels give the stationary zero predictor instead.
+
+\paragraph{Proof architecture.}
+First establish fitting and finite residual activity without a source
+approximation. A common probabilistic source lemma then controls forward and
+backward responses on the two analytic domains. Legendre approximates their
+history integrals. The other two methods share one geometry-preserving
+selection and one corrected nonlinear optimizer; only their finite source
+bases differ. A last-layer innovation and a deterministic analytic estimate
+give a dense lower bound at a training input. The final section combines
+these ingredients. Every dependency of that argument is supplied below;
+the older decoder, numerical setup-cost alternatives and empirical material
+are outside this theorem-focused copy.
+
+\input{compact_fitting}
+\input{compact_foundations}
+\input{compact_legendre}
+\input{compact_selected}
+
+\section{Assembly of the headline theorem}
+\label{cp:assembly}
+\begin{proof}[Proof of \Cref{cp:headline}]
+The preceding constructions provide the stated retained counts and
+initialization-only provenance. Here we verify the probabilistic comparison,
+whose reference is actual dense variability rather than an upper bound.
+Fix a confidence budget $0<\delta_0<1$. By \Cref{cp:dense-lower}, for
+sufficiently large width,
+\[
+ \Pr\left\{\norm{f_n-\widetilde f_n}_{\mathcal X}
+ \ge c_{\phi,L,\delta_0}
+       \frac{Y\sqrt\gamma}{\sqrt n[\log(en)]^{5/2}}\right\}
+ \ge1-\delta_0.
+\]
+Its witness is a training input, so the same lower bound applies on either
+promised domain. The source and fitting events give all required limits.
+The Legendre order of \Cref{cp:legendre} gives error at most
+$CY/(\sqrt n[\log(en)]^3)$; its ratio to the displayed lower bound is
+at most a fixed-problem, fixed-confidence multiple of
+$[\log(en)]^{-1/2}$. For the two selected models,
+\Cref{cp:harmonic,cp:panel} give error at most $Y/n$, and the corresponding
+ratio is at most
+\[
+ \frac{[\log(en)]^{5/2}}
+ {c_{\phi,L,\delta_0}\sqrt{\gamma n}}\longrightarrow0.
+\]
+Intersecting each approximation event with the lower event costs at most
+$2\delta_0$ by the union bound, without any independence requirement.
+For every fixed positive ratio tolerance the limiting superior of its failure
+probability is therefore at most $2\delta_0$. Letting $\delta_0\downarrow0$
+proves \eqref{cp:relative}, including the stated failure convention.
+For \eqref{cp:absolute}, use the selected-model event at the requested
+confidence. The label assumption stays fixed throughout; no label inequality
+is used to reduce a displayed sample/gap power.
+\end{proof}
+
+\end{document}

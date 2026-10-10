@@ -12,6 +12,20 @@ A separate module evaluates finite quadratic/identity and differentiated RMS
 models. Their narrower contracts
 are stated below; they are not a general symbolic population compiler.
 
+## Optional compression, datasets and prediction views
+
+Explicitly import `pde.compression` for the Torch Dense, Legendre and
+selected-coordinate models; `pde.observable_dictionaries` adapts initialized
+finite carriers to the existing closure engine. Their numerical source builders
+are **not a certified global initialization-only compiler**. See the complete
+[compression contract and commands](COMPRESSION.md) and
+[dictionary contract](OBSERVABLE_DICTIONARIES.md).
+
+[Datasets](COMPRESSION_DATA.md), [array prediction views](PREDICTION_VIEWS.md)
+and the [offline radial explorer](RADIAL_EXPLORER.md) are separate NumPy-only
+modules. Static plots opt into Matplotlib; explicit MNIST loading opts into
+TorchVision. Ordinary `import pde` remains NumPy-only.
+
 ## Model and normalization
 
 Inputs `X` have shape `(d,m)` with samples in columns. `Parameters.weights`
@@ -597,7 +611,7 @@ matrix examples, and rational polynomial identities.
 
 The opt-in [two-layer risk certificate tool](tools/two_layer_risk/README.md)
 supports the computer-assisted sign proof in
-[the scoped comparison in Chapter 14](../docs/14-generalization.qmd#sec-docs-global-nonlinear-l21578). It certifies one fixed
+[the scoped test-risk comparison](../docs/14-generalization.qmd#sec-docs-global-nonlinear-l21578). It certifies one fixed
 coefficient for exactly two tanh hidden layers, the canonical Gaussian
 initialization and mobilities, three correlated training inputs, and the
 uniform-circle teacher `cos(3 alpha)`. It includes the training-loss clock

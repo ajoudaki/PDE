@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "scope": "Finite-carrier initialized dictionaries p=1..9 and maintained dimension-general population p=1; historical reports reconciled without loading old arrays. No campaign reproduction or promotion.",
+  "sources": [
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/README.md",
+      "sha256": "24e18eec0588639ede89133d2874ed21cf7794d087dc6c3aad4a3680a2bbcaf0",
+      "role": "historical_report",
+      "read_scope": "complete"
+    },
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/SCALING_RESULTS.md",
+      "sha256": "b60a6ca610deb2644f640902cd936277a65da766865d6e380ee25ddc26f7d2ff",
+      "role": "historical_report",
+      "read_scope": "complete"
+    },
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/SCALING_ASSESSMENT.md",
+      "sha256": "40c4228c5ec448e78f6b412c6cd1f70ff8590c8ab26d7a3bb67003a6627aa178",
+      "role": "historical_report",
+      "read_scope": "complete"
+    },
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/SCALING_WIDTH4096_RESULTS.md",
+      "sha256": "f8426e56889f7ae6482f130cd7f48e56450c4069b4488275856f5495af0fbee0",
+      "role": "historical_report",
+      "read_scope": "complete"
+    },
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/MATCHED_NETWORK_RESULTS.md",
+      "sha256": "1dd09df6f2fcba0aa473be29f1b0fd39898330475c40f3b27f682f9d454f09af",
+      "role": "historical_report",
+      "read_scope": "complete"
+    },
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/benchmark.py",
+      "sha256": "1957eeeb7dd415c6fca4311dcea2d1c88e9e1c5e679aafea94053390fb140f0a",
+      "role": "extraction_source",
+      "read_scope": "complete"
+    },
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/diverse_dictionary.py",
+      "sha256": "969064679b7a386915b202885a8a81f0e503011d6fa4eee1cc3b06082f27c27d",
+      "role": "extraction_source",
+      "read_scope": "complete"
+    },
+    {
+      "path": "studies/random_dictionary_learned_circle_20260920/scaling_dictionary.py",
+      "sha256": "4945a2d4705159cec938fcd585b0d366cc4c75311728bf2ed00824f677bf0520",
+      "role": "extraction_source",
+      "read_scope": "complete"
+    },
+    {
+      "path": "code/pde/observable_torch_p1.py",
+      "sha256": "d67f0d832d265e75925f0020c42ab4d8e1dd3387e7e485412eff946ae5d20f1f",
+      "role": "maintained_runtime_dependency",
+      "read_scope": "complete"
+    },
+    {
+      "path": "code/pde/finite_torch.py",
+      "sha256": "76d87cb0ddd25e974acf85935dc8fbfc8bc4a9eb829d5e60782e64d20e4f55a8",
+      "role": "maintained_runtime_dependency",
+      "read_scope": "complete"
+    },
+    {
+      "path": "code/pde/observable_words.py",
+      "sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5",
+      "role": "maintained_runtime_dependency",
+      "read_scope": "complete"
+    },
+    {
+      "path": "code/pde/observable_p1_initialization.py",
+      "sha256": "65ded7e9faa352612fb833735d3075cbe41c0b24a535bf742d1fc86849aded6d",
+      "role": "maintained_runtime_dependency",
+      "read_scope": "complete"
+    },
+    {
+      "path": "code/pde/observable_initialization.py",
+      "sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+      "role": "maintained_word_definition",
+      "read_scope": "build_dictionary and complete dependencies through line 157; population initialization excerpt for distinction only"
+    },
+    {
+      "path": "code/pde/finite_network.py",
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "role": "maintained_dense_initializer",
+      "read_scope": "initialize, Parameters and complete validation dependencies through line 173"
+    },
+    {
+      "path": "code/README.md",
+      "sha256": "eff216bb238d7d1a406ad4d628a66b3e9dee9ace5b47ef7082b5037d5c41cda5",
+      "role": "maintained_api_contract",
+      "read_scope": "finite model/API, finite autonomous and numerical observable closures, Torch circle backend"
+    },
+    {
+      "path": "code/GENERAL_P1.md",
+      "sha256": "6eab7abf57530cae3c4669ad9cecb9cfadaa42f4b638d70ae742ce5334f55b74",
+      "role": "maintained_general_d_api_contract",
+      "read_scope": "complete"
+    },
+    {
+      "path": "docs/index.qmd",
+      "sha256": "f7a21b794e21f145ebad87fb1d7bde05f5f55e5877c92440109c1b22232b06de",
+      "role": "maintained_book_orientation",
+      "read_scope": "complete"
+    },
+    {
+      "path": "docs/notation.qmd",
+      "sha256": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023",
+      "role": "maintained_notation",
+      "read_scope": "complete"
+    },
+    {
+      "path": "docs/07-observable-closure.qmd",
+      "sha256": "792aadb9fed6cf0e988ae5376c559bed14cbb0cdb2566fb29ad30c6d4d9fc6d2",
+      "role": "maintained_theory_context",
+      "read_scope": "C.4.7.9 statement and dictionary construction, lines 4704-4785"
+    },
+    {
+      "path": "docs/08-autonomous-computation.qmd",
+      "sha256": "72224d6c545531a768e090ac24b681c58046de0a42b37105a9a6ad51316c8b54",
+      "role": "maintained_polynomial_definition",
+      "read_scope": "polynomial core, ridge, dimensions, action normalization and nesting, lines 3140-3350"
+    },
+    {
+      "path": "paper/compact.tex",
+      "sha256": "47199d5c9e374b80b9eafefd60699c2f4bfe06dde00ebd0a1c53e2805598a0c4",
+      "role": "relationship_scope_only",
+      "read_scope": "setup through initialization, lines 1-100"
+    },
+    {
+      "path": "paper/compact_selected.tex",
+      "sha256": "3add2b694f38a4d7dbce90e51dafd375a7e8dee2e06d26b2d5af451bddb44885",
+      "role": "relationship_scope_only",
+      "read_scope": "selected model source metric, initial arrays, readout correction and equations, lines 1-240"
+    },
+    {
+      "path": "paper/compact_legendre.tex",
+      "sha256": "862aa37139ad9af67ac04b52949f838031e91077021b2da9060244d36ab4e0f9",
+      "role": "relationship_scope_only",
+      "read_scope": "Legendre history model reconstruction, updates and storage, lines 1-170"
+    },
+    {
+      "path": "code/pde/observable_solver.py",
+      "sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605",
+      "role": "maintained_native_population_api",
+      "read_scope": "initialization, model equations, validation and public API; small p2/p3 CPU smoke"
+    },
+    {
+      "path": "code/pde/observable_torch_circle.py",
+      "sha256": "4fa63eb6abdd1c8573abfa1a7dc0a107d13ec669ae078659e8298cd517000430",
+      "role": "maintained_native_population_api",
+      "read_scope": "initialization, model equations, validation and public API; small p2/p3 CPU smoke"
+    }
+  ],
+  "generated_data": [
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/primary01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/refinement01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/analysis01",
+      "present": true,
+      "kind": "analysis",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/diverse_primary01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/diverse_refined01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/diverse_analysis01",
+      "present": true,
+      "kind": "analysis",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/scaling_discovery_analysis01",
+      "present": true,
+      "kind": "analysis",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/scaling_confirm1_analysis02",
+      "present": true,
+      "kind": "analysis",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/scaling_confirm2_analysis03",
+      "present": true,
+      "kind": "analysis",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_primary01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_refined01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_extra01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_analysis02",
+      "present": true,
+      "kind": "analysis",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/matched_network_primary01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/matched_network_refined01",
+      "present": true,
+      "kind": "raw_trajectory_directory",
+      "loaded": false
+    },
+    {
+      "path": "data/generated/random_dictionary_learned_circle_20260920/matched_network_analysis01",
+      "present": true,
+      "kind": "analysis",
+      "loaded": false
+    }
+  ],
+  "validation": {
+    "command": "PYTHONPATH=code:studies/book_promotion_20261010 PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/amir/miniconda3/bin/python -B studies/book_promotion_20261010/test_dictionary_core.py",
+    "device": "cpu",
+    "dtype": "float64",
+    "historical_arrays_loaded": false,
+    "new_training_campaign": false,
+    "report": "data/generated/book_promotion_20261010/dictionaries/validation.json"
+  }
+}

@@ -1,0 +1,241 @@
+\section{Initialization, fitting, and a signed perturbation estimate}
+\label{cp:fitting-section}
+
+\begin{lemma}[Initialization and real fitting]
+\label{cp:fit}
+For this lemma put
+\[
+ H=\max_{0\le j\le L}\sqrt{Q^{(j)}_{11}},\qquad
+ \mathsf H(t)=[h^{(L)}(t,v_1),\ldots,h^{(L)}(t,v_m)].
+\]
+For the parameter tuple
+$\theta=(W^{(1)},\ldots,W^{(L)},w)$ use the norm
+\[
+\|\theta\|_{\mathrm{par}}^2
+ =\|W^{(1)}\|_F^2/n+\sum_{j=2}^L\|W^{(j)}\|_F^2+\|w\|^2/n.
+\]
+The initialized training Grams satisfy
+\begin{equation}
+ \left(\frac{h_0^{(j)}(v_a)^\top h_0^{(j)}(v_b)}n\right)_{a,b=1}^m
+ \xrightarrow{\mathbb P}Q^{(j)}
+ \qquad(1\le j\le L).
+ \label{cp:eq-initial-gram-limit}
+\end{equation}
+With probability tending to one,
+\begin{equation}
+ \begin{gathered}
+ \frac{\|W_0^{(1)}\|_{\mathrm{op}}}{\sqrt n}\le8,\qquad
+ \max_{2\le j\le L}\|W_0^{(j)}\|_{\mathrm{op}}\le8,\\
+ \sup_{\|v\|=1,\,1\le j\le L}\frac{\|h_0^{(j)}(v)\|}{\sqrt n}
+ \le\frac{3H}{2},\qquad
+ \frac{\mathsf H_0^\top\mathsf H_0}{mn}\succeq\frac{\gamma}{2m}I_m.
+ \end{gathered}
+ \label{cp:eq-initialization-event}
+\end{equation}
+On this event the flow is global, converges in parameters, fits the labels,
+and satisfies, for all $t\ge0$,
+\begin{gather}
+ \begin{gathered}
+ \frac{\|W^{(1)}(t)\|_{\mathrm{op}}}{\sqrt n}<9,\qquad
+ \max_{2\le j\le L}\|W^{(j)}(t)\|_{\mathrm{op}}<9,\\
+ \sup_{\|v\|=1,\,1\le j\le L}\frac{\|h^{(j)}(t,v)\|}{\sqrt n}<2H,\qquad
+ \frac{\mathsf H(t)^\top\mathsf H(t)}{mn}\succeq\frac{\gamma}{4m}I_m
+ \end{gathered}
+ \label{cp:eq-real-tube}\\
+ \begin{gathered}
+ \frac{\|r(t)\|_2}{\sqrt m}\le Ye^{-\gamma t/(2m)},\qquad
+ \frac{\|w(t)\|}{\sqrt n}\le2Y\sqrt{\frac m\gamma},\\
+ \int_t^\infty\|\dot\theta(u)\|_{\mathrm{par}}\,du
+       \le\frac{2\|r(t)\|_2}{\sqrt\gamma}.
+ \end{gathered}
+ \label{cp:eq-dense-tail}
+\end{gather}
+The output converges uniformly on the sphere, with
+\begin{equation}
+ \sup_{\|v\|=1}|f_n(\infty,v)-f_n(t,v)|
+ \le C\frac m\gamma\frac{\|r(t)\|_2}{\sqrt m}.
+ \label{cp:eq-dense-output-tail}
+\end{equation}
+These assertions hold jointly for all rectangular cavities deleting any
+fixed bounded number of coordinates per layer, with the original width-$n$
+variances, flow factors, and denominators unchanged.
+\end{lemma}
+
+\begin{proof}
+All auxiliary coefficients in this proof are local. Put
+$\lambda=\gamma/m$, $\rho=\|r\|_2/\sqrt m$,
+\[
+ s=\max\left\{1,\max_j\sup_{|\operatorname{Im}z|\le a/2}
+ |\phi_j'(z)|\right\},\qquad b=\max_j|\phi_j(0)|,
+\]
+and retain $H$ as defined in this lemma's statement. Thus
+$|\phi_j(z)|\le b+s|z|$ on the half strip. Define
+\begin{align}
+ D_j&=s(9s)^{L-j},&
+ U_1&=D_1,& U_j&=2HD_j\quad(j\ge2),\nonumber\\
+ F_1&=sU_1,&F_j&=s(2HU_j+9F_{j-1}),&F&=F_L.
+ \label{cp:eq-fitting-coefficients}
+\end{align}
+Equal input norms give $Q^{(j)}_{aa}=Q^{(j)}_{11}$, hence
+$\lambda\le H^2$. The coefficients satisfy
+\begin{equation}
+ H\le(2\beta)^L,\qquad
+ F=s^2\left[(9s)^{2L-2}+4H^2\sum_{j=0}^{L-2}(9s)^{2j}\right],
+ \qquad8H\sqrt F\le\beta^{5L}.
+ \label{cp:eq-fitting-powers}
+\end{equation}
+The first inequality follows from Minkowski's inequality and
+$\sqrt{Q^{(j)}_{11}}\le b+s\sqrt{Q^{(j-1)}_{11}}$.
+For the last, summing the geometric series gives
+$F\le(21/20)H^2s^2(9s)^{2L-2}$, and then
+$8H\sqrt F\le H^2(9s)^L\le36^L\beta^{3L}\le\beta^{5L}$.
+Consequently the assumed cap
+$Y\le\lambda\beta^{-30L}$ implies
+$Y\le\lambda/(8H\sqrt F)$, which will close the real-flow estimates.
+
+A maximal $1/4$-separated subset of the unit sphere in $\mathbb R^k$
+has at most $9^k$ points: disjoint radius-$1/8$ balls fit inside the
+radius-$9/8$ ball.  Approximating each side of a maximizing bilinear
+pair gives $\|M\|_{\mathrm{op}}\le2\max|u^\top Mv|$ over these nets.
+Each pairing for $W_0^{(\ell)}$, $\ell\ge2$, or
+$W_0^{(1)}/\sqrt n$ is $N(0,1/n)$.  The exponential Gaussian tail and
+a union bound prove the operator assertions, with failure bounded by
+$2(L-1)e^{-(8-2\log9)n}+2e^{-(8-\log9)n+d\log9}$.
+
+On any fixed finite query list, condition on the preceding initialized
+layers.  Each next empirical Gram is an average of independent
+Gaussian-row feature products, with conditional mean
+$\Psi_\ell(C)_{ab}=\mathbb E\phi_\ell(Z_a)\phi_\ell(Z_b)$,
+$Z\sim N(0,C)$.  On bounded covariance sets the conditional variances
+are bounded, by linear growth and Gaussian fourth moments.  Moreover
+$\Psi_\ell$ is continuous on the entire positive semidefinite cone:
+write $Z=C^{1/2}G$ with a standard Gaussian vector $G$ of the matching
+dimension, use continuity of the positive square root, and
+dominate by a fixed Gaussian polynomial.  Conditional Chebyshev and
+induction therefore prove convergence of each empirical Gram to
+$Q^{(\ell)}$, including when intermediate covariances are singular.
+Apply this to the training inputs and a fixed sphere net of mesh
+$h\le H/[4(8s)^L]$.  On the operator event the initialized layer-$\ell$
+feature map, in neuron RMS, is $(8s)^\ell$-Lipschitz.  Its norm at net
+points is eventually at most $\sqrt{5/4}H$, with probability tending to
+one; the off-net increment is at most $H/4$.  This proves the sphere
+bound and the training Gram assertion in
+\eqref{cp:eq-initialization-event}.
+
+Here is also a uniform justification for the cavity assertion, without
+a union bound over deletion sets.  On a sphere net of mesh $n^{-2}$,
+the preceding RMS bounds and conditional Gaussian tails give
+$\max_{i,\ell,v}|h_{0,i}^{(\ell)}(v)|=O(\sqrt{\log(en)})$
+with probability tending to one.  The net has only a fixed power of $n$
+points; the coordinate Lipschitz bound is at most
+$\sqrt n(8s)^\ell$, so the same bound holds off the net.  Zero-extend
+each cavity's features into $\mathbb R^n$.  At a deleted layer, at most
+a fixed number of original coordinates are removed.  At an undeleted
+coordinate the activation difference is at most $s$ times the
+preactivation difference.  Thus successive RMS differences are bounded
+by $8s$ times the preceding difference plus
+$O(\sqrt{\log(en)/n})$.  At fixed depth their supremum, simultaneously
+over all such cavities and sphere queries, tends to zero.  Submatrix
+operator norms do not increase.  Taking strictly smaller initial
+feature and Gram margins before this comparison gives
+\eqref{cp:eq-initialization-event} for every cavity.  This also shows
+directly that each cavity's training Gram has the same limit $Q^{(L)}$.
+
+Stop any one of these flows at the first failure of
+\eqref{cp:eq-real-tube}.  Backward propagation gives
+$\|\delta_a^{(\ell)}\|/\sqrt n\le D_\ell\|w\|/\sqrt n$.
+In Euclidean mobility coordinates
+$(W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)$,
+the vector field is minus the gradient of $\rho^2$.  Consequently
+\[
+ -\partial_t\rho^2=\|\dot\theta\|_{\mathrm{par}}^2
+ \ge\lambda\rho^2.
+\]
+The last inequality uses only the readout contribution and the stopped
+Gram gap.  For any stopped interval $[t,T]$, Cauchy--Schwarz gives
+\[
+ \left(\int_t^T\|\dot\theta\|_{\mathrm{par}}\right)^2
+ \le\left(\int_t^T\frac{\|\dot\theta\|_{\mathrm{par}}^2}{\rho}\right)
+      \left(\int_t^T\rho\right)
+ \le2\rho(t)\,\frac{2\rho(t)}\lambda.
+\]
+If a residual vanishes, all velocities vanish, so the estimate extends
+without division by zero.  In particular $\|w\|/\sqrt n\le2Y/\sqrt\lambda$.
+Sample Cauchy--Schwarz bounds each normalized hidden-block velocity by
+$2\rho U_\ell\|w\|/\sqrt n$.  Integration and forward subtraction give
+\begin{gather}
+ \frac{\|W^{(1)}-W_0^{(1)}\|_F}{\sqrt n}
+       \le\frac{8U_1Y^2}{\lambda^{3/2}},\qquad
+ \|W^{(\ell)}-W_0^{(\ell)}\|_F
+       \le\frac{8U_\ell Y^2}{\lambda^{3/2}},\nonumber\\
+ \sup_v\frac{\|h^{(\ell)}-h_0^{(\ell)}\|}{\sqrt n}
+       \le\frac{8F_\ell Y^2}{\lambda^{3/2}}.
+ \label{cp:eq-dense-displacements}
+\end{gather}
+Indeed each later feature difference is bounded by $s$ times
+$2H\|W^{(\ell)}-W_0^{(\ell)}\|_F$ plus nine times the preceding
+feature difference, which is exactly the recursion defining $F_\ell$.
+The label restriction implies
+$8FY^2/\lambda^{3/2}\le\sqrt\lambda/(8H^2)\le1/(8H)$.
+Thus the operators remain below $8+1/8$, the features below
+$3H/2+H/8$, and the smallest singular value of
+$\mathsf H/\sqrt{mn}$ above
+$(1/\sqrt2-1/8)\sqrt\lambda>\sqrt\lambda/2$.
+Every stop has a strict margin.  At fixed width the bounded parameters
+and locally Lipschitz vector field give global continuation.  The
+finite parameter length proves convergence, and residual decay proves
+fitting.  The argument uses only the retained dimensions and the
+original denominators $n$, and hence also proves cavity fitting.
+
+Finally the same forward recursion gives
+\[
+ \|\dot w\|/\sqrt n\le4H\rho,\qquad
+ \sup_v\|\dot h^{(L)}(v)\|/\sqrt n\le2F\rho\|w\|/\sqrt n.
+\]
+Therefore
+\[
+ \sup_{\|v\|=1}|f_n(\infty,v)-f_n(t,v)|
+ \le\frac{16}{\lambda}
+       \left(H^2+\frac{FY^2}{\lambda}\right)\rho(t).
+\]
+The coefficients $H,F$ depend only on activations and depth, and the
+headline cap with $\lambda\le1$ gives $Y^2/\lambda\le1$.
+This proves \eqref{cp:eq-dense-output-tail}, including its uniform endpoint.
+\end{proof}
+
+\begin{lemma}[Signed perturbation estimate]
+\label{cp:signed}
+Let a differentiable prediction map $F$ take Euclidean parameter space
+to sample space with inner product
+$\langle u,v\rangle_m=m^{-1}u^\top v$.  Write $r=F(\theta)-y$,
+$r'=F(\theta')-y$, $\rho=\|r\|_m$, $\rho'=\|r'\|_m$, and
+$J=DF(\theta)$, $J'=DF(\theta')$.  Suppose
+$\dot\theta=-2J^*r+\mathcal E$ and
+$\dot\theta'=-2J'^*r'$. Here $J^*$ and $J'^*$ are adjoints for the
+stated parameter and sample inner products. If a constant $K\ge0$
+satisfies, for $e=\|\theta-\theta'\|$,
+\[
+ \|r-r'-J'(\theta-\theta')\|_m\le Ke^2/2,
+ \qquad\|(J-J')(\theta-\theta')\|_m\le Ke^2,
+\]
+then, on every finite interval,
+\begin{equation}
+ e(t)\le
+ \left(e(0)+\int_0^t\|\mathcal E(u)\|\,du\right)
+ \exp\left\{K\int_0^t(\rho'+3\rho)\,du\right\}.
+ \label{cp:eq-signed-stability}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Put $d=\theta-\theta'$ and
+$R=r-r'-J'd$.  Exact subtraction gives
+\[
+ \tfrac12\partial_t e^2
+ =-2\|r-r'\|_m^2+2\langle r-r',R\rangle_m
+   -2\langle r,(J-J')d\rangle_m+\langle d,\mathcal E\rangle
+ \le K(\rho'+3\rho)e^2+e\|\mathcal E\|.
+\]
+Apply the integrating factor to $\sqrt{e^2+\epsilon^2}$ and let
+$\epsilon\downarrow0$.  This proves the assertion also through zeros
+of the parameter discrepancy.
+\end{proof}

@@ -165,14 +165,16 @@ that evolution, and finally the learning and prediction it produces.
 7. [Observable representations and autonomous closure](07-observable-closure.qmd#ch-observable-closure)
 8. [Convergent autonomous computation](08-autonomous-computation.qmd#ch-autonomous-computation)
 
+9. [Complete-trajectory compression](08b-trajectory-compression.qmd#ch-trajectory-compression)
+
 ### III. Nonlinear learning and inductive bias
 
-9. [Trainability and mechanisms of fitting](09-trainability.qmd#ch-trainability)
-10. [Global fitting of correlated input pairs](10-correlated-pairs.qmd#ch-correlated-pairs)
-11. [Quantitative nonlinear perturbations across shape and depth](11-shape-and-depth.qmd#ch-shape-and-depth)
-12. [Three-sample learning and activation design](12-three-sample-learning.qmd#ch-three-sample-learning)
-13. [Selection of the whole-input predictor](13-predictor-selection.qmd#ch-predictor-selection)
-14. [Generalization and the predictive value of feature learning](14-generalization.qmd#ch-generalization)
+10. [Trainability and mechanisms of fitting](09-trainability.qmd#ch-trainability)
+11. [Global fitting of correlated input pairs](10-correlated-pairs.qmd#ch-correlated-pairs)
+12. [Quantitative nonlinear perturbations across shape and depth](11-shape-and-depth.qmd#ch-shape-and-depth)
+13. [Three-sample learning and activation design](12-three-sample-learning.qmd#ch-three-sample-learning)
+14. [Selection of the whole-input predictor](13-predictor-selection.qmd#ch-predictor-selection)
+15. [Generalization and the predictive value of feature learning](14-generalization.qmd#ch-generalization)
 
 The closing [strategic outlook](outlook.qmd#ch-strategic-outlook)
 records open objectives and dependencies. Stable identifiers preserve links

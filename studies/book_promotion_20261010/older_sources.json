@@ -1,0 +1,454 @@
+[
+  {
+    "id": "older-01",
+    "source_path": "studies/fixed_p_population_landscape_20260919/p2_p3_unrestricted_theorem.md",
+    "source_start_line": 1,
+    "source_end_line": 413,
+    "source_sha256": "1092fbbbebe969eee9286c4ede25a0fb694fe57f4801f9da456270d8c1d6a060",
+    "archive_path": "studies/fixed_p_population_landscape_20260919/p2_p3_unrestricted_theorem.md",
+    "archive_sha256": "1092fbbbebe969eee9286c4ede25a0fb694fe57f4801f9da456270d8c1d6a060",
+    "bytes": 17223,
+    "role": "primary-proof",
+    "claims": [
+      "landscape-p23"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-02",
+    "source_path": "studies/p1_stochastic_escape_20260918/no_bad_local_minima.md",
+    "source_start_line": 1,
+    "source_end_line": 428,
+    "source_sha256": "e852a52f7a9af83daa570e021170b857e6cc7e309c5549cbdc2ac72ef441f8ed",
+    "archive_path": "studies/p1_stochastic_escape_20260918/no_bad_local_minima.md",
+    "archive_sha256": "e852a52f7a9af83daa570e021170b857e6cc7e309c5549cbdc2ac72ef441f8ed",
+    "bytes": 19920,
+    "role": "primary-proof",
+    "claims": [
+      "landscape-p1"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-03",
+    "source_path": "studies/fixed_p_predictor_uniqueness_20260919/CANONICAL_FEATURES.md",
+    "source_start_line": 1,
+    "source_end_line": 438,
+    "source_sha256": "5eab1371afaca04719bcd78a88c586f33042a008a28bbf1f3a07f0a0f6075b91",
+    "archive_path": "studies/fixed_p_predictor_uniqueness_20260919/CANONICAL_FEATURES.md",
+    "archive_sha256": "5eab1371afaca04719bcd78a88c586f33042a008a28bbf1f3a07f0a0f6075b91",
+    "bytes": 16039,
+    "role": "primary-proof",
+    "claims": [
+      "initialized-features"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-04",
+    "source_path": "studies/p1_three_input_geometry_20260918/result.md",
+    "source_start_line": 1,
+    "source_end_line": 374,
+    "source_sha256": "7f7c3406996c023d0dd07437111ea0a2c495b5dd16f559c808e2acc41aa034e3",
+    "archive_path": "studies/p1_three_input_geometry_20260918/result.md",
+    "archive_sha256": "7f7c3406996c023d0dd07437111ea0a2c495b5dd16f559c808e2acc41aa034e3",
+    "bytes": 16874,
+    "role": "primary-result",
+    "claims": [
+      "lower-layer-trainability"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-05",
+    "source_path": "studies/closure_lyapunov_p1_20260916/all_angles_result.md",
+    "source_start_line": 1,
+    "source_end_line": 344,
+    "source_sha256": "33ce17ba0be80836ba13862eb3ba76b579cabfe2bba1cb4f076be4e2f9de9ec7",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/all_angles_result.md",
+    "archive_sha256": "33ce17ba0be80836ba13862eb3ba76b579cabfe2bba1cb4f076be4e2f9de9ec7",
+    "bytes": 15418,
+    "role": "primary-proof",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-06",
+    "source_path": "studies/p1_sphere_extremes_20260918/cyclic_uniformity.md",
+    "source_start_line": 1,
+    "source_end_line": 85,
+    "source_sha256": "c415c05c28cf51164dd44f4368648c7bc78d8eb114286df7155590489942e598",
+    "archive_path": "studies/p1_sphere_extremes_20260918/cyclic_uniformity.md",
+    "archive_sha256": "c415c05c28cf51164dd44f4368648c7bc78d8eb114286df7155590489942e598",
+    "bytes": 4135,
+    "role": "primary-proof",
+    "claims": [
+      "cyclic-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-07",
+    "source_path": "studies/p1_sphere_extremes_20260918/plateau_construction.md",
+    "source_start_line": 1,
+    "source_end_line": 418,
+    "source_sha256": "bebcf883e62faad99051820596563dc5358a46dd920637460ad21793c1c1cc89",
+    "archive_path": "studies/p1_sphere_extremes_20260918/plateau_construction.md",
+    "archive_sha256": "bebcf883e62faad99051820596563dc5358a46dd920637460ad21793c1c1cc89",
+    "bytes": 15235,
+    "role": "primary-proof",
+    "claims": [
+      "plateau"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-08",
+    "source_path": "studies/p1_three_input_geometry_20260918/stationary_geometry.md",
+    "source_start_line": 1,
+    "source_end_line": 463,
+    "source_sha256": "2fce30a3824d8bff4ecc9b04771f3986bc539735722f3434168103c464e7cfbc",
+    "archive_path": "studies/p1_three_input_geometry_20260918/stationary_geometry.md",
+    "archive_sha256": "2fce30a3824d8bff4ecc9b04771f3986bc539735722f3434168103c464e7cfbc",
+    "bytes": 21651,
+    "role": "proof-dependency",
+    "claims": [
+      "lower-layer-trainability"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-09",
+    "source_path": "studies/closure_lyapunov_p1_20260916/arbitrary_pair_local.md",
+    "source_start_line": 1,
+    "source_end_line": 447,
+    "source_sha256": "4bdb878378518455ca4e0cf7ea2ded8281d056b7aec98cef36c5ebf337c47b9a",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/arbitrary_pair_local.md",
+    "archive_sha256": "4bdb878378518455ca4e0cf7ea2ded8281d056b7aec98cef36c5ebf337c47b9a",
+    "bytes": 16673,
+    "role": "proof-dependency",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-10",
+    "source_path": "studies/closure_lyapunov_p1_20260916/route_local.md",
+    "source_start_line": 1,
+    "source_end_line": 492,
+    "source_sha256": "d91c3c6d2e0b17d0ad7d5ee7882bca4aeced662a12a7a46d24e718c10b1d1cc3",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/route_local.md",
+    "archive_sha256": "d91c3c6d2e0b17d0ad7d5ee7882bca4aeced662a12a7a46d24e718c10b1d1cc3",
+    "bytes": 18788,
+    "role": "proof-dependency",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-11",
+    "source_path": "studies/closure_lyapunov_p1_20260916/scalar_margin_extension.md",
+    "source_start_line": 1,
+    "source_end_line": 146,
+    "source_sha256": "3bbf89335a49f9b9c97e4aab8ace450f62d16fc2febe59eaa068b61fcf1dd5e7",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/scalar_margin_extension.md",
+    "archive_sha256": "3bbf89335a49f9b9c97e4aab8ace450f62d16fc2febe59eaa068b61fcf1dd5e7",
+    "bytes": 6258,
+    "role": "proof-dependency",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-12",
+    "source_path": "studies/closure_lyapunov_p1_20260916/scalar_strict_gain.md",
+    "source_start_line": 1,
+    "source_end_line": 63,
+    "source_sha256": "3533f444850eb020f90f4159c4003aab2163cd08d0ecefd647f28542f685c50b",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/scalar_strict_gain.md",
+    "archive_sha256": "3533f444850eb020f90f4159c4003aab2163cd08d0ecefd647f28542f685c50b",
+    "bytes": 2830,
+    "role": "proof-dependency",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-13",
+    "source_path": "studies/closure_lyapunov_p1_20260916/antipodal_upgrade_check.md",
+    "source_start_line": 1,
+    "source_end_line": 205,
+    "source_sha256": "9a3ce128da392ebe23edca74acce67b6d27b26bef56ca4a232f4695d51cfc052",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/antipodal_upgrade_check.md",
+    "archive_sha256": "9a3ce128da392ebe23edca74acce67b6d27b26bef56ca4a232f4695d51cfc052",
+    "bytes": 8267,
+    "role": "proof-dependency",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-14",
+    "source_path": "studies/closure_lyapunov_p1_20260916/regular_potential_check.md",
+    "source_start_line": 1,
+    "source_end_line": 150,
+    "source_sha256": "f6aa88da89bbe3b0c30d1ac0b575cfbebf9f3c29d204ebd62646ecc8647956ca",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/regular_potential_check.md",
+    "archive_sha256": "f6aa88da89bbe3b0c30d1ac0b575cfbebf9f3c29d204ebd62646ecc8647956ca",
+    "bytes": 4970,
+    "role": "proof-dependency",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-15",
+    "source_path": "studies/p1_sphere_extremes_20260918/initialization_positivity.md",
+    "source_start_line": 1,
+    "source_end_line": 131,
+    "source_sha256": "73dae11c96755efd5e5362f879db9ca4197ddf0e3860434e939ecd529e0f55f5",
+    "archive_path": "studies/p1_sphere_extremes_20260918/initialization_positivity.md",
+    "archive_sha256": "73dae11c96755efd5e5362f879db9ca4197ddf0e3860434e939ecd529e0f55f5",
+    "bytes": 4934,
+    "role": "proof-dependency",
+    "claims": [
+      "cyclic-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-16",
+    "source_path": "docs/notation.qmd",
+    "source_start_line": 1,
+    "source_end_line": 98,
+    "source_sha256": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023",
+    "archive_path": "docs/notation.qmd",
+    "archive_sha256": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023",
+    "bytes": 5386,
+    "role": "notation-contract",
+    "claims": [
+      "all"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-17",
+    "source_path": "studies/fixed_p_population_landscape_20260919/review_p23_isolated.md",
+    "source_start_line": 1,
+    "source_end_line": 233,
+    "source_sha256": "c908f2d1345e4e2aa28b9b6be334c9975cdec99ac5da372e02f4b186550cd8fd",
+    "archive_path": "studies/fixed_p_population_landscape_20260919/review_p23_isolated.md",
+    "archive_sha256": "c908f2d1345e4e2aa28b9b6be334c9975cdec99ac5da372e02f4b186550cd8fd",
+    "bytes": 13472,
+    "role": "historical-review",
+    "claims": [
+      "landscape-p23"
+    ],
+    "assembly_read_scope": "status, source identities and model scope; not a fresh complete review"
+  },
+  {
+    "id": "older-18",
+    "source_path": "studies/p1_stochastic_escape_20260918/review_no_bad_local_minima.md",
+    "source_start_line": 1,
+    "source_end_line": 437,
+    "source_sha256": "3751b9583c69b232f3f0910ceddc19eac6f1766505738b3d8782df59df8aeb33",
+    "archive_path": "studies/p1_stochastic_escape_20260918/review_no_bad_local_minima.md",
+    "archive_sha256": "3751b9583c69b232f3f0910ceddc19eac6f1766505738b3d8782df59df8aeb33",
+    "bytes": 22292,
+    "role": "historical-review",
+    "claims": [
+      "landscape-p1"
+    ],
+    "assembly_read_scope": "status and source identities; supplements identified in complete primary source and scoped README"
+  },
+  {
+    "id": "older-19",
+    "source_path": "studies/fixed_p_predictor_uniqueness_20260919/CANONICAL_REVIEW.md",
+    "source_start_line": 1,
+    "source_end_line": 295,
+    "source_sha256": "de9d5d806c2a93361672ad797b1769721a3b7e067e854dc1cd78c1def37ccea1",
+    "archive_path": "studies/fixed_p_predictor_uniqueness_20260919/CANONICAL_REVIEW.md",
+    "archive_sha256": "de9d5d806c2a93361672ad797b1769721a3b7e067e854dc1cd78c1def37ccea1",
+    "bytes": 13503,
+    "role": "historical-review",
+    "claims": [
+      "initialized-features"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-20",
+    "source_path": "studies/p1_three_input_geometry_20260918/audit_stationary.md",
+    "source_start_line": 1,
+    "source_end_line": 268,
+    "source_sha256": "a0ab60e23e7648c0517a6e20ae30ffefa84cb22628331beb672cef88578a22bf",
+    "archive_path": "studies/p1_three_input_geometry_20260918/audit_stationary.md",
+    "archive_sha256": "a0ab60e23e7648c0517a6e20ae30ffefa84cb22628331beb672cef88578a22bf",
+    "bytes": 14943,
+    "role": "historical-review",
+    "claims": [
+      "lower-layer-trainability"
+    ],
+    "assembly_read_scope": "status, source identities and corrected scope"
+  },
+  {
+    "id": "older-21",
+    "source_path": "studies/closure_lyapunov_p1_20260916/continuation_validation.md",
+    "source_start_line": 1,
+    "source_end_line": 53,
+    "source_sha256": "8f6321b1b3dcb3710376242d3e48c819baa573652c30f7d4c703d1b7a9f3c327",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/continuation_validation.md",
+    "archive_sha256": "8f6321b1b3dcb3710376242d3e48c819baa573652c30f7d4c703d1b7a9f3c327",
+    "bytes": 2956,
+    "role": "historical-review",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-22",
+    "source_path": "studies/closure_lyapunov_p1_20260916/check_arbitrary_local_root.md",
+    "source_start_line": 1,
+    "source_end_line": 61,
+    "source_sha256": "ec6a9bf820b168ff6937d373646369904d3accb89ea923877bd8c75442e3b069",
+    "archive_path": "studies/closure_lyapunov_p1_20260916/check_arbitrary_local_root.md",
+    "archive_sha256": "ec6a9bf820b168ff6937d373646369904d3accb89ea923877bd8c75442e3b069",
+    "bytes": 3915,
+    "role": "historical-review",
+    "claims": [
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-23",
+    "source_path": "studies/p1_sphere_extremes_20260918/review_cyclic_uniformity.md",
+    "source_start_line": 1,
+    "source_end_line": 148,
+    "source_sha256": "91a72a3d05d4c4616494d44d7a1d7e6e4be033bddb6abe170df6a7572313b305",
+    "archive_path": "studies/p1_sphere_extremes_20260918/review_cyclic_uniformity.md",
+    "archive_sha256": "91a72a3d05d4c4616494d44d7a1d7e6e4be033bddb6abe170df6a7572313b305",
+    "bytes": 6363,
+    "role": "historical-review",
+    "claims": [
+      "cyclic-fitting"
+    ],
+    "assembly_read_scope": "complete"
+  },
+  {
+    "id": "older-24",
+    "source_path": "studies/p1_sphere_extremes_20260918/review_weighted_plateau.md",
+    "source_start_line": 1,
+    "source_end_line": 414,
+    "source_sha256": "8bcf20e55f4911d0bec8552a22af6c12dffcdc9e4d0439f3cf9da69af032ac39",
+    "archive_path": "studies/p1_sphere_extremes_20260918/review_weighted_plateau.md",
+    "archive_sha256": "8bcf20e55f4911d0bec8552a22af6c12dffcdc9e4d0439f3cf9da69af032ac39",
+    "bytes": 17883,
+    "role": "historical-review",
+    "claims": [
+      "plateau"
+    ],
+    "assembly_read_scope": "status, source identities, model/clock check and final disposition"
+  },
+  {
+    "id": "older-25",
+    "source_path": "studies/p1_sphere_extremes_20260918/protected_family.md",
+    "source_start_line": 59,
+    "source_end_line": 195,
+    "source_sha256": "a7fb86719adaf96c3f3fc60a8e5f02618c4eb60aa32461cd7b1df77cd417178d",
+    "archive_path": "studies/p1_sphere_extremes_20260918/protected_family.md.lines-59-195.txt",
+    "archive_sha256": "db3127eb8fc1883e3f45d0adc5661c4a983e8bddcc07ffe11e646e5e767bbec4",
+    "bytes": 4380,
+    "role": "proof-dependency",
+    "claims": [
+      "cyclic-fitting"
+    ],
+    "assembly_read_scope": "complete retained scalar-clock lemma and cyclic-symmetry calculation"
+  },
+  {
+    "id": "older-26",
+    "source_path": "docs/07-observable-closure.qmd",
+    "source_start_line": 4888,
+    "source_end_line": 5040,
+    "source_sha256": "792aadb9fed6cf0e988ae5376c559bed14cbb0cdb2566fb29ad30c6d4d9fc6d2",
+    "archive_path": "docs/07-observable-closure.qmd.lines-4888-5040.txt",
+    "archive_sha256": "8d1132b68270f1f4ff5e750faf791e75301f098b2c2e30f958771b19e38e93a3",
+    "bytes": 8590,
+    "role": "model-dependency",
+    "claims": [
+      "all"
+    ],
+    "assembly_read_scope": "complete saved-state equations and characteristic well-posedness sections"
+  },
+  {
+    "id": "older-27",
+    "source_path": "docs/07-observable-closure.qmd",
+    "source_start_line": 5265,
+    "source_end_line": 5421,
+    "source_sha256": "792aadb9fed6cf0e988ae5376c559bed14cbb0cdb2566fb29ad30c6d4d9fc6d2",
+    "archive_path": "docs/07-observable-closure.qmd.lines-5265-5421.txt",
+    "archive_sha256": "9419d7c80fedc61dfdb8608801b13448766d75737b7d4d46228ac7f3d6c2535c",
+    "bytes": 7199,
+    "role": "model-dependency",
+    "claims": [
+      "all"
+    ],
+    "assembly_read_scope": "complete general-dimensional p1 introduction and exact coefficient target"
+  },
+  {
+    "id": "older-28",
+    "source_path": "docs/07-observable-closure.qmd",
+    "source_start_line": 5461,
+    "source_end_line": 5492,
+    "source_sha256": "792aadb9fed6cf0e988ae5376c559bed14cbb0cdb2566fb29ad30c6d4d9fc6d2",
+    "archive_path": "docs/07-observable-closure.qmd.lines-5461-5492.txt",
+    "archive_sha256": "1bed870ff26a81829f298c3b9e5488f5b934e9249d5cf5fb10b029deefcfc871",
+    "bytes": 2284,
+    "role": "model-dependency",
+    "claims": [
+      "all"
+    ],
+    "assembly_read_scope": "complete parity and folding proof; only exact-population invariant used"
+  },
+  {
+    "id": "older-29",
+    "source_path": "docs/08-autonomous-computation.qmd",
+    "source_start_line": 3119,
+    "source_end_line": 3393,
+    "source_sha256": "72224d6c545531a768e090ac24b681c58046de0a42b37105a9a6ad51316c8b54",
+    "archive_path": "docs/08-autonomous-computation.qmd.lines-3119-3393.txt",
+    "archive_sha256": "dff5d0b73444886a63d206251213b5eb7967cab5b622ff6c1f96c38195bb98db",
+    "bytes": 14417,
+    "role": "model-dependency",
+    "claims": [
+      "landscape-p23",
+      "initialized-features",
+      "pair-fitting"
+    ],
+    "assembly_read_scope": "complete canonical polynomial dictionary section B; hierarchy-limit conclusions not imported"
+  },
+  {
+    "id": "older-30",
+    "source_path": "docs/08-autonomous-computation.qmd",
+    "source_start_line": 5345,
+    "source_end_line": 5387,
+    "source_sha256": "72224d6c545531a768e090ac24b681c58046de0a42b37105a9a6ad51316c8b54",
+    "archive_path": "docs/08-autonomous-computation.qmd.lines-5345-5387.txt",
+    "archive_sha256": "b2af10e2d28b9ae71b6616e86b1461f932703015c0a2476ea276f2c0fc55888c",
+    "bytes": 2021,
+    "role": "model-dependency",
+    "claims": [
+      "all"
+    ],
+    "assembly_read_scope": "complete fixed-order energy, existence and restart passage"
+  }
+]

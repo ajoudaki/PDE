@@ -69,7 +69,7 @@ def main(root=None) -> int:
                     elif isinstance(node, ast.ImportFrom) and not node.level and node.module:
                         imports = [node.module.split(".")[0]]
                     for name in imports:
-                        if name not in sys.stdlib_module_names and name not in {"numpy", "pde", "scripts", "psutil", "torch"}:
+                        if name not in sys.stdlib_module_names and name not in {"numpy", "pde", "scripts", "psutil", "torch", "matplotlib", "torchvision"}:
                             errors.append(f"undeclared import: {source.relative_to(root)}: {name}")
                     modules = []
                     if isinstance(node, ast.Import):

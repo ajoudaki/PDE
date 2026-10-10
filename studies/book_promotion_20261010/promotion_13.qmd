@@ -1,0 +1,90 @@
+## Fitting finite labels does not determine the predictor {#sec-fixed-closure-predictor-freedom}
+
+The order-one closure already separates representation from dynamical
+selection at its canonical hidden initialization. The following statement
+uses the model and exact correlated initialization of
+[the fixed-order model](09-trainability.qmd#sec-fixed-closure-model) with $d=2$, and keeps $w=g$, $M=D$ fixed.
+It constructs readouts at those hidden parameters; it does not identify
+them as endpoints of the prescribed gradient flow.
+
+::: {#thm-fixed-closure-initial-feature-independence}
+For every finite list $u_1,\ldots,u_m\in S^1$ distinct modulo sign, the
+initialized fields $H_a=H_0^{(2)}(u_a)$ are linearly independent in
+$L^2(\Omega_2)$. Their Gram $K_{ab}=\mathbb E_2[H_aH_b]$ is positive
+definite, as is its congruence by any strictly positive weight diagonal
+matrix. The same independence holds after adjoining any
+$u_*\notin\{\pm u_1,\ldots,\pm u_m\}$.
+:::
+
+[]{#proof-fixed-closure-initial-feature-independence}
+
+::: {.proof}
+By @lem-fixed-closure-initial-map,
+$H_0^{(2)}(u)=\tanh(B\cdot\vartheta(u))$, where
+$\vartheta(u)=(F_0(u_1),F_0(u_2))$ is nonzero, injective, and odd.
+Thus the vectors $\vartheta(u_a)$ are nonzero and distinct modulo sign.
+The law of $B=(\tanh(\sqrt\nu\widetilde g_1),
+\tanh(\sqrt\nu\widetilde g_2))$ has positive density on $(-1,1)^2$.
+An almost-sure linear relation between the fields therefore holds
+everywhere on that square by continuity.
+
+Choose $e\in\mathbb R^2$ outside the finitely many hyperplanes
+perpendicular to $\vartheta(u_a)$ and $\vartheta(u_a)\pm\vartheta(u_b)$.
+Restriction to $B=te$ gives a relation among $\tanh(s_at)$ with
+distinct nonzero squared $s_a=e\cdot\vartheta(u_a)$. The nonzero odd tanh
+coefficients proved in @thm-fixed-closure-landscape give an invertible
+Vandermonde system from the first $m$ odd powers, so every coefficient
+vanishes. This proves independence.
+
+Hence for nonzero $z\in\mathbb R^m$,
+$z^\top Kz=\mathbb E_2(\sum_az_aH_a)^2>0$.
+An invertible positive diagonal congruence preserves that inequality.
+The augmented family has exactly the same separation properties, proving
+the query assertion.
+:::
+
+::: {#cor-fixed-closure-free-query}
+For arbitrary real labels $y=(y_1,\ldots,y_m)$ and any allowed query
+$u_*$, every prescribed real query value is represented by a bounded
+odd readout fitting those labels at the same initialized hidden parameters.
+:::
+
+[]{#proof-fixed-closure-free-query}
+
+::: {.proof}
+Put $H_*=H_0^{(2)}(u_*)$, $k_a=\mathbb E_2[H_aH_*]$, and define
+
+$$
+c_{\rm base}=\sum_a(K^{-1}y)_aH_a,\qquad
+R_*=H_*-\sum_a(K^{-1}k)_aH_a,\qquad
+\kappa_*:=\mathbb E_2R_*^2
+          =\mathbb E_2H_*^2-k^\top K^{-1}k>0.
+$$ {#eq-fixed-closure-query-residual}
+
+Substitution gives $\mathbb E_2[c_{\rm base}H_a]=y_a$,
+$\mathbb E_2[R_*H_a]=0$ and $\mathbb E_2[R_*H_*]=\kappa_*$.
+Positivity follows because augmented independence makes $R_*\ne0$.
+For the prescribed value $z\in\mathbb R$, set
+
+$$
+c_z=c_{\rm base}
+       +\frac{z-k^\top K^{-1}y}{\kappa_*}R_*.
+$$ {#eq-fixed-closure-query-interpolant}
+
+The preceding pairings show that it fits the training labels and predicts
+exactly $z$ at $u_*$. It is bounded and odd because every field in this
+finite linear combination is bounded and odd. All fitting readouts have
+the form $c_{\rm base}+r$ with
+$r\perp\operatorname{span}\{H_1,\ldots,H_m\}$, by subtracting the
+training equations. Orthogonality makes $c_{\rm base}$ the unique
+minimum-$L^2$-norm interpolant.
+:::
+
+This freedom is a property of represented functions; a unique training
+trajectory may select one of them. It supplies neither multiple solutions
+of gradient flow nor a claim that every constructed readout is reachable.
+Positive definiteness for each finite list gives no uniform conditioning
+near input collisions. A finite upper quadrature with $P_2$ nodes has
+Gram rank at most $P_2$ and therefore cannot inherit the unrestricted
+finite-list statement. At a training input or its antipode, the fitted
+value is already fixed by the label and input oddness.
