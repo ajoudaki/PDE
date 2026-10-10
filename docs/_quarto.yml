@@ -4,7 +4,9 @@ project:
     - python package_code_links.py
 
 book:
-  title: "PDE: population dynamics of deep learning"
+  title: "A Dynamical Theory of Deep Learning"
+  subtitle: "Population Dynamics, Autonomous Approximation, and Nonlinear Learning"
+  author: "Amir Joudaki"
   chapters:
     - index.qmd
     - notation.qmd

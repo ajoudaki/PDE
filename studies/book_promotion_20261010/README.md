@@ -322,3 +322,12 @@ unreviewed edit to the accepted scientific packet.
 Integration reviewers also record a nonblocking PDF line break inside one
 function application in equation (2047). The source formula is intact; this
 layout refinement is deferred without changing the reviewed sources.
+
+## Book title and author (2026-10-10)
+
+At the user's request, the book is now **A Dynamical Theory of Deep Learning**,
+subtitled *Population Dynamics, Autonomous Approximation, and Nonlinear
+Learning*, by **Amir Joudaki**. This post-promotion maintenance change updates
+Quarto metadata and the repository gateway; the scientific text is unchanged.
+Fresh PDF/HTML builds and their source hashes are retained in
+`data/generated/book_promotion_20261010/named_book_20261010T112553Z/`.

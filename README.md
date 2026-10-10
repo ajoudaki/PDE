@@ -8,7 +8,9 @@ optimization and, ultimately, generalization.
 ## Start here
 
 This page is the repository gateway, not part of the established theorem book.
-That Quarto book begins at `docs/index.qmd` and never refers back to research studies.
+The book is **A Dynamical Theory of Deep Learning** by **Amir Joudaki**, subtitled
+*Population Dynamics, Autonomous Approximation, and Nonlinear Learning*.
+The Quarto book begins at `docs/index.qmd` and never refers back to research studies.
 
 - [Established theory: reading guide](docs/index.qmd), with one
   [notation contract](docs/notation.qmd) and complete modular proofs.
