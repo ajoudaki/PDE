@@ -1,5 +1,110 @@
 # Bounded appendix figure pilots
 
+## Figure4 resampled training membership (2026-10-10)
+
+Before running: user requests fresh training membership as well as network
+randomness. Freeze the exact38 inputs/labels from the preceding Figure4
+training8+declared-query30 archives, separately for circle and digits. Exclude
+all30 extra/undeclared inputs. Use fresh seeds906/907/908; a role-hashed split
+seed samples8 training points and uses the complementary30 for evaluation.
+Digits training is stratified4/4; circle is a uniform split. Preserve the
+original labels exactly, including the circle's original normalization.
+No re-scaling labels using the newly drawn subset and no new data-pool sampling.
+
+Each repetition rebuilds its reference, independent dense partner and every
+displayed compression. Keep the preceding fixed model/source/selector orders,
+Euler step1/160, horizon32 and65 observation times. Run only the currently
+displayed compressions plus dense pair (15 compression fits and12 dense fits),
+on two GPUs, with120s per source/fit and a10-minute batch target. No replacement
+seeds, split screening, order search or success-conditioned retries. A missed
+RMS criterion is a measured result; a failed constructor or incomplete/nonfinite
+trajectory is explicitly inconclusive, never silently omitted from a mean.
+Primary display: unnormalized test RMS versus each run's coupled dense,
+arithmetic mean and sample SD across the three initialization/split repetitions,
+plus the independent dense-pair RMS. Also retain each pointwise ratio and the
+fraction passing1x at all saved positive times. These splits may overlap across
+repetitions; within each repetition train and evaluation indices are disjoint.
+The new repeats vary data and initialization jointly, so they do not separately
+identify those two variance components or establish a continuum guarantee.
+
+### Completed resplit result
+
+The authorized six repetitions finished without extra fits, order changes,
+replacement splits or seeds. There are23 completed trajectories out of27
+requested:12 dense,6 Legendre and5 Taylor. Harmonic has NO complete circle
+trajectory, and Taylor circle908 fails setup. These failures are retained,
+not folded into successful-only averages.
+
+| Task/method |906 endpoint RMS|max pointwise ratio|907 endpoint RMS|max pointwise ratio|908 endpoint RMS|max pointwise ratio|
+|---|---:|---:|---:|---:|---:|---:|
+|Circle dense pair|0.00335472|1|0.00607111|1|0.00997988|1|
+|Circle Legendre4|0.00150250|0.456397|0.00031198|0.051388|0.00053054|0.053161|
+|Circle Harmonic1024/r64|inconclusive|--|inconclusive|--|inconclusive|--|
+|Circle Taylor512/r37|0.19846974|59.161272|0.00287827|0.785211|inconclusive|--|
+|Digits dense pair|0.01339526|1|0.00976363|1|0.00916373|1|
+|Digits Legendre2|0.00050681|0.081558|0.00071057|0.119093|0.00065268|0.300911|
+|Digits Taylor512/r32|0.00785669|0.586528|0.00409186|0.422030|0.00450395|0.491497|
+
+Digits retains all-six-compression passes at every saved positive time, with
+fresh training sets and weights. Circle Legendre also passes all three. The
+previous all-method success on fixed circle training data does NOT extend to
+these fresh random splits at the fixed empirical budgets/numerics.
+
+Circle906 Harmonic constructed successfully in float64 (initial normalized
+training feature-Gram minimum5.44489e-8, condition2.94953e6), then failed its
+runtime Cholesky check after conversion to float32. No trajectory or failure
+time is saved; precision sensitivity is plausible but not proved by a rerun.
+Circle907/908 training sets contain near-exact antipodal pairs (pair-sum norms
+8.01e-16 and9.55e-16). In the bias-free odd tanh network, exact antipodes give
+dependent feature columns, so positive-Gram assumptions are not preserved by
+arbitrary resplitting of the old circle grid. Both Harmonic constructors fail
+their positive-definiteness check; Taylor908 fails the dense positive-gap
+setup check. Taylor906 is different: it completed all5120 steps but is an
+actual large-error result, not an inconclusive measurement. No proof claim is
+inferred from this finite-precision experiment.
+
+Updated raw-RMS figure is
+`data/generated/paper_appendix_pilots_20261009/figure4_resplit/figures_final/figure4_trajectory.png`
+(PDF, captions, per-seed metrics and provenance alongside). Complete groups
+show mean +/-sample SD across THREE repetitions. Circle Taylor's two completed
+runs appear as individual dotted curves; there is no two-seed mean masquerading
+as three. Harmonic0/3 and Taylor2/3 completion counts are printed on the circle
+panel. The three-seed blue band is wider under resplitting, especially on the
+circle; the digits dip remains present despite fresh splits. This identifies
+neither a unique error mechanism nor a continuous-time effect.
+
+Implementation is opt-in `dataset.resplit_pool`, a saved NPZ whose four input/
+label arrays form the immutable pool; old predictions are never read into the
+new source compiler. Pool labels are preserved bitwise. Main manifests record
+the original archive hash and per-seed dataset hashes. Worker archives retain
+pool arrays, train/query indices and the split-role seed. Within-run labels of
+declared test inputs remain unavailable to training/source construction;
+stratification alone uses their classes when assigning membership.
+
+Root and scoped read-only checker verified repeatability, all-six split
+partitions, exact pool/label preservation, disjoint/exhaustive8/30 indices,
+distinct train memberships, balanced4/4 digits, exclusion of extras, fresh
+reference hashes/partner seeds, per-seed manifest hashes, all23 finite complete
+65-time trajectories, and raw arithmetic means/sample SD. Scoped code tracing
+also separated Circle906's runtime failure from constructor and accuracy
+failures. GPU queues took about121s circle and118s digits, running concurrently.
+All successful fits took at most15s; source/assembly costs are separately saved.
+
+Reproduce with the ordinary runner and the two new configs (choose fresh
+`execution.output` overrides when rerunning):
+
+```bash
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py run --config studies/paper_appendix_pilots_20261009/figure4_circle_resplit.json
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py run --config studies/paper_appendix_pilots_20261009/figure4_digits_resplit.json
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py figure4-paired-plot --circle-runs data/generated/paper_appendix_pilots_20261009/figure4_resplit/circle --digits-runs data/generated/paper_appendix_pilots_20261009/figure4_resplit/digits --seeds 906 907 908 --compressions-only --raw-rms --allow-incomplete --output data/generated/paper_appendix_pilots_20261009/figure4_resplit/figures_final
+```
+
+The original fixed-split figure is preserved. `--compressions-only` and
+`--raw-rms` also reproduce the display-only variants from the preceding turns;
+no training was done for those display changes. The bounded-experiment workflow
+prevented discarding failed splits or tuning orders after the results. No run
+or remedial campaign remains pending.
+
 ## Figure4 uniform three-seed repair (2026-10-10)
 
 Before new runs: preserve the original Figure4 data (circle d2 and raw digits

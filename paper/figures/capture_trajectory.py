@@ -8468,7 +8468,7 @@ def experiment_plot(config):
 EXPERIMENT_DEFAULTS = {
     'dataset': dict(name='sphere', dimension=3, train_samples=8, test_samples=30,
                     seed=47, digit_pair=[1, 7], file=None, label_scale=1., undeclared_samples=0,
-                    cache=None, download=False),
+                    cache=None, download=False, resplit_pool=None),
     'model': dict(width=4096, depth=2, activation='tanh'),
     'seeds': [601],
     'training': dict(solver='euler', step=.0015625, horizon=32., record_every=320, dtype='float32'),
@@ -8680,6 +8680,8 @@ def _experiment_validate(config):
         raise ValueError('Invalid seed (repetitions: [0,2^63); data: [0,2^32-1))')
     if data['name'] not in ('sphere', 'digits', 'mnist', 'npz'):
         raise ValueError('dataset.name must be sphere, digits (raw 8x8), mnist (raw 28x28), or npz')
+    if data.get('resplit_pool') and (data['name'] not in ('sphere', 'digits') or data['undeclared_samples']):
+        raise ValueError('Resplitting uses a saved sphere/digits train+query pool, without extra queries')
     if data['name'] in ('digits', 'mnist'):
         data['dimension'] = 784 if data['name'] == 'mnist' else 64
         if len(set(data['digit_pair'])) != 2 or any(v < 0 or v > 9 for v in data['digit_pair']):
@@ -8759,8 +8761,37 @@ def _experiment_validate(config):
                 raise ValueError('stop_after_match requires ascending compact widths')
 
 
-def _experiment_data(config):
+def _experiment_data(config, repetition_seed=None):
     data = config['dataset']
+    if data.get('resplit_pool'):
+        # Preserve the old pool and its labels exactly; never load old predictions.
+        with np.load(data['resplit_pool'], allow_pickle=False) as archive:
+            arrays = {key: np.array(archive[key], copy=True) for key in
+                      ('train_inputs', 'train_labels', 'query_inputs', 'query_labels')}
+        pool = np.concatenate((arrays['train_inputs'], arrays['query_inputs']))
+        targets = np.concatenate((arrays['train_labels'], arrays['query_labels']))
+        count, m = len(pool), data['train_samples']
+        if (pool.shape != (m+data['test_samples'], data['dimension']) or targets.shape != (count,)
+                or not np.isfinite(pool).all() or not np.isfinite(targets).all()):
+            raise ValueError('Saved resplit pool must match the requested sizes/dimension and be finite')
+        if repetition_seed is None:
+            return arrays
+        rng = np.random.default_rng(_experiment_seed(repetition_seed, 'dataset_split'))
+        if data['name'] == 'digits':
+            classes = np.unique(targets)
+            if len(classes) != 2:
+                raise ValueError('Digits resplit pool must contain two classes')
+            selected = [rng.permutation(np.flatnonzero(targets == label))[:wanted]
+                        for label, wanted in zip(classes, ((m+1)//2, m//2))]
+            train = rng.permutation(np.concatenate(selected))
+            if len(train) != m:
+                raise ValueError('Resplit pool has too few examples in a class')
+        else:
+            train = rng.permutation(count)[:m]
+        query = rng.permutation(np.setdiff1d(np.arange(count), train))
+        return dict(train_inputs=pool[train], train_labels=targets[train],
+            query_inputs=pool[query], query_labels=targets[query], pool_inputs=pool, pool_labels=targets,
+            train_pool_indices=train, query_pool_indices=query)
     extra = data.get('undeclared_samples', 0)
     if extra:
         if data['name'] == 'npz':
@@ -9600,8 +9631,10 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
     torch.backends.cuda.matmul.allow_tf32 = config['execution']['tf32']
     torch.backends.cudnn.allow_tf32 = config['execution']['tf32']
     device, dtype = torch.device(device_name), getattr(torch, config['training']['dtype'])
-    arrays = _experiment_data(config)
-    if {key: array_sha(value) for key, value in arrays.items()} != manifest['identity']['data_sha256']:
+    arrays = _experiment_data(config, seed)
+    expected_data = manifest['identity'].get('repetition_data_sha256', {}).get(str(seed),
+                        manifest['identity']['data_sha256'])
+    if {key: array_sha(value) for key, value in arrays.items()} != expected_data:
         raise RuntimeError('Dataset changed after launch; refusing inconsistent repetitions')
     inputs, labels, queries = [torch.as_tensor(arrays[key], device=device) for key in
                               ('train_inputs', 'train_labels', 'query_inputs')]
@@ -9617,11 +9650,14 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
         data_sha256={key: array_sha(value) for key, value in arrays.items()},
         device=device_name, hardware=torch.cuda.get_device_name(device) if device.type == 'cuda' else platform.processor(),
         scope=dict(initialization='Gaussian, zero readout; original canonical mean-field mobilities',
-            comparisons='each model versus its own repetition dense reference, fixed dataset',
+            comparisons=('each model versus its own repetition dense reference; '
+                         +('fresh train/query split of a fixed pool' if config['dataset'].get('resplit_pool') else 'fixed dataset')),
             accuracy='finite held-out RMS at common recorded Euler times; no GF refinement certificate',
             source_setup='full-horizon RK4 rollouts, empirical source-rank truncation, not initialization jets',
             queries='Logarithmic setup sees declared query inputs, never labels or the separate extra query panel',
             storage='retained model coordinates, common data/integrator/temporary setup excluded'))
+    if config['dataset'].get('resplit_pool'):
+        report['seeds']['dataset_split'] = _experiment_seed(seed, 'dataset_split')
 
     def persist():
         np.savez_compressed(out/'trajectories.npz', **arrays)
@@ -10900,10 +10936,16 @@ def experiment_main(argv, action='run'):
     for key in ('output', 'reuse_completed'):
         contract['execution'].pop(key)
     contract['execution']['devices'] = devices
-    file_hash = sha(Path(config['dataset']['file']).read_bytes()) if config['dataset']['name'] == 'npz' else None
+    data_file = config['dataset'].get('resplit_pool') or (
+        config['dataset']['file'] if config['dataset']['name'] == 'npz' else None)
+    file_hash = sha(Path(data_file).read_bytes()) if data_file else None
     identity = dict(config=contract, source_sha256=source_hash, dataset_file_sha256=file_hash,
                     data_sha256={key: array_sha(value) for key, value in _experiment_data(config).items()},
                     python=platform.python_version(), torch=torch.__version__, numpy=np.__version__)
+    if config['dataset'].get('resplit_pool'):
+        identity['repetition_data_sha256'] = {str(seed): {
+            key: array_sha(value) for key, value in _experiment_data(config, seed).items()}
+            for seed in config['seeds']}
     fingerprint = sha(json.dumps(identity, sort_keys=True, allow_nan=False).encode())
     out.mkdir(parents=True, exist_ok=True)
     with (out/'.runner.lock').open('a') as lock:
@@ -14144,7 +14186,7 @@ def trajectory_task_plot(argv):
 
 
 def figure4_paired_plot(argv):
-    """Plot fixed-budget query-error ratios from three fully paired experiment seeds."""
+    """Plot query RMS or error ratios from three fully paired experiment seeds."""
     import copy
     import io
     import matplotlib
@@ -14154,12 +14196,19 @@ def figure4_paired_plot(argv):
     for panel in ('circle', 'digits'):
         parser.add_argument('--'+panel+'-runs', type=Path, nargs='+', required=True)
     parser.add_argument('--taylor-runs', type=Path, nargs='+', default=[])
+    parser.add_argument('--seeds', type=int, nargs=3, default=[903, 904, 905])
+    parser.add_argument('--compressions-only', action='store_true', help='Hide control curves and the dense benchmark line')
+    parser.add_argument('--raw-rms', action='store_true', help='Plot unnormalized RMS and the independent dense-pair RMS curve')
+    parser.add_argument('--allow-incomplete', action='store_true', help='Show incomplete groups as individual runs, never a partial mean')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
-    seeds, times = [903, 904, 905], np.linspace(0, 32, 65)
+    seeds, times = sorted(args.seeds), np.linspace(0, 32, 65)
+    if len(set(seeds)) != 3:
+        raise ValueError('Figure4 requires three distinct seeds')
     styles = dict(legendre=('Legendre', '#4477AA'), harmonic=('Harmonic', '#EE7733'),
         logarithmic=('Taylor', '#228833'), dense=('Dense', '#666666'),
-        low_rank=('Low rank', '#CC6677'), frozen_features=('Frozen features', '#AA4499'))
+        low_rank=('Low rank', '#CC6677'), frozen_features=('Frozen features', '#AA4499'),
+        dense_pair=('Dense–dense', '#333333'))
     panels, inputs, clipped = {}, [], []
 
     def require(condition, message):
@@ -14204,14 +14253,15 @@ def figure4_paired_plot(argv):
                         and sha(archive) == report['trajectories_sha256'], f'Provenance mismatch: {path}')
                 with np.load(io.BytesIO(archive), allow_pickle=False) as saved:
                     arrays = {key: saved[key] for key in saved.files}
-                require({key: array_sha(arrays[key]) for key in data_hashes} == data_hashes == report['data_sha256'],
+                expected_data = identity.get('repetition_data_sha256', {}).get(str(seed), data_hashes)
+                require({key: array_sha(arrays[key]) for key in expected_data} == expected_data == report['data_sha256'],
                         f'Data hash mismatch: {path}')
                 m, count = len(arrays['train_inputs']), len(arrays['query_inputs'])
                 require(m == config['dataset']['train_samples'] and count == config['dataset']['test_samples'] > 0,
                         f'Dataset size mismatch: {path}')
                 provenance = dict(root=str(root), repetition=str(path), seed=seed, fingerprint=manifest['fingerprint'],
                     report_sha256=sha(report_raw), trajectories_sha256=sha(archive), source_sha256=source_hash,
-                    data_sha256=data_hashes, reference_initial_state_sha256=report['reference_initial_state_sha256'],
+                    data_sha256=expected_data, reference_initial_state_sha256=report['reference_initial_state_sha256'],
                     role_seeds=report['seeds'], sources=report.get('sources', {}), reported_errors=report.get('errors', {}))
                 repetitions[seed] = dict(report=report, arrays=arrays, m=m, count=count, provenance=provenance)
         require(sorted(repetitions) == seeds, f'{label} requires exactly seeds {seeds}')
@@ -14238,9 +14288,12 @@ def figure4_paired_plot(argv):
                     'Taylor replacement changes base experiment')
         wanted = dict(legendre=dict(order=order), logarithmic=dict(width=512, source_rank=taylor_rank),
                       dense=dict(width=512), low_rank=dict(rank=rank), frozen_features={})
+        if args.compressions_only:
+            wanted = {family: budget for family, budget in wanted.items() if family in ('legendre', 'logarithmic')}
         if panel == 'circle':
             wanted = dict(legendre=wanted.pop('legendre'), harmonic=dict(width=1024, source_rank=64), **wanted)
         records = {family: [] for family in wanted}
+        missing = {family: [] for family in wanted}
         for seed, rep in sorted(repetitions.items()):
             reference, independent = prediction(rep, 'reference'), prediction(rep, 'dense_4096')
             require(rep['report']['seeds']['dense_4096'] != seed, 'Dense benchmark is not independently initialized')
@@ -14257,6 +14310,14 @@ def figure4_paired_plot(argv):
                                     for key in ('reference', 'dense_4096')), 'Replacement reference or dense benchmark differs')
                 names = [name for name, model in source['report']['models'].items() if model['family'] == family
                          and all(model.get(key) == value for key, value in budget.items())]
+                available = (len(names) == 1 and source['report']['runs'].get(names[0], {}).get('complete')
+                             and names[0] not in source['report'].get('errors', {}))
+                if not available and args.allow_incomplete:
+                    reason = {key: value for key, value in source['report'].get('errors', {}).items()
+                              if key.startswith(family)}
+                    missing[family].append(dict(seed=seed, reason=reason or 'Missing or incomplete model',
+                                                provenance=source['provenance']))
+                    continue
                 require(len(names) == 1, f'Expected one {panel}/{family}/{seed}: {names}')
                 name = names[0]; model = source['report']['models'][name]
                 require(all(isinstance(model[key], int) and model[key] >= 0 for key in ('moving', 'fixed', 'total'))
@@ -14271,49 +14332,95 @@ def figure4_paired_plot(argv):
                     dense_array_sha256=array_sha(rep['arrays']['dense_4096'])))
         summaries = {}
         for family, rows in records.items():
+            if len(rows) != len(seeds):
+                require(args.allow_incomplete, f'Incomplete group: {panel}/{family}')
+                continue
             require(len({(row['learned'], row['fixed']) for row in rows}) == 1, f'Storage varies: {panel}/{family}')
-            values = np.asarray([row['pointwise_ratio'] for row in rows])
+            values = np.asarray([row['raw_query_rms'][1:] if args.raw_rms else row['pointwise_ratio']
+                                 for row in rows])
             summaries[family] = dict(mean=values.mean(axis=0).tolist(), sd=values.std(axis=0, ddof=1).tolist())
-        panels[panel] = dict(config=config, samples=records, summaries=summaries)
-    caption = ('Figure 4. Query RMS error relative to the independently initialized width-4096 dense benchmark, '
-        'each compared with its own seed-matched dense reference. Curves are arithmetic means of the three '
-        'individual pointwise ratios for seeds 903, 904, 905; shading is one sample SD (ddof=1). '
+        if args.raw_rms:
+            values = np.asarray([row['raw_dense_query_rms'][1:] for row in records['legendre']])
+            summaries['dense_pair'] = dict(mean=values.mean(axis=0).tolist(), sd=values.std(axis=0, ddof=1).tolist())
+        panels[panel] = dict(config=config, samples=records, summaries=summaries, missing=missing)
+    quantity = 'unnormalized query RMS errors' if args.raw_rms else 'individual pointwise ratios'
+    caption = ('Figure 4. Each model is compared with its own seed-matched width-4096 dense reference. '
+        f'Curves are arithmetic means of the three {quantity} for seeds {", ".join(map(str, seeds))}; '
+        'shading is one sample SD (ddof=1). '
         'Only declared query inputs are scored; separately saved extra-query arrays are excluded. '
-        'Time zero is omitted because its ratio is 0/0. Saved times are joined without smoothing. '
+        'Time zero is omitted (zero error on a log axis, or an undefined 0/0 ratio). '
+        'Saved times are joined without smoothing. '
         'Fixed and learned retained storage and individual scores are in metrics.json. '
         'These are sampled Euler-trajectory errors, not continuous-time error certificates. ')
+    if args.raw_rms:
+        caption += 'The dashed dense–dense curve is the RMS between each independent dense pair; no ratio normalization is applied. '
+    if any(panel['config']['dataset'].get('resplit_pool') for panel in panels.values()):
+        caption += ('Each repetition uses a fresh train/test partition of the same 38-point pool and fresh network '
+                    'initialization; the band therefore reflects both split and initialization variation. '
+                    'Training/test membership is disjoint within repetitions but may overlap between repetitions. ')
     with plt.rc_context({'font.size': 10, 'axes.spines.top': False, 'axes.spines.right': False, 'pdf.fonttype': 42}):
         figure, axes = plt.subplots(1, 2, figsize=(11.8, 4.8), sharex=True, sharey=True)
         for axis, panel, title in zip(axes, ('circle', 'digits'), ('Circle', 'Digits 1 vs 7')):
             for family, summary in panels[panel]['summaries'].items():
+                if args.compressions_only and family not in ('legendre', 'harmonic', 'logarithmic', 'dense_pair'):
+                    continue
                 mean, sd = np.asarray(summary['mean']), np.asarray(summary['sd']); label, color = styles[family]
                 require(np.all(mean > 0), f'Zero mean cannot be represented on log axis: {panel}/{family}')
                 floor = float(mean.min())*1e-3
                 if np.any(mean-sd <= 0):
                     clipped.append(dict(panel=panel, family=family, floor=floor, times=times[1:][mean-sd <= 0].tolist()))
-                axis.plot(times[1:], mean, color=color, label=label, linewidth=1.5)
+                axis.plot(times[1:], mean, color=color, label=label, linewidth=1.5,
+                          linestyle='--' if family == 'dense_pair' else '-')
                 axis.fill_between(times[1:], np.where(mean-sd > 0, mean-sd, floor), mean+sd, color=color, alpha=.12, linewidth=0)
-            axis.axhline(1, color='#333333', linestyle='--', linewidth=1, label='Dense benchmark')
+            incomplete = []
+            for family, failures in panels[panel]['missing'].items():
+                if not failures:
+                    continue
+                label, color = styles[family]
+                rows = panels[panel]['samples'][family]
+                incomplete.append(f'{label}: {len(rows)}/{len(seeds)} completed')
+                for index, row in enumerate(rows):
+                    values = row['raw_query_rms'][1:] if args.raw_rms else row['pointwise_ratio']
+                    axis.plot(times[1:], values, color=color, linestyle=':', linewidth=1.2,
+                              label=label if index == 0 else None)
+            if incomplete:
+                axis.text(.02, .03, '\n'.join(incomplete), transform=axis.transAxes, fontsize=8,
+                          bbox=dict(facecolor='white', alpha=.8, edgecolor='none'))
+            if not args.compressions_only and not args.raw_rms:
+                axis.axhline(1, color='#333333', linestyle='--', linewidth=1, label='Dense benchmark')
             axis.set(yscale='log', xlabel='Training time', title=title, xlim=(0, 32)); axis.grid(alpha=.15)
-        axes[0].set_ylabel('RMS / dense–dense')
+        axes[0].set_ylabel('Test RMS' if args.raw_rms else 'RMS / dense–dense')
+        display_floor = .5*min(np.min(line.get_ydata()) for axis in axes for line in axis.lines)
+        axes[0].set_ylim(bottom=display_floor)
         handles, labels = axes[0].get_legend_handles_labels()
-        figure.legend(handles, labels, loc='upper center', ncol=4, frameon=False, fontsize=8.5)
+        figure.legend(handles, labels, loc='upper center', ncol=3 if args.compressions_only and not args.raw_rms else 4,
+                      frameon=False, fontsize=8.5)
         figure.tight_layout(rect=(0, 0, 1, .91)); args.output.mkdir(parents=True, exist_ok=True)
         for extension in ('png', 'pdf'):
             figure.savefig(args.output/f'figure4_trajectory.{extension}', dpi=180)
         plt.close(figure)
     if clipped:
         caption += ('Nonpositive mean-minus-SD bounds are clipped to a positive plotting floor; this is a display '
-                    'limit, not a smaller SD. All unmodified SDs and clipping locations are retained in metrics.json. ')
+                    'limit, not a smaller SD. The shared lower axis limit is half the smallest plotted curve value. '
+                    'All unmodified SDs and clipping locations are retained in metrics.json. ')
     if replacements:
         caption += ('Circle Taylor uses a separate, consistently configured three-seed retry, with bitwise matching '
                     'reference and independent dense trajectories; its full setup and provenance are in metrics.json. ')
+    if args.compressions_only:
+        caption += ('Small-dense, low-rank and frozen-feature controls are hidden. '
+                    'All underlying measurements are unchanged. ')
+    if any(failures for panel in panels.values() for failures in panel['missing'].values()):
+        caption += ('Incomplete groups have NO mean or SD; dotted colored curves show their completed individual '
+                    'runs, and panel annotations give the completion count. Failures and their provenance are retained. ')
     (args.output/'captions.txt').write_text(caption+'\n')
-    save_json(args.output/'metrics.json', dict(status='complete', caption=caption, seeds=seeds, times=times[1:].tolist(),
+    status = ('incomplete_groups' if any(failures for panel in panels.values()
+               for failures in panel['missing'].values()) else 'complete')
+    save_json(args.output/'metrics.json', dict(status=status, caption=caption, seeds=seeds, times=times[1:].tolist(),
         raw_error_times=times.tolist(), inputs=inputs, panels=panels, nonpositive_sd_bounds=clipped,
         taylor_replacement_config=replacement_config, plotting_source_sha256=sha(Path(__file__).read_bytes()),
-        argv=argv, cwd=str(Path.cwd()), aggregation='Arithmetic mean and sample SD of individual pointwise ratios'))
-    print(json.dumps(dict(event='figure4_paired_plot', output=str(args.output), status='complete')), flush=True)
+        argv=argv, cwd=str(Path.cwd()), metric='raw_rms' if args.raw_rms else 'pointwise_ratio',
+        aggregation='Arithmetic mean and sample SD of '+quantity))
+    print(json.dumps(dict(event='figure4_paired_plot', output=str(args.output), status=status)), flush=True)
     return 0
 
 
