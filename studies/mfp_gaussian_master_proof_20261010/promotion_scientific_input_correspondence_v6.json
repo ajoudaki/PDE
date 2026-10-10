@@ -1,0 +1,19 @@
+{
+  "packet_byte_changes": [
+    "promotion_theory.qmd"
+  ],
+  "other_17_packet_files_identical": true,
+  "all_18_required_scientific_edition_reads_identical": true,
+  "layout_equivalence_record": "promotion_layout_equivalence_v6.json",
+  "layout_equivalence_sha256": "ed5f30d154cd62cc4371d7f54167e51db6cbbba5e9f1f50d03d8b8b2a04fae37",
+  "code_and_requirements_byte_identical_to_validation_run": 92,
+  "code_validation_run": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v4",
+  "scientific_reports": [
+    "promotion_review_one_v3.md",
+    "promotion_review_two_v3.md"
+  ],
+  "scope": "Scientific content and code are unchanged. Thirteen display-only patches preserve ordered mathematical tokens, punctuation and labels; all surrounding text is byte-identical. Updated whole-book context and layout require fresh complete integration review.",
+  "candidate_manifest_sha256": "188c0cc7cf9de7fe29ac8f4786f33448a89e73d11d828b79379088b7136b7c04",
+  "changed_manifest_sha256": "9577ec8be09f5dffe4cc5772a2ad3d6d1a87fecaf6d9d572d8ad20e902b48854",
+  "packet_manifest_sha256": "20ceb2e4f57fbc2593c294306bc08b47c61e3d8bd2e28698bccad9bdad4a87da"
+}

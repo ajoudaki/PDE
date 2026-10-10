@@ -1,0 +1,54 @@
+{
+  "old_theory_sha256": "c0517bd8b00fe9f3ea6856b7b26587980a38c4ae4e9550f40de4833e9efe4c72",
+  "new_theory_sha256": "31ab851ea5efd2c520fb3d13a10f2ef9ec13e0c5b2cacdc04af5ea531ffc1b56",
+  "patches_sha256": "a510f429700f987fa7a9eb5f42930646dbbabbc03f789eec31505ebb7607aa26",
+  "checks": [
+    {
+      "patch": 1,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 2,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 3,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 4,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 5,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 6,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 7,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 8,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    },
+    {
+      "patch": 9,
+      "same_ordered_nonlayout_tokens": true,
+      "same_equation_labels": true
+    }
+  ],
+  "coordinator_read_all_replacements": true,
+  "scope": "Only nine display layouts change. All ordered mathematical tokens, punctuation and labels are preserved; all surrounding text and code are unchanged. The paired scientific verdicts remain applicable to unchanged mathematical content; a fresh complete integration review is required."
+}

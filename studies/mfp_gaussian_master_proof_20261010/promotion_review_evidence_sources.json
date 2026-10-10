@@ -1,0 +1,102 @@
+[
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_one_v1__guide_snippets.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_one/guide_snippets.py",
+    "sha256": "140edc85dd9a8dd54c494090ff6d3068300d45c1053d8edfe612a35a06e0a77b"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_one_v1__independent_probes.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_one/independent_probes.py",
+    "sha256": "53654800e46c0387c4108634289f6dbb6a5b7136f5e1d6ea7d5534ae7a557f7f"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_one_v1__verify_packet.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_one/verify_packet.py",
+    "sha256": "e7e3ff3e16ee6e9f558dfeeb3cd2d5873b9b4cbf2cba271229407f48c8a97b8b"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v1__check_packet.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_two/check_packet.py",
+    "sha256": "b94f3b2b319852025f1dcec34c0b9b7fa3e475ff44a7d4c34c2660bedc2a69a2"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v1__guide_snippet_1.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_two/guide_snippet_1.py",
+    "sha256": "a36f97b5584181a11364f7db2e90d38a0c9ec5924e58f9493e8142fe2ea2b841"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v1__guide_snippet_2.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_two/guide_snippet_2.py",
+    "sha256": "eb86bef6078f7b8b639b95231da6cc3a1f41e64341558707bc6b959dbb141136"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v1__guide_snippet_3.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_two/guide_snippet_3.py",
+    "sha256": "007b5d2efcb586f8f6aeaeefcf851adaeefe332a19e45557ee3cc57ace009324"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v1__guide_snippet_4.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_two/guide_snippet_4.py",
+    "sha256": "26ae4d9b51a45c4d077a3490480484fe29cb06d532b088716b3c5f471383a094"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v1__guide_snippet_5.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_two/guide_snippet_5.py",
+    "sha256": "f673c32f2ffdff94a0bc63ba5167520c9b6b7fbbf017bb858334fbbf890eab62"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v1__independent_probes.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v1/reviewer_two/independent_probes.py",
+    "sha256": "15ce234a56872f57a05dc0ef1f117c2a2ce74744b6ba58ca7a7468a7170fcb3d"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_one_v3__check_packet.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/reviewer_one/check_packet.py",
+    "sha256": "e35efcd0d44b32ed2bc20d0b457e4a34f14d3183319e9d7d3137c901c201fc5e"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_one_v3__independent_checks.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/reviewer_one/independent_checks.py",
+    "sha256": "ac6bdd1da17d84aa8bb5acffdaa5837f3cdc2a4213dc6c1ba103d6b2ed2d11bd"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_one_v3__run_guides.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/reviewer_one/run_guides.py",
+    "sha256": "cf7a85eb272ea9f8f522a8e3289d5a76a73caa27797e0011ed8507e6b4a617c5"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v3__adversarial_checks.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/reviewer_two/adversarial_checks.py",
+    "sha256": "0c89ff7e95e82b2900a1abf40f21172aef0444aeb7658ccbced45ca0b32b66ec"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v3__check_integrity.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/reviewer_two/check_integrity.py",
+    "sha256": "1430c2adf2ceb2b917b6602bebd335c05aeaa31a7078ffee82acd78afd272c70"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_review_two_v3__guide_blocks.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/reviewer_two/guide_blocks.py",
+    "sha256": "d9b832ae9bd6f3a8ef41120a5197e3ffb399ee5e5e4240219ddf9aeecf483130"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v3__browser_check.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/integration_reviewer/browser_check.py",
+    "sha256": "ee6903d4151de9c8e7781e86258fb4e52bb4f1f4db04d34106eb9cc1fe9c33a5"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v3__check_integration.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/integration_reviewer/check_integration.py",
+    "sha256": "26ca66abafc64008bf47fbaaef576e3be4ce5a94e2d77a026f711d9dfa29cf89"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v3__run_interfaces.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v3/integration_reviewer/run_interfaces.py",
+    "sha256": "920e17d0417654bd90364f13a28d0ddddf08ad8ad2d62ec6345aa978ab5998a9"
+  },
+  {
+    "retained_source": "studies/mfp_gaussian_master_proof_20261010/promotion_integration_v4__browser_check.py",
+    "original_review_scratch": "data/generated/mfp_gaussian_master_proof_20261010/promotion_candidate_v4/integration_reviewer/browser_check.py",
+    "sha256": "e59db6fc9c56268254cb91a772c64590b9b00e48e2e8d6fd1636834cbec312e3"
+  }
+]

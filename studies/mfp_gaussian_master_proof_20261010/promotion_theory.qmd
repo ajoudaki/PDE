@@ -1,0 +1,1041 @@
+## Fixed finite Gaussian derivative programs {#sec-mfp-finite-derivative-programs}
+
+The conditioning identities above become an operational calculus once the
+permitted finite computations and derivatives are specified. The order is to
+differentiate the finite network, expand every represented matrix action,
+and then evaluate a finite Gaussian expectation graph. The first two steps
+are exact at finite width. The last step gives a width limit, including
+convergence of expectations. Its scope is a fixed computation: depth,
+derivative order and update count do not grow with width.
+
+### Typed language and limit theorem {#sec-mfp-program-language}
+
+::: {#def-mfp-primitive-program}
+### Finite Gaussian program
+
+A vector type labels one copy of $\mathbb R^n$. Fix finitely many types and
+named initialized matrices $W:\mathbb R^n_\tau\to\mathbb R^n_\sigma$, with
+$\tau\ne\sigma$. Each matrix has independent $N(0,1/n)$ entries, and different
+named matrices are independent. A transpose call uses that same matrix.
+For each type fix a finite Gaussian root tuple whose coordinate tuples are
+iid over neuron indices. Its mean and covariance are fixed; its covariance
+may be singular. Root tuples of distinct types and all matrices are
+independent. A constant vector means a vector with one fixed scalar in every
+coordinate, not an arbitrary width-dependent deterministic array.
+
+A primitive program is a finite acyclic list of scalar and typed vector
+instructions:
+
+- **Coordinate map:** $v_i=F(u_i^1,\ldots,u_i^k;s_1,\ldots,s_b)$,
+  with all vectors of the same type.
+- **Normalized average:** $s=n^{-1}\sum_i F(u_i^1,\ldots,u_i^k;t_1,\ldots,t_b)$.
+- **Scalar arithmetic:** sums and products of earlier scalars.
+- **Named matrix action:** $Wh$ or $W^Tu$, with the declared input and output types.
+
+Initial scalars are deterministic. Every $F$ is a finite expression made
+from its arguments, fixed real constants, sums, products and
+$\phi^{(r)}$, $r\ge0$, where
+
+$$
+\begin{aligned}
+\phi&\in C^\infty(\mathbb R),\\
+|\phi^{(r)}(x)|&\le C_r(1+|x|)^{d_r}
+\quad\text{for every }r\ge0.
+\end{aligned}
+$$ {#eq-mfp-activation-growth}
+
+All coefficients, root laws, expression lists and dimensions other than
+$n$ are fixed before $n\to\infty$. There is no coordinate selection,
+inverse operation, arbitrary tensor-index contraction or width-dependent
+coefficient primitive.
+:::
+
+A current matrix and a matrix direction may be stored, respectively, as
+
+$$
+A=W_0+\sum_{\nu=1}^M c_\nu u_\nu v_\nu^T/n,
+\qquad B=\sum_{\nu=1}^{M'} d_\nu p_\nu q_\nu^T/n,
+$$ {#eq-mfp-represented-matrices}
+
+with a fixed finite number of terms; the initialized part may be absent.
+These are notation for primitive actions, not extra random-matrix laws:
+
+$$
+\begin{aligned}
+Ah&=W_0h+\sum_\nu c_\nu u_\nu(v_\nu^Th/n),\\
+A^Tu&=W_0^Tu+\sum_\nu c_\nu v_\nu(u_\nu^Tu/n).
+\end{aligned}
+$$ {#eq-mfp-rank-lowering}
+
+Each pairing contracts only one type. The derivative language additionally
+allows derivatives in finitely many deterministic inputs or scalar
+parameters; fixed-order directional derivatives with program vector
+directions and represented matrix directions; ambient gradients with
+mobility $n$ on trainable vector roots and mobility one on trainable
+matrices, with fixed block multipliers; their admitted contractions and
+directional derivatives; fixed numbers of gradient updates; and finite
+gradient-flow jets. The exact rules are in [exact finite differentiation](#sec-mfp-physical-differentiation).
+No derivative of a sampling law is implicit in a parameter derivative.
+
+::: {#thm-mfp-finite-derivative-program}
+### Scalar limits and uniform moments
+
+Every derivative program just specified expands exactly at each finite $n$
+to a finite primitive program. The construction in [Gaussian source-response evaluation](#sec-mfp-source-evaluation)
+gives a deterministic scalar $O_*$ for each scalar output $O_n$, and
+
+$$
+\lim_{n\to\infty}\mathbb E|O_n-O_*|^p=0
+\qquad(1\le p<\infty).
+$$ {#eq-mfp-scalar-lp-limit}
+
+For every vector node $v_n$, scalar node $s_n$, and finite $p,q\ge1$,
+
+$$
+\sup_n\mathbb E\left(\frac1n\sum_i|v_{n,i}|^p\right)^q<\infty,
+\qquad \sup_n\mathbb E|s_n|^q<\infty.
+$$ {#eq-mfp-uniform-node-moments}
+
+Every same-type tuple of vector nodes has a deterministic joint empirical
+law converging in probability in $\mathcal W_2$, for the Euclidean metric
+on the tuple. Its law is the source-response law below. These assertions
+hold jointly for finitely many programs sharing roots and matrices,
+including singular query Grams.
+
+The theorem asserts no infinite Taylor-series convergence, positive-time
+reconstruction, common existence horizon for finite flows, growing-depth
+or growing-update limit, or bound on compilation complexity beyond
+finiteness. Vector coordinates do not converge to deterministic constants.
+:::
+
+The proof has three parts. A raw-entry differentiation estimate bounds all
+moments without rank assumptions. The established bounded-derivative
+Gaussian program law identifies each clipped program; the moment bounds
+remove clipping uniformly in width. Exact finite differentiation closes
+the language before this probabilistic argument is applied.
+
+### Gaussian source-response evaluation {#sec-mfp-source-evaluation}
+
+Give each type $\tau$ a probability space $\Omega_\tau$ and expectation
+$\mathbb E_\tau$. Capital letters denote scalar representatives of vector
+nodes. Roots have their declared laws; coordinate maps act on these
+representatives and on previously computed deterministic scalars. An
+average becomes the expectation on its type.
+
+For a named matrix $W:\tau\to\sigma$, list forward calls $y_r=Wh_r$
+and reverse calls $v_s=W^Tu_s$ in their program order. Their scalar inputs
+are $H_r$ on $\Omega_\tau$ and $U_s$ on $\Omega_\sigma$. Introduce centered
+Gaussian sources $\xi_r$ on the output type $\sigma$, and $\zeta_s$ on
+the output type $\tau$, with
+
+$$
+\operatorname{Cov}(\xi_r,\xi_t)=\mathbb E_\tau[H_rH_t],\qquad
+\operatorname{Cov}(\zeta_s,\zeta_v)=\mathbb E_\sigma[U_sU_v].
+$$ {#eq-mfp-source-grams}
+
+Different oriented matrix groups, including the two orientations of one
+matrix, are independent Gaussian groups and are independent of the roots.
+Return
+
+$$
+\begin{aligned}
+Y_r&=\xi_r+\sum_{s:\,\text{earlier reverse call}}
+ U_s\,\mathbb E_\tau[\partial_{\zeta_s}H_r],\\
+V_s&=\zeta_s+\sum_{r:\,\text{earlier forward call}}
+ H_r\,\mathbb E_\sigma[\partial_{\xi_r}U_s].
+\end{aligned}
+$$ {#eq-mfp-source-response}
+
+The source covariances use uncentered input second moments. Thus an input
+$H=1$ has source variance one. The independence assertion concerns sources;
+the output fields in @eq-mfp-source-response generally depend on earlier
+groups through their responses.
+
+A formal source partial differentiates the explicit expression in the
+named source arguments, holding all previously computed expectations,
+covariance entries and scalar coefficients fixed. Paths through other
+matrices' earlier calls remain part of that expression. An unavailable
+source has derivative zero. Each call retains a distinct formal argument
+even at singular covariance: compute partials before restricting to the
+Gaussian support. No covariance inverse is an evaluation rule.
+
+This is a causal construction. Every response integrand is already
+defined, and the next covariance is an input-Gram extension, hence positive
+semidefinite. A Gaussian law exists even when that extension is singular.
+Finite sums, products, composition and differentiation preserve polynomial
+growth of every derivative, by the finite product and chain rules.
+Induction therefore bounds every field and its formal derivatives by a
+polynomial in the finite root/source list, so all required expectations
+exist. Collecting them gives a finite directed acyclic graph
+
+$$
+\begin{aligned}
+I_j&=\int F_j(g;I_1,\ldots,I_{j-1})\\
+&\qquad N(0,K_j(I_1,\ldots,I_{j-1}))(dg),\\
+O_*&=P(I_1,\ldots,I_N),
+\end{aligned}
+$$ {#eq-mfp-expectation-graph}
+
+where root means are fixed shifts inside $F_j$. The final $P$ is a
+polynomial because scalar outputs are assembled from averages, sums and
+products. The dimensions, integrands and covariance entries are specified
+by the program, rather than supplied as unknown neural laws.
+
+### Uniform raw-entry moments {#sec-mfp-uniform-moments}
+
+The following finite-entry cancellation argument is adapted from the
+moment mechanism in Appendix J of @golikov2022nongaussian. Its needed form
+is proved here; no external program theorem is used as a hypothesis.
+
+::: {#lem-mfp-raw-entry-moments}
+### Moments of values and raw-entry derivatives
+
+Temporarily allow all independent centered Gaussian matrix entries to
+have different variances, each at most $1/n$. For a fixed primitive
+program with smooth maps whose every partial derivative has polynomial
+growth, let $\alpha$ be a list of $k$ raw matrix-entry differentiation
+variables, with repetition allowed. For each finite $p\ge1$ and $k\ge0$,
+
+$$
+\sup_{n,i,|\alpha|=k}\mathbb E|\partial^\alpha v_{n,i}|^p<\infty,
+\qquad
+\sup_{n,|\alpha|=k}\mathbb E|\partial^\alpha s_n|^p<\infty.
+$$ {#eq-mfp-raw-entry-bounds}
+
+Constants are uniform over these variances and depend only on the fixed
+graph, root laws and finitely many polynomial derivative bounds. They
+are consequently uniform over any family of maps having common such
+bounds at each order. Derivatives refer to the deterministic program as
+a function of unconstrained raw entries, evaluated at the random array;
+this includes entries of variance zero.
+:::
+
+[]{#proof-mfp-raw-entry-moments}
+
+::: {.proof}
+Induct over instructions, proving all finite moments and derivative orders
+simultaneously at each node. At fixed $n$, values and derivatives have
+polynomial growth in finitely many Gaussian variables, so integrability
+is available before uniform bounds are proved. Roots have Gaussian moments
+and positive-order matrix derivatives zero. Repeated product and chain
+rules for coordinate and scalar maps give finitely many products of earlier
+derivatives and polynomially bounded factors. Hölder's inequality and
+higher moments of the earlier nodes bound each term. This covers scalar
+feedback. For an average, differentiate its finite sum and use
+
+$$
+\mathbb E\left|\frac1n\sum_i a_i\right|^p
+\le\frac1n\sum_i\mathbb E|a_i|^p.
+$$ {#eq-mfp-average-jensen}
+
+For a matrix call $y=Wv$, the product rule gives
+
+$$
+\partial^\alpha y_i=\sum_jW_{ij}\partial^\alpha v_j+R_i.
+$$ {#eq-mfp-matrix-derivative}
+
+The remainder has at most $k$ terms, each an earlier-node derivative of
+order $k-1$: differentiating the linear matrix factor fixes its column
+index, and a second derivative of that factor vanishes. Thus $R_i$ is
+bounded. A transpose call has the same argument with a column in place
+of a row.
+
+Write $w_j=W_{ij}$ and $z_j=\partial^\alpha v_j$. It suffices to bound
+an even integer moment $p$ of $\sum_jw_jz_j$, since larger even moments
+bound every finite moment. Expand it into ordered tuples
+$(j_1,\ldots,j_p)$. For one tuple let $b$ be its number of distinct
+indices, let $S$ be the indices that appear exactly once, and put
+$s=|S|$, $M=\prod_{a=1}^p w_{j_a}$ and $Z=\prod_{a=1}^p z_{j_a}$.
+We will bound $|\mathbb E[MZ]|$ by $C n^{-b}$.
+
+For $u\in S$ define the commuting difference
+$\Delta_uZ=Z-Z|_{w_u=0}$. Centering and independence give
+$\mathbb E[MZ]=\mathbb E[M\prod_{u\in S}\Delta_u Z]$:
+in every other term of the expanded product at least one singleton
+weight appears only as its centered linear factor. Applying the
+fundamental theorem of calculus once in each such entry yields
+
+$$
+\mathbb E[MZ]=\int_{[0,1]^s}
+\mathbb E\left[M\prod_{u\in S}w_u\,
+ (\partial_S Z)(W^{(t)})\right]dt.
+$$ {#eq-mfp-singleton-cancellation}
+
+Here $W^{(t)}$ replaces each selected raw entry $w_u$ by $t_uw_u$
+in the entire array, consistently in every reuse and transpose. Empty
+products and a zero-dimensional integral cover $s=0$. Gaussian moments
+give
+
+$$
+\mathbb E\left|M\prod_{u\in S}w_u\right|^2
+\le C n^{-(p+s)}.
+$$
+
+The other factor in @eq-mfp-singleton-cancellation has a bounded second
+moment, uniformly in $n,t$ and the selected entries. Its product-rule
+expansion contains only derivatives of the earlier node $v$, evaluated
+at independent centered Gaussian entries of variances at most $1/n$.
+The strengthened induction hypothesis applies. Differentiate in raw
+coordinates first and then evaluate at $W^{(t)}$; these are not
+derivatives of the composed map $W\mapsto Z(W^{(t)})$. No factors
+$t_u$ or divisions by $t_u$ occur, even at zero. Fixed-width polynomial
+integrability justifies the centering and integration exchanges.
+
+Cauchy--Schwarz bounds the tuple contribution by
+$C n^{-(p+s)/2}$. The multiplicities satisfy
+$p\ge s+2(b-s)=2b-s$, giving the desired $C n^{-b}$.
+For a fixed equality pattern there are at most $C_p n^b$ tuples,
+and finitely many patterns for fixed $p$. Summing proves a uniform
+bound for the matrix-call moment and closes the induction. Every bound
+uses finitely many earlier derivative bounds and Gaussian moments,
+never a lower variance or a Gram inverse.
+:::
+
+Taking $k=0$ proves scalar moment bounds, and Jensen gives
+
+$$
+\mathbb E\left(\frac1n\sum_i|v_i|^p\right)^q
+\le\frac1n\sum_i\mathbb E|v_i|^{pq},
+$$
+
+which proves @eq-mfp-uniform-node-moments. We also use the uniform
+operator-norm moments from @eq-docs-special-data-limits-l3859 and
+@eq-docs-special-data-limits-l3866: for every fixed finite $a$,
+$\sup_n\mathbb E\|W\|_{\mathrm{op}}^a<\infty$. Those estimates follow
+from a $1/4$-net and Gaussian tails and apply to any fixed list of
+initialized matrices and their transposes.
+
+### Bounded maps, scalar feedback and removal of clipping {#sec-mfp-clipping-proof}
+
+::: {#lem-mfp-bounded-typed-extension}
+### The bounded-derivative foundation on a finite typed graph
+
+For any fixed list of named matrices between distinct types, the source
+rule @eq-mfp-source-response identifies empirical laws in $\mathcal W_2$
+in probability for $C^1$ coordinate maps with bounded continuous first
+partials. Normalized averages of such maps, globally Lipschitz scalar
+maps, and globally Lipschitz dependence on preceding scalars are allowed.
+The roots here may have any iid finite-second-moment tuple law of the
+stated independence types.
+:::
+
+[]{#proof-mfp-bounded-typed-extension}
+
+::: {.proof}
+The deterministic-coefficient proof is
+@thm-docs-special-data-limits-l3820, with adaptive conditioning in
+[adaptive Gaussian conditioning](12-three-sample-learning.qmd#sec-docs-special-data-limits-l3884), the source identity in
+@lem-docs-special-data-limits-l3966 and singular-query removal in
+@lem-docs-special-data-limits-l4011. Its statement lists adjacent-layer
+matrices. The following checks extend the proof to the present finite
+typed graph without enlarging its analytic hypotheses.
+
+Condition on all revealed roots and the complete preceding transcript.
+For each *named* matrix retain only its own forward and reverse
+constraints $WV=Y$, $W^TU=Q$. Initially the residual matrix laws are
+independent Gaussians. A coordinate or scalar instruction is measurable
+from the transcript. At the next call its input is fixed conditionally,
+so its answer conditions only the queried residual matrix factor by one
+linear observation; all other conditional factors are unchanged. This
+proves by induction the conditional product structure used in
+@eq-docs-special-data-limits-l3896 for any list of names, including
+parallel edges and type-graph cycles. Chronology is still acyclic.
+
+That conditioning formula and its new-query form
+@eq-docs-special-data-limits-l3916 use only the two endpoint spaces and
+their earlier query columns. The finite-rank projection error is
+$\operatorname{rank}(U)/n$, regardless of other edges. Thus the
+positive-Gram empirical-law induction, including its conditional test
+variance and second-moment calculation, carries over verbatim at each
+named call. The Gaussian integration-by-parts cancellation in
+@lem-docs-special-data-limits-l3966 also uses only this matrix's two
+lists. Dependencies through other matrices are retained in the input's
+explicit source expression. This gives @eq-mfp-source-response with
+separate oriented groups for every name.
+
+For singular Grams, add a distinct independent $\varepsilon$-Gaussian
+input perturbation at each call, as in
+@lem-docs-special-data-limits-l4011. Each new squared distance to its
+own preceding query span has limit at least $\varepsilon^2$.
+A finite union of the operator-bound events controls all named matrices;
+the same finite instruction induction gives an $O(\varepsilon)$ RMS
+error. The proof's coupling by positive semidefinite covariance square
+roots and its convergence of bounded source derivatives do not use
+layer adjacency. It therefore removes $\varepsilon$ for this graph.
+
+To include scalars, proceed causally, replacing each preceding scalar
+value by its deterministic limit in an auxiliary program. A normalized
+average of a bounded-derivative map is the normalized pairing of its
+output with the constant-one vector, so the empirical $\mathcal W_2$
+law determines that scalar limit. Globally Lipschitz scalar operations
+preserve convergence. If $s_n\to s_*$ and $F(u;s)$ has a global
+Lipschitz constant $C$, then
+
+$$
+\begin{gathered}
+\frac{\|F(u_n;s_n)-F(\bar u_n;s_*)\|_2}{\sqrt n}\\
+{}\le C\left(\sum_j\frac{\|u_n^j-\bar u_n^j\|_2}{\sqrt n}\right.\\
+\left.{}+\sum_b|s_{n,b}-s_{*,b}|\right).
+\end{gathered}
+$$
+
+For averages, Jensen gives the same estimate for their absolute error.
+Matrix errors are bounded by the initialized operator norm times the
+input RMS error. This proves the scalar and vector comparison by finite
+induction; equivalently, scalar arguments can be broadcast and then
+inserted into an ordinary same-type coordinate map. It is the mechanism
+of [causal scalar feedback](12-three-sample-learning.qmd#sec-docs-special-data-limits-l4054) with this additional globally
+Lipschitz coordinate dependence checked explicitly. The deterministic
+scalar construction is causal, not a fixed-point assumption. In its
+source partials the substituted scalars are held fixed. The same
+Lipschitz estimates also include scalars when removing the singular-query
+perturbations. This proves the stated extension.
+:::
+
+This lemma leaves intact the broader finite-second-moment roots and
+$C^1$ hypotheses of the older foundation. The smooth Gaussian theorem
+adds all finite scalar moments under its stronger assumptions; it does
+not replace the lower-regularity specializations in
+[contained probability and continuity specializations](#sec-docs-global-nonlinear-l1840) or the distinct feature-ascent theorem
+@thm-docs-gaussian-calculus-l289.
+
+[]{#proof-mfp-finite-derivative-program}
+
+::: {.proof}
+First consider a primitive program. Choose a smooth cutoff $\chi$ equal
+to one on the unit ball and zero outside the radius-two ball. For every
+coordinate or scalar operation set
+$F_B(x)=\chi(x/B)F(x)$, $B\ge1$, including scalar arguments in $x$.
+Scalar sums and products can be clipped by this rule too; constants
+are unchanged. Each $F_B$ has bounded derivatives and is globally
+Lipschitz. For each derivative order its polynomial growth bound is
+uniform in $B$: product-rule factors $B^{-j}D^j\chi(x/B)$ are
+uniformly bounded. Also $F_B\to F$ with all derivatives on compact
+sets. The raw-entry moment lemma consequently holds uniformly in both
+$n$ and $B$ for the original and clipped programs.
+
+Couple them using identical roots and matrices. We claim for corresponding
+nodes that
+
+$$
+\begin{aligned}
+\lim_{B\to\infty}\sup_n\mathbb E\frac{\|v_n-v_n^B\|_2^2}{n}&=0,\\
+\lim_{B\to\infty}\sup_n\mathbb E|s_n-s_n^B|^2&=0.
+\end{aligned}
+$$ {#eq-mfp-clipping-errors}
+
+Here are the error estimates needed to induct over the list. Regard a
+vector coordinate as a random variable on the original probability
+space times the uniform distribution on its neuron index. All finite
+moments are uniformly bounded on this probability space. If a difference
+vanishes in $L^2$, interpolation with a uniformly bounded higher moment
+makes it vanish in every fixed finite $L^p$, uniformly in width. This
+also applies to scalar errors and scalar broadcasts.
+
+Polynomial growth of first derivatives gives
+
+$$
+|F(x)-F(y)|\le C(1+|x|+|y|)^d|x-y|.
+$$ {#eq-mfp-polynomial-difference}
+
+Split $F(x)-F_B(y)$ into $F(x)-F(y)$ and $F(y)-F_B(y)$.
+The first tends to zero in $L^2$ by Hölder, the input errors upgraded
+to $L^4$, and uniform moments of the polynomial factor. The second
+is bounded by $C(1+|y|)^d\mathbf1_{|y|>B}$. Its squared expectation
+vanishes uniformly by any sufficiently high moment and a power tail
+bound. This proves the coordinate, scalar and, by Jensen, average steps.
+
+For a matrix call with input error $e$, correlated with $W$ or not,
+
+$$
+\begin{aligned}
+\mathbb E\frac{\|We\|_2^2}{n}
+&\le (\mathbb E\|W\|_{\mathrm{op}}^4)^{1/2}
+ \left[\mathbb E(\|e\|_2^2/n)^2\right]^{1/2}\\
+&\le C\left[\mathbb E\frac1n\sum_i|e_i|^4\right]^{1/2}
+\longrightarrow0.
+\end{aligned}
+$$ {#eq-mfp-correlated-matrix-error}
+
+The operator moments and the interpolation just proved justify the last
+line. Transposes obey the identical bound, and roots have zero error.
+This completes the induction proving @eq-mfp-clipping-errors, including
+causal scalar feedback.
+
+For fixed $B$, @lem-mfp-bounded-typed-extension identifies the clipped
+program and gives $O_n^B\to O_*^B$ in probability. The clipped Gaussian
+evaluator converges to the unclipped evaluator. To prove this, induct
+over its expectation graph. Earlier convergent coefficients stay bounded.
+All fields and each finite set of source derivatives have common
+polynomial bounds in the finite root/source list, because the clipped
+maps have common derivative bounds of polynomial growth. Couple each
+source prefix with a fixed standard Gaussian vector using its positive
+semidefinite covariance square root. Covariance convergence implies
+square-root convergence, including at rank loss, by the argument in
+@lem-docs-special-data-limits-l4011. Local convergence of the maps and
+their derivatives gives pointwise convergence on this coupling; bounded
+square roots give a common polynomial Gaussian dominator. Dominated
+convergence therefore passes input Grams, response expectations and
+all fixed field moments to their unclipped values. This closes the
+coefficient induction and proves $O_*^B\to O_*$.
+
+For any $\epsilon>0$ and sufficiently large fixed $B$,
+
+$$
+\Pr(|O_n-O_*|>\epsilon)
+\le\Pr(|O_n-O_n^B|>\epsilon/3)
+   +\Pr(|O_n^B-O_*^B|>\epsilon/3).
+$$
+
+Take the width limit and then $B\to\infty$, using
+@eq-mfp-clipping-errors and Markov's inequality. This proves convergence
+in probability. For finite $p$, choose $q>p$. The raw-entry moment
+bound controls $\mathbb E|O_n-O_*|^q$ uniformly. The part of its $p$th
+moment on $|O_n-O_*|>R$ is at most $CR^{p-q}$; the part on the
+complement tends to zero by convergence in probability and boundedness
+(split once more at an arbitrarily small threshold). This proves
+@eq-mfp-scalar-lp-limit.
+
+For a same-type vector tuple, the coordinatewise coupling bounds the
+squared empirical $\mathcal W_2$ distance by its mean squared error.
+The clipped empirical laws converge by the bounded lemma, and their
+limiting laws converge in $\mathcal W_2$ by the Gaussian dominated
+convergence just proved. The triangle inequality proves the asserted
+unclipped empirical-law convergence in probability. Finite unions of
+programs give the joint assertions. Finally,
+@prp-mfp-derivative-closure below expands every admitted derivative to
+a primitive graph before clipping; thus this proof applies to the
+actual derivative, never to a derivative of a clipped network.
+:::
+
+### Exact finite differentiation and training {#sec-mfp-physical-differentiation}
+
+Physical differentiation acts on the realized finite-dimensional program,
+then evaluates at sampled parameters. A single Fréchet derivative evaluates
+its direction at the base point and holds that direction fixed. With
+$\delta u=Du[\delta\theta]$ and $\delta s=Ds[\delta\theta]$, its rules are
+
+$$
+\begin{aligned}
+\delta F(u;s)
+&=\sum_j F_{u^j}(u;s)\odot\delta u^j\\
+&\quad+\sum_b F_{s_b}(u;s)\,\delta s_b,\\
+\delta\left[\frac1n\sum_iF(u_i;s)\right]
+&=\frac1n\sum_i\bigl[\sum_jF_{u^j}(u_i;s)\delta u_i^j\\
+&\qquad+\sum_bF_{s_b}(u_i;s)\delta s_b\bigr],\\
+\delta(Ah)&=(\delta A)h+A\delta h,\\
+\delta(A^Tu)&=(\delta A)^Tu+A^T\delta u,\\
+\delta(cuv^T/n)&=(\delta c)uv^T/n\\
+&\quad+c(\delta u)v^T/n\\
+&\quad+cu(\delta v)^T/n.
+\end{aligned}
+$$ {#eq-mfp-forward-ad}
+
+Products of vectors in these expressions are coordinatewise. Scalar
+arithmetic uses the usual sum and product rules. Unlike a formal source
+partial, physical differentiation propagates through finite averages
+and their scalar feedback.
+
+For reverse differentiation of a scalar $O$, store vector adjoints
+$b_u=n\,\partial O/\partial u$ and scalar adjoints
+$a_s=\partial O/\partial s$. Initialize $a_O=1$ and the others at zero;
+visit instructions in reverse order and add every contribution:
+
+For a coordinate map $v=F(u;s)$, add for each argument
+
+$$
+b_{u^j}\mathrel{+}=b_v\odot F_{u^j},\qquad
+a_{s_b}\mathrel{+}=\frac1n\sum_i b_{v,i}F_{s_b}(u_i;s).
+$$ {#eq-mfp-coordinate-adjoint}
+
+For an average $t=n^{-1}\sum_iF(u_i;s)$, add
+
+$$
+b_{u^j}\mathrel{+}=a_tF_{u^j},\qquad
+a_{s_b}\mathrel{+}=\frac{a_t}{n}\sum_iF_{s_b}(u_i;s).
+$$ {#eq-mfp-average-adjoint}
+
+For a matrix action $v=Au$, add
+
+$$
+b_u\mathrel{+}=A^Tb_v,\qquad \nabla_AO\mathrel{+}=b_vu^T/n.
+$$ {#eq-mfp-matrix-adjoint}
+
+For a transpose action $v=A^Tu$, add
+
+$$
+b_u\mathrel{+}=Ab_v,\qquad \nabla_AO\mathrel{+}=ub_v^T/n.
+$$ {#eq-mfp-transpose-adjoint}
+
+For example, matching $dO=b_v^Tdv/n$ to
+$\langle\nabla_AO,dA\rangle_F+b_u^Tdu/n$ proves both matrix rules,
+where $\langle B,C\rangle_F=\operatorname{tr}(B^TC)$.
+Accumulation includes every repeated occurrence of a shared parameter.
+
+Compute a current ambient-matrix gradient with $A$ treated as the
+parameter *before* substituting @eq-mfp-represented-matrices. A derivative
+with respect to the factors of previous updates is a history pullback,
+a different requested function. Vector mobility $n\kappa$ gives loss
+velocity $-\kappa b_u$, and matrix mobility $\kappa$ gives
+$-\kappa\nabla_A\mathcal L$. Their contractions stay in the language:
+
+$$
+\begin{aligned}
+n\,\nabla_uO^T\nabla_uS
+&=\frac{(b_u^O)^Tb_u^S}{n},\\
+\left\langle\frac{uv^T}{n},\frac{pq^T}{n}\right\rangle_F
+&=\left(\frac{u^Tp}{n}\right)\left(\frac{v^Tq}{n}\right).
+\end{aligned}
+$$ {#eq-mfp-gradient-contractions}
+
+For physical-time jets write
+$u_{[r]}=\frac1{r!}(d^ru/dt^r)(0)$. At a fixed requested order $R$,
+coefficient extraction in the truncated polynomial ring gives
+
+$$
+\begin{aligned}
+(uv)_{[r]}&=\sum_{a+b=r}u_{[a]}v_{[b]},\qquad
+(Au)_{[r]}=\sum_{a+b=r}A_{[a]}u_{[b]},\\
+\phi(u)_{[r]}&=[t^r]\sum_{k=0}^r\frac{\phi^{(k)}(u_{[0]})}{k!}
+                 \left(\sum_{j=1}^r u_{[j]}t^j\right)^k.
+\end{aligned}
+$$ {#eq-mfp-jet-algebra}
+
+The $k=0$ term is the constant $\phi(u_{[0]})$. Averages act
+coefficientwise, and mixed finite jets use multivariate truncated
+polynomials. For a smooth finite-dimensional field
+$\dot\theta=V(\theta)$, compute
+
+$$
+(r+1)\theta_{[r+1]}=[t^r]V\left(\sum_{j=0}^r\theta_{[j]}t^j\right).
+$$ {#eq-mfp-flow-jet-recursion}
+
+All state dependence in $V$ participates. In particular
+$O''=D^2O[V,V]+DO[DV[V]]$; the first term alone describes the straight
+line with frozen initial direction. This is the general version of
+[derivatives along the gradient direction](#sec-docs-gaussian-calculus-l170) and the explicit finite MLP recurrence
+in [the finite MLP jet recurrence](#sec-docs-gaussian-calculus-l5338).
+
+::: {#prp-mfp-derivative-closure}
+### Exact compilation of admitted derivatives
+
+The derivative constructions above, fixed gradient updates and fixed-order
+flow jets expand to primitive programs, exactly at every finite width.
+:::
+
+[]{#proof-mfp-derivative-closure}
+
+::: {.proof}
+Every partial derivative of an allowed coordinate expression is again
+such an expression by finite chain and product rules. Thus
+@eq-mfp-forward-ad and the reverse table introduce only allowed coordinate
+maps, averages and matrix actions. Differentiating a represented matrix
+term leaves finitely many represented terms; @eq-mfp-rank-lowering expands
+their actions, and @eq-mfp-gradient-contractions expands their admitted
+contractions. A vector update subtracts a program vector, while a matrix
+update adds finitely many normalized rank-one terms. Induction over a fixed
+number of simultaneous steps proves exact closure, with the ambient loss
+gradient formed before each current-state substitution.
+
+Finite Taylor's theorem, not analyticity, proves
+@eq-mfp-jet-algebra to any prescribed finite order. Comparing coefficients
+in $\dot\theta=V(\theta)$ gives @eq-mfp-flow-jet-recursion. A smooth
+finite-dimensional field has a local solution: on a sufficiently small
+closed ball its derivative is bounded, and its integral map on continuous
+paths in that ball is a contraction for sufficiently short time. Repeated
+differentiation yields the finite jets. No common width-independent
+interval is used. Finite induction on jet order therefore proves the
+remaining closure assertion. Applying the limit theorem only after
+expansion avoids any interchange of differentiation and the width limit.
+:::
+
+Explicitly frozen direction data can be handled as independent seeds on
+an enlarged parameter space, with values assigned from the base state
+after differentiation. For example, freezing $x$ inside $n^{-1}\sum_i x_i^2$
+sets its partial derivative in the remaining $x$ parameter to zero;
+it is no longer the ordinary derivative of the original observable.
+Gaussian evaluation retains the seed's value and explicit source
+dependence. Freezing physical seeds never freezes a formal source path.
+
+For neural applications fix $L,m,d$ and the canonical forward model
+
+$$
+\begin{aligned}
+z_a^{(1)}&=W^{(1)}x_a/\sqrt d,\\
+z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)},\\
+h_a^{(\ell)}&=\phi(z_a^{(\ell)}),\\
+f_{n,a}&=(W^{(L+1)})^Th_a^{(L)}/n.
+\end{aligned}
+$$ {#eq-mfp-neural-forward}
+
+Take independent first-weight entries $N(0,1)$, hidden entries $N(0,1/n)$,
+and stored readout entries $N(0,\tau^2)$ for a fixed $\tau$.
+The first-matrix columns and readout are vector roots. This is an
+order-one readout when $\tau>0$, explicitly distinct from the default
+width-dependent small-readout law in [the notation contract](notation.qmd#sec-docs-notation-l70). With
+$r_{n,a}=f_{n,a}-y_a$, full mean loss
+$\mathcal L_n=m^{-1}\sum_a r_{n,a}^2$, and block mobilities
+$n\kappa_1,\kappa_2,\ldots,\kappa_L,n\kappa_{L+1}$, its physical
+gradient field is admitted. All samples share the first-matrix columns;
+one must not replace correlated sample preactivations by independent
+trainable parameters. Fixed data derivatives also propagate through those
+shared columns. Exact small-readout finite recurrences remain valid,
+but their width-dependent initialization is not a consequence of this
+fixed-root-law theorem.
+
+### Initialization activation-moment form {#sec-mfp-initialization-normal-form}
+
+::: {#prp-mfp-initialization-normal-form}
+### Restricted activation-moment reduction
+
+Construct the original feedforward preactivations of the centered,
+zero-bias initialization in @eq-mfp-neural-forward first. Consider a
+compiled derivative program at
+initialization in which every nonlinear node is literally
+$\phi^{(r)}(z_a^{(\ell)}(0))$ for one of these original nodes. All other
+operations are the allowed polynomial arithmetic, matrix actions and
+normalized contractions. Its scalar limit is a finite polynomial in fixed
+model/data constants and recursively computed Gaussian moments of products
+of activation derivatives. This syntactic restriction excludes nonlinear
+functions of derivative fields and of updated preactivations.
+:::
+
+[]{#proof-mfp-initialization-normal-form}
+
+::: {.proof}
+No reverse call precedes the original forward pass. Hence its preactivations
+are centered Gaussian sources, or linear combinations of first-layer
+Gaussian roots. Their covariances are determined in order by
+
+$$
+\begin{aligned}
+\Sigma^{(1)}_{ab}&=G_{ab}=x_a^Tx_b/d,\\
+\Sigma^{(\ell+1)}_{ab}
+&=\mathbb E_{Z\sim N(0,\Sigma^{(\ell)})}\phi(Z_a)\phi(Z_b).
+\end{aligned}
+$$ {#eq-mfp-forward-covariances}
+
+All original preactivations, auxiliary roots and later named sources form
+a finite joint Gaussian family on each type. A preactivation represented
+as a linear combination can be adjoined as a Gaussian integration
+coordinate with its induced covariance, even if this creates singularity.
+Source partials still use the original named arguments; adjoining an
+integration coordinate does not change their definition.
+
+Inductively every field is a finite sum of expressions
+$cP(Z)\prod_\nu\phi^{(r_\nu)}(Z_{a_\nu})$, with $P$ polynomial,
+activation arguments designated original preactivations, and $c$
+polynomial in previously computed scalar values. Fixed means of auxiliary
+roots can be absorbed into the polynomial; designated activation arguments
+are centered preactivations by the subclass assumption. The class is closed under arithmetic
+and formal source derivatives. A matrix action appends one Gaussian
+source and linear combinations of old fields with coefficients equal
+to expectations in the same class; its covariance entries are also
+such expectations. This proves the symbolic induction.
+
+For any centered Gaussian vector $Z$ of covariance $K$ and smooth
+polynomial-growth $F$,
+
+$$
+\mathbb E[Z_iF(Z)]=\sum_jK_{ij}\mathbb E[\partial_jF(Z)].
+$$ {#eq-mfp-stein-reduction}
+
+Indeed write $Z=B\gamma$, $BB^T=K$, with independent standard Gaussian
+coordinates in $\gamma$, and integrate by parts in each coordinate.
+Polynomial growth removes boundary terms and justifies Fubini; no
+invertibility is needed. Apply this identity to one explicit Gaussian
+factor in $P$. A derivative hitting the remaining polynomial reduces
+its degree, and a derivative hitting an activation raises its derivative
+order while still removing the selected explicit Gaussian factor.
+Induction on polynomial degree terminates in covariance monomials times
+atoms
+
+$$
+\mathbb E_{Z\sim N(0,K_j)}\prod_\nu\phi^{(r_{j,\nu})}(Z_{a_{j,\nu}}),
+$$
+
+whose covariances are already determined by earlier steps. Substituting
+these finite expressions recursively proves the claimed polynomial form.
+For polynomial-only programs this reduces to
+@eq-docs-gaussian-calculus-l211. The scalar $L^p$ theorem identifies the
+result with the expectation limit; the reduction is not a separate
+asymptotic assumption.
+:::
+
+### Worked programs and neural observables {#sec-mfp-worked-programs}
+
+**Reuse and the finite-width correction.** Let $e$ be the constant-one
+input, $y=We$, $u=\phi(y)$, $v=W^Tu$ and $J_n=v^Tv/n$.
+For a standard Gaussian $\gamma$, put
+$q=\mathbb E\phi(\gamma)^2$ and $c=\mathbb E\phi'(\gamma)$.
+The forward representative is $\xi\sim N(0,1)$; the reverse one is
+$\zeta+c$ with $\zeta\sim N(0,q)$. Thus
+
+$$
+\begin{aligned}
+J_n&\longrightarrow q+c^2\quad\text{in every finite }L^p,\\
+\mathbb E J_n&=q+c^2\\
+&\quad+\frac{\mathbb E[\gamma^2\phi(\gamma)^2]-q-c^2}{n}.
+\end{aligned}
+$$ {#eq-mfp-reuse-square}
+
+For the finite identity, use the exact projection law
+@eq-docs-gaussian-calculus-l34: conditionally on $y$ the two orthogonal
+components of $v$ give
+$\mathbb E[J_n\mid y]=(n^{-1}y^T\phi(y))^2+
+(1-1/n)n^{-1}\|\phi(y)\|_2^2$. Taking expectations and using
+$\mathbb E[\gamma\phi(\gamma)]=c$ proves the formula. For $\phi(x)=x$
+it gives $2+1/n$, whereas Gaussian compilation returns $2$.
+Physical differentiation must accumulate both occurrences of $W$:
+
+$$
+\nabla_WJ_n=\frac2n\left[
+uv^T+\bigl((Wv)\odot\phi'(y)\bigr)e^T\right].
+$$
+
+This follows by substituting
+$dv=(dW)^Tu+W^T(\phi'(y)\odot(dW)e)$ into $dJ_n=2v^Tdv/n$.
+
+**One normalized update.** For the explicitly different scalar loss
+$\mathcal L_n=n^{-1}\sum_i\phi((We)_i)$, set $p=\phi'(We)$.
+The differential gives $\nabla_W\mathcal L_n=pe^T/n$. One step with
+fixed $\eta$ and matrix mobility one gives $A=W-\eta pe^T/n$.
+Keep $p$ at its pre-update value. Exact lowering yields
+$A^Tp=W^Tp-\eta e(p^Tp/n)$ and $Ae=We-\eta p$. With
+$q=\mathbb E\phi'(\gamma)^2$ and $c=\mathbb E\phi''(\gamma)$,
+
+$$
+\frac{\|A^Tp\|_2^2}{n}\longrightarrow q+(c-\eta q)^2.
+$$
+
+The reverse source has variance $q$ and response $c$, while the saved
+pairing tends to $q$; this proves the formula. For $\phi(x)=x^4/4$
+the answer is $15+(3-15\eta)^2$.
+
+**Singular duplicate calls.** Distinct calls $y_1=We$, $y_2=We$
+retain sources of covariance $\left(\begin{smallmatrix}1&1\\1&1\end{smallmatrix}\right)$.
+For $u=\phi(y_1+y_2)$ the two formal partials are separately
+$\phi'(\xi_1+\xi_2)$. On the Gaussian support
+$(\xi_1,\xi_2)=(\gamma,\gamma)$, so
+
+$$
+\frac{\|W^Tu\|_2^2}{n}\longrightarrow
+\mathbb E\phi(2\gamma)^2+4(\mathbb E\phi'(2\gamma))^2.
+$$
+
+This also follows by applying @eq-mfp-reuse-square to $\phi(2x)$.
+For $u=\phi(y_1)-\phi(y_2)$ the source variance is zero and the
+two response coefficients cancel. Its transpose output remains exactly
+zero. Identifying the formal arguments before differentiation would
+discard the information that makes this cancellation explicit.
+
+**Moving direction.** Let $x\in\mathbb R^n$ be a trainable vector
+state, not a dataset input, with iid standard Gaussian initialization.
+For $\mathcal L_n=n^{-1}\sum_i x_i^4/4$ and vector mobility $n$,
+$\dot x=-x^3$. The observable $O_n=n^{-1}\sum_i x_i^2$ satisfies
+
+$$
+D^2O_n[V,V]=\frac2n\sum_i x_i^6,\qquad
+DO_n[DV[V]]=\frac6n\sum_i x_i^6.
+$$
+
+The expected initial frozen and moving second derivatives therefore tend
+to $30$ and $120$. The moving coefficient $O_{[2]}$ tends to $60$,
+because jets include $1/2!$. Directly,
+$x_i(t)=x_i(0)(1+2t x_i(0)^2)^{-1/2}$ verifies these finite identities.
+
+**A neural parameter derivative.** Take two hidden layers, scalar input
+$x=1$, no biases, and independent
+$W_i^{(1)},W_i^{(3)}\sim N(0,1)$,
+$W_{ij}^{(2)}\sim N(0,1/n)$. This explicitly uses order-one readout.
+The forward pass is @eq-mfp-neural-forward, with
+$z^{(1)}=W^{(1)}$. Define
+$b^{(1)}=n\nabla_{W^{(1)}}f_n$ and
+$O_n=\|b^{(1)}\|_2^2/n=n\|\nabla_{W^{(1)}}f_n\|_2^2$.
+Compute in order
+
+$$
+\begin{aligned}
+q_1&=\mathbb E\phi(\gamma)^2,\\
+Z&\sim N(0,q_1),\\
+s_1&=\mathbb E\phi'(\gamma)^2,\\
+s_2&=\mathbb E\phi'(Z)^2,\\
+q_2&=\mathbb E\phi(Z)^2.
+\end{aligned}
+$$
+
+Then $O_n\to s_1s_2$ in every finite $L^p$. Indeed exact differentiation
+gives $\delta^{(2)}=W^{(3)}\odot\phi'(z^{(2)})$ and
+$b^{(1)}=\phi'(z^{(1)})\odot W^{(2)T}\delta^{(2)}$.
+The transpose response is $\mathbb E[A\phi''(Z)]=0$, since the
+centered readout representative $A$ is independent of $Z$. Its reverse
+source has variance $s_2$ and is independent of the first-layer root;
+the squared product consequently has expectation $s_1s_2$. Likewise
+the full metric gradient norm tends to
+
+$$
+n\|\nabla_{W^{(1)}}f_n\|_2^2+
+\|\nabla_{W^{(2)}}f_n\|_F^2+
+n\|\nabla_{W^{(3)}}f_n\|_2^2
+\longrightarrow s_1s_2+q_1s_2+q_2,
+$$
+
+using $\nabla_{W^{(2)}}f_n=\delta^{(2)}h^{(1)T}/n$ and
+$n\nabla_{W^{(3)}}f_n=h^{(2)}$.
+
+**Symbolic geometry and feature-kernel jets.** Keep two hidden layers and
+order-one readout, now with $m=d=2$. Fix real
+$\alpha,\beta,\gamma,y_1,y_2$ and set
+
+$$
+x_1/\sqrt2=(\alpha,0)^T,\quad
+x_2/\sqrt2=(\beta,\gamma)^T,\qquad
+G=\begin{pmatrix}\alpha^2&\alpha\beta\\
+\alpha\beta&\beta^2+\gamma^2\end{pmatrix}.
+$$
+
+Let $U,V$ be the shared columns of $W^{(1)}$, each with iid $N(0,1)$
+entries, so $z_1^{(1)}=\alpha U$ and
+$z_2^{(1)}=\beta U+\gamma V$. With the forward pass above, use
+the half-mean loss and its physical clock
+
+$$
+\begin{gathered}
+\mathcal L_n=\frac1{2m}\sum_a(f_{n,a}-y_a)^2,\\
+(\dot U,\dot V,\dot W^{(2)},\dot W^{(3)})\\
+=-\bigl(n\nabla_U\mathcal L_n,n\nabla_V\mathcal L_n,\\
+\qquad\nabla_{W^{(2)}}\mathcal L_n,n\nabla_{W^{(3)}}\mathcal L_n\bigr).
+\end{gathered}
+$$ {#eq-mfp-kernel-example-clock}
+
+Relative to the full mean loss, the velocity is halved. The last-hidden-layer
+feature kernel is $K_{n,ab}=h_a^{(2)T}h_b^{(2)}/n$; it is only the
+readout block of the tangent kernel. For $r=0,1,2$ request
+
+$$
+J_r=\lim_{n\to\infty}\mathbb E\left[
+\frac1{r!}\left.\frac{d^r}{dt^r}K_{n,12}(t)\right|_{t=0}\right].
+$$ {#eq-mfp-kernel-example-jets}
+
+Each coefficient exists by @thm-mfp-finite-derivative-program. For generic
+$\phi$, form the loss gradient in the shared parameters, use the moving
+recursion @eq-mfp-flow-jet-recursion through order two, and compile the
+three scalar coefficients by @eq-mfp-source-response. All nonlinear
+arguments in these differentiated initialization graphs are original
+preactivations, so @prp-mfp-initialization-normal-form applies. The
+zeroth coefficient is
+$\mathbb E[\phi(Z_1)\phi(Z_2)]$ with
+$Z\sim N(0,\Sigma^{(2)})$ from @eq-mfp-forward-covariances.
+Higher generic formulas are finite expectation graphs and can be
+regenerated by the maintained example; their expansion is not needed
+to define or evaluate the algorithm.
+
+For the compact linear check $\phi(z)=z$, the results are
+
+$$
+\begin{aligned}
+J_0&=G_{12},\\
+J_1&=0,\\
+J_2&=\frac94(G_{11}y_1+G_{12}y_2)
+                  (G_{12}y_1+G_{22}y_2).
+\end{aligned}
+$$ {#eq-mfp-linear-kernel-jets}
+
+Here is a direct derivation of the coefficient. Write
+$W=W^{(2)}$, $w=W^{(3)}$, $v_b=W^{(1)}x_b/\sqrt d$,
+$z_b=Wv_b$, $B=WW^T$ and
+$s=\sum_c y_cv_c/m$. Put
+$\lambda_b=\sum_cG_{bc}y_c/m$ and
+$\rho=\sum_{c,e}y_cG_{ce}y_e/m^2$.
+At initialization $f_{n,b}\to0$ in every finite $L^p$ because the
+readout is centered and independent. Terms containing these scalar
+predictions vanish in the expected finite jet limits: after expansion
+their remaining normalized factors have all moments by the theorem.
+Replacing residual values by $-y_c$ in the first velocity gives
+
+$$
+\begin{aligned}
+\dot W&=ws^T/n,\\
+\dot w&=Ws,\\
+\dot v_b&=\lambda_bW^Tw,\\
+\dot z_b&=w k_b+\lambda_bBw,\\
+k_b&=s^Tv_b/n\to\lambda_b.
+\end{aligned}
+$$
+
+In the second derivative, retain the change of the residuals as well.
+Their limiting derivatives are deterministic by the scalar theorem,
+and multiply first feature derivatives that are odd in the centered
+readout; their expected pairing with $z_b$ is zero. Replacing these
+scalar residual derivatives by their limits is legitimate by Hölder
+and the all-moment bounds. Thus they contribute zero to $J_2$.
+
+For the remaining terms differentiate the displayed velocity. Since
+$\dot s=\rho W^Tw$, one has
+$\dot k_b=\rho w^Tz_b/n+\lambda_b w^TWs/n$, which tends to zero,
+and
+$\dot B=(w(Ws)^T+(Ws)w^T)/n$.
+Conditioning on $W,v_1,v_2$ and using
+$\mathbb E[ww^T]=I$ gives the following limiting pairings:
+
+$$
+\mathbb E\frac{\dot z_a^T\dot z_b}{n}\longrightarrow
+5\lambda_a\lambda_b,\qquad
+\mathbb E\frac{z_a^T\ddot z_b}{n}\longrightarrow
+(1+1+2)\lambda_a\lambda_b=4\lambda_a\lambda_b.
+$$
+
+For clarity, the first coefficient is
+$\lim\mathbb E\operatorname{tr}(I+B)^2/n=1+2+2=5$.
+The three surviving terms in the second are respectively
+$(Ws)k_b$, $\lambda_b(Ws)(w^Tw/n)$ and $\lambda_bBWs$.
+The terms containing $w\dot k_b$ or $w((Ws)^Tw/n)$ vanish by
+Cauchy--Schwarz and the $O(n^{-1})$ conditional second moments of the
+normalized readout pairings. Gaussian pairings give
+$\mathbb E\operatorname{tr}B/n=1$ and
+$\mathbb E\operatorname{tr}B^2/n=2+1/n$; covariance of $v_a,s$ conditional on $W$ is $\lambda_a I$, yielding the stated cross-pairings.
+For example, in $\operatorname{tr}B^2=
+\sum_{i,j,k,l}W_{ik}W_{jk}W_{jl}W_{il}$ its three Gaussian pairings
+contribute $n,n,1$. Consequently $K_{n,ab}''$ has limiting expectation
+$(4+2\cdot5+4)\lambda_a\lambda_b=18\lambda_a\lambda_b$.
+Dividing by $2!$ and putting $m=2$ proves @eq-mfp-linear-kernel-jets.
+The first coefficient vanishes by readout centering after the same
+residual-value replacement. These finite initial coefficients do not
+reconstruct the feature kernel at positive time.
+
+### Symbolic implementation {#sec-mfp-symbolic-interface}
+
+The maintained interface is explicitly imported from
+`pde.mfp_compiler`; it builds typed finite graphs, performs physical
+differentiation, and returns @eq-mfp-expectation-graph. For example:
+
+```python
+from pde.mfp_compiler import Program
+
+p = Program()
+lower, upper = p.vector_type("lower"), p.vector_type("upper")
+W = p.matrix("W", lower, upper)
+z = W @ p.one(lower)
+v = W.T @ p.phi(z)
+answer = p.compile(p.inner(v, v), preactivations=[z])
+print(answer.formula())
+```
+
+This returns the two activation moments in @eq-mfp-reuse-square.
+`gradient` returns $n$ times vector gradients and ordinary matrix
+gradients; `jets(..., moving=True)` returns factorial-normalized flow
+coefficients. Supplying `preactivations` requests the restricted form
+and checks its literal-node and Gaussian conditions. The caller still
+supplies the architecture and activation-growth assumptions.
+
+The [MFP API guide](../code/MFP_CALCULUS.md) gives executable reuse,
+derivative and kernel-jet examples, supported operations and an independent
+finite-array interpreter. The implementation uses exact rational
+symbolic arithmetic; finite floats are converted by
+`Fraction(str(value))`, and root covariances are concrete numeric inputs.
+Symbolic geometry can instead enter through fixed scalar coefficients
+such as $\alpha,\beta,\gamma$ above. Generic integrals remain explicit;
+the compiler performs no numerical quadrature. Higher derivatives and
+expression expansion can grow rapidly. The theorem proves the limit
+under its hypotheses; implementation tests check finite identities and
+the emitted formulas.

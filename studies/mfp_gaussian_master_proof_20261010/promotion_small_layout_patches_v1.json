@@ -1,0 +1,18 @@
+[
+    {
+      "old": "$$\n\\phi\\in C^\\infty(\\mathbb R),\\qquad\n|\\phi^{(r)}(x)|\\le C_r(1+|x|)^{d_r}\n\\quad\\text{for every }r\\ge0.\n$$ {#eq-mfp-activation-growth}",
+      "new": "$$\n\\begin{aligned}\n\\phi&\\in C^\\infty(\\mathbb R),\\\\\n|\\phi^{(r)}(x)|&\\le C_r(1+|x|)^{d_r}\n\\quad\\text{for every }r\\ge0.\n\\end{aligned}\n$$ {#eq-mfp-activation-growth}"
+    },
+    {
+      "old": "$$\n\\frac{\\|F(u_n;s_n)-F(\\bar u_n;s_*)\\|_2}{\\sqrt n}\n\\le C\\left(\\sum_j\\frac{\\|u_n^j-\\bar u_n^j\\|_2}{\\sqrt n}\n                 +\\sum_b|s_{n,b}-s_{*,b}|\\right).\n$$",
+      "new": "$$\n\\begin{gathered}\n\\frac{\\|F(u_n;s_n)-F(\\bar u_n;s_*)\\|_2}{\\sqrt n}\\\\\n{}\\le C\\left(\\sum_j\\frac{\\|u_n^j-\\bar u_n^j\\|_2}{\\sqrt n}\\right.\\\\\n\\left.{}+\\sum_b|s_{n,b}-s_{*,b}|\\right).\n\\end{gathered}\n$$"
+    },
+    {
+      "old": "$$\n\\lim_{B\\to\\infty}\\sup_n\\mathbb E\\frac{\\|v_n-v_n^B\\|_2^2}{n}=0,\n\\qquad\n\\lim_{B\\to\\infty}\\sup_n\\mathbb E|s_n-s_n^B|^2=0.\n$$ {#eq-mfp-clipping-errors}",
+      "new": "$$\n\\begin{aligned}\n\\lim_{B\\to\\infty}\\sup_n\\mathbb E\\frac{\\|v_n-v_n^B\\|_2^2}{n}&=0,\\\\\n\\lim_{B\\to\\infty}\\sup_n\\mathbb E|s_n-s_n^B|^2&=0.\n\\end{aligned}\n$$ {#eq-mfp-clipping-errors}"
+    },
+    {
+      "old": "$$\n\\Sigma^{(1)}_{ab}=G_{ab}=x_a^Tx_b/d,\\qquad\n\\Sigma^{(\\ell+1)}_{ab}\n=\\mathbb E_{Z\\sim N(0,\\Sigma^{(\\ell)})}\\phi(Z_a)\\phi(Z_b).\n$$ {#eq-mfp-forward-covariances}",
+      "new": "$$\n\\begin{aligned}\n\\Sigma^{(1)}_{ab}&=G_{ab}=x_a^Tx_b/d,\\\\\n\\Sigma^{(\\ell+1)}_{ab}\n&=\\mathbb E_{Z\\sim N(0,\\Sigma^{(\\ell)})}\\phi(Z_a)\\phi(Z_b).\n\\end{aligned}\n$$ {#eq-mfp-forward-covariances}"
+    }
+]

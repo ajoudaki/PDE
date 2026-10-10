@@ -1,0 +1,38 @@
+[
+  {
+    "old": "$$\nI_j=\\int F_j(g;I_1,\\ldots,I_{j-1})\\,\n N(0,K_j(I_1,\\ldots,I_{j-1}))(dg),\\qquad\nO_*=P(I_1,\\ldots,I_N),\n$$ {#eq-mfp-expectation-graph}",
+    "new": "$$\n\\begin{aligned}\nI_j&=\\int F_j(g;I_1,\\ldots,I_{j-1})\\\\\n&\\qquad N(0,K_j(I_1,\\ldots,I_{j-1}))(dg),\\\\\nO_*&=P(I_1,\\ldots,I_N),\n\\end{aligned}\n$$ {#eq-mfp-expectation-graph}"
+  },
+  {
+    "old": "$$\n\\begin{aligned}\n\\delta F(u;s)&=\\sum_j F_{u^j}(u;s)\\odot\\delta u^j\n                  +\\sum_b F_{s_b}(u;s)\\,\\delta s_b,\\\\\n\\delta\\left[\\frac1n\\sum_iF(u_i;s)\\right]\n &=\\frac1n\\sum_i\\left[\\sum_jF_{u^j}(u_i;s)\\delta u_i^j\n                       +\\sum_bF_{s_b}(u_i;s)\\delta s_b\\right],\\\\\n\\delta(Ah)&=(\\delta A)h+A\\delta h,\\qquad\n\\delta(A^Tu)=(\\delta A)^Tu+A^T\\delta u,\\\\\n\\delta(cuv^T/n)&=(\\delta c)uv^T/n+c(\\delta u)v^T/n+cu(\\delta v)^T/n.\n\\end{aligned}\n$$ {#eq-mfp-forward-ad}",
+    "new": "$$\n\\begin{aligned}\n\\delta F(u;s)\n&=\\sum_j F_{u^j}(u;s)\\odot\\delta u^j\\\\\n&\\quad+\\sum_b F_{s_b}(u;s)\\,\\delta s_b,\\\\\n\\delta\\left[\\frac1n\\sum_iF(u_i;s)\\right]\n&=\\frac1n\\sum_i\\bigl[\\sum_jF_{u^j}(u_i;s)\\delta u_i^j\\\\\n&\\qquad+\\sum_bF_{s_b}(u_i;s)\\delta s_b\\bigr],\\\\\n\\delta(Ah)&=(\\delta A)h+A\\delta h,\\\\\n\\delta(A^Tu)&=(\\delta A)^Tu+A^T\\delta u,\\\\\n\\delta(cuv^T/n)&=(\\delta c)uv^T/n\\\\\n&\\quad+c(\\delta u)v^T/n\\\\\n&\\quad+cu(\\delta v)^T/n.\n\\end{aligned}\n$$ {#eq-mfp-forward-ad}"
+  },
+  {
+    "old": "$$\nn\\,\\nabla_uO^T\\nabla_uS=\\frac{(b_u^O)^Tb_u^S}{n},\\qquad\n\\left\\langle\\frac{uv^T}{n},\\frac{pq^T}{n}\\right\\rangle_F\n=\\left(\\frac{u^Tp}{n}\\right)\\left(\\frac{v^Tq}{n}\\right).\n$$ {#eq-mfp-gradient-contractions}",
+    "new": "$$\n\\begin{aligned}\nn\\,\\nabla_uO^T\\nabla_uS\n&=\\frac{(b_u^O)^Tb_u^S}{n},\\\\\n\\left\\langle\\frac{uv^T}{n},\\frac{pq^T}{n}\\right\\rangle_F\n&=\\left(\\frac{u^Tp}{n}\\right)\\left(\\frac{v^Tq}{n}\\right).\n\\end{aligned}\n$$ {#eq-mfp-gradient-contractions}"
+  },
+  {
+    "old": "$$\nz_a^{(1)}=W^{(1)}x_a/\\sqrt d,\\quad\nz_a^{(\\ell)}=W^{(\\ell)}h_a^{(\\ell-1)},\\quad\nh_a^{(\\ell)}=\\phi(z_a^{(\\ell)}),\\quad\nf_{n,a}=(W^{(L+1)})^Th_a^{(L)}/n.\n$$ {#eq-mfp-neural-forward}",
+    "new": "$$\n\\begin{aligned}\nz_a^{(1)}&=W^{(1)}x_a/\\sqrt d,\\\\\nz_a^{(\\ell)}&=W^{(\\ell)}h_a^{(\\ell-1)},\\\\\nh_a^{(\\ell)}&=\\phi(z_a^{(\\ell)}),\\\\\nf_{n,a}&=(W^{(L+1)})^Th_a^{(L)}/n.\n\\end{aligned}\n$$ {#eq-mfp-neural-forward}"
+  },
+  {
+    "old": "$$\nJ_n\\longrightarrow q+c^2\\quad\\text{in every finite }L^p,\n\\qquad\n\\mathbb E J_n=q+c^2+\n\\frac{\\mathbb E[\\gamma^2\\phi(\\gamma)^2]-q-c^2}{n}.\n$$ {#eq-mfp-reuse-square}",
+    "new": "$$\n\\begin{aligned}\nJ_n&\\longrightarrow q+c^2\\quad\\text{in every finite }L^p,\\\\\n\\mathbb E J_n&=q+c^2\\\\\n&\\quad+\\frac{\\mathbb E[\\gamma^2\\phi(\\gamma)^2]-q-c^2}{n}.\n\\end{aligned}\n$$ {#eq-mfp-reuse-square}"
+  },
+  {
+    "old": "$$\nq_1=\\mathbb E\\phi(\\gamma)^2,\\quad Z\\sim N(0,q_1),\\quad\ns_1=\\mathbb E\\phi'(\\gamma)^2,\\quad\ns_2=\\mathbb E\\phi'(Z)^2,\\quad q_2=\\mathbb E\\phi(Z)^2.\n$$",
+    "new": "$$\n\\begin{aligned}\nq_1&=\\mathbb E\\phi(\\gamma)^2,\\\\\nZ&\\sim N(0,q_1),\\\\\ns_1&=\\mathbb E\\phi'(\\gamma)^2,\\\\\ns_2&=\\mathbb E\\phi'(Z)^2,\\\\\nq_2&=\\mathbb E\\phi(Z)^2.\n\\end{aligned}\n$$"
+  },
+  {
+    "old": "$$\n\\mathcal L_n=\\frac1{2m}\\sum_a(f_{n,a}-y_a)^2,\\qquad\n(\\dot U,\\dot V,\\dot W^{(2)},\\dot W^{(3)})\n=-(n\\nabla_U\\mathcal L_n,n\\nabla_V\\mathcal L_n,\n\\nabla_{W^{(2)}}\\mathcal L_n,n\\nabla_{W^{(3)}}\\mathcal L_n).\n$$ {#eq-mfp-kernel-example-clock}",
+    "new": "$$\n\\begin{gathered}\n\\mathcal L_n=\\frac1{2m}\\sum_a(f_{n,a}-y_a)^2,\\\\\n(\\dot U,\\dot V,\\dot W^{(2)},\\dot W^{(3)})\\\\\n=-\\bigl(n\\nabla_U\\mathcal L_n,n\\nabla_V\\mathcal L_n,\\\\\n\\qquad\\nabla_{W^{(2)}}\\mathcal L_n,n\\nabla_{W^{(3)}}\\mathcal L_n\\bigr).\n\\end{gathered}\n$$ {#eq-mfp-kernel-example-clock}"
+  },
+  {
+    "old": "$$\nJ_0=G_{12},\\qquad J_1=0,\\qquad\nJ_2=\\frac94(G_{11}y_1+G_{12}y_2)\n                  (G_{12}y_1+G_{22}y_2).\n$$ {#eq-mfp-linear-kernel-jets}",
+    "new": "$$\n\\begin{aligned}\nJ_0&=G_{12},\\\\\nJ_1&=0,\\\\\nJ_2&=\\frac94(G_{11}y_1+G_{12}y_2)\n                  (G_{12}y_1+G_{22}y_2).\n\\end{aligned}\n$$ {#eq-mfp-linear-kernel-jets}"
+  },
+  {
+    "old": "$$\n\\dot W=ws^T/n,\\quad \\dot w=Ws,\\quad\n\\dot v_b=\\lambda_bW^Tw,\\quad\n\\dot z_b=w k_b+\\lambda_bBw,\\qquad k_b=s^Tv_b/n\\to\\lambda_b.\n$$",
+    "new": "$$\n\\begin{aligned}\n\\dot W&=ws^T/n,\\\\\n\\dot w&=Ws,\\\\\n\\dot v_b&=\\lambda_bW^Tw,\\\\\n\\dot z_b&=w k_b+\\lambda_bBw,\\\\\nk_b&=s^Tv_b/n\\to\\lambda_b.\n\\end{aligned}\n$$"
+  }
+]

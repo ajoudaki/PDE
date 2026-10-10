@@ -1,0 +1,13 @@
+{
+  "scientifically_reviewed_theory_sha256": "c0517bd8b00fe9f3ea6856b7b26587980a38c4ae4e9550f40de4833e9efe4c72",
+  "new_theory_sha256": "67239164e536b588794056bf581e041b665854cefb60d5da8df17f4fd97c665e",
+  "patch_files": {
+    "promotion_math_layout_patches_v1.json": "a510f429700f987fa7a9eb5f42930646dbbabbc03f789eec31505ebb7607aa26",
+    "promotion_small_layout_patches_v1.json": "7d94aa81a40b811dcdb02e1804fa665f467e3cb1f4212c7e05a1b979f63d3f2a"
+  },
+  "display_only_patches": 13,
+  "same_ordered_nonlayout_tokens_punctuation_labels": true,
+  "exact_original_restored_by_reversing_only_declared_patches": true,
+  "coordinator_read_all_replacements": true,
+  "scope": "All surrounding text, code and dependencies are unchanged. Scientific content is unchanged by these display-only repairs. A fresh complete integration review is required."
+}

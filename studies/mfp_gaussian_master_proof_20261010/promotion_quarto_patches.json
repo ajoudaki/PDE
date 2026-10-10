@@ -1,0 +1,7 @@
+[
+  {
+    "old": "\\counterwithout{corollary}{section}",
+    "new": "\\counterwithout{corollary}{section}\\counterwithout{definition}{section}",
+    "count": 2
+  }
+]

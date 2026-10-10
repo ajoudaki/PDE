@@ -1,0 +1,18 @@
+{
+  "changed_edition_context": [
+    "docs/08b-trajectory-compression.qmd"
+  ],
+  "all_18_packet_inputs_identical": true,
+  "all_18_required_edition_reads_identical": true,
+  "all_15_proposed_source_changes_identical": true,
+  "scientific_reviews": [
+    "promotion_review_one_v3.md",
+    "promotion_review_two_v3.md"
+  ],
+  "scope": "Unchanged MFP theory, complete proof dependencies, notation, code, guide, tests and producers. The differing established chapter was explicitly outside their substantive read scope; no scientific verdict is transferred to that chapter.",
+  "fresh_gate": "Complete independent integration review and full-book renders on the refreshed current baseline.",
+  "old_candidate_manifest_sha256": "541b0e75982342c181a99801cdb36269b4a1cc2a40c6e792799a3cce5da6f653",
+  "new_candidate_manifest_sha256": "30a4f627f2937664ce2e66fbb620d09331a285c713f561e0075fe3cf15e0cdca",
+  "unchanged_changed_manifest_sha256": "ff6d10776f3add6a276f39be80e23a3517cf2b6d007a20c1eb40fa62299a69d8",
+  "unchanged_packet_manifest_sha256": "7c23c3faae35fb0a1ae4fb292d603145e54896260f3eedd3cfd71966d1f13fd9"
+}

@@ -1,0 +1,9 @@
+# Proposed MathJax layout repair (v1)
+
+Input: `promotion_theory.qmd` and the frozen v4 edition's `docs/02-gaussian-reuse.qmd`, `_quarto.yml`, and `integration_reviewer/browser_checks_online.json`; the browser screenshot confirms that the kernel-clock display crosses into the right navigation column. At a 1500 × 1100 viewport, the JSON reports a 749 px main column and nine overflowing new displays, with measured widths from 759.75 to 1029.89 px.
+
+`promotion_math_layout_patches_v1.json` contains nine `{old,new}` pairs in source order. Each `old` block occurs exactly once in both the flat promotion source and the frozen v4 chapter. Seven retain their equation IDs; the activation-moment list and the linear-velocity list remain unlabeled. No surrounding wording changes.
+
+The replacements put existing identities on separate rows and break long sums or tuples across rows. The Gaussian expectation graph keeps its integral and measure together as consecutive lines. The physical differentiation table keeps the same chain and product rules; its average and rank-one rules wrap after existing additive terms. The kernel clock keeps the original four-component tuple equality, split across lines. All symbols, equation order, commas, and periods are preserved. A mechanical comparison found identical ordered mathematical tokens after removing only alignment, delimiter-sizing and spacing commands, whitespace, and line breaks; it also verified every original and replacement label matches.
+
+These shorter rows are intended to typeset within about 600 px, leaving space inside the 749 px column for equation numbers. This is a proposal only: no candidate, live chapter, or frozen edition file was changed, and no render was run. The coordinator should apply the pairs to the flat source, rebuild the assembled edition, and measure all nine displays at the reported viewport. The independent integration review remains separate.

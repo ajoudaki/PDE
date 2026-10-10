@@ -1,0 +1,13 @@
+{
+  "promotion_code__mfp_compiler.py": "code/pde/mfp_compiler.py",
+  "promotion_code__mfp_expr.py": "code/pde/mfp_expr.py",
+  "promotion_code__mfp_finite.py": "code/pde/mfp_finite.py",
+  "promotion_code__example_mfp_calculus.py": "code/scripts/example_mfp_calculus.py",
+  "promotion_code__example_mfp_mlp_derivative.py": "code/scripts/example_mfp_mlp_derivative.py",
+  "promotion_code__example_mfp_kernel_jets.py": "code/scripts/example_mfp_kernel_jets.py",
+  "promotion_code__test_mfp_compiler.py": "code/tests/test_mfp_compiler.py",
+  "promotion_code__test_mfp_expr.py": "code/tests/test_mfp_expr.py",
+  "promotion_code__test_mfp_mlp_example.py": "code/tests/test_mfp_mlp_example.py",
+  "promotion_code__test_mfp_kernel_jets.py": "code/tests/test_mfp_kernel_jets.py",
+  "promotion_code__MFP_CALCULUS.md": "code/MFP_CALCULUS.md"
+}

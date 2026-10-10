@@ -1,0 +1,10 @@
+[
+  {
+    "old": "A separate module evaluates finite quadratic/identity and differentiated RMS\nmodels. Their narrower contracts\nare stated below; they are not a general symbolic population compiler.",
+    "new": "A separate module evaluates finite quadratic/identity and differentiated RMS\nmodels. An explicitly imported symbolic MFP compiler now handles fixed finite\ntyped Gaussian derivative programs; its scope and exact arithmetic conventions\nare documented in [the MFP calculus guide](MFP_CALCULUS.md)."
+  },
+  {
+    "old": "## Moving physical-flow jets\n",
+    "new": "## Symbolic finite Gaussian programs\n\n`from pde.mfp_compiler import Program` builds typed finite expressions, exact\nphysical derivatives, normalized gradients, represented updates and finite jets.\nGaussian compilation returns the scalar width limit as an explicit expectation\ngraph; it does not compute a finite-width expectation or numerical quadrature.\nThe [MFP calculus guide](MFP_CALCULUS.md) gives the supported language, rational\nand float conventions, frozen seed semantics, source derivatives, examples and\nchecks. Arbitrary fixed orders are admitted in principle, with potentially rapid\nexpression growth; this is not a positive-time population solver.\n\n## Moving physical-flow jets\n"
+  }
+]
