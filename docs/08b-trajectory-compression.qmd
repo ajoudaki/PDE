@@ -22,6 +22,8 @@ $W^{(L+1)}$ and the activation in hidden layer $\ell$ is $\phi^{(\ell)}$.
 The initialization here sets $W^{(L+1)}(0)=0$ exactly, which is a separately
 stated model from the book's finite small-Gaussian-readout convention.
 
+The sharp literal-array cost of the frozen-top neural tangent hierarchy is established in [its storage theorem](07-observable-closure.qmd#thm-nth-storage-matching). That short-time, deep-linear benchmark has a separately stated data regime; it is not a same-family separation theorem for the constructions of this chapter.
+
 ## Setup and the headline theorem {#sec-compression-setup}
 
 There are $m\ge2$ training pairs $(x_a,y_a)$ with

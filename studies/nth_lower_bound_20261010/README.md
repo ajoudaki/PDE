@@ -1,6 +1,6 @@
 # NTH truncation lower bounds
 
-## Book-promotion preparation (2026-10-10)
+## Book promotion and paper integration (2026-10-10)
 
 The user requested a compact, elegant promotion of the matching deep-linear
 NTH storage result, followed by paper integration after book promotion.
@@ -17,9 +17,13 @@ Write assignments for this continuation: this coordinating task owns
 The selector `nth_selector_current` owns its completed selection report.
 All other study sources and concurrent paper/code work are preserved.
 
-Current gate: **all pre-approval gates passed; awaiting approval of the
-concrete reviewed addition.** No maintained book or paper file has been
-changed by this promotion task. The final candidate is
+Current gate: **approved and integrated into the maintained book.** The user
+approved the concrete reviewed package with “Yes I approve.” The three
+maintained destination files are byte-identical to the reviewed edition;
+the library checker passed after integration. Approval and correspondence
+are retained in [PROMOTION_ACCEPTANCE.json](PROMOTION_ACCEPTANCE.json).
+Paper adaptation is in progress and has not yet changed the manuscript.
+The final candidate is
 [PROMOTION_CANDIDATE_v2.qmd](PROMOTION_CANDIDATE_v2.qmd), SHA-256
 `e8c8cbd7474b9e0bbaded9100ce02474708339f9ac95cf606de7b93886616d23`.
 It contains one main theorem, one general upper-bound corollary, and five
@@ -71,10 +75,13 @@ run the latter with the standalone edition path. The neutral
 supplementary algebra checks [A](PROMOTION_CHECK_A.py),
 [B](PROMOTION_CHECK_B.py) remain study evidence, not promoted APIs.
 
-After approval, recheck current dependencies, apply only the three accepted
-insertions, verify exact correspondence to this edition, and record the
-integration commit before adapting the paper. Do not overwrite whole live
-chapters from an older frozen edition.
+Integration rechecked all 104 recorded baseline files and the original review
+hashes before applying only the three accepted insertions. No dependency or
+concurrent source had changed. The following older research entries retain
+their historical status; the matching theorem is now established only in the
+precise scope recorded above. The broader nonlinear/long-time directions
+remain unpromoted. The integration commit is recorded in the acceptance record
+once assigned; subsequent paper edits must preserve this scientific scope.
 
 ## Latest matching-size continuation
 
