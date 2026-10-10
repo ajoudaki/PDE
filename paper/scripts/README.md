@@ -90,6 +90,14 @@ Shared initialization options live under `methods.non_oblivious.setup`; an
 optional method-local `setup` overrides individual fields. Add budgets for curves
 and seeds for independent repetitions. The dataset seed is separate and stays fixed.
 
+Unregularized Harmonic readouts check numerical rank and reconstructed training
+predictions at runtime; unreliable solves stop rather than silently adding a ridge.
+For ill-conditioned float32 runs, explicitly set
+`--methods.non_oblivious.harmonic.runtime_dtype float64`. The default `null`
+inherits `training.dtype`. This override changes only Harmonic runtime precision,
+not dense references, Taylor, or source setup. The separate explicitly regularized
+readout branch retains its existing behavior.
+
 Each repetition rebuilds Legendre, Harmonic and Taylor from its own dense
 reference. Independent dense widths, low-rank factors, sources and selectors use
 recorded, deterministic role-specific seeds. `devices="auto"` schedules one

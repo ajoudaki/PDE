@@ -346,6 +346,38 @@ def panel_span_small_checks():
     return results
 
 
+def _unregularized_readout(features, metric, readout, deficit, labels):
+    """Exact corrected readout, rejecting unreliable finite-precision solves.
+
+    Match the maintained Selected runtime's relative rank/identity gates. A
+    successful Cholesky alone can accept dependent features after roundoff.
+    No ridge, pseudoinverse or precision change is introduced. Combine the
+    spectral and factorization flags into one host decision before the solve.
+    """
+    normalized = features/math.sqrt(len(labels))
+    gram = normalized.T@(metric@normalized)
+    gram = (gram+gram.T)/2
+    eigenvalues = torch.linalg.eigvalsh(gram)
+    tolerance = 32*max(normalized.shape)*torch.finfo(gram.dtype).eps
+    factor, info = torch.linalg.cholesky_ex(gram)
+    valid = (torch.isfinite(eigenvalues).all()
+             & (eigenvalues[0] > tolerance*eigenvalues[-1]) & (info == 0))
+    if not bool(valid):
+        raise ArithmeticError('Training feature Gram is numerically rank deficient or not positive definite; '
+                              'no regularization is applied')
+    correction = (labels-deficit)/math.sqrt(len(labels))-normalized.T@(metric@readout)
+    corrected = readout+normalized@torch.cholesky_solve(correction[:, None], factor).flatten()
+    prediction = features.T@(metric@corrected)
+    target = labels-deficit
+    scale = torch.stack((labels.abs().max(), deficit.abs().max(),
+                         target.abs().max(), prediction.abs().max())).max()
+    valid = torch.isfinite(prediction).all() & ((prediction-target).abs().max() <= 4*tolerance*scale)
+    if not bool(valid):
+        raise ArithmeticError('Corrected training identity lost in finite precision; '
+                              'no regularization is applied')
+    return corrected, gram
+
+
 class DeepHarmonic(DeepDense):
     """Autonomous fixed-depth metric/deficit optimizer with offline sources.
 
@@ -488,14 +520,7 @@ class DeepHarmonic(DeepDense):
                           -normalized.T@(metric@state[1].double()))
             readout = state[1].double()+normalized@_rank_safe_spectral_solve(gram, correction, floor)
             return readout.to(state[1].dtype), hs, gates, gram
-        normalized = hs[-1]/math.sqrt(len(labels))
-        gram = normalized.T@(self.metrics[-1]@normalized)
-        gram = (gram+gram.T)/2
-        factor, info = torch.linalg.cholesky_ex(gram)
-        if int(info) != 0:
-            raise ArithmeticError('DeepHarmonic training feature Gram is not positive definite; no ridge added')
-        correction = (labels-state[-1])/math.sqrt(len(labels))-normalized.T@(self.metrics[-1]@state[1])
-        readout = state[1]+normalized@torch.cholesky_solve(correction[:, None], factor).flatten()
+        readout, gram = _unregularized_readout(hs[-1], self.metrics[-1], state[1], state[-1], labels)
         return readout, hs, gates, gram
 
     def rhs(self, state, inputs, labels):
@@ -2201,15 +2226,8 @@ class Harmonic:
     def _readout(self, state, inputs, labels):
         _, w, _, deficit = state
         features = self._features(state, inputs)
-        normalized = features[1]/math.sqrt(len(labels))
-        gram = normalized.T@(self.metrics[1]@normalized)
-        gram = (gram+gram.T)/2
-        factor, info = torch.linalg.cholesky_ex(gram)
-        if int(info) != 0:
-            raise ArithmeticError('Harmonic training feature Gram is not positive definite; no ridge was added')
-        correction = (labels-deficit)/math.sqrt(len(labels))-normalized.T@(self.metrics[1]@w)
-        solution = torch.cholesky_solve(correction[:, None], factor).flatten()
-        return w+normalized@solution, features, gram
+        readout, gram = _unregularized_readout(features[1], self.metrics[1], w, deficit, labels)
+        return readout, features, gram
 
     def rhs(self, state, inputs, labels):
         _, _, mixer, deficit = state
@@ -8481,7 +8499,8 @@ EXPERIMENT_DEFAULTS = {
                           rollout_dtype='float32', coefficient_dtype='float64', time_degree=8,
                           selection_trials=64, condition_limit=16., selection_strategy='uniform',
                           readout_floor=None),
-            'harmonic': dict(budgets=[dict(width=424, source_rank=29)], spatial_degree=5),
+            'harmonic': dict(budgets=[dict(width=424, source_rank=29)], spatial_degree=5,
+                             runtime_dtype=None),
             'logarithmic': dict(budgets=[dict(width=424, source_rank=29)], test_inputs_at_setup=True,
                                 panel_span=False)}},
     'execution': dict(devices='auto', tf32=False, seconds_per_fit=120., dense_seconds_per_fit=120., reuse_completed=True,
@@ -8707,6 +8726,8 @@ def _experiment_validate(config):
         raise ValueError(f'activation must be one of {DEEP_ACTIVATIONS}')
     if training['solver'] != 'euler' or training['dtype'] not in ('float32', 'float64'):
         raise ValueError('Training supports Euler with float32 or float64')
+    if group['harmonic'].get('runtime_dtype') not in (None, 'float32', 'float64'):
+        raise ValueError('Harmonic runtime_dtype must be null, float32 or float64')
     if config['execution']['seconds_per_fit'] > 120:
         raise ValueError('seconds_per_fit must be <= 120, matching the existing source-setup cap')
     if not 0 < config['execution']['dense_seconds_per_fit'] <= 300:
@@ -9689,10 +9710,13 @@ def _experiment_repetition(config, seed, device_name, out, manifest):
                           executed_dual_state=dict(moving=moving, fixed=fixed, data=model.data_scalars),
                           storage_basis='primal frozen dense features and width-n trained readout; equivalent dual Euler executed')
         report['models'][name] = record
-        _experiment_move(model, device, dtype)
+        runtime_dtype = (config['methods']['non_oblivious']['harmonic'].get('runtime_dtype')
+                         if family == 'harmonic' else None)
+        fit_dtype = getattr(torch, runtime_dtype) if runtime_dtype is not None else dtype
+        _experiment_move(model, device, fit_dtype)
         fit_seconds = config['execution']['dense_seconds_per_fit'] if family in ('reference', 'dense') else seconds
-        state, prediction, info = integrate_euler(model, inputs.to(dtype), labels.to(dtype),
-            torch.cat((inputs, scored_queries)).to(dtype), training['step'], fit_seconds,
+        state, prediction, info = integrate_euler(model, inputs.to(fit_dtype), labels.to(fit_dtype),
+            torch.cat((inputs, scored_queries)).to(fit_dtype), training['step'], fit_seconds,
             horizon=training['horizon'], max_steps=math.ceil(training['horizon']/training['step']),
             observation_every=training['record_every'])
         arrays[name], arrays['times_'+name] = prediction[:, :len(inputs)+len(queries)], np.asarray(info['times'])

@@ -1,5 +1,123 @@
 # Bounded appendix figure pilots
 
+## Readout numerical safeguards (2026-10-10; bounded maintenance)
+
+User authorized porting the maintained numerical-rank and reconstructed-training-
+prediction checks to the paper's unregularized `DeepHarmonic` and `Harmonic`
+readout paths. The separate explicit-floor branch must remain unchanged. This
+is a numerical validity gate, not a new approximation or a theorem change.
+
+Before experimental checks: deterministic CPU regressions cover dependent and
+nearly dependent features, a rank loss after initialization, a well-conditioned
+small-scale Gram, unchanged valid reconstruction, and the unchanged regularized
+branch. Replay at most two already-selected unregularized Harmonic configurations:
+the worst initial conditioning among the three Figure 4 circle seeds and one
+fresh Figure 3 sphere seed. Use the exact saved data, model/source/selector seeds,
+orders, dtype, Euler step and horizon. Rebuild only their disposable source setup
+and compact model; reuse stored dense predictions and do not retrain baselines.
+No new seeds, budgets, source-order search or figure selection.
+
+The numerical gates are those of maintained `code/pde/compression.py`: a
+scale-relative Gram spectral threshold and a scale-relative reconstructed
+training-prediction check, evaluated at each unregularized readout call. A
+failure is retained and stops that replay; no silent ridge or pseudoinverse.
+Passing guarded arithmetic must match its unguarded counterpart; original saved
+predictions are checked separately for historical reconstruction drift. Use
+120-second caps for each source/replay, two available GPUs, and one small
+before/after timing check. Total target is under five minutes of numerical work;
+do not expand into a campaign. Results go to a fresh folder under this study's
+`data/generated/` namespace. Root owns shared implementation and notes; a scoped
+helper owns `test_readout_guard.py`; another identifies saved replay inputs.
+
+Precision-only follow-up predeclared before the replays: the saved circle
+condition number is about 1.9 million, whereas the maintained relative gate
+at compact width 1,024 in float32 requires a condition number below 256.
+If a float32 replay is rejected, retry that SAME constructed compact model
+in float64 (including metrics), retaining identical source/order/seed/data/
+Euler settings and the same per-replay cap. This is a precision correction,
+not a regularized model or a search. Preserve both the rejection and the
+higher-precision result. No additional model configurations are authorized.
+
+### Results and rerun decision
+
+The paper driver now shares one unregularized readout helper between
+`DeepHarmonic` and the older `Harmonic`. Its thresholds match the maintained
+runtime. It adds neither regularization nor an automatic precision change.
+The explicitly regularized `DeepHarmonic` branch is unchanged. The bounded
+CPU regressions in `test_readout_guard.py` pass, including duplicate and
+near-dependent inputs, rank loss during training, deliberately incorrect
+solves, valid float32 and small-scale float64 states, and preservation of
+the old accepted arithmetic.
+
+For an explicit precision-only grouped-run change, use
+`--methods.non_oblivious.harmonic.runtime_dtype float64` (or the same JSON
+leaf). Its default is `null`, inheriting `training.dtype`; older direct
+configurations omitting the leaf also inherit it. This does not change
+dense, Taylor or source-rollout precision. The eight-test regression suite
+also checks the new config/CLI override and rejects unsupported precision.
+
+Both original float32 deployments were rejected at initialization. The
+circle's measured float32 Gram condition was about 2.0 million (allowed:
+less than 256); the sphere's was about 4,652 (allowed: less than 1,771).
+This is rejection by a conservative precision-relative rank gate, not a
+proof of exact singularity or an observed breakdown of the old trajectory.
+
+Explicit float64 follow-ups completed all 5,120 circle and 20,480 sphere
+Euler updates with the rank and reconstruction checks active. Both rebuilds
+had identical source and float64 compact-initial-state hashes to their
+respective float32 attempts. The same data, seeds, source orders, selection,
+model size, step, horizon and saved dense benchmarks were retained. Source
+setup used its original disposable RK4 rollout; scored dense reference and
+independent baseline trajectories were not rerun.
+
+| Saved Harmonic case | Endpoint RMS vs dense, old → guarded float64 | Worst recorded RMS vs dense, old → guarded float64 | Largest recorded query RMS change between old/new predictions | Guarded replay time |
+|---|---:|---:|---:|---:|
+| Figure 4 circle, seed 905, width 1,024 | 0.00157052884 → 0.00157151506 | 0.00166411861 → 0.00166125953 | 0.0000578552 | 20.07 s |
+| Figure 3 sphere, seed 602, width 148 | 0.01797767735 → 0.01797382980 | 0.01797767735 → 0.01797382980 | 0.00000857468 | 60.76 s |
+
+These are finite-query, 65-recorded-time comparisons, not uniform-input or
+continuous-time certificates. In particular, the small sphere model still
+exceeds dense-pair variability (endpoint ratio 4.110; ratio of worst recorded
+errors 1.255); this pre-existing approximation result was not improved by
+tuning or hidden by the numerical repair. The circle remains below it
+(endpoint ratio 0.274; ratio of worst recorded errors 0.101).
+
+The stationary float64 RHS benchmark alternated legacy/guarded arithmetic
+twice, 100 calls per batch on the same initialized model. The outputs were
+bitwise equal. The guard added 19.5% for circle (3.157 → 3.774 ms/call) and
+27.5% for sphere (2.257 → 2.877 ms/call). This is guard-only overhead at fixed
+precision, not a timing estimate for every experiment. Float64 additionally
+doubles bytes per stored scalar; real-coordinate counts are unchanged.
+
+Decision: no blanket rerun, and no evidence here requiring a mathematical
+rewrite. Before treating the published Harmonic curves as checked under
+the new policy, replay the remaining unregularized float32 Harmonic points
+at adequate precision, reusing their dense benchmarks. The two tested
+points already have complete checked follow-ups. Dense, Legendre, low-rank
+and frozen-feature paths are unchanged; the inspected Taylor experiments
+use the separate explicit-floor branch, also unchanged. These checks do
+not certify other untested runs, especially points near an accuracy cutoff.
+Original results and figure assets have not been overwritten or relabeled.
+
+Evidence: `data/generated/paper_appendix_pilots_20261009/readout_guard_20261010/`
+contains `circle_float32`, `sphere_float32` (retained rejections) and
+`circle_float64`, `sphere_float64` (complete predictions, timing, hashes and
+configuration reports). Reproduction, with a fresh output directory:
+
+```sh
+python studies/paper_appendix_pilots_20261009/test_readout_guard.py
+python studies/paper_appendix_pilots_20261009/check_readout_replay.py \
+  --case circle --device cuda:0 --dtype float64 \
+  --out data/generated/paper_appendix_pilots_20261009/readout_guard_circle_repeat
+python studies/paper_appendix_pilots_20261009/check_readout_replay.py \
+  --case sphere --device cuda:1 --dtype float64 \
+  --out data/generated/paper_appendix_pilots_20261009/readout_guard_sphere_repeat
+```
+
+The tested interpreter was `/home/amir/miniconda3/bin/python`; the two
+replays ran concurrently on the two RTX 3090 GPUs. Omitting `--dtype`
+reproduces the original float32 guard rejection, not an automatic retry.
+
 ## Unified saved-data plotting (2026-10-10)
 
 At the user's request, `paper/plot_figures.py` is now the single plotting-only
