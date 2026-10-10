@@ -48,8 +48,10 @@ trajectory, including the fitted limit. The two selected constructions also
 attain absolute error $Y/n$. The common ingredients are finite residual
 activity, analytic response approximation, and geometry-preserving reduction;
 the selected dynamics use an additional readout correction to cancel unstable
-feedback. This copy isolates the theorem and its proof: it makes no empirical,
-finite-precision, or efficient-preprocessing claim.
+feedback. A separate short-time deep-linear benchmark establishes a matching
+literal-storage bound for a frozen-top neural tangent hierarchy. This
+proof-focused copy makes no empirical, finite-precision, or
+efficient-preprocessing claim.
 \end{abstract}
 
 \section{Setup and the headline theorem}
@@ -149,9 +151,11 @@ over infinitely many independently initialized widths, uniform growing-data
 limit, or uniform limit as $Y\downarrow0$ is asserted. For a ratio below,
 missing fitted limits or a zero denominator count as failure.
 
-All neural-network statements below inherit this setup and these probability
-conventions. Every storage count charges a nonprimitive activation evaluator's
-description and scratch separately.
+The compression and nonlinear feature-learning statements below inherit this
+setup and these probability conventions. The separate NTH benchmark in
+\Cref{cp:nth:storage} states its own assumptions and probability convention.
+Every storage count charges a nonprimitive activation evaluator's description
+and scratch separately.
 
 \paragraph{What must be remembered.}
 The following is the complete persistent notation. A row with several entries
@@ -238,6 +242,9 @@ Legendre moving-state count. Coordinate counts do not bound precision or
 preprocessing time.
 The finite-panel theorem makes no accuracy promise on inputs first supplied
 after initialization. Zero labels give the stationary zero predictor instead.
+The sharp literal-array cost of a frozen-top neural tangent hierarchy is
+treated separately in \Cref{cp:nth:storage}, under a growing-data,
+deep-linear regime.
 
 \input{feature_learning_theorem}
 
@@ -248,7 +255,7 @@ backward responses on the two analytic domains. Legendre approximates their
 history integrals. The other two methods share one geometry-preserving
 selection and one corrected nonlinear optimizer; only their finite source
 bases differ. A last-layer innovation and a deterministic analytic estimate
-give a dense lower bound at a training input. The final section combines
+give a dense lower bound at a training input. \Cref{cp:assembly} combines
 these ingredients. Every dependency of that argument is supplied below;
 the older decoder, numerical setup-cost alternatives and empirical material
 are outside this theorem-focused copy.
@@ -294,5 +301,10 @@ For \eqref{cp:absolute}, use the selected-model event at the requested
 confidence. The label assumption stays fixed throughout; no label inequality
 is used to reduce a displayed sample/gap power.
 \end{proof}
+
+\input{compact_nth}
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}

@@ -9,6 +9,17 @@ builders. It is a working paper, not promotion into the maintained Quarto book.
 ## Reading and source structure
 
 - `main.tex`: canonical network setup, motivation, discussion and appendix guide.
+- `compact.tex`: the shorter modular proof manuscript. Its final section,
+  `compact_nth.tex`, gives the matching frozen-top NTH literal-storage theorem
+  and complete proof from the established book's Chapter 7. This separate
+  benchmark uses two identity hidden layers, growing data and dimension,
+  fixed label magnitude and a short time interval; it is not a same-family
+  separation from the compression theorem. It keeps the initialized frozen
+  top and the hierarchy's own residual. The half-MSE clock is explicitly
+  related to the manuscript's full-MSE clock. This addition is currently in
+  the compact manuscript only. Its
+  [current compiled PDF](../data/generated/nth_lower_bound_20261010/paper_integration/build/compact.pdf)
+  is retained under generated data; `paper/compact.pdf` is the preceding build.
 - `results.tex`: one prescribed-size compression theorem for all three methods,
   negligible error relative to actual dense variability and the theoretical
   consequences.

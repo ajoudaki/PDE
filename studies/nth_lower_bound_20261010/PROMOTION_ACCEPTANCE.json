@@ -23,5 +23,7 @@
       "byte_identical_to_reviewed": true
     }
   ],
-  "status": "integrated; commit pending"
+  "status": "promoted",
+  "book_commit": "b9f970b3444fa6cb56df4df7f1f675564d1360c2",
+  "post_integration_check": "python3 code/tools/check_library.py: PASS (93 files); all 104 library files match reviewed final hashes"
 }

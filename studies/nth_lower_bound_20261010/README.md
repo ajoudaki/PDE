@@ -22,7 +22,9 @@ approved the concrete reviewed package with “Yes I approve.” The three
 maintained destination files are byte-identical to the reviewed edition;
 the library checker passed after integration. Approval and correspondence
 are retained in [PROMOTION_ACCEPTANCE.json](PROMOTION_ACCEPTANCE.json).
-Paper adaptation is in progress and has not yet changed the manuscript.
+The result is also integrated into the compact manuscript as Section 9,
+with a complete self-contained proof in `paper/compact_nth.tex`.
+The long manuscript and all existing compression proof modules are unchanged.
 The final candidate is
 [PROMOTION_CANDIDATE_v2.qmd](PROMOTION_CANDIDATE_v2.qmd), SHA-256
 `e8c8cbd7474b9e0bbaded9100ce02474708339f9ac95cf606de7b93886616d23`.
@@ -31,8 +33,8 @@ supporting lemmas, with shared estimates proved once. Its approximately
 3,050 whitespace-separated words exclude no required proof dependency.
 The existing compression fitting and dense-variability results have different
 quantifiers; their conclusions are not silently reused on this growing-data,
-fixed-label family. Paper adaptation remains downstream of book approval
-and integration.
+fixed-label family. Paper integration followed the book commit
+`b9f970b3444fa6cb56df4df7f1f675564d1360c2`.
 
 The exact destinations are one section in `docs/07-observable-closure.qmd`,
 after the unrestricted-encoding discussion and before the calculus
@@ -82,6 +84,47 @@ their historical status; the matching theorem is now established only in the
 precise scope recorded above. The broader nonlinear/long-time directions
 remain unpromoted. The integration commit is recorded in the acceptance record
 once assigned; subsequent paper edits must preserve this scientific scope.
+
+### Compact-paper correspondence and build
+
+The [adaptation record](PAPER_ADAPTATION.md) and
+[machine-readable correspondence](PAPER_CORRESPONDENCE.json) preserve the
+book-to-paper map. The final include is byte-identical to
+[PAPER_NTH.tex](PAPER_NTH.tex). All seven formal statements, six proof bodies,
+23 numbered equations and 38 labels are retained. The coefficient, empirical
+input moment and success probability are renamed locally to avoid conflicts
+with the paper's readout, population Grams and passive-panel count. The loss
+and clock conversion is explicit. No unchanged mathematical result was sent
+through another proof-review campaign.
+
+The coordinator read the complete adaptation and converter, checked its
+notation/assumption interfaces, and verified every manuscript cross-reference
+(194 unique labels across eight source files). The final `latexmk` build
+exited zero with no warnings, undefined references/citations or overfull boxes.
+The PDF has 61 pages; the new section occupies pages 53–61. Representative
+pages 53, 55 and 59 were visually inspected. The bounding-box scan of all new
+pages found only normal microtypographic protrusion of at most 2.2 points,
+with no clipping. These are correspondence and integration checks, not a new
+whole-paper scientific review.
+
+From `paper/`, the executed command was:
+
+```sh
+latexmk -pdf -interaction=nonstopmode -halt-on-error \
+  -outdir=/home/amir/Codes/PDE/data/generated/nth_lower_bound_20261010/paper_integration/build \
+  compact.tex
+```
+
+The [current compact PDF](../../data/generated/nth_lower_bound_20261010/paper_integration/build/compact.pdf),
+build log, prior input hashes, source patch and PDF checks are retained under
+`data/generated/nth_lower_bound_20261010/paper_integration/`.
+An initial invocation from the repository root stopped because `compact.tex`
+was not in that working directory; its diagnostic is retained separately.
+No scientific or formatting repair was needed after the successful build.
+The [final integration record](PAPER_INTEGRATION.json) records source hashes,
+build outcome and exact scope. Generated PDFs are not included in the source
+commit. Both manuscripts remain independently compilable from paper sources;
+no study file is a LaTeX dependency.
 
 ## Latest matching-size continuation
 

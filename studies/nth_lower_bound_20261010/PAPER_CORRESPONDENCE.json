@@ -1,0 +1,165 @@
+{
+  "source_file": "data/generated/nth_lower_bound_20261010/promotion_v4/data/generated/DTDL/docs/DTDL.tex",
+  "source_section_lines": [
+    38888,
+    39468
+  ],
+  "source_section_sha256": "765a7a3678d6760f3474ef8915799588444bb57a43164f219f090c6ce768c9c6",
+  "output_sha256": "38e50dee3b89a755e4efb719a8cf3396cd70f78a1cf163dbf0ff91076505a616",
+  "counts": {
+    "theorem": [
+      1,
+      1
+    ],
+    "corollary": [
+      1,
+      1
+    ],
+    "lemma": [
+      5,
+      5
+    ],
+    "proof": [
+      6,
+      6
+    ],
+    "equation": [
+      23,
+      23
+    ]
+  },
+  "labels": {
+    "sec-nth-storage": "cp:nth:storage",
+    "sec-nth-storage-setup": "cp:nth:setup",
+    "eq-nth-storage-network": "cp:nth:eq:network",
+    "eq-nth-storage-normalization": "cp:nth:eq:normalization",
+    "eq-nth-storage-data": "cp:nth:eq:data",
+    "eq-nth-storage-dense": "cp:nth:eq:dense",
+    "eq-nth-storage-source": "cp:nth:eq:source",
+    "eq-nth-storage-closure": "cp:nth:eq:closure",
+    "eq-nth-storage-counts": "cp:nth:eq:counts",
+    "eq-nth-storage-errors": "cp:nth:eq:errors",
+    "thm-nth-storage-matching": "cp:nth:matching",
+    "eq-nth-storage-hard-data": "cp:nth:eq:hard-data",
+    "eq-nth-storage-matched": "cp:nth:eq:matched",
+    "cor-nth-storage-general-upper": "cp:nth:general-upper",
+    "eq-nth-storage-order": "cp:nth:eq:order",
+    "lem-nth-storage-source-control": "cp:nth:source-control",
+    "eq-nth-storage-geometric": "cp:nth:eq:geometric",
+    "proof-nth-storage-source-control": "cp:nth:proof:source-control",
+    "eq-nth-storage-leaf-bound": "cp:nth:eq:leaf-bound",
+    "eq-nth-storage-ordered-map": "cp:nth:eq:ordered-map",
+    "eq-nth-storage-reconstruction": "cp:nth:eq:reconstruction",
+    "eq-nth-storage-contraction": "cp:nth:eq:contraction",
+    "lem-nth-storage-gaussian-control": "cp:nth:gaussian-control",
+    "eq-nth-storage-dense-upper": "cp:nth:eq:dense-upper",
+    "proof-nth-storage-gaussian-control": "cp:nth:proof:gaussian-control",
+    "eq-nth-storage-gaussian-tail": "cp:nth:eq:gaussian-tail",
+    "lem-nth-storage-omitted-derivative": "cp:nth:omitted-derivative",
+    "eq-nth-storage-omitted-jet": "cp:nth:eq:omitted-jet",
+    "proof-nth-storage-omitted-derivative": "cp:nth:proof:omitted-derivative",
+    "eq-nth-storage-feedback-jet": "cp:nth:eq:feedback-jet",
+    "eq-nth-storage-source-ascent": "cp:nth:eq:source-ascent",
+    "lem-nth-storage-analytic-transfer": "cp:nth:analytic-transfer",
+    "eq-nth-storage-transfer": "cp:nth:eq:transfer",
+    "proof-nth-storage-analytic-transfer": "cp:nth:proof:analytic-transfer",
+    "lem-nth-storage-dense-small-ball": "cp:nth:dense-small-ball",
+    "eq-nth-storage-dense-lower": "cp:nth:eq:dense-lower",
+    "proof-nth-storage-dense-small-ball": "cp:nth:proof:dense-small-ball",
+    "proof-nth-storage-main": "cp:nth:proof:main"
+  },
+  "external_local_references": [
+    "cp:data",
+    "cp:flow",
+    "cp:headline",
+    "cp:network",
+    "cp:setup"
+  ],
+  "layout_repair_counts": {
+    "(j\\\\+2)": 2,
+    "(k\\\\+2)": 2,
+    "(v,\\\\a_z": 1,
+    "(\\mathbf v;\\\\t)": 1,
+    "(\\mathbf v,\\\\v_{a_1}": 1,
+    "N_{\\rm mov}\\\\+N_{\\rm top}": 1,
+    "(2\\kappa)\\\\+3]": 1
+  },
+  "proof_correspondence": [
+    {
+      "proof": 1,
+      "identical_after_declared_transforms": true,
+      "canonical_sha256": "44d3ee405dc166e5e719f3a506712c3da747a30c06a028e76d5d60ddc2f44fc9"
+    },
+    {
+      "proof": 2,
+      "identical_after_declared_transforms": true,
+      "canonical_sha256": "af6f604f2f32a185661b4302e4fa6b1ffb38bc9a1bc84dda2a252178973be3bd"
+    },
+    {
+      "proof": 3,
+      "identical_after_declared_transforms": true,
+      "canonical_sha256": "9c83825ca19c86e0d7627f91417e33ec138af58a995cce610c6c148873683052"
+    },
+    {
+      "proof": 4,
+      "identical_after_declared_transforms": true,
+      "canonical_sha256": "e7a5330b92080f4c328e04ec89e378957f61d1f0b9eafb005d7cf42be20b0cd4"
+    },
+    {
+      "proof": 5,
+      "identical_after_declared_transforms": true,
+      "canonical_sha256": "22dc5166f42a9bc29c9ba5c33400ee9b4f44da1a4176da95a6411a7780e64930"
+    },
+    {
+      "proof": 6,
+      "identical_after_declared_transforms": true,
+      "canonical_sha256": "6b4c75bb325adb931cbf85274a6047bae07fa327d24faf00470f59cecd47bcd5"
+    }
+  ],
+  "statement_correspondence": [
+    {
+      "environment": "theorem",
+      "index": 1,
+      "identical_after_declared_transforms": true
+    },
+    {
+      "environment": "corollary",
+      "index": 1,
+      "identical_after_declared_transforms": true
+    },
+    {
+      "environment": "lemma",
+      "index": 1,
+      "identical_after_declared_transforms": true
+    },
+    {
+      "environment": "lemma",
+      "index": 2,
+      "identical_after_declared_transforms": true
+    },
+    {
+      "environment": "lemma",
+      "index": 3,
+      "identical_after_declared_transforms": true
+    },
+    {
+      "environment": "lemma",
+      "index": 4,
+      "identical_after_declared_transforms": true
+    },
+    {
+      "environment": "lemma",
+      "index": 5,
+      "identical_after_declared_transforms": true
+    }
+  ],
+  "new_TeX_commands": [
+    "\\Cref",
+    "\\Sigma",
+    "\\cite",
+    "\\eqref",
+    "\\pi",
+    "\\zeta"
+  ],
+  "scope": "Editorial adaptation only; no mathematical re-review or new claims"
+}

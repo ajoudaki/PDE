@@ -1,0 +1,67 @@
+{
+  "book_commit": "b9f970b3444fa6cb56df4df7f1f675564d1360c2",
+  "status": "compact paper integrated and checked",
+  "scope": "compact manuscript only; unchanged established theorem and complete proof under documented editorial transformations; long manuscript and prior proof modules untouched",
+  "files": [
+    {
+      "path": "paper/compact.tex",
+      "sha256": "460f29eda118ffe5bbc24be3a04d1a25c5e4a9bddb0744f8235d97a3674cabfe"
+    },
+    {
+      "path": "paper/compact_nth.tex",
+      "sha256": "38e50dee3b89a755e4efb719a8cf3396cd70f78a1cf163dbf0ff91076505a616"
+    },
+    {
+      "path": "paper/README.md",
+      "sha256": "df6ff3f8c1ba58c0048d3aeca3db818da8565b086152270fbe84d8d70d0bfc54"
+    },
+    {
+      "path": "paper/references.bib",
+      "sha256": "1a5611e65d89ce20de47c62488c1fa34eb6e80c1777ab310e29723a94a0457a9"
+    },
+    {
+      "path": "studies/nth_lower_bound_20261010/PAPER_NTH.tex",
+      "sha256": "38e50dee3b89a755e4efb719a8cf3396cd70f78a1cf163dbf0ff91076505a616"
+    },
+    {
+      "path": "studies/nth_lower_bound_20261010/PAPER_CONVERT.py",
+      "sha256": "063d0ed06ff978500b3a7fc3b50c898104cd4ffd6c5038730359e24534feef70"
+    }
+  ],
+  "source_correspondence": "PAPER_CORRESPONDENCE.json",
+  "build": {
+    "cwd": "paper",
+    "command": [
+      "latexmk",
+      "-pdf",
+      "-interaction=nonstopmode",
+      "-halt-on-error",
+      "-outdir=/home/amir/Codes/PDE/data/generated/nth_lower_bound_20261010/paper_integration/build",
+      "compact.tex"
+    ],
+    "exit_code": 0,
+    "pdf": "data/generated/nth_lower_bound_20261010/paper_integration/build/compact.pdf",
+    "pdf_sha256": "c737efb08176441292afeffaeeac215c81994f66f9ba5cf163cfaad8898c0eb6",
+    "pages": 61,
+    "new_section_pages": [
+      53,
+      61
+    ],
+    "log_warning_count": 0
+  },
+  "checks": {
+    "manuscript_unique_labels": 194,
+    "proof_bodies_preserved": 6,
+    "statements_preserved": 7,
+    "new_numbered_equations": 23,
+    "new_labels": 38,
+    "all_prior_unedited_inputs_match": true,
+    "visually_inspected_pdf_pages": [
+      53,
+      55,
+      59
+    ],
+    "bbox_observation": "14 strict two-point margin exceptions, at most 2.2 pt microtype protrusion; no clipping"
+  },
+  "failed_invocation": "Initial root-cwd latexmk invocation could not locate compact.tex; corrected cwd only, diagnostic retained in generated build_wrong_cwd.log."
+}
