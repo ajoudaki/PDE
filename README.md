@@ -41,6 +41,10 @@ quarto render --to pdf
 quarto render --to latex
 ```
 
+Exports are written to `data/generated/DTDL/`: `DTDL.pdf` for PDF and
+`index.html` for the HTML book. The full title, subtitle and author remain
+inside the book.
+
 ## Check the library
 
 The tested baseline is Python 3.10.12 and NumPy 1.26.4. The minimal dependency

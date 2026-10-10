@@ -331,3 +331,9 @@ Learning*, by **Amir Joudaki**. This post-promotion maintenance change updates
 Quarto metadata and the repository gateway; the scientific text is unchanged.
 Fresh PDF/HTML builds and their source hashes are retained in
 `data/generated/book_promotion_20261010/named_book_20261010T112553Z/`.
+
+The user subsequently chose **DTDL** as the short export name. Quarto now uses
+`DTDL` as its output stem and `data/generated/DTDL/` as its output directory.
+The successful PDF and HTML builds above were repackaged there as `DTDL.pdf`
+and `index.html`, with unchanged rendered contents and refreshed source
+bundles. The full title, subtitle and author remain inside the book.

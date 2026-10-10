@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: ../data/generated/DTDL
   post-render:
     - python package_code_links.py
 
@@ -7,6 +8,7 @@ book:
   title: "A Dynamical Theory of Deep Learning"
   subtitle: "Population Dynamics, Autonomous Approximation, and Nonlinear Learning"
   author: "Amir Joudaki"
+  output-file: DTDL
   chapters:
     - index.qmd
     - notation.qmd
