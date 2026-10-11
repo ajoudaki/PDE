@@ -2,12 +2,9 @@
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
-\usepackage{booktabs,array,tabularx,longtable}
-\usepackage{graphicx,placeins}
-\usepackage[font=small,labelfont=bf]{caption}
-\usepackage{microtype,enumitem,natbib}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs,array,longtable,enumitem,microtype}
+\usepackage{graphicx,caption}
 \usepackage[hidelinks]{hyperref}
 \usepackage{bookmark}
 \usepackage[nameinlink,noabbrev]{cleveref}
@@ -15,364 +12,524 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}{Claim}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\cL}{\mathcal{L}}
-\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\od}{\mathbin{\odot}}
-\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\dd}{\,\mathrm d}
 \newcommand{\diag}{\operatorname{diag}}
-\newcommand{\Law}{\operatorname{Law}}
 \newcommand{\HS}{\mathrm{HS}}
-\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
-\setlist{itemsep=3pt,topsep=5pt,parsep=0pt}
+\newcommand{\Law}{\operatorname{Law}}
+\setlist{itemsep=2pt,topsep=4pt,parsep=0pt}
 \setlength{\emergencystretch}{1.5em}
 \allowdisplaybreaks[2]
-\renewcommand{\topfraction}{0.9}
-\renewcommand{\bottomfraction}{0.7}
-\renewcommand{\textfraction}{0.08}
-\renewcommand{\floatpagefraction}{0.8}
-\setcounter{topnumber}{3}
 \setcounter{tocdepth}{1}
-\title{{\fontsize{14}{17}\selectfont\bfseries
-Compressing Global Dynamics of Deep Nonlinear Feature Learning}}
+\title{Compressing Global Dynamics of Deep Nonlinear Feature Learning}
 \author{Amir Joudaki \and Thomas Hofmann}
-\date{October 8, 2026}
+\date{October 9, 2026}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-Can a deep network's entire learning trajectory be represented by a much
-smaller state? We study Gaussian-initialized nonlinear networks with learned
-hidden features, fixed depth, at least two training examples, a positive
-initial feature-Gram gap, and small fixed nonzero labels. The common principle
-is to compress the forward and backward
-responses that generate learning, rather than approximate a fitted weight
-matrix. Legendre compression summarizes their temporal histories, using
-$n^{5/4+o(1)}$ moving coordinates while retaining fixed dense mixers.
-Two realizations of a shared reduced nonlinear dynamics also compress the
-neuron coordinate: Harmonic compression uses joint time--input regularity
-and retains $O((\log n)^{3d+2})$ real coordinates over the whole input sphere;
-Taylor compression uses residual-adapted temporal approximation and
-retains $O((\log n)^3)$ real coordinates on any fixed panel of inputs declared
-at initialization. Passive labels are not used. Each tracks a coupled dense
-trajectory, uniformly over all physical times including the fitted limit,
-with error negligible in probability relative to independent dense-run
-variability. Harmonic and Taylor attain absolute error $Y/n$, where
-$Y$ is the fixed RMS label scale. The proof retains
-Gram dissipation and finite residual activity; a readout correction cancels
-the feedback that would otherwise give a poor stability estimate. We expose
-the trade between query scope, moving memory and retained state, and separate
-initialization-only information from the work needed to process it.
-For nonaffine activations and nonparallel training inputs, an additional
-theorem certifies that compression preserves separation from both affine
-predictors and the dense reference's frozen initial kernel; every dense
-hidden layer moves, including a nonlinear first-layer feature component.
+We give a modular proof of three trajectory-compression constructions for
+Gaussian-initialized deep nonlinear networks with learned hidden features.
+Legendre compression retains $n^{5/4+o(1)}$ moving coordinates and fixed dense
+mixers. Harmonic compression retains $O((\log n)^{3d+2})$ real coordinates
+for the whole input sphere. Taylor compression retains
+$O((\log n)^3)$ real coordinates on a fixed panel declared at initialization.
+All three have error negligible relative to actual independent dense-run
+variability, uniformly over their query domain and the complete training
+trajectory, including the fitted limit. The two selected constructions also
+attain absolute error $Y/n$. The common ingredients are finite residual
+activity, analytic response approximation, and geometry-preserving reduction;
+the selected dynamics use an additional readout correction to cancel unstable
+feedback. A separate short-time deep-linear benchmark establishes a matching
+literal-storage bound for a frozen-top neural tangent hierarchy. This
+manuscript also gives polynomial sufficient widths for Legendre and Taylor,
+and exact-real initialization bounds for both selected constructions:
+near-quadratic work from supplied dense matrices or near-linear work for a
+fresh Gaussian reference sampled implicitly. The guarantees are exact-real,
+not finite-precision. A final figure collection provides earlier numerical
+illustrations, separately from the theorems.
 \end{abstract}
 
 \section{Introduction}
-\label{sec:introduction}
-Compressing a trained function does not necessarily compress its learning.
-Two parameter states can agree on every input while their backward responses
-differ, so that the same next update separates their predictions. A
-description of learning must retain enough state to continue the dynamics,
-not merely reproduce one fitted snapshot.
+\label{cp:introduction}
 
-Our target keeps depth, nonlinear activations and trained hidden
-representations. Infinite-width descriptions organize these dynamics through
-population variables and responses to reused random matrices
-\citep{yang2021tensor,nguyen2023rigorous,bordelon2022dmft}. They motivate a
-further question: how much finite state is needed to reproduce the actual
-learning trajectory of a finite network? Here both the reference and the
-compressed predictor remain finite. Accuracy includes inputs absent from
-the updates and all physical time. The query domain is an explicit part of
-the guarantee: the whole sphere, or a declared finite panel whose passive
-labels are never supplied.
+Compressing a trained function does not necessarily compress its learning.
+Two parameter states can agree on their predictions while their backward
+responses differ, so that the same next update separates the predictions.
+A representation of learning must therefore retain enough state to continue
+the dynamics, not merely reproduce a fitted snapshot. We ask how much state
+is needed to track an ordinary finite Gaussian-initialized network throughout
+training while preserving its nonlinear hidden learning.
 
 \paragraph{An intrinsic accuracy benchmark.}
-Independent initializations already produce different dense trajectories.
-Our common compression theorem makes the ratio of compression error to
-this actual discrepancy tend to zero in probability. All three methods
-therefore track their dense reference more closely than independent dense
-runs track one another, in their respective query domains. This compares
-to realized variability, not an analytic upper envelope or a fixed-factor
-target. No measurement of dense variability is needed to initialize the
-compressed model. The dense lower
-bound is witnessed during early training; it is not an endpoint lower bound.
+Independent dense initializations already produce different learning
+trajectories. Our benchmark is this actual dense-run discrepancy, rather than
+an analytic upper envelope. The compression theorem makes the ratio of
+compression error to dense-run discrepancy tend to zero in probability, with
+both measured over the same query domain and the complete training trajectory,
+including the fitted limit. This is a comparison of two trajectory norms,
+not a pointwise-in-time ratio: the dense lower bound is witnessed early in
+training and is not an endpoint lower bound. The construction need not measure
+dense variability to choose its state.
 
-\paragraph{One object to compress, two reduction mechanisms.}
-A learned matrix increment integrates paired forward and backward responses.
-The first reduction, Legendre, compresses the history while retaining every
-neuron. The second compresses the response space itself and realizes its
-geometry on a small set of neuron coordinates. Harmonic and Taylor
-are two source builders for this same reduced dynamics. Harmonic represents
-responses jointly in time and input; Taylor represents only the finitely
-many requested input curves and spends fewer temporal pieces as learning
-slows. The latter removes the dimension-dependent logarithmic exponent by
-giving up a uniform guarantee for inputs first revealed after setup.
+\paragraph{One object to compress, two reductions.}
+A learned matrix increment is an integral of paired forward and backward
+responses. Legendre compression replaces their histories by a small number of
+polynomial moments, while retaining every neuron and the initialized dense
+mixers. Projecting both histories onto the same orthogonal space is crucial:
+mixed retained--omitted terms cancel, leaving a product of the two omitted
+tails. Thus the approximation benefits from regularity in both histories,
+not just one.
 
-\paragraph{Why feedback is the central obstacle.}
-These are closed learning systems, not playback of an approximated dense
-trajectory. A response error changes the next update, which changes the
-responses used thereafter. A black-box Lipschitz estimate treats this loop
-as exponential growth over an infinite horizon. The proof instead keeps
-the dissipative sign of the training Gram, measures forcing against the
-finite amount of remaining learning, and, for the selected models, cancels
-the leading readout--residual feedback. The main text explains these
-mechanisms before the appendix supplies their quantitative estimates.
+Harmonic and Taylor go further by also reducing the neuron coordinate.
+They first approximate the relevant responses in a small function space, then
+preserve its inner-product geometry on selected neuron coordinates. Selecting
+coordinates, rather than mixing them arbitrarily, preserves the meaning of
+coordinatewise nonlinear activation. The two methods share the same reduced
+nonlinear dynamics; they differ in which responses their source spaces must
+represent. Harmonic uses joint temporal and spherical regularity to cover the
+whole input sphere. Taylor represents only the finitely many input curves
+declared at setup, using temporal pieces adapted to the slowing of learning.
+The narrower query contract removes the dimension-dependent logarithmic
+exponent. Passive inputs are supplied without their labels.
 
-\paragraph{Scope.}
-The results allow arbitrary fixed depth, compatible finite sphere data,
-and analytic activations with unbounded values. Labels are small but fixed
-as width grows. The feature-learning mobilities are retained rather than
-replaced by a frozen-kernel scaling. The general compression theorem does
-not assert nonzero feature motion for every activation and dataset.
-Under nonaffine activations and pairwise nonparallel inputs,
-\Cref{thm:nonlinear-learning} additionally certifies nonlinear predictions,
-motion in every hidden layer, and evolution of the nonlinear part of the
-first-layer features.
-The guarantees concern prediction fidelity, not risk against unknown test
-labels. Sufficient stochastic widths remain qualitative. The logarithmic
-storage counts real coordinates, not fixed-precision words; its finite
-initialization-jet construction establishes information provenance, not
-a practical setup-time bound.
+\paragraph{Why approximation errors do not accumulate indefinitely.}
+The compressed models are closed learning systems, not playback of a saved
+dense trajectory. Their current responses determine the next update, which
+changes their future responses. A generic Lipschitz bound loses the sign of
+this feedback and can suggest exponential amplification. The comparison
+instead retains the dissipative training Gram and measures perturbations
+against the finite amount of remaining learning. For the selected models,
+a readout correction cancels the leading readout--residual feedback.
+Infinite physical time is therefore controlled by finite residual activity,
+not by multiplying a local error by the duration of training.
 
-\section{Setting and reading conventions}
-\label{sec:setting}
-There are $m$ training pairs $(x_a,y_a)$, with $\norm{x_a}_2=\sqrt d$,
-width $n$, and $L\ge2$ hidden layers. We use the paper's layer notation:
+The setting allows arbitrary fixed depth and analytic activations whose values
+need not be bounded, with a positive population feature-Gram gap at
+initialization and a small, fixed nonzero label vector. The formal results
+below state the storage, query,
+width, and computational qualifications together. A complementary early-time
+theorem, under nonaffine activations and no parallel or antiparallel training
+inputs, separates the compressed predictors from affine functions and the
+dense reference's frozen initial kernel. For Taylor, this comparison allows
+up to four additional passive witness inputs declared before initialization.
+It also proves motion of every
+dense hidden layer, without identifying compressed coordinates with dense
+neurons.
+
+\section{Setup and main results}
+\label{cp:setup}
+
+There are $m\ge2$ training pairs $(x_a,y_a)$ with
+$x_a\in\R^d$, $\norm{x_a}_2=\sqrt d$, width $n$, and a fixed number
+$L\ge2$ of hidden layers. Write $v=x/\sqrt d$. The first matrix is
+$W^{(1)}\in\R^{n\times d}$, the hidden matrices are
+$W^{(\ell)}\in\R^{n\times n}$, and the readout is $w\in\R^n$.
+The activation may depend on the layer; the superscript is suppressed when
+the same equation applies to every layer. When a response is indexed by
+the normalized query $v$, its network input is $x=\sqrt d\,v$.
+The canonical network is
 \begin{align}
- z_a^{(1)}&=W^{(1)}x_a/\sqrt d,&
- z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)},&
- h_a^{(\ell)}&=\phi(z_a^{(\ell)}),\nonumber\\
- f_{n,a}&=\frac{w^\top h_a^{(L)}}n,&
- r_a&=f_{n,a}-y_a,&
- \cL&=\frac1m\sum_a r_a^2.
- \label{eq:network}
+ z^{(1)}(x)&=W^{(1)}v,&
+ z^{(\ell)}(x)&=W^{(\ell)}h^{(\ell-1)}(x),&
+ h^{(\ell)}(x)&=\phi_\ell(z^{(\ell)}(x)),\nonumber\\
+ f_n(x)&=\frac{w^\top h^{(L)}(x)}n,&
+ r_a&=f_n(x_a)-y_a,&
+ \cL&=\frac1m\sum_{a=1}^m r_a^2.
+ \label{cp:network}
 \end{align}
-Here $w=W^{(L+1)}$ is the output weight; the activation may vary by layer.
-Backward responses exclude the residual:
-\[
- \delta_a^{(L)}=w\od\phi'(z_a^{(L)}),\qquad
- \delta_a^{(\ell)}
- =\phi'(z_a^{(\ell)})\od(W^{(\ell+1)})^\top\delta_a^{(\ell+1)}.
-\]
-With block mobilities $(n,1,\ldots,1,n)$ the exact gradient flow is
-\begin{align}
- \dot W^{(1)}
- &=-\frac2m\sum_a r_a\delta_a^{(1)}x_a^\top/\sqrt d,\nonumber\\
- \dot W^{(\ell)}
- &=-\frac{2}{nm}\sum_a r_a\delta_a^{(\ell)}
-                 (h_a^{(\ell-1)})^\top,\quad 2\le\ell\le L,\nonumber\\
- \dot w&=-\frac2m\sum_a r_a h_a^{(L)}.
- \label{eq:dense-flow}
-\end{align}
-First-layer entries are independent $\mathcal N(0,1)$, hidden entries are
-independent $\mathcal N(0,1/n)$, blocks are independent, and $w(0)=0$.
-Activations are real on the real axis, analytic in a strip about it, and
-have bounded first derivative there. Their values need not be bounded.
-
-\paragraph{Data and labels.}
-The population initial feature Gram (an uncentered second moment) is defined by
-\[
- Q^{(0)}_{ab}=x_a^\top x_b/d,\qquad
- Q^{(\ell)}_{ab}=\E[\phi(Z_a)\phi(Z_b)],
- \quad Z\sim\mathcal N(0,Q^{(\ell-1)}).
-\]
-Its gap and the label scale are
-\[
- \gamma=\lambda_{\min}(Q^{(L)})>0,\qquad Y=\norm{y}_2/\sqrt m.
-\]
-The gap is not divided by $m$. The clean main-text bounds use
-$0<Y\le c\gamma/m$, for a sufficiently small activation/depth constant $c$.
-The appendix retains the larger original recurrence-defined allowance and
-its full certificates. $Y$ is fixed, not width-dependent; zero labels give
-the exact zero predictor separately. Dense, Legendre and Harmonic require
-no orthogonality, centering or input-rank assumption. Neither does the new
-Taylor construction. For it, fix $p\ge0$ further sphere inputs before
-initialization and write the full panel as $x_1,\ldots,x_{m+p}$.
-Only the first $m$ inputs have labels or enter the training sums.
-
-\paragraph{One observable and one accuracy benchmark.}
-For the promised query set $\mathcal X$, write
+The residual-free backward responses are
 \begin{equation}
- \norm{f-g}_{\mathcal X}=
- \sup_{t\in[0,\infty]}\sup_{x\in\mathcal X}|f(t,x)-g(t,x)|.
- \label{eq:test-norm}
+ \delta_a^{(L)}=w\od\phi_L'(z_a^{(L)}),\qquad
+ \delta_a^{(\ell)}=\phi_\ell'(z_a^{(\ell)})\od
+                W^{(\ell+1)\top}\delta_a^{(\ell+1)}.
+ \label{cp:backward}
 \end{equation}
-Take $\mathcal X$ to be the whole sphere for Legendre and Harmonic, and the
-declared panel for Taylor. This includes fitted limits. Let
-$f_n$ be the compressed model's coupled ordinary dense reference and
-$\widetilde f_n$ an independently initialized ordinary dense run.
-Their discrepancy $\norm{f_n-\widetilde f_n}_{\mathcal X}$ is the
-random benchmark in the theorem. Compression error divided by this
-discrepancy tends to zero in probability. Thus every fixed positive
-relative-error tolerance is met with probability tending to one.
-For this ratio, declare failure (value $+\infty$) if a required fitted
-limit does not exist or the denominator vanishes; these exceptional
-events have probability tending to zero under the theorem's assumptions.
-All errors are absolute, with no implicit division by $Y$.
-We do not spend the label cap to reduce powers of
-$m/\gamma$: the learned-storage envelopes remain cubic for Legendre and
-quartic for Harmonic and in the leading Taylor term.
-The panel and sphere discrepancies need not agree: both sides of a comparison
-always use the same query set. In the detailed sphere proofs,
-$\norm{\cdot}_*$ denotes the sphere instance of this norm.
+At a passive input use the same forward and backward recursions, without
+supplying a label or adding a training term.
+Dots denote physical training time. Gradient flow with block mobilities
+$(n,1,\ldots,1,n)$ is exactly
+\begin{align}
+ \dot W^{(1)}&=-\frac2m\sum_a r_a\delta_a^{(1)}v_a^\top,
+ \nonumber\\
+ \dot W^{(\ell)}&=-\frac2{nm}\sum_a
+          r_a\delta_a^{(\ell)}h_a^{(\ell-1)\top}\quad(2\le\ell\le L),
+ &\dot w&=-\frac2m\sum_a r_a h_a^{(L)}.
+ \label{cp:flow}
+\end{align}
+First-layer entries are independent $\mathcal N(0,1)$; hidden entries are
+independent $\mathcal N(0,1/n)$; all blocks are independent; and $w(0)=0$.
+Nothing freezes the hidden features.
 
-\paragraph{Constants, confidence and limits.}
-Main-text $c,C>0$ depend only on activations and fixed depth and can change
-between occurrences. They hide no dependence on $m,n,d,\gamma$.
-The relative-error conclusion is convergence in probability. Finite-width
-absolute-error bounds hold at any fixed confidence $1-\delta$ once the
-width is sufficiently large; the appendix retains the dependence on
-$\delta$ in the lower coefficient and width gates.
-At each sufficiently large individual width the stated comparisons hold,
-not on one event over infinitely many independent widths.
-The stochastic width thresholds are not quantified.
-Expressions with $o(1)$ fix the admissible data, depth, activation and
-confidence before $n\to\infty$; they are not uniform growing-data claims.
+\paragraph{Activations, data, and constants.}
+Each $\phi_\ell$ is real on the real axis, holomorphic on
+$|\operatorname{Im}z|<a$ for a common $a>0$, and has bounded first derivative
+on that strip. Its values need not be bounded. For explicit estimates put
+\[
+ \beta=\max\left\{10,1+\max_\ell|\phi_\ell(0)|,16/a,
+ \max_{\ell,\,j\in\{1,2\}}
+ \sup_{|\operatorname{Im}z|\le a/2}|\phi_\ell^{(j)}(z)|\right\}.
+\]
+The second derivative is bounded on the smaller strip by Cauchy's formula.
+Define the uncentered population feature Gram and the label scale by
+\begin{gather}
+ Q^{(0)}_{ab}=v_a^\top v_b,\qquad
+ Q^{(\ell)}_{ab}=\E[\phi_\ell(Z_a)\phi_\ell(Z_b)],\quad
+ Z\sim\mathcal N(0,Q^{(\ell-1)}),\nonumber\\
+ \gamma=\lambda_{\min}(Q^{(L)})>0,\qquad
+ Y=\norm{y}_2/\sqrt m>0.
+ \label{cp:data}
+\end{gather}
+Assume $m/\gamma\ge1$ and the same sufficient small-label condition
+\begin{equation}
+ 0<Y\le\frac\gamma m\beta^{-30L}.
+ \label{cp:labels}
+\end{equation}
+No input-rank, centering, orthogonality, or label-sign hypothesis is imposed.
+All data, $m,d,L,\gamma,Y$, and activations are fixed separately as $n$ grows.
+Throughout the stated bounds, $C>0$ depends only on activations and depth, never on
+$n,m,d,\gamma,Y$ or a passive-panel size. Its value may change between occurrences.
+All other constants are defined in the statement or proof using them.
+Initialization costs use a separate fixed-parameter big-$O$ convention,
+specified in \Cref{cp:initialization}; its constants are not the
+activation-and-depth-only storage constant $C$.
 
-\paragraph{State and reference.}
-Internal memory and approximation orders are optimized inside the
-constructions. They appear in the mechanism descriptions and appendix,
-not as inputs to the headline theorem. Moving state and complete retained
-state are distinguished.
-All three track a coupled dense reference. The implicit
-Harmonic implementation generates that reference jointly instead of
-materializing its hidden matrices. For Taylor, initialization jets
-determine a finite response-space construction; the resulting small model
-then evolves autonomously. Its temporal pieces are preparation devices,
-not a growing runtime history or a prescribed prediction trajectory.
+\paragraph{Query domains and probability.}
+For a query set $\mathcal X$, use
+\begin{equation}
+ \norm{f-g}_{\mathcal X}
+   =\sup_{t\in[0,\infty]}\sup_{x\in\mathcal X}|f(t,x)-g(t,x)|.
+ \label{cp:norm}
+\end{equation}
+The endpoint $t=\infty$ means the fitted limit. For Legendre and Harmonic,
+$\mathcal X=\{x:\norm{x}_2=\sqrt d\}$. For Taylor, fix $p\ge0$
+additional inputs on this same sphere before initialization and take
+$\mathcal X=\{x_1,\ldots,x_{m+p}\}$. Their labels are never supplied.
+Let $\widetilde f_n$ be an independently initialized dense run on the same
+training problem.
 
-\section{Quantitative results}
-\label{sec:results}
-\input{results}
-\input{methods}
-\input{costs}
+An eventual assertion at confidence $1-\delta$ means: for every fixed
+admissible problem and $0<\delta<1$, there is a finite width threshold such
+that the assertion holds at each larger individual width. That threshold
+may depend on every fixed problem parameter, including the positive $Y$.
+The headline theorem quantifies this threshold polynomially for Legendre and
+Taylor; Harmonic retains the eventual qualification. Polynomial sufficient
+widths need not be practically small. Each probability bound concerns one
+fixed problem at one individual width, not a simultaneous event over all
+datasets or infinitely many independently initialized widths. No unrestricted
+growing-data limit is asserted. For a ratio below,
+missing fitted limits or a zero denominator count as failure.
+
+The compression and nonlinear feature-learning statements below inherit this
+setup and these probability conventions; the quantitative width improvement
+does not extend to the separate nonlinear feature-learning certificates.
+The separate NTH benchmark in
+\Cref{cp:nth:storage} states its own assumptions and probability convention.
+Every storage count charges a nonprimitive activation evaluator's description
+and scratch separately.
+
+\paragraph{What must be remembered.}
+The following is the complete persistent notation.
+\begin{center}\small
+\begin{tabular}{@{}p{0.28\linewidth}p{0.66\linewidth}@{}}
+\toprule
+Symbols&Meaning\\
+\midrule
+$n,m,d,L,p$&width, training count, dimension, depth, passive count\\
+$x,v=x/\sqrt d,y,t$&input, normalized input, labels, physical time\\
+$W,w,z,h,r,\delta_a^{(\ell)}$&weights, readout, preactivations, features,
+ residuals, backward responses\\
+$\phi,a,\beta,Q,\gamma,Y$&activations, strip, envelope, population Gram,
+ gap, label RMS\\
+$\cL,\mathcal X,\|\cdot\|_{\mathcal X}$&loss, query domain, trajectory norm\\
+$\delta,C$&failure probability, activation/depth constant\\
+$f_n,\widetilde f_n,f_{\rm model},f_{\mathrm{NTK},n}$&dense, independent dense,
+ compressed and frozen-kernel predictors\\
+\bottomrule
+\end{tabular}
+\end{center}
+Subscripts naming a compression method specialize $f_{\rm model}$. Ordinary
+mathematical operations and bound indices have their usual meanings.
+Every other symbol is bound to the statement and proof that introduce it:
+it can be forgotten afterward. In particular, approximation orders, clocks,
+source spaces, selected metrics, and numerical ledgers are not additional
+global notation. Later arguments use the stated conclusions, not private
+coefficients from their proofs.
+
+\begin{theorem}[Compression of the complete learning trajectory]
+\label{cp:headline}
+Under the preceding assumptions, each construction can be chosen so that
+\begin{equation}
+ \frac{\norm{f_{\rm model}-f_n}_{\mathcal X}}
+      {\norm{f_n-\widetilde f_n}_{\mathcal X}}
+       \xrightarrow{\mathbb P}0.
+ \label{cp:relative}
+\end{equation}
+Here $f_n$ is the construction's coupled ordinary dense reference, and both
+norms use the same promised query domain and all physical times, including
+the fitted endpoint. Sufficient real-coordinate counts are
+\begin{align}
+ \textnormal{Legendre moving state:}\quad&
+ Cm\left(\frac m\gamma\right)^3 n^{5/4}
+ [\log(en)]^2e^{\sqrt{\log(en)}/2},
+ \label{cp:legendre-size}\\
+ \textnormal{Harmonic total state:}\quad&
+ C(m+d)^2+\left(\frac Cd\right)^{d+1}
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^{3d+2},
+ \label{cp:harmonic-size}
+\end{align}
+and the Taylor total state is at most
+\begin{equation}
+ \begin{split}
+ C(m+p)^2\bigg[&
+       \left(\frac{Ym}\gamma\right)^4[\log(en)]^3
+       \\ &+\left(\frac m\gamma\right)^2[\log(en)]^2
+                     [\log(e+\log(en))]^2\bigg]
+       +C(m+p)d.
+ \end{split}
+ \label{cp:panel-size}
+\end{equation}
+Legendre additionally retains $(L-1)n^2$ fixed mixer coordinates.
+Harmonic and Taylor include the data, selected mixers, metrics, initial
+copies, and working arrays. Their predictions additionally satisfy
+\begin{equation}
+ \norm{f_{\rm model}-f_n}_{\mathcal X}\le Y/n
+ \label{cp:absolute}
+\end{equation}
+at every fixed confidence for sufficiently large width, with the same
+storage orders. One theoretical initializer uses the dense initialization,
+training data, and finitely many initialization derivatives; no later trained
+weight or dense trajectory is an input. The efficient alternatives in
+\Cref{cp:initialization} compute disposable numerical continuations from the
+initial data. Subsequent compressed evolution is an autonomous nonlinear
+system with the stated retained state in either case.
+
+For Legendre and Taylor, the sufficient width is polynomial: for every
+$0<\varepsilon,\delta<1$, the stated sizes and
+\[
+ \norm{f_{\rm model}-f_n}_{\mathcal X}
+ \le\varepsilon\norm{f_n-\widetilde f_n}_{\mathcal X}
+\]
+hold with probability at least $1-\delta$ whenever
+\begin{equation}
+ n\ge\left[c\beta^L
+ (1+m+d+p+\gamma^{-1}+Y^{-1}+\delta^{-1}+\varepsilon^{-1})\right]^c,
+ \label{cp:polynomial-onset}
+\end{equation}
+for an absolute numerical constant $c>0$, local to this width bound.
+For Legendre take $p=0$ and omit
+$Y^{-1}$; Taylor also satisfies \eqref{cp:absolute} on this event.
+This strengthens only the width qualification: the storage formulas, label
+condition, query domains and physical optimizers are unchanged.
+\end{theorem}
+
+\input{feature_learning_theorem}
+
+\subsection{Efficient initialization}
+
+\begin{proposition}[Efficient initialization]
+\label{cp:initialization}
+Under \Cref{cp:headline}, Harmonic and Taylor admit the following exact-real
+initializers, at every fixed confidence and sufficiently large width.
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Method & Dense reference & Setup work & Peak setup memory\\
+\midrule
+Harmonic & Supplied matrices
+ & $O(n^2[\log(en)]^{3d/2+1})$ & $O(n^2)$\\
+Taylor & Supplied matrices
+ & $O(n^2[\log(en)]^{5/2})$ & $O(n^2)$\\
+Harmonic & Fresh implicit Gaussian
+ & $O(n[\log(en)]^{9d/2+3})$ & $O(n[\log(en)]^{3d/2+1})$\\
+Taylor & Fresh implicit Gaussian
+ & $O(n[\log(en)]^5)$ & $O(n[\log(en)]^{5/2})$\\
+\bottomrule
+\end{tabular}
+\end{center}
+All four initializers preserve the corresponding retained-state bound,
+the complete-trajectory error $Y/n$, and \eqref{cp:relative}.
+The constants in this table may depend on the separately fixed
+$m,d,p,L,\beta,\gamma,Y$ and confidence. The implicit version is coupled to a
+fresh ordinary Gaussian dense reference; it is not a subquadratic conversion
+of supplied matrices or a prescribed entrywise seed.
+\end{proposition}
+
+The operation model charges scalar arithmetic, comparisons, square roots,
+elementary functions, real activation values and Gaussian samples as
+primitives. Nonprimitive evaluators add their actual work, description and
+scratch. Activation envelopes and a positive population-gap certificate are
+supplied; computing them is not included. No high activation derivatives or
+trained-reference values are inputs. These initializers compute through
+$T=32(m/\gamma)\log(en)$, not merely a short physical-time prefix, then
+discard their working structures. The compressed model starts at time zero.
+The original initialization-jet compiler remains an alternative without an
+efficient work bound. The proof in \Cref{cp:init:proof} and finite-order
+ledgers in \Cref{cp:init:sec:costs} separate all parameter dependencies,
+retained storage and setup memory. Taylor uses the polynomial source and
+accuracy gates above without an additional qualitative source threshold;
+Harmonic retains its eventual source-width qualification.
+
+These are sufficient sizes, not optimality claims. Dense itself has
+$(L-1)n^2+n(d+1)$ weight coordinates. Data storage is additional to the
+Legendre moving-state count. Coordinate counts alone do not bound precision
+or preprocessing time; \Cref{cp:initialization} supplies separate arithmetic
+and peak-memory bounds, not a finite-precision guarantee.
+The finite-panel theorem makes no accuracy promise on inputs first supplied
+after initialization. Zero labels give the stationary zero predictor instead.
+The sharp literal-array cost of a frozen-top neural tangent hierarchy is
+treated separately in \Cref{cp:nth:storage}, under a growing-data,
+deep-linear regime.
 
 \section{Related work and discussion}
-\label{sec:related}
-The comparison is between representations of a specified learning process,
-not a claim that other descriptions lack quantitative guarantees.
-Tensor Programs and multilayer mean-field theory provide feature-learning
-population frameworks \citep{yang2021tensor,nguyen2023rigorous};
-dynamical mean-field descriptions organize temporal correlations and
-responses \citep{bordelon2022dmft,bordelon2023finite}. Model assumptions,
-observables and solver representations must be matched before comparing
-their resource costs. Our certificates concern finite Gaussian networks,
-all physical times, with the promised query domain kept explicit.
+\label{cp:related}
 
-A frozen neural tangent kernel describes a different limiting regime
-\citep{jacot2018ntk,lee2019wide}. Higher-order responses appear in the neural
-tangent hierarchy \citep{huang2020nth}, whose truncation theorem has its
-own scaling and horizon. Online polynomial memory summarizes an externally
-given signal \citep{gu2020hippo}; here the signals are endogenous, generated
-by the network reconstructed from those memories. Stabilizing that
-feedback is an additional obligation. Our second reduction preserves
-coordinatewise nonlinear gates together with response inner products;
-it is not ordinary projection of every layer onto an arbitrary linear
-subspace. No fresh-noise approximation replaces a reused trained matrix.
+\paragraph{Population descriptions and finite trajectories.}
+Tensor Programs provide infinite-width feature-learning parameterizations
+\cite{yang2021tensor}, and multilayer mean-field theory gives rigorous
+population frameworks with trajectory and optimization results under its
+stated parameterization and initialization assumptions
+\cite{nguyen2023rigorous}. Dynamical mean-field descriptions organize
+the evolution of kernels and responses \cite{bordelon2022dmft}; perturbative
+finite-width theory also studies their fluctuations
+\cite{bordelon2023finite}. These are relevant descriptions of learning,
+not substitutes to be dismissed for lacking quantitative guarantees. Our
+target is different: a small retained state coupled to a finite dense
+network, with a complete-trajectory prediction guarantee. Comparisons require
+matching initialization, parameterization, data, time horizon, and observable.
 
-\paragraph{The trade-off is not one-dimensional.}
-Legendre makes the evolving memory small but retains a quadratic fixed
-environment. Harmonic removes that environment from the retained state
-and has polylogarithmic query work at fixed dimension, with near-linear
-implicit setup. The new Taylor model uses the same selected runtime
-but specializes its response space to declared input curves. This removes
-the dimension-dependent logarithmic exponent, not the cost of preparing
-that space or the restriction on which inputs are certified. These are
-two different notions of generalization: accuracy on inputs absent from
-the updates, and uniform accuracy on inputs absent even from setup.
+\paragraph{Kernel limits and learned features.}
+The neural tangent kernel and parameter-linearized limits describe training
+in their respective wide-network regimes \cite{jacot2018ntk,lee2019wide}.
+Linearity in parameters does not imply an affine function of the input.
+Accordingly, \Cref{thm:nonlinear-learning} makes two separate comparisons:
+against all affine predictors and against the reference's frozen initial
+kernel. Neither comparison alone establishes both nonlinear prediction and
+feature learning. The neural tangent hierarchy tracks higher-order responses
+and provides truncation guarantees in its own regime \cite{huang2020nth};
+our separate literal-storage benchmark in
+\Cref{cp:nth:storage} concerns a specified deep-linear, short-time hierarchy,
+not a same-family lower bound against every possible hierarchy encoding.
 
-\paragraph{Open boundaries.}
-The dense lower bound is transient and does not establish sharp
-sample/gap dependence. Small labels are a sufficient stability regime,
-not a sharp necessity or a width-dependent scaling.
-The analytic class includes unbounded values but not exact ReLU.
-Exact-real setup costs do not establish fixed-machine-precision performance
-or superiority at practical widths. A fixed program for an arbitrary
-analytic activation also needs a separately specified evaluation cost.
-The finite-panel third power does not yet imply a second-power neural
-construction or an efficient initialization-only compiler.
-Finally, trajectory fidelity alone
-does not establish out-of-sample label risk: the usefulness of the
-selected predictor remains a separate question.
+\paragraph{Polynomial memory and closed feedback.}
+HiPPO develops online polynomial representations of signal histories
+\cite{gu2020hippo}. In the present construction the signal being represented
+is produced by the network reconstructed from those memories. Approximating
+that signal at fixed input therefore does not finish the argument: one must
+also control how the approximation changes its own future input. Paired
+orthogonal projection supplies the algebraic cancellation, while signed
+stability controls this closed loop. Harmonic and Taylor additionally preserve
+response geometry without replacing nonlinear gates by linear projection or
+reused trained matrices by independent fresh noise.
 
-\paragraph{Earlier empirical illustrations.}
-\Cref{app:earlier-illustrations} preserves existing Legendre and Harmonic
-illustrations and experiments for an older seeded finite-word decoder.
-That decoder is a separate supplementary construction, not the present
-finite-panel Taylor model. Those measurements are not empirical
-validation of the new cubic-logarithmic guarantee.
+\paragraph{What each reduction trades.}
+Legendre reduces moving memory but retains a quadratic fixed environment.
+Harmonic removes that environment from the retained state while maintaining
+a whole-sphere query guarantee. Taylor uses the same selected runtime but
+specializes its source space to a declared panel, including passive inputs.
+Accuracy on inputs absent from the training updates and accuracy on inputs
+first revealed after setup are distinct guarantees; only the first is
+promised for Taylor. The displayed sizes are sufficient, not optimality
+claims, and prediction fidelity alone does not imply low risk against unknown
+test labels.
 
-\bibliographystyle{plainnat}
+\paragraph{Information, computation, and scope.}
+Finite initialization jets establish that later trained weights need not be
+supplied to the source compiler; this information statement alone does not
+make compilation cheap. \Cref{cp:initialization} instead quantifies numerical
+initializers that perform disposable continuation over the required finite
+horizon. The near-linear alternative samples a fresh Gaussian reference
+implicitly; it is not a subquadratic conversion of a supplied dense matrix.
+The bounds count exact-real operations, not finite-precision performance.
+Polynomial sufficient widths hold for Legendre and Taylor, while Harmonic
+retains its eventual qualification. The small-label regime is sufficient,
+not asserted necessary; the analytic activation class excludes exact ReLU.
+The final figures retain earlier numerical illustrations under their stated
+protocols, rather than certify the present asymptotic guarantees.
+
+\paragraph{Proof roadmap.}
+First establish fitting and finite residual activity without a source
+approximation. A common probabilistic source lemma then controls forward and
+backward responses on the two analytic domains. Legendre approximates their
+history integrals. The other two methods share one geometry-preserving
+selection and one corrected nonlinear optimizer; only their finite source
+bases differ. A last-layer innovation and a deterministic analytic estimate
+give a dense lower bound at a training input. \Cref{cp:assembly} combines
+these ingredients. A quantitative source argument and a third-order Legendre
+history estimate supply the polynomial width refinement. Numerical source
+construction and a two-direction Gaussian sampler prove
+\Cref{cp:initialization}. Every dependency is supplied below. The older
+decoder theory remains outside this manuscript; earlier numerical figures
+are collected separately at the end.
+
+\input{compact_fitting}
+\input{compact_foundations}
+\input{compact_legendre}
+\input{compact_width}
+\input{compact_selected}
+\input{compact_initialization}
+\input{compact_feature_learning}
+
+\section{Assembly of the headline theorem}
+\label{cp:assembly}
+\begin{proof}[Proof of \Cref{cp:headline}]
+The preceding constructions provide the stated retained counts and the
+initialization-jet provenance alternative; the efficient alternatives have
+their own execution proofs. Here we first verify the original asymptotic
+comparison with actual dense variability, not an upper certificate. The
+quantitative width refinement uses its separately proved finite dense lower
+bound rather than claiming polynomial onset for the sharper coefficient
+used in this first argument.
+Fix a confidence budget $0<\delta_0<1$. By \Cref{cp:dense-lower}, for
+sufficiently large width,
+\[
+ \Pr\left\{\norm{f_n-\widetilde f_n}_{\mathcal X}
+ \ge c_{\phi,L,\delta_0}
+       \frac{Y\sqrt\gamma}{\sqrt n[\log(en)]^{5/2}}\right\}
+ \ge1-\delta_0.
+\]
+Its witness is a training input, so the same lower bound applies on either
+promised domain. The source and fitting events give all required limits.
+The Legendre order of \Cref{cp:legendre} gives error at most
+$CY/(\sqrt n[\log(en)]^3)$; its ratio to the displayed lower bound is
+at most a fixed-problem, fixed-confidence multiple of
+$[\log(en)]^{-1/2}$. For the two selected models,
+\Cref{cp:harmonic,cp:panel} give error at most $Y/n$, and the corresponding
+ratio is at most
+\[
+ \frac{[\log(en)]^{5/2}}
+ {c_{\phi,L,\delta_0}\sqrt{\gamma n}}\longrightarrow0.
+\]
+Intersecting each approximation event with the lower event costs at most
+$2\delta_0$ by the union bound, without any independence requirement.
+For every fixed positive ratio tolerance the limiting superior of its failure
+probability is therefore at most $2\delta_0$. Letting $\delta_0\downarrow0$
+proves \eqref{cp:relative}, including the stated failure convention.
+For \eqref{cp:absolute}, use the selected-model event at the requested
+confidence. The label assumption stays fixed throughout; no label inequality
+is used to reduce a displayed sample/gap power.
+For the polynomial sufficient width \eqref{cp:polynomial-onset}, apply
+\Cref{cp:poly:width} with the explicit maxima in
+\cref{cp:poly:eq:legendre-final-width,cp:poly:eq:taylor-final-width}.
+That argument supplies its own quantitative actual-dense lower event and
+retains exactly \cref{cp:legendre-size,cp:panel-size}; it does not attach
+polynomial onset to the sharper coefficient in the display above.
+\end{proof}
+
+\input{compact_nth}
+
+\bibliographystyle{plain}
 \bibliography{references}
-\clearpage
-\appendix
-\input{feature_learning_proof}
-\clearpage
-\input{empirical_appendix}
-\clearpage
-\input{cost_appendix}
-\clearpage
-\section*{Guide to the detailed statements and proofs}
-\addcontentsline{toc}{section}{Guide to the detailed statements and proofs}
-The appendices contain the complete parameter-explicit scientific statement
-and proof chain. The main text suppresses activation/depth factors,
-uses absolute prediction error, and internalizes the choice of approximation
-orders. The appendix restores activation/depth
-coefficients explicitly; its numerical $C$ is distinguished from the
-activation/depth envelope denoted by $C$ in the main text.
-Here $A=W^{(1)}$ when the first layer
-is written separately, and $w$ is the same output weight as above.
-Local proof constants, source degrees and numerical orders are not new
-runtime model parameters.
 
-The full label, width, confidence, storage and cost interfaces are followed
-by numerical certificates and proofs. The shared source construction,
-both efficient Harmonic initializers, the new residual-adapted panel proof,
-and the supplementary seeded decoder are included in the manuscript itself,
-not left as dependencies on research notes. The last is retained as a
-distinct result, not an alternative definition of the new Taylor model.
-Historical review records and superseded paper theorems are not premises.
+\input{compact_figures}
 
-\medskip
-\noindent\begin{tabularx}{\textwidth}{@{}Xr@{}}
-\toprule
-Detailed component & Page\\
-\midrule
-\hyperref[int:headline-results]{Complete certificate interfaces and notation}
-& \pageref{int:headline-results}\\
-\hyperref[int:detailed-statements]{Explicit statements, constants and cost inventories}
-& \pageref{int:detailed-statements}\\
-\hyperref[sec:panel-headline-proof]{Assembly of the unified compression theorem}
-& \pageref{sec:panel-headline-proof}\\
-\hyperref[sec:panel-proof]{Residual-adapted Taylor construction and complete proof}
-& \pageref{sec:panel-proof}\\
-\hyperref[int:source-foundations]{Shared source construction and analytic estimates}
-& \pageref{int:source-foundations}\\
-\hyperref[int:dense-proofs]{Dense upper and lower bounds}
-& \pageref{int:dense-proofs}\\
-\hyperref[int:legendre-proofs]{Legendre construction and all-order comparison}
-& \pageref{int:legendre-proofs}\\
-\hyperref[int:harmonic-proofs]{Harmonic geometry, stability and budget inversion}
-& \pageref{int:harmonic-proofs}\\
-\hyperref[int:seeded-decoder-proofs]{Supplementary seeded decoder and confidence bounds}
-& \pageref{int:seeded-decoder-proofs}\\
-\hyperref[int:decoder-finite-construction]{Finite source, numerical execution and word backend}
-& \pageref{int:decoder-finite-construction}\\
-\hyperref[int:harmonic-efficient-setup-proofs]{Explicit and implicit Harmonic initialization}
-& \pageref{int:harmonic-efficient-setup-proofs}\\
-\bottomrule
-\end{tabularx}
-
-\begingroup
-\small
-\input{integrated_appendix}
-\input{panel_appendix}
-\endgroup
 \end{document}

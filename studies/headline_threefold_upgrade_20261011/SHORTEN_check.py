@@ -9,6 +9,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "aa28e4693eecb93e6770db404878e959f5161fdf"
+ENTRY = "main.tex"
+BASE_ENTRY = "compact.tex"
 OWN = {"compact_width.tex", "compact_initialization.tex"}
 ADDED = {"compact_figures.tex"}
 OUTPUT = ROOT / "data/generated/headline_threefold_upgrade_20261011"
@@ -33,12 +35,12 @@ def check():
         for child in re.findall(r"\\input\{([^}]+)\}", sources[name]):
             visit(child if child.endswith(".tex") else child + ".tex")
 
-    visit("compact.tex")
+    visit(ENTRY)
     unchanged = {
         name: (ROOT / "paper" / name).read_bytes() == baseline("paper/" + name)
-        for name in sources if name not in OWN | ADDED and name != "compact.tex"
+        for name in sources if name not in OWN | ADDED and name != ENTRY
     }
-    main_original = baseline("paper/compact.tex").decode()
+    main_original = baseline("paper/" + BASE_ENTRY).decode()
     feature_input = "\\input{feature_learning_theorem}\n\n"
     initializer = "\\begin{proposition}[Efficient initialization]"
     assert main_original.count(feature_input) == main_original.count(initializer) == 1
@@ -85,25 +87,62 @@ def check():
             "\\bibliography{references}\n\n\\input{compact_figures}\n\n",
         )
 
-    unchanged["compact.tex content (approved theorem relocation and figure editorial only)"] = (
-        sources["compact.tex"] in (
+    main_for_preservation = sources[ENTRY]
+    if "\\section{Introduction}\n\\label{cp:introduction}" in main_for_preservation:
+        intro_start = main_for_preservation.index("\\section{Introduction}")
+        setup_start = main_for_preservation.index("\\section{Setup and main results}")
+        main_for_preservation = (
+            main_for_preservation[:intro_start] + main_for_preservation[setup_start:]
+        ).replace("\\section{Setup and main results}",
+                  "\\section{Setup and the headline theorem}", 1)
+        related_start = main_for_preservation.index("\\section{Related work and discussion}")
+        roadmap_start = main_for_preservation.index("\\paragraph{Proof roadmap.}")
+        main_for_preservation = (
+            main_for_preservation[:related_start] + main_for_preservation[roadmap_start:]
+        ).replace("\\paragraph{Proof roadmap.}", "\\paragraph{Proof architecture.}", 1)
+    unchanged[ENTRY + " mathematics (allowing approved framing and figure editorial)"] = (
+        main_for_preservation in (
             main_original, main_reordered, figure_editorial(main_reordered)
         )
     )
-    for name in ("docs/08b-trajectory-compression.qmd", "docs/notation.qmd",
-                 "paper/references.bib"):
+    for name in ("docs/08b-trajectory-compression.qmd", "docs/notation.qmd"):
         unchanged[name] = (ROOT / name).read_bytes() == baseline(name)
+    old_bib = baseline("paper/references.bib").decode()
+    nth_start = old_bib.index("@misc{huang2020nth,")
+    nth_stop = old_bib.index("\n}\n", nth_start) + 3
+    nth_published = """@inproceedings{huang2020nth,
+  author = {Huang, Jiaoyang and Yau, Horng-Tzer},
+  title = {Dynamics of Deep Neural Networks and Neural Tangent Hierarchy},
+  booktitle = {Proceedings of the 37th International Conference on Machine Learning},
+  series = {Proceedings of Machine Learning Research},
+  volume = {119},
+  pages = {4542--4551},
+  publisher = {PMLR},
+  year = {2020},
+  url = {https://proceedings.mlr.press/v119/huang20l.html}
+}
+"""
+    bib = (ROOT / "paper/references.bib").read_text()
+    unchanged["references.bib (allowing verified NTH publication metadata)"] = bib in (
+        old_bib, old_bib[:nth_start] + nth_published + old_bib[nth_stop:]
+    )
     text = "\n".join(sources.values())
     labels = re.findall(r"\\label\{([^}]+)\}", text)
     references = []
     for group in re.findall(r"\\(?:[Cc]ref|eqref|ref)\{([^}]+)\}", text):
         references.extend(part.strip() for part in group.split(","))
     references.extend(re.findall(r"\\hyperref\[([^]]+)\]", text))
+    citations = {
+        key.strip() for group in re.findall(r"\\cite\{([^}]+)\}", text)
+        for key in group.split(",")
+    }
+    bib_keys = set(re.findall(r"@\w+\{([^,]+),", bib))
     result = {
         "baseline_commit": BASE,
         "unchanged_public_theorem_and_older_sources": unchanged,
         "duplicate_labels": sorted({s for s in labels if labels.count(s) > 1}),
         "missing_references": sorted(set(references) - set(labels)),
+        "missing_citations": sorted(citations - bib_keys),
         "source_sha256": {name: digest(ROOT / "paper" / name) for name in sources},
         "new_module_lines": {name: len(sources[name].splitlines()) for name in OWN},
         "baseline_module_lines": {
@@ -111,6 +150,7 @@ def check():
     }
     assert all(unchanged.values()), result
     assert not result["duplicate_labels"] and not result["missing_references"], result
+    assert not result["missing_citations"], result
     return sources, result
 
 
@@ -125,7 +165,8 @@ if __name__ == "__main__":
         for name in [*sources, "references.bib"]:
             shutil.copy2(ROOT / "paper" / name, dest / "paper" / name)
         for name in [*(name for name in sources if name not in ADDED), "references.bib"]:
-            (dest / "baseline" / name).write_bytes(baseline("paper/" + name))
+            original_name = BASE_ENTRY if name == ENTRY else name
+            (dest / "baseline" / name).write_bytes(baseline("paper/" + original_name))
         if "compact_figures.tex" in sources:
             (dest / "paper/figures").mkdir()
             for figure in (ROOT / "paper/figures").glob("*.pdf"):

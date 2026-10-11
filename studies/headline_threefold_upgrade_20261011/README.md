@@ -1,5 +1,76 @@
 # Three proposed upgrades of the compression headline
 
+## Follow-up: one canonical paper entry point
+
+At the user's request, the current `paper/compact.tex` and `paper/compact.pdf`
+are now `paper/main.tex` and `paper/main.pdf`. The TeX move is byte-preserving;
+all ten included proof/figure modules, the shared feature-learning theorem,
+figure assets and frozen review inputs are retained. The obsolete long entry
+point and its nine exclusive modules (`results`, `methods`, `costs`,
+`feature_learning_proof`, `feature_learning_initialization`,
+`empirical_appendix`, `cost_appendix`, `integrated_appendix`, `panel_appendix`)
+are removed from the active tree. They remain recoverable in rollback commit
+`3233888`. Earlier sections below describe historical filenames and snapshots,
+not additional active editions. Historical transfer scripts are not current
+build tools. `SHORTEN_check.py` now checks `main.tex` against the original
+`compact.tex` baseline, preserving the same scientific-content checks.
+
+The fresh build at
+`data/generated/headline_threefold_upgrade_20261011/main_build.gd8fkP/`
+passes with 115 pages. Its extracted text is byte-identical to the preceding
+framing build, all twelve declared TeX/bibliography inputs stayed unchanged
+through compilation, and there are no unresolved references/citations or
+overfull/underfull diagnostics. The sole inherited `amsmath` compatibility
+warning remains. The published `main.pdf` has SHA-256
+`6ddd61e3e99587ac9d279194142047c814290244bf89a9d11e7fb8ce24e55b71`.
+This is an entry-point cleanup and rebuild, not a mathematical revision.
+
+## Follow-up: introduction and related-work framing
+
+The user requested committing all repository work before this editorial pass.
+Rollback commit `3233888b7cbbd410deef86cf9b0f4c1257bd0687` records all tracked
+changes and nonignored untracked files present at the snapshot, including
+the preceding shortened proofs and figure collection. Other studies were
+included as a Git snapshot, not read as scientific inputs. Two background
+migration-status files continued changing afterward and were left alone.
+
+The compact manuscript now opens with an Introduction, followed by Setup and
+main results, then Related work and discussion, ending with the existing proof
+roadmap. All technical proof sections follow, with references and the existing
+figure collection at the end. The new prose adapts the old manuscript's
+framing while retaining the present polynomial-width distinction and the
+efficient supplied-dense versus fresh-implicit-Gaussian initializers.
+It explicitly distinguishes a ratio of trajectory norms from a pointwise
+time ratio, early-time feature-learning statements from endpoint claims,
+and Taylor's optionally augmented witness panel from arbitrary unseen queries.
+No new global mathematical symbols or changed results are introduced.
+
+A bounded read-only reference check used the assigned paper sections,
+bibliography and primary literature abstracts/publication records. Its wording
+corrections (population rather than empirical Gram, a nonzero label vector,
+and Taylor's passive witnesses) are incorporated. This was not a new proof
+audit. The NTH citation retains its key and now uses the verified
+[ICML 2020 publication metadata](https://proceedings.mlr.press/v119/huang20l.html).
+`SHORTEN_check.py` checks the unchanged main-file mathematics after excluding
+only the new editorial sections and renamed headings, the original proof
+modules and book sources, references, and citation-key coverage.
+
+The final build at
+`data/generated/headline_threefold_upgrade_20261011/framing_build.YVWqPV/`
+passes with 115 pages, two more than the rollback edition. Headline,
+feature-learning, and initialization statements are now numbered 2.1, 2.2,
+and 2.3. Related work begins on page 7 and technical proofs on page 8;
+the unchanged 24-page figure collection occupies pages 92–115.
+The scoped Terra check verified byte identity to the rollback for all ten
+included TeX modules and all 44 figure PDFs, stable build-input hashes,
+resolved citations/references, and no overfull/underfull diagnostics. Only the
+inherited `amsmath` compatibility warning remains. Pages 1–8 were rendered
+and inspected, also by the coordinator; no unrelated figure re-render or
+mathematical audit was required. The checked PDF is published as
+`paper/compact.pdf`, SHA-256
+`38834c327a759c7673b9018fddb84caf3e9528c080caaf0c3c629ace899aa439`.
+The framing changes remain uncommitted after the requested rollback snapshot.
+
 ## Follow-up: final figure collection and notation-table presentation
 
 At the user's request, `paper/compact_figures.tex` now places every top-level
