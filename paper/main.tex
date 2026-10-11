@@ -49,8 +49,9 @@ trajectory, including the fitted limit. The two selected constructions also
 attain absolute error $Y/n$. The common ingredients are finite residual
 activity, analytic response approximation, and geometry-preserving reduction;
 the selected dynamics use an additional readout correction to cancel unstable
-feedback. A separate short-time deep-linear benchmark establishes a matching
-literal-storage bound for a frozen-top neural tangent hierarchy. This
+feedback. A separate short-time deep-linear benchmark shows that a literal
+frozen-top neural tangent hierarchy needs, and suffices with, retained size
+$n^{\Theta(\log m)}$, already for a fixed number $m$ of training samples. This
 manuscript also gives polynomial sufficient widths for Legendre and Taylor,
 and exact-real initialization bounds for both selected constructions:
 near-quadratic work from supplied dense matrices or near-linear work for a
@@ -387,8 +388,10 @@ and peak-memory bounds, not a finite-precision guarantee.
 The finite-panel theorem makes no accuracy promise on inputs first supplied
 after initialization. Zero labels give the stationary zero predictor instead.
 The sharp literal-array cost of a frozen-top neural tangent hierarchy is
-treated separately in \Cref{cp:nth:storage}, under a growing-data,
-deep-linear regime.
+treated separately in \Cref{cp:nth:storage}, for a short-time deep-linear
+model. It is $n^{\Theta(\log m)}$ uniformly over $4\le m\le\sqrt n$; no
+growth of $m$ is required, so already a fixed dataset forces a power of $n$
+whose exponent grows with $m$.
 
 \section{Related work and discussion}
 \label{cp:related}

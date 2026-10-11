@@ -40,8 +40,9 @@ The introduction/discussion update adds two pages, for 115 pages in total.
   discussion, followed by the modular proofs. Its final proof section,
   `compact_nth.tex`, gives the matching frozen-top NTH literal-storage theorem
   and complete proof from the established book's Chapter 7. This separate
-  benchmark uses two identity hidden layers, growing data and dimension,
-  fixed label magnitude and a short time interval; it is not a same-family
+  benchmark uses two identity hidden layers, 4 ≤ m ≤ √n samples (fixed m
+  already gives size n^Θ(log m)), fixed label magnitude and a short time
+  interval; it is not a same-family
   separation from the compression theorem. It keeps the initialized frozen
   top and the hierarchy's own residual. The half-MSE clock is explicitly
   related to the manuscript's full-MSE clock. This addition is unchanged by

@@ -6,12 +6,17 @@ Literal neural tangent hierarchy (NTH) arrays provide a separate benchmark
 for how a prescribed representation affects storage. We study the ordered
 hierarchy associated with Huang and Yau~\cite{huang2020nth}, with its highest
 retained rank frozen, in the same feature-learning metric and zero-readout
-initialization as \Cref{cp:setup}. On a correlated growing dataset, its
-necessary and sufficient retained size is
-\(\exp[\Theta(\log m\log n)]\) on a fixed short interval.
+initialization as \Cref{cp:setup}. On a correlated dataset of \(m\)
+samples, its necessary and sufficient retained size on a fixed short
+interval is
+\(\exp[\Theta(\log m\log n)]=n^{\Theta(\log m)}\), uniformly over
+\(4\le m\le\sqrt n\). No growth of \(m\) is required: for each fixed \(m\)
+the size is a power of \(n\) whose exponent grows with \(m\), hence above
+every power of \(\log n\). When \(m\) grows as a power of \(n\), it is
+\(\exp[\Theta((\log n)^2)]\).
 
 This section has its own assumptions and probability convention. The
-fixed-data, small-label, Gram-gap and complete-trajectory hypotheses of
+small-label, Gram-gap and complete-trajectory hypotheses of
 \Cref{cp:headline} are not imposed here; the result is an independent
 benchmark, and gives no same-family storage separation from the preceding
 compression constructions. No theorem for another parameterization or
@@ -578,15 +583,16 @@ every permitted order lies in the simultaneously excluded range, proving
 the stated budget interpretation.
 \end{proof}
 
-The matched result concerns a growing-data, deep-linear model, a
-specified literal tensor representation, and the window \([0,2^{-15}]\)
+The matched result concerns a deep-linear model with
+\(4\le m\le\sqrt n\) samples, a specified literal tensor representation,
+and the window \([0,2^{-15}]\)
 in half-MSE physical time. All layers are trainable, but the
 input-output function is linear. No longer-time, nonlinear-activation,
 arbitrary-encoding, or finite-precision conclusion is asserted. Fixed
-\(m,d\) give polynomial size; the superpolynomial example grows \(m\)
-and \(d\) together with width. Here \(Y\) is fixed independently of
-\(m,n\). The fixed-data small-label hypotheses of
-\Cref{cp:headline} are therefore not assumptions of
+\(m,d\) already give size \(n^{\Theta(\log m)}\); growing \(m\) and \(d\)
+together with width gives the superpolynomial example. Here \(Y\) is fixed
+independently of \(m,n\). The small-label hypothesis of
+\Cref{cp:headline} is therefore not an assumption of
 this result. The preceding fitting and dense-variability theorems are not used,
 and this result establishes no same-family storage separation from those
 compression constructions.
