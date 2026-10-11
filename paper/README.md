@@ -1,14 +1,22 @@
 # Compressing Global Dynamics of Deep Nonlinear Feature Learning
 
-The working manuscript is [main.tex](main.tex), compiled to [main.pdf](main.pdf).
-The 2026-10-08 revision presents a unified response-compression framework:
+The current modular manuscript is [compact.tex](compact.tex), compiled to
+[compact.pdf](compact.pdf). The longer [main.tex](main.tex) and its appendices
+are the preceding version; they are retained, not maintained in parallel.
+The unified response-compression framework presents
 Legendre history compression, and a shared selected-coordinate runtime
 with Harmonic (whole-sphere) and Taylor (declared finite-panel) source
-builders. It is a working paper, not promotion into the maintained Quarto book.
+builders. The approved 2026-10-11 update transfers the reviewed Chapter 9
+polynomial-width and efficient-initialization results into the compact paper.
+The main theorem incorporates polynomial sufficient widths for Legendre and
+Taylor. The proposition immediately below it gives both supplied-dense and
+fresh-implicit-Gaussian setup costs for Harmonic and Taylor. Storage, error,
+label, activation, optimizer and query-domain qualifications are preserved.
 
 ## Reading and source structure
 
-- `main.tex`: canonical network setup, motivation, discussion and appendix guide.
+- `main.tex`: preceding long manuscript, with the setup and appendix guide
+  from that version.
 - `compact.tex`: the shorter modular proof manuscript. Its final section,
   `compact_nth.tex`, gives the matching frozen-top NTH literal-storage theorem
   and complete proof from the established book's Chapter 7. This separate
@@ -17,17 +25,20 @@ builders. It is a working paper, not promotion into the maintained Quarto book.
   separation from the compression theorem. It keeps the initialized frozen
   top and the hierarchy's own residual. The half-MSE clock is explicitly
   related to the manuscript's full-MSE clock. This addition is currently in
-  the compact manuscript only. Its
-  [current compiled PDF](../data/generated/nth_lower_bound_20261010/paper_integration/build/compact.pdf)
-  is retained under generated data; `paper/compact.pdf` is the preceding build.
+  the compact manuscript only and is unchanged by the width/setup update.
+- `compact_width.tex`: complete quantitative source, actual dense lower,
+  third-order Legendre approximation and polynomial-onset proofs.
+- `compact_initialization.tex`: complete supplied-dense and implicit-Gaussian
+  setup proofs, including finite-order time and peak-memory ledgers.
 - `results.tex`: one prescribed-size compression theorem for all three methods,
   negligible error relative to actual dense variability and the theoretical
   consequences.
 - `methods.tex`: retained states, update rules and the core theoretical ideas.
-- `feature_learning_theorem.tex`, `feature_learning_proof.tex`, and
-  `feature_learning_initialization.tex`: the additional nonlinear
-  feature-learning theorem and its self-contained early-time proof,
-  shared by the main and compact manuscripts. Its extra assumptions
+- `feature_learning_theorem.tex`: the additional nonlinear feature-learning
+  theorem shared by the two versions. `compact_feature_learning.tex` gives
+  its self-contained shortened proof in the current manuscript;
+  `feature_learning_proof.tex` and `feature_learning_initialization.tex`
+  belong to the preceding long version. Its extra assumptions
   (nonaffine activations and no parallel or antiparallel training inputs)
   do not narrow the compression theorem. Taylor may append four predeclared
   passive witness inputs. Constants in this additional theorem depend on
@@ -42,7 +53,9 @@ builders. It is a working paper, not promotion into the maintained Quarto book.
   earlier experimental illustrations, preserved with their original scope.
 - `references.bib`: literature bibliography.
 
-Main-text constants depend only on activation and fixed depth. All three
+Retained-state constants depend only on activation and fixed depth; the
+initialization proposition separately states its fixed-parameter computational
+constant convention. All three
 headline constructions have compression error divided by actual independent
 dense-run discrepancy tending to zero in probability, on the same promised
 query domain and over the entire training trajectory including its endpoint.
@@ -64,15 +77,27 @@ The following distinctions are intentional:
 - Taylor denotes the finite-panel, cubic-logarithmic real-coordinate
   construction. Its passive inputs, but not their labels, are available at
   setup. It tracks a coupled dense reference with the same selected nonlinear
-  runtime as Harmonic. The finite initialization-only compiler has no proved
-  near-linear or near-quadratic work bound.
+  runtime as Harmonic. The initialization-jet compiler remains an alternative
+  without an efficient work bound; the numerical initializers now have both
+  near-linear and near-quadratic bounds. They compute across the required
+  finite horizon, not just a short physical-time prefix. Arithmetic is exact
+  real, with supplied activation envelopes and population-gap certificates;
+  no finite-bit or empirical-speedup claim is made.
 - The older independent-reference finite-word construction is called the
   **seeded decoder** in the appendices. Its words and bits must not be
   confused with the new Taylor model's real-coordinate count.
-- The dense lower bound is transient, not an endpoint result. All three main
-  stochastic width thresholds remain qualitative. The seeded decoder's additive and
+- The dense lower bound is transient, not an endpoint result. Legendre and
+  Taylor now have polynomial sufficient widths; Harmonic retains its eventual
+  qualification. The sharper original dense-lower coefficient and the separate
+  nonlinear-feature-learning certificates are not assigned polynomial onset.
+  In the preceding long manuscript, the seeded decoder's additive and
   analytic absolute certificates have an explicit conservative gate; its purely
   multiplicative intrinsic comparison also uses the lower bound's eventual onset.
+
+## Earlier long-version provenance
+
+The following records describe the retained longer version, not additional
+dependencies of the current compact manuscript.
 
 The original detailed library was converted from the owning study's
 [RESULT.md](../studies/integrated_general_compression_20261004/RESULT.md).
@@ -120,18 +145,20 @@ dependencies and exporting a portable data package.
 ## Build
 
 From `paper/`, use a fresh study-owned output directory to keep auxiliary
-files out of the manuscript folder. The latest additional-theorem build is:
+files out of the manuscript folder:
 
 ```bash
+paper_build_dir=$(mktemp -d ../data/generated/headline_threefold_upgrade_20261011/paper_build.XXXXXX)
 latexmk -pdf -interaction=nonstopmode -halt-on-error \
-  -outdir=/home/amir/Codes/PDE/data/generated/nonlinear_feature_learning_certificate_20261010/paper_build_19s6aj \
-  main.tex
+  -outdir="$paper_build_dir" compact.tex
 ```
 
-Use `compact.tex` with the same command to build the shorter proof manuscript.
-The checked PDFs are copied to `paper/main.pdf` and `paper/compact.pdf` for
-convenient reading; their pre-integration copies are preserved in that build
-directory as `prior_main.pdf` and `prior_compact.pdf`.
+The current integration build is retained in
+`data/generated/headline_threefold_upgrade_20261011/paper_integration_v3/build/`.
+After validation, its PDF is published as `paper/compact.pdf`; the preceding
+PDF is retained beside the integration build as `prior_compact.pdf`.
+The longer `main.tex` can still be compiled separately, but it is not the
+current manuscript and its PDF is not replaced by this update.
 The static TeX sources, bibliography and included figures suffice to compile
 the manuscript; regenerating the appendix is not a build prerequisite.
 

@@ -89,7 +89,8 @@ and use $\|\mathbf1\|_M=1$ for the activation claims.
 
 \begin{proposition}[Source-to-runtime transfer]
 \label{cp:selected}
-Work on the fitting and analytic-source event of \Cref{cp:fit,cp:source}.
+Work on the fitting and analytic-source event of \Cref{cp:fit,cp:source},
+or its quantitative finite-panel version in \Cref{cp:poly:source}.
 Write $W_0^{(j)}=W^{(j)}(0)$ for the initialized matrices in this statement.
 Fix
 \[
@@ -225,6 +226,7 @@ training forward pass and Gram. All bases, dense arrays and source
 coefficients are discarded after these finite initial arrays are formed.
 
 \begin{claim}[Independent fitting and endpoint tails]
+\label{cp:selected-fitting}
 With the notation of this construction, the following local bounds hold.
 The selected dynamics exist for every $t\ge0$, have $Q_C\succeq\lambda I/4$,
 fit the training labels and converge in parameter space. Write
@@ -641,8 +643,9 @@ and working arrays. A nonprimitive activation evaluator is charged
 separately. Dense mixers, source bases, coefficient vectors and
 coefficient-compilation scratch are not retained by the runtime.
 The construction itself uses the finite source spaces only through
-its initial arrays; the separate compiler below will establish their
-initialization-only provenance for the two methods.
+its initial arrays. The next compiler establishes initialization-jet
+provenance; \Cref{cp:initialization} supplies separate efficient numerical
+implementations of the same source-to-runtime interface.
 \end{proof}
 
 \subsection{Finite initialized jets suffice}

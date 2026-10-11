@@ -1,0 +1,47 @@
+\begin{proposition}[Four efficient initializers]
+\label{cp:initialization}
+
+Assume the setup of \Cref{cp:headline}. In exact real arithmetic,
+Harmonic and Taylor each admit both a supplied dense initializer and a fresh implicit Gaussian initializer. For
+every separately fixed admissible problem and confidence, eventually their
+work and peak setup storage obey the following bounds.
+
+\begin{center}\footnotesize
+\begin{tabular}{@{}p{.13\linewidth}p{.24\linewidth}p{.29\linewidth}p{.25\linewidth}@{}}
+\toprule
+Construction & Reference initialization & Arithmetic work & Peak setup real coordinates\\
+\midrule
+Harmonic & Supplied dense & $O(n^2[\log(en)]^{3d/2+1})$ & $O(n^2)$\\
+Taylor & Supplied dense & $O(n^2[\log(en)]^{5/2})$ & $O(n^2)$\\
+Harmonic & Fresh implicit Gaussian & $O(n[\log(en)]^{9d/2+3})$ & $O(n[\log(en)]^{3d/2+1})$\\
+Taylor & Fresh implicit Gaussian & $O(n[\log(en)]^5)$ & $O(n[\log(en)]^{5/2})$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The constants in this table may depend on the separately fixed
+$m,d,p,L,\beta,\gamma,Y$ and confidence. They are not the
+activation-and-depth-only constant $C$ in the retained-storage formulas.
+
+All four produce the retained inventories in
+\eqref{cp:harmonic-size} and \eqref{cp:panel-size} and satisfy
+\eqref{cp:absolute} on their original query domains and all physical
+times, including the fitted endpoint. Consequently they preserve
+\eqref{cp:relative}. The implicit execution produces exactly the
+same final arrays as the corresponding supplied-matrix numerical initializer
+under a coupling with its fresh Gaussian reference. A numerical initializer
+need not select the same arrays as the initialized-jet compiler.
+
+The operation model charges exact scalar arithmetic, comparisons, square
+roots, elementary scalar functions, real activation values, and Gaussian
+samples as primitives. Nonprimitive evaluators have their actual work,
+description and scratch added separately. No high activation derivatives or
+trained-reference values are inputs. Activation envelopes and the positive
+population gap are supplied mathematical certificates. Their computation
+is not included. Taylor uses the polynomial source-width event of
+\Cref{cp:poly:source} and the accuracy and simplified-storage
+gates of \Cref{cp:poly:width}. No extra eventual source event
+is needed for its numerical initialization. Harmonic retains its eventual
+source-width qualification. Full parameter and finite-order costs are given
+in \hyperref[cp:init:sec:costs]{the detailed cost ledger}. The complete proof is in \Cref{cp:init:proof}.
+\end{proposition}

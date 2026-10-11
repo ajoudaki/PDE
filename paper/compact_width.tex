@@ -1,0 +1,1430 @@
+% Complete port of PROMOTION_WIDTH.qmd; all auxiliary symbols are local.
+% Book readout W^{(L+1)} is the compact paper's w.
+\section{Polynomial sufficient widths for Legendre and Taylor}
+\label{cp:poly:width-section}
+
+The sufficient widths for Legendre and finite-panel Taylor can be made
+polynomial in the exposed problem parameters while preserving their
+storage bounds. This requires a finite source-probability argument and a
+stronger Legendre approximation estimate. The logarithmic relative-error
+estimate alone would not give polynomial dependence on a requested error.
+
+Use the model, initialization, activations, label condition and trajectory
+norm in \hyperref[cp:setup]{the common setup}. All auxiliary notation in this technical
+section is local to it. Put
+
+\[
+X=\beta^L,\qquad \lambda=\gamma/m\in(0,1],\qquad
+\chi=1+\lambda^{-1},\qquad S=16Y/\lambda,\qquad \ell_n=\log(en).
+\]
+
+Thus $X\ge100$, $Y/\lambda\le X^{-30}$ and $S\le X^{-26}$.
+The scalar $S$ is a normalization, not additional state. For $0<\rho<1/4$
+and a declared list of $N\ge m$ inputs define
+
+\[
+u_\rho=\max\left\{1,\left\lceil
+ \frac{\log(4emL/\rho)}{\log(64e^2)}\right\rceil\right\},\qquad
+A_{N,\rho}=X^{4000}\chi^8(N+d+u_\rho+1)^8,
+\]
+
+\begin{equation}
+N_{\rm src}(N,\rho)
+=\left\lceil(A_{N,\rho}/\rho)^{40000}\right\rceil.
+\label{cp:poly:eq:source-width}
+\end{equation}
+
+The large common exponent is convenient for a uniform finite ledger; it
+does not claim practical sharpness. In particular this gate has no $Y^{-1}$.
+
+\begin{theorem}[Polynomial onset with the original storage powers]
+\label{cp:poly:width}
+
+For $0<\delta,\varepsilon<1$, a sufficient width for
+
+\[
+\Pr\left\{
+ \|f_{\rm model}-f_n\|_{\mathcal X}
+ \le\varepsilon\|f_n-\widetilde f_n\|_{\mathcal X}
+ \right\}\ge1-\delta
+\]
+
+is bounded by
+
+\[
+\left[c_{\rm wid}\beta^L
+ (1+m+d+p+\gamma^{-1}+Y^{-1}+\delta^{-1}+\varepsilon^{-1})
+ \right]^{c_{\rm wid}}
+\]
+
+with one absolute finite numerical constant $c_{\rm wid}$, local to this theorem. For Legendre take $p=0$ and omit
+$Y^{-1}$; its domain is the whole input sphere. For Taylor, $p$ is the
+number of passive inputs declared before initialization and its domain is
+that panel together with the training inputs. The Legendre and Taylor
+storage bounds in \eqref{cp:legendre-size} and
+\eqref{cp:panel-size} hold with activation/depth coefficients bounded
+by fixed powers of $X$. Taylor also has absolute error $Y/n$.
+
+The constructions, physical optimizer, initialization-only provenance and
+label condition are unchanged. Confidence applies to each individual width.
+The inverse-label gate for Taylor is needed only to simplify its exact
+source degree to a multiple of $\log(en)$. This result makes no polynomial
+onset claim for Harmonic, for the nonlinear feature-learning certificate,
+or for the stronger coefficient in \eqref{cp:eq-dense-lower}, and gives no
+pointwise-in-time or endpoint denominator bound.
+
+\end{theorem}
+
+We prove a finite source lemma, obtain a finite lower bound for actual
+dense variability, improve the Legendre history defect from order $q^{-2}$
+to $q^{-3}$, and then assemble the two approximation estimates. The exact
+gates at the end make the polynomial assertion explicit.
+
+\subsection{Finite initialization and analytic source probability}
+\label{cp:poly:source-section}
+
+The coefficient recurrences in \eqref{cp:src-basic},
+\eqref{cp:src-absorption-coefficients},
+\eqref{cp:src-allowance}, \eqref{cp:src-response-coefficients},
+\eqref{cp:src-UV} and \eqref{cp:src-K} are used with precisely
+their displayed definitions. In this subsection their symbols
+$H_j,P_j,f_j,k_j,\tau_j,A_*,D_*,\eta_*,\mathcal B,\mathcal K,
+D_W,K_{\rm src},U_{\rm fin}$ have those meanings. We quantify the
+finite-input proof; no angular source or whole-sphere complex domain is used.
+The scalar envelopes used in those recurrences are, locally,
+\[
+b=\max_j|\phi_j(0)|,\quad
+s=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|\phi'_j(z)|\},\quad
+t_2=\max\{1,\sup_{j,|\operatorname{Im}z|\le a/2}|\phi''_j(z)|\}.
+\]
+The additional recurrence coefficients, including $C_{\rm abs}$ and
+$W_G$, always mean the displayed quantities in
+\eqref{cp:src-absorption-coefficients}; they remain local to this argument.
+The pre-gated carriers are $k_a^{(L)}=w$ and
+$k_a^{(j)}=W^{(j+1)\top}\delta_a^{(j+1)}$ for $j<L$.
+In the stopped-flow estimates below, $\rho(t)=\|r(t)\|_2/\sqrt m$
+denotes residual RMS; the constant $\rho$ in the width and probability
+gates denotes the failure allowance.
+The Euclidean mobility coordinates used for real parameter differences are
+$\theta=(W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)$,
+with the ordinary Euclidean/Frobenius block norm.
+
+\begin{lemma}[Finite training and panel sources]
+\label{cp:poly:source}
+
+At $n\ge N_{\rm src}(N,\rho)$, with probability at least $1-\rho$,
+the ambient real fitting event holds and the following source conclusions
+hold. The four families are exactly \eqref{cp:source-families};
+forward inputs range over the $N$ declared inputs and backward inputs over
+the $m$ training inputs.
+
+For the training list alone one may use the closed rectangle
+
+\begin{equation}
+[-r,T+r]+i[-r,r],\qquad
+T=32\ell_n/\lambda,\qquad
+r=[u_\rho X^{100}(1+\lambda)\sqrt{\ell_n}]^{-1}.
+\label{cp:poly:eq:training-radius}
+\end{equation}
+
+All training sources and the responses
+$R_{ba}^{(j)}=D_\Theta z_b^{(j)}\nabla_\Theta(nf_a)$, where
+
+\[
+\Theta=(W^{(1)},\sqrt nW^{(2)},\ldots,\sqrt nW^{(L)},w),
+\]
+
+are holomorphic near this rectangle. The source RMS bounds are
+\eqref{cp:source-rms}, their coordinates are bounded by
+$X^6\sqrt n$, and $|f_n|\le16X^6Y/\lambda$. Moreover
+
+\[
+\max_{a,b,j,i}|R_{ba,i}^{(j)}|\le SU_{\rm fin}\sqrt{\ell_n}
+\]
+
+on that rectangle. On either complex source domain the first-layer
+operator divided by $\sqrt n$ and all hidden operators have norm at most
+ten, the complex training residual RMS is at most $2Y$, and every declared
+preactivation has imaginary part below $3a/8$. The training coordinate
+maxima are bounded by $K_{\rm src}\sqrt{\ell_n}$ for preactivations and
+$SK_{\rm src}\sqrt{\ell_n}$ for carriers. These strict strip and
+coordinate bounds are included in the event, not inferred from an RMS
+bound. On the whole real training trajectory, including its
+limit,
+
+\begin{equation}
+\max_{a,j,i}|k_{a,i}^{(j)}|\le32X^{21}(Y/\lambda)\sqrt{\ell_n},
+\qquad
+\max_{a,b,j,i}|R_{ba,i}^{(j)}|
+ \le YX^{110}\chi^3(1+\sqrt{\ell_n}).
+\label{cp:poly:eq:real-response}
+\end{equation}
+
+For the $N$-input panel put $a_0=\min(a,1)$ and
+
+\begin{equation}
+b_n=\log(e+\ell_n),\quad B_n=1+(S^2/\eta_*)b_n,\quad
+r_n=\min\left\{\frac{a_0}{64YSU_{\rm fin}\sqrt{\ell_n}},
+ \frac1{X^{300}(1+\lambda B_n)\sqrt{b_n}}\right\}.
+\label{cp:poly:eq:panel-radius}
+\end{equation}
+
+There is a deterministic disk cover and half-radius panel partition of
+$[0,T]$, with the same source envelopes, whose number of panels obeys
+
+\begin{equation}
+J\le1+X^{400}\left[(Y/\lambda)^2\sqrt{\ell_n}
+                      +\lambda^{-1}\log(e+\ell_n)\right].
+\label{cp:poly:eq:panel-count}
+\end{equation}
+
+Neither this radius nor its panel-count coefficient depends on confidence.
+
+\end{lemma}
+
+\begin{proof}
+
+First quantify initialization. Let
+$H=\max_{0\le j\le L}\sqrt{Q^{(j)}_{11}}\ge1$ and let $b,s$
+have their meanings in the source proof. Define
+
+\[
+R_0=2H,\quad K_0=b+sR_0,\quad D_0^{\rm cov}=2sb+4s^2R_0,
+\quad T_1=\sum_{i=0}^{L-1}s^i,\quad T_2=\sum_{i=0}^{L-1}s^{2i},
+\]
+
+\[
+C_0^{\rm cov}=T_2(2K_0+1+D_0^{\rm cov}T_1),\quad
+e_0=\min\{(8T_1)^{-1},\gamma/(4mC_0^{\rm cov})\},\quad
+h_0=\min\{1/2,H/[4(8s)^L]\}.
+\]
+
+The Gaussian Lipschitz inequality proved in
+\hyperref[cp:src-Gaussian]{the Gaussian proof} gives, for an $a$-Lipschitz nonnegative
+Gaussian function $F$,
+$\operatorname{Var}F\le a^2$ and
+$0\le(\mathbb EF^2)^{1/2}-\mathbb EF\le a$.
+Consequently, for $e\ge2a$,
+
+\[
+\Pr\{|F-(\mathbb EF^2)^{1/2}|>e\}\le2e^{-e^2/(8a^2)}.
+\]
+
+For iid Gaussian row pairs with marginal standard deviations at most $R_0$,
+the empirical RMS of $\phi(Z_a)$ is $sR_0/\sqrt n$-Lipschitz.
+The RMS of $\phi(Z_a)\pm\phi(Z_b)$ is
+$2sR_0/\sqrt n$-Lipschitz, including singular covariance pairs.
+Polarization therefore gives covariance-entry error at most
+$(2K_0+1)e_0$ if both such norms have error at most $e_0\le1$.
+
+To propagate covariance errors without dividing by a variance, consider
+two Gaussian pairs with standard deviations $\sigma_a,\sigma_b$ and
+$\sigma'_a,\sigma'_b$, all at most $R_0$, and set
+$\Delta=\max_i|\sigma_i-\sigma'_i|$.
+Shrink both pairs to marginal deviations
+$\tau_i=\min(\sigma_i,\sigma'_i)$, preserving their correlations.
+Product subtraction and Cauchy--Schwarz bound the total scaling cost by
+$2sK_0\Delta$. At these common marginals Gaussian integration by parts
+gives the correlation derivative
+$\tau_a\tau_b\mathbb E[\phi'(Z_a)\phi'(Z_b)]$.
+The formula follows by differentiating the nonsingular density and
+integrating its mixed second derivative; linear growth and bounded
+derivatives justify the integrations. Continuity covers correlations
+$\pm1$ and zero marginal variances. Since
+
+\[
+\tau_a\tau_b|\rho_c-\rho'_c|
+ \le|C_{ab}-C'_{ab}|+2R_0\Delta,
+\]
+
+the transformed entry error is at most
+$s^2|C_{ab}-C'_{ab}|+D_0^{\rm cov}\Delta$.
+The displayed inequality follows by writing the correlation difference
+over the larger of $\sigma_a\sigma_b,\sigma'_a\sigma'_b$ and using
+$|C'_{ab}|\le\sigma'_a\sigma'_b$.
+
+Condition at each layer on the preceding initialized layers. On a sphere
+$h_0$-net of size at most $(1+2/h_0)^d$, and the training list, let
+$\Delta_j$ denote the largest RMS error and $E_j$ the largest training
+Gram-entry error. The preceding estimates give
+
+\[
+\Delta_j\le e_0+s\Delta_{j-1},\qquad
+E_j\le(2K_0+1)e_0+s^2E_{j-1}+D_0^{\rm cov}\Delta_{j-1}.
+\]
+
+Thus $\Delta_j\le e_0T_1\le1/8$ and
+$E_j\le e_0C_0^{\rm cov}\le\gamma/(4m)$. This also keeps all
+conditional standard deviations below $R_0$.
+With
+
+\[
+\Xi=\log\frac{16L(m+1)^2}{\rho_0}
+                 +d\log(1+2/h_0),
+\]
+
+a sufficient initialized fitting width at failure $\rho_0$ is
+
+\begin{equation}
+\left\lceil\max\left\{1,
+ \frac{\log(8L/\rho_0)}{8-2\log9},
+ \frac{d\log9+\log(8/\rho_0)}{8-\log9},
+ \frac{32s^2R_0^2\Xi}{e_0^2}\right\}\right\rceil.
+\label{cp:poly:eq:initialization}
+\end{equation}
+
+Indeed the layer union has at most $3m^2+(1+2/h_0)^d$ norm tests per
+layer and costs at most $\rho_0/2$. The operator-net tails in
+\hyperref[cp:fit]{the fitting proof} cost the other half. The operator event makes the
+initialized layer-$j$ feature map in neuron RMS $(8s)^j$-Lipschitz;
+its off-net increment is at most $H/4$. This proves
+\eqref{cp:eq-initialization-event}. The deterministic fitting proof then
+applies with the existing label cap. Unrolling the displayed coefficients
+gives
+
+\[
+R_0,K_0\le X^3,\quad D_0^{\rm cov}\le X^4,\quad
+T_1\le X^2,\ T_2\le X^3,\ C_0^{\rm cov}\le X^{10},\quad
+e_0^{-1}\le X^{11}\chi.
+\]
+
+Since $32s^2R_0^2\le X^8$ and
+$\log(1+2/h_0)\le3L\log\beta$, the width is at most
+$\lceil X^{32}\chi^2[dL\log\beta+\log(16L(m+1)^2/\rho_0)]\rceil$.
+This proof imposes no ordering between $m$ and $d$.
+
+For source initialization choose $\rho_0=\rho/64$.
+Conditional Gaussian tails over the declared list give
+$Z_0=2H\sqrt{2\log(64nNL/\rho)}$ as an initial preactivation envelope.
+Deleting at most $u=u_\rho$ neurons changes each subsequent initialized
+feature vector in Euclidean norm by at most
+$D_{\rm init}=(8s)^L\sqrt u(b+sZ_0)$, by zero embedding and forward
+subtraction. The full training Gram starts above $3\gamma/4$ and the
+source gate gives $D_{\rm init}/\sqrt n<\sqrt\lambda/8$.
+Thus every cavity's normalized least singular value remains above
+$(\sqrt3/2-1/8)\sqrt\lambda>\sqrt{\lambda/2}$, preserving a strict
+initial fitting margin. Pairing a projected lower difference with a fresh row gives tail
+$2\exp[-n^{4/5}/(2D_{\rm init}^2)]$ at threshold $n^{-1/10}$;
+the projection is made before conditioning on that fresh row.
+There are at most $uLn^uNLn$ such tests. Initially each exponential
+budget has conditional mean below four and second moment below fifteen:
+$\mathbb E e^{\eta_*|Z|}\le2e^{1/2}$ and
+$\mathbb E e^{2\eta_*|Z|}\le2e^2$, since $\eta_*2H\le1$.
+Conditional Chebyshev costs at most $15mL/(16n)$ for the layer averages
+to remain below eight. Together these initialization failures are below
+$\rho/4$ at \eqref{cp:poly:eq:source-width}. Cavities have their
+own initial tests; failed tests define zero reference coefficient paths.
+
+We next supply the quantitative map coefficients that replace qualitative
+polynomials in the source proof. Use its independently stopped normalized
+equation \eqref{cp:src-retained} with
+$\bar u=(\Theta-\Theta_0)/S$ and $\bar F_a=nf_a/S$.
+Zero readout gives $\bar F_a=\bar u_{w}^\top h_a^{(L)}$;
+there is no inverse $S$ in its derivatives. At a cavity, freeze scalar
+forward and scaled reverse controls and let $g\sim N(0,I_r/n)$,
+$r\le2un$, concatenate the omitted interior roots. First-layer incoming
+rows are represented only in their own uniformly tested scalar controls;
+there is no retained reverse port below that layer.
+
+Write $\kappa_0=1/4000$, $\Gamma=\sqrt{\mathcal K}$,
+$\tau_*=\max_j\tau_j$, $f_*=\max_jf_j$, and
+$T_0=64/\lambda$. The propagator coefficient is
+
+\[
+J_0=2e^{1/4}(2\mathcal B)^{1/4000},\qquad
+\|J(t,s)\|\le J_0n^{\kappa_0}.
+\]
+
+Define, in the order displayed,
+
+\[
+M_0=\eta_*^{-1}[1+\log(2\mathcal B)],\quad
+A_0=b+sM_0,\quad B_0=sM_0,\quad E_0=A_*+SD_*M_0,
+\]
+
+\[
+\begin{gathered}
+T_L^0=2sH_L+2t_2M_0V_L^0,\quad
+T_j^0=10sT_{j+1}^0+2s\tau_{j+1}^2H_j+2t_2M_0V_j^0,\\
+D_c=\max\{\lambda s\max_jV_j^0/4,\lambda\max_jT_j^0/8\}.
+\end{gathered}
+\]
+
+The source budget bounds every scaled carrier by $M_0\ell_n$;
+the controls have amplitudes $A_0\ell_n,B_0\ell_n$ and speed at most
+$D_c\sqrt n\ell_n$. The first-variation coefficients are
+
+\[
+v_0=J_0\{A_0(2T_0\Gamma\tau_*+E_0)+Sf_*B_0\},\quad
+z_j^0=P_j(Sv_0+A_0),\quad h_j^0=sz_j^0,
+\]
+
+\begin{equation}
+k_L^0=v_0,\quad d_j^0=sk_j^0+t_2M_0z_j^0,\quad
+k_j^0=10d_{j+1}^0+S\tau_{j+1}v_0+B_0\quad(j<L).
+\label{cp:poly:eq:map-coefficients}
+\end{equation}
+
+They bound the parameter, forward and backward linear maps from $g$ by,
+respectively,
+$\sqrt u n^{\kappa_0}v_0\ell_n^2$,
+$\sqrt u n^{\kappa_0}(z_j^0,h_j^0)\ell_n^2$ and
+$\sqrt u n^{\kappa_0}(k_j^0,d_j^0)\ell_n^3$.
+To verify the parameter coefficient, the three differentiated port forces
+are
+
+\[
+-\frac2{mn}\nabla_{\bar u}\bar F_a\bar\delta_a^{(j+1)\top},\quad
+-\frac2m\bar r_a(D_{\bar u}\bar\delta_a^{(j+1)})^\top,\quad
+-\frac2m\bar r_a(D_{\bar u}h_a^{(j-1)})^\top.
+\]
+
+Their norms use $\Gamma,\tau_*,E_0\ell_n,Sf_*$, and Duhamel integration
+uses $2\int\rho/S\le1$ and contour length $T_0\ell_n$.
+The differentiated forward/backward identities in
+\hyperref[cp:src-local-lemma]{the local-map proof} then give exactly the remaining
+recurrences. A reference carrier enters an additive forcing once;
+homogeneous propagation is $10s$.
+
+For a control difference replace $A_0,B_0$ by one in the forcing, keeping
+all reference coefficients fixed:
+
+\[
+v_c=J_0(2T_0\Gamma\tau_*+E_0+Sf_*),\quad
+z_j^c=P_j(Sv_c+1),\quad h_j^c=sz_j^c,
+\]
+
+\[
+k_L^c=v_c,\quad d_j^c=sk_j^c+t_2M_0z_j^c,\quad
+k_j^c=10d_{j+1}^c+S\tau_{j+1}v_c+1.
+\]
+
+The maximum $C_c$ of these coefficients bounds the map difference by
+$C_c\sqrt u n^{\kappa_0}\ell_n^2$ times the supremum control error.
+Linearity in controls proves the assertion also for enlarged control nets.
+
+For completeness the time-modulus recurrence is explicit. Put
+
+\[
+a_j^z=\lambda S^2V_j^0/4,\quad a_j^h=sa_j^z,\quad
+a_j^W=\lambda S^2\tau_jH_{j-1}/4\ (j\ge2),\quad
+a_j^\delta=\lambda T_j^0/8,
+\]
+
+\[
+a_L^k=\lambda H_L/4,\quad
+a_j^k=a_{j+1}^W\tau_{j+1}+10a_{j+1}^\delta,\quad
+A_t=2\mathcal K+(\lambda/4)SE_0,
+\]
+
+\[
+v_t=A_tv_0+A_0(2\Gamma\tau_*+\lambda E_0/4)
+                              +(\lambda/4)Sf_*B_0.
+\]
+
+Take $t_3=4\beta^2$, valid on the joining strip by Cauchy's formula, and
+define
+
+\[
+z_1^t=Sv_t+D_c,\quad h_1^t=sz_1^t+t_2a_1^zz_1^0,
+\]
+
+\[
+z_j^t=S(H_{j-1}v_t+a_{j-1}^hv_0)+a_j^Wh_{j-1}^0
+                 +10h_{j-1}^t+D_c,\quad
+h_j^t=sz_j^t+t_2a_j^zz_j^0,
+\]
+
+\[
+k_L^t=v_t,\quad
+k_j^t=a_{j+1}^Wd_{j+1}^0+10d_{j+1}^t
+             +S\tau_{j+1}v_t+Sa_{j+1}^\delta v_0+D_c,
+\]
+
+\[
+d_j^t=sk_j^t+t_2a_j^zk_j^0
+ +(t_3M_0a_j^z+t_2a_j^k)z_j^0+t_2M_0z_j^t.
+\]
+
+The lower-Jacobian probes have coefficients
+
+\[
+z_1^J=0,\quad h_1^J=t_2a_1^zP_1,\quad
+z_j^J=a_{j-1}^h+a_j^Wf_{j-1}+10h_{j-1}^J,\quad
+h_j^J=sz_j^J+t_2a_j^zP_j.
+\]
+
+If $C_t$ is the maximum of $v_t,z_j^t,h_j^t,k_j^t,d_j^t,z_j^J,h_j^J$,
+all terminal derivatives are bounded by
+$C_t\sqrt{un}\,n^{\kappa_0}\ell_n^4$.
+These formulas result by differentiating each displayed linearized product;
+a raw coordinate derivative costs one $\sqrt n$, and each homogeneous
+layer propagation remains $10s$. No derivative of the variational Jacobian
+is needed in $v_t$, since its equation is differentiated only in time.
+For a root block selector $E_i$, the quadratic matrix is
+$\operatorname{sym}(E_i^\top L)$, so it has the same norm and moduli as
+$L$. Centered interpolation costs at most $10u\|\Delta L\|$, including
+the trace change, on $\|g\|\le2\sqrt{2u}$.
+
+Here is a numerical bound for all these recurrences. The power bounds in
+\Cref{cp:src-powers} and their geometric sums give
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.57\linewidth}p{0.39\linewidth}@{}}
+\toprule
+Coefficients & Upper bounds\\
+\midrule
+$H_j,P_j,f_j$; $k_j,\tau_j$; $V_j^0$ & $X^3$; $X^4$; $X^7$\\
+$A_*,D_*,\eta_*^{-1},\mathcal B,\Gamma,J_0$ & $X^5,X^6,X^{27},X^3,X^7,X$\\
+$M_0,A_0,B_0,E_0$ & $X^{31},X^{33},X^{32},X^{38}$\\
+$T_j^0,D_c$ & $X^{45},\lambda X^{45}$\\
+parameter, forward, backward map coefficients & $X^{80}\chi,X^{85}\chi,X^{125}\chi$\\
+control differences; reference speeds divided by $\lambda$ & $X^{90}\chi$; $X^{47}$\\
+parameter, forward, backward time coefficients & $X^{125}\chi,X^{140}\chi,X^{190}\chi$\\
+\bottomrule
+\end{tabular}\end{center}
+
+For example substitute the first two rows in $v_0$; its largest product
+has exponent less than $80$ and at most one $T_0$ factor. The forward
+recursion costs $P_j\le X^3$. In the backward recursion the extra $M_0$
+is additive and its complete propagation costs
+$(10s)^L\le X^2$, plus at most $L\le X$ summands. In the largest time
+forcing $t_2M_0z_j^t$ the exponents sum to at most $1+31+140$; the
+same propagation stays below $190$. These checks also cover the lower
+probes. Thus a common coefficient $C_0=X^{300}\chi$ suffices.
+
+The response maps require additional algebraic products, not a new flow.
+For training driver $a$ and declared evaluated input $b$, put
+$\bar R=R/S$ and $\bar Q=\phi'\odot\bar R$. Then
+
+\[
+\bar R_{ba}^{(1)}=\bar\delta_a^{(1)}v_a^\top v_b,\qquad
+\bar R_{ba}^{(j)}=\bar\delta_a^{(j)}c_{ab}^{(j-1)}
+                       +W^{(j)}\bar Q_{ba}^{(j-1)},\quad
+c_{ab}^{(j-1)}=h_a^{(j-1)\top}h_b^{(j-1)}/n.
+\]
+
+Its linearized terms are $\bar\delta_{[1]}c+\bar\delta c_{[1]}$,
+$SV_{\sqrt nW}\bar Q/\sqrt n$, $W\bar Q_{[1]}$ and the omitted
+response port, where
+$c_{[1]}=(h_{a,[1]}^\top h_b+h_a^\top h_{b,[1]})/n$ and
+$\bar Q_{[1]}=\phi'\bar R_{[1]}+\phi''\bar Rz_{b,[1]}$.
+Below a deletion retain the direct observable
+$C_bC_a^\top\bar q_a$, $C_a=D_\Theta h_a$, and its forward images of
+$C_a^\top y_i$. Its subtraction is
+
+\[
+(C_b^1C_a^{1\top}-C_b^0C_a^{0\top})y_i
+=(C_b^1-C_b^0)C_a^{0\top}y_i
+   +C_b^1(C_a^1-C_a^0)^\top y_i.
+\]
+
+The first term uses reference-probe coordinate localization; the second
+uses the lower-adjoint bound in \hyperref[cp:src-local-lemma]{the local-map proof}.
+Hence both retain the factor $d_0+n^{-1/2}$.
+Differentiating the response products introduces
+$\phi''\dot z_b\bar R$; use the coordinate response cap and RMS speed
+of $z_b$, then convert to a scalar control once. With raw amplitude
+coefficient at most $X^{80}$ and $U_{\rm fin}\le X^{26}$, these formulas
+and geometric propagation give the common envelope
+
+\[
+X^{100}(1+X^{80}+4U_{\rm fin})^2(1+C_0)^2
+ \le X^{1000}\chi^2=:\mathcal C.
+\]
+
+The exponent count is $100+160+600$, with the remaining $140$ paying
+all numerical sums and bounded layer propagation. Thus the map norms,
+control moduli and actual analytic derivatives are bounded by
+
+\begin{equation}
+\mathcal C\sqrt u n^{\kappa_0}\ell_n^5,\qquad
+\mathcal C\sqrt u n^{\kappa_0}\ell_n^4,\qquad
+\mathcal C\sqrt{un}n^{\kappa_0}\ell_n^8.
+\label{cp:poly:eq:map-interface}
+\end{equation}
+
+There are at most $4u(N+1)^2$ real scalar controls, of amplitude
+$M=\mathcal C\ell_n$ and speed $D=\mathcal C\sqrt n\ell_n^3$.
+Every bound concerns frozen one-dimensional histories until the uniform
+event is established.
+
+We verify the geometry before forming that event. For the training
+rectangle, the radius in \eqref{cp:poly:eq:training-radius} is
+at most
+$\min\{1/8,1/\lambda,\log2/(4\mathcal K),1/(32YSD_W)\}$
+and at most $a/(64YSU_{\rm fin}\sqrt{\ell_n})$, by the source power
+bounds. The residual, activity, operator and pole estimates in
+\hyperref[cp:src-whole-sphere-verification]{the working-domain verification} therefore apply
+without angular fields. The normalized proof has no $n^{-1}\le Y$ gate.
+
+For the panel set $\nu=\lambda/4$ and
+
+\[
+h(t)=\frac1{2\mathcal K}\log(1+2\mathcal Kr_ne^{\nu t}),\quad
+d_h=\nu/(2\mathcal K)\le1/8,\quad T_+=T+h(T)+r_n,
+\]
+
+\[
+D_s=\{x+iy:-sh(0)\le x\le sT_+,\ |y|\le s h(x_+)\},
+\]
+
+\[
+P_s(x+iy)=X_s(x)+i\operatorname{clip}_{[-s h(X_s(x)_+),s h(X_s(x)_+)]}y,
+\quad X_s(x)=\operatorname{clip}_{[-sh(0),sT_+]}x.
+\]
+
+The retraction is $(1+d_h)$-Lipschitz and commutes with real anchors.
+Its bounding rectangle has sides at most $H_0=128\ell_n/\lambda$;
+canonical real-then-vertical contours have length at most $H_0/2$.
+The derivative recurrence in \Cref{cp:src-time-derivative} gives
+$J_*\le X^{34}$, and \eqref{cp:src-gradient-derivative} gives
+$C_g\le X^{38}$; both are below $X^{100}$.
+The complete propagator gate is the sum
+
+\[
+4\mathcal Kr_n+(2C_g/\sqrt{\mathcal K})B_nYr_n
+ \le4\mathcal K/X^{300}+C_g/(8X^{300})<1/100.
+\]
+
+Here $Y=\lambda S/16$ and
+$\lambda B_n/(1+\lambda B_n)\le1$. As in
+\eqref{cp:src-vertical}, vertical residual activity is at most $Yr_n$;
+freezing the real symmetric Gram generator makes its imaginary-time
+evolution unitary, and the integrated generator difference is the second
+term of this gate. Forward real segments contract. Thus ordered products
+of base propagators cost less than two. Additional activity is at most
+$8Yr_n$, normalized operator motion at most $8YSD_Wr_n$, and improved
+vertical preactivation displacement at most
+$2YSU_{\rm fin}\sqrt{\ell_n}r_n\le a_0/32$.
+The negative corner costs at most $a_0/8$. All stopped margins are strict.
+
+We detail the uniform endpoint event, because an endpoint clamped by a
+full-network stop would not have frozen Gaussian coefficients.
+In what follows $A=A_{N,\rho}=\mathcal C^4(N+d+u+1)^8$ and
+
+\begin{equation}
+A\ell_n^{16}\le n^{1/1000},\quad
+u\le n^{1/8000},\quad \ell_n\le n^{1/16000}.
+\label{cp:poly:eq:absorption-gates}
+\end{equation}
+
+To verify the first inequality at the source width put
+$v=\log(A/\rho)\ge8000\log10$. At $\log n=40000v$,
+$\log A+16\log(1+40000v)\le17v<40v$; the difference increases
+thereafter. The other inequalities follow from the same gate.
+
+For a cavity's own stop $\sigma_c$, condition only on its retained
+initialization. Put $\xi=n^{-2}/(1+A\ell_n^8)$,
+$J_s=\lceil16H_0/\xi\rceil$, $s_j=j/J_s$, and take a rectangular
+product grid $\mathscr G$ with side spacing at most $\xi/8$ on the
+bounding rectangle. Test all endpoints
+
+\begin{equation}
+z_{j,q,c}=P_{\min(s_j,\sigma_c)}q,
+\qquad q\in\mathscr G,\quad0\le j\le J_s.
+\label{cp:poly:eq:prefix-grid}
+\end{equation}
+
+Each endpoint is retained-measurable. Its contour is explicitly
+$\zeta(t)=\operatorname{sgn}(x)\min(t,|x|)
++i\operatorname{sgn}(y)\min((t-|x|)_+,|y|)$ on $[0,H_0]$, followed
+by freezing. It lies in the cavity's own domain. On this contour solve
+$V'=\zeta'(\mathsf AV+\sum_a\mathsf B_a^ee_a+\mathsf B_a^q\bar q_a)$,
+$V(0)=0$, where the coefficients are the differentiated port forces above.
+Bounded measurable histories suffice; this equation is a linear map of
+the omitted roots. No clamped extension is claimed holomorphic.
+
+For control accuracy $\tau=n^{-1/8}$ sample $[0,H_0]$ in
+$\lceil16DH_0/\tau\rceil$ equal intervals, round each real component
+to mesh $\tau/8$ and interpolate. Every admissible history is within
+$\tau$ and the logarithmic cardinality is at most
+
+\[
+4u(N+1)^2(2+16DH_0/\tau)\log(1+32M/\tau)
+ \le A\ell_n^8n^{5/8}\le n^{0.627}.
+\]
+
+The coefficient is paid because
+$16384u(N+1)^2\mathcal C\lambda^{-1}\le A$.
+The net uses a loose amplitude bound $2\mathcal C\ell_n$.
+Affine dependence on controls and \eqref{cp:poly:eq:map-interface}
+therefore bound every map on the entire net by
+$4\mathcal C^2\sqrt u n^{\kappa_0}\ell_n^5\le n^{1/800}<n^{1/200}$.
+
+For $g\sim N(0,I_r/n)$, $r\le2un$, a real symmetric matrix obeys
+
+\[
+\Pr\{|g^\top Rg-\operatorname{tr}R/n|>t\}
+ \le2\exp\left[-\frac18\min\left\{
+ \frac{n^2t^2}{\|R\|_{\rm HS}^2},\frac{nt}{\|R\|}\right\}\right].
+\]
+
+Diagonalization and
+$-\log(1-v)-v\le v^2/[2(1-|v|)]$, followed by exponential Markov
+with parameter at most $n/(4\|R\|)$, prove this bound.
+Since $\|R\|_{\rm HS}^2\le2un\,n^{1/100}$, real/imaginary splitting
+at threshold $n^{-1/10}/8$ gives at most $4e^{-n^{0.78}}$.
+The linear-coordinate tail is smaller. The Euclidean image mean is at
+most $\sqrt{2u}n^{1/200}<n^{1/100}/4$ and Gaussian norm concentration
+pays its remaining threshold $n^{1/100}/2$. The root-norm failure is
+at most $e^{-un}$, and control interpolation costs at most
+$10\mathcal C u^{3/2}n^{\kappa_0-1/8}\ell_n^4<n^{-1/10}/8$.
+
+Now select any common prefix $D_\sigma$, even one depending on all roots.
+For $z\in D_\sigma$ choose a nearest grid point $q$ and the largest
+$s_j\le\sigma$. Clipping gives
+$\sup_z|P_sz-P_tz|\le3H_0|s-t|$; hence
+
+\[
+|z-P_{s_j}q|\le(3/16+9\sqrt2/64)\xi.
+\]
+
+Its canonical contour lies inside $D_\sigma$, so actual controls may now
+be substituted. With those actual analytic functions fixed, the linear
+ODE has a unique holomorphic solution on this simply connected vertically
+fibered domain. Local power-series uniqueness and continuation along compact
+paths prove this assertion; contraction to the real interval gives simple
+connectivity. The image under $P_\sigma$ of the straight joining segment
+has length below $\xi/2$. Integrating the actual derivative bound in
+\eqref{cp:poly:eq:map-interface} along it costs at most
+$10u\mathcal C\sqrt u n^{\kappa_0+1/2}\ell_n^8\xi<n^{-1/10}/8$.
+Boundary levels follow by continuity; level zero is a tested endpoint.
+The endpoint family has at most
+$(2+16H_0/\xi)^3\le n^9$ members. Together with at most $An^3$ maps
+per endpoint and $uLn^u$ deletion sets, the total logarithmic union cost
+is below $n^{0.65}$, so its failure is below
+$e^{-n^{0.7}}<\rho/16$.
+
+For the training rectangle an even simpler grid works: round each real
+coordinate toward zero to a multiple of $\xi$. The resulting grid point
+and its straight segment to the target lie in every common rectangle
+prefix. At each fixed grid point first clamp the canonical contour only
+by the cavity's own rectangle. The same conditional tests and interpolation
+then apply, with at most $n^6$ endpoints. Thus the preceding larger
+probability allowance covers both geometries.
+
+The exact nonlinear identities \eqref{cp:src-exact-remainders},
+\eqref{cp:src-remainder-bounds} and
+\eqref{cp:src-force-remainder} now close the comparison quantitatively.
+Take $N_0=n^{1/100}$, $d_0=n^{-1/10}$ and $u_0=n^{-1/25}$ for the
+linear Euclidean, linear coordinate and nonlinear remainder stops.
+Their variables are $R=d_0N_0+d_0u_0+u_0^2$ and
+$P=(N_0+u_0)^2/\sqrt n$.
+The force bound has coefficient $X^{240}(1+u)(1+M)$, and learned
+ports and the top offset have coefficient $X^{260}(1+u)^2(1+M)^3$.
+Inserting $M\le X^{80}\ell_n$, the map coefficients above, activity
+$2\int\rho/S\le1$ and length $64\ell_n/\lambda$ gives
+
+\[
+\|U\|\le A\ell_n^8n^{\kappa_0}
+ [n^{-0.08}+u_0^2+n^{-0.48}+n^{-1/2}]<u_0/2.
+\]
+
+The largest resulting power is $n^{-0.07875}$, below $u_0/2$ at the
+source gate. The joining-strip inequality
+$d_0+X^{10}u_0+X^{30}(R+P)<a/32$ holds at the same gate.
+This is a first-exit argument. It gives retained coordinate differences
+below $n^{-1/30}$ and vector differences below $2n^{1/100}$, including
+the augmented responses. At the first layer the incoming-row increment
+is bounded by $sS^2M$, with no $n^{-1/2}$; it enters the deleted scalar
+controls, not a nonexistent retained reverse port.
+
+The four nonzero scalar traces are exactly
+\eqref{cp:src-traces}. The normalized Schatten calculation and scalar
+feedback solution in \hyperref[cp:src-moments]{the trace calculation} apply
+before adaptive control substitution. Their first three traces keep the
+original constants; the adaptive-residual trace is at most
+$A\ell_n^8n^{-1+\kappa_0}$, and finite remainders are below $n^{-1/40}$.
+Thus the original $C_{\rm abs}$ works. A finite Gaussian grid improves
+training maxima to $K_{\rm src}\sqrt{\ell_n}$ and
+$SK_{\rm src}\sqrt{\ell_n}$. For the response the four deterministic
+coefficients, after division by $S$, are
+
+\[
+sK_{\rm src}H_{j-1}^2,\quad sK_{\rm src}f_{j-1}^2,\quad
+sK_{\rm src}ST_Q,\quad sK_{\rm src}S^2H_{j-1}q_{j-1}^*.
+\]
+
+The centered row coefficient is $64q_{j-1}^*$, giving precisely
+$U_j(64)$. There are at most $mNLn$ response tests times the polynomial
+endpoint count; Gaussian multiplier $64$ pays them at the source gate.
+Both maximum failures together are below $\rho/16$.
+The exact velocity $\dot z_b=-(2/m)\sum_a r_aR_{ba}$ then improves
+poles and passive maxima. The real displacement is at most
+$2S^2U_{\rm fin}\sqrt{\ell_n}$; no passive budget is required.
+
+It remains to remove budgets at the actual confidence order $u$, rather
+than take a limit at each fixed order. Complete each common-cavity
+reference by its own stopped retraction before integrating a root.
+For its normalized complex-minus-real Gaussian coefficients the panel
+derivative estimate gives
+
+\[
+D\le X^{100}\lambda r_nB_n,\quad K\le X^{100}\lambda B_n,
+\quad H\le128\ell_n/\lambda.
+\]
+
+Use the larger radius
+$\bar D=X^{-200}\lambda B_n/[(1+\lambda B_n)\sqrt{b_n}]$.
+The rectangle lemma \Cref{cp:src-Gaussian} bounds the logarithmic
+moment by $a(M_G+2\bar D)+2a^2\bar D^2$, where
+$M_G=256\bar D\sqrt{\log(e+HK/\bar D)}$.
+Here
+
+\[
+\log(e+HK/\bar D)\le300\log X+16b_n+\log(1/\lambda).
+\]
+
+For $b\ge1,x\ge0$,
+$\min(1,be^{-x})\sqrt x\le\sqrt{\log b}+1$, by splitting at
+$x=\log b$ and writing the excess as $s$ with $e^{-s}\sqrt s\le1$.
+Apply this with $b=B_n$, $x=\log(1/\lambda)$ and use
+$B_n\le1+b_n$. Then
+$M_G+2\bar D\le X^{-190}$, so every such correction has moment
+at most $e^{X^{-180}}$ for $0\le a\le8$, including its sample RMS.
+
+For the smaller training rectangle use instead
+$D\le X^{40}\lambda B_nr$, $K\le X^{40}\lambda B_n$,
+$H\le64\ell_n/\lambda$. Substitution of
+\eqref{cp:poly:eq:training-radius} bounds the mean plus $2D$
+by $X^{-50}$. To check uniformity, split the entropy into
+$\log128+\log u+100\log X+\log\chi+(3/2)\log\ell_n$ and use
+$u^{-1}\sqrt{\log u}\le1$, $\lambda\sqrt{\log\chi}\le2$, and
+boundedness of
+$(1+\log(e+\ell_n))(1+\sqrt{\log\ell_n})/\sqrt{\ell_n}$.
+The numerical bound for the last expression follows from
+$\log(e+x)\le2+\log x$ and maximizing each
+$(\log x)^a/\sqrt x$, $a\in\{0,1/2,1,3/2\}$.
+Five of the sixty available powers of $X$ absorb the constants.
+Thus fixed-exponent corrections are small on both domains.
+
+For each distinct omitted root $i$ form its \emph{complete} common-cavity
+reference weight $A_i$: exponentiate $\eta_*C_{\rm abs}$ times one
+plus its four real scalar/sample-RMS references and four complex-minus-real
+corrections. The real moment \eqref{cp:src-main-moment} and
+Cauchy--Schwarz give $\mathbb E(A_i^2\mid\text{cavity})<3$;
+Hölder within the four correction terms uses exponent
+$16\eta_*C_{\rm abs}<8$. Different $A_i$ are conditionally independent
+because they use distinct root pairs of the same cavity.
+
+Only the singleton-to-common-cavity differences require order $u$.
+Extend both paths by their separate own stops and radially project their
+whole difference to the ball of radius $4n^{1/100}$. Both omit the paired
+root. Their Gaussian radius is $v_n=4n^{-49/100}$ and the same rectangle
+lemma gives mean at most
+
+\[
+\mu_n=256v_n\sqrt{\log(e+X^{400}\chi\ell_n^4/v_n)}+2v_n.
+\]
+
+The source gate gives $u\mu_n+u^2v_n^2<10^{-3}$.
+For $B_i^{\rm wt}=e^{\eta_*(Z_{a,i}+K_{a,i}/S)}$, scalar absorption,
+Cauchy--Schwarz between main references and corrections, and Hölder over
+at most four corrections per root give, for distinct $I$, $|I|=k\le u$,
+
+\[
+\mathbb E\left[1_E\prod_{i\in I}B_i^{\rm wt}\right]
+ \le3^{k/2}\exp\{kn^{-1/40}+4k\mu_n+64k^2v_n^2\}\le16^k.
+\]
+
+The event indicator is dropped only after pathwise domination by complete
+references. No independence of sample processes or correction paths is used.
+From the defining constants,
+$2\eta_*K_{\rm src}\le33/4096<1/100$, so repeated weights cost at most
+$W_n=e^{\sqrt{\ell_n}/100}$. Partition an ordered $u$-tuple by its
+distinct indices. A partition with $j$ repetitions is encoded by $j$
+edges from block minima, giving at most $\binom u2^j/j!$ possibilities.
+The preceding distinct-product bound therefore yields
+
+\[
+\mathbb E\left[1_E(n^{-1}\sum_iB_i^{\rm wt})^u\right]
+ \le16^u\exp\{\tbinom u2W_n/(16n)\}\le e16^u,
+\]
+
+where $n\ge4u^3$ suffices and is implied by the source gate.
+Markov and the sample/layer union make the budget-hit probability at most
+$emL(64e^2)^{-u}\le\rho/4$.
+The transferred cavity budgets obey
+$\mathcal H_a^{\rm cavity}\le e^{2\eta_*n^{-1/30}}\mathcal H_a+u/n
+<2\mathcal B$. All other stops have the strict margins already checked.
+For either geometry the four failure allowances are respectively
+$\rho/4$, $\rho/16$, $\rho/16$ and $\rho/4$.
+For the simultaneous rectangle and panel event, initialization is shared;
+sum each of the other three allowances twice. The total is strictly below
+$\rho$. Holomorphic local existence and uniqueness then continue the
+solutions through the compact domain boundary. This completes the finite
+probability calculation.
+
+The all-time real extension needs no new probability. Fitting gives
+$\|\theta(t)-\theta(T)\|\le2Y\lambda^{-1/2}e^{-16\ell_n}$ in
+Euclidean mobility coordinates. The backward-only subtraction in
+\hyperref[cp:src-finite-working]{the finite-query proof} costs at most $X^{20}n$ and gives
+the stated carrier cap. Subtract the response recursion with the state at
+$T$ fixed. Changed gates multiply only reference coordinate caps, while
+changed mixers and pairings use operator and RMS bounds. A coefficient
+$X^{100}\chi^2(1+\sqrt{\ell_n})$ bounds this RMS Lipschitz subtraction;
+one conversion to coordinates leaves a tail at most
+$YX^{103}\chi^3(1+\sqrt{\ell_n})n^{-31/2}$.
+The source gate makes it at most $Y\chi\sqrt{\ell_n}$, proving
+\eqref{cp:poly:eq:real-response}.
+
+Finally the panel disk radius is $\varrho(t)=h(t)/[2(1+d_h)]$.
+As in \hyperref[cp:src-panel-working]{the panel-domain proof}, it lies inside the domain and
+the partition $t_{b+1}=\min(T,t_b+\varrho(t_b)/2)$ satisfies
+
+\[
+J\le1+40/(\lambda r_n)
+ +80\mathcal K\lambda^{-1}\log(1+4\ell_n/\log2).
+\]
+
+The reciprocal minimum in \eqref{cp:poly:eq:panel-radius} is at most
+
+\[
+\frac{1024U_{\rm fin}}{a_0}(Y/\lambda)^2\sqrt{\ell_n}
+ +X^{300}\lambda^{-1}\sqrt{b_n}+X^{300}B_n\sqrt{b_n}.
+\]
+
+For $x=\log\ell_n\ge0$, $b_n\le2+x$ and
+$(2+x)^{3/2}e^{-x/2}\le4$. Hence $b_n^{3/2}\le4\sqrt{\ell_n}$.
+Use $S^2=256(Y/\lambda)^2$, $a_0^{-1}\le\beta$ and the coefficient
+bounds to obtain \eqref{cp:poly:eq:panel-count}.
+This proves the source lemma.
+
+\end{proof}
+
+\subsection{A finite lower bound for actual dense variability}
+\label{cp:poly:dense-lower-section}
+
+For $0<\tau<1$, define
+
+\[
+a_\tau=\frac{\tau\gamma^2}
+ {2^{20}m u_{\tau/8}X^{108}(1+\lambda)},
+\]
+
+\begin{equation}
+N_{\rm low}(\tau)=\left\lceil\max\left\{\begin{gathered}
+ N_{\rm src}(m,\tau/8),\quad
+ 2^{44}m^6X^{96}\gamma^{-12}\tau^{-2}\log(64/\tau),\\
+ [2^{30}u_{\tau/8}X^{114}m\chi(1+\gamma^{-1})^2/\tau]^2
+ \end{gathered}\right\}\right\rceil.
+\label{cp:poly:eq:lower-width}
+\end{equation}
+
+\begin{proposition}[Quantitative trajectory separation]
+\label{cp:poly:dense-lower}
+
+For each $n\ge N_{\rm low}(\tau)$, two independent dense runs satisfy
+
+\begin{equation}
+\Pr\left\{\|f_n-\widetilde f_n\|_{\mathcal X}
+       \ge a_\tau\frac{Y}{\sqrt n\ell_n^{5/2}}\right\}\ge1-\tau.
+\label{cp:poly:eq:dense-lower}
+\end{equation}
+
+The domain may be any promised query set containing the training inputs.
+The lower coefficient is weaker than that in \eqref{cp:eq-dense-lower}.
+
+\end{proposition}
+
+\begin{proof}
+
+We first prove a shift-uniform finite scalar inequality. For iid centered
+real variables $V_i$ with variance $\sigma^2>0$ and third absolute moment
+at most $M_3$, put $Z=n^{-1/2}\sum_iV_i$. For every $h>0$ and real $b$,
+
+\begin{equation}
+\Pr\{|Z-b|\le h\}\le3h/\sigma
+ +4\exp[-9h^2\sigma^4n/(128M_3^2)].
+\label{cp:poly:eq:finite-smallball}
+\end{equation}
+
+For an independent copy $V'$, Taylor expansion gives
+$|\mathbb Ee^{itV}|^2=\mathbb E\cos(t(V-V'))
+\le1-\sigma^2t^2+(4/3)M_3|t|^3$, because
+$\mathbb E|V-V'|^3\le8M_3$. Therefore
+$|\mathbb Ee^{itV}|\le e^{-\sigma^2t^2/4}$ for
+$|t|\le3\sigma^2/(8M_3)$.
+The Gaussian majorant
+$1_{|z-b|\le h}\le\sqrt e\,e^{-(z-b)^2/(2h^2)}$ and its Fourier
+integral bound the probability by
+
+\[
+\frac{\sqrt e\,h}{\sqrt{2\pi}}
+ \int_{\mathbb R}e^{-h^2t^2/2}|\mathbb Ee^{itZ}|\,dt.
+\]
+
+On $|t|\le3\sigma^2\sqrt n/(8M_3)$ use the preceding Gaussian
+bound; its full-line integral is below $3h/\sigma$.
+On the complement use modulus one and
+$\Pr(|G|>s)\le2e^{-s^2/2}$. This proves
+\eqref{cp:poly:eq:finite-smallball}. Fourier integrability justifies the
+exchange of expectation and integration. The argument works conditionally
+on any sigma-field supplying conditional iid variables and moment bounds;
+the shift may be measurable in that sigma-field.
+
+Condition on the first run through layer $L-1$ and the entire independent
+second run. Its final feature rows $U_i\in\mathbb R^m$ are conditionally
+iid. The initialized covariance calculation above, now choosing
+
+\[
+e_1=\min\{(8T_1)^{-1},
+ \gamma/[4m\max(C_0^{\rm cov},s^2C_0^{\rm cov}+D_0^{\rm cov}T_1)]\},
+\]
+
+gives, except with probability at most $\tau/8$,
+
+\[
+\bar Q:=\mathbb E(U_iU_i^\top\mid\mathcal F)\succeq(\gamma/2)I,
+\qquad \max_a\|U_{i,a}\|_{L^6(\cdot\mid\mathcal F)}\le X^4.
+\]
+
+Indeed the conditional last-layer mean entry error is at most
+$s^2E_{L-1}+D_0^{\rm cov}\Delta_{L-1}\le\gamma/(4m)$.
+Its required width is
+$32s^2R_0^2e_1^{-2}\log[256L(m+1)^2/\tau]$, which is bounded by
+the source gate in \eqref{cp:poly:eq:lower-width}. Linear growth
+and Gaussian sixth moments prove the $L^6$ bound.
+
+The squared-area calculation in \hyperref[cp:innovation]{the innovation proof} does not
+require equal diagonal moments. For any random $U$ with
+$\bar Q\succeq gI$, put $c=\bar Qy$, $T_q=\operatorname{tr}\bar Q$,
+$M_4=\mathbb E\|U\|^4$, and
+$V=\mathbb E\|U(U^\top y)-c\|^2$. It proves
+
+\[
+V\ge\frac{[y^\top\bar Q^2(T_qI-\bar Q)y]^2}
+ {4M_4\|\bar Qy\|^2}
+ \ge\frac{(m-1)g^3(T_q-g)}{4M_4}\|y\|^2.
+\]
+
+For clarity the last step multiplies the two spectral lower bounds
+$(m-1)g\|\bar Qy\|^2$ and $g^2(T_q-g)\|y\|^2$ for the numerator
+before squaring. Every eigenvalue lies in $[g,T_q-(m-1)g]$, which
+verifies both bounds. With $g=\gamma/2$, $T_q\ge mg$ and
+$M_4\le m^2X^{16}$, at least one coordinate satisfies
+
+\[
+\operatorname{Var}[U_a(U^\top y)\mid\mathcal F]
+ \ge\sigma_0^2:=Y^2\gamma^4/(256X^{16}).
+\]
+
+Choose the smallest maximizing index, which is $\mathcal F$-measurable.
+The centered product has third absolute moment at most
+$8m^3Y^3X^{24}$: use $\sum_b|y_b|\le mY$, the conditional $L^6$
+bound, and $\mathbb E|V-\mathbb EV|^3\le8\mathbb E|V|^3$.
+Thus $M_3^2/\sigma_0^6\le2^{30}m^6X^{96}\gamma^{-12}$.
+Zero readout gives the exact identity
+
+\[
+\dot f_n(0,x_a)=\frac2{mn}\sum_iU_{i,a}(U_i^\top y).
+\]
+
+The second run and the conditional means are only a measurable shift.
+Apply \eqref{cp:poly:eq:finite-smallball} with
+$h=\tau\sigma_0/24$; its scalar failure is at most $\tau/4$ under
+the second gate of \eqref{cp:poly:eq:lower-width}. Hence, allowing
+the covariance failure, with probability at least $1-\tau/2$,
+
+\[
+\max_a|\dot f_n(0,x_a)-\dot{\widetilde f}_n(0,x_a)|
+ \ge\frac{\tau Y\gamma^2}{192mX^8\sqrt n}.
+\]
+
+Use the training rectangle with failure $\tau/8$ for each run. The
+parameter-two ellipse on $[0,r]$ lies inside it, and the prediction
+difference is bounded by $32X^6Y/\lambda$. Taking
+$K=\lceil2\ell_n/\log2\rceil\le4\ell_n$ in
+\Cref{cp:derivative-transfer} yields
+
+\[
+\|f_n-\widetilde f_n\|_{\mathcal X}
+ \ge\frac{\tau Y\gamma^2}
+ {6144m u_{\tau/8}X^{108}(1+\lambda)\sqrt n\ell_n^{5/2}}
+       -\frac{768X^6Y}{\lambda n^2}.
+\]
+
+The last term is at most half the first whenever
+$n^{3/2}\ge2^{24}u_{\tau/8}X^{114}
+m(1+\lambda)\ell_n^{5/2}/(\lambda\tau\gamma^2)$.
+Since $\ell_n^{5/2}\le64n^{1/4}$, the third gate in
+\eqref{cp:poly:eq:lower-width} suffices. The probability union
+costs less than $\tau$ and the stated coefficient is smaller than the
+remaining leading coefficient. Both predictors start at zero, so the
+witness time is strictly positive. At training inputs their fitted
+limits agree with the same label; no endpoint separation follows.
+
+\end{proof}
+
+\subsection{The third-order Legendre history estimate}
+\label{cp:poly:legendre-section}
+
+The Legendre model is exactly \eqref{cp:eq-legendre-reconstruction} and
+\eqref{cp:eq-legendre-flow}, with its constant forward and zero backward
+prefixes. Let
+
+\begin{equation}
+q=\left\lceil\lambda^{-3}n^{1/4}\ell_n^2e^{\sqrt{\ell_n}/2}\right\rceil,
+\qquad P=X^{500}\chi^{10}.
+\label{cp:poly:eq:legendre-order}
+\end{equation}
+
+For fixed positive $a,b$, define the numerical logarithm coefficient
+
+\[
+C(a,b)=\max\{1,e^b(a/(eb))^a\}.
+\]
+
+Maximizing $x^ae^{-bx}$ over $x\ge1$ proves
+$\ell_n^a\le C(a,b)n^b$. Define the structural gate
+
+\begin{equation}
+N_{\rm Leg}=\left\lceil\max\left\{
+(2e^{100}\lambda^{-3})^8, (4P^3)^4,
+[8P^4C(2,1/64)]^8, d^4
+\right\}\right\rceil.
+\label{cp:poly:eq:legendre-gate}
+\end{equation}
+
+\begin{proposition}[Improved error without additional state]
+\label{cp:poly:legendre}
+
+On the finite training-source event, for $n\ge N_{\rm Leg}$,
+
+\begin{equation}
+\|f_{\rm Leg}-f_n\|_{\mathcal X}
+ \le4YP^5\ell_n^2n^{-47/64}.
+\label{cp:poly:eq:legendre-error}
+\end{equation}
+
+The exact moving and fixed inventories remain
+$n(d+1)+1+2(L-1)mnq$ and $(L-1)n^2$, respectively.
+
+\end{proposition}
+
+\begin{proof}
+
+Use Euclidean mobility coordinates
+$\theta=(W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n)$.
+For a finite physical horizon $T_0$ put
+
+\[
+d_{T_0}=\int_0^{T_0}\sum_{j=2}^L\|\mathcal E_j(t)\|_Fdt,\qquad
+D_{T_0}=\sup_{t\le T_0}\sum_{j=1}^{L+1}
+                  \|\widehat\theta_j(t)-\theta_j(t)\|,
+\qquad A=\tau(T_0).
+\]
+
+Here $\mathcal E_j$ is the exact physical defect in
+\eqref{cp:eq-legendre-defect}. The order-independent fitting lemma gives
+
+\[
+\widehat\rho(t)\le Ye^{-\lambda t/4},\qquad
+\int_t^{T_0}\widehat\rho(s)ds\le4\widehat\rho(t)/\lambda,
+\qquad A\le1+4Y/\lambda\le2.
+\]
+
+Work first on the bootstrap $D_{T_0}\le Y/\sqrt n$.
+Subtract backward recursions with the dense trajectory as reference, so
+changed gates multiply only its known coordinate carrier. The all-time
+response bound \eqref{cp:poly:eq:real-response} and the exact
+recursion for $R$ then give
+
+\[
+\max_{a,j}\|\widehat k_a^{(j)}-k_a^{(j)}\|_2/\sqrt n
+ \le X^{40}(1+\sqrt{\ell_n})D_{T_0},
+\]
+
+\[
+\max_{a,b,j}\|\widehat R_{ba}^{(j)}-R_{ba}^{(j)}\|_2/\sqrt n
+ \le X^{130}\chi^4(1+\sqrt{\ell_n})D_{T_0}.
+\]
+
+The nontrivial products can be checked directly: forward differences cost
+$X^5D$, feature-pair differences $X^9D$, and the changed response gate
+costs at most $YX^{116}\chi^3(1+\sqrt{\ell_n})D$ using the reference
+response maximum. Homogeneous propagation costs $(9s)^L\le X^2$,
+with at most $L\le X$ terms. Thus the displayed powers include all terms.
+One RMS-to-coordinate conversion and the bootstrap yield
+
+\[
+\max|\widehat k|\le YX^{50}\chi(1+\sqrt{\ell_n}),\qquad
+\max|\widehat R|\le YX^{135}\chi^4(1+\sqrt{\ell_n}).
+\]
+
+Let $\widehat v_a=\widehat r_a/\widehat\rho$ and let $\mathcal F$
+be the ordinary dense vector field evaluated at the reconstructed closure
+state. At finite times $\widehat\rho>0$ by uniqueness in the fitting
+proof; stationary continuation covers residual zeros. The normalized
+ordinary feature velocity is
+
+\[
+a_b^{(j)}(t)=D_\theta h_b^{(j)}(\widehat\theta(t))
+ \frac{\mathcal F(\widehat\theta(t))}{\widehat\rho(t)}
+=-\frac2m\phi'(\widehat z_b^{(j)})\odot
+                          \sum_a\widehat v_a\widehat R_{ba}^{(j)}.
+\]
+
+The residual calculation in the Legendre fitting proof gives
+$\|\widehat v\|_2/\sqrt m=1$ and
+$\|\dot{\widehat v}\|_2/\sqrt m\le X^{11}$.
+Differentiating the \emph{actual} closure trajectory, including its defect,
+gives the following bounds:
+
+\begin{equation}
+\begin{aligned}
+\max_{b,j}\|\dot{\widehat z}_b^{(j)}\|_2/\sqrt n
+ &\le YX^{30}\chi^3\widehat\rho,\\
+\max_{a,j}\|\dot{\widehat\delta}_a^{(j)}\|_2/\sqrt n
+ &\le X^{110}\chi^4(1+\sqrt{\ell_n})\widehat\rho,\\
+\max_{a,b,j}\|\dot{\widehat R}_{ba}^{(j)}\|_2/\sqrt n
+ &\le X^{220}\chi^8(1+\sqrt{\ell_n})\widehat\rho,\\
+\max_{b,j}(\|a_b^{(j)}\|_2+\|\dot a_b^{(j)}\|_2)/\sqrt n
+ &\le YX^{230}\chi^8(1+\sqrt{\ell_n}).
+\end{aligned}
+\label{cp:poly:eq:legendre-derivatives}
+\end{equation}
+
+To verify these estimates, \eqref{cp:eq-legendre-pointwise-defect}
+bounds the full hidden block speed by
+$YX^{20}\chi^3\widehat\rho$; forward differentiation costs $X^5$.
+In $\dot\delta=\phi''\dot z\,k+\phi'\dot k$, use the coordinate
+maximum of $k$ and RMS of $\dot z$. At the top
+$\|\dot w\|/\sqrt n\le X^4\widehat\rho$; below it,
+$\dot k=\dot W^\top\delta+W^\top\dot\delta$.
+The forcing coefficient is at most
+$X^{90}\chi^4(1+\sqrt{\ell_n})$, covered by the second line after
+bounded layer propagation. Differentiating $R=\delta c+WQ$ adds
+$\dot\delta c$, $\delta\dot c$, $\dot WQ$,
+$W\phi''\dot zR$ and $W\phi'\dot R$.
+The curvature product uses the coordinate maximum of $R$ and RMS of
+$\dot z$; all remaining terms use pairing derivatives and operator bounds.
+The largest forcing is below
+$X^{180}\chi^8(1+\sqrt{\ell_n})\widehat\rho$, giving the third line.
+Finally differentiate $a_b^{(j)}$: the three terms use $\dot z$ times
+the response maximum, $\dot{\widehat v}$ times response RMS, and
+$\dot R$ times $\|\widehat v\|_2/\sqrt m=1$.
+Since $\widehat\rho\le Y$, they give the fourth line. In particular no
+coordinate bound on $\dot z$ or $\sqrt n\|\mathcal E\|$ is introduced.
+
+Subtract the accumulated physical feature defect from its history:
+
+\[
+g_b^{(j)}(\tau(t))=\widehat h_b^{(j)}(t)
+ -\int_0^tD_\theta h_b^{(j)}(\widehat\theta(s))\mathcal E(s)\,ds,
+\]
+
+and use its constant initial value on $[0,1]$. Aggregate history norms
+use $(mn)^{-1/2}$ over samples and neurons. The forward derivative bound
+gives $\|h-g\|_{L^2}/\sqrt{mn}\le X^{10}d_{T_0}$.
+Exactly $\partial_\tau g=a$ and
+$\partial_\tau^2g=\dot a/\widehat\rho$ on $(1,A)$.
+The first derivative vanishes at the prefix join because the initial
+readout vanishes. Thus no distributional jump occurs there.
+
+For $\mathscr D_Ag=-\partial_\xi[\xi(A-\xi)\partial_\xi g]$,
+the inequality $(A-\tau(t))/\widehat\rho(t)\le4/\lambda$ cancels
+the apparent terminal singularity. By
+\eqref{cp:poly:eq:legendre-derivatives},
+
+\[
+\|\mathscr D_Ag\|_{L^2}/\sqrt{mn}
+ \le YX^{240}\chi^9(1+\sqrt{\ell_n}).
+\]
+
+The shifted Legendre modes have eigenvalues $j(j+1)$.
+Two integrations by parts have zero endpoint flux and no prefix jump;
+Bessel's inequality then gives
+$\|(I-\Pi_q^A)g\|_{L^2}\le[q(q+1)]^{-1}\|\mathscr D_Ag\|_{L^2}$.
+Projection contraction on $h-g$ yields the forward tail
+
+\[
+H_{T_0}:=\max_j\|(I-\Pi_q^A)h^{(j)}\|_{L^2}/\sqrt{mn}
+ \le YP\ell_n/q^2+Pd_{T_0}.
+\]
+
+The backward-history freezing calculation following
+\eqref{cp:eq-legendre-ledger} is unchanged. Its coefficients satisfy
+$b_0\le X^{42}(Y/\lambda)(1+(Y/\lambda)\sqrt{\ell_n})$,
+$b_1\le X^{16}(Y/\lambda)\sqrt\chi$ and
+$B_d\sqrt{4Y/\lambda}\le P\ell_n$.
+Therefore, for the history
+$b_a=(\widehat r_a/\widehat\rho)\widehat\delta_a$,
+
+\[
+B_{T_0}:=\max_j\|(I-\Pi_q^A)b^{(j)}\|_{L^2}/\sqrt{mn}
+ \le YP\ell_n/q+P\ell_nD_{T_0}
+ \le2YP\ell_n/q\qquad(q\le\sqrt n).
+\]
+
+For each fixed full history the growing-projection identity
+\eqref{cp:eq-projection-growth} integrates its squared endpoint error
+to its final squared tail norm, since initial errors vanish.
+Applying Cauchy--Schwarz in samples and activity time to the exact defect
+thus gives $d_{T_0}\le2(L-1)H_{T_0}B_{T_0}$.
+The signed physical comparison \eqref{cp:eq-legendre-signed} and its
+coefficient ledger give
+
+\[
+D_{T_0}\le\mathcal A_nd_{T_0},\quad
+\mathcal A_n\le eX\exp[X^{36}(Y/\lambda)^2\sqrt{\ell_n}]
+ \le X^2n^{1/64}\le Pn^{1/64}.
+\]
+
+For the last inequality use $X^{36}(Y/\lambda)^2\le X^{-24}$ and
+$c\sqrt{\ell_n}\le\ell_n/64+16c^2$ with $c\le X^{-24}$.
+Absorb the term linear in $d_{T_0}$ when $q\ge4P^3\ell_n$, using
+$Y\le1$ and $2(L-1)\le P$. This yields
+
+\begin{equation}
+d_{T_0}\le4YP^3\ell_n^2/q^3,\qquad
+D_{T_0}\le4YP^4\ell_n^2n^{1/64}/q^3.
+\label{cp:poly:eq:third-order-defect}
+\end{equation}
+
+The gate \eqref{cp:poly:eq:legendre-gate} ensures
+$q\le\sqrt n$, $q\ge4P^3\ell_n$, and
+$8P^4\ell_n^2\le n^{15/64}$.
+For the first use
+$\ell_n^2e^{\sqrt{\ell_n}/2}\le e^{100}n^{1/8}$ and absorb the ceiling
+by two. The second follows from $n^{1/4}\ge4P^3$.
+For the third use $\ell_n^2\le C(2,1/64)n^{1/64}$.
+Consequently the bootstrap improves to $D_{T_0}\le Y/(2\sqrt n)$.
+Continuity excludes a first exit. All constants are independent of $T_0$,
+so the estimate extends to all times and to the fitted limits. Real
+whole-sphere prediction subtraction costs at most $X^7D_{T_0}$,
+proving \eqref{cp:poly:eq:legendre-error}.
+The exact inventory is \eqref{cp:eq-legendre-count}; $n\ge d^4$
+absorbs the first-matrix term in the original headline count.
+
+\end{proof}
+
+\subsection{Taylor accuracy, storage and final width gates}
+\label{cp:poly:assembly}
+
+Use the same exact-metric selection and selected dynamics as
+\Cref{cp:selected}. Its proof needs the real fitting, RMS, carrier,
+and finite source-approximation bounds; the polynomial source lemma
+supplies each of them on the capped panel domain.
+The explicit comparison ledger permits $C_{\rm sel}=X^{60}$:
+it gives $F\le X^6$, $K_1\le X^{18}$, $H_C\le2X^3$,
+$F_c\le X^{15}$ and
+$\mathcal B_n/(Y/\lambda)\le X^{22}(1+\sqrt{\ell_n})$.
+Using $e^v-1\le ve^v$, its finite-time and tail coefficients are below
+$C_{\rm sel}(Y/\lambda)(1+\lambda^{-1/2})(1+\sqrt{\ell_n})
+e^{\sqrt{\ell_n}}$ and
+$C_{\rm sel}(Y/\lambda)(1+\lambda^{-1/2})$, respectively.
+Choose exactly the tolerance
+
+\[
+\eta=\min\left\{1,Y,16Y/\lambda,
+\frac{\lambda}
+ {2C_{\rm sel}n(1+\lambda^{-1/2})(1+\sqrt{\ell_n})e^{\sqrt{\ell_n}}}
+\right\}.
+\]
+
+The finite-time error is at most $Y/(2n)$. The fitted-tail contribution
+is at most $Y/(2n)$ under the label-independent gate
+
+\begin{equation}
+n^7\ge2C_{\rm sel}\lambda^{-1}(1+\lambda^{-1/2}).
+\label{cp:poly:eq:taylor-tail-gate}
+\end{equation}
+
+Indeed $ne^{-8\ell_n}\le n^{-7}$.
+The disk cover strictly contains the real interval in its open union, so
+some positive closed rectangle lies inside it by compactness. Thus the
+initialization-only compiler \Cref{cp:jets} applies without a new
+setup-cost claim.
+
+Let $k$ be the dimension of the declared input span, $M_n=X^6\sqrt n$,
+and
+
+\[
+K=\max\{0,\lceil\log_2(8M_n/\eta)\rceil\},\qquad
+R=2m+k+1+2(2m+p)J(K+1).
+\]
+
+On each half-radius panel the Taylor tail is at most $M_n2^{-K}\le\eta/8$.
+Approximate each base coefficient in Euclidean norm to $\eta/128$ and
+apply its initialized matrix exactly. Geometric summation gives base
+coefficient error at most $\eta/64$ and image error at most $\eta/8$,
+since initialized operators have norm eight. This is the same exact-pairing
+source contract used in \hyperref[cp:panel]{the Taylor proof}. Input-span reduction
+preserves the panel trajectory and all Gaussian first-row laws; it uses
+no passive labels. The exact retained count remains
+
+\[
+1020(L+1)R^2+36R+10m(k+1)+pk+(m+p)+3(m+p)d.
+\]
+
+The additional gate
+
+\begin{equation}
+n\ge N_{\rm count}:=
+ [32X^6(1+C_{\rm sel})\lambda^{-3/2}(1+Y^{-1})]^4
+\label{cp:poly:eq:taylor-count-gate}
+\end{equation}
+
+implies $K+1\le8\ell_n$. To check it, the logarithm defining $K$ is
+at most $(3/2)\log n+\sqrt{\ell_n}+\log(1+\sqrt{\ell_n})$ plus
+the logarithm of the bracket in this gate. The latter is at most
+$(1/4)\log n$, and the source gate gives $\ell_n\ge16$, so each
+intervening term is at most $\ell_n/4$. Division by $\log2$ and the
+ceiling leave the stated bound. The branches $\eta=Y$ and $\eta=1$
+are smaller. Squaring the rank bound with
+\eqref{cp:poly:eq:panel-count} and $k\le m+p$ yields
+
+\[
+R^2\le X^{810}(m+p)^2
+ \left[(Y/\lambda)^4\ell_n^3+\lambda^{-2}\ell_n^2b_n^2\right].
+\]
+
+The exact inventory is therefore bounded by the Taylor headline with,
+for example, coefficient $X^{820}$. The inverse-label gate belongs to
+this simplification only. Without it the exact $K$ displays the extra
+$\log(1/Y)$ dependence. Dense arrays, jets, coefficients and proof-panel
+anchors are discarded after initialization, exactly as before.
+
+We finally prove \Cref{cp:poly:width}. Allocate $\tau=\delta/2$
+to the dense lower event and $\rho=\delta/4$ to the relevant source event.
+On their intersection the Legendre ratio is at most
+
+\[
+4P^5a_\tau^{-1}\ell_n^{9/2}n^{-15/64}
+ \le4P^5a_\tau^{-1}C(9/2,7/64)n^{-1/8}.
+\]
+
+Consequently the following fully specified maximum is a sufficient
+Legendre width:
+
+\begin{equation}
+\left\lceil\max\left\{
+ N_{\rm src}(m,\delta/4),N_{\rm low}(\delta/2),N_{\rm Leg},
+ [4P^5C(9/2,7/64)/(a_{\delta/2}\varepsilon)]^8
+ \right\}\right\rceil.
+\label{cp:poly:eq:legendre-final-width}
+\end{equation}
+
+For Taylor the absolute error $Y/n$ and the same lower event give ratio
+at most $a_\tau^{-1}\ell_n^{5/2}/\sqrt n\le64a_\tau^{-1}n^{-1/4}$.
+A sufficient width is
+
+\begin{equation}
+\left\lceil\max\left\{
+N_{\rm src}(m+p,\delta/4),N_{\rm low}(\delta/2),N_{\rm count},
+[2C_{\rm sel}\lambda^{-1}(1+\lambda^{-1/2})]^{1/7},
+[64/(a_{\delta/2}\varepsilon)]^4
+\right\}\right\rceil.
+\label{cp:poly:eq:taylor-final-width}
+\end{equation}
+
+The probability union costs less than $\delta$; no independence between
+the source and comparison events is required. Since
+$\lambda^{-1}=m/\gamma$, $u_\rho$ is logarithmic in $mL/\rho$,
+$L\le X$, and $a_\tau^{-1}$ has only the displayed polynomial factors,
+these maxima are bounded by the polynomial asserted in the theorem.
+The proof counts retained real coordinates and exact-arithmetic error;
+it does not infer efficient preprocessing or finite precision from a
+polynomial sufficient width.

@@ -1,0 +1,33 @@
+{
+  "approved_v6_source_exact": true,
+  "source_sha256": "42f124d4c604d191d68ba7da61b2861f0f57d99513f83d97ce7e627e0324006c",
+  "target_sha256": "07cdfeda14ee650ae4d8b804cc7317f6046cd470542ec5edfb380b9c5f363988",
+  "preserved_math_chunks": 610,
+  "preserved_internal_anchors": 31,
+  "external_mapping_count": 44,
+  "unresolved_references": [],
+  "target_lines": 1430,
+  "compile": {
+    "engine": "pdflatex",
+    "status": "pass",
+    "pages": 16,
+    "overfull_boxes": 0,
+    "underfull_boxes": 0,
+    "external_reference_warnings": "expected in standalone driver; all cross-reference targets statically resolve in compact inputs"
+  },
+  "notation_mapping": {
+    "W^{(L+1)}": "w",
+    "C (absolute numerical theorem constant)": "c_{\\rm wid}",
+    "lambda": "gamma/m (unchanged)",
+    "X": "beta^L (unchanged)"
+  },
+  "deliberate_editorial_changes": [
+    "Explicit local recall of b, s, t_2, carriers, residual RMS and Euclidean mobility coordinates.",
+    "Explicit exclusion of polynomial onset for the nonlinear feature-learning certificate.",
+    "Two gathered-display line breaks; no mathematical changes."
+  ],
+  "limitations": [
+    "This is preservation and compilation validation, not a new independent mathematical review.",
+    "Root performs integration compilation and edits existing shared compact dependencies."
+  ]
+}

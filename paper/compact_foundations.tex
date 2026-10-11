@@ -77,8 +77,10 @@ The partition and radii depend deterministically only on
 \begin{proof}
 We prove stronger intermediate domains with explicitly calculated bounds,
 then compare them with the displayed interface.  All symbols introduced
-from here through the end of this proof are private to this argument;
-the subsequent constructions use only the proposition's stated bounds.
+from here through the end of this proof are local to this argument.
+The quantitative width and initialization proofs explicitly recall the
+coefficient recurrences they additionally use; other constructions use
+the proposition's stated bounds.
 All probability statements concern one sufficiently large width, with the
 data, depth, activations and confidence fixed.  Write
 \(\lambda=\gamma/m\), \(Y=\|y\|_2/\sqrt m\),
@@ -1159,6 +1161,7 @@ with confidence or sample count.  This is the shared probability step.
 \paragraph{4. Verification of the working domains.}
 
 \begin{proof}[Verification of the working whole-sphere estimates]
+\label{cp:src-whole-sphere-verification}
 Lemma~\ref{cp:fit} independently supplies the real trajectory, strict
 operator caps below nine, and real activity at most \(S/2\).
 The same holds for the independently tested cavities.  Impose the
@@ -1454,9 +1457,10 @@ from Claim~\ref{cp:src-powers} and \(a^{-1}\le\beta/16\).
 \end{proof}
 
 \paragraph{5. Reduction to the public bounds.}
-We now compare the stronger working estimates with the statement, so no
-coefficient from this proof is needed by a later construction.  The working
-whole-sphere time radius is
+We now compare the stronger working estimates with the public statement.
+The quantitative width and initialization proofs explicitly recall the
+coefficient recurrences they additionally use. The working whole-sphere
+time radius is
 \[
  \frac{a}{64YSU\sqrt\ell}
    =\frac{a\lambda}{1024Y^2U\sqrt\ell}.

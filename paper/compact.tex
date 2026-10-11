@@ -50,8 +50,11 @@ activity, analytic response approximation, and geometry-preserving reduction;
 the selected dynamics use an additional readout correction to cancel unstable
 feedback. A separate short-time deep-linear benchmark establishes a matching
 literal-storage bound for a frozen-top neural tangent hierarchy. This
-proof-focused copy makes no empirical, finite-precision, or
-efficient-preprocessing claim.
+manuscript also gives polynomial sufficient widths for Legendre and Taylor,
+and exact-real initialization bounds for both selected constructions:
+near-quadratic work from supplied dense matrices or near-linear work for a
+fresh Gaussian reference sampled implicitly. It makes no empirical or
+finite-precision claim.
 \end{abstract}
 
 \section{Setup and the headline theorem}
@@ -127,6 +130,9 @@ All data, $m,d,L,\gamma,Y$, and activations are fixed separately as $n$ grows.
 Throughout the stated bounds, $C>0$ depends only on activations and depth, never on
 $n,m,d,\gamma,Y$ or a passive-panel size. Its value may change between occurrences.
 All other constants are defined in the statement or proof using them.
+Initialization costs use a separate fixed-parameter big-$O$ convention,
+specified in \Cref{cp:initialization}; its constants are not the
+activation-and-depth-only storage constant $C$.
 
 \paragraph{Query domains and probability.}
 For a query set $\mathcal X$, use
@@ -145,14 +151,19 @@ training problem.
 An eventual assertion at confidence $1-\delta$ means: for every fixed
 admissible problem and $0<\delta<1$, there is a finite width threshold such
 that the assertion holds at each larger individual width. That threshold
-may depend on every fixed problem parameter, including the positive $Y$,
-and is not proved polynomial or practically small. No simultaneous event
-over infinitely many independently initialized widths, uniform growing-data
-limit, or uniform limit as $Y\downarrow0$ is asserted. For a ratio below,
+may depend on every fixed problem parameter, including the positive $Y$.
+The headline theorem quantifies this threshold polynomially for Legendre and
+Taylor; Harmonic retains the eventual qualification. Polynomial sufficient
+widths need not be practically small. Each probability bound concerns one
+fixed problem at one individual width, not a simultaneous event over all
+datasets or infinitely many independently initialized widths. No unrestricted
+growing-data limit is asserted. For a ratio below,
 missing fitted limits or a zero denominator count as failure.
 
 The compression and nonlinear feature-learning statements below inherit this
-setup and these probability conventions. The separate NTH benchmark in
+setup and these probability conventions; the quantitative width improvement
+does not extend to the separate nonlinear feature-learning certificates.
+The separate NTH benchmark in
 \Cref{cp:nth:storage} states its own assumptions and probability convention.
 Every storage count charges a nonprimitive activation evaluator's description
 and scratch separately.
@@ -230,16 +241,80 @@ copies, and working arrays. Their predictions additionally satisfy
  \label{cp:absolute}
 \end{equation}
 at every fixed confidence for sufficiently large width, with the same
-storage orders. The theoretical initializers use the dense initialization,
+storage orders. One theoretical initializer uses the dense initialization,
 training data, and finitely many initialization derivatives; no later trained
-weight or dense training trajectory is an input. Subsequent evolution is an
-autonomous nonlinear system with the retained state.
+weight or dense trajectory is an input. The efficient alternatives in
+\Cref{cp:initialization} compute disposable numerical continuations from the
+initial data. Subsequent compressed evolution is an autonomous nonlinear
+system with the stated retained state in either case.
+
+For Legendre and Taylor, the sufficient width is polynomial: for every
+$0<\varepsilon,\delta<1$, the stated sizes and
+\[
+ \norm{f_{\rm model}-f_n}_{\mathcal X}
+ \le\varepsilon\norm{f_n-\widetilde f_n}_{\mathcal X}
+\]
+hold with probability at least $1-\delta$ whenever
+\begin{equation}
+ n\ge\left[c\beta^L
+ (1+m+d+p+\gamma^{-1}+Y^{-1}+\delta^{-1}+\varepsilon^{-1})\right]^c,
+ \label{cp:polynomial-onset}
+\end{equation}
+for an absolute numerical constant $c>0$, local to this width bound.
+For Legendre take $p=0$ and omit
+$Y^{-1}$; Taylor also satisfies \eqref{cp:absolute} on this event.
+This strengthens only the width qualification: the storage formulas, label
+condition, query domains and physical optimizers are unchanged.
 \end{theorem}
+
+\begin{proposition}[Efficient initialization]
+\label{cp:initialization}
+Under \Cref{cp:headline}, Harmonic and Taylor admit the following exact-real
+initializers, at every fixed confidence and sufficiently large width.
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Method & Dense reference & Setup work & Peak setup memory\\
+\midrule
+Harmonic & Supplied matrices
+ & $O(n^2[\log(en)]^{3d/2+1})$ & $O(n^2)$\\
+Taylor & Supplied matrices
+ & $O(n^2[\log(en)]^{5/2})$ & $O(n^2)$\\
+Harmonic & Fresh implicit Gaussian
+ & $O(n[\log(en)]^{9d/2+3})$ & $O(n[\log(en)]^{3d/2+1})$\\
+Taylor & Fresh implicit Gaussian
+ & $O(n[\log(en)]^5)$ & $O(n[\log(en)]^{5/2})$\\
+\bottomrule
+\end{tabular}
+\end{center}
+All four initializers preserve the corresponding retained-state bound,
+the complete-trajectory error $Y/n$, and \eqref{cp:relative}.
+The constants in this table may depend on the separately fixed
+$m,d,p,L,\beta,\gamma,Y$ and confidence. The implicit version is coupled to a
+fresh ordinary Gaussian dense reference; it is not a subquadratic conversion
+of supplied matrices or a prescribed entrywise seed.
+\end{proposition}
+
+The operation model charges scalar arithmetic, comparisons, square roots,
+elementary functions, real activation values and Gaussian samples as
+primitives. Nonprimitive evaluators add their actual work, description and
+scratch. Activation envelopes and a positive population-gap certificate are
+supplied; computing them is not included. No high activation derivatives or
+trained-reference values are inputs. These initializers compute through
+$T=32(m/\gamma)\log(en)$, not merely a short physical-time prefix, then
+discard their working structures. The compressed model starts at time zero.
+The original initialization-jet compiler remains an alternative without an
+efficient work bound. The proof in \Cref{cp:init:proof} and finite-order
+ledgers in \Cref{cp:init:sec:costs} separate all parameter dependencies,
+retained storage and setup memory. Taylor uses the polynomial source and
+accuracy gates above without an additional qualitative source threshold;
+Harmonic retains its eventual source-width qualification.
 
 These are sufficient sizes, not optimality claims. Dense itself has
 $(L-1)n^2+n(d+1)$ weight coordinates. Data storage is additional to the
-Legendre moving-state count. Coordinate counts do not bound precision or
-preprocessing time.
+Legendre moving-state count. Coordinate counts alone do not bound precision
+or preprocessing time; \Cref{cp:initialization} supplies separate arithmetic
+and peak-memory bounds, not a finite-precision guarantee.
 The finite-panel theorem makes no accuracy promise on inputs first supplied
 after initialization. Zero labels give the stationary zero predictor instead.
 The sharp literal-array cost of a frozen-top neural tangent hierarchy is
@@ -256,22 +331,30 @@ history integrals. The other two methods share one geometry-preserving
 selection and one corrected nonlinear optimizer; only their finite source
 bases differ. A last-layer innovation and a deterministic analytic estimate
 give a dense lower bound at a training input. \Cref{cp:assembly} combines
-these ingredients. Every dependency of that argument is supplied below;
-the older decoder, numerical setup-cost alternatives and empirical material
-are outside this theorem-focused copy.
+these ingredients. A quantitative source argument and a third-order Legendre
+history estimate supply the polynomial width refinement. Numerical source
+construction and a two-direction Gaussian sampler prove
+\Cref{cp:initialization}. Every dependency is supplied below; the older
+decoder and empirical material remain outside this manuscript.
 
 \input{compact_fitting}
 \input{compact_foundations}
 \input{compact_legendre}
+\input{compact_width}
 \input{compact_selected}
+\input{compact_initialization}
 \input{compact_feature_learning}
 
 \section{Assembly of the headline theorem}
 \label{cp:assembly}
 \begin{proof}[Proof of \Cref{cp:headline}]
-The preceding constructions provide the stated retained counts and
-initialization-only provenance. Here we verify the probabilistic comparison,
-whose reference is actual dense variability rather than an upper bound.
+The preceding constructions provide the stated retained counts and the
+initialization-jet provenance alternative; the efficient alternatives have
+their own execution proofs. Here we first verify the original asymptotic
+comparison with actual dense variability, not an upper certificate. The
+quantitative width refinement uses its separately proved finite dense lower
+bound rather than claiming polynomial onset for the sharper coefficient
+used in this first argument.
 Fix a confidence budget $0<\delta_0<1$. By \Cref{cp:dense-lower}, for
 sufficiently large width,
 \[
@@ -300,6 +383,12 @@ proves \eqref{cp:relative}, including the stated failure convention.
 For \eqref{cp:absolute}, use the selected-model event at the requested
 confidence. The label assumption stays fixed throughout; no label inequality
 is used to reduce a displayed sample/gap power.
+For the polynomial sufficient width \eqref{cp:polynomial-onset}, apply
+\Cref{cp:poly:width} with the explicit maxima in
+\cref{cp:poly:eq:legendre-final-width,cp:poly:eq:taylor-final-width}.
+That argument supplies its own quantitative actual-dense lower event and
+retains exactly \cref{cp:legendre-size,cp:panel-size}; it does not attach
+polynomial onset to the sharper coefficient in the display above.
 \end{proof}
 
 \input{compact_nth}
