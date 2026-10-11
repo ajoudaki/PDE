@@ -7,7 +7,7 @@ The output is mean(W3 * phi(W2 @ phi(W1))). No numerical width is required.
 import argparse
 import json
 
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 
 def build_mlp(activation="symbolic"):

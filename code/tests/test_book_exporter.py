@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-# This is a standalone command, not part of the numerical pde package.
+# This is a standalone command, not part of the numerical dtdl package.
 _exporter_path = Path(__file__).resolve().parents[1] / "tools/book_pdf/export_book.py"
 _spec = importlib.util.spec_from_file_location("pde_book_exporter", _exporter_path)
 exporter = importlib.util.module_from_spec(_spec)

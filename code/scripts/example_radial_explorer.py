@@ -8,9 +8,9 @@ from pathlib import Path
 
 import torch
 
-from pde.compression import Dense, Legendre, harmonic, taylor, rollout
-from pde.compression_data import toy_data
-from pde.radial_explorer import make_case, write_explorer
+from dtdl.compression import Dense, Legendre, harmonic, taylor, rollout
+from dtdl.compression_data import toy_data
+from dtdl.radial_explorer import make_case, write_explorer
 
 
 def main():
@@ -56,7 +56,7 @@ def main():
     (args.out/'experiments.json').write_text(json.dumps(bundle, allow_nan=False)+'\n')
     write_explorer(args.out/'explorer.html', bundle)
     write_explorer(args.out/'empty_explorer.html', {'cases': []})
-    sources = [Path(__file__), *[Path(__file__).resolve().parents[1] / 'pde' / n for n in
+    sources = [Path(__file__), *[Path(__file__).resolve().parents[1] / 'dtdl' / n for n in
                ('compression.py', 'compression_data.py', 'radial_explorer.py', 'radial_explorer.html')]]
     manifest = dict(environment=dict(python=platform.python_version(), numpy=np.__version__, torch=torch.__version__, device='cpu', numerical_threads=1), purpose='Operational multi-experiment viewer check; no scientific campaign',
                     settings=dict(times=times, step_size=.01, depth=2, label_scale=.1, queries=96),

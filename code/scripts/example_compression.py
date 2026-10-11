@@ -11,9 +11,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from pde.compression import Dense, Legendre, harmonic, taylor, rollout, storage
-from pde.compression_data import toy_data
-from pde.prediction_views import plot_circle, plot_sphere, write_viewer
+from dtdl.compression import Dense, Legendre, harmonic, taylor, rollout, storage
+from dtdl.compression_data import toy_data
+from dtdl.prediction_views import plot_circle, plot_sphere, write_viewer
 
 
 def main():
@@ -63,7 +63,7 @@ def main():
                      training_labels=data.train_labels,
                      title=f"{geometry.title()}: short numerical example")
         reports.append(dict(geometry=geometry, dataset=data.provenance, methods=methods))
-    sources = [Path(__file__), *[Path(__file__).resolve().parents[1] / 'pde' / name for name in
+    sources = [Path(__file__), *[Path(__file__).resolve().parents[1] / 'dtdl' / name for name in
                ("compression_data.py", "prediction_views.py", "compression.py")]]
     manifest = dict(
         purpose="Operational integration example, not an approximation experiment or theorem certificate",

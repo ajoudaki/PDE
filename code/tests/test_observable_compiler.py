@@ -5,12 +5,12 @@ import unittest
 
 import numpy as np
 
-from pde.observable_arithmetic import Arithmetic, gaussian_points
-from pde.observable_compiler import (
+from dtdl.observable_arithmetic import Arithmetic, gaussian_points
+from dtdl.observable_compiler import (
     GaussianCompiler, CompilerLimits, CompilerResourceLimit,
     CompilerNumericalError, compile_raw_dictionary,
 )
-from pde import observable_words as words
+from dtdl import observable_words as words
 
 
 def sine_pilot():

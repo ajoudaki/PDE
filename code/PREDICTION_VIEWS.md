@@ -4,7 +4,7 @@ For the original **multi-experiment interactive radial explorer**, including
 time/loss alignment and width/seed selection, see [RADIAL_EXPLORER.md](RADIAL_EXPLORER.md).
 The functions below provide static plots and simpler array-preview viewers.
 
-`pde.prediction_views` supplies radial circle plots, sphere prediction/error plots,
+`dtdl.prediction_views` supplies radial circle plots, sphere prediction/error plots,
 and standalone HTML viewers. It consumes supplied arrays and performs no model
 evaluation, training, archive loading, or experiment selection. The module
 imports NumPy; static plots additionally need Matplotlib. Generated viewers
@@ -16,7 +16,7 @@ libraries.
 Let $N$ be query count and $T$ saved frame count. `queries` is a finite array
 of shape `(N,2)` for the circle or `(N,3)` for the sphere, with unit rows.
 These directions are the normalized model inputs $v=x/\sqrt d$ used by
-`pde.compression`; no further normalization is applied. `predictions`
+`dtdl.compression`; no further normalization is applied. `predictions`
 maps nonempty model names to finite arrays of shape `(N,)` or `(T,N)`.
 All entries must have the same shape after promoting `(N,)` to `(1,N)`;
 there is no implicit broadcasting, time alignment, or query reordering across
@@ -99,9 +99,9 @@ encoded in these displays.
 
 ## One reproducible core example
 
-[example_compression.py](scripts/example_compression.py) connects `pde.compression_data.toy_data`
+[example_compression.py](scripts/example_compression.py) connects `dtdl.compression_data.toy_data`
 to the existing Dense, Legendre, Harmonic, and Taylor implementations in
-`pde.compression`, then calls these visualization functions. It uses four
+`dtdl.compression`, then calls these visualization functions. It uses four
 training directions, 96 query directions, width 64, hidden depth two, and just
 three saved times through `0.04` in dimensions two and three. This is an
 operational integration check, not an approximation experiment or certificate.

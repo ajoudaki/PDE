@@ -11,10 +11,10 @@ from unittest.mock import patch
 import numpy as np
 
 
-from pde import observable_words as words
-from pde import observable_arithmetic as arithmetic
-from pde import observable_compiler as compiler
-from pde import observable_initialization as initialization
+from dtdl import observable_words as words
+from dtdl import observable_arithmetic as arithmetic
+from dtdl import observable_compiler as compiler
+from dtdl import observable_initialization as initialization
 
 
 class ExactWordChecks(unittest.TestCase):
@@ -30,7 +30,7 @@ class ExactWordChecks(unittest.TestCase):
         return result
 
     def test_natural_code_mapping_matches_maintained_prefix_2048(self):
-        from pde.observable_closure import decode_word as maintained_decode
+        from dtdl.observable_closure import decode_word as maintained_decode
         for code in range(2049):
             exact, previous = words.decode_word(code), maintained_decode(code)
             self.assertEqual(self.literal_tree_signature(exact),

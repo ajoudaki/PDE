@@ -1,8 +1,8 @@
 # Symbolic mean-field peeling calculus
 
-`pde.mfp_compiler` builds a finite typed program, differentiates it at finite
+`dtdl.mfp_compiler` builds a finite typed program, differentiates it at finite
 width, and compiles its scalar output to a Gaussian expectation graph. Import
-it explicitly; its names are not added to `pde`'s top-level exports. The
+it explicitly; its names are not added to `dtdl`'s top-level exports. The
 [finite-program theorem](../docs/02-gaussian-reuse.qmd#sec-mfp-finite-derivative-programs)
 supplies the width-limit justification under its stated assumptions. Software
 tests check the implementation, not that theorem.
@@ -14,7 +14,7 @@ observable below has finite expectation `2 + 1/n`, whereas `compile` returns
 integrals remain explicit integrals.
 
 Use Python 3.10+ and the maintained package's NumPy dependency. These three new
-modules themselves use only the standard library; importing their parent `pde`
+modules themselves use only the standard library; importing their parent `dtdl`
 also imports its existing NumPy finite-network API. From the edition root:
 
 ```sh
@@ -42,7 +42,7 @@ A named matrix has iid Gaussian entries of variance `1/n`. Calls to `W.T` use
 the same parameter as calls to `W`. Both types have width `n`.
 
 ```python
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 p = Program()
 lower, upper = p.vector_type("lower"), p.vector_type("upper")
@@ -140,7 +140,7 @@ derivatives, giving the straight path through the initial point. With
 vector field. Its second derivative is `D²O[V,V] + DO[DV[V]]`.
 
 ```python
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 p = Program()
 kind = p.vector_type("neurons")
@@ -185,7 +185,7 @@ parameter coefficients. This complete example uses `x(t)=x+t*x**2-t**2*x`, with
 both coefficients evaluated at the base state and fixed on the path:
 
 ```python
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 p = Program()
 x = p.root("x", p.vector_type("neurons"))
@@ -215,7 +215,7 @@ They are not allowed to depend on random coordinates or scalar averages.
 The helper does not assert loss decrease or step stability.
 
 ```python
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 p = Program()
 lower, upper = p.vector_type("lower"), p.vector_type("upper")
@@ -369,12 +369,12 @@ are inspection outputs, not a serializer for recreating an editable `Program`.
 
 Two distinct derivative engines are exposed. `Program.directional` and
 `Program.gradient` propagate through the finite typed graph, including scalar
-feedback and reused parameters. `pde.mfp_expr.diff` takes named scalar-source
+feedback and reused parameters. `dtdl.mfp_expr.diff` takes named scalar-source
 partials inside Gaussian evaluation, holding all other symbols, including
 previous expectation coefficients, fixed. Singular covariance does not identify
 formal variables before these partials are taken.
 
-The supporting `pde.mfp_expr` factories are `const`, `symbol`, and `phi`; its
+The supporting `dtdl.mfp_expr` factories are `const`, `symbol`, and `phi`; its
 operations include `diff`, `expand`, `substitute`, `evaluate`, `render`, and
 `gaussian_expectation`. Substitution is simultaneous and structural.
 `evaluate(expr, values, activation)` calls `activation(order, value)` for
@@ -385,11 +385,11 @@ is checked structurally, while positive semidefiniteness is the caller's
 obligation at this lower level. Polynomial terms reduce by Wick's rule; flat
 activation products use terminating Stein reduction. Nested activation
 integrals remain atoms. Rational moment checks compare the specialized reducer
-with the maintained `pde.gaussian_moments.gaussian_moment` API, whose stricter
+with the maintained `dtdl.gaussian_moments.gaussian_moment` API, whose stricter
 no-float input contract is unchanged.
 
 The independent interpreter is
-`pde.mfp_finite.evaluate_finite(output, width, roots, matrices, parameters=None,
+`dtdl.mfp_finite.evaluate_finite(output, width, roots, matrices, parameters=None,
 activation=None)`. It evaluates actual supplied arrays and never samples the
 initialization law. Pass finite Python lists/tuples and actual stored matrix
 entries, with no extra matrix rescaling. All required root/matrix/parameter
@@ -402,8 +402,8 @@ floating operation avoids overflow or underflow.
 
 ```python
 from fractions import Fraction
-from pde.mfp_compiler import Program
-from pde.mfp_finite import evaluate_finite
+from dtdl.mfp_compiler import Program
+from dtdl.mfp_finite import evaluate_finite
 
 p = Program()
 x = p.root("x", p.vector_type("neurons"))

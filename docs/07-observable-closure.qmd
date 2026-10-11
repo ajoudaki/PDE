@@ -1115,7 +1115,7 @@ depth- or time-uniform extension of the fixed-program theorem.
 The following is a reusable, finite algebraic part of the calculus. It is
 not a claim that a high-order compiler, an infinite Taylor series, or a
 positive-time population evolution has been verified. The implementation
-`pde.exact_calculus` supplies a canonical forest key, rational finite-series
+`dtdl.exact_calculus` supplies a canonical forest key, rational finite-series
 reversion, rational determinants, and one completely specified certificate.
 No retained table is an input to these operations. The [decorated-forest factorization and canonical keys](02-gaussian-reuse.qmd#sec-docs-gaussian-calculus-l2165) are developed in the MFP chapter.
 
@@ -1565,7 +1565,7 @@ This is the sole finite numeric certificate used here. The complete
 boundary dependency is [Section 7.2](07-observable-closure.qmd#sec-docs-gaussian-calculus-l2156) from ([-@eq-docs-gaussian-calculus-l2254]) through ([-@eq-docs-gaussian-calculus-l2381]): its exact
 frozen-row reduction, Gaussian-moment limit, monomial recurrence, formal
 reversion, six moments, and witness multiplication. The existing
-`pde.exact_calculus.quadratic_axis_certificate()` regenerates that
+`dtdl.exact_calculus.quadratic_axis_certificate()` regenerates that
 calculation from its monomial rule, without reading retained arrays.
 
 The function
@@ -4458,7 +4458,7 @@ its actual transpose is used for the reverse action.
 
 ### Numerical construction and cost {#sec-docs-observable-p1-l158}
 
-`pde.observable_p1_initialization.initialize(d, particles, seed, ...)` returns b1,g,p1,b2,p2,D
+`dtdl.observable_p1_initialization.initialize(d, particles, seed, ...)` returns b1,g,p1,b2,p2,D
 and metadata. With the ordinary iid population rule their shapes are
 $(P,1+2d)$, $(P,d)$, $(P)$, $(P,1+d)$, $(P)$, and $(1+d,1+2d)$. Independent lower G,
 lower reverse noise, and upper noise use the three recorded child streams of

@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import numpy as np
 
-from pde.compression_data import (binary_mnist_from_arrays, circle_query_inputs, load_binary_mnist,
+from dtdl.compression_data import (binary_mnist_from_arrays, circle_query_inputs, load_binary_mnist,
                        toy_data, toy_target)
 
 
@@ -191,7 +191,7 @@ class BinaryMNISTTests(unittest.TestCase):
 class IntegrationTests(unittest.TestCase):
     def test_direct_float64_tensor_conversion_and_short_core_step(self):
         import torch
-        from pde.compression import Dense, Legendre, step
+        from dtdl.compression import Dense, Legendre, step
 
         data = toy_data(3, train_samples=4, query_samples=7, seed=17, label_scale=.1)
         inputs, labels, query = [torch.from_numpy(v) for v in

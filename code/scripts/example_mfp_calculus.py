@@ -2,7 +2,7 @@
 import argparse
 import json
 
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 
 def reuse():

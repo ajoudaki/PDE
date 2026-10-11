@@ -3,7 +3,7 @@
 This independent first-order specialization and supplied-state backend accompany
 [the complete coefficient and finite-equation proof](../docs/07-observable-closure.qmd#sec-docs-observable-p1-l1).
 Use Python 3.10+ and NumPy; tensor operations additionally require PyTorch.
-Ordinary `import pde` stays NumPy-only. Import the optional tensor modules
+Ordinary `import dtdl` stays NumPy-only. Import the optional tensor modules
 explicitly. Validation used NumPy 1.26.4 and Torch 2.9.0+cu130; other versions
 may work but exact cross-version/device restart is not promised.
 
@@ -22,8 +22,8 @@ integers, and step size must be finite positive even at zero steps.
 ```python
 import numpy as np
 import torch
-from pde.observable_torch_p1 import initialize_p1
-from pde.finite_torch import NetworkEngine
+from dtdl.observable_torch_p1 import initialize_p1
+from dtdl.finite_torch import NetworkEngine
 
 U = np.array([[1.,0.,0.],[0.6,0.8,0.],[0.,0.,0.]])
 y = np.array([1.,-1.,0.2])
@@ -47,7 +47,7 @@ The closure instead starts with c=0. Equal numerical seeds do not couple them.
 Heun updates all three blocks simultaneously in each stage. It approximates
 physical GF; it is not raw GD and a finite step need not decrease loss.
 
-`pde.observable_p1_initialization.initialize(d,particles,seed,...)` requires
+`dtdl.observable_p1_initialization.initialize(d,particles,seed,...)` requires
 only NumPy. Its default is iid/unfolded. Scalar coefficient quadrature uses
 128/256 normalized Gaussian-weighted Gauss–Legendre nodes on [-10,10], with
 the larger rule supplying the working coefficients. `coefficients(...)`
@@ -118,7 +118,7 @@ whole panel while evaluating it. Finite panels provide no whole-domain bound.
 ```python
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from pde.observable_torch_p1 import ClosureEngine
+from dtdl.observable_torch_p1 import ClosureEngine
 
 with TemporaryDirectory() as directory:
     checkpoint = Path(directory)/"closure.npz"
@@ -145,7 +145,7 @@ elapsed integration steps; prediction archives do.
 
 ## Comparison semantics
 
-`pde.closure_comparison` takes explicit arrays and requires identical ordered,
+`dtdl.closure_comparison` takes explicit arrays and requires identical ordered,
 unique integer/string IDs for per-image and Gram comparisons. It rejects
 nonfinite/mismatched inputs. `prediction_metrics` reports absolute RMS,
 relative RMS, worst absolute error, correlation and sign disagreements, plus

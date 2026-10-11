@@ -4,7 +4,7 @@ import unittest
 
 import numpy as np
 
-from pde import (
+from dtdl import (
     ARCTAN, IDENTITY, TANH, Activation, Parameters, backward, flow_velocity,
     forward, gd_step, initialize, kernel, kernel_blocks, loss, loss_gradients,
 )

@@ -4,7 +4,7 @@ import math
 import unittest
 from fractions import Fraction
 
-from pde.mfp_expr import (
+from dtdl.mfp_expr import (
     Expr, UnsupportedExpression, const, diff, evaluate, expand,
     gaussian_expectation, phi, render, substitute, symbol, symbols,
 )

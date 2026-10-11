@@ -8,9 +8,9 @@ from pathlib import Path
 
 import numpy as np
 
-from pde.observable_arithmetic import Arithmetic, gaussian_points
-from pde.observable_fixed import Fixed
-from pde.observable_solver import (State, DataLaw, ArcLaw, rhs, loss, predict,
+from dtdl.observable_arithmetic import Arithmetic, gaussian_points
+from dtdl.observable_fixed import Fixed
+from dtdl.observable_solver import (State, DataLaw, ArcLaw, rhs, loss, predict,
     paired_observations, save_restart, load_restart, interpolate_state)
 
 

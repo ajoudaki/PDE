@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import numpy as np
-from pde.closure_comparison import prediction_metrics,gram_metrics
+from dtdl.closure_comparison import prediction_metrics,gram_metrics
 
 
 def analyze(run,repeat=None):

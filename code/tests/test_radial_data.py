@@ -7,8 +7,8 @@ import unittest
 
 import numpy as np
 
-from pde.compression_data import toy_data
-from pde.radial_explorer import make_case, normalize_bundle, write_explorer
+from dtdl.compression_data import toy_data
+from dtdl.radial_explorer import make_case, normalize_bundle, write_explorer
 
 
 

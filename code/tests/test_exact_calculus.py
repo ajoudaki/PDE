@@ -5,7 +5,7 @@ from itertools import permutations, product
 from math import factorial
 import unittest
 
-from pde.exact_calculus import (
+from dtdl.exact_calculus import (
     determinant, euler_pullback_words, forest_key, paired_euler_weights,
     quadratic_axis_certificate, revert_series,
 )
@@ -270,7 +270,7 @@ class GeneralForestCalculusTests(unittest.TestCase):
         return value/n**(len(forest.edges)//2 + forest.components)
 
     def test_finite_equality_partitions_against_unrestricted_label_sums(self):
-        from pde.exact_calculus import GaussianForest, forest_expectation
+        from dtdl.exact_calculus import GaussianForest, forest_expectation
         forests = [
             GaussianForest((), ()),
             GaussianForest(((1, 2),), ()),
@@ -290,7 +290,7 @@ class GeneralForestCalculusTests(unittest.TestCase):
         self.assertEqual(forest_expectation(odd), 0)
 
     def test_derivative_polynomials_against_raw_ward_identities(self):
-        from pde.exact_calculus import GaussianForest, quadratic_forest_derivatives, forest_expectation
+        from dtdl.exact_calculus import GaussianForest, quadratic_forest_derivatives, forest_expectation
         root = GaussianForest(((1, 1), (2, 2), (2, 2)), ((0, 1), (0, 2)))
         hidden = GaussianForest(((2, 2),), ())
         output_jets = quadratic_forest_derivatives(root, 2, alpha=Fraction(2, 3), beta=Fraction(4, 5))
@@ -318,7 +318,7 @@ class GeneralForestCalculusTests(unittest.TestCase):
         self.assertEqual(sum(coef*forest_expectation(term) for term, coef in boundary.items()), 63)
 
     def test_simultaneous_euler_forest_pullback_against_direct_raw_vectors(self):
-        from pde.exact_calculus import GaussianForest, quadratic_euler_pullback
+        from dtdl.exact_calculus import GaussianForest, quadratic_euler_pullback
         n = 2
         a, u = [Fraction(1, 2), Fraction(-2, 3)], [Fraction(2, 3), Fraction(-1, 4)]
         g = [[Fraction(1, 3), Fraction(2, 5)], [Fraction(-1, 2), Fraction(3, 7)]]
@@ -342,7 +342,7 @@ class GeneralForestCalculusTests(unittest.TestCase):
                                  self.value(root, aa, uu, gg))
 
     def test_weighted_parameter_tree_tensor_meaning(self):
-        from pde.exact_calculus import gradient_tree_terms
+        from dtdl.exact_calculus import gradient_tree_terms
         from math import factorial
         # f(x)=x^3/3, M=2, x=1. D=2*x^2*d/dx supplies a direct scalar check.
         derivatives = [Fraction(1, 3), Fraction(1), Fraction(2), Fraction(2)]
@@ -364,7 +364,7 @@ class GeneralForestCalculusTests(unittest.TestCase):
             expected *= 2*(order+3)
 
     def test_forest_domains_canonicalization_and_owned_polynomials(self):
-        from pde.exact_calculus import (GaussianForest, forest_expectation,
+        from dtdl.exact_calculus import (GaussianForest, forest_expectation,
             quadratic_forest_derivatives, quadratic_euler_pullback, gradient_tree_terms)
         colors, edges = [[1, 0], [2, 2], [2, 2]], [[0, 1], [0, 2]]
         forest = GaussianForest(colors, edges)
@@ -396,7 +396,7 @@ class GeneralForestCalculusTests(unittest.TestCase):
 
 class FiniteCertificateExtensionTests(unittest.TestCase):
     def test_singular_and_nonsingular_next_hankel_thresholds(self):
-        from pde.exact_calculus import next_hankel_threshold, determinant
+        from dtdl.exact_calculus import next_hankel_threshold, determinant
         self.assertEqual(next_hankel_threshold([], []), 0)
         self.assertEqual(next_hankel_threshold([[1, 2], [2, 4]], [3, 6]), 9)
         self.assertEqual(next_hankel_threshold([[0, 0], [0, 2]], [0, 3]), Fraction(9, 2))
@@ -412,7 +412,7 @@ class FiniteCertificateExtensionTests(unittest.TestCase):
                 next_hankel_threshold(A, b)
 
     def test_bernstein_interval_conversion_and_degree_elevation(self):
-        from pde.exact_calculus import bernstein_coefficients
+        from dtdl.exact_calculus import bernstein_coefficients
         from math import comb
         coefficients = [Fraction(2), Fraction(-3), Fraction(5), Fraction(-7)]
         left, right = Fraction(-2, 3), Fraction(4, 5)
@@ -431,7 +431,7 @@ class FiniteCertificateExtensionTests(unittest.TestCase):
             bernstein_coefficients([1], 0, 1, degree=True)
 
     def test_identity_shallow_step_matches_raw_vectors(self):
-        from pde.exact_calculus import identity_shallow_step
+        from dtdl.exact_calculus import identity_shallow_step
         a, u = [Fraction(1, 2), Fraction(-2, 3)], [Fraction(2, 5), Fraction(3, 7)]
         f = sum(x*y for x, y in zip(a, u))/2
         q = sum(x*x+y*y for x, y in zip(a, u))/2
@@ -454,7 +454,7 @@ class GaussianHeadTests(unittest.TestCase):
         # Rank-one blocks allow integration against two independent Gaussians.
         # Rational interpolatory quadrature is exact on degree-eight polynomials;
         # the independent oracle composes time series, not the Bell graph.
-        from pde.exact_calculus import gaussian_hidden_head
+        from dtdl.exact_calculus import gaussian_hidden_head
         u, v = [1, 2, -1, 3, -2], [1, -2, 1, 3]
         covariance = [[Q(u[i]*u[j]) if i < 5 and j < 5 else
                        Q(v[i-5]*v[j-5]) if i >= 5 and j >= 5 else Q(0)
@@ -524,7 +524,7 @@ class GaussianHeadTests(unittest.TestCase):
                          2*result['gamma']+8*result['gram13']+6*result['gram22'])
 
     def test_head_domains_constant_and_owned_results(self):
-        from pde.exact_calculus import gaussian_hidden_head
+        from dtdl.exact_calculus import gaussian_hidden_head
         import copy
         covariance = [[int(i == j) for j in range(9)] for i in range(9)]
         rates = dict.fromkeys(('lambda1', 'lambda2', 'lambda30', 'lambda32',

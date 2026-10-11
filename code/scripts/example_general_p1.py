@@ -17,9 +17,9 @@ for variable in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS'):
     os.environ[variable]='1'
 import numpy as np
 import torch
-from pde.observable_torch_p1 import initialize_p1
-from pde.finite_torch import NetworkEngine
-from pde.closure_comparison import prediction_metrics, gram_metrics
+from dtdl.observable_torch_p1 import initialize_p1
+from dtdl.finite_torch import NetworkEngine
+from dtdl.closure_comparison import prediction_metrics, gram_metrics
 
 
 def main():
@@ -103,7 +103,7 @@ def run(args):
     np.savez(args.output/'observations.npz',**arrays)
     sync();timings['observation_analysis_checkpoint_array_write_seconds']=time.perf_counter()-tick
     source_root=Path(__file__).resolve().parents[1]
-    paths=[Path(__file__),*(source_root/'pde'/name for name in ('observable_p1_initialization.py','observable_torch_p1.py','finite_torch.py','finite_network.py','closure_comparison.py'))]
+    paths=[Path(__file__),*(source_root/'dtdl'/name for name in ('observable_p1_initialization.py','observable_torch_p1.py','finite_torch.py','finite_network.py','closure_comparison.py'))]
     record=dict(scope='finite synthetic/supplied-input operation only; no accuracy or speed claim',seed=101,
                 width=16,nominal_population_nodes=16,stored_population_nodes=8,closure_order=1,
                 dimension=U.shape[1],samples=len(U),time=.05,step=.005,steps=10,device=args.device,

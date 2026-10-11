@@ -4,10 +4,10 @@ import unittest
 
 import numpy as np
 
-from pde.finite_network import (
+from dtdl.finite_network import (
     Activation, IDENTITY, Parameters, flow_velocity, forward, kernel_blocks,
 )
-from pde.finite_reductions import (
+from dtdl.finite_reductions import (
     frozen_quadratic, frozen_quadratic_step, mixed_lax, mixed_quadratic,
     rms_quadratic,
 )

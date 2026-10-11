@@ -9,10 +9,10 @@ from fractions import Fraction as F
 from math import factorial
 import unittest
 
-from pde import mfp_expr as ex
-from pde.gaussian_moments import gaussian_moment
-from pde.mfp_compiler import Node, Program, ProgramError
-from pde.mfp_finite import evaluate_finite
+from dtdl import mfp_expr as ex
+from dtdl.gaussian_moments import gaussian_moment
+from dtdl.mfp_compiler import Node, Program, ProgramError
+from dtdl.mfp_finite import evaluate_finite
 from scripts.example_mfp_calculus import gradient_update
 
 

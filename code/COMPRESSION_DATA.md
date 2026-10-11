@@ -1,6 +1,6 @@
 # Unit-row toy tasks and binary MNIST
 
-`pde.compression_data` is a NumPy module for circle/sphere targets and
+`dtdl.compression_data` is a NumPy module for circle/sphere targets and
 raw binary MNIST. It returns a `Dataset` with `train_inputs`, `train_labels`,
 `query_inputs`, `query_labels`, split-qualified `train_ids` / `query_ids`, and
 JSON-serializable `provenance`. Input shapes are `(count,d)`, label shapes are
@@ -9,8 +9,8 @@ imported, no training is started, and no global random state is changed.
 
 For the maintained book's physical input $x_a\in\mathbb R^d$, each returned row
 is $v_a=x_a/\sqrt d$, with $\|v_a\|_2=1$. These are already the rows expected by
-`pde.compression`: do not divide by another $\sqrt d$. The maintained
-`code/pde` column convention instead uses `X = sqrt(d) * data.train_inputs.T`.
+`dtdl.compression`: do not divide by another $\sqrt d$. The maintained
+`code/dtdl` column convention instead uses `X = sqrt(d) * data.train_inputs.T`.
 The module does not whiten the input Gram or change input correlations.
 
 ## Toy recipe
@@ -44,8 +44,8 @@ Dimension one and a zero training-target RMS are rejected.
 
 ```python
 import torch
-from pde.compression_data import toy_data
-from pde.compression import Dense, rollout
+from dtdl.compression_data import toy_data
+from dtdl.compression import Dense, rollout
 
 data = toy_data(dimension=3, train_samples=4, query_samples=30,
                 seed=47, label_scale=.1)
@@ -86,7 +86,7 @@ Selected zero images fail. Query labels are supplied for scoring; callers
 must not pass them to a source constructor that is allowed only query inputs.
 
 ```python
-from pde.compression_data import load_binary_mnist
+from dtdl.compression_data import load_binary_mnist
 
 # Use an existing local cache. No download is requested.
 data = load_binary_mnist(

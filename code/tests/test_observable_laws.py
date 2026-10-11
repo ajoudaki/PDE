@@ -29,9 +29,9 @@ import unittest
 
 import numpy as np
 
-from pde.observable_arithmetic import Arithmetic
-from pde.observable_solver import State, save_restart, load_restart
-from pde.observable_laws import (IntegerExpression as E, DyadicRadius, RationalRadius,
+from dtdl.observable_arithmetic import Arithmetic
+from dtdl.observable_solver import State, save_restart, load_restart
+from dtdl.observable_laws import (IntegerExpression as E, DyadicRadius, RationalRadius,
                      OrthogonalArcLaw, LawLimits, LawResourceLimit,
                      radius_from_record, _fraction_from_record, _working_fraction,
                      supported_radius, supported_law)

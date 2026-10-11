@@ -19,8 +19,8 @@ import torch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'code'))
-from pde import observable_solver as cpu
-from pde import observable_torch_circle as backend
+from dtdl import observable_solver as cpu
+from dtdl import observable_torch_circle as backend
 
 
 def main():
@@ -48,7 +48,7 @@ def main():
                device=str(device),cuda=torch.version.cuda,tf32=False,
                cublas_workspace_config=os.environ.get('CUBLAS_WORKSPACE_CONFIG'),
                device_name=torch.cuda.get_device_name(device) if device.type=='cuda' else 'CPU'),runs=[])
-    sources=[Path(__file__),*sorted((ROOT/'code/pde').glob('*.py'))]
+    sources=[Path(__file__),*sorted((ROOT/'code/dtdl').glob('*.py'))]
     record['sources']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
     (out/'record.json').write_text(json.dumps(record,indent=2)+'\n')
     began=time.monotonic()

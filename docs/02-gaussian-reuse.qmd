@@ -221,7 +221,7 @@ Apply this identity to $P(X)=\prod_jX_j^{\alpha_j-\mathbf{1}_{j=i}}$ to obtain (
 Every nonzero summand reduces total degree by two. Induction therefore proves
 termination and correctness of the moment recurrence. With rational covariance
 all its arithmetic is rational, and linearity evaluates every polynomial with
-rational coefficients. The exact API `pde.gaussian_moment` implements this
+rational coefficients. The exact API `dtdl.gaussian_moment` implements this
 recurrence using integer and $\mathrm{Fraction}$ inputs; it does not approximate a
 nonpolynomial activation by a polynomial or identify a training limit.
 
@@ -1257,11 +1257,11 @@ reconstruct the feature kernel at positive time.
 ### Symbolic implementation {#sec-mfp-symbolic-interface}
 
 The maintained interface is explicitly imported from
-`pde.mfp_compiler`; it builds typed finite graphs, performs physical
+`dtdl.mfp_compiler`; it builds typed finite graphs, performs physical
 differentiation, and returns @eq-mfp-expectation-graph. For example:
 
 ```python
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 p = Program()
 lower, upper = p.vector_type("lower"), p.vector_type("upper")
@@ -1579,7 +1579,7 @@ line $\theta_0+t\dot\theta_0$ would discard them.
 
 #### Numerical interface and claim boundary {#sec-docs-gaussian-calculus-l2115}
 
-`pde.finite_jets.flow_jet(parameters, inputs, labels,
+`dtdl.finite_jets.flow_jet(parameters, inputs, labels,
 activation_derivative, order=R, kappas=...)` implements ([-@eq-docs-gaussian-calculus-l1940])--([-@eq-docs-gaussian-calculus-l1966]).
 $\mathrm{inputs}$ has shape $(d,1)$ and $\mathrm{labels}$ has shape $(1,)$. Its result has
 $\mathrm{parameter\_coefficients}[k]$ in raw $\mathrm{Parameters}$ storage; each array in
@@ -2791,7 +2791,7 @@ a width-uniform estimate or identification of a common population state.
 
 ### 9.6. Exact rational interface and independent checks {#sec-docs-gaussian-calculus-l3630}
 
-The existing `pde.exact_calculus` module supplies two small operations:
+The existing `dtdl.exact_calculus` module supplies two small operations:
 
 - $\mathrm{euler\_pullback\_words}(\mathrm{order},\mathrm{steps})$ returns a fresh dictionary from
   positive composition tuples $(k_1,\ldots,k_q)$ of $\mathrm{order}$ to the exact

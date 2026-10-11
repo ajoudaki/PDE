@@ -13,9 +13,9 @@ import hashlib
 import platform
 import sys
 
-from pde import mfp_compiler, mfp_expr
+from dtdl import mfp_compiler, mfp_expr
 
-from pde.mfp_compiler import Program
+from dtdl.mfp_compiler import Program
 
 
 def build_example(activation="symbolic"):

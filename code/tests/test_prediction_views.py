@@ -12,7 +12,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
-from pde.prediction_views import plot_circle, plot_sphere, radial_coordinates, sphere_projection, write_viewer
+from dtdl.prediction_views import plot_circle, plot_sphere, radial_coordinates, sphere_projection, write_viewer
 
 
 def _test_scratch():

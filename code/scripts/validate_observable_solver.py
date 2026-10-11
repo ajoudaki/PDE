@@ -16,8 +16,8 @@ import time
 import traceback
 
 import numpy as np
-from pde import observable_fixed, observable_arithmetic, observable_words, observable_compiler, observable_initialization, observable_solver
-from pde.observable_solver import (initialize, ArcLaw, evolve, predict, circle_inputs,
+from dtdl import observable_fixed, observable_arithmetic, observable_words, observable_compiler, observable_initialization, observable_solver
+from dtdl.observable_solver import (initialize, ArcLaw, evolve, predict, circle_inputs,
     paired_observations, loss, save_restart, load_restart, state_bytes)
 
 

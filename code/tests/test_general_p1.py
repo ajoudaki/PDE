@@ -14,14 +14,14 @@ except ModuleNotFoundError as error:
     if error.name != "torch":
         raise
     torch = None
-from pde.observable_p1_initialization import initialize, coefficients, RIDGE
-from pde.observable_initialization import build_dictionary
-from pde.observable_words import constant, decode_word
+from dtdl.observable_p1_initialization import initialize, coefficients, RIDGE
+from dtdl.observable_initialization import build_dictionary
+from dtdl.observable_words import constant, decode_word
 if torch is not None:
-    from pde.observable_torch_p1 import ClosureEngine, TensorState, initialize_p1
-    from pde.finite_torch import NetworkEngine
-from pde.finite_network import Parameters, forward, flow_velocity, initialize as initialize_network
-from pde.closure_comparison import prediction_metrics, gram_metrics, all_seed_pairs, match_training_loss
+    from dtdl.observable_torch_p1 import ClosureEngine, TensorState, initialize_p1
+    from dtdl.finite_torch import NetworkEngine
+from dtdl.finite_network import Parameters, forward, flow_velocity, initialize as initialize_network
+from dtdl.closure_comparison import prediction_metrics, gram_metrics, all_seed_pairs, match_training_loss
 
 DEVICE = os.environ.get("PDE_TEST_DEVICE","cpu")
 if torch is not None:

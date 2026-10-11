@@ -10,9 +10,9 @@ try:
 except ImportError:
     torch = None
 
-from pde import observable_solver as cpu
+from dtdl import observable_solver as cpu
 if torch is not None:
-    from pde import observable_torch_circle as gpu
+    from dtdl import observable_torch_circle as gpu
 
 
 @unittest.skipIf(torch is None,'optional Torch dependency unavailable')

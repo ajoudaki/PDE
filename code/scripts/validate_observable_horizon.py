@@ -19,11 +19,11 @@ import traceback
 
 import numpy as np
 
-from pde import (observable_fixed, observable_arithmetic, observable_words,
+from dtdl import (observable_fixed, observable_arithmetic, observable_words,
                  observable_compiler, observable_initialization, observable_solver,
                  observable_laws)
-from pde.observable_fixed import Fixed
-from pde.observable_laws import (OrthogonalArcLaw, RationalRadius, LawLimits,
+from dtdl.observable_fixed import Fixed
+from dtdl.observable_laws import (OrthogonalArcLaw, RationalRadius, LawLimits,
                                  radius_from_record, supported_radius, supported_law)
 
 

@@ -53,8 +53,8 @@ def _observations(path, dimensions, circle_count):
 def _recount(path, old_bytes):
     # Import only for explicitly requested exact-state memory postprocessing.
     # load_restart validates/reconstructs saved values; no evolution is called.
-    from pde import observable_solver
-    from pde.observable_fixed import Fixed
+    from dtdl import observable_solver
+    from dtdl.observable_fixed import Fixed
     import sys as runtime_sys
 
     state, data = observable_solver.load_restart(path)

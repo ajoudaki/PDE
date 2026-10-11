@@ -8,8 +8,8 @@ from dataclasses import dataclass
 from fractions import Fraction as F
 import unittest
 
-from pde import mfp_expr as ex
-from pde.mfp_finite import evaluate_finite
+from dtdl import mfp_expr as ex
+from dtdl.mfp_finite import evaluate_finite
 from scripts.example_mfp_kernel_jets import build_example, compile_example
 
 

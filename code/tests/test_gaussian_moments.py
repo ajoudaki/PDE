@@ -4,7 +4,7 @@ from copy import deepcopy
 from fractions import Fraction as Q
 import unittest
 
-from pde.gaussian_moments import gaussian_moment
+from dtdl.gaussian_moments import gaussian_moment
 
 
 class GaussianMomentTests(unittest.TestCase):

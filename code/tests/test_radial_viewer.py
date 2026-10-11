@@ -6,7 +6,7 @@ import subprocess
 import tempfile
 import unittest
 
-from pde.radial_explorer import write_explorer
+from dtdl.radial_explorer import write_explorer
 
 
 HARNESS = r'''

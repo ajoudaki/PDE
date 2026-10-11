@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import torch
 
-from pde import compression as c
+from dtdl import compression as c
 
 
 class CompressionChecks(unittest.TestCase):
@@ -298,7 +298,7 @@ class CompressionChecks(unittest.TestCase):
 
 
     def test_dense_matches_maintained_numpy_equations(self):
-        from pde import ARCTAN, TANH, Parameters, flow_velocity, forward
+        from dtdl import ARCTAN, TANH, Parameters, flow_velocity, forward
 
         # Transfer actual tensors: equal seeds across NumPy/Torch do not couple draws.
         for activation, numpy_activation in (('tanh', TANH), ('atan', ARCTAN)):

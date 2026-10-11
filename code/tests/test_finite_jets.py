@@ -6,8 +6,8 @@ import unittest
 
 import numpy as np
 
-from pde import Activation, Parameters, flow_velocity, forward, kernel
-from pde.finite_jets import flow_jet
+from dtdl import Activation, Parameters, flow_velocity, forward, kernel
+from dtdl.finite_jets import flow_jet
 
 
 def identity(j, z):
@@ -304,8 +304,8 @@ class GeneralDepthJetTests(unittest.TestCase):
         return evaluate
 
     def test_every_block_matches_existing_raw_field_at_multiple_depths_and_batch(self):
-        from pde.finite_network import Parameters, Activation, flow_velocity, forward
-        from pde.finite_jets import finite_flow_jets
+        from dtdl.finite_network import Parameters, Activation, flow_velocity, forward
+        from dtdl.finite_jets import finite_flow_jets
         x, y = np.array([[1., -.4], [.3, .8]]), np.array([.7, -.2])
         for depth in (1, 2, 4):
             weights = tuple(np.array([[.3, -.2], [.1, .25]])/(i+1) for i in range(depth))
@@ -329,8 +329,8 @@ class GeneralDepthJetTests(unittest.TestCase):
                 np.testing.assert_allclose(2*got, (ap-am)/(2*eps), rtol=2e-7, atol=2e-10)
 
     def test_fifth_order_shallow_identity_closed_solution(self):
-        from pde.finite_network import Parameters
-        from pde.finite_jets import finite_flow_jets, hidden_gram_jet
+        from dtdl.finite_network import Parameters
+        from dtdl.finite_jets import finite_flow_jets, hidden_gram_jet
         from fractions import Fraction
         p = Parameters((np.array([[.5]]),), np.array([.5]))
         jet = finite_flow_jets(p, [[1.]], [0.], (self.polynomial_oracle([0,1]),), order=5)
@@ -347,8 +347,8 @@ class GeneralDepthJetTests(unittest.TestCase):
         self.assertEqual(jet.backward_coefficients[0].shape, (5,1,1))
 
     def test_new_generalization_agrees_with_preexisting_exact_scope(self):
-        from pde.finite_network import Parameters
-        from pde.finite_jets import finite_flow_jets, flow_jet, hidden_gram_jet
+        from dtdl.finite_network import Parameters
+        from dtdl.finite_jets import finite_flow_jets, flow_jet, hidden_gram_jet
         p=Parameters((np.array([[.3,-.2],[.2,.4]]),np.array([[.1,.3],[-.2,.2]])),np.array([.4,-.3]))
         oracle=self.polynomial_oracle([.1,.7,.2,-.03])
         old=flow_jet(p,[[.5],[.7]],[.2],oracle,order=3)
@@ -361,8 +361,8 @@ class GeneralDepthJetTests(unittest.TestCase):
             np.testing.assert_allclose(hidden_gram_jet(new,2,kind=kind),hidden_gram_jet(old,2,kind=kind))
 
     def test_general_contract_callback_ownership_and_degree_zero(self):
-        from pde.finite_network import Parameters
-        from pde.finite_jets import finite_flow_jets, hidden_gram_jet
+        from dtdl.finite_network import Parameters
+        from dtdl.finite_jets import finite_flow_jets, hidden_gram_jet
         p=Parameters((np.array([[.5]]),),np.array([.2]))
         x=np.array([[1.,2.]])
         original=p.weights[0].copy(); calls=[]; buffer=np.zeros((1,2))
@@ -392,8 +392,8 @@ class GeneralDepthJetTests(unittest.TestCase):
 
 class PreactivationCurvatureTests(unittest.TestCase):
     def test_full_hessians_against_forward_polynomial_second_variations(self):
-        from pde.finite_network import Parameters
-        from pde.finite_jets import preactivation_hessians, preactivation_hessian_words
+        from dtdl.finite_network import Parameters
+        from dtdl.finite_jets import preactivation_hessians, preactivation_hessian_words
         weights=(np.array([[.2,-.1],[.3,.4]]),np.array([[.5,-.2],[.1,.3]]),np.array([[.2,.1],[-.4,.3]]))
         p=Parameters(weights,np.array([.3,-.2]));x=np.array([[.5,-.4],[.2,.7]])
         polys=([.1,.8,.2],[.2,.7],[.0,.4,.3])
@@ -426,8 +426,8 @@ class PreactivationCurvatureTests(unittest.TestCase):
         np.testing.assert_array_equal(result.local_sources[1],np.zeros((2,2,2)))
 
     def test_word_shapes_affine_elimination_and_validation(self):
-        from pde.finite_jets import preactivation_hessian_words, preactivation_hessians
-        from pde.finite_network import Parameters
+        from dtdl.finite_jets import preactivation_hessian_words, preactivation_hessians
+        from dtdl.finite_network import Parameters
         terms=preactivation_hessian_words([2,3,4])
         self.assertEqual(len(terms),3)
         for term in terms:

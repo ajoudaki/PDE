@@ -1,5 +1,10 @@
 # Finite dynamics, moving jets and exact calculus
 
+The maintained Python package is `dtdl`, with `code/` on `PYTHONPATH`.
+The former `pde` imports remain available through compatibility shims: submodules
+and their classes/functions are the same objects as under `dtdl`. New code and
+examples should use `dtdl`; update implementations only in `code/dtdl/`.
+
 This NumPy-only package implements the finite equal-width network in
 [the notation contract](../docs/notation.qmd) and
 [the finite-dynamics material](../docs/01-training-geometry.qmd#sec-docs-finite-dynamics-l1).
@@ -15,8 +20,8 @@ are documented in [the MFP calculus guide](MFP_CALCULUS.md).
 
 ## Optional compression, datasets and prediction views
 
-Explicitly import `pde.compression` for the Torch Dense, Legendre and
-selected-coordinate models; `pde.observable_dictionaries` adapts initialized
+Explicitly import `dtdl.compression` for the Torch Dense, Legendre and
+selected-coordinate models; `dtdl.observable_dictionaries` adapts initialized
 finite carriers to the existing closure engine. Their numerical source builders
 are **not a certified global initialization-only compiler**. See the complete
 [compression contract and commands](COMPRESSION.md) and
@@ -25,7 +30,7 @@ are **not a certified global initialization-only compiler**. See the complete
 [Datasets](COMPRESSION_DATA.md), [array prediction views](PREDICTION_VIEWS.md)
 and the [offline radial explorer](RADIAL_EXPLORER.md) are separate NumPy-only
 modules. Static plots opt into Matplotlib; explicit MNIST loading opts into
-TorchVision. Ordinary `import pde` remains NumPy-only.
+TorchVision. Ordinary `import dtdl` remains NumPy-only.
 
 ## Model and normalization
 
@@ -112,7 +117,7 @@ Run Python with `code/` on its import path:
 
 ```python
 import numpy as np
-from pde import ARCTAN, forward, gd_step, initialize, kernel, loss
+from dtdl import ARCTAN, forward, gd_step, initialize, kernel, loss
 
 X = np.sqrt(2.0) * np.array([[1.0, 0.6, -1.0], [0.0, 0.8, 0.0]])
 y = np.array([1.0, -0.5, -1.0])
@@ -159,7 +164,7 @@ zero covariance are accepted. No rounding or PSD tolerance is used.
 
 ```python
 from fractions import Fraction
-from pde import gaussian_moment
+from dtdl import gaussian_moment
 
 sigma = [[2, Fraction(1, 3)], [Fraction(1, 3), 3]]
 assert gaussian_moment(sigma, [2, 2]) == Fraction(56, 9)
@@ -178,7 +183,7 @@ Validation costs `O(d³)` rational operations. The recurrence visits at most
 depth at most `1 + sum(powers)/2`. Both state count and rational bit sizes can
 grow rapidly; this API is intended for small exact moments. It performs no
 numerical quadrature and claims no population-limit theorem. The module uses
-only the standard library; the public `pde` package also imports the NumPy
+only the standard library; the public `dtdl` package also imports the NumPy
 finite-network API.
 
 Moment tests check known uni-/bi-/trivariate formulas, negative correlations,
@@ -188,7 +193,7 @@ cross-call caches.
 
 ## Symbolic finite Gaussian programs
 
-`from pde.mfp_compiler import Program` builds typed finite expressions, exact
+`from dtdl.mfp_compiler import Program` builds typed finite expressions, exact
 physical derivatives, normalized gradients, represented updates and finite jets.
 Gaussian compilation returns the scalar width limit as an explicit expectation
 graph; it does not compute a finite-width expectation or numerical quadrature.
@@ -199,7 +204,7 @@ expression growth; this is not a positive-time population solver.
 
 ## Moving physical-flow jets
 
-`from pde.finite_jets import flow_jet` supplies a bounded derivative oracle
+`from dtdl.finite_jets import flow_jet` supplies a bounded derivative oracle
 for exactly two hidden layers and one sample. It takes an existing finite
 `Parameters` state, `(d,1)` inputs, one label, positive block multipliers,
 and one shared C3 activation's derivative callback. It supports ordinary
@@ -208,8 +213,8 @@ initialization or population replacement is performed.
 
 ```python
 import numpy as np
-from pde import Parameters
-from pde.finite_jets import flow_jet
+from dtdl import Parameters
+from dtdl.finite_jets import flow_jet
 
 theta = Parameters(([[0.2]], [[0.3]]), [0.4])
 def derivative(j, z):
@@ -255,7 +260,7 @@ not an infinite-width identification or positive-time Taylor error theorem.
 ## Forest keys and exact finite certificates
 
 Import `forest_key`, `revert_series`, `determinant`, and
-`quadratic_axis_certificate` from `pde.exact_calculus`. These operations draw
+`quadratic_axis_certificate` from `dtdl.exact_calculus`. These operations draw
 no random numbers and write no files.
 
 `forest_key(colors, edges)` accepts a finite simple bipartite forest. A vertex
@@ -281,7 +286,7 @@ implementation, and elimination uses `O(N³)`. Rational bit sizes can grow.
 The fixed certificate can be regenerated from the repository root by:
 
 ```sh
-PYTHONPATH=code PYTHONDONTWRITEBYTECODE=1 python -B -c 'from pde.exact_calculus import quadratic_axis_certificate; c = quadratic_axis_certificate(); print(c["shifted_determinant"]); print(c["witness_value"])'
+PYTHONPATH=code PYTHONDONTWRITEBYTECODE=1 python -B -c 'from dtdl.exact_calculus import quadratic_axis_certificate; c = quadratic_axis_certificate(); print(c["shifted_determinant"]); print(c["witness_value"])'
 ```
 
 It prints the two negative rational quantities proved in the calculus chapter.
@@ -305,7 +310,7 @@ historical campaign output, or empirical figure is incorporated by these tests.
 
 ## Finite quadratic and RMS reductions
 
-`pde.finite_reductions` evaluates three small, exactly specified finite
+`dtdl.finite_reductions` evaluates three small, exactly specified finite
 models from Sections 5–7 of the finite-dynamics chapter. All calls require
 the existing `Parameters` structure with two hidden layers and input
 dimension one. The datum is fixed to `x=1`; `label` is a finite real scalar.
@@ -313,8 +318,8 @@ The first and readout mobilities are `n`, and the middle mobility is one.
 These APIs evaluate a state; they do not integrate a trajectory.
 
 ```python
-from pde import Parameters
-from pde.finite_reductions import mixed_lax, mixed_quadratic, rms_quadratic
+from dtdl import Parameters
+from dtdl.finite_reductions import mixed_lax, mixed_quadratic, rms_quadratic
 
 theta = Parameters(([[0.5], [1.0]], [[0.2, -0.1], [0.3, 0.4]]), [0.5, -0.2])
 mixed = mixed_quadratic(theta, 1.0, model="QI")
@@ -381,12 +386,12 @@ invariance and array ownership. No training run or generated dataset is used.
 
 ## Exact Euler pullback words
 
-`pde.exact_calculus` also supplies the finite operator weights proved in
+`dtdl.exact_calculus` also supplies the finite operator weights proved in
 Section 9 of the Gaussian/flow-calculus chapter:
 
 ```python
 from fractions import Fraction
-from pde.exact_calculus import euler_pullback_words, paired_euler_weights
+from dtdl.exact_calculus import euler_pullback_words, paired_euler_weights
 
 assert euler_pullback_words(2, 2) == {(2,): Fraction(2), (1, 1): Fraction(1)}
 assert paired_euler_weights(2) == ((Fraction(0), Fraction(-2)),
@@ -432,7 +437,7 @@ below take the current readout `a`, preactivation `z=B@h`, and fixed second
 moment `Q=h@h/n`. No initialization or first-layer update occurs.
 
 ```python
-from pde.finite_reductions import frozen_quadratic, frozen_quadratic_step
+from dtdl.finite_reductions import frozen_quadratic, frozen_quadratic_step
 
 a, z, Q = [0.3, -0.8], [0.4, -0.2], 0.7
 state = frozen_quadratic(a, z, Q, label=1.0)
@@ -477,8 +482,8 @@ initialization and computes no time trajectory.
 
 ```python
 import numpy as np
-from pde.finite_network import Parameters
-from pde.finite_jets import (
+from dtdl.finite_network import Parameters
+from dtdl.finite_jets import (
     finite_flow_jets, hidden_gram_jet, preactivation_hessians,
     preactivation_hessian_words,
 )
@@ -549,7 +554,7 @@ load coefficients, run training, retain caches, mutate inputs, or write files.
 
 ```python
 from fractions import Fraction
-from pde.exact_calculus import (
+from dtdl.exact_calculus import (
     GaussianForest, forest_expectation, quadratic_forest_derivatives,
     quadratic_euler_pullback, gradient_tree_terms, identity_shallow_step,
     next_hankel_threshold, bernstein_coefficients,
@@ -651,7 +656,7 @@ are both necessary for the sign; a floating positive estimate is insufficient.
 
 ## Finite autonomous observable population closure
 
-`pde.observable_closure` exposes the finite population/action construction in
+`dtdl.observable_closure` exposes the finite population/action construction in
 [the finite autonomous closure](../docs/07-observable-closure.qmd#sec-docs-global-nonlinear-l12084).
 Its exact-real population theorem is qualitative. This module is a minimal
 float64 quadrature prototype, with a finite weighted data-law API and static
@@ -712,7 +717,7 @@ it is not an exact flow solution or a guarantee of loss decrease.
 From the repository root with `PYTHONPATH=code`:
 
 ```python
-from pde import observable_closure as closure
+from dtdl import observable_closure as closure
 
 state, initialization_program = closure.initialize(
     1, closure.QuadratureLimits(order=5, max_nodes=100000)
@@ -774,7 +779,7 @@ PYTHONPATH=code python -B code/tests/test_observable_closure.py
 
 `H2_TEST_SCRATCH` selects the temporary archive directory; no retained output is
 an input to these tests. `H2_PROTOTYPE_MODULE` can override the import for isolated
-checks; its installed default is `pde.observable_closure`.
+checks; its installed default is `dtdl.observable_closure`.
 
 
 ## Finite numerical observable closure
@@ -803,7 +808,7 @@ The family and this horizon are independent of every resolution parameter.
 
 ```python
 from fractions import Fraction
-from pde.observable_solver import (
+from dtdl.observable_solver import (
     initialize, ArcLaw, evolve, predict, circle_inputs,
     paired_observations, save_restart, load_restart,
 )
@@ -838,9 +843,9 @@ exhaustive bounded-word prefix. Once that prefix introduces new actions,
 initialization dispatches to the full joint Gaussian compiler; its cost may
 grow substantially. Practical computation at every order is not promised.
 
-`InitializationLimits` from `pde.observable_initialization` controls feature,
+`InitializationLimits` from `dtdl.observable_initialization` controls feature,
 word, integration point, estimated work and estimated memory allowances.
-`CompilerLimits` from `pde.observable_compiler` additionally controls generic
+`CompilerLimits` from `dtdl.observable_compiler` additionally controls generic
 source-program resources. Pass an `InitializationLimits` instance through
 `initialize(limits=...)`. Exceeding a limit raises an error without changing
 the dictionary. Limits may be raised explicitly; they are resource controls,
@@ -976,7 +981,7 @@ are unchanged.
 
 ### Exact supported laws and integration
 
-`pde.observable_laws` supplies `supported_radius()`, `supported_law()`,
+`dtdl.observable_laws` supplies `supported_radius()`, `supported_law()`,
 `OrthogonalArcLaw`, `DyadicRadius`, `RationalRadius`, `IntegerExpression`
 and `LawLimits`. The class name refers to the two reference axes, not to
 orthogonality of its current support. Directions are normalized `u=x/sqrt(2)`.
@@ -989,8 +994,8 @@ This example constructs a supported nonatomic law and its numerical input
 rule without initialization or training:
 
 ```python
-from pde.observable_arithmetic import Arithmetic
-from pde.observable_laws import supported_law, OrthogonalArcLaw
+from dtdl.observable_arithmetic import Arithmetic
+from dtdl.observable_laws import supported_law, OrthogonalArcLaw
 
 law = supported_law(a="-1", b="1", c="-1/2", d="1")
 description = law.exact_description()
@@ -1140,9 +1145,9 @@ and target substantial-learning conclusions.
 
 ## Optional GPU backend for the finite circle closure
 
-`pde.observable_torch_circle` implements the same finite quadrature equations
+`dtdl.observable_torch_circle` implements the same finite quadrature equations
 as `observable_solver` in float64 Torch on CPU or CUDA. Install PyTorch in the
-chosen environment to import this optional module; ordinary `import pde`
+chosen environment to import this optional module; ordinary `import dtdl`
 remains NumPy-only. There is no mixed precision or automatic device selection.
 The module does not change global Torch settings. CPU initialization and transfer
 are included in initialization cost, separately from GPU evolution.
@@ -1188,7 +1193,7 @@ this flow; it is neither an exact finite-time flow nor arbitrary discrete GD.
 No loss-decrease or step-stability guarantee is supplied.
 
 ```python
-from pde import observable_torch_circle as closure
+from dtdl import observable_torch_circle as closure
 state = closure.initialize(3, initialization_nodes=64, population_nodes=32,
                            device='cpu')  # choose 'cuda:0' explicitly for GPU
 law = closure.data_law([[1.,0.],[.6,.8]], [1.,-1.], [.5,.5],
@@ -1263,4 +1268,4 @@ speedup, convergence-rate or settled-endpoint empirical conclusion.
 
 ## General-dimension p=1 and optional Torch comparator
 
-See the [general-d p=1 guide](GENERAL_P1.md) for independent scalar initialization, complete finite tensor contractions, signed paired observations, restart, comparison methods and the bounded explicit-output example. Importing `pde` still requires only NumPy.
+See the [general-d p=1 guide](GENERAL_P1.md) for independent scalar initialization, complete finite tensor contractions, signed paired observations, restart, comparison methods and the bounded explicit-output example. Importing `dtdl` still requires only NumPy.

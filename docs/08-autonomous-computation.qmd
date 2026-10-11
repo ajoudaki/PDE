@@ -5817,7 +5817,7 @@ closure-order/width rate.
 
 ### D.5. Executable representation, storage and bounded validation {#sec-docs-global-nonlinear-l15817}
 
-The library `pde.observable_laws` implements ([-@eq-docs-global-nonlinear-l14267])–([-@eq-docs-global-nonlinear-l14294]).
+The library `dtdl.observable_laws` implements ([-@eq-docs-global-nonlinear-l14267])–([-@eq-docs-global-nonlinear-l14294]).
 `supported_radius()` builds the fixed eleven-node integer expression;
 $\operatorname{supported\_law}(a=\ldots,b=\ldots,c=\ldots,d=\ldots)$ retains exact rational endpoints
 and the fixed radius. The positive-integer expression operations are literal,

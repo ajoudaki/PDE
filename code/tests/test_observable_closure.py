@@ -1,6 +1,6 @@
 """Deterministic static checks; no trajectory or Monte Carlo is run.
 
-The default imports pde.observable_closure from the installed package.
+The default imports dtdl.observable_closure from the installed package.
 H2_PROTOTYPE_MODULE may override that import for isolated checks.
 """
 import importlib
@@ -12,7 +12,7 @@ import unittest
 
 import numpy as np
 
-core = importlib.import_module(os.environ.get("H2_PROTOTYPE_MODULE", "pde.observable_closure"))
+core = importlib.import_module(os.environ.get("H2_PROTOTYPE_MODULE", "dtdl.observable_closure"))
 
 
 class WordAndSourceTests(unittest.TestCase):

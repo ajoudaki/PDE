@@ -130,7 +130,7 @@ diagnostics, not truncation rules or symbolic rank proofs. Different finite carr
 
 ## API and a small bounded use
 
-`pde.observable_dictionaries` reuses maintained `pde` modules and optional Torch. Its `build` returns
+`dtdl.observable_dictionaries` reuses maintained `dtdl` modules and optional Torch. Its `build` returns
 the existing `ClosureEngine` and a `TensorState(w,c,M)`; `w` denotes first
 weights, while `M` denotes dense middle weights in the supplied initial state
 and dictionary coefficients in the returned state. The engine owns copies of
@@ -141,8 +141,8 @@ Run with `PYTHONPATH=code` from the repository root:
 
 ```python
 import torch
-from pde.finite_torch import NetworkEngine
-from pde.observable_dictionaries import build, dictionary_metadata, fit_endpoint, endpoint_errors
+from dtdl.finite_torch import NetworkEngine
+from dtdl.observable_dictionaries import build, dictionary_metadata, fit_endpoint, endpoint_errors
 
 full = NetworkEngine(2, 40, seed=17, dtype=torch.float64, device="cpu")
 initial = full.initial_state()
@@ -173,7 +173,7 @@ independent joint population marks, with scalar coefficient quadrature;
 folded representations preserve their maintained metadata. For example:
 
 ```python
-from pde.observable_dictionaries import initialize_population_p1
+from dtdl.observable_dictionaries import initialize_population_p1
 engine3, state3 = initialize_population_p1(3, 32, 53)
 data3 = engine3.prepare_data([[1., 0., 0.], [.6, .8, 0.], [0., .6, .8]],
                              [1., -.5, .3], [.2, .3, .5])
@@ -185,13 +185,13 @@ dictionary contract. The coefficient quadrature is numerical, and this adapter
 does not establish general-d trained-network convergence.
 
 For the native circle population initialization at orders two and three, use
-the existing `pde.observable_solver` directly. Its `initialize(order,
+the existing `dtdl.observable_solver` directly. Its `initialize(order,
 initialization_nodes=..., population_nodes=...)`, `DataLaw`, `rhs`, `evolve`,
 and `predict` already implement that model; no copied solver is needed. For
 example:
 
 ```python
-from pde import observable_solver as population
+from dtdl import observable_solver as population
 state = population.initialize(2, initialization_nodes=64, population_nodes=16)
 data = population.DataLaw([[1., 0.], [.6, .8]], [1., -1.], [.4, .6])
 data.validate(state.arithmetic)
@@ -223,7 +223,7 @@ separate assertions. Step size must be refined for any scientific comparison.
 
 The maintained book's polynomial observable closure is the direct mathematical
 ancestor of this finite-carrier dictionary benchmark. The native population
-solver `pde.observable_solver` independently integrates Gaussian coefficient
+solver `dtdl.observable_solver` independently integrates Gaussian coefficient
 and population laws and starts at readout zero. Its initialization count $Q$
 and population count $P$ are independent of dictionary order and of neural
 width. Its fixed-order evaluation, `rhs`, Heun integration and restart APIs
@@ -232,7 +232,7 @@ the book explicitly distinguishing even-degree enrichment from dynamically
 used directions. The dedicated `observable_torch_circle` importer supports
 only $p=1,3,5$. No wrapper here broadens that importer's contract.
 
-The earlier `pde.observable_closure` prototype has a different sine pilot,
+The earlier `dtdl.observable_closure` prototype has a different sine pilot,
 retained dependency convention and ridge $2^{-N}$; its first-order counts
 are `(6,4)`. It must not be silently substituted for the polynomial initializer
 whose counts begin `(5,3)`. Maintained short-horizon population convergence
@@ -254,7 +254,7 @@ hypotheses. The selected-coordinate construction starts with zero readout; this 
 
 The [general first-order guide](GENERAL_P1.md) specifies engine ownership,
 arithmetic, integration and restart contracts. Its comparison section
-documents `pde.closure_comparison`: saved-loss matching, parameter-chord
+documents `dtdl.closure_comparison`: saved-loss matching, parameter-chord
 stopping here, and display interpolation are different operations.
 The adapter retains its four basic endpoint metrics for convenience;
 they use ordinary float64 squares and supply no extreme-range promise.

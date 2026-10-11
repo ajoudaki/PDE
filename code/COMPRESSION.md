@@ -54,7 +54,7 @@ arbitrary-step stability or loss-decrease promise.
 
 ```python
 import torch
-from pde.compression import Dense, Legendre, harmonic, taylor, rollout
+from dtdl.compression import Dense, Legendre, harmonic, taylor, rollout
 
 U = torch.tensor([[1., 0.], [.6, .8]], dtype=torch.float64)
 y = torch.tensor([.1, -.08], dtype=torch.float64)

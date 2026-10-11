@@ -28,10 +28,10 @@ from unittest.mock import patch
 
 import numpy as np
 
-from pde.observable_arithmetic import Arithmetic
-from pde.observable_fixed import Fixed
-from pde.observable_solver import State, DataLaw
-from pde import observable_solver as solver
+from dtdl.observable_arithmetic import Arithmetic
+from dtdl.observable_fixed import Fixed
+from dtdl.observable_solver import State, DataLaw
+from dtdl import observable_solver as solver
 from scripts import validate_observable_horizon as worker
 from scripts import run_observable_validation as supervisor
 

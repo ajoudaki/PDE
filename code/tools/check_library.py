@@ -69,19 +69,19 @@ def main(root=None) -> int:
                     elif isinstance(node, ast.ImportFrom) and not node.level and node.module:
                         imports = [node.module.split(".")[0]]
                     for name in imports:
-                        if name not in sys.stdlib_module_names and name not in {"numpy", "pde", "scripts", "psutil", "torch", "matplotlib", "torchvision"}:
+                        if name not in sys.stdlib_module_names and name not in {"numpy", "dtdl", "pde", "scripts", "psutil", "torch", "matplotlib", "torchvision"}:
                             errors.append(f"undeclared import: {source.relative_to(root)}: {name}")
                     modules = []
                     if isinstance(node, ast.Import):
                         modules = [(root / "code", alias.name) for alias in node.names
-                                   if alias.name.split(".")[0] == "pde"]
+                                   if alias.name.split(".")[0] in {"dtdl", "pde"}]
                     elif isinstance(node, ast.ImportFrom):
                         if node.level:
                             base = source.parent
                             for _ in range(node.level - 1):
                                 base = base.parent
                             modules = [(base, node.module or "")]
-                        elif node.module and node.module.split(".")[0] == "pde":
+                        elif node.module and node.module.split(".")[0] in {"dtdl", "pde"}:
                             modules = [(root / "code", node.module)]
                     for base, module in modules:
                         target = base.joinpath(*module.split(".")).resolve()

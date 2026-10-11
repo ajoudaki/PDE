@@ -5,9 +5,9 @@ import unittest
 import numpy as np
 import torch
 
-from pde import observable_dictionaries as core
-from pde.finite_torch import NetworkEngine
-from pde.observable_torch_p1 import ClosureEngine, TensorState
+from dtdl import observable_dictionaries as core
+from dtdl.finite_torch import NetworkEngine
+from dtdl.observable_torch_p1 import ClosureEngine, TensorState
 
 
 def numpy_word(word, w, A):

@@ -1,7 +1,7 @@
 # Offline radial experiment explorer
 
-`pde.radial_explorer` validates supplied data and embeds them in the
-adjacent `pde/radial_explorer.html` template. **Distribute both files.**
+`dtdl.radial_explorer` validates supplied data and embeds them in the
+adjacent `dtdl/radial_explorer.html` template. **Distribute both files.**
 D3 7.9.0 is inlined with its attribution. Generated HTML works locally
 without a server or network request. The interface supplies experiment,
 width and seed selectors, playback, model toggles and hover/pinned values.
@@ -10,7 +10,7 @@ Use [prediction views](PREDICTION_VIEWS.md) for static plots and sphere previews
 ## Data and export
 
 `make_case(id, label, query_inputs, training_inputs, labels, models, ...)`
-accepts the unit circle inputs used by `pde.compression_data` and `pde.compression`.
+accepts the unit circle inputs used by `dtdl.compression_data` and `dtdl.compression`.
 Each model supplies its own `times[T]`, `curves[T,Q]`, and actual
 `trainPredictions[T,M]`. Optional source IDs and provenance remain attached.
 Query directions, curve columns, and query IDs are sorted together by angle;
@@ -31,7 +31,7 @@ write_explorer(empty_path, {"cases": []})  # load files later in the browser
 Existing JSON case or bundle files can also be combined without training:
 
 ```bash
-PYTHONPATH=code python -B -m pde.radial_explorer run-a.json run-b.json --out data/established/explorer.html
+PYTHONPATH=code python -B -m dtdl.radial_explorer run-a.json run-b.json --out data/established/explorer.html
 ```
 
 Use a fresh output filename: the exporter replaces that named output. The HTML

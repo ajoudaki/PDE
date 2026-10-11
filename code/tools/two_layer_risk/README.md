@@ -44,7 +44,7 @@ sample-complexity theorem, or growing-depth assertion.
 ## Requirements and numerical conventions
 
 Use Linux, Python 3.10 or later, NumPy, and `g++` supporting C++17.
-Ordinary imports of `pde` do not import or compile this optional tool.
+Ordinary imports of `dtdl` do not import or compile this optional tool.
 The tool has no Git, study-folder, network-access, or archived-output
 dependency. All six files in this directory may be relocated together;
 the driver finds its kernel beside its own source.
