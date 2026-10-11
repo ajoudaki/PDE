@@ -16,11 +16,14 @@ setup costs for Harmonic and Taylor. Storage, error,
 label, activation, optimizer and query-domain qualifications are preserved.
 
 The current reading order is **Introduction → Setup and main results → Related
-work and discussion → proofs → references → figures**. The new framing adapts
-the older manuscript's motivation and literature discussion to the current
-width/setup results. It introduces no additional global notation and leaves
-the theorem statements and all proof modules unchanged. The proof roadmap
-closes the discussion before the technical sections begin.
+work → Discussion → proofs → references → figures**. The 2026-10-11 literature
+rewrite frames compression as identifying sufficient memory for deep nonlinear
+learning. The introduction gives a citation-backed, conjunction-specific novelty
+claim; related work includes a comparison table and source-level distinctions
+for the closest predecessors; discussion develops the scientific meaning of
+that memory. It introduces no additional global notation and leaves the setup,
+theorem statements, initialization proposition, and all proof modules unchanged.
+The proof roadmap closes the discussion before the technical sections begin.
 
 The subsequent proof-only refactor reduces the compiled compact paper from
 94 to 89 pages, reusing established in-paper arguments and shared finite cost
@@ -32,7 +35,8 @@ contains the exact scope, preservation checks and review reports.
 The later figure-only addition leaves that proof content unchanged and appends
 24 pages of existing static illustrations (113 pages at that stage). The symbol
 table now omits the count column while retaining every symbol and definition.
-The introduction/discussion update adds two pages, for 115 pages in total.
+The earlier introduction/discussion update added two pages, for 115 pages.
+The current expanded literature framing and bibliography produce 122 pages.
 
 ## Reading and source structure
 
@@ -142,11 +146,18 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error \
   -outdir="$paper_build_dir" main.tex
 ```
 
-The current 115-page build, including the introduction and related-work
-discussion, is in
+The current 122-page publication is `paper/main.pdf`, built in
+`data/generated/compression_literature_positioning_20261011/framing_build/`.
+The introduction occupies pages 1–3, related work and its table pages 8–11,
+and discussion pages 11–12; proofs start on page 12. The source-preservation
+and citation-review checks are recorded in the
+[literature study](../studies/compression_literature_positioning_20261011/README.md).
+
+The preceding 115-page build, including the earlier introduction and
+related-work discussion, is in
 `data/generated/headline_threefold_upgrade_20261011/framing_build.YVWqPV/`
 and was published as `paper/compact.pdf` before the entry-point rename.
-The freshly rebuilt current publication is `paper/main.pdf`, from
+The preceding renamed publication was `paper/main.pdf`, from
 `data/generated/headline_threefold_upgrade_20261011/main_build.gd8fkP/`.
 Its text is identical to the preceding build; figures occupy pages 92–115.
 The preceding 113-page build is retained in

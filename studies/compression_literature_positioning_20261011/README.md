@@ -2,7 +2,7 @@
 
 ## Scope
 
-The user's three-phase request is a full-text, adversarial but fair audit of the identified closest literature; comparison with the current manuscript's fully qualified theorem; and proposed introduction/related-work prose. This continues the same study. No manuscript integration, code/training campaign, Git commit or external communication is requested.
+The user's three-phase request is a full-text, adversarial but fair audit of the identified closest literature; comparison with the current manuscript's fully qualified theorem; and proposed introduction/related-work prose. This continues the same study. The subsequent request authorizes rewriting the paper's introduction and related work, adding a separate discussion, and compiling/checking the result. No code/training campaign, book promotion, or external communication is requested.
 
 Permitted inputs are the user-provided notes and PDFs, explicitly assigned current paper/, established docs/, and public primary literature. Other studies and old_docs/ are excluded. The shared checkout is preserved; unrelated migration and other-study changes are untouched. Entry HEAD: 512121f.
 
@@ -11,7 +11,7 @@ Permitted inputs are the user-provided notes and PDFs, explicitly assigned curre
 - [review.md](review.md): three-phase synthesis, closest competitors, strongest defensible positioning.
 - [claim_ledger.md](claim_ledger.md): five comparative claims, scope corrections, severity/cascade summary.
 - [evidence_log.md](evidence_log.md): exact corpus, versions, full-reading coverage, verification limits and manuscript hashes.
-- [PROPOSED_INTRODUCTION_RELATED_WORK.md](PROPOSED_INTRODUCTION_RELATED_WORK.md): proposed prose **for approval**, not inserted into the paper.
+- [PROPOSED_INTRODUCTION_RELATED_WORK.md](PROPOSED_INTRODUCTION_RELATED_WORK.md): the earlier proposal, superseded as manuscript prose by the authorized rewrite in `paper/main.tex`.
 - Source-specific AUDIT_*.md and universal-compression reports: exact assumptions, proof reconstructions, counterexamples, local repairs, source locations and surviving contributions.
 
 Source PDFs, extractions and rendered checks live only in data/generated/compression_literature_positioning_20261011/. No code-audit artifact is claimed: no research code was supplied for execution or reproduced.
@@ -39,4 +39,6 @@ Applied review-ai-paper, solve-math-rigorously and explain-with-canonical-notati
 
 No reviewed source establishes the manuscript's full conjunction of finite-reference coupling, persistent nonlinear feature learning, small retained state, promised query domain and complete-trajectory accuracy below actual dense-run variability. This is not a global first-priority certificate or a fresh independent proof of the manuscript itself. Its assumptions and its ratio-of-trajectory-suprema interpretation remain explicit.
 
-The paper, maintained book and Git history were not changed. The proposed prose is ready for the author's consideration.
+The literature-audit phase left the paper and maintained book unchanged. At the user's subsequent request, commit `507ca54` checkpointed all then-uncommitted repository material before manuscript editing. Other studies were committed only as authorized repository state, not read as research inputs. The present editorial continuation changes the introduction, related work, discussion and bibliography; the theorem statements and proof modules are preserved.
+
+The completed rewrite adds a six-family comparison table and distinguishes derived response compressibility and closed-loop stability from conditional or formal reductions. A fresh scoped editorial review and correction pass checked its novelty and qualification claims. Extra historical checks fully read the original four-page backpropagation article and the published NTK paper plus supplement. The final PDF compiles to 122 pages with no missing citations/references or overfull/underfull boxes; revised pages were visually checked. Exact comparisons preserve the setup, both theorem statements, initialization proposition, assembly and all proof/figure modules. See the final section of [evidence_log.md](evidence_log.md) for details and limits. The maintained book is unchanged.

@@ -1,6 +1,6 @@
 # Proposed introduction and related work
 
-Draft for author approval, not inserted into `paper/`. This text positions the **current manuscript's stated theorem**; the literature audit is not a new independent certification of our proofs. Links are citation placeholders. The comparisons do not depend on declaring any competing paper invalid.
+Historical draft for author approval. The subsequently authorized, citation-backed rewrite in `paper/main.tex` supersedes this prose and adds a separate Discussion section. This text positions the **manuscript's stated theorem**; the literature audit is not a new independent certification of our proofs. Links are citation placeholders. The comparisons do not depend on declaring any competing paper invalid.
 
 ## Introduction
 

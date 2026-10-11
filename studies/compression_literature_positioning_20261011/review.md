@@ -1,6 +1,6 @@
 # Complete-trajectory compression: audited literature and positioning
 
-11 October 2026. Three-phase assessment requested by the author. This supersedes the initial reconnaissance review. The manuscript and book are unchanged.
+11 October 2026. Three-phase assessment requested by the author. This supersedes the initial reconnaissance review. The audit phase left the manuscript and book unchanged. The subsequent authorized editorial integration is recorded in [evidence_log.md](evidence_log.md); it changes manuscript framing, not theorem or proof content. The book remains unchanged.
 
 ## Summary
 
@@ -103,7 +103,7 @@ No reviewed predecessor establishes that full conjunction. That statement remain
 
 ## Phase 3 — Suggested introduction and related work
 
-The full proposed prose is in [PROPOSED_INTRODUCTION_RELATED_WORK.md](PROPOSED_INTRODUCTION_RELATED_WORK.md), not inserted into the manuscript. Its opening is:
+The earlier proposed prose is in [PROPOSED_INTRODUCTION_RELATED_WORK.md](PROPOSED_INTRODUCTION_RELATED_WORK.md). It is superseded as manuscript prose by the subsequently authorized introduction, related work and discussion in `paper/main.tex`. Its original opening was:
 
 > Understanding a learning system begins with identifying what it must remember. Compressing a trained predictor is not enough: two models with the same current predictions can respond differently to the next training update. A more demanding form of compression retains a small state that continues learning on its own. Such a state does not yet explain every learned representation, but it identifies information sufficient to reproduce the learning process. We ask whether increasing the width of a deep neural network makes this dynamical description small.
 
@@ -119,4 +119,4 @@ The source-specific reports contain exact assumptions, theorem locations, counte
 
 No experiments or code were reproduced, no claim of misconduct is made, and no accept/reject scores are assigned. Questions that would change the assessment are concrete: a uniform remainder theorem, a corrected concentration estimate, a valid equilibrium/solver derivation, or a complete fixed-plus-moving state and initialization account—not more persuasive abstracts.
 
-This is a defensible comparison against a bounded primary-source corpus, not a universal priority certificate. It does not replace a full independent audit of the author's own proof. The manuscript remains unchanged pending the author's choice of prose and citations.
+This is a defensible comparison against a bounded primary-source corpus, not a universal priority certificate. It does not replace a full independent audit of the author's own proof. The author's subsequent approval has been implemented with a fresh scoped editorial review; mathematical statements and proofs remain unchanged.
