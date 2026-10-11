@@ -43,7 +43,10 @@ crossref:
 
 classoption: enabledeprecatedfontcommands
 format:
-  html: default
+  html:
+    html-math-method: katex
+    filters:
+      - html_katex_compat.lua
   pdf:
     header-includes:
       - \usepackage{mathtools}
