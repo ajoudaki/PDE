@@ -1,0 +1,2 @@
+# Minimal, actually tested library environment; historical campaigns have separate dependencies.
+numpy==1.26.4

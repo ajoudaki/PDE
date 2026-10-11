@@ -1,0 +1,253 @@
+{
+  "source_commit": "ef8362764b4eb8144d7af8d6f8db080fdaaf82ca",
+  "scope": "Editorial extraction of established book and code; no new mathematical claims.",
+  "extracts": [
+    {
+      "source": "docs/02-gaussian-reuse.qmd",
+      "lines": [
+        15,
+        251
+      ],
+      "role": "Gaussian conditioning, moving directions and exact Gaussian moments",
+      "source_sha256": "9766e44c1b880e70b98e2e402be090d81113d1eb2dab51f3a8bc3edc71aee365",
+      "extract_sha256": "41a5cfc54c34172feabd815e9b6053fb96159a7d3bdeb8120319bd3ac4fcb55f"
+    },
+    {
+      "source": "docs/02-gaussian-reuse.qmd",
+      "lines": [
+        252,
+        1293
+      ],
+      "role": "Complete master theorem, proofs, calculus, worked examples and implementation introduction",
+      "source_sha256": "9766e44c1b880e70b98e2e402be090d81113d1eb2dab51f3a8bc3edc71aee365",
+      "extract_sha256": "ff9854e97002cbae59fc367fa72b0520712c40cfb536431d0b3ee2aef6eb2618"
+    },
+    {
+      "source": "docs/12-three-sample-learning.qmd",
+      "lines": [
+        316,
+        684
+      ],
+      "role": "Complete bounded-program foundation and proofs",
+      "source_sha256": "6811e9e8c0557416920c9a1bd8a144807c4f3a9d4aaac134259130c81c7f148d",
+      "extract_sha256": "4710e129a6b13043b6c4ffabe37d26ee3bdd7645babe7f01e11f75174c1e72a3"
+    },
+    {
+      "source": "code/MFP_CALCULUS.md",
+      "lines": [
+        1,
+        416
+      ],
+      "role": "Complete compiler guide",
+      "source_sha256": "a3adc8d2d5d0e91f4f9b48111a95d58f4549f62e041d4db093bc6c59625e08c9",
+      "extract_sha256": "a3adc8d2d5d0e91f4f9b48111a95d58f4549f62e041d4db093bc6c59625e08c9"
+    },
+    {
+      "source": "docs/notation.qmd",
+      "source_sha256": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023",
+      "role": "Canonical dimensions, forward model, data Gram and readout conventions used in editorial setup"
+    }
+  ],
+  "copies": [
+    {
+      "source": "code/MFP_CALCULUS.md",
+      "destination": "paper_MFP/code/MFP_CALCULUS.md",
+      "source_sha256": "a3adc8d2d5d0e91f4f9b48111a95d58f4549f62e041d4db093bc6c59625e08c9",
+      "byte_identical": false,
+      "note": "Only standalone links, execution root, generated-output path and local loss-reference wording adapted.",
+      "packaged_sha256": "1c160b03f79e488a271923ed696f5871b054f88bd8fb6e3ec2c10c513fc2f5c2"
+    },
+    {
+      "source": "code/pde/__init__.py",
+      "destination": "paper_MFP/code/pde/__init__.py",
+      "source_sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "byte_identical": true,
+      "packaged_sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3"
+    },
+    {
+      "source": "code/pde/finite_network.py",
+      "destination": "paper_MFP/code/pde/finite_network.py",
+      "source_sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "byte_identical": true,
+      "packaged_sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551"
+    },
+    {
+      "source": "code/pde/gaussian_moments.py",
+      "destination": "paper_MFP/code/pde/gaussian_moments.py",
+      "source_sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "byte_identical": true,
+      "packaged_sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae"
+    },
+    {
+      "source": "code/pde/mfp_expr.py",
+      "destination": "paper_MFP/code/pde/mfp_expr.py",
+      "source_sha256": "1340df2e1cd7279d568aa07610bfba033eaf95d8fc75426d8149b2b4d9cbcfa8",
+      "byte_identical": true,
+      "packaged_sha256": "1340df2e1cd7279d568aa07610bfba033eaf95d8fc75426d8149b2b4d9cbcfa8"
+    },
+    {
+      "source": "code/pde/mfp_compiler.py",
+      "destination": "paper_MFP/code/pde/mfp_compiler.py",
+      "source_sha256": "19e862cf6863b28fc2949be3c9fa2a60ab13f985e2d4c7bb97928423127f12b6",
+      "byte_identical": true,
+      "packaged_sha256": "19e862cf6863b28fc2949be3c9fa2a60ab13f985e2d4c7bb97928423127f12b6"
+    },
+    {
+      "source": "code/pde/mfp_finite.py",
+      "destination": "paper_MFP/code/pde/mfp_finite.py",
+      "source_sha256": "84060153c467172eaabaed073ece4e8fd0d77fbc1ed2fee3e8a66542d2c7c037",
+      "byte_identical": true,
+      "packaged_sha256": "84060153c467172eaabaed073ece4e8fd0d77fbc1ed2fee3e8a66542d2c7c037"
+    },
+    {
+      "source": "code/scripts/example_mfp_calculus.py",
+      "destination": "paper_MFP/code/scripts/example_mfp_calculus.py",
+      "source_sha256": "20b727df8e386907f1ae17de427b3f41ff86b4f29f33a0cea9711bbc7a679d07",
+      "byte_identical": true,
+      "packaged_sha256": "20b727df8e386907f1ae17de427b3f41ff86b4f29f33a0cea9711bbc7a679d07"
+    },
+    {
+      "source": "code/scripts/example_mfp_mlp_derivative.py",
+      "destination": "paper_MFP/code/scripts/example_mfp_mlp_derivative.py",
+      "source_sha256": "9c7fefb3ac2dcc50c90f1bef45cf64bf4f7f37d0c0b1b5e26c8c30a4478d4527",
+      "byte_identical": true,
+      "packaged_sha256": "9c7fefb3ac2dcc50c90f1bef45cf64bf4f7f37d0c0b1b5e26c8c30a4478d4527"
+    },
+    {
+      "source": "code/scripts/example_mfp_kernel_jets.py",
+      "destination": "paper_MFP/code/scripts/example_mfp_kernel_jets.py",
+      "source_sha256": "3298421fad2776bf306b0928611517b938529429de7606efd53ecf1caaa2d03c",
+      "byte_identical": true,
+      "packaged_sha256": "3298421fad2776bf306b0928611517b938529429de7606efd53ecf1caaa2d03c"
+    },
+    {
+      "source": "code/tests/test_mfp_expr.py",
+      "destination": "paper_MFP/code/tests/test_mfp_expr.py",
+      "source_sha256": "06dac966c1b74ba8dfe9ebfb9a2dde1abccc175102aef435cf8ba110c1824d65",
+      "byte_identical": true,
+      "packaged_sha256": "06dac966c1b74ba8dfe9ebfb9a2dde1abccc175102aef435cf8ba110c1824d65"
+    },
+    {
+      "source": "code/tests/test_mfp_compiler.py",
+      "destination": "paper_MFP/code/tests/test_mfp_compiler.py",
+      "source_sha256": "4b0f6b38cc0f9d35d82cfc38a5a95aafd91053d80ace4bed451b4589451995de",
+      "byte_identical": true,
+      "packaged_sha256": "4b0f6b38cc0f9d35d82cfc38a5a95aafd91053d80ace4bed451b4589451995de"
+    },
+    {
+      "source": "code/tests/test_mfp_mlp_example.py",
+      "destination": "paper_MFP/code/tests/test_mfp_mlp_example.py",
+      "source_sha256": "e3dfffb2e8bb28b128903d92df84567225b81e7957f04d166dfc755972d15ad5",
+      "byte_identical": true,
+      "packaged_sha256": "e3dfffb2e8bb28b128903d92df84567225b81e7957f04d166dfc755972d15ad5"
+    },
+    {
+      "source": "code/tests/test_mfp_kernel_jets.py",
+      "destination": "paper_MFP/code/tests/test_mfp_kernel_jets.py",
+      "source_sha256": "a2fd1f7f64bfdf7dde921991f15f84992d30859f662dd71cd33e0996e156e3ce",
+      "byte_identical": true,
+      "packaged_sha256": "a2fd1f7f64bfdf7dde921991f15f84992d30859f662dd71cd33e0996e156e3ce"
+    },
+    {
+      "source": "requirements.txt",
+      "destination": "paper_MFP/requirements.txt",
+      "source_sha256": "c907c176d0ef35a2a05a8650accb80616d99d55f620dc0fd55d8bfe994bc7ae2",
+      "byte_identical": true,
+      "packaged_sha256": "c907c176d0ef35a2a05a8650accb80616d99d55f620dc0fd55d8bfe994bc7ae2"
+    },
+    {
+      "source": "docs/references.bib",
+      "destination": "paper_MFP/references.bib",
+      "source_sha256": "5fa1272b98a6748cd624ab1aeb0badb3654437e90dfd0ff136bf67103331ebc7",
+      "byte_identical": true,
+      "packaged_sha256": "5fa1272b98a6748cd624ab1aeb0badb3654437e90dfd0ff136bf67103331ebc7"
+    }
+  ],
+  "editorial_changes": [
+    {
+      "reason": "Replace comparisons to book results outside this paper by the included foundation and explicit scope.",
+      "before": "This lemma leaves intact the broader finite-second-moment roots and\n$C^1$ hypotheses of the older foundation. The smooth Gaussian theorem\nadds all finite scalar moments under its stronger assumptions; it does\nnot replace the lower-regularity specializations in\n[contained probability and continuity specializations](#sec-docs-global-nonlinear-l1840) or the distinct feature-ascent theorem\n@thm-docs-gaussian-calculus-l289.",
+      "after": "This lemma leaves intact the broader finite-second-moment roots and\n$C^1$ hypotheses of the bounded-derivative foundation in\n@sec-docs-special-data-limits-l3785. The smooth Gaussian theorem adds\nall finite scalar moments under its stronger assumptions. Its scope remains\nthe fixed Gaussian root laws and derivative language specified here."
+    },
+    {
+      "reason": "Remove navigation to an optional later book recurrence.",
+      "before": "This is the general version of\n[derivatives along the gradient direction](#sec-docs-gaussian-calculus-l170) and the explicit finite MLP recurrence\nin [the finite MLP jet recurrence](#sec-docs-gaussian-calculus-l5338).",
+      "after": "This is the general version of\n[derivatives along the gradient direction](#sec-docs-gaussian-calculus-l170);\nthe neural applications below use this same finite recursion."
+    },
+    {
+      "reason": "Supply canonical neural dimensions, data and Gram definitions locally.",
+      "before": "For neural applications fix $L,m,d$ and the canonical forward model",
+      "after": "For neural applications let $L$ be the hidden depth, $m$ the number of\nsamples, $d$ the input dimension and $n$ the hidden width. Fix $L,m,d$\nand data $x_a\\in\\mathbb R^d$, $y_a\\in\\mathbb R$, $1\\le a\\le m$.\nThe first weight matrix $W^{(1)}$ has shape $n\\times d$, hidden\nmatrices $W^{(\\ell)}$ have shape $n\\times n$ for $2\\le\\ell\\le L$,\nand the stored readout $W^{(L+1)}$ has length $n$. The data Gram is\n$G_{ab}=x_a^Tx_b/d$, without whitening or a nonsingularity requirement.\nUse the canonical forward model"
+    },
+    {
+      "reason": "State the compared readout law instead of linking outside the paper.",
+      "before": "width-dependent small-readout law in [the notation contract](notation.qmd#sec-docs-notation-l70). With",
+      "after": "width-dependent small-readout law with stored entries $N(0,1/n^2)$. With"
+    },
+    {
+      "reason": "Point the implementation introduction to the included full guide.",
+      "before": "The [MFP API guide](../code/MFP_CALCULUS.md) gives executable reuse,",
+      "after": "The compiler guide in @sec-compiler-guide (also supplied as\n`code/MFP_CALCULUS.md`) gives executable reuse,"
+    },
+    {
+      "reason": "Omit the unrelated three-sample application aside with book-specific undefined coordinates.",
+      "before": " In the network application, the first-layer root is a Gaussian vector $w_0\\in\\mathbb R^d$ with covariance $I_d$; the three root preactivations are $u_i^T w_0$. Here $w_0=\\sqrt d V^{(1)}(0)$ in the isometric bottom coordinates of Part III.M.",
+      "after": ""
+    },
+    {
+      "reason": "Remove book heading prefixes and localize imported section links; preserve every theorem/equation identifier."
+    },
+    {
+      "reason": "Local theorem link in the bundled Markdown guide.",
+      "before": "../docs/02-gaussian-reuse.qmd#sec-mfp-finite-derivative-programs",
+      "after": "../main.pdf"
+    },
+    {
+      "reason": "Use the standalone execution root.",
+      "before": "From the edition root:",
+      "after": "From the `paper_MFP/` root:"
+    },
+    {
+      "reason": "Keep regenerated outputs in the standalone build directory.",
+      "before": "data/established/mfp_kernel_jets_01",
+      "after": "build/kernel_jets_01"
+    },
+    {
+      "reason": "Make the fresh-output command self-contained.",
+      "before": "The directory must not exist.",
+      "after": "Create its parent first with `mkdir -p build`; the output directory itself must not exist."
+    },
+    {
+      "reason": "Make the loss-clock comparison local.",
+      "before": "the default unhalved book loss",
+      "after": "the unhalved loss used in the general neural model"
+    },
+    {
+      "reason": "Render the compiler's two-column operation table as a definition list; preserve all cells and executable examples."
+    },
+    {
+      "reason": "Native LaTeX finishing: title/contents page breaks, L^p typesetting in the new abstract, one display split using gathered, and the same two literal geometry assignments moved to a code display. No source equation or executable Python changed."
+    }
+  ],
+  "delivered_manuscript": {
+    "path": "main.tex",
+    "sha256": "a43acbc76e53a3437ed5136137fd8e5497a6d65826447c1ac95764a1cba8d38e",
+    "native_latex": true,
+    "build_command": "make pdf",
+    "requires_quarto": false
+  },
+  "validation": {
+    "date": "2026-10-11",
+    "pdf_pages": 36,
+    "test_count": 72,
+    "python_guide_snippets": 5,
+    "example_entry_points": 3,
+    "kernel_activation_cases": 3,
+    "display_math_blocks_preserved": 91,
+    "source_anchors_preserved": 94,
+    "undefined_references": 0,
+    "overfull_boxes": 0,
+    "missing_characters": 0,
+    "qpdf_check": "PASS"
+  }
+}

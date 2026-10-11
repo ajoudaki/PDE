@@ -1,0 +1,2967 @@
+% Standalone extraction of established MFP material. See SOURCE_MAP.json.
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+
+
+\usepackage{mathtools}
+\usepackage{fvextra}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small}
+\RecustomVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},breaklines=true,breakanywhere=true,fontsize=\small}
+\allowdisplaybreaks[1]
+\setlength{\emergencystretch}{3em}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{remark}
+\AtBeginDocument{\renewcommand*{\proofname}{Proof}}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem{refremark}{Remark}[section]
+\newtheorem{refsolution}{Solution}[section]
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={Mean-Field Peeling},
+  pdfauthor={Amir Joudaki},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Mean-Field Peeling}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{A Gaussian Calculus for Fixed Finite Neural Derivative
+Programs}
+\author{Amir Joudaki}
+\date{2026-10-11}
+\begin{document}
+\maketitle
+\begin{abstract}
+We present a constructive Gaussian calculus for fixed finite derivative
+computations of Gaussian-initialized deep neural networks. A typed
+language specifies coordinate operations, normalized contractions,
+matrix and transpose reuse, represented updates, and finite derivatives
+and flow jets. Exact finite-width differentiation compiles these
+operations into primitive programs. A causal Gaussian source-response
+recursion then identifies their infinite-width scalar limits, with
+convergence in every finite \(L^p\) and uniform moment bounds. Singular
+covariance is allowed without identifying distinct formal source
+variables. A restricted initialization subclass admits a reduction to
+moments of products of activation derivatives. We include the complete
+proofs, worked reuse and moving-flow examples, symbolic geometry and
+label-dependent feature-kernel jets, and a documented Python compiler
+with its executable examples and tests. Depth, data dimensions,
+derivative order and update count are fixed; no positive-time
+reconstruction or growing-order guarantee is asserted.
+\end{abstract}
+
+\clearpage
+\renewcommand*\contentsname{Table of contents}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+\clearpage
+}
+
+\section{Introduction}\label{sec-introduction}
+
+Mean-field peeling (MFP) turns a specified finite computation on a
+Gaussian-initialized neural network into a finite graph of multivariate
+Gaussian expectations. The computation may include coordinate
+nonlinearities, products, sums, normalized averages, named matrix and
+transpose calls, represented parameter updates, and the derivatives
+admitted by the typed language below. Matrix identity and every reuse
+are retained throughout the construction.
+
+There are two mathematical operations. First, the product, chain and
+adjoint rules express the requested network derivative exactly at each
+finite width. Second, a Gaussian source-response recursion computes the
+limit of that expression as width tends to infinity. For instance, the
+reused-matrix observable with identity activation in
+Equation~\ref{eq-mfp-reuse-square} has expectation \(2+1/n\) at width
+\(n\), while the Gaussian graph evaluates to its limit \(2\).
+
+The master statement is Theorem~\ref{thm-mfp-finite-derivative-program}.
+Its program length, hidden depth, sample count, derivative order and
+number of updates are fixed before the width limit. It gives convergence
+of scalar observables in every finite \(L^p\), uniform moments and joint
+empirical laws. The initialization normal form in
+Proposition~\ref{prp-mfp-initialization-normal-form} has the additional
+literal preactivation restriction stated there. The accompanying
+compiler makes the construction inspectable and executable; its tests
+check implementation identities rather than constituting a proof of the
+theorem.
+
+This paper collects the established MFP material of \emph{A Dynamical
+Theory of Deep Learning}, together with the complete bounded-program
+foundation used in its proof and the compiler guide. The raw-entry
+moment mechanism is attributed to Golikov and Yang in
+Section~\ref{sec-mfp-uniform-moments}. The presentation does not claim a
+new general probabilistic program theorem. The accompanying source map
+records the maintained book passages and the unchanged Python sources
+used for this standalone edition.
+
+The preliminary calculations are in Section~\ref{sec-preliminaries}. The
+typed language, Gaussian evaluation, complete proof, derivative rules
+and worked neural examples follow in
+Section~\ref{sec-mfp-finite-derivative-programs}. The executable
+interface is in Section~\ref{sec-compiler-guide}. Appendix
+\ref{sec-docs-special-data-limits-l3785} supplies the bounded-derivative
+foundation, including singular query Grams and causal scalar feedback.
+
+Throughout, \(N(0,K)\) denotes the centered multivariate Gaussian law
+with positive semidefinite covariance \(K\), including singular laws.
+For finite vectors, pairings are divided by \(n\) when explicitly
+displayed that way; the Frobenius matrix pairing is
+\(\langle A,B\rangle_F=\operatorname{tr}(A^TB)\). The empirical law of a
+same-type tuple \(v^1,\ldots,v^k\) is
+\(n^{-1}\sum_i\delta_{(v^1_i,\ldots,v^k_i)}\). The distance
+\(\mathcal W_2\) is the quadratic Wasserstein distance, that is, the
+infimum of \((\mathbb E\|X-Y\|_2^2)^{1/2}\) over couplings of the two
+laws.
+
+\section{Gaussian conditioning and finite
+calculations}\label{sec-preliminaries}
+
+\subsection{One forward call followed by a
+transpose}\label{sec-docs-gaussian-calculus-l19}
+
+Let \(W=W^{(2)}(0)\) have independent \(\mathcal{N}(0,1/n)\) entries and
+let \(1\) be the length-\(n\) vector of ones. Put \(y=W\mathbf{1}\). Its
+entries are independent standard Gaussians. Take a continuous real
+function \(g\) of polynomial growth and define
+
+\[
+q=W^T g(y),\qquad
+a_n=\frac1n\sum_i y_i g(y_i),\qquad
+\sigma_n^2=\frac1n\sum_i g(y_i)^2,\qquad
+P=I-\frac{\mathbf1\mathbf1^T}{n}.
+\]
+
+Conditional on \(y\), the exact matrix law is
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l34}{
+W\ \overset{d}{=}\ \frac{y\mathbf1^T}{n}+\widetilde W P,
+\qquad
+q\ \overset{d}{=}\ a_n\mathbf1+\sigma_n P\gamma,
+}\end{equation}
+
+where \(\widetilde W\) has the original Gaussian matrix law and
+\(\gamma\) is a standard Gaussian vector, each independent of \(y\) in
+its corresponding representation. For the first equality, decompose each
+Gaussian row into its component along \(1\) and its perpendicular
+component. Their covariance vanishes, so they are independent; the first
+component is determined by the observed row sum. Multiplying the
+conditional matrix by \(g(y)\) on the left gives the second equality,
+because \(\widetilde W^{\top}g(y)\) has conditional covariance
+\(\sigma_n^2I\). In particular
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l50}{
+\mathbb E[q\mid y]=a_n\mathbf1,\qquad
+\operatorname{Cov}(q\mid y)=\sigma_n^2P.
+}\end{equation}
+
+The random coefficient \(a_n\) is not replaced by its expectation at
+finite width. If \(G\) is a standard scalar Gaussian, the elementary law
+of large numbers gives
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l60}{
+a_n\longrightarrow a=\mathbb E[Gg(G)],\qquad
+\sigma_n^2\longrightarrow\sigma^2=\mathbb E[g(G)^2]
+\quad\text{in probability}.
+}\end{equation}
+
+All moments used here are finite by polynomial growth and Gaussian
+tails. On the coupling in (\ref{eq-docs-gaussian-calculus-l34}), compare
+\(q\) with \(a\mathbf{1}+\sigma\gamma\). Their RMS distance is at most
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l71}{
+|a_n-a|+|\sigma_n-\sigma|\frac{\|\gamma\|_2}{\sqrt n}
++\sigma_n\left|\frac1n\sum_i\gamma_i\right|,
+}\end{equation}
+
+which tends to zero in probability. This remains valid when
+\(\sigma=0\). The empirical law of \(a+\sigma\gamma_i\) converges in
+quadratic Wasserstein distance to the law of \(a+\sigma G\): weak
+convergence follows by applying the law of large numbers to a countable
+dense family of bounded Lipschitz tests, and the second moment converges
+by the same law. On the real line, weak convergence together with
+convergence of second moments yields quadratic Wasserstein convergence.
+One direct verification truncates at a fixed radius, couples the bounded
+laws using their quantiles, and lets the radius grow; convergence of
+second moments makes the two squared-tail contributions vanish. Matching
+corresponding coordinates and using
+(\ref{eq-docs-gaussian-calculus-l71}) proves the same convergence for
+the empirical law of \(q_i\).
+
+If \(g\) is also continuously differentiable and \(g'\) has polynomial
+growth, integration by parts in the Gaussian density gives
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l92}{
+a=\frac1{\sqrt{2\pi}}\int xg(x)e^{-x^2/2}dx
+=\frac1{\sqrt{2\pi}}\int g'(x)e^{-x^2/2}dx.
+}\end{equation}
+
+The boundary term is zero because a polynomial times the Gaussian
+density tends to zero. The transpose output therefore contains a
+response \(\mathbb{E}[g'(G)]\) forced by the preceding forward call, in
+addition to fresh Gaussian randomness. Treating the transpose as a new
+independent matrix would erase that response. The two neuron populations
+remain distinct; pairing row \(i\) with column \(i\) is not part of this
+empirical-law statement.
+
+\subsection{Exact conditioning after both directions have been
+used}\label{sec-docs-gaussian-calculus-l105}
+
+Suppose past calls have revealed \(WV=Y\) and \(W^{\top}U=R\). Columns
+of \(V\) are input vectors in the first population; columns of \(U\) are
+input vectors in the second. Assume both lists are linearly independent,
+allowing either list to be empty. All matrix dimensions are finite.
+Define
+
+\[
+P_V=V(V^TV)^{-1}V^T,\qquad P_U=U(U^TU)^{-1}U^T,
+\]
+
+\[
+M=Y(V^TV)^{-1}V^T+U(U^TU)^{-1}R^T(I-P_V).
+\]
+
+Conditional on the complete transcript, the exact remaining matrix law
+is
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l121}{
+W\ \overset d=\ M+(I-P_U)\widetilde W(I-P_V).
+}\end{equation}
+
+To verify the mean, use the compatibility identity
+\(U^{\top}Y=R^{\top}V\), which holds because both lists were observed
+from the same matrix. It gives \(MV=Y\) and \(M^{\top}U=R\). A
+homogeneous perturbation preserves both observations exactly when
+\(AV=0\) and \(A^{\top}U=0\), equivalently \(A=(I-P_U)A(I-P_V)\). The
+displayed \(M\) is Frobenius-orthogonal to every such perturbation: its
+first summand has right support in \(\operatorname{span}(V)\), and its
+second has left support in \(\operatorname{span}(U)\). Thus it is the
+minimum-norm point of the affine constraint set. Orthogonal components
+of an isotropic finite Gaussian vector are independent. Applying this
+fact to the vector of all matrix entries proves
+(\ref{eq-docs-gaussian-calculus-l121}), including the scale \(1/n\) of
+the remaining covariance.
+
+This reasoning also holds for a finite adaptive transcript when every
+new input is a measurable function of roots independent of \(W\) and of
+earlier answers, and is chosen before its own answer is seen. Condition
+on the roots first. Inductively, the next query is fixed by the past,
+and conditioning its Gaussian answer adds a linear constraint to the
+remaining Gaussian subspace. The orthogonal-decomposition argument
+applies there. Derived variables measurable from these recorded roots
+and answers add no further information. This induction does not allow an
+unrecorded observation of \(W\) or an input chosen using its future
+answer.
+
+Dependent query columns can be discarded: each is an exactly known
+linear combination of retained columns and its answer is the same
+combination of retained answers. This does not justify taking limits of
+ill-conditioned Gram inverses. Infinite-width arguments with nearly
+dependent directions require an additional stability argument.
+
+For a new input \(v\), (\ref{eq-docs-gaussian-calculus-l121}) explicitly
+yields
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l155}{
+\begin{gathered}
+Wv\ \overset d=\ Y\alpha+U\beta+
+\frac{\|(I-P_V)v\|_2}{\sqrt n}(I-P_U)\gamma,
+\\
+\alpha=(V^TV)^{-1}V^Tv,\quad
+\beta=(U^TU)^{-1}R^T(I-P_V)v.
+\end{gathered}
+}\end{equation}
+
+The first response preserves previous forward answers, the second
+restores the overlap demanded by previous transpose answers, and the
+random part preserves both sets of constraints. Exchanging the two
+populations gives the transpose formula. This is a finite exact
+identity, not an iid assertion about coordinates after reuse.
+
+\subsection{Derivatives along the gradient
+direction}\label{sec-docs-gaussian-calculus-l170}
+
+Let \(F:\mathbb{R}^p\to\mathbb{R}\) be \(C^3\) on an open set. At a
+point write \(g=\nabla F\), \(H=\nabla^2F\) and \(T=\nabla^3F\). For a
+differentiable scalar function \(u\), define the directional
+differential operator \(\mathcal{D}_Fu=\langle g,\nabla u\rangle\).
+Repeated application gives
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l177}{
+\mathcal D_F F=\|g\|_2^2,\qquad
+\mathcal D_F^2F=2\langle g,Hg\rangle,\qquad
+\mathcal D_F^3F=2T[g,g,g]+4\|Hg\|_2^2.
+}\end{equation}
+
+The first formula is the definition. Differentiating
+\(\lVert g\rVert^2\) in direction \(g\) uses \(dg[g]=Hg\) and gives the
+second formula. To differentiate \(\langle g,Hg\rangle\), differentiate
+its three factors. The derivative of \(H\) contributes \(T[g,g,g]\). The
+two derivatives of \(g\) contribute \(\langle Hg,Hg\rangle\) and
+\(\langle g,H^2g\rangle\), both equal to \(\lVert Hg\rVert^2\) because
+the Hessian is symmetric. Multiplication by two gives the last identity.
+
+For a constant positive definite learning metric \(D\), change
+coordinates to \(\theta=D^{1/2}q\) and apply
+(\ref{eq-docs-gaussian-calculus-l177}) to \(F(D^{1/2}q)\). Its Euclidean
+gradient flow in \(q\) is exactly the metric gradient flow in
+\(\theta\). This supplies the metric version without confusing raw
+gradients, mobilities and residuals.
+
+If \(\theta(s)\) follows \(\theta'=\nabla F(\theta)\), the chain rule
+identifies \(d^jF(\theta(s))/ds^j\) with \(\mathcal{D}_F^jF\) whenever
+the stated derivatives exist. For squared loss the physical velocity has
+the additional residual factor, so conversion to physical derivatives
+also differentiates that factor. Finite-order identities alone provide
+neither an analytic Taylor expansion nor permission to exchange width
+limits and time differentiation.
+
+\subsection{Exact polynomial Gaussian
+expectations}\label{sec-docs-gaussian-calculus-l203}
+
+Let \(\Sigma\) be a finite symmetric positive semidefinite matrix and
+\(X\) a centered Gaussian vector with that covariance. For a vector
+\(\alpha\) of nonnegative integer powers, put
+\(M(\alpha)=\mathbb{E}[\prod_jX_j^{\alpha_j}]\). The zero-degree moment
+is one; every odd-total-degree moment is zero by the symmetry \(X\) and
+\(-X\). If \(\alpha_i>0\), Gaussian integration by parts gives
+
+\begin{equation}\protect\phantomsection\label{eq-docs-gaussian-calculus-l211}{
+M(\alpha)=\sum_{j=1}^p(\alpha_j-\mathbf1_{j=i})\Sigma_{ij}
+ M(\alpha-e_i-e_j),
+}\end{equation}
+
+where terms with zero coefficient are omitted, so negative exponents
+never occur. To prove the integration-by-parts identity even for
+singular covariance, write \(X=AG\), where \(G\) is a standard Gaussian
+vector and \(AA^{\top}=\Sigma\). Such a square root exists by
+diagonalizing the finite symmetric matrix. For any polynomial \(P\),
+integrate each component of \(G\) against its Gaussian density.
+Polynomial growth makes all boundary terms zero, and the chain rule
+gives
+
+\[
+\mathbb E[X_iP(X)]
+=\sum_{k,j}A_{ik}A_{jk}\mathbb E[\partial_jP(X)]
+=\sum_j\Sigma_{ij}\mathbb E[\partial_jP(X)].
+\]
+
+Apply this identity to \(P(X)=\prod_jX_j^{\alpha_j-\mathbf{1}_{j=i}}\)
+to obtain (\ref{eq-docs-gaussian-calculus-l211}). Every nonzero summand
+reduces total degree by two. Induction therefore proves termination and
+correctness of the moment recurrence. With rational covariance all its
+arithmetic is rational, and linearity evaluates every polynomial with
+rational coefficients. The exact API \texttt{pde.gaussian\_moment}
+implements this recurrence using integer and \(\mathrm{Fraction}\)
+inputs; it does not approximate a nonpolynomial activation by a
+polynomial or identify a training limit.
+
+For completeness, its covariance validation also has an exact finite
+proof. At a symmetric block matrix
+
+\[
+\begin{pmatrix}a&b^T\\ b&C\end{pmatrix},
+\]
+
+a negative \(a\) contradicts nonnegativity on the first basis vector. If
+\(a=0\), positive semidefiniteness forces \(b=0\): otherwise the
+quadratic form on \((t,v)\) with \(b^{\top}v\) nonzero changes sign for
+a suitable large positive or negative \(t\). The remaining condition is
+then exactly that \(C\) is positive semidefinite. If \(a>0\), completing
+the square gives
+
+\[
+a t^2+2t b^Tv+v^TCv
+=a\left(t+\frac{b^Tv}{a}\right)^2
++v^T\left(C-\frac{bb^T}{a}\right)v.
+\]
+
+Thus the condition is exactly positive semidefiniteness of the Schur
+complement. Recursing proves the rational validator without a floating
+tolerance, matrix inverse at a zero pivot, or a nonsingularity
+assumption. This validates a finite covariance; it is not a proof about
+the stability of adaptive query inverses.
+
+\section{Fixed finite Gaussian derivative
+programs}\label{sec-mfp-finite-derivative-programs}
+
+The conditioning identities above become an operational calculus once
+the permitted finite computations and derivatives are specified. The
+order is to differentiate the finite network, expand every represented
+matrix action, and then evaluate a finite Gaussian expectation graph.
+The first two steps are exact at finite width. The last step gives a
+width limit, including convergence of expectations. Its scope is a fixed
+computation: depth, derivative order and update count do not grow with
+width.
+
+\subsection{Typed language and limit
+theorem}\label{sec-mfp-program-language}
+
+\begin{definition}[Finite Gaussian
+program]\protect\hypertarget{def-mfp-primitive-program}{}\label{def-mfp-primitive-program}
+
+A vector type labels one copy of \(\mathbb R^n\). Fix finitely many
+types and named initialized matrices
+\(W:\mathbb R^n_\tau\to\mathbb R^n_\sigma\), with \(\tau\ne\sigma\).
+Each matrix has independent \(N(0,1/n)\) entries, and different named
+matrices are independent. A transpose call uses that same matrix. For
+each type fix a finite Gaussian root tuple whose coordinate tuples are
+iid over neuron indices. Its mean and covariance are fixed; its
+covariance may be singular. Root tuples of distinct types and all
+matrices are independent. A constant vector means a vector with one
+fixed scalar in every coordinate, not an arbitrary width-dependent
+deterministic array.
+
+A primitive program is a finite acyclic list of scalar and typed vector
+instructions:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Coordinate map:} \(v_i=F(u_i^1,\ldots,u_i^k;s_1,\ldots,s_b)\),
+  with all vectors of the same type.
+\item
+  \textbf{Normalized average:}
+  \(s=n^{-1}\sum_i F(u_i^1,\ldots,u_i^k;t_1,\ldots,t_b)\).
+\item
+  \textbf{Scalar arithmetic:} sums and products of earlier scalars.
+\item
+  \textbf{Named matrix action:} \(Wh\) or \(W^Tu\), with the declared
+  input and output types.
+\end{itemize}
+
+Initial scalars are deterministic. Every \(F\) is a finite expression
+made from its arguments, fixed real constants, sums, products and
+\(\phi^{(r)}\), \(r\ge0\), where
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-activation-growth}{
+\begin{aligned}
+\phi&\in C^\infty(\mathbb R),\\
+|\phi^{(r)}(x)|&\le C_r(1+|x|)^{d_r}
+\quad\text{for every }r\ge0.
+\end{aligned}
+}\end{equation}
+
+All coefficients, root laws, expression lists and dimensions other than
+\(n\) are fixed before \(n\to\infty\). There is no coordinate selection,
+inverse operation, arbitrary tensor-index contraction or width-dependent
+coefficient primitive.
+
+\end{definition}
+
+A current matrix and a matrix direction may be stored, respectively, as
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-represented-matrices}{
+A=W_0+\sum_{\nu=1}^M c_\nu u_\nu v_\nu^T/n,
+\qquad B=\sum_{\nu=1}^{M'} d_\nu p_\nu q_\nu^T/n,
+}\end{equation}
+
+with a fixed finite number of terms; the initialized part may be absent.
+These are notation for primitive actions, not extra random-matrix laws:
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-rank-lowering}{
+\begin{aligned}
+Ah&=W_0h+\sum_\nu c_\nu u_\nu(v_\nu^Th/n),\\
+A^Tu&=W_0^Tu+\sum_\nu c_\nu v_\nu(u_\nu^Tu/n).
+\end{aligned}
+}\end{equation}
+
+Each pairing contracts only one type. The derivative language
+additionally allows derivatives in finitely many deterministic inputs or
+scalar parameters; fixed-order directional derivatives with program
+vector directions and represented matrix directions; ambient gradients
+with mobility \(n\) on trainable vector roots and mobility one on
+trainable matrices, with fixed block multipliers; their admitted
+contractions and directional derivatives; fixed numbers of gradient
+updates; and finite gradient-flow jets. The exact rules are in
+\hyperref[sec-mfp-physical-differentiation]{exact finite
+differentiation}. No derivative of a sampling law is implicit in a
+parameter derivative.
+
+\begin{theorem}[Scalar limits and uniform
+moments]\protect\hypertarget{thm-mfp-finite-derivative-program}{}\label{thm-mfp-finite-derivative-program}
+
+Every derivative program just specified expands exactly at each finite
+\(n\) to a finite primitive program. The construction in
+\hyperref[sec-mfp-source-evaluation]{Gaussian source-response
+evaluation} gives a deterministic scalar \(O_*\) for each scalar output
+\(O_n\), and
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-scalar-lp-limit}{
+\lim_{n\to\infty}\mathbb E|O_n-O_*|^p=0
+\qquad(1\le p<\infty).
+}\end{equation}
+
+For every vector node \(v_n\), scalar node \(s_n\), and finite
+\(p,q\ge1\),
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-uniform-node-moments}{
+\sup_n\mathbb E\left(\frac1n\sum_i|v_{n,i}|^p\right)^q<\infty,
+\qquad \sup_n\mathbb E|s_n|^q<\infty.
+}\end{equation}
+
+Every same-type tuple of vector nodes has a deterministic joint
+empirical law converging in probability in \(\mathcal W_2\), for the
+Euclidean metric on the tuple. Its law is the source-response law below.
+These assertions hold jointly for finitely many programs sharing roots
+and matrices, including singular query Grams.
+
+The theorem asserts no infinite Taylor-series convergence, positive-time
+reconstruction, common existence horizon for finite flows, growing-depth
+or growing-update limit, or bound on compilation complexity beyond
+finiteness. Vector coordinates do not converge to deterministic
+constants.
+
+\end{theorem}
+
+The proof has three parts. A raw-entry differentiation estimate bounds
+all moments without rank assumptions. The established bounded-derivative
+Gaussian program law identifies each clipped program; the moment bounds
+remove clipping uniformly in width. Exact finite differentiation closes
+the language before this probabilistic argument is applied.
+
+\subsection{Gaussian source-response
+evaluation}\label{sec-mfp-source-evaluation}
+
+Give each type \(\tau\) a probability space \(\Omega_\tau\) and
+expectation \(\mathbb E_\tau\). Capital letters denote scalar
+representatives of vector nodes. Roots have their declared laws;
+coordinate maps act on these representatives and on previously computed
+deterministic scalars. An average becomes the expectation on its type.
+
+For a named matrix \(W:\tau\to\sigma\), list forward calls \(y_r=Wh_r\)
+and reverse calls \(v_s=W^Tu_s\) in their program order. Their scalar
+inputs are \(H_r\) on \(\Omega_\tau\) and \(U_s\) on \(\Omega_\sigma\).
+Introduce centered Gaussian sources \(\xi_r\) on the output type
+\(\sigma\), and \(\zeta_s\) on the output type \(\tau\), with
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-source-grams}{
+\operatorname{Cov}(\xi_r,\xi_t)=\mathbb E_\tau[H_rH_t],\qquad
+\operatorname{Cov}(\zeta_s,\zeta_v)=\mathbb E_\sigma[U_sU_v].
+}\end{equation}
+
+Different oriented matrix groups, including the two orientations of one
+matrix, are independent Gaussian groups and are independent of the
+roots. Return
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-source-response}{
+\begin{aligned}
+Y_r&=\xi_r+\sum_{s:\,\text{earlier reverse call}}
+ U_s\,\mathbb E_\tau[\partial_{\zeta_s}H_r],\\
+V_s&=\zeta_s+\sum_{r:\,\text{earlier forward call}}
+ H_r\,\mathbb E_\sigma[\partial_{\xi_r}U_s].
+\end{aligned}
+}\end{equation}
+
+The source covariances use uncentered input second moments. Thus an
+input \(H=1\) has source variance one. The independence assertion
+concerns sources; the output fields in
+Equation~\ref{eq-mfp-source-response} generally depend on earlier groups
+through their responses.
+
+A formal source partial differentiates the explicit expression in the
+named source arguments, holding all previously computed expectations,
+covariance entries and scalar coefficients fixed. Paths through other
+matrices' earlier calls remain part of that expression. An unavailable
+source has derivative zero. Each call retains a distinct formal argument
+even at singular covariance: compute partials before restricting to the
+Gaussian support. No covariance inverse is an evaluation rule.
+
+This is a causal construction. Every response integrand is already
+defined, and the next covariance is an input-Gram extension, hence
+positive semidefinite. A Gaussian law exists even when that extension is
+singular. Finite sums, products, composition and differentiation
+preserve polynomial growth of every derivative, by the finite product
+and chain rules. Induction therefore bounds every field and its formal
+derivatives by a polynomial in the finite root/source list, so all
+required expectations exist. Collecting them gives a finite directed
+acyclic graph
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-expectation-graph}{
+\begin{aligned}
+I_j&=\int F_j(g;I_1,\ldots,I_{j-1})\\
+&\qquad N(0,K_j(I_1,\ldots,I_{j-1}))(dg),\\
+O_*&=P(I_1,\ldots,I_N),
+\end{aligned}
+}\end{equation}
+
+where root means are fixed shifts inside \(F_j\). The final \(P\) is a
+polynomial because scalar outputs are assembled from averages, sums and
+products. The dimensions, integrands and covariance entries are
+specified by the program, rather than supplied as unknown neural laws.
+
+\subsection{Uniform raw-entry moments}\label{sec-mfp-uniform-moments}
+
+The following finite-entry cancellation argument is adapted from the
+moment mechanism in Appendix J of \citet{golikov2022nongaussian}. Its
+needed form is proved here; no external program theorem is used as a
+hypothesis.
+
+\begin{lemma}[Moments of values and raw-entry
+derivatives]\protect\hypertarget{lem-mfp-raw-entry-moments}{}\label{lem-mfp-raw-entry-moments}
+
+Temporarily allow all independent centered Gaussian matrix entries to
+have different variances, each at most \(1/n\). For a fixed primitive
+program with smooth maps whose every partial derivative has polynomial
+growth, let \(\alpha\) be a list of \(k\) raw matrix-entry
+differentiation variables, with repetition allowed. For each finite
+\(p\ge1\) and \(k\ge0\),
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-raw-entry-bounds}{
+\sup_{n,i,|\alpha|=k}\mathbb E|\partial^\alpha v_{n,i}|^p<\infty,
+\qquad
+\sup_{n,|\alpha|=k}\mathbb E|\partial^\alpha s_n|^p<\infty.
+}\end{equation}
+
+Constants are uniform over these variances and depend only on the fixed
+graph, root laws and finitely many polynomial derivative bounds. They
+are consequently uniform over any family of maps having common such
+bounds at each order. Derivatives refer to the deterministic program as
+a function of unconstrained raw entries, evaluated at the random array;
+this includes entries of variance zero.
+
+\end{lemma}
+
+\protect\phantomsection\label{proof-mfp-raw-entry-moments}{}
+
+\begin{proof}
+Induct over instructions, proving all finite moments and derivative
+orders simultaneously at each node. At fixed \(n\), values and
+derivatives have polynomial growth in finitely many Gaussian variables,
+so integrability is available before uniform bounds are proved. Roots
+have Gaussian moments and positive-order matrix derivatives zero.
+Repeated product and chain rules for coordinate and scalar maps give
+finitely many products of earlier derivatives and polynomially bounded
+factors. Hölder's inequality and higher moments of the earlier nodes
+bound each term. This covers scalar feedback. For an average,
+differentiate its finite sum and use
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-average-jensen}{
+\mathbb E\left|\frac1n\sum_i a_i\right|^p
+\le\frac1n\sum_i\mathbb E|a_i|^p.
+}\end{equation}
+
+For a matrix call \(y=Wv\), the product rule gives
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-matrix-derivative}{
+\partial^\alpha y_i=\sum_jW_{ij}\partial^\alpha v_j+R_i.
+}\end{equation}
+
+The remainder has at most \(k\) terms, each an earlier-node derivative
+of order \(k-1\): differentiating the linear matrix factor fixes its
+column index, and a second derivative of that factor vanishes. Thus
+\(R_i\) is bounded. A transpose call has the same argument with a column
+in place of a row.
+
+Write \(w_j=W_{ij}\) and \(z_j=\partial^\alpha v_j\). It suffices to
+bound an even integer moment \(p\) of \(\sum_jw_jz_j\), since larger
+even moments bound every finite moment. Expand it into ordered tuples
+\((j_1,\ldots,j_p)\). For one tuple let \(b\) be its number of distinct
+indices, let \(S\) be the indices that appear exactly once, and put
+\(s=|S|\), \(M=\prod_{a=1}^p w_{j_a}\) and \(Z=\prod_{a=1}^p z_{j_a}\).
+We will bound \(|\mathbb E[MZ]|\) by \(C n^{-b}\).
+
+For \(u\in S\) define the commuting difference
+\(\Delta_uZ=Z-Z|_{w_u=0}\). Centering and independence give
+\(\mathbb E[MZ]=\mathbb E[M\prod_{u\in S}\Delta_u Z]\): in every other
+term of the expanded product at least one singleton weight appears only
+as its centered linear factor. Applying the fundamental theorem of
+calculus once in each such entry yields
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-singleton-cancellation}{
+\mathbb E[MZ]=\int_{[0,1]^s}
+\mathbb E\left[M\prod_{u\in S}w_u\,
+ (\partial_S Z)(W^{(t)})\right]dt.
+}\end{equation}
+
+Here \(W^{(t)}\) replaces each selected raw entry \(w_u\) by \(t_uw_u\)
+in the entire array, consistently in every reuse and transpose. Empty
+products and a zero-dimensional integral cover \(s=0\). Gaussian moments
+give
+
+\[
+\mathbb E\left|M\prod_{u\in S}w_u\right|^2
+\le C n^{-(p+s)}.
+\]
+
+The other factor in Equation~\ref{eq-mfp-singleton-cancellation} has a
+bounded second moment, uniformly in \(n,t\) and the selected entries.
+Its product-rule expansion contains only derivatives of the earlier node
+\(v\), evaluated at independent centered Gaussian entries of variances
+at most \(1/n\). The strengthened induction hypothesis applies.
+Differentiate in raw coordinates first and then evaluate at \(W^{(t)}\);
+these are not derivatives of the composed map \(W\mapsto Z(W^{(t)})\).
+No factors \(t_u\) or divisions by \(t_u\) occur, even at zero.
+Fixed-width polynomial integrability justifies the centering and
+integration exchanges.
+
+Cauchy--Schwarz bounds the tuple contribution by \(C n^{-(p+s)/2}\). The
+multiplicities satisfy \(p\ge s+2(b-s)=2b-s\), giving the desired
+\(C n^{-b}\). For a fixed equality pattern there are at most \(C_p n^b\)
+tuples, and finitely many patterns for fixed \(p\). Summing proves a
+uniform bound for the matrix-call moment and closes the induction. Every
+bound uses finitely many earlier derivative bounds and Gaussian moments,
+never a lower variance or a Gram inverse.
+\end{proof}
+
+Taking \(k=0\) proves scalar moment bounds, and Jensen gives
+
+\[
+\mathbb E\left(\frac1n\sum_i|v_i|^p\right)^q
+\le\frac1n\sum_i\mathbb E|v_i|^{pq},
+\]
+
+which proves Equation~\ref{eq-mfp-uniform-node-moments}. We also use the
+uniform operator-norm moments from
+Equation~\ref{eq-docs-special-data-limits-l3859} and
+Equation~\ref{eq-docs-special-data-limits-l3866}: for every fixed finite
+\(a\), \(\sup_n\mathbb E\|W\|_{\mathrm{op}}^a<\infty\). Those estimates
+follow from a \(1/4\)-net and Gaussian tails and apply to any fixed list
+of initialized matrices and their transposes.
+
+\subsection{Bounded maps, scalar feedback and removal of
+clipping}\label{sec-mfp-clipping-proof}
+
+\begin{lemma}[The bounded-derivative foundation on a finite typed
+graph]\protect\hypertarget{lem-mfp-bounded-typed-extension}{}\label{lem-mfp-bounded-typed-extension}
+
+For any fixed list of named matrices between distinct types, the source
+rule Equation~\ref{eq-mfp-source-response} identifies empirical laws in
+\(\mathcal W_2\) in probability for \(C^1\) coordinate maps with bounded
+continuous first partials. Normalized averages of such maps, globally
+Lipschitz scalar maps, and globally Lipschitz dependence on preceding
+scalars are allowed. The roots here may have any iid
+finite-second-moment tuple law of the stated independence types.
+
+\end{lemma}
+
+\protect\phantomsection\label{proof-mfp-bounded-typed-extension}{}
+
+\begin{proof}
+The deterministic-coefficient proof is
+Theorem~\ref{thm-docs-special-data-limits-l3820}, with adaptive
+conditioning in \hyperref[sec-docs-special-data-limits-l3884]{adaptive
+Gaussian conditioning}, the source identity in
+Lemma~\ref{lem-docs-special-data-limits-l3966} and singular-query
+removal in Lemma~\ref{lem-docs-special-data-limits-l4011}. Its statement
+lists adjacent-layer matrices. The following checks extend the proof to
+the present finite typed graph without enlarging its analytic
+hypotheses.
+
+Condition on all revealed roots and the complete preceding transcript.
+For each \emph{named} matrix retain only its own forward and reverse
+constraints \(WV=Y\), \(W^TU=Q\). Initially the residual matrix laws are
+independent Gaussians. A coordinate or scalar instruction is measurable
+from the transcript. At the next call its input is fixed conditionally,
+so its answer conditions only the queried residual matrix factor by one
+linear observation; all other conditional factors are unchanged. This
+proves by induction the conditional product structure used in
+Equation~\ref{eq-docs-special-data-limits-l3896} for any list of names,
+including parallel edges and type-graph cycles. Chronology is still
+acyclic.
+
+That conditioning formula and its new-query form
+Equation~\ref{eq-docs-special-data-limits-l3916} use only the two
+endpoint spaces and their earlier query columns. The finite-rank
+projection error is \(\operatorname{rank}(U)/n\), regardless of other
+edges. Thus the positive-Gram empirical-law induction, including its
+conditional test variance and second-moment calculation, carries over
+verbatim at each named call. The Gaussian integration-by-parts
+cancellation in Lemma~\ref{lem-docs-special-data-limits-l3966} also uses
+only this matrix's two lists. Dependencies through other matrices are
+retained in the input's explicit source expression. This gives
+Equation~\ref{eq-mfp-source-response} with separate oriented groups for
+every name.
+
+For singular Grams, add a distinct independent \(\varepsilon\)-Gaussian
+input perturbation at each call, as in
+Lemma~\ref{lem-docs-special-data-limits-l4011}. Each new squared
+distance to its own preceding query span has limit at least
+\(\varepsilon^2\). A finite union of the operator-bound events controls
+all named matrices; the same finite instruction induction gives an
+\(O(\varepsilon)\) RMS error. The proof's coupling by positive
+semidefinite covariance square roots and its convergence of bounded
+source derivatives do not use layer adjacency. It therefore removes
+\(\varepsilon\) for this graph.
+
+To include scalars, proceed causally, replacing each preceding scalar
+value by its deterministic limit in an auxiliary program. A normalized
+average of a bounded-derivative map is the normalized pairing of its
+output with the constant-one vector, so the empirical \(\mathcal W_2\)
+law determines that scalar limit. Globally Lipschitz scalar operations
+preserve convergence. If \(s_n\to s_*\) and \(F(u;s)\) has a global
+Lipschitz constant \(C\), then
+
+\[
+\begin{gathered}
+\frac{\|F(u_n;s_n)-F(\bar u_n;s_*)\|_2}{\sqrt n}\\
+{}\le C\left(\sum_j\frac{\|u_n^j-\bar u_n^j\|_2}{\sqrt n}\right.\\
+\left.{}+\sum_b|s_{n,b}-s_{*,b}|\right).
+\end{gathered}
+\]
+
+For averages, Jensen gives the same estimate for their absolute error.
+Matrix errors are bounded by the initialized operator norm times the
+input RMS error. This proves the scalar and vector comparison by finite
+induction; equivalently, scalar arguments can be broadcast and then
+inserted into an ordinary same-type coordinate map. It is the mechanism
+of \hyperref[sec-docs-special-data-limits-l4054]{causal scalar feedback}
+with this additional globally Lipschitz coordinate dependence checked
+explicitly. The deterministic scalar construction is causal, not a
+fixed-point assumption. In its source partials the substituted scalars
+are held fixed. The same Lipschitz estimates also include scalars when
+removing the singular-query perturbations. This proves the stated
+extension.
+\end{proof}
+
+This lemma leaves intact the broader finite-second-moment roots and
+\(C^1\) hypotheses of the bounded-derivative foundation in
+Section~\ref{sec-docs-special-data-limits-l3785}. The smooth Gaussian
+theorem adds all finite scalar moments under its stronger assumptions.
+Its scope remains the fixed Gaussian root laws and derivative language
+specified here.
+
+\protect\phantomsection\label{proof-mfp-finite-derivative-program}{}
+
+\begin{proof}
+First consider a primitive program. Choose a smooth cutoff \(\chi\)
+equal to one on the unit ball and zero outside the radius-two ball. For
+every coordinate or scalar operation set \(F_B(x)=\chi(x/B)F(x)\),
+\(B\ge1\), including scalar arguments in \(x\). Scalar sums and products
+can be clipped by this rule too; constants are unchanged. Each \(F_B\)
+has bounded derivatives and is globally Lipschitz. For each derivative
+order its polynomial growth bound is uniform in \(B\): product-rule
+factors \(B^{-j}D^j\chi(x/B)\) are uniformly bounded. Also \(F_B\to F\)
+with all derivatives on compact sets. The raw-entry moment lemma
+consequently holds uniformly in both \(n\) and \(B\) for the original
+and clipped programs.
+
+Couple them using identical roots and matrices. We claim for
+corresponding nodes that
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-clipping-errors}{
+\begin{aligned}
+\lim_{B\to\infty}\sup_n\mathbb E\frac{\|v_n-v_n^B\|_2^2}{n}&=0,\\
+\lim_{B\to\infty}\sup_n\mathbb E|s_n-s_n^B|^2&=0.
+\end{aligned}
+}\end{equation}
+
+Here are the error estimates needed to induct over the list. Regard a
+vector coordinate as a random variable on the original probability space
+times the uniform distribution on its neuron index. All finite moments
+are uniformly bounded on this probability space. If a difference
+vanishes in \(L^2\), interpolation with a uniformly bounded higher
+moment makes it vanish in every fixed finite \(L^p\), uniformly in
+width. This also applies to scalar errors and scalar broadcasts.
+
+Polynomial growth of first derivatives gives
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-polynomial-difference}{
+|F(x)-F(y)|\le C(1+|x|+|y|)^d|x-y|.
+}\end{equation}
+
+Split \(F(x)-F_B(y)\) into \(F(x)-F(y)\) and \(F(y)-F_B(y)\). The first
+tends to zero in \(L^2\) by Hölder, the input errors upgraded to
+\(L^4\), and uniform moments of the polynomial factor. The second is
+bounded by \(C(1+|y|)^d\mathbf1_{|y|>B}\). Its squared expectation
+vanishes uniformly by any sufficiently high moment and a power tail
+bound. This proves the coordinate, scalar and, by Jensen, average steps.
+
+For a matrix call with input error \(e\), correlated with \(W\) or not,
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-correlated-matrix-error}{
+\begin{aligned}
+\mathbb E\frac{\|We\|_2^2}{n}
+&\le (\mathbb E\|W\|_{\mathrm{op}}^4)^{1/2}
+ \left[\mathbb E(\|e\|_2^2/n)^2\right]^{1/2}\\
+&\le C\left[\mathbb E\frac1n\sum_i|e_i|^4\right]^{1/2}
+\longrightarrow0.
+\end{aligned}
+}\end{equation}
+
+The operator moments and the interpolation just proved justify the last
+line. Transposes obey the identical bound, and roots have zero error.
+This completes the induction proving
+Equation~\ref{eq-mfp-clipping-errors}, including causal scalar feedback.
+
+For fixed \(B\), Lemma~\ref{lem-mfp-bounded-typed-extension} identifies
+the clipped program and gives \(O_n^B\to O_*^B\) in probability. The
+clipped Gaussian evaluator converges to the unclipped evaluator. To
+prove this, induct over its expectation graph. Earlier convergent
+coefficients stay bounded. All fields and each finite set of source
+derivatives have common polynomial bounds in the finite root/source
+list, because the clipped maps have common derivative bounds of
+polynomial growth. Couple each source prefix with a fixed standard
+Gaussian vector using its positive semidefinite covariance square root.
+Covariance convergence implies square-root convergence, including at
+rank loss, by the argument in
+Lemma~\ref{lem-docs-special-data-limits-l4011}. Local convergence of the
+maps and their derivatives gives pointwise convergence on this coupling;
+bounded square roots give a common polynomial Gaussian dominator.
+Dominated convergence therefore passes input Grams, response
+expectations and all fixed field moments to their unclipped values. This
+closes the coefficient induction and proves \(O_*^B\to O_*\).
+
+For any \(\epsilon>0\) and sufficiently large fixed \(B\),
+
+\[
+\Pr(|O_n-O_*|>\epsilon)
+\le\Pr(|O_n-O_n^B|>\epsilon/3)
+   +\Pr(|O_n^B-O_*^B|>\epsilon/3).
+\]
+
+Take the width limit and then \(B\to\infty\), using
+Equation~\ref{eq-mfp-clipping-errors} and Markov's inequality. This
+proves convergence in probability. For finite \(p\), choose \(q>p\). The
+raw-entry moment bound controls \(\mathbb E|O_n-O_*|^q\) uniformly. The
+part of its \(p\)th moment on \(|O_n-O_*|>R\) is at most \(CR^{p-q}\);
+the part on the complement tends to zero by convergence in probability
+and boundedness (split once more at an arbitrarily small threshold).
+This proves Equation~\ref{eq-mfp-scalar-lp-limit}.
+
+For a same-type vector tuple, the coordinatewise coupling bounds the
+squared empirical \(\mathcal W_2\) distance by its mean squared error.
+The clipped empirical laws converge by the bounded lemma, and their
+limiting laws converge in \(\mathcal W_2\) by the Gaussian dominated
+convergence just proved. The triangle inequality proves the asserted
+unclipped empirical-law convergence in probability. Finite unions of
+programs give the joint assertions. Finally,
+Proposition~\ref{prp-mfp-derivative-closure} below expands every
+admitted derivative to a primitive graph before clipping; thus this
+proof applies to the actual derivative, never to a derivative of a
+clipped network.
+\end{proof}
+
+\subsection{Exact finite differentiation and
+training}\label{sec-mfp-physical-differentiation}
+
+Physical differentiation acts on the realized finite-dimensional
+program, then evaluates at sampled parameters. A single Fréchet
+derivative evaluates its direction at the base point and holds that
+direction fixed. With \(\delta u=Du[\delta\theta]\) and
+\(\delta s=Ds[\delta\theta]\), its rules are
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-forward-ad}{
+\begin{aligned}
+\delta F(u;s)
+&=\sum_j F_{u^j}(u;s)\odot\delta u^j\\
+&\quad+\sum_b F_{s_b}(u;s)\,\delta s_b,\\
+\delta\left[\frac1n\sum_iF(u_i;s)\right]
+&=\frac1n\sum_i\bigl[\sum_jF_{u^j}(u_i;s)\delta u_i^j\\
+&\qquad+\sum_bF_{s_b}(u_i;s)\delta s_b\bigr],\\
+\delta(Ah)&=(\delta A)h+A\delta h,\\
+\delta(A^Tu)&=(\delta A)^Tu+A^T\delta u,\\
+\delta(cuv^T/n)&=(\delta c)uv^T/n\\
+&\quad+c(\delta u)v^T/n\\
+&\quad+cu(\delta v)^T/n.
+\end{aligned}
+}\end{equation}
+
+Products of vectors in these expressions are coordinatewise. Scalar
+arithmetic uses the usual sum and product rules. Unlike a formal source
+partial, physical differentiation propagates through finite averages and
+their scalar feedback.
+
+For reverse differentiation of a scalar \(O\), store vector adjoints
+\(b_u=n\,\partial O/\partial u\) and scalar adjoints
+\(a_s=\partial O/\partial s\). Initialize \(a_O=1\) and the others at
+zero; visit instructions in reverse order and add every contribution:
+
+For a coordinate map \(v=F(u;s)\), add for each argument
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-coordinate-adjoint}{
+b_{u^j}\mathrel{+}=b_v\odot F_{u^j},\qquad
+a_{s_b}\mathrel{+}=\frac1n\sum_i b_{v,i}F_{s_b}(u_i;s).
+}\end{equation}
+
+For an average \(t=n^{-1}\sum_iF(u_i;s)\), add
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-average-adjoint}{
+b_{u^j}\mathrel{+}=a_tF_{u^j},\qquad
+a_{s_b}\mathrel{+}=\frac{a_t}{n}\sum_iF_{s_b}(u_i;s).
+}\end{equation}
+
+For a matrix action \(v=Au\), add
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-matrix-adjoint}{
+b_u\mathrel{+}=A^Tb_v,\qquad \nabla_AO\mathrel{+}=b_vu^T/n.
+}\end{equation}
+
+For a transpose action \(v=A^Tu\), add
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-transpose-adjoint}{
+b_u\mathrel{+}=Ab_v,\qquad \nabla_AO\mathrel{+}=ub_v^T/n.
+}\end{equation}
+
+For example, matching \(dO=b_v^Tdv/n\) to
+\(\langle\nabla_AO,dA\rangle_F+b_u^Tdu/n\) proves both matrix rules,
+where \(\langle B,C\rangle_F=\operatorname{tr}(B^TC)\). Accumulation
+includes every repeated occurrence of a shared parameter.
+
+Compute a current ambient-matrix gradient with \(A\) treated as the
+parameter \emph{before} substituting
+Equation~\ref{eq-mfp-represented-matrices}. A derivative with respect to
+the factors of previous updates is a history pullback, a different
+requested function. Vector mobility \(n\kappa\) gives loss velocity
+\(-\kappa b_u\), and matrix mobility \(\kappa\) gives
+\(-\kappa\nabla_A\mathcal L\). Their contractions stay in the language:
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-gradient-contractions}{
+\begin{aligned}
+n\,\nabla_uO^T\nabla_uS
+&=\frac{(b_u^O)^Tb_u^S}{n},\\
+\left\langle\frac{uv^T}{n},\frac{pq^T}{n}\right\rangle_F
+&=\left(\frac{u^Tp}{n}\right)\left(\frac{v^Tq}{n}\right).
+\end{aligned}
+}\end{equation}
+
+For physical-time jets write \(u_{[r]}=\frac1{r!}(d^ru/dt^r)(0)\). At a
+fixed requested order \(R\), coefficient extraction in the truncated
+polynomial ring gives
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-jet-algebra}{
+\begin{aligned}
+(uv)_{[r]}&=\sum_{a+b=r}u_{[a]}v_{[b]},\qquad
+(Au)_{[r]}=\sum_{a+b=r}A_{[a]}u_{[b]},\\
+\phi(u)_{[r]}&=[t^r]\sum_{k=0}^r\frac{\phi^{(k)}(u_{[0]})}{k!}
+                 \left(\sum_{j=1}^r u_{[j]}t^j\right)^k.
+\end{aligned}
+}\end{equation}
+
+The \(k=0\) term is the constant \(\phi(u_{[0]})\). Averages act
+coefficientwise, and mixed finite jets use multivariate truncated
+polynomials. For a smooth finite-dimensional field
+\(\dot\theta=V(\theta)\), compute
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-flow-jet-recursion}{
+(r+1)\theta_{[r+1]}=[t^r]V\left(\sum_{j=0}^r\theta_{[j]}t^j\right).
+}\end{equation}
+
+All state dependence in \(V\) participates. In particular
+\(O''=D^2O[V,V]+DO[DV[V]]\); the first term alone describes the straight
+line with frozen initial direction. This is the general version of
+\hyperref[sec-docs-gaussian-calculus-l170]{derivatives along the
+gradient direction}; the neural applications below use this same finite
+recursion.
+
+\begin{proposition}[Exact compilation of admitted
+derivatives]\protect\hypertarget{prp-mfp-derivative-closure}{}\label{prp-mfp-derivative-closure}
+
+The derivative constructions above, fixed gradient updates and
+fixed-order flow jets expand to primitive programs, exactly at every
+finite width.
+
+\end{proposition}
+
+\protect\phantomsection\label{proof-mfp-derivative-closure}{}
+
+\begin{proof}
+Every partial derivative of an allowed coordinate expression is again
+such an expression by finite chain and product rules. Thus
+Equation~\ref{eq-mfp-forward-ad} and the reverse table introduce only
+allowed coordinate maps, averages and matrix actions. Differentiating a
+represented matrix term leaves finitely many represented terms;
+Equation~\ref{eq-mfp-rank-lowering} expands their actions, and
+Equation~\ref{eq-mfp-gradient-contractions} expands their admitted
+contractions. A vector update subtracts a program vector, while a matrix
+update adds finitely many normalized rank-one terms. Induction over a
+fixed number of simultaneous steps proves exact closure, with the
+ambient loss gradient formed before each current-state substitution.
+
+Finite Taylor's theorem, not analyticity, proves
+Equation~\ref{eq-mfp-jet-algebra} to any prescribed finite order.
+Comparing coefficients in \(\dot\theta=V(\theta)\) gives
+Equation~\ref{eq-mfp-flow-jet-recursion}. A smooth finite-dimensional
+field has a local solution: on a sufficiently small closed ball its
+derivative is bounded, and its integral map on continuous paths in that
+ball is a contraction for sufficiently short time. Repeated
+differentiation yields the finite jets. No common width-independent
+interval is used. Finite induction on jet order therefore proves the
+remaining closure assertion. Applying the limit theorem only after
+expansion avoids any interchange of differentiation and the width limit.
+\end{proof}
+
+Explicitly frozen direction data can be handled as independent seeds on
+an enlarged parameter space, with values assigned from the base state
+after differentiation. For example, freezing \(x\) inside
+\(n^{-1}\sum_i x_i^2\) sets its partial derivative in the remaining
+\(x\) parameter to zero; it is no longer the ordinary derivative of the
+original observable. Gaussian evaluation retains the seed's value and
+explicit source dependence. Freezing physical seeds never freezes a
+formal source path.
+
+For neural applications let \(L\) be the hidden depth, \(m\) the number
+of samples, \(d\) the input dimension and \(n\) the hidden width. Fix
+\(L,m,d\) and data \(x_a\in\mathbb R^d\), \(y_a\in\mathbb R\),
+\(1\le a\le m\). The first weight matrix \(W^{(1)}\) has shape
+\(n\times d\), hidden matrices \(W^{(\ell)}\) have shape \(n\times n\)
+for \(2\le\ell\le L\), and the stored readout \(W^{(L+1)}\) has length
+\(n\). The data Gram is \(G_{ab}=x_a^Tx_b/d\), without whitening or a
+nonsingularity requirement. Use the canonical forward model
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-neural-forward}{
+\begin{aligned}
+z_a^{(1)}&=W^{(1)}x_a/\sqrt d,\\
+z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)},\\
+h_a^{(\ell)}&=\phi(z_a^{(\ell)}),\\
+f_{n,a}&=(W^{(L+1)})^Th_a^{(L)}/n.
+\end{aligned}
+}\end{equation}
+
+Take independent first-weight entries \(N(0,1)\), hidden entries
+\(N(0,1/n)\), and stored readout entries \(N(0,\tau^2)\) for a fixed
+\(\tau\). The first-matrix columns and readout are vector roots. This is
+an order-one readout when \(\tau>0\), explicitly distinct from the
+default width-dependent small-readout law with stored entries
+\(N(0,1/n^2)\). With \(r_{n,a}=f_{n,a}-y_a\), full mean loss
+\(\mathcal L_n=m^{-1}\sum_a r_{n,a}^2\), and block mobilities
+\(n\kappa_1,\kappa_2,\ldots,\kappa_L,n\kappa_{L+1}\), its physical
+gradient field is admitted. All samples share the first-matrix columns;
+one must not replace correlated sample preactivations by independent
+trainable parameters. Fixed data derivatives also propagate through
+those shared columns. Exact small-readout finite recurrences remain
+valid, but their width-dependent initialization is not a consequence of
+this fixed-root-law theorem.
+
+\subsection{Initialization activation-moment
+form}\label{sec-mfp-initialization-normal-form}
+
+\begin{proposition}[Restricted activation-moment
+reduction]\protect\hypertarget{prp-mfp-initialization-normal-form}{}\label{prp-mfp-initialization-normal-form}
+
+Construct the original feedforward preactivations of the centered,
+zero-bias initialization in Equation~\ref{eq-mfp-neural-forward} first.
+Consider a compiled derivative program at initialization in which every
+nonlinear node is literally \(\phi^{(r)}(z_a^{(\ell)}(0))\) for one of
+these original nodes. All other operations are the allowed polynomial
+arithmetic, matrix actions and normalized contractions. Its scalar limit
+is a finite polynomial in fixed model/data constants and recursively
+computed Gaussian moments of products of activation derivatives. This
+syntactic restriction excludes nonlinear functions of derivative fields
+and of updated preactivations.
+
+\end{proposition}
+
+\protect\phantomsection\label{proof-mfp-initialization-normal-form}{}
+
+\begin{proof}
+No reverse call precedes the original forward pass. Hence its
+preactivations are centered Gaussian sources, or linear combinations of
+first-layer Gaussian roots. Their covariances are determined in order by
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-forward-covariances}{
+\begin{aligned}
+\Sigma^{(1)}_{ab}&=G_{ab}=x_a^Tx_b/d,\\
+\Sigma^{(\ell+1)}_{ab}
+&=\mathbb E_{Z\sim N(0,\Sigma^{(\ell)})}\phi(Z_a)\phi(Z_b).
+\end{aligned}
+}\end{equation}
+
+All original preactivations, auxiliary roots and later named sources
+form a finite joint Gaussian family on each type. A preactivation
+represented as a linear combination can be adjoined as a Gaussian
+integration coordinate with its induced covariance, even if this creates
+singularity. Source partials still use the original named arguments;
+adjoining an integration coordinate does not change their definition.
+
+Inductively every field is a finite sum of expressions
+\(cP(Z)\prod_\nu\phi^{(r_\nu)}(Z_{a_\nu})\), with \(P\) polynomial,
+activation arguments designated original preactivations, and \(c\)
+polynomial in previously computed scalar values. Fixed means of
+auxiliary roots can be absorbed into the polynomial; designated
+activation arguments are centered preactivations by the subclass
+assumption. The class is closed under arithmetic and formal source
+derivatives. A matrix action appends one Gaussian source and linear
+combinations of old fields with coefficients equal to expectations in
+the same class; its covariance entries are also such expectations. This
+proves the symbolic induction.
+
+For any centered Gaussian vector \(Z\) of covariance \(K\) and smooth
+polynomial-growth \(F\),
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-stein-reduction}{
+\mathbb E[Z_iF(Z)]=\sum_jK_{ij}\mathbb E[\partial_jF(Z)].
+}\end{equation}
+
+Indeed write \(Z=B\gamma\), \(BB^T=K\), with independent standard
+Gaussian coordinates in \(\gamma\), and integrate by parts in each
+coordinate. Polynomial growth removes boundary terms and justifies
+Fubini; no invertibility is needed. Apply this identity to one explicit
+Gaussian factor in \(P\). A derivative hitting the remaining polynomial
+reduces its degree, and a derivative hitting an activation raises its
+derivative order while still removing the selected explicit Gaussian
+factor. Induction on polynomial degree terminates in covariance
+monomials times atoms
+
+\[
+\mathbb E_{Z\sim N(0,K_j)}\prod_\nu\phi^{(r_{j,\nu})}(Z_{a_{j,\nu}}),
+\]
+
+whose covariances are already determined by earlier steps. Substituting
+these finite expressions recursively proves the claimed polynomial form.
+For polynomial-only programs this reduces to
+Equation~\ref{eq-docs-gaussian-calculus-l211}. The scalar \(L^p\)
+theorem identifies the result with the expectation limit; the reduction
+is not a separate asymptotic assumption.
+\end{proof}
+
+\subsection{Worked programs and neural
+observables}\label{sec-mfp-worked-programs}
+
+\textbf{Reuse and the finite-width correction.} Let \(e\) be the
+constant-one input, \(y=We\), \(u=\phi(y)\), \(v=W^Tu\) and
+\(J_n=v^Tv/n\). For a standard Gaussian \(\gamma\), put
+\(q=\mathbb E\phi(\gamma)^2\) and \(c=\mathbb E\phi'(\gamma)\). The
+forward representative is \(\xi\sim N(0,1)\); the reverse one is
+\(\zeta+c\) with \(\zeta\sim N(0,q)\). Thus
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-reuse-square}{
+\begin{aligned}
+J_n&\longrightarrow q+c^2\quad\text{in every finite }L^p,\\
+\mathbb E J_n&=q+c^2\\
+&\quad+\frac{\mathbb E[\gamma^2\phi(\gamma)^2]-q-c^2}{n}.
+\end{aligned}
+}\end{equation}
+
+For the finite identity, use the exact projection law
+Equation~\ref{eq-docs-gaussian-calculus-l34}: conditionally on \(y\) the
+two orthogonal components of \(v\) give
+\(\mathbb E[J_n\mid y]=(n^{-1}y^T\phi(y))^2+
+(1-1/n)n^{-1}\|\phi(y)\|_2^2\). Taking expectations and using
+\(\mathbb E[\gamma\phi(\gamma)]=c\) proves the formula. For
+\(\phi(x)=x\) it gives \(2+1/n\), whereas Gaussian compilation returns
+\(2\). Physical differentiation must accumulate both occurrences of
+\(W\):
+
+\[
+\nabla_WJ_n=\frac2n\left[
+uv^T+\bigl((Wv)\odot\phi'(y)\bigr)e^T\right].
+\]
+
+This follows by substituting \(dv=(dW)^Tu+W^T(\phi'(y)\odot(dW)e)\) into
+\(dJ_n=2v^Tdv/n\).
+
+\textbf{One normalized update.} For the explicitly different scalar loss
+\(\mathcal L_n=n^{-1}\sum_i\phi((We)_i)\), set \(p=\phi'(We)\). The
+differential gives \(\nabla_W\mathcal L_n=pe^T/n\). One step with fixed
+\(\eta\) and matrix mobility one gives \(A=W-\eta pe^T/n\). Keep \(p\)
+at its pre-update value. Exact lowering yields
+\(A^Tp=W^Tp-\eta e(p^Tp/n)\) and \(Ae=We-\eta p\). With
+\(q=\mathbb E\phi'(\gamma)^2\) and \(c=\mathbb E\phi''(\gamma)\),
+
+\[
+\frac{\|A^Tp\|_2^2}{n}\longrightarrow q+(c-\eta q)^2.
+\]
+
+The reverse source has variance \(q\) and response \(c\), while the
+saved pairing tends to \(q\); this proves the formula. For
+\(\phi(x)=x^4/4\) the answer is \(15+(3-15\eta)^2\).
+
+\textbf{Singular duplicate calls.} Distinct calls \(y_1=We\), \(y_2=We\)
+retain sources of covariance
+\(\left(\begin{smallmatrix}1&1\\1&1\end{smallmatrix}\right)\). For
+\(u=\phi(y_1+y_2)\) the two formal partials are separately
+\(\phi'(\xi_1+\xi_2)\). On the Gaussian support
+\((\xi_1,\xi_2)=(\gamma,\gamma)\), so
+
+\[
+\frac{\|W^Tu\|_2^2}{n}\longrightarrow
+\mathbb E\phi(2\gamma)^2+4(\mathbb E\phi'(2\gamma))^2.
+\]
+
+This also follows by applying Equation~\ref{eq-mfp-reuse-square} to
+\(\phi(2x)\). For \(u=\phi(y_1)-\phi(y_2)\) the source variance is zero
+and the two response coefficients cancel. Its transpose output remains
+exactly zero. Identifying the formal arguments before differentiation
+would discard the information that makes this cancellation explicit.
+
+\textbf{Moving direction.} Let \(x\in\mathbb R^n\) be a trainable vector
+state, not a dataset input, with iid standard Gaussian initialization.
+For \(\mathcal L_n=n^{-1}\sum_i x_i^4/4\) and vector mobility \(n\),
+\(\dot x=-x^3\). The observable \(O_n=n^{-1}\sum_i x_i^2\) satisfies
+
+\[
+D^2O_n[V,V]=\frac2n\sum_i x_i^6,\qquad
+DO_n[DV[V]]=\frac6n\sum_i x_i^6.
+\]
+
+The expected initial frozen and moving second derivatives therefore tend
+to \(30\) and \(120\). The moving coefficient \(O_{[2]}\) tends to
+\(60\), because jets include \(1/2!\). Directly,
+\(x_i(t)=x_i(0)(1+2t x_i(0)^2)^{-1/2}\) verifies these finite
+identities.
+
+\textbf{A neural parameter derivative.} Take two hidden layers, scalar
+input \(x=1\), no biases, and independent
+\(W_i^{(1)},W_i^{(3)}\sim N(0,1)\), \(W_{ij}^{(2)}\sim N(0,1/n)\). This
+explicitly uses order-one readout. The forward pass is
+Equation~\ref{eq-mfp-neural-forward}, with \(z^{(1)}=W^{(1)}\). Define
+\(b^{(1)}=n\nabla_{W^{(1)}}f_n\) and
+\(O_n=\|b^{(1)}\|_2^2/n=n\|\nabla_{W^{(1)}}f_n\|_2^2\). Compute in order
+
+\[
+\begin{aligned}
+q_1&=\mathbb E\phi(\gamma)^2,\\
+Z&\sim N(0,q_1),\\
+s_1&=\mathbb E\phi'(\gamma)^2,\\
+s_2&=\mathbb E\phi'(Z)^2,\\
+q_2&=\mathbb E\phi(Z)^2.
+\end{aligned}
+\]
+
+Then \(O_n\to s_1s_2\) in every finite \(L^p\). Indeed exact
+differentiation gives \(\delta^{(2)}=W^{(3)}\odot\phi'(z^{(2)})\) and
+\(b^{(1)}=\phi'(z^{(1)})\odot W^{(2)T}\delta^{(2)}\). The transpose
+response is \(\mathbb E[A\phi''(Z)]=0\), since the centered readout
+representative \(A\) is independent of \(Z\). Its reverse source has
+variance \(s_2\) and is independent of the first-layer root; the squared
+product consequently has expectation \(s_1s_2\). Likewise the full
+metric gradient norm tends to
+
+\[
+n\|\nabla_{W^{(1)}}f_n\|_2^2+
+\|\nabla_{W^{(2)}}f_n\|_F^2+
+n\|\nabla_{W^{(3)}}f_n\|_2^2
+\longrightarrow s_1s_2+q_1s_2+q_2,
+\]
+
+using \(\nabla_{W^{(2)}}f_n=\delta^{(2)}h^{(1)T}/n\) and
+\(n\nabla_{W^{(3)}}f_n=h^{(2)}\).
+
+\textbf{Symbolic geometry and feature-kernel jets.} Keep two hidden
+layers and order-one readout, now with \(m=d=2\). Fix real
+\(\alpha,\beta,\gamma,y_1,y_2\) and set
+
+\[
+x_1/\sqrt2=(\alpha,0)^T,\quad
+x_2/\sqrt2=(\beta,\gamma)^T,\qquad
+G=\begin{pmatrix}\alpha^2&\alpha\beta\\
+\alpha\beta&\beta^2+\gamma^2\end{pmatrix}.
+\]
+
+Let \(U,V\) be the shared columns of \(W^{(1)}\), each with iid
+\(N(0,1)\) entries, so \(z_1^{(1)}=\alpha U\) and
+\(z_2^{(1)}=\beta U+\gamma V\). With the forward pass above, use the
+half-mean loss and its physical clock
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-kernel-example-clock}{
+\begin{gathered}
+\mathcal L_n=\frac1{2m}\sum_a(f_{n,a}-y_a)^2,\\
+(\dot U,\dot V,\dot W^{(2)},\dot W^{(3)})\\
+=-\bigl(n\nabla_U\mathcal L_n,n\nabla_V\mathcal L_n,\\
+\qquad\nabla_{W^{(2)}}\mathcal L_n,n\nabla_{W^{(3)}}\mathcal L_n\bigr).
+\end{gathered}
+}\end{equation}
+
+Relative to the full mean loss, the velocity is halved. The
+last-hidden-layer feature kernel is \(K_{n,ab}=h_a^{(2)T}h_b^{(2)}/n\);
+it is only the readout block of the tangent kernel. For \(r=0,1,2\)
+request
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-kernel-example-jets}{
+J_r=\lim_{n\to\infty}\mathbb E\left[
+\frac1{r!}\left.\frac{d^r}{dt^r}K_{n,12}(t)\right|_{t=0}\right].
+}\end{equation}
+
+Each coefficient exists by
+Theorem~\ref{thm-mfp-finite-derivative-program}. For generic \(\phi\),
+form the loss gradient in the shared parameters, use the moving
+recursion Equation~\ref{eq-mfp-flow-jet-recursion} through order two,
+and compile the three scalar coefficients by
+Equation~\ref{eq-mfp-source-response}. All nonlinear arguments in these
+differentiated initialization graphs are original preactivations, so
+Proposition~\ref{prp-mfp-initialization-normal-form} applies. The zeroth
+coefficient is \(\mathbb E[\phi(Z_1)\phi(Z_2)]\) with
+\(Z\sim N(0,\Sigma^{(2)})\) from
+Equation~\ref{eq-mfp-forward-covariances}. Higher generic formulas are
+finite expectation graphs and can be regenerated by the maintained
+example; their expansion is not needed to define or evaluate the
+algorithm.
+
+For the compact linear check \(\phi(z)=z\), the results are
+
+\begin{equation}\protect\phantomsection\label{eq-mfp-linear-kernel-jets}{
+\begin{aligned}
+J_0&=G_{12},\\
+J_1&=0,\\
+J_2&=\frac94(G_{11}y_1+G_{12}y_2)
+                  (G_{12}y_1+G_{22}y_2).
+\end{aligned}
+}\end{equation}
+
+Here is a direct derivation of the coefficient. Write \(W=W^{(2)}\),
+\(w=W^{(3)}\), \(v_b=W^{(1)}x_b/\sqrt d\), \(z_b=Wv_b\), \(B=WW^T\) and
+\(s=\sum_c y_cv_c/m\). Put \(\lambda_b=\sum_cG_{bc}y_c/m\) and
+\(\rho=\sum_{c,e}y_cG_{ce}y_e/m^2\). At initialization \(f_{n,b}\to0\)
+in every finite \(L^p\) because the readout is centered and independent.
+Terms containing these scalar predictions vanish in the expected finite
+jet limits: after expansion their remaining normalized factors have all
+moments by the theorem. Replacing residual values by \(-y_c\) in the
+first velocity gives
+
+\[
+\begin{aligned}
+\dot W&=ws^T/n,\\
+\dot w&=Ws,\\
+\dot v_b&=\lambda_bW^Tw,\\
+\dot z_b&=w k_b+\lambda_bBw,\\
+k_b&=s^Tv_b/n\to\lambda_b.
+\end{aligned}
+\]
+
+In the second derivative, retain the change of the residuals as well.
+Their limiting derivatives are deterministic by the scalar theorem, and
+multiply first feature derivatives that are odd in the centered readout;
+their expected pairing with \(z_b\) is zero. Replacing these scalar
+residual derivatives by their limits is legitimate by Hölder and the
+all-moment bounds. Thus they contribute zero to \(J_2\).
+
+For the remaining terms differentiate the displayed velocity. Since
+\(\dot s=\rho W^Tw\), one has
+\(\dot k_b=\rho w^Tz_b/n+\lambda_b w^TWs/n\), which tends to zero, and
+\(\dot B=(w(Ws)^T+(Ws)w^T)/n\). Conditioning on \(W,v_1,v_2\) and using
+\(\mathbb E[ww^T]=I\) gives the following limiting pairings:
+
+\[
+\mathbb E\frac{\dot z_a^T\dot z_b}{n}\longrightarrow
+5\lambda_a\lambda_b,\qquad
+\mathbb E\frac{z_a^T\ddot z_b}{n}\longrightarrow
+(1+1+2)\lambda_a\lambda_b=4\lambda_a\lambda_b.
+\]
+
+For clarity, the first coefficient is
+\(\lim\mathbb E\operatorname{tr}(I+B)^2/n=1+2+2=5\). The three surviving
+terms in the second are respectively \((Ws)k_b\),
+\(\lambda_b(Ws)(w^Tw/n)\) and \(\lambda_bBWs\). The terms containing
+\(w\dot k_b\) or \(w((Ws)^Tw/n)\) vanish by Cauchy--Schwarz and the
+\(O(n^{-1})\) conditional second moments of the normalized readout
+pairings. Gaussian pairings give \(\mathbb E\operatorname{tr}B/n=1\) and
+\(\mathbb E\operatorname{tr}B^2/n=2+1/n\); covariance of \(v_a,s\)
+conditional on \(W\) is \(\lambda_a I\), yielding the stated
+cross-pairings. For example, in \(\operatorname{tr}B^2=
+\sum_{i,j,k,l}W_{ik}W_{jk}W_{jl}W_{il}\) its three Gaussian pairings
+contribute \(n,n,1\). Consequently \(K_{n,ab}''\) has limiting
+expectation \((4+2\cdot5+4)\lambda_a\lambda_b=18\lambda_a\lambda_b\).
+Dividing by \(2!\) and putting \(m=2\) proves
+Equation~\ref{eq-mfp-linear-kernel-jets}. The first coefficient vanishes
+by readout centering after the same residual-value replacement. These
+finite initial coefficients do not reconstruct the feature kernel at
+positive time.
+
+\subsection{Symbolic implementation}\label{sec-mfp-symbolic-interface}
+
+The maintained interface is explicitly imported from
+\texttt{pde.mfp\_compiler}; it builds typed finite graphs, performs
+physical differentiation, and returns
+Equation~\ref{eq-mfp-expectation-graph}. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ pde.mfp\_compiler }\ImportTok{import}\NormalTok{ Program}
+
+\NormalTok{p }\OperatorTok{=}\NormalTok{ Program()}
+\NormalTok{lower, upper }\OperatorTok{=}\NormalTok{ p.vector\_type(}\StringTok{"lower"}\NormalTok{), p.vector\_type(}\StringTok{"upper"}\NormalTok{)}
+\NormalTok{W }\OperatorTok{=}\NormalTok{ p.matrix(}\StringTok{"W"}\NormalTok{, lower, upper)}
+\NormalTok{z }\OperatorTok{=}\NormalTok{ W }\OperatorTok{@}\NormalTok{ p.one(lower)}
+\NormalTok{v }\OperatorTok{=}\NormalTok{ W.T }\OperatorTok{@}\NormalTok{ p.phi(z)}
+\NormalTok{answer }\OperatorTok{=}\NormalTok{ p.}\BuiltInTok{compile}\NormalTok{(p.inner(v, v), preactivations}\OperatorTok{=}\NormalTok{[z])}
+\BuiltInTok{print}\NormalTok{(answer.formula())}
+\end{Highlighting}
+\end{Shaded}
+
+This returns the two activation moments in
+Equation~\ref{eq-mfp-reuse-square}. \texttt{gradient} returns \(n\)
+times vector gradients and ordinary matrix gradients;
+\texttt{jets(...,\ moving=True)} returns factorial-normalized flow
+coefficients. Supplying \texttt{preactivations} requests the restricted
+form and checks its literal-node and Gaussian conditions. The caller
+still supplies the architecture and activation-growth assumptions.
+
+The compiler guide in Section~\ref{sec-compiler-guide} (also supplied as
+\texttt{code/MFP\_CALCULUS.md}) gives executable reuse, derivative and
+kernel-jet examples, supported operations and an independent
+finite-array interpreter. The implementation uses exact rational
+symbolic arithmetic; finite floats are converted by
+\texttt{Fraction(str(value))}, and root covariances are concrete numeric
+inputs. Symbolic geometry can instead enter through fixed scalar
+coefficients such as \(\alpha,\beta,\gamma\) above. Generic integrals
+remain explicit; the compiler performs no numerical quadrature. Higher
+derivatives and expression expansion can grow rapidly. The theorem
+proves the limit under its hypotheses; implementation tests check finite
+identities and the emitted formulas.
+
+\section{The symbolic compiler: interface and
+examples}\label{sec-compiler-guide}
+
+\texttt{pde.mfp\_compiler} builds a finite typed program, differentiates
+it at finite width, and compiles its scalar output to a Gaussian
+expectation graph. Import it explicitly; its names are not added to
+\texttt{pde}'s top-level exports. The
+\hyperref[sec-mfp-finite-derivative-programs]{finite-program theorem}
+supplies the width-limit justification under its stated assumptions.
+Software tests check the implementation, not that theorem.
+
+\textbf{Physical differentiation is exact at finite width. Gaussian
+compilation returns the infinite-width limit.} For example, the
+identity-activation reuse observable below has finite expectation
+\texttt{2\ +\ 1/n}, whereas \texttt{compile} returns \texttt{2}. No
+numerical sampling or quadrature is performed. General activation
+integrals remain explicit integrals.
+
+Use Python 3.10+ and the maintained package's NumPy dependency. These
+three new modules themselves use only the standard library; importing
+their parent \texttt{pde} also imports its existing NumPy finite-network
+API. From the \texttt{paper\_MFP/} root:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\VariableTok{PYTHONPATH}\OperatorTok{=}\NormalTok{code }\ExtensionTok{python} \AttributeTok{{-}B}\NormalTok{ code/scripts/example\_mfp\_calculus.py}
+\VariableTok{PYTHONPATH}\OperatorTok{=}\NormalTok{code }\ExtensionTok{python} \AttributeTok{{-}B}\NormalTok{ code/scripts/example\_mfp\_mlp\_derivative.py}
+\VariableTok{PYTHONPATH}\OperatorTok{=}\NormalTok{code }\ExtensionTok{python} \AttributeTok{{-}B}\NormalTok{ code/scripts/example\_mfp\_kernel\_jets.py }\AttributeTok{{-}{-}activation}\NormalTok{ identity}
+\VariableTok{PYTHONPATH}\OperatorTok{=}\NormalTok{code }\ExtensionTok{python} \AttributeTok{{-}B} \AttributeTok{{-}m}\NormalTok{ unittest discover }\AttributeTok{{-}s}\NormalTok{ code/tests }\AttributeTok{{-}p} \StringTok{\textquotesingle{}test\_mfp\_*.py\textquotesingle{}} \AttributeTok{{-}v}
+\end{Highlighting}
+\end{Shaded}
+
+The scripts print text by default and accept \texttt{-\/-json}. To
+regenerate all three kernel-jet variants into a fresh, explicitly chosen
+directory:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\VariableTok{PYTHONPATH}\OperatorTok{=}\NormalTok{code }\ExtensionTok{python} \AttributeTok{{-}B}\NormalTok{ code/scripts/example\_mfp\_kernel\_jets.py }\AttributeTok{{-}{-}activation}\NormalTok{ all }\AttributeTok{{-}{-}output{-}dir}\NormalTok{ build/kernel\_jets\_01}
+\end{Highlighting}
+\end{Shaded}
+
+Create its parent first with \texttt{mkdir\ -p\ build}; the output
+directory itself must not exist. It receives complete text formulas,
+JSON graphs, and a manifest with source/output hashes and
+Python/platform information. The producer reads no historical output,
+study files or Git metadata. The default jet order is two; larger fixed
+orders are permitted but can grow very expensive.
+
+\subsection{Construct a reusable-transpose
+observable}\label{construct-a-reusable-transpose-observable}
+
+A named matrix has iid Gaussian entries of variance \texttt{1/n}. Calls
+to \texttt{W.T} use the same parameter as calls to \texttt{W}. Both
+types have width \texttt{n}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ pde.mfp\_compiler }\ImportTok{import}\NormalTok{ Program}
+
+\NormalTok{p }\OperatorTok{=}\NormalTok{ Program()}
+\NormalTok{lower, upper }\OperatorTok{=}\NormalTok{ p.vector\_type(}\StringTok{"lower"}\NormalTok{), p.vector\_type(}\StringTok{"upper"}\NormalTok{)}
+\NormalTok{W }\OperatorTok{=}\NormalTok{ p.matrix(}\StringTok{"W"}\NormalTok{, lower, upper)}
+\NormalTok{z }\OperatorTok{=}\NormalTok{ W }\OperatorTok{@}\NormalTok{ p.one(lower)}
+\NormalTok{v }\OperatorTok{=}\NormalTok{ W.T }\OperatorTok{@}\NormalTok{ p.phi(z)}
+\NormalTok{dag }\OperatorTok{=}\NormalTok{ p.}\BuiltInTok{compile}\NormalTok{(p.inner(v, v), preactivations}\OperatorTok{=}\NormalTok{[z])}
+\BuiltInTok{print}\NormalTok{(dag.formula())}
+\end{Highlighting}
+\end{Shaded}
+
+For a standard Gaussian scalar \texttt{Z}, the returned limit is
+\texttt{E{[}phi(Z)**2{]}\ +\ E{[}phi\textquotesingle{}(Z){]}**2}. The
+second term is the response caused by matrix reuse. With a polynomial
+coordinate expression such as \texttt{v\ =\ W.T\ @\ z**3}, all Gaussian
+moments reduce exactly and the output is \texttt{24}.
+
+\texttt{p.phi(u,\ order=r)} is the actual derivative
+\texttt{phi\^{}(r)(u)} of one named activation. Assume \texttt{phi} is
+smooth and every derivative has polynomial growth. This analytic
+condition is the caller's obligation, not something inferred from a name
+or callback. Arbitrary admitted compositions can be compiled without
+\texttt{preactivations}. Specifying that argument requests the
+restricted initialization activation-moment form: each reachable
+\texttt{phi} argument must be one of those literal nodes, and every
+designated reachable representative must be a centered Gaussian linear
+expression. The compiler checks these conditions; the caller identifies
+the original initialization preactivations. It does not infer the
+network architecture. A shifted or nonlinear designated argument is
+rejected. Linear combinations receive auxiliary integration coordinates;
+formal source derivatives still use the original named sources.
+
+\subsection{Typed operations and input
+conventions}\label{typed-operations-and-input-conventions}
+
+\begin{description}
+\tightlist
+\item[\texttt{p.vector\_type(name)}]
+A named population of width \texttt{n}
+\item[\texttt{p.root(name,\ kind,\ variance=1,\ mean=0)}]
+An iid Gaussian vector independent of other root declarations
+\item[\texttt{p.roots(kind,\ names,\ covariance,\ means=None)}]
+One jointly Gaussian tuple per neuron, allowing singular covariance
+\item[\texttt{p.parameter(name)}]
+A fixed deterministic real scalar, available to physical AD
+\item[\texttt{p.broadcast(s,\ kind)}]
+The constant-coordinate vector with value \texttt{s}
+\item[\texttt{u+v}, \texttt{u*v}, \texttt{u**r}]
+Addition, coordinate product and nonnegative integer power; scalars
+broadcast
+\item[\texttt{p.phi(u,\ r)}]
+A coordinatewise activation derivative
+\item[\texttt{p.mean(u)}, \texttt{p.inner(u,v)}]
+\texttt{sum(u\_i)/n} and \texttt{u.T\ v/n}; pairings require the same
+type
+\item[\texttt{W\ @\ u}, \texttt{W.T\ @\ v}]
+Both orientations of the same named matrix
+\item[\texttt{p.rank\_one(u,v,c)}]
+\texttt{c*u*v.T/n}, from the type of \texttt{v} to that of \texttt{u}
+\item[\texttt{W\ +\ p.rank\_one(...)}]
+One initialized base plus a finite represented update sum
+\item[\texttt{p.frobenius(A,B)}]
+Exact Frobenius product of two pure represented matrix directions
+\end{description}
+
+All vector types have equal width. Named matrices connect distinct
+types. Retain the original object for shared parameters: duplicate
+parameter names are rejected. Separate root declarations are
+independent, including separate calls of \texttt{roots}; use a single
+call for correlations within one type.
+
+Constants accept Python integers, \texttt{Fraction}, and finite floats.
+A float is interpreted as the exact decimal rational
+\texttt{Fraction(str(value))}. All later symbolic constant arithmetic is
+rational; arithmetic already evaluated by Python before entering the
+builder is outside that guarantee. Root means and covariance entries are
+concrete numbers. Covariance symmetry and positive semidefiniteness are
+checked exactly, including singular laws and zero pivots.
+
+The frontend does not accept symbolic covariance matrices. Symbolic
+fixed geometry can instead be represented by explicit scalar
+coefficients multiplying independent roots, as in the kernel example
+below. This distinction preserves the shared trainable parameters and
+their derivatives. Arbitrary fixed real coefficients can be scalar
+parameter nodes; admissibility always requires them to remain fixed as
+width grows.
+
+Build coordinate expressions from these operations. For instance,
+\texttt{p.phi(u*v+s,\ 2)*w} is a same-type expression when
+\texttt{u,v,w} share a type and \texttt{s} is scalar. Nonlinear scalar
+feedback can be written \texttt{p.mean(p.phi(p.broadcast(s,\ kind)))}.
+Its limit may be a zero-dimensional Gaussian expectation, so the final
+assembly remains polynomial in the returned expectation nodes and
+deterministic parameters.
+
+Cross-type products, array or text formulas, nonconstant division,
+negative or fractional powers, and dense matrix directions are
+unsupported. There is no coordinate selection, inverse, arbitrary
+parameter-tensor contraction, or width-dependent normalization
+primitive. The implementation supports arbitrary fixed finite program
+sizes, derivative orders and update counts in principle; Python
+recursion, memory use, rational bit sizes and expression expansion can
+stop much smaller practical cases. There is no uniform-in-depth or
+efficient high-order guarantee. A parameter named \texttt{n} does not
+make a width-dependent program admissible. Fixed-order jets do not
+reconstruct a positive-time trajectory or establish convergence of an
+infinite Taylor series.
+
+\subsection{Physical derivatives and frozen seed
+data}\label{physical-derivatives-and-frozen-seed-data}
+
+\texttt{p.directional(O,\ directions)} takes one derivative of the
+finite primitive graph. Dictionary keys are vector-root nodes, scalar
+parameter nodes, or named matrix parameters. Node directions must match
+their parameter type; matrix directions must be pure represented rank
+sums. Inserted directions are held fixed for that one derivative.
+Unlisted parameters have zero direction.
+
+\texttt{p.derivatives(O,\ directions,\ order,\ moving=False)} returns
+derivatives indexed \texttt{0,...,order}. With \texttt{moving=False},
+directions are fixed across all repeated derivatives, giving the
+straight path through the initial point. With \texttt{moving=True},
+repeated differentiation includes the state dependence of the vector
+field. Its second derivative is
+\texttt{D²O{[}V,V{]}\ +\ DO{[}DV{[}V{]}{]}}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ pde.mfp\_compiler }\ImportTok{import}\NormalTok{ Program}
+
+\NormalTok{p }\OperatorTok{=}\NormalTok{ Program()}
+\NormalTok{kind }\OperatorTok{=}\NormalTok{ p.vector\_type(}\StringTok{"neurons"}\NormalTok{)}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ p.root(}\StringTok{"x"}\NormalTok{, kind)}
+\NormalTok{O, V }\OperatorTok{=}\NormalTok{ p.mean(x}\OperatorTok{**}\DecValTok{2}\NormalTok{), }\OperatorTok{{-}}\NormalTok{(x}\OperatorTok{**}\DecValTok{3}\NormalTok{)}
+\NormalTok{frozen }\OperatorTok{=}\NormalTok{ p.derivatives(O, \{x: V\}, order}\OperatorTok{=}\DecValTok{2}\NormalTok{)}
+\NormalTok{moving }\OperatorTok{=}\NormalTok{ p.derivatives(O, \{x: V\}, order}\OperatorTok{=}\DecValTok{2}\NormalTok{, moving}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\ControlFlowTok{assert} \BuiltInTok{str}\NormalTok{(p.}\BuiltInTok{compile}\NormalTok{(frozen[}\DecValTok{2}\NormalTok{]).output) }\OperatorTok{==} \StringTok{"30"}
+\ControlFlowTok{assert} \BuiltInTok{str}\NormalTok{(p.}\BuiltInTok{compile}\NormalTok{(moving[}\DecValTok{2}\NormalTok{]).output) }\OperatorTok{==} \StringTok{"120"}
+\ControlFlowTok{assert} \BuiltInTok{str}\NormalTok{(p.}\BuiltInTok{compile}\NormalTok{(p.jets(O, \{x: V\}, }\DecValTok{2}\NormalTok{, moving}\OperatorTok{=}\VariableTok{True}\NormalTok{)[}\DecValTok{2}\NormalTok{]).output) }\OperatorTok{==} \StringTok{"60"}
+\end{Highlighting}
+\end{Shaded}
+
+Here \texttt{x} is the evolving vector state, not a data input. For the
+scalar ODE \texttt{x\_dot=-x**3}, the coordinate solution is
+\texttt{a/sqrt(1+2*t*a**2)}, so the second derivative of its square at
+zero is \texttt{8*a**6}. A standard Gaussian sixth moment is 15. The
+straight path \texttt{a-t*a**3} instead gives \texttt{2*a**6}. This
+independently explains the values 120 and 30. \texttt{jets} divides
+derivative \texttt{r} by \texttt{r!}.
+
+\texttt{p.freeze(value)} declares an independent seed datum with the
+base state's numerical value. Physical AD holds it fixed, while finite
+evaluation and Gaussian compilation retain that value and its source
+dependence. Thus \texttt{p.mean(p.freeze(x)**2)} has the same value as
+\texttt{p.mean(x**2)}, but zero physical derivative with respect to
+\texttt{x} under the declared convention. This is a partial derivative
+on the enlarged space of parameters and seed data, evaluated at the
+specified seeds. Inserting \texttt{freeze} into a primal network changes
+the derivative being requested. Gaussian source partials still
+differentiate the frozen expression's explicit source dependence.
+Independence here concerns physical derivative coordinates, not
+statistical independence of initialization values.
+
+State substitution preserves the original seed expression:
+\texttt{p.at(seed,\ state)} does not refresh it, and repeated gradient
+steps keep that same seed. For \texttt{seed=p.freeze(x)} and
+\texttt{loss=p.inner(x,seed)}, vector mobility \texttt{n} gives
+\texttt{x\_after=x-steps*eta*seed}. To take a new snapshot of an
+ordinary expression \texttt{value} at an updated state, explicitly use
+\texttt{p.freeze(p.at(value,state))}. Freezing a represented matrix
+direction means freezing its scalar coefficient and both vector factors;
+their original dependencies are preserved in the same way. Finite
+evaluation still obtains seed values from the supplied initial arrays,
+rather than storing a numerical copy when the symbolic node is built.
+
+For a general finite path, \texttt{curve\_jets} accepts already
+factorial-normalized parameter coefficients. This complete example uses
+\texttt{x(t)=x+t*x**2-t**2*x}, with both coefficients evaluated at the
+base state and fixed on the path:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ pde.mfp\_compiler }\ImportTok{import}\NormalTok{ Program}
+
+\NormalTok{p }\OperatorTok{=}\NormalTok{ Program()}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ p.root(}\StringTok{"x"}\NormalTok{, p.vector\_type(}\StringTok{"neurons"}\NormalTok{))}
+\NormalTok{jet }\OperatorTok{=}\NormalTok{ p.curve\_jets(p.mean(x}\OperatorTok{**}\DecValTok{2}\NormalTok{), \{x: (x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\OperatorTok{{-}}\NormalTok{x)\}, order}\OperatorTok{=}\DecValTok{2}\NormalTok{)}
+\ControlFlowTok{assert} \BuiltInTok{str}\NormalTok{(p.}\BuiltInTok{compile}\NormalTok{(jet[}\DecValTok{2}\NormalTok{]).output) }\OperatorTok{==} \StringTok{"1"}  \CommentTok{\# E[x**4{-}2*x**2]}
+\end{Highlighting}
+\end{Shaded}
+
+Matrix path coefficients must be pure rank sums. Mixed fixed-direction
+derivatives can be constructed with successive \texttt{directional}
+calls and explicitly frozen direction expressions.
+
+\subsection{Gradients, ambient updates and history
+pullbacks}\label{gradients-ambient-updates-and-history-pullbacks}
+
+For scalar \texttt{loss},
+\texttt{p.gradient(loss,\ vectors={[}x{]},\ matrices={[}W{]},\ scalars={[}s{]})}
+returns \texttt{n*grad\_x(loss)}, the ordinary Frobenius gradient
+\texttt{grad\_W(loss)}, and ordinary scalar \texttt{grad\_s(loss)}. A
+matrix gradient is a finite sum of normalized outer products.
+Contributions from every shared forward and transpose use are
+accumulated. Additional fixed block multipliers can be included
+explicitly in a moving flow, such as
+\texttt{\{x:\ -kx*g{[}x{]},\ W:\ -kW*g{[}W{]}\}}.
+
+\texttt{p.gradient\_descent} computes the ambient gradient of the
+current-parameter loss template before substituting updated states.
+Updates are simultaneous; vector mobility is \texttt{n} and matrix
+mobility is one. Its \texttt{mobilities} dictionary supplies extra fixed
+deterministic factors. \texttt{steps} is a fixed nonnegative integer;
+the step size and factors are deterministic scalar expressions. They are
+not allowed to depend on random coordinates or scalar averages. The
+helper does not assert loss decrease or step stability.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ pde.mfp\_compiler }\ImportTok{import}\NormalTok{ Program}
+
+\NormalTok{p }\OperatorTok{=}\NormalTok{ Program()}
+\NormalTok{lower, upper }\OperatorTok{=}\NormalTok{ p.vector\_type(}\StringTok{"lower"}\NormalTok{), p.vector\_type(}\StringTok{"upper"}\NormalTok{)}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ p.root(}\StringTok{"x"}\NormalTok{, lower)}
+\NormalTok{W }\OperatorTok{=}\NormalTok{ p.matrix(}\StringTok{"W"}\NormalTok{, lower, upper)}
+\NormalTok{loss }\OperatorTok{=}\NormalTok{ p.mean((W }\OperatorTok{@}\NormalTok{ x)}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
+\NormalTok{state }\OperatorTok{=}\NormalTok{ p.gradient\_descent(loss, vectors}\OperatorTok{=}\NormalTok{[x], matrices}\OperatorTok{=}\NormalTok{[W], steps}\OperatorTok{=}\DecValTok{2}\NormalTok{, step\_size}\OperatorTok{=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{updated\_loss }\OperatorTok{=}\NormalTok{ p.at(loss, state)}
+\BuiltInTok{print}\NormalTok{(p.}\BuiltInTok{compile}\NormalTok{(updated\_loss).formula())}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{at} substitutes all supplied states simultaneously without
+revisiting their replacement expressions or changing existing frozen
+seed expressions. To differentiate through training history, build
+\texttt{updated\_loss} first and then differentiate that entire graph.
+This pullback includes the parameter dependence of the updates; it is
+distinct from the ambient gradient used to take each step. Explicitly
+frozen independent seeds remain fixed in that pullback as well.
+
+The \texttt{gradient\_update} calculus example uses the explicit scalar
+loss \texttt{mean(z**4)/4}, where \texttt{z=W@one}, a matrix mobility of
+one, and fixed step \texttt{eta}. It evaluates the updated transpose on
+the saved pre-update vector \texttt{z**3}. The result is exactly lowered
+at finite width, and its limiting squared normalized norm is
+\texttt{15+(3-15*eta)**2}. A separate \texttt{rank\_update} example
+checks \texttt{W+2*u*x.T/n}; \texttt{singular\_queries} uses two calls
+\texttt{W@one} with identical inputs. Their source covariance has rank
+one, but both formal source slots and both response contributions remain
+present.
+
+\subsection{A parameter derivative of a two-hidden-layer
+MLP}\label{a-parameter-derivative-of-a-two-hidden-layer-mlp}
+
+The executable \href{code/scripts/example_mfp_mlp_derivative.py}{MLP
+example} has input \texttt{x=1}, no biases, two hidden layers of width
+\texttt{n}, and stored parameters \texttt{W1,W3} of length \texttt{n},
+with \texttt{W2} an \texttt{n} by \texttt{n} matrix. Initialization
+entries are independent: \texttt{W1\_i,W3\_i\ \textasciitilde{}\ N(0,1)}
+and \texttt{W2\_ij\ \textasciitilde{}\ N(0,1/n)}. This explicitly uses
+an order-one stored readout, not the small-readout initialization.
+
+Its forward pass is \texttt{z1=W1}, \texttt{h1=phi(z1)},
+\texttt{z2=W2@h1}, \texttt{h2=phi(z2)}, and \texttt{f=W3.T@h2/n}. The
+requested first-layer observable is
+\texttt{O=n*\textbar{}\textbar{}grad\_W1\ f\textbar{}\textbar{}²},
+formed as the normalized squared norm of the returned scaled vector
+gradient. The executable constructs the forward pass with
+\texttt{Program}, then calls \texttt{gradient}, \texttt{inner}, and
+\texttt{compile} as above.
+
+Let \texttt{Z1\ \textasciitilde{}\ N(0,1)},
+\texttt{q1=E{[}phi(Z1)**2{]}}, and
+\texttt{Z2\ \textasciitilde{}\ N(0,q1)}. Set
+\texttt{s1=E{[}phi\textquotesingle{}(Z1)**2{]}},
+\texttt{s2=E{[}phi\textquotesingle{}(Z2)**2{]}}, and
+\texttt{q2=E{[}phi(Z2)**2{]}}. The limiting expectation of \texttt{O} is
+\texttt{s1*s2}. The average first-layer derivative has limit zero; the
+full parameter metric norm has limit \texttt{s1*s2+q1*s2+q2}. The reused
+transpose is included: its response coefficient vanishes because it
+contains the independent centered readout.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lrr@{}}
+\toprule\noalign{}
+Activation flag & First-layer derivative energy & Full metric norm \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{identity} & 1 & 3 \\
+\texttt{cubic} & 164025 & 305775 \\
+\end{longtable}
+}
+
+The \texttt{symbolic} default returns the explicit Gaussian moments. The
+test suite checks rational-array backpropagation and the norm identity
+independently of the symbolic AD code, then checks both polynomial
+specializations.
+
+\subsection{Geometry, labels and feature-kernel
+jets}\label{geometry-labels-and-feature-kernel-jets}
+
+The \href{code/scripts/example_mfp_kernel_jets.py}{kernel example} fixes
+\texttt{m=d=2} and normalized data
+\begin{verbatim}
+x1/sqrt(2)=(alpha,0),  x2/sqrt(2)=(beta,gamma).
+\end{verbatim}
+Geometry and labels \texttt{y1,y2}
+remain fixed symbolic scalar parameters. The input Gram is
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{G11=alpha**2,  G12=alpha*beta,  G22=beta**2+gamma**2.}
+\end{Highlighting}
+\end{Shaded}
+
+This parameterization is positive semidefinite, including singular
+cases. It covers every real PSD two-by-two Gram after choosing factors;
+computing factors from arbitrary symbolic covariance entries is not an
+API operation.
+
+The shared first-layer matrix has independent columns
+\texttt{U,V\ \textasciitilde{}\ N(0,I\_n)}. The hidden matrix
+\texttt{W2} has iid \texttt{N(0,1/n)} entries, and the independent
+stored readout \texttt{W3} again has iid \texttt{N(0,1)} entries. There
+are no biases. The finite forward pass and loss are
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z1 = [alpha*U, beta*U+gamma*V]}
+\NormalTok{h1[a] = phi(z1[a])}
+\NormalTok{z2[a] = W2 @ h1[a]}
+\NormalTok{h2[a] = phi(z2[a])}
+\NormalTok{f[a] = W3.T @ h2[a] / n}
+\NormalTok{r[a] = f[a]{-}y[a]}
+\NormalTok{loss = (r[0]**2+r[1]**2)/4.}
+\end{Highlighting}
+\end{Shaded}
+
+Physical gradient flow trains all four blocks: \texttt{U,V,W3} have
+mobility \texttt{n}, and \texttt{W2} has mobility one. The loss is the
+\textbf{half mean squared loss}, so its clock differs by a factor of two
+from the unhalved loss used in the general neural model. The observable
+\texttt{K12=h2{[}0{]}.T@h2{[}1{]}/n} is the last-layer feature kernel,
+or equivalently the readout block of the tangent kernel. It is not the
+sum over parameter blocks. The script computes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{J\_r = lim\_(n→∞) E[(d**r/dt**r) K12(0)] / r!,   r=0,1,2,}
+\end{Highlighting}
+\end{Shaded}
+
+by taking finite-width moving derivatives first. The residuals, all
+parameter blocks and the reused transpose move. A finite-width first
+derivative need not vanish. The limiting first coefficient does vanish
+in this example.
+
+For generic activation, let \texttt{(Z1\_1,Z1\_2)} be centered Gaussian
+with covariance \texttt{G}, define
+\texttt{S\_ab=E{[}phi(Z1\_a)*phi(Z1\_b){]}}, and let
+\texttt{(Z2\_1,Z2\_2)} have covariance \texttt{S}. Then
+\texttt{J0=E{[}phi(Z2\_1)*phi(Z2\_2){]}}, \texttt{J1=0}, and \texttt{J2}
+is homogeneous quadratic in \texttt{y1,y2}, with coefficients given by
+the generated Gaussian graph. The generic graph is intentionally emitted
+by the producer rather than pasted into this guide. Its intermediate
+expectations may remain after final output simplification; the graph is
+not claimed to be minimal.
+
+Identity activation gives the compact independent check
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{J0 = G12,  J1 = 0,}
+\NormalTok{J2 = (9/4)*(G11*y1+G12*y2)*(G12*y1+G22*y2).}
+\end{Highlighting}
+\end{Shaded}
+
+For the nonlinear choice \texttt{phi(z)=z**2}, put \texttt{s=G11*G22},
+\texttt{c=G12}, and define
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A = 5815*s**2+11746*s*c**2+16702*c**4}
+\NormalTok{B = 4542*s**4+14636*s**3*c**2+30788*s**2*c**4+13856*s*c**6+4704*c**8.}
+\NormalTok{J0 = 9*s**2+2*(s+2*c**2)**2}
+\NormalTok{J1 = 0}
+\NormalTok{J2 = A*(G11**4*y1**2+G22**4*y2**2)+B*y1*y2.}
+\end{Highlighting}
+\end{Shaded}
+
+The complete producer regenerates that polynomial with symbolic geometry
+and labels. Tests compare its compact form to the generated expansion,
+and also specialize every generic expectation atom to the quadratic
+activation and compare with direct polynomial compilation. Those two
+compilation paths share the source-rule implementation; their agreement
+is not an independent proof of the full second coefficient. The
+finite-width AD check is independent: rational dense backpropagation and
+coefficient convolution through order two verify all moving blocks at
+widths two and three. The initial nonlinear kernel is separately checked
+by two Gaussian fourth-moment identities. These checks require no
+retained outputs.
+
+\subsection{Returned graph, expression API and finite
+interpreter}\label{returned-graph-expression-api-and-finite-interpreter}
+
+\texttt{dag.expectations} is an ordered tuple of entries with fields
+\texttt{symbol}, \texttt{integrand}, \texttt{coordinates},
+\texttt{covariance}, and \texttt{kind}. Covariance entries and
+integrands use only prior expectation values and fixed deterministic
+parameters. \texttt{dag.output} is the final scalar expression.
+\texttt{dag.fields} exposes computed representatives;
+\texttt{dag.sources} retains named source coordinates and covariances,
+even for duplicate calls with perfect correlation. \texttt{dag.trace}
+includes the finite builder transformations and Gaussian dependency
+traversal. \texttt{formula()} renders definitions once;
+\texttt{to\_dict()} yields a JSON-ready description. These are
+inspection outputs, not a serializer for recreating an editable
+\texttt{Program}.
+
+Two distinct derivative engines are exposed.
+\texttt{Program.directional} and \texttt{Program.gradient} propagate
+through the finite typed graph, including scalar feedback and reused
+parameters. \texttt{pde.mfp\_expr.diff} takes named scalar-source
+partials inside Gaussian evaluation, holding all other symbols,
+including previous expectation coefficients, fixed. Singular covariance
+does not identify formal variables before these partials are taken.
+
+The supporting \texttt{pde.mfp\_expr} factories are \texttt{const},
+\texttt{symbol}, and \texttt{phi}; its operations include \texttt{diff},
+\texttt{expand}, \texttt{substitute}, \texttt{evaluate},
+\texttt{render}, and \texttt{gaussian\_expectation}. Substitution is
+simultaneous and structural.
+\texttt{evaluate(expr,\ values,\ activation)} calls
+\texttt{activation(order,\ value)} for activation nodes; it evaluates a
+supplied scalar expression, not an entire expectation DAG.
+\texttt{gaussian\_expectation} accepts named centered coordinates, with
+missing covariance entries treated as zero. Symbolic covariance symmetry
+is checked structurally, while positive semidefiniteness is the caller's
+obligation at this lower level. Polynomial terms reduce by Wick's rule;
+flat activation products use terminating Stein reduction. Nested
+activation integrals remain atoms. Rational moment checks compare the
+specialized reducer with the maintained
+\texttt{pde.gaussian\_moments.gaussian\_moment} API, whose stricter
+no-float input contract is unchanged.
+
+The independent interpreter is
+\texttt{pde.mfp\_finite.evaluate\_finite(output,\ width,\ roots,\ matrices,\ parameters=None,\ activation=None)}.
+It evaluates actual supplied arrays and never samples the initialization
+law. Pass finite Python lists/tuples and actual stored matrix entries,
+with no extra matrix rescaling. All required root/matrix/parameter
+leaves need values; unused supplied entries are validated too. The
+activation callback must supply the actual derivative at its requested
+order. Integer and \texttt{Fraction} inputs remain exact; float state
+entries use ordinary floating arithmetic, unlike symbolic
+decimal-rational conversion. Vector outputs are immutable tuples. Finite
+input checks do not guarantee that every intermediate floating operation
+avoids overflow or underflow.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ fractions }\ImportTok{import}\NormalTok{ Fraction}
+\ImportTok{from}\NormalTok{ pde.mfp\_compiler }\ImportTok{import}\NormalTok{ Program}
+\ImportTok{from}\NormalTok{ pde.mfp\_finite }\ImportTok{import}\NormalTok{ evaluate\_finite}
+
+\NormalTok{p }\OperatorTok{=}\NormalTok{ Program()}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ p.root(}\StringTok{"x"}\NormalTok{, p.vector\_type(}\StringTok{"neurons"}\NormalTok{))}
+\NormalTok{O }\OperatorTok{=}\NormalTok{ p.mean(x}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
+\ControlFlowTok{assert}\NormalTok{ evaluate\_finite(O, }\DecValTok{2}\NormalTok{, \{x: [Fraction(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), Fraction(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)]\}, \{\}) }\OperatorTok{==}\NormalTok{ Fraction(}\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+No part of this API silently replaces a Gaussian integral with numerical
+quadrature, supplies a covariance family with a neural interpretation,
+or turns fixed finite derivatives into a positive-time population
+solver.
+
+\section{Source bundle and reproduction}\label{sec-source-bundle}
+
+The standalone directory supplies \texttt{main.tex},
+\texttt{references.bib}, a \texttt{Makefile}, and the accompanying
+\texttt{code/} tree. The native LaTeX source compiles with XeLaTeX,
+BibTeX and \texttt{latexmk}; Quarto is not needed to build this paper.
+From the paper directory, run \texttt{make\ pdf}. The output is
+\texttt{main.pdf}. Install the Python dependency with
+\texttt{python\ -m\ pip\ install\ -r\ requirements.txt} in an
+environment of your choice, then run \texttt{make\ check} for the copied
+test suite.
+
+The symbolic implementation is in \texttt{code/pde/mfp\_compiler.py} and
+\texttt{code/pde/mfp\_expr.py}; the independent finite-array interpreter
+is in \texttt{code/pde/mfp\_finite.py}. The package initialization,
+finite-network module and exact Gaussian-moment module are included to
+preserve the established import closure. Three
+\texttt{code/scripts/example\_mfp\_*.py} files implement the worked
+calculations, and four \texttt{code/tests/test\_mfp\_*.py} files supply
+the established checks. All Python sources and the dependency pin are
+copied byte for byte from the maintained package.
+\texttt{SOURCE\_MAP.json} records the source hashes, manuscript
+extraction ranges and editorial adaptations.
+
+\appendix
+
+\section{Bounded-derivative Gaussian-program
+foundation}\label{sec-docs-special-data-limits-l3785}
+
+This part treats every fixed finite hidden depth L. All instruction
+lists and the number of initialized matrices are fixed before width
+tends to infinity. Its elementary proofs do not assert uniformity for a
+depth or transcript length growing with width.
+
+\subsection{Finite programs and convergence of their empirical
+laws}\label{sec-docs-special-data-limits-l3789}
+
+There are \(L\) types of length-\(n\) vectors, one for each hidden
+layer. Operations combining coordinates may combine only vectors of the
+same type. For each \(2\le\ell\le L\), let
+
+\[
+ W^{(\ell)}_n:\mathbb R^n_{\ell-1}\longrightarrow\mathbb R^n_\ell
+\]
+
+be mutually independent matrices with independent \(N(0,1/n)\) entries.
+Their transposes are reused as the reverse actions of these same
+matrices.
+
+Each layer may have a fixed finite tuple of root vectors. Its coordinate
+tuples are independent and identically distributed, have finite second
+moment, and are independent of all matrices. Tuples in different layers
+are independent. Constants are also allowed. Additional independent
+Gaussian roots may be added to any layer when a proof requires probes or
+regularization.
+
+A deterministic-coefficient program is a fixed finite ordered list of
+instructions of the following forms:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  apply a fixed \(C^1\) function \(F:\mathbb R^m\to\mathbb R\) with
+  bounded first partial derivatives, coordinate by coordinate, to
+  previously available vectors of one layer;
+\item
+  multiply a previously available vector by \(W^{(\ell)}_n\) or
+  \({W^{(\ell)}_n}^{\top}\) for any \(2\le\ell\le L\), with the
+  appropriate types;
+\item
+  form a fixed real linear combination of previous same-layer vectors.
+\end{enumerate}
+
+The first condition implies a global Lipschitz bound and at most linear
+growth for each coordinate instruction. The bound may depend on that
+instruction. Root tuples themselves need not be generated by such
+functions.
+
+Write
+
+\[
+\frac{1}{n}\langle u,v\rangle_{\mathbb R^n}=\frac1n\sum_{\alpha=1}^n u_\alpha v_\alpha,
+\qquad \frac{\|u\|_2^2}{n}=\frac{1}{n}\langle u,u\rangle_{\mathbb R^n}.
+\]
+
+For same-layer nodes \(v^1_n,\ldots,v^m_n\), their empirical law is
+
+\[
+\widehat\mu_n=\frac1n\sum_{\alpha=1}^n
+ \delta_{(v^1_{n,\alpha},\ldots,v^m_{n,\alpha})}.
+\]
+
+Here \(\mathcal W_2\) uses the Euclidean distance on \(\mathbb R^m\).
+
+\begin{theorem}[fixed finite Gaussian
+program]\protect\hypertarget{thm-docs-special-data-limits-l3820}{}\label{thm-docs-special-data-limits-l3820}
+
+Every such program has deterministic joint limiting laws of all its
+same-layer node tuples, and
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3821}{
+\mathcal W_2(\widehat\mu_n,\mu)\longrightarrow0
+\quad\hbox{in probability}
+}\end{equation}
+
+along the full width sequence. In particular every within-layer pairwise
+contraction converges to the corresponding limiting second moment. The
+scalar laws are given by the source rule in
+Section~\ref{sec-docs-special-data-limits-l3946}. Query Grams may be
+singular. Finite collections of programs sharing the same matrices and
+roots converge jointly by applying the assertion to their finite union.
+
+We prove this theorem in Sections
+\ref{sec-docs-special-data-limits-l3842}--\ref{sec-docs-special-data-limits-l4009}.
+The following elementary facts make explicit the probabilistic mode of
+convergence used in its proof.
+
+If \(X_\alpha\) are iid and \(E|X_1|<\infty\), their averages converge
+in probability to their expectation: truncate \(X_\alpha\) at level
+\(M\), use the variance bound \(O(M^2/n)\) for the bounded variables,
+and bound the mean absolute truncation error by \(E[|X_1|1_{|X_1|>M}]\).
+First send \(n\) to infinity and then \(M\) to infinity. This proves the
+required initial weak convergence and second-moment convergence of root
+empirical laws.
+
+For probability measures on a finite-dimensional Euclidean space, weak
+convergence together with convergence of second moments implies
+\(\mathcal W_2\) convergence. One direct proof is as follows. Continuous
+truncations of \(|x|^2\) show that the second moments outside
+sufficiently large balls are uniformly small. Inside a ball partition
+space into finitely many sets of diameter at most \(\eta\), choosing
+boundaries of zero limiting measure. Weak convergence makes their masses
+converge. Couple the common mass within each partition cell, at cost at
+most \(\eta^2\), and couple the remaining masses arbitrarily. The
+unmatched mass inside the ball vanishes; its cost is bounded by the
+squared diameter of the ball times that mass. The tails have arbitrarily
+small cost by \(|x-y|^2\le2|x|^2+2|y|^2\). Sending the ball radius and
+then the partition resolution to their limits proves the claim. A
+countable family of bounded Lipschitz tests determines weak convergence,
+by approximation on compact balls and tightness. For random measures the
+same argument applies in probability, or along an almost surely
+convergent subsubsequence of every subsequence.
+
+Two arrays on the same neuron indices satisfy
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3835}{
+\mathcal W_2^2(\widehat\mu_n,\widehat\nu_n)
+\le\frac1n\sum_\alpha |X_{n,\alpha}-Y_{n,\alpha}|^2,
+}\end{equation}
+
+using the coupling that pairs equal indices. These facts require no
+assertion that trained coordinates are independent.
+
+\end{theorem}
+
+\subsection{An explicit Gaussian operator norm
+bound}\label{sec-docs-special-data-limits-l3842}
+
+\begin{lemma}[]\protect\hypertarget{lem-docs-special-data-limits-l3844}{}\label{lem-docs-special-data-limits-l3844}
+
+For an \(n\times n\) matrix \(W_n\) with independent \(N(0,1/n)\)
+entries,
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3845}{
+\Pr(\|W_n\|_{\mathrm{op}}>10)
+\le 2\,9^{2n}e^{-100n/8}\longrightarrow0.
+}\end{equation}
+
+\end{lemma}
+
+\protect\phantomsection\label{proof-docs-special-data-limits-l3851}{}
+
+\begin{proof}
+A maximal \(1/4\)-separated subset \(\mathcal N\) of the Euclidean unit
+sphere is a \(1/4\)-net. Balls of radius \(1/8\) about its points are
+disjoint and lie in the ball of radius \(9/8\), so volume comparison
+gives \(|\mathcal N|\le9^n\). For unit \(u,v\), choose
+\(u_0,v_0\in\mathcal N\) within \(1/4\). Then
+
+\[
+|u^TW_nv-u_0^TW_nv_0|
+\le\tfrac12\|W_n\|_{\mathrm{op}}.
+\]
+
+Taking the supremum gives
+\(\|W_n\|_{\mathrm{op}}\le2\max_{u_0,v_0\in\mathcal N}|u_0^TW_nv_0|\).
+For a fixed pair the displayed scalar is \(N(0,1/n)\). Its exponential
+moment is \(Ee^{t u_0^TW_nv_0}=e^{t^2/(2n)}\); Markov's inequality
+optimized at \(t=ns\) yields \(\Pr(|u_0^TW_nv_0|>s)\le2e^{-ns^2/2}\). A
+union bound at \(s=5\) proves (\ref{eq-docs-special-data-limits-l3845}).
+The exponent is negative since \(2\log9<12.5\). The same bound applies
+to transposes, and a finite union bound handles all matrices.
+\(\blacksquare\)
+\end{proof}
+
+The same argument for a threshold \(t\ge10\) gives
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3859}{
+\Pr(\|W_n\|_{\mathrm{op}}>t)
+\le2\exp\{n(2\log9-t^2/8)\}
+\le2e^{-nt^2/16}\le2e^{-t^2/16}.
+}\end{equation}
+
+Consequently every fixed positive moment is bounded uniformly in width:
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3866}{
+\sup_{n\ge1}E\|W_n\|_{\mathrm{op}}^p
+\le10^p+2p\int_{10}^\infty t^{p-1}e^{-t^2/16}\,dt<\infty.
+}\end{equation}
+
+The integration formula follows by writing \(X^p=\int_0^Xpt^{p-1}dt\)
+for nonnegative \(X\) and interchanging nonnegative integrals. Hölder's
+inequality then gives uniform fixed-order moments for every fixed
+polynomial in finitely many such operator norms. For a standard Gaussian
+vector \(g_n\), Jensen's inequality also gives
+\(E\frac{\|g_n\|_2^p}{n^{p/2}}\le E|G|^p\) when \(p\ge2\).
+
+A useful consequence identifies normalized traces without a
+concentration theorem for functions of matrix entries. Let \(T_n\) be
+any random real \(n\times n\) matrix independent of
+\(g_n\sim N(0,I_n)\), with \(\sup_nE\|T_n\|_{\mathrm{op}}^2<\infty\).
+Conditional on \(T_n\),
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3874}{
+E_g\frac{1}{n}\langle g_n,T_ng_n\rangle_{\mathbb R^n}=\frac1n\operatorname{tr}T_n,
+\quad
+\operatorname{Var}_g\!\left(\frac{1}{n}\langle g_n,T_ng_n\rangle_{\mathbb R^n}\right)
+=\frac{2}{n^2}\left\|\frac{T_n+T_n^T}{2}\right\|_F^2
+\le\frac{2}{n}\|T_n\|_{\mathrm{op}}^2.
+}\end{equation}
+
+To verify the variance, replace \(T_n\) by its symmetric part,
+diagonalize it orthogonally, and use that the transformed Gaussian
+coordinates are independent with \(\operatorname{Var}(G^2)=2\).
+Therefore the difference between this probe and the normalized trace
+tends to zero in \(L^2\). If the probe is a fixed finite program,
+Theorem~\ref{thm-docs-special-data-limits-l3820} identifies its
+deterministic limit and hence the trace limit in probability. A fixed
+polynomial in the initialized actions and their adjoints satisfies the
+operator moment hypothesis by (\ref{eq-docs-special-data-limits-l3866}),
+and its application to the probe is such a program. Uniform moments of
+order greater than one upgrade convergence of these normalized traces to
+convergence of their expectations: split at a large absolute threshold
+and use the higher-moment bound to make the first-moment tails uniformly
+small. The same observation supplies uniform integrability of every
+fixed polynomial expression needed for finite-degree moment
+calculations.
+
+\subsection{Exact adaptive Gaussian
+conditioning}\label{sec-docs-special-data-limits-l3884}
+
+Let the current transcript consist of all revealed roots and all
+previously computed vectors. For one matrix \(W\), collect its earlier
+forward and reverse observations as
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3887}{
+WV=Y,\qquad W^TU=Q.
+}\end{equation}
+
+The columns of \(V\) and \(U\) are the respective query inputs, with
+output columns in \(Y\) and \(Q\). Conditioned on the transcript they
+are fixed. Empty column lists are allowed; terms involving them are
+omitted.
+
+It is necessary to justify this conditioning for adaptive inputs.
+Initially the conditional laws of the matrices are independent Gaussian
+laws. Suppose this is true, with the linear constraints already
+observed, at a particular instruction. A coordinate operation is
+measurable from the transcript and reveals no new randomness. At a
+matrix call its input is also measurable from the transcript.
+Conditional on the transcript, the new answer is a linear observation of
+only the queried matrix. Conditioning a product of the current
+conditional laws on this observation leaves the other factors unchanged
+and conditions only the queried factor. Thus induction preserves
+independence of the residual matrix factors and adds exactly the
+indicated linear constraint. A freshly revealed independent root
+likewise does not alter these residual laws. This argument conditions
+successively, and does not assume that an adaptive input was independent
+of the matrix before the transcript was fixed.
+
+Suppose first that \(V^TV\) and \(U^TU\) are invertible. Let
+\(P_V=V(V^TV)^{-1}V^T\), and similarly define \(P_U\). Then
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3896}{
+W\mid\mathcal H\ \overset d=
+M+P_{U^\perp}\widetilde W P_{V^\perp},
+\quad
+M=Y(V^TV)^{-1}V^T
+ +U(U^TU)^{-1}Q^TP_{V^\perp},
+}\end{equation}
+
+where \(\widetilde W\) is an independent copy of the original matrix.
+
+Here is a direct verification of the Gaussian projection behind
+(\ref{eq-docs-special-data-limits-l3896}). The compatibility relation is
+\(U^TY=Q^TV\), because both sides equal \(U^TWV\). It gives \(MV=Y\) and
+\(M^TU=Q\). The homogeneous solutions of
+(\ref{eq-docs-special-data-limits-l3887}) are exactly matrices
+\(K=P_{U^\perp}KP_{V^\perp}\). Both summands defining \(M\) are
+orthogonal in Frobenius inner product to that subspace. Hence \(M\) is
+the unique minimum-Frobenius-norm solution. Vectorize \(W\), whose law
+is an isotropic Gaussian in \(\mathbb R^{n^2}\). In an orthonormal basis
+adapted to the homogeneous solution subspace its coordinates are
+independent Gaussians; conditioning on the orthogonal coordinates leaves
+independent Gaussians on the homogeneous subspace and fixes the other
+coordinates to those of \(M\). This proves
+(\ref{eq-docs-special-data-limits-l3896}). It also proves the same
+assertion with orthogonal projections and minimum-norm solutions when
+column lists are linearly dependent; the nonsingular formula is the only
+one whose coefficients we take to a width limit.
+
+For a new forward input \(h\), put
+
+\[
+\alpha_n=(V^TV)^{-1}V^Th,
+\quad h_\perp=h-V\alpha_n,
+\quad
+\beta_n=(U^TU/n)^{-1}(Q^Th_\perp/n).
+\]
+
+Equation (\ref{eq-docs-special-data-limits-l3896}) becomes
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3916}{
+Wh=Y\alpha_n+U\beta_n
+ +\frac{\|h_\perp\|_2}{\sqrt n}P_{U^\perp}g
+\quad\hbox{in conditional law},
+}\end{equation}
+
+with \(g\sim N(0,I_n)\) independent of the transcript. The reverse
+formula follows by interchanging the two sides.
+
+Assume provisionally that every query Gram has a positive definite
+limit. Inductively all contractions of old nodes converge. Thus the
+coefficients in (\ref{eq-docs-special-data-limits-l3916}), and
+\(\frac{\|h_\perp\|_2}{\sqrt n}\), converge in probability to
+deterministic limits. Inverting a positive definite fixed-size matrix is
+continuous, for instance by a Neumann-series expansion about its
+invertible limit.
+
+The projection removed from the fresh noise is negligible:
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3927}{
+E[\frac{\|P_Ug\|_2^2}{n}\mid\mathcal H]
+=\frac{\operatorname{rank}U}{n}.
+}\end{equation}
+
+The multiplying variance factor is bounded in probability, so
+conditional Markov's inequality makes its contribution vanish in
+normalized mean square. After this removal and replacement of convergent
+coefficients by their limits, the new coordinate is a deterministic
+linear combination \(m_\alpha\) of old same-layer nodes plus
+\(\sigma g_\alpha\).
+
+For a bounded Lipschitz test \(\psi\) of the old tuple and this new
+coordinate, conditional independence of \(g_\alpha\) gives variance at
+most \(4\|\psi\|_\infty^2/n\) for its empirical average. Its conditional
+mean is the old empirical average of the bounded continuous function
+
+\[
+x\longmapsto E_G\psi(x,m(x)+\sigma G),
+\]
+
+which converges by the induction hypothesis. For the new second moment
+expand
+
+\[
+\frac1n\sum_\alpha(m_\alpha+\sigma g_\alpha)^2
+=\frac{\|m\|_2^2}{n}+\frac{2\sigma}{n}\sum_\alpha m_\alpha g_\alpha
+ +\frac{\sigma^2}{n}\sum_\alpha g_\alpha^2.
+\]
+
+The middle term has conditional variance
+\(4\sigma^2\frac{\|m\|_2^2}{n}/n\), and the last average has variance
+\(2/n\). All relevant norms are bounded in probability. We obtain weak
+convergence and second-moment convergence, hence
+(\ref{eq-docs-special-data-limits-l3821}). Coordinate instructions
+preserve this convergence because their Lipschitz constants bound the
+transport cost. This completes the induction under the provisional
+positive-definiteness assumption.
+
+\subsection{Source-response identity and formal
+derivatives}\label{sec-docs-special-data-limits-l3946}
+
+For every oriented initialized matrix introduce a centered Gaussian
+source group indexed by its calls. Sources for different orientations,
+including a matrix and its transpose, are independent groups; they are
+also independent of the root tuples. Within a forward group for \(W\),
+the source attached to input \(h\) has covariance with the source
+attached to input \(v\) equal to \(E[hv]\). Within the reverse group the
+analogous covariance is \(E[uv]\) for the corresponding reverse inputs.
+These are uncentered second moments of inputs and centered covariances
+of sources.
+
+The scalar node of a new forward call is
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3951}{
+\mathscr W h=\xi_h+\sum_{s:\,W^Tu_s\text{ already called}}
+ u_s\,E[\partial_{\zeta_s}h].
+}\end{equation}
+
+The scalar node of a reverse call is
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3957}{
+\mathscr W^*u=\zeta_u+\sum_{r:\,Wv_r\text{ already called}}
+ v_r\,E[\partial_{\xi_r}u].
+}\end{equation}
+
+An input is its explicit expression in named source coordinates and
+roots, obtained by unrolling previous scalar instructions. A derivative
+in (\ref{eq-docs-special-data-limits-l3951}) or
+(\ref{eq-docs-special-data-limits-l3957}) differentiates that
+expression. Previously computed expectations, coefficients, covariance
+entries, mesh sizes, and any deterministic control values are held
+fixed. Each named source remains a separate formal argument, including
+when the joint source covariance is singular. An unavailable source has
+derivative zero. Derivative paths through other matrices' earlier calls
+remain part of the expression.
+
+The recursion is causal. At a call, its input and its source derivatives
+are already defined; their expectations determine the response
+coefficients. The source covariance extension is the Gram extension of
+the corresponding input list and is therefore positive semidefinite. A
+Gaussian group with that extended covariance exists: if the old
+covariance is \(K\), the new cross-covariance is \(b\), and the new
+variance is \(v\), positivity implies \(b\in\operatorname{ran}K\) and
+\(v-b^TK^+b\ge0\). To see the range assertion, test positivity on
+\((tu,1)\) with \(Ku=0\) and arbitrary \(t\). Completing the square on
+\(\operatorname{ran}K\) gives the second assertion. Consequently the new
+coordinate can be represented as \(b^TK^+\xi+\sqrt{v-b^TK^+b}\,G\), with
+a fresh standard normal \(G\). Here a pseudoinverse is used only to
+construct one fixed finite Gaussian law; no continuity of pseudoinverses
+is asserted.
+
+\begin{lemma}[source
+rule]\protect\hypertarget{lem-docs-special-data-limits-l3966}{}\label{lem-docs-special-data-limits-l3966}
+
+Under the positive-definiteness assumption of
+Section~\ref{sec-docs-special-data-limits-l3884},
+(\ref{eq-docs-special-data-limits-l3951}) and
+(\ref{eq-docs-special-data-limits-l3957}) give exactly the scalar laws
+obtained there.
+
+\end{lemma}
+
+\protect\phantomsection\label{proof-docs-special-data-limits-l3968}{}
+
+\begin{proof}
+Consider a forward call and use the notation of
+(\ref{eq-docs-special-data-limits-l3916}). Write old forward inputs as
+\(v_r\), old reverse inputs as \(u_s\), and their scalar outputs, by
+induction, as
+
+\[
+y_r=\xi_r+\sum_s D_{rs}u_s,
+\qquad D_{rs}=E[\partial_{\zeta_s}v_r],
+\]
+
+\[
+q_s=\zeta_s+\text{a deterministic linear combination of old }v_r.
+\]
+
+All old source lists are padded by zeros for unavailable indices. Let
+\(\alpha\) be the limiting least-squares coefficient from
+(\ref{eq-docs-special-data-limits-l3916}), and let
+\(h_\perp=h-\sum_r\alpha_rv_r\). Orthogonality gives
+\(E[v_rh_\perp]=0\). Therefore
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3977}{
+E[q_sh_\perp]=E[\zeta_sh_\perp].
+}\end{equation}
+
+Let \(G_U=(E[u_su_t])_{st}\), the covariance matrix of \(\zeta\).
+Gaussian integration by parts gives
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l3982}{
+E[\zeta h_\perp]=G_U E[\nabla_\zeta h_\perp].
+}\end{equation}
+
+For completeness, the one-dimensional identity \(E[Gf(G)]=E[f'(G)]\)
+follows by integration by parts against the standard normal density. The
+boundary term vanishes for a function of at most linear growth with
+bounded derivative. Represent a possibly singular Gaussian vector as
+\(\zeta=T G\), apply this identity in each independent standard normal
+coordinate of \(G\), and sum using \(TT^T=G_U\). Conditioning on
+independent roots and the other source groups proves
+(\ref{eq-docs-special-data-limits-l3982}) in the present setting. Every
+derivative is integrable: at a fixed finite instruction, its norm is
+bounded by a deterministic finite expression in earlier coefficients and
+the bounded derivatives of coordinate maps.
+
+The limiting coefficient of \(U\) in
+(\ref{eq-docs-special-data-limits-l3916}) is consequently
+
+\[
+\beta=E[\nabla_\zeta h]-\sum_r\alpha_r E[\nabla_\zeta v_r].
+\]
+
+Substitution of the old \(y_r\) decompositions in
+(\ref{eq-docs-special-data-limits-l3916}) cancels the second term
+exactly. The answer becomes
+
+\[
+\xi_h+\sum_su_sE[\partial_{\zeta_s}h],
+\qquad
+\xi_h=\sum_r\alpha_r\xi_r+\sigma G,
+\quad \sigma^2=E[h_\perp^2].
+\]
+
+Since the old \(\xi\) covariance is the Gram of the \(v_r\),
+
+\[
+E[\xi_h\xi_r]=E[hv_r],
+\quad
+E[\xi_h^2]=E\Big(\sum_r\alpha_rv_r\Big)^2+E[h_\perp^2]=E[h^2].
+\]
+
+The fresh normal is independent of all old roots and source groups. Thus
+adjoining it preserves independence of distinct oriented source groups.
+The reverse calculation is the same after interchanging the two layers.
+Interleaving calls of different matrices does not alter this
+calculation, because Section~\ref{sec-docs-special-data-limits-l3884}
+established the conditional independence of their residual factors.
+\(\blacksquare\)
+\end{proof}
+
+Independence of source groups does not assert that the answers of a
+matrix and its transpose are independent. Their response terms encode
+their dependence. Nor does it assert that a source is independent of all
+later inputs; later scalar inputs can be functions of that source.
+
+\subsection{Singular queries without a rank-stability
+assumption}\label{sec-docs-special-data-limits-l4009}
+
+\begin{lemma}[regularization of a fixed
+program]\protect\hypertarget{lem-docs-special-data-limits-l4011}{}\label{lem-docs-special-data-limits-l4011}
+
+The conclusions of Theorem~\ref{thm-docs-special-data-limits-l3820} and
+the formulas
+(\ref{eq-docs-special-data-limits-l3951})--(\ref{eq-docs-special-data-limits-l3957})
+hold when any of the limiting input Grams is singular.
+
+\end{lemma}
+
+\protect\phantomsection\label{proof-docs-special-data-limits-l4013}{}
+
+\begin{proof}
+For every matrix call introduce a new independent standard Gaussian
+input vector \(\chi\), revealed immediately before that call, and
+replace its input \(h\) by \(h+\varepsilon\chi\). Each call has a
+distinct noise vector. The other instructions are unchanged.
+
+At fixed \(\varepsilon>0\), the new noise is independent of the old
+transcript and of the unperturbed part of the current input. If \(V\) is
+the list of prior same-orientation inputs, the normalized squared
+distance from \(h+\varepsilon\chi\) to \(\operatorname{span}V\) is
+
+\[
+\frac{\|P_{V^\perp}h\|_2^2}{n}
+ +2\varepsilon\frac{1}{n}\langle P_{V^\perp}h,\chi\rangle_{\mathbb R^n}
+ +\varepsilon^2\frac{\|P_{V^\perp}\chi\|_2^2}{n}.
+\]
+
+Conditionally, the cross term has variance
+\(4\varepsilon^2\frac{\|P_{V^\perp}h\|_2^2}{n}/n\). The last norm
+squared has mean \(1-\operatorname{rank}V/n\) and variance at most
+\(2/n\). Thus every limiting new squared distance is at least
+\(\varepsilon^2\). Induction gives positive definite limiting query
+Grams, so Sections
+\ref{sec-docs-special-data-limits-l3884}--\ref{sec-docs-special-data-limits-l3946}
+apply to the perturbed program. Equivalently, in its scalar law the new
+independent root adds \(\varepsilon^2\) to the Schur complement of the
+old input Gram.
+
+Couple the perturbed and original finite programs with the same matrices
+and roots. On the event that all initialized matrix norms are at most 10
+and that all of the finitely many fresh noise vectors have normalized
+norms at most 2, propagate errors instruction by instruction. A
+coordinate instruction multiplies the previous error by its fixed
+Lipschitz constant; a linear combination contributes the sum of
+coefficient magnitudes times previous errors; a matrix call contributes
+at most ten times the input error plus \(20\varepsilon\). Consequently
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l4024}{
+\max_{\text{nodes }v}\frac{\|v_n^\varepsilon-v_n\|_2}{\sqrt n}
+\le C\varepsilon,
+}\end{equation}
+
+where \(C\) is finite and independent of \(n\) and
+\(0<\varepsilon\le1\). The event has probability tending to one by
+Lemma~\ref{lem-docs-special-data-limits-l3844} and the elementary
+second-moment calculation for Gaussian noise norms.
+
+We next show that the scalar recursion itself is continuous at
+\(\varepsilon=0\); this step concerns covariances and derivatives, not
+inverses of empirical Grams. Induct on its finitely many instructions.
+Each scalar node is a \(C^1\) expression in the finite named source list
+and roots. If earlier deterministic coefficients remain in a compact
+set, the expression and its first source derivatives have uniform
+bounds: the expression has at most linear growth in the root and source
+coordinates, and its derivatives have a finite deterministic bound. This
+follows directly by applying the coordinate derivative bounds and the
+linear response formulas in the previous instructions. The values and
+first derivatives are continuous in their arguments and in the earlier
+coefficient list.
+
+By induction, the covariance entries for the next source, which are
+second moments of old scalar inputs, converge as
+\(\varepsilon\downarrow0\). If positive semidefinite matrices
+\(K_j\to K\) have fixed size, then \(K_j^{1/2}\to K^{1/2}\). To verify
+this without a regularity assumption on eigenvalues, their positive
+square roots are bounded. Every convergent subsequence of these square
+roots has a positive semidefinite limit \(T\) with \(T^2=K\). A positive
+semidefinite matrix has a unique positive semidefinite square root:
+diagonalize it, observe that any such \(T\) commutes with \(K=T^2\), and
+restrict to its eigenspaces. Hence every subsequential limit is
+\(K^{1/2}\), which proves convergence.
+
+Represent the full finite source prefix for each \(\varepsilon\) as
+\(K_\varepsilon^{1/2}G\) using one standard Gaussian vector for each
+oriented group, independently of the roots. This couples the source
+prefixes in \(L^2\). The uniform linear-growth bounds and Lipschitz
+constants for node expressions then give their \(L^2\) convergence. More
+explicitly, split the node difference into a change of arguments at
+fixed coefficients, bounded by the common Lipschitz constant, and a
+change of coefficients at fixed arguments. The latter converges
+pointwise and is bounded by a constant times one plus the norm of the
+finite root/source list, an \(L^2\) dominator. First source derivatives
+converge in probability and are uniformly bounded, so their expectations
+converge. This proves convergence of the next response coefficient and
+closes the induction. At zero noise the resulting expression is exactly
+(\ref{eq-docs-special-data-limits-l3951})--(\ref{eq-docs-special-data-limits-l3957})
+for the original formal program.
+
+Let \(\mu^\varepsilon\) be the perturbed scalar law of a selected tuple
+and \(\mu^0\) the zero-noise law just constructed. We have
+\(\mathcal W_2(\mu^\varepsilon,\mu^0)\to0\). By
+(\ref{eq-docs-special-data-limits-l3835}),
+(\ref{eq-docs-special-data-limits-l4024}), and the proved
+fixed-\(\varepsilon\) limit,
+
+\[
+\mathcal W_2(\widehat\mu_n,\mu^0)
+\le C_m\varepsilon
+ +\mathcal W_2(\widehat\mu_n^\varepsilon,\mu^\varepsilon)
+ +\mathcal W_2(\mu^\varepsilon,\mu^0)
+\]
+
+on an event of probability tending to one. Choose \(\varepsilon\) first,
+let \(n\to\infty\), and then let \(\varepsilon\downarrow0\). This proves
+the full-sequence convergence in probability, including singular Grams,
+and finishes Theorem~\ref{thm-docs-special-data-limits-l3820}.
+\(\blacksquare\)
+\end{proof}
+
+The derivative convention has a precise invariant meaning on singular
+supports. If a source vector \(\zeta\) has covariance \(G\), and \(u\)
+is the vector of the associated reverse inputs with \(E[uu^T]=G\), then
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l4047}{
+E[\zeta f]=G E[\nabla f],\qquad
+u^Tv=0\text{ a.s. for every }v\in\ker G.
+}\end{equation}
+
+The second identity follows from \(E[(u^Tv)^2]=v^TGv=0\). If two
+admissible smooth formal expressions agree on the Gaussian support,
+their expected derivative vectors differ by an element of \(\ker G\), by
+the first identity. Their contracted corrections therefore agree.
+Individual derivative coefficients need not agree. None of this implies
+that pseudoinverses converge at rank loss.
+
+\subsection{Causal scalar
+feedback}\label{sec-docs-special-data-limits-l4054}
+
+The deterministic-coefficient theorem also identifies programs with the
+following causal scalar feedback. At finitely many stages, compute inner
+products of already available same-layer nodes, apply locally Lipschitz
+functions to the resulting finite scalar list, and use the resulting
+numbers as coefficients of subsequent linear combinations. Assume all
+scalar operations are defined on a neighborhood of their deterministic
+limiting arguments; divisions require a nonzero limiting denominator.
+Require the actual finite operation to be defined everywhere it is used,
+or assign an arbitrary measurable fallback outside that neighborhood.
+Convergence of its arguments makes the exceptional event have
+probability tending to zero. The physical algorithms themselves use no
+division. Coefficients may multiply unbounded vector nodes, because
+their perturbations can be estimated by the vector's normalized \(L^2\)
+norm.
+
+To prove this extension, construct an oracle program by replacing each
+scalar feedback value by its limiting deterministic value, computed from
+earlier scalar nodes. The construction is causal and therefore not an
+implicit fixed-point definition.
+Theorem~\ref{thm-docs-special-data-limits-l3820} identifies this oracle.
+At the next scalar step use
+
+\begin{equation}\protect\phantomsection\label{eq-docs-special-data-limits-l4059}{
+|\frac{1}{n}\langle u,v\rangle_{\mathbb R^n}-\frac{1}{n}\langle\bar u,\bar v\rangle_{\mathbb R^n}|
+\le\frac{\|u-\bar u\|_2}{\sqrt n}\frac{\|v\|_2}{\sqrt n}
+ +\frac{\|\bar u\|_2}{\sqrt n}\frac{\|v-\bar v\|_2}{\sqrt n}.
+}\end{equation}
+
+At the next scalar multiplication use
+
+\[
+\frac{\|c u-\bar c\bar u\|_2}{\sqrt n}
+\le |c|\frac{\|u-\bar u\|_2}{\sqrt n}+|c-\bar c|\frac{\|\bar u\|_2}{\sqrt n}.
+\]
+
+All oracle norms and finitely many oracle coefficients are bounded in
+probability; initial operator norms are bounded with probability tending
+to one. Inductively, these inequalities show that actual coefficients
+converge to oracle coefficients, actual node errors vanish in normalized
+\(L^2\), and actual norms remain bounded in probability. Local
+Lipschitzness of scalar operations suffices by restricting to a compact
+neighborhood of their deterministic limiting arguments. Equation
+(\ref{eq-docs-special-data-limits-l3835}) transfers every oracle
+empirical law to the actual program.
+
+
+\bibliography{references.bib}
+
+
+
+\end{document}

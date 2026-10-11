@@ -1,0 +1,4 @@
+/build/
+/main.pdf
+__pycache__/
+*.pyc

@@ -10,6 +10,33 @@ The target is the stated source-response Gaussian recursion, deterministic limit
 
 ## Current status
 
+At the user's request on 2026-10-11, the established material was also extracted
+into [paper_MFP/](../../paper_MFP/README.md): a standalone native LaTeX paper,
+36-page compiled PDF, full compiler guide and unchanged Python source bundle.
+This is editorial packaging of maintained results, with no new theorem or
+compiler behavior. The [dependency map](paper_dependency_map.md),
+[packaging diagnosis](paper_code_packaging.md) and
+[copied-bundle check](paper_bundle_check.md) record the bounded work.
+The paper's `SOURCE_MAP.json` records source hashes and editorial adaptations;
+build, source-preservation and layout evidence is in
+`data/generated/mfp_gaussian_master_proof_20261010/paper_export_20261011/`.
+The PDF compiles with `make pdf` from `paper_MFP/`, resolves all references,
+passes `qpdf --check`, and has no missing characters or overfull boxes.
+All 72 copied tests, five guide snippets and all three example scripts pass,
+including the generic, identity and quadratic kernel-jet producer cases.
+The maintained `docs/` and `code/` were not modified for this extraction.
+
+The user's separately supplied alternative cavity proof was reviewed read-only
+in this task and is preserved as [frozen revision c2](MFP_CAVITY_PROOF_c2.md),
+with the original scoped [expansion review](cavity_expansion_review.md) and
+[tangent/induction review](cavity_tangent_review.md). The
+[input manifest](cavity_review_inputs.json) maps their temporary source paths
+to byte-identical preserved files and records hashes. These reports support
+the mathematical route under the original smooth Gaussian assumptions; they
+identify an independence-wording correction and a minor adjoint-rule
+exposition omission. This alternative proof is unpromoted, has not been
+Lean checked, and does not replace the established proof in the paper or book.
+
 **Promoted into the established book and code with the user's explicit approval.**
 The exact reviewed v7 package is installed in Part I, Chapter 2 and `code/`.
 All 116 live source/dependency files match the reviewed edition; selection,

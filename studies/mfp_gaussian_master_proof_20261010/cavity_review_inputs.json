@@ -1,0 +1,26 @@
+{
+  "reviewed_revision": "c2",
+  "date": "2026-10-11",
+  "status": "Mathematical review only; no Lean verification or promotion of the alternative proof.",
+  "preservation": "Copies are byte-identical to the frozen proof input and original scoped reports. Temporary paths appearing in the reports refer to the preserved files mapped here.",
+  "files": [
+    {
+      "original_path": "/tmp/mfp_cavity_review_20261011/MFP_CAVITY_PROOF.md",
+      "preserved_file": "MFP_CAVITY_PROOF_c2.md",
+      "sha256": "29f9876fb24131d640d46cec22abff1083339fe1f0bc4bacb4ca6bd4d15039d3",
+      "role": "Frozen user-supplied alternative proof reviewed in this task; unpromoted."
+    },
+    {
+      "original_path": "/tmp/mfp_cavity_review_20261011/expansion_review.md",
+      "preserved_file": "cavity_expansion_review.md",
+      "sha256": "b116e65e6fe75433347065d11e37e74795cec6fae13f99529840af625a8c7911",
+      "role": "Independent scoped cavity expansion and reconstruction review."
+    },
+    {
+      "original_path": "/tmp/mfp_cavity_review_20261011/tangent_review.md",
+      "preserved_file": "cavity_tangent_review.md",
+      "sha256": "b4e027f94393decce8bc4145aa7b83913d393d678f09b1a6baa3ac92c405c5eb",
+      "role": "Independent scoped tangent, stage induction and convergence review."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {"source": "code/MFP_CALCULUS.md", "destination": "paper_MFP/code/MFP_CALCULUS.md"},
+  {"source": "code/pde/__init__.py", "destination": "paper_MFP/code/pde/__init__.py"},
+  {"source": "code/pde/finite_network.py", "destination": "paper_MFP/code/pde/finite_network.py"},
+  {"source": "code/pde/gaussian_moments.py", "destination": "paper_MFP/code/pde/gaussian_moments.py"},
+  {"source": "code/pde/mfp_expr.py", "destination": "paper_MFP/code/pde/mfp_expr.py"},
+  {"source": "code/pde/mfp_compiler.py", "destination": "paper_MFP/code/pde/mfp_compiler.py"},
+  {"source": "code/pde/mfp_finite.py", "destination": "paper_MFP/code/pde/mfp_finite.py"},
+  {"source": "code/scripts/example_mfp_calculus.py", "destination": "paper_MFP/code/scripts/example_mfp_calculus.py"},
+  {"source": "code/scripts/example_mfp_mlp_derivative.py", "destination": "paper_MFP/code/scripts/example_mfp_mlp_derivative.py"},
+  {"source": "code/scripts/example_mfp_kernel_jets.py", "destination": "paper_MFP/code/scripts/example_mfp_kernel_jets.py"},
+  {"source": "code/tests/test_mfp_expr.py", "destination": "paper_MFP/code/tests/test_mfp_expr.py"},
+  {"source": "code/tests/test_mfp_compiler.py", "destination": "paper_MFP/code/tests/test_mfp_compiler.py"},
+  {"source": "code/tests/test_mfp_mlp_example.py", "destination": "paper_MFP/code/tests/test_mfp_mlp_example.py"},
+  {"source": "code/tests/test_mfp_kernel_jets.py", "destination": "paper_MFP/code/tests/test_mfp_kernel_jets.py"},
+  {"source": "requirements.txt", "destination": "paper_MFP/requirements.txt"}
+]
