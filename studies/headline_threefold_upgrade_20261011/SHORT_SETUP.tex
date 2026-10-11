@@ -1,0 +1,1218 @@
+% Transferred from reviewed PROMOTION_SETUP.qmd, frozen v6 Chapter 9.
+% Readout correspondence: book W^{(L+1)} = compact w; all normalizations unchanged.
+% Main statement cp:initialization is in compact.tex; PAPER_SETUP_MAIN.tex is its source-complete audit counterpart.
+\section{Efficient initialization of the selected models}
+\label{cp:init:proof}
+
+We prove \Cref{cp:initialization} by computing disposable source values
+on $[0,T]$, $T=32(m/\gamma)\log(en)$, then applying \Cref{cp:selected}
+to real-node interpolation (Taylor) or positive coefficient quadrature
+(Harmonic). The autonomous model starts at time zero with original
+activations, exact initialized training features and
+\eqref{cp:selected-readout}. Supplied matrices specify its dense reference;
+the implicit algorithm instead samples a fresh Gaussian reference through
+consistent forward and transpose actions. It does not convert supplied
+matrices or a prescribed entrywise seed in subquadratic work.
+
+\subsection{Numerical source values from initialization}
+\label{cp:init:sec:numerics}
+
+All constants here are local to the numerical proof. Put $\lambda=\gamma/m$, $S=16Y/\lambda$,
+$\ell=\log(en)$, $T=32\ell/\lambda$, and $W_0^{(j)}=W^{(j)}(0)$.
+The normalized parameter vector and its norm are
+
+\[
+\theta=(W^{(1)}/\sqrt n,W^{(2)},\ldots,W^{(L)},w/\sqrt n),
+\qquad
+\|\theta\|^2=\|W^{(1)}\|_F^2/n+
+ \sum_{j=2}^L\|W^{(j)}\|_F^2+\|w\|_2^2/n.
+\]
+
+For the predictions and residuals in \eqref{cp:network}, set
+$\xi_a=\nabla_\theta f_n(x_a)$ and
+$\rho=\|r\|_2/\sqrt m$. The mobilities in
+\eqref{cp:flow} give precisely
+
+\begin{equation}
+\label{cp:init:eq:field}
+\dot\theta=F(\theta),\qquad
+F(\theta)=-\frac2m\sum_a r_a\xi_a,\qquad
+\xi_a=\left(\frac{\delta_a^{(1)}v_a^\top}{\sqrt n},
+ \left(\frac{\delta_a^{(j)}h_a^{(j-1)\top}}n\right)_{j=2}^L,
+ \frac{h_a^{(L)}}{\sqrt n}\right).
+\end{equation}
+
+Complex products use algebraic transposes and ordinary complex
+Euclidean/Frobenius norms; no complex Gram positivity is used.
+
+Condition on \Cref{cp:fit,cp:source} for Harmonic and
+\Cref{cp:poly:source} for Taylor. These events give real operator caps below nine,
+$\|w\|_2/\sqrt n\le2Y/\sqrt\lambda$,
+$\rho(t)\le Ye^{-\lambda t/2}$ and $\int_0^\infty\rho\le2Y/\lambda$.
+For centers in $[0,T]$, the respective source proofs supply complex
+disks of radius $r_t/2$ with preactivation imaginary parts at most
+$3a/8$, operator caps ten, residual RMS at most $2Y$, feature RMS at most
+$\beta^{3L}$, and training carrier coordinates bounded by
+
+\begin{equation}
+\label{cp:init:eq:source-input}
+r_t=\frac{\lambda}{\beta^{30L}Y^2\sqrt{(d+3)\ell}},\qquad
+M_c=2S\beta^{21L}\sqrt\ell.
+\end{equation}
+
+Here $k^{(L)}=w$, $k^{(j)}=W^{(j+1)\top}\delta^{(j+1)}$.
+The displayed $r_t$ is for Harmonic. Taylor uses $r_t=h(0)/2$
+from \eqref{cp:init:eq:capped-panels}; its radius-$h(0)/4$ disk
+is certified at every real center. Only declared Taylor queries, or real
+unit Harmonic queries, use these complex domains. For Taylor, apply the
+input reduction below and use its reduced dimension in the preactivation
+envelope.
+
+\subsubsection{Real signed stability and its constants}
+\label{cp:init:sec:stability}
+
+Use $b=\beta-1$, $s=t_2=\beta$, and define in order
+
+\begin{equation}
+\label{cp:init:eq:real-constants}
+\begin{gathered}
+H_1^{\rm r}=\max(1,b+10s),\quad
+H_j^{\rm r}=\max(1,b+10sH_{j-1}^{\rm r}),\quad H^{\rm r}=H_L^{\rm r},\quad
+R^{\rm r}=1+2Y/\sqrt\lambda,\\
+B^{\rm r}=R^{\rm r}s(10s)^{L-1},\quad
+F_z^{\rm r}=H^{\rm r}(10s)^{L-1},\quad
+P_{\rm layer}^{\rm r}=1+(L-1)H^{\rm r},\\
+D^{\rm r}(M)=(10s)^{L-1}
+ [s(1+B^{\rm r})+Lt_2F_z^{\rm r}M],\\
+J^{\rm r}(M)=\sqrt{L+1}
+ [P_{\rm layer}^{\rm r}D^{\rm r}(M)+(1+(L-1)B^{\rm r})sF_z^{\rm r}],\\
+C^{\rm r}(M)=sF_z^{\rm r}\sqrt L+LB^{\rm r}sF_z^{\rm r}
+                  +\tfrac12L^2t_2(F_z^{\rm r})^2M.
+\end{gathered}
+\end{equation}
+
+Evaluate $J^{\rm r},C^{\rm r}$ at $M=M_c$, and put
+
+\begin{equation}
+\label{cp:init:eq:real-source-constant}
+\begin{gathered}
+A_n=4J^{\rm r}Y/\lambda,\quad
+K_{\rm qry}^{\rm r}=R^{\rm r}(10s)^{L-1},\\
+C_{\rm src}=8\sqrt{L+1}\max\left\{sF_z^{\rm r},
+ (10s)^{L-1}[s(1+B^{\rm r})+Lt_2F_z^{\rm r}K_{\rm qry}^{\rm r}]\right\}.
+\end{gathered}
+\end{equation}
+
+\begin{lemma}[Stability of an approximate dense path]
+\label{cp:init:defect}
+
+Let $u$ be an absolutely continuous path on $[0,T]$, let
+$d_u=u'-F(u)$, and set
+$E_0=\|u(0)-\theta(0)\|+\int_0^T\|d_u\|$.
+If
+
+\[
+E_0\le e^{-A_n}/4,\qquad
+8(C^{\rm r}+J^{\rm r})^2Te^{2A_n}E_0^2\le1,
+\]
+
+then $\sup_{[0,T]}\|u-\theta\|\le2e^{A_n}E_0$.
+Every real-query source in \eqref{cp:source-families} has coordinate
+error at most $C_{\rm src}n\|u(t)-\theta(t)\|$ when evaluated at
+$u(t)$ with the original activations.
+\end{lemma}
+
+\begin{proof}
+Stop at $E=\|u-\theta\|=1$, so both states have operator cap ten
+and readout RMS cap $R^{\rm r}$. For the sum $D_h$ of hidden-block
+discrepancies and readout RMS discrepancy $D_w$,
+$D_h\le\sqrt L E$, $D_h+D_w\le\sqrt{L+1}E$.
+Forward subtraction bounds preactivation and feature RMS errors by
+$F_z^{\rm r}D_h$ and $sF_z^{\rm r}D_h$. Backward subtraction is
+
+\[
+\delta^{(j)}(u)-\delta^{(j)}(\theta)
+=\phi'(z^{(j)}(u))\odot[k^{(j)}(u)-k^{(j)}(\theta)]
+ +[\phi'(z^{(j)}(u))-\phi'(z^{(j)}(\theta))]\odot k^{(j)}(\theta).
+\]
+
+The second term uses $M_c$; propagation, changed mixers and top readout
+cost $10s$, $sB^{\rm r}\|\Delta W\|_F$ and $sD_w$.
+Their sum gives response RMS error $D^{\rm r}(M_c)(D_h+D_w)$
+and $\|\xi_a(u)-\xi_a(\theta)\|\le J^{\rm r}E$.
+The endpoint remainder obeys
+
+\[
+|f_n(u,x_a)-f_n(\theta,x_a)-\langle\xi_a(\theta),u-\theta\rangle|
+ \le C^{\rm r}E^2.
+\]
+
+Indeed, put
+$a^{(j)}=\Delta h^{(j)}-\phi'(z^{(j)}(\theta))\odot\Delta z^{(j)}$.
+Scalar Taylor's formula gives
+$|a_i^{(j)}|\le t_2|\Delta z_i^{(j)}|^2/2$.
+Backward substitution expresses the remainder as
+
+\[
+\frac1n\sum_j k_a^{(j)}(\theta)^\top a_a^{(j)}
+ +\frac1n\sum_{j=2}^L\delta_a^{(j)}(\theta)^\top
+                  \Delta W^{(j)}\Delta h_a^{(j-1)}
+ +\frac1n\Delta w^\top\Delta h_a^{(L)}.
+\]
+
+Its three bounds are
+$L^2t_2M_c(F_z^{\rm r})^2E^2/2$,
+$LB^{\rm r}sF_z^{\rm r}E^2$, and $sF_z^{\rm r}\sqrt L E^2$.
+For $e_{f,a}=f_n(u,x_a)-f_n(\theta,x_a)$, the exact signed identity
+in the proof of \Cref{cp:signed}, with these two remainder bounds, gives
+
+\[
+\tfrac12(E^2)'
+\le-2\|e_f\|_2^2/m
+ +2(C^{\rm r}+J^{\rm r})\|e_f\|_2E^2/\sqrt m
+ +2J^{\rm r}\rho E^2+E\|d_u\|.
+\]
+
+Maximizing over $\|e_f\|_2/\sqrt m$ gives
+
+\begin{equation}
+\label{cp:init:eq:signed-defect}
+E'\le2J^{\rm r}\rho E+\tfrac12(C^{\rm r}+J^{\rm r})^2E^3+\|d_u\|.
+\end{equation}
+
+The regularization in \Cref{cp:signed} covers $E=0$.
+Multiplying by $\exp(-2J^{\rm r}\int_0^t\rho)$, whose inverse is
+at most $e^{A_n}$, bounds the transformed error before its first
+$2E_0$ crossing by
+$E_0+4(C^{\rm r}+J^{\rm r})^2Te^{2A_n}E_0^3\le3E_0/2$.
+This excludes the crossing and gives $E\le1/2$, removing the stop;
+the same inequality covers $E_0=0$.
+For any real query, replace the carrier cap by
+$\sqrt nK_{\rm qry}^{\rm r}$ in the same subtraction and convert
+RMS to coordinates. These two $\sqrt n$ factors and initialized
+operator cap eight give $C_{\rm src}nE$, also between any two
+states in this real neighborhood. Finally $A_n=O(\sqrt\ell)$
+at fixed parameters.
+\end{proof}
+
+\subsubsection{Complex restarts and scalar activation approximation}
+\label{cp:init:sec:activation}
+
+For complex neighborhoods of computed anchors, define separately
+
+\begin{equation}
+\label{cp:init:eq:complex-constants}
+\begin{gathered}
+R_{\rm loc}=1+S\beta^{3L},\quad
+H_1=\max(1,b+11s),\quad H_j=\max(1,b+11sH_{j-1}),\\
+B_j=R_{\rm loc}s(11s)^{L-j},\quad
+P_1=1,\quad P_j=H_{j-1}+11sP_{j-1},\quad P_*=\max_jP_j,\\
+\kappa_L(M)=1,\quad
+\kappa_j(M)=11s\kappa_{j+1}(M)+11t_2MP_{j+1}+B_{j+1},\\
+D_j(M)=s\kappa_j(M)+t_2MP_j,\quad \kappa_*(M)=\max_j\kappa_j(M),\\
+G=H_L+B_1+\sum_{j=2}^LB_jH_{j-1},\\
+J_{\rm loc}(M)=sP_L+D_1(M)
+  +\sum_{j=2}^L[H_{j-1}D_j(M)+B_jsP_{j-1}].
+\end{gathered}
+\end{equation}
+
+The same endpoint subtraction, now at operator cap eleven and readout
+RMS cap $R_{\rm loc}$, gives preactivation, carrier and response RMS
+errors $P_jE,\kappa_j(M)E,D_j(M)E$ when the reference carrier
+maximum is $M$. The gradient blocks then give $\|\xi_a\|\le G$,
+$\|\Delta\xi_a\|\le J_{\rm loc}(M)E$, and
+
+\[
+\|F(u)-F(v)\|\le[2G^2+2\rho(v)J_{\rm loc}(M)]\|u-v\|.
+\]
+
+Here integration along the parameter segment bounds the residual change
+by $GE$; all scalar preactivation segments lie in the half-strip below.
+
+Define
+
+\begin{equation}
+\label{cp:init:eq:restart-radius}
+\begin{gathered}
+b_n=\min\{1/4,a/(16\sqrt nP_*),1/(\sqrt n\kappa_*(M_c))\},\\
+L_n=2G^2+2(2Y+G)J_{\rm loc}(M_c+1),\quad V=2G(2Y+G),\quad
+\widehat R_n=\min\{r_t/2,(8L_n)^{-1}\}.
+\end{gathered}
+\end{equation}
+
+In a radius-$b_n$ ball about the true complex trajectory, first-exit
+subtraction gives preactivation change at most $a/16$, hence imaginary
+part below $7a/16$, operator cap eleven, carrier maximum $M_c+1$
+and residual RMS $2Y+G$. Thus $L_n$ is a proved pairwise Lipschitz
+bound there. The source proofs also give the center envelope
+
+\[
+Z_*=[\beta^{21L}+16\sqrt{d+3}\,\beta^{3L}+1
+                 +\beta^{26L}\sqrt{d+3}\,S^2]\sqrt\ell+a/8.
+\]
+
+by integrating $2\rho S\beta^{26L}\sqrt{d+3}\sqrt\ell$
+and adding the initial Gaussian and short complex-time bounds.
+For Taylor use its finite-list maximum and
+$SU_{\rm fin}\sqrt\ell$, $U_{\rm fin}\le\beta^{26L}$.
+The moving-ball rectangle is therefore
+$|\Re z|\le Z_*+a/16$, $|\Im z|\le7a/16$.
+For source-vector tolerance $\varepsilon_v>0$, put
+$\tau=\varepsilon_v/(32\sqrt n)$ and define
+
+\begin{equation}
+\label{cp:init:eq:activation-tolerance}
+\begin{gathered}
+e_d=e^{-A_n}\min\left\{\frac14,
+ \frac1{\sqrt8(C^{\rm r}+J^{\rm r})\sqrt T},
+ \frac{\tau}{4C_{\rm src}n},\frac{b_n}{16}\right\},\quad
+\zeta_F=\min\{e_d/(2T),b_nL_n/4,V/2\},\\
+U_0=0,\quad U_j=1+11sU_{j-1},\quad U_*=\max_jU_j,
+ \quad K_j^{\rm act}=R_{\rm loc}(11s)^{L-j},\\
+Q_{L+1}(M)=0,\quad
+Q_j(M)=11(s+1)Q_{j+1}(M)+K_j^{\rm act}+11t_2MU_{j-1},\\
+Q_\xi=U_L+Q_1(M_c+1)
+ +\sum_{j=2}^L[Q_j(M_c+1)(H_{j-1}+1)+B_jU_{j-1}],\\
+Q_f=R_{\rm loc}U_L,\quad
+C_F=2Q_f(G+1)+2(2Y+G)Q_\xi,\\
+M_q=\sqrt n\max_jK_j^{\rm act},\quad
+C_p=8\sqrt n\max\{U_*,\max_jQ_j(M_q)\},\\
+\epsilon=\min\{1,U_*^{-1},a/(5632\sqrt nU_*),Q_\xi^{-1},
+                         \zeta_F/C_F,\tau/(2C_p)\}.
+\end{gathered}
+\end{equation}
+
+Every denominator is positive. Set
+
+\begin{equation}
+\label{cp:init:eq:activation-degree}
+\begin{gathered}
+B=8(Z_*+a+1),\quad
+\tau_o=\operatorname{arsinh}(31a/(64B)),\quad
+\tau_i=\operatorname{arsinh}(29a/(64B)),\quad\Delta=\tau_o-\tau_i,\\
+M_\phi=b+s(B+a),\quad C_a=\max\{1,512/a,2(512/a)^2\},
+ \quad\epsilon_p=\epsilon/C_a,\\
+D=\max\left\{1,\left\lceil\Delta^{-1}
+       \log\max\{e,24M_\phi/(\epsilon_p\Delta)\}\right\rceil\right\},
+ \qquad N_\phi=4(D+1).
+\end{gathered}
+\end{equation}
+
+With $x_i=B\cos(2\pi i/N_\phi)$, compute for each layer
+
+\begin{equation}
+\label{cp:init:eq:activation-polynomial}
+\begin{gathered}
+c_{j,0}=N_\phi^{-1}\sum_i\phi_j(x_i),\qquad
+c_{j,k}=2N_\phi^{-1}\sum_i\phi_j(x_i)\cos(2\pi ki/N_\phi) (k>0),\\
+\psi_j(z)=\sum_{k=0}^Dc_{j,k}T_k(z/B).
+\end{gathered}
+\end{equation}
+
+Finite value-call errors of magnitude at most
+$\epsilon_p/[4(D+1)e^{D\tau_i}]$ are allowed in this formula only.
+Initialized training features below still use exact original values.
+
+\begin{lemma}[Certified numerical source polynomials]
+\label{cp:init:source-routine}
+
+Let $C_g=\max_j\{H_j+1,B_j+1\}$ and choose
+
+\begin{equation}
+\label{cp:init:eq:numerical-orders}
+\begin{split}
+K=\max\bigg\{&8,
+ \left\lceil2\log_2\max\{1,16TV/e_d\}\right\rceil,
+ \left\lceil\log_2\max\{1,8V\widehat R_n/b_n\}\right\rceil,\\
+&\left\lceil\log_2\max\{1,128V\widehat R_nC_{\rm src}n^{3/2}/\varepsilon_v\}\right\rceil,
+ \left\lceil\log_2\max\{1,64\sqrt nC_g/\varepsilon_v\}\right\rceil\bigg\},\\
+J&=\lceil2T/\widehat R_n\rceil
+ =\lceil\max\{4T/r_t,16TL_n\}\rceil.
+\end{split}
+\end{equation}
+
+Use $J$ equal physical-time panels. Starting at the original initialization,
+compute Taylor coefficients through degree $K$ for the polynomial-activation
+field $\widetilde F$ by
+
+\begin{equation}
+\label{cp:init:eq:jet-recursion}
+[u]_{k+1}=\frac1{k+1}[h^k]\widetilde F
+                   \left(\sum_{i=0}^k[u]_ih^i\right),\qquad 0\le k<K,
+\end{equation}
+
+and advance to each polynomial endpoint. The forward and backward source
+jets through degree $K$, computed with the same coefficients and
+$\psi_j$, approximate every base source $h^{(j)}$ or
+$\delta^{(j)}$ in Euclidean norm by at most $\varepsilon_v/16$
+at every real time in its numerical panel. Queries are all real unit
+inputs for Harmonic and the declared input list for Taylor.
+If $\log(1/\varepsilon_v)=O(\ell)$ at fixed parameters, then
+
+\begin{equation}
+\label{cp:init:eq:numerical-scales}
+J=O(\ell^{3/2}),\qquad K=O(\ell),\qquad D=O(\ell^{3/2}).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The outer ellipse $z=B(\zeta+\zeta^{-1})/2$,
+$|\zeta|=e^{\tau_o}$ lies in the half-strip and has
+$|\phi|\le M_\phi$. The inner ellipse contains radius-$a/512$
+disks about the $a/512$ neighborhood of the moving-ball rectangle,
+since $(1/8)^2+(226/232)^2<1$; also
+$a/(64B)\le\Delta<1$. The Fourier contour argument of
+\Cref{cp:harmonic-approximation}, applied to $\phi(B\cos u)$,
+gives coefficients $2M_\phi e^{-k\tau_o}$ and inner-ellipse tail
+$4M_\phi\Delta^{-1}e^{-(D+1)\Delta}$.
+Discrete sampling aliases frequencies $k+qN_\phi$; their geometric
+sum for $k\le D$ is at most
+$8M_\phi(D+1)e^{-2(D+1)\tau_o}
+\le8M_\phi\Delta^{-1}e^{-(D+1)\Delta}$.
+The prescribed $D$ makes these errors at most $\epsilon_p/2$;
+summing the allowed value-call errors adds at most $\epsilon_p/2$.
+Cauchy on the verified disks gives value and first-two-derivative
+errors at most $\epsilon$.
+
+At a fixed moving-ball state, forward substitution errors are
+$U_j\epsilon$ in feature RMS and $11U_{j-1}\epsilon$ in
+preactivation RMS. Since $11\sqrt nU_*\epsilon\le a/512$,
+all polynomial arguments remain in that domain. Backward subtraction
+has the three terms $11(s+1)Q_{j+1}$, $K_j^{\rm act}$ and
+$11t_2MU_{j-1}$, proving the response bound $Q_j(M)\epsilon$.
+The prediction and gradient bounds are $Q_f\epsilon,Q_\xi\epsilon$;
+product subtraction in \eqref{cp:init:eq:field} gives
+$\|\widetilde F-F\|\le C_F\epsilon\le\zeta_F$.
+For passive sources and initialized images the coordinate error is
+$C_p\epsilon\le\tau/2$. On the concentric half-ball,
+directional Cauchy gives derivative error at most
+$2\zeta_F/b_n\le L_n/2$, so $\widetilde F$ is $2L_n$-Lipschitz.
+
+For $\|u_0-\theta(t)\|\le b_n/8$, consider on
+$|h|\le\widehat R_n$ the holomorphic-error map
+
+\[
+e(h)\longmapsto u_0-\theta(t)+
+ \int_0^h[\widetilde F(\theta(t+z)+e(z))-F(\theta(t+z))]\,dz.
+\]
+
+On the supremum ball of radius $b_n/2$ it contracts by at most
+$1/4$ and has image norm at most $9b_n/32$.
+Uniform Picard convergence and Cauchy's formula give a holomorphic
+solution $v$, real by conjugation and uniqueness, with discrepancy
+at most $5b_n/24<b_n/4$ and velocity at most $2V$.
+Its degree-$K$ truncation $u$ on a half-radius panel has parameter
+and derivative tails $2V\widehat R_n2^{-K}$ and
+$2V(2K+4)2^{-K}$. It remains in the smaller moving ball, with
+defect at most $2V(2K+5)2^{-K}+\zeta_F$.
+Because $2K+5\le4\,2^{K/2}$ for $K\ge8$, the prescribed order
+bounds total integrated defect by $e_d$. \Cref{cp:init:defect}
+on every completed prefix gives
+
+\[
+\|u-\theta\|\le2e^{A_n}e_d
+ \le\min\{b_n/8,\tau/(2C_{\rm src}n)\}.
+\]
+
+This closes finite restart induction from exact initialization, without
+unknown-norm tests or rejected panels. For a base source let $g^0,g^p$
+denote original and polynomial activation evaluation and $g_K$ the
+degree-$K$ source polynomial along $v$. Its error splits as
+
+\[
+g_K-g^0(\theta)=[g_K-g^p(v)]+[g^p(v)-g^0(v)]
+              +[g^0(v)-g^0(u)]+[g^0(u)-g^0(\theta)].
+\]
+
+Each term is at most $\varepsilon_v/64$: the first uses
+$\|g^p(v)\|_2\le\sqrt n C_g$ and its geometric Taylor tail;
+the second and fourth use $\sqrt n\tau/2$; the third uses
+$2V\widehat R_nC_{\rm src}n^{3/2}2^{-K}$.
+Here the bound $C_g$ follows from $H_j,B_j$ and substitution
+error below one. This proves the asserted $\varepsilon_v/16$.
+Finally $M_c,L_n,A_n=O(\sqrt\ell)$,
+$b_n^{-1}=O(\sqrt{n\ell})$, $\widehat R_n^{-1}=O(\sqrt\ell)$,
+$C_p=O(n)$ and $Z_*=O(\sqrt\ell)$ at fixed parameters.
+Thus all inverse-tolerance logarithms are $O(\ell)$ and
+$\Delta^{-1}=O(\sqrt\ell)$, proving \eqref{cp:init:eq:numerical-scales}.
+The causal recursion differentiates only the finite polynomials $\psi_j$.
+\end{proof}
+
+\subsection{Two source spaces with the original retained sizes}
+\label{cp:init:sec:source-spaces}
+
+Let $\mathcal A_n$ be the comparison coefficient in
+\eqref{cp:selected-coefficients}, and let $\mathcal D$ be the
+explicit endpoint coefficient in the proof of
+\Cref{cp:selected-fitting}. Use
+
+\begin{equation}
+\label{cp:init:eq:transfer-tolerance}
+\eta=\min\{1,Y,S,Y/(2n\mathcal A_n)\},\qquad
+\mathcal D e^{-8\ell}\le Y/(2n).
+\end{equation}
+
+Then \Cref{cp:selected} gives all-time error $Y/n$ once its source
+contract holds. At fixed positive parameters, $\log(1/\eta)\le2\ell$
+eventually. Taylor uses $C_{\rm sel}=\beta^{60L}$ from
+\hyperref[cp:poly:assembly]{the polynomial-width assembly}: its conservative
+tolerance is no larger than this $\eta$, and
+\eqref{cp:poly:eq:taylor-tail-gate} gives the tail gate above.
+We use exactly \eqref{cp:poly:eq:taylor-count-gate} for the degree,
+so Taylor incurs no additional qualitative threshold. Harmonic retains
+its eventual source and scalar gates.
+
+\subsubsection{Taylor from real source nodes}
+\label{cp:init:sec:taylor}
+
+Put $M=m+p$ and apply the exact input reduction proved in \Cref{cp:panel}:
+$U_0\in\R^{d\times k}$ spans the declared normalized inputs,
+$U_0^\top U_0=I$, $k\le\min(d,M)$, and the reduced inputs and
+first matrix are $U_0^\top v_i,W_0^{(1)}U_0$. This preserves
+their Gram, Gaussian law and all declared trajectories; the retained
+map costs at most $Md$.
+Use the deterministic finite-panel domain of \Cref{cp:poly:source}, with
+$\eta_*,U_{\rm fin},\mathcal K$ defined by
+\hyperref[cp:src-coefficients]{the source recurrences}, \eqref{cp:src-UV}
+and \eqref{cp:src-K}, without observed trajectory norms:
+
+\begin{equation}
+\label{cp:init:eq:capped-panels}
+\begin{gathered}
+\nu=\lambda/4,\quad a_0=\min(a,1),\quad
+b_{\rm cap}=\log(e+\ell),\quad B_{\rm cap}=1+(S^2/\eta_*)b_{\rm cap},\\
+r_{\rm cap}=\min\left\{\frac{a_0}{64YSU_{\rm fin}\sqrt\ell},
+ \frac1{\beta^{300L}(1+\lambda B_{\rm cap})\sqrt{b_{\rm cap}}}\right\},\\
+h(t)=\frac{\log(1+2\mathcal K r_{\rm cap}e^{\nu t})}{2\mathcal K},
+\qquad d_h=\lambda/(8\mathcal K).
+\end{gathered}
+\end{equation}
+
+Set $t_0=0$, $r_b=h(t_b)/[2(1+d_h)]$ and
+$t_{b+1}=\min\{T,t_b+r_b/2\}$. These certified disks have radius
+at least $4h(0)/9>h(0)/4$, since $h$ is nondecreasing and
+$d_h\le1/8$, verifying the numerical disk used above. Identifying
+$X=\beta^L$, $\ell_n=\ell$, $r_n=r_{\rm cap}$ in
+\eqref{cp:poly:eq:panel-count} gives the source-panel count
+
+\begin{equation}
+\label{cp:init:eq:taylor-panels}
+J_s\le1+\beta^{400L}\left[(Y/\lambda)^2\sqrt\ell
+                  +\lambda^{-1}\log(e+\ell)\right].
+\end{equation}
+
+Here also $b_n=b_{\rm cap}$ and $B_n=B_{\rm cap}$ in that proof;
+its confidence-free count preserves the $(Y/\lambda)^2$ factor.
+Since $2\mathcal K r_{\rm cap}\le1$, $h(0)\ge r_{\rm cap}/2$
+and $h(0)^{-1}=O(\sqrt\ell)$ at fixed parameters. Thus
+\eqref{cp:init:eq:numerical-scales} holds even while the cap is active.
+
+Put $M_n=\beta^{6L}\sqrt n$ and
+
+\begin{equation}
+\label{cp:init:eq:taylor-nodes}
+K_s=\max\{8,\lceil2\log_2(64M_n/\eta)\rceil\},\quad
+N_s=J_s(K_s+1),\quad
+\varepsilon_v=\eta/[128(K_s+1)].
+\end{equation}
+
+On each $[t_b,t_{b+1}]$, evaluate the $K_s+1$ Chebyshev roots
+$t_b+(t_{b+1}-t_b)[1+\cos((i+1/2)\pi/(K_s+1))]/2$
+by \Cref{cp:init:source-routine}, forward on all $M$ inputs and backward
+on training inputs, and insert exact initialized images.
+The nodes generate the space without computed interpolation coefficients.
+Discrete cosine orthogonality and $|T_j|\le1$ give
+$\|I_{K_s}\|\le2K_s+1$, in coordinate or Euclidean norm.
+Reproduction of the degree-$K_s$ Taylor polynomial, whose tail on the
+half-radius panel is $M_n2^{-K_s}$, gives
+\[
+\|g-I_{K_s}g\|_\infty
+ \le(2K_s+3)M_n2^{-K_s}\le4M_n2^{-K_s/2}\le\eta/16
+\]
+for each exact source and image. Numerical nodes and images have
+Euclidean errors at most $\varepsilon_v,8\varepsilon_v$, so their
+interpolated perturbation is at most $16(K_s+1)\varepsilon_v=\eta/8$.
+Both families therefore meet accuracy $\eta$, with exact pairing
+$I_{K_s}(W_0\widetilde g)=W_0I_{K_s}\widetilde g$ and its transpose
+counterpart.
+
+Add the constant, exact initialized training features and images, and
+first-layer columns. The rank and actual selected width obey
+\begin{equation}
+\label{cp:init:eq:taylor-rank}
+r\le R=2m+k+1+2(M+m)N_s,\qquad q\le9r.
+\end{equation}
+Apply \Cref{cp:selected} with source-dimension bound $R$.
+To verify this numerical degree at the stated polynomial gate, put
+$B_0=32\beta^{6L}(1+C_{\rm sel})\lambda^{-3/2}(1+Y^{-1})$.
+At $n\ge B_0^4$ and the source gate,
+$\ell\ge16$, $\log B_0\le(\log n)/4$. On the active comparison
+branch, $1+\lambda^{-1/2}\le2\lambda^{-1/2}$ gives
+\[
+\log(64M_n/\eta)
+\le\tfrac32\log n+\log B_0+\log8+\sqrt\ell+\log(1+\sqrt\ell)
+\le\tfrac94\ell+\log8.
+\]
+The $Y$ and $1$ branches are smaller; $S\ge16Y$ is inactive.
+Thus $K_s+1\le\max\{9,(9/(2\log2))\ell+8\}\le8\ell$.
+The rank squaring in \Cref{cp:panel}, now using
+\eqref{cp:init:eq:taylor-panels}, proves \eqref{cp:panel-size}
+with its $(Y/\lambda)^4\ell^3$ factor. The map and data add $O(Md)$;
+no passive labels enter.
+\subsubsection{Harmonic from positive coefficient quadrature}
+\label{cp:init:sec:harmonic}
+
+Use the current source radii $r_t$ in
+\eqref{cp:init:eq:source-input} and
+$r_q=1/[\beta^{3L}\sqrt{(d+3)\ell}]$, with
+$M_n=\beta^{6L}\sqrt n$ and $\alpha=r_t/(4T)$.
+Require the eventual scalar gates $\alpha,r_q\le1$.
+For $d\ge2$, take exactly the mode set of
+\Cref{cp:harmonic-approximation}:
+
+\begin{equation}
+\label{cp:init:eq:harmonic-modes}
+\begin{gathered}
+b_d=2d-2,\quad D_d=2^{d+1}d^{d-2},\quad
+P_T=18D_db_d!2^{b_d+1}/(\alpha r_q^{b_d+1}),\quad
+H_*=2\log(16M_nP_T/\eta),\\
+\Lambda=\{(k,j,b):\alpha k+r_qj\le H_*,\ 1\le b\le h_j\},\quad
+h_j={j+d-1\choose d-1}-{j+d-3\choose d-1},\\
+N=|\Lambda|,\quad p_t=\lfloor H_*/\alpha\rfloor,\quad
+j_*=\lfloor H_*/r_q\rfloor,\quad
+H_{\rm sph}=\sum_{j\le j_*}h_j,\quad\mathcal Y=\max_{j\le j_*}\sqrt{h_j}.
+\end{gathered}
+\end{equation}
+
+Impossible binomials are zero. For a scalar source $g$, its coefficient
+is
+
+\begin{equation}
+\label{cp:init:eq:harmonic-coefficient}
+c_{kjb}=\gamma_k\int_0^{2\pi}\!\int_{S^{d-1}}
+g(T(1+\cos u)/2,v)\cos(ku)Y_{jb}(v)\,d\sigma(v)\frac{du}{2\pi},
+\quad\gamma_0=1,\quad\gamma_k=2\ (k>0),
+\end{equation}
+
+where $Y_{jb}$ are real orthonormal harmonics for probability surface
+measure. The proof of \Cref{cp:harmonic-approximation} bounds
+the omitted-mode tail by $\eta/16$.
+
+Here are finite quadrature orders and their construction. For $d\ge3$
+use polar angles $\theta_1,\ldots,\theta_{d-2}$ and azimuth
+$\varphi$ in the usual recursive coordinates
+$v=(\cos\theta_1,\sin\theta_1u)$; for $d=2$ use only
+$v=(\cos\varphi,\sin\varphi)$. Define
+
+\begin{equation}
+\label{cp:init:eq:quadrature-orders}
+\begin{gathered}
+I_0=\pi,\quad I_1=2,\quad I_b=(b-1)I_{b-2}/b,\quad
+A_d=\prod_{b=1}^{d-2}\pi/I_b,\\
+a_t=\alpha/2,\quad h_{\rm ang}=r_q/[2(d-1)],\quad
+\sigma=\operatorname{arsinh}(2h_{\rm ang}/\pi),\\
+\epsilon_c=\eta/(16N\mathcal Y),\quad
+\delta_{\rm node}=\eta/(64NA_d\mathcal Y^2),\\
+B_{\rm int}=2M_n\mathcal YA_d
+ e^{a_tp_t+j_*(d-1)h_{\rm ang}}
+                 (\cosh h_{\rm ang})^{(d-2)(d-1)/2},\\
+N_t=\max\{1,\lceil a_t^{-1}\log(1+4dB_{\rm int}/\epsilon_c)\rceil\},\\
+N_\varphi=\max\{1,\lceil h_{\rm ang}^{-1}\log(1+4dB_{\rm int}/\epsilon_c)\rceil\},\\
+N_\theta=\max\{1,\lceil\sigma^{-1}
+ \log[8dB_{\rm int}/(\epsilon_c(1-e^{-\sigma}))]\rceil\}\quad(d\ge3),\\
+N_x=N_\varphi N_\theta^{d-2}\quad(d\ge3),\qquad N_x=N_\varphi\quad(d=2).
+\end{gathered}
+\end{equation}
+
+Empty products equal one. Apply equal-weight periodic trapezoids with
+$N_t,N_\varphi$ nodes to $u,\varphi$. For each polar coordinate,
+transport to $\theta=\pi(1+x)/2$ the nodes and weights
+
+\begin{equation}
+\label{cp:init:eq:fejer}
+\omega_i=(2i+1)\pi/(2N_\theta),\quad x_i=\cos\omega_i,\quad
+w_i=\frac1{N_\theta}\left[1-2\sum_{k=1}^{\lfloor(N_\theta-1)/2\rfloor}
+                    \frac{\cos(2k\omega_i)}{4k^2-1}\right].
+\end{equation}
+
+Multiply spatial weights by the normalized spherical Jacobian
+$\prod_{i=1}^{d-2}(\pi/I_{d-1-i})\sin^{d-1-i}\theta_i$;
+integration by parts verifies $I_b=\int_0^\pi\sin^b\theta\,d\theta$.
+The Fourier estimate already used above gives trapezoid error
+$2B/(e^{aN}-1)$ for strip half-width $a$ and bound $B$, since
+the rule retains exactly the frequencies divisible by $N$.
+Discrete cosine orthogonality gives the polar interpolant
+$N_\theta^{-1}\sum_i g_i[1+2\sum_{k=1}^{N_\theta-1}
+\cos(k\omega_i)T_k(x)]$.
+Its normalized integral is \eqref{cp:init:eq:fejer}: odd modes
+integrate to zero and $T_{2k}$ to $-1/(4k^2-1)$.
+The rule is exact through $N_\theta-1$; its weights sum to one and
+are positive because $2\sum_{k=1}^q(4k^2-1)^{-1}=1-(2q+1)^{-1}<1$.
+Twice the ellipse Chebyshev tail therefore bounds its error by
+$4Be^{-N_\theta\sigma}/(1-e^{-\sigma})$, since both positive rule
+and normalized integral have norm one.
+
+The domain checks hold jointly. A complex rotation of imaginary angle
+$y$ sends imaginary norm $\sinh r$ to at most $\sinh(r+|y|)$:
+the real and imaginary parts of a quadric point have norms
+$\cosh r,\sinh r$, and the rotation costs $\cosh|y|,\sinh|y|$.
+Thus the $d-1$ rotations stay in the radius-$r_q/2$ tube.
+A harmonic has trigonometric degree at most $j_*$ in each angle,
+so Laurent maximum modulus bounds it by
+$\mathcal Ye^{j_*(d-1)h_{\rm ang}}$; the Jacobian contributes
+$A_d(\cosh h_{\rm ang})^{(d-2)(d-1)/2}$, giving $B_{\rm int}$.
+The polar ellipse has height $(\pi/2)\sinh\sigma=h_{\rm ang}$.
+Telescoping the $d$ integral/rule factors bounds coefficient error by
+\[
+B_{\rm int}\left[\frac2{e^{a_tN_t}-1}
+ +\frac2{e^{h_{\rm ang}N_\varphi}-1}
+ +\frac{4(d-2)e^{-\sigma N_\theta}}{1-e^{-\sigma}}\right]
+ \le\epsilon_c/2.
+\]
+Run \Cref{cp:init:source-routine} at $\varepsilon_v=\delta_{\rm node}$.
+Base Euclidean error is below $\delta_{\rm node}/8$, hence image
+coordinate error is at most $\delta_{\rm node}$.
+Spatial weight mass is at most $A_d$, so each coefficient perturbation
+is at most $2A_d\mathcal Y\delta_{\rm node}=\epsilon_c/2$.
+Adding the analytic tail gives
+$\eta/16+N\mathcal Y\epsilon_c=\eta/8$ for sources and images separately.
+Accumulate only base coefficients and apply initialized matrices afterward:
+the identical scalar sums ensure
+$\widetilde c^{\,W_0g}=W_0\widetilde c^{\,g}$ exactly.
+Thus no coordinate-error propagation through a matrix norm is needed;
+\Cref{cp:selected} applies with $R=2m+d+1+4N$.
+
+For $d=1$, use the two points, $N_x=H_{\rm sph}=2$,
+$H_1=\log(64M_n/(\alpha\eta))$, $N_1=1+\lfloor H_1/\alpha\rfloor$,
+$p_t=N_1-1$, $N=2N_1$, and $R=2m+d+1+8N_1$.
+Take $\epsilon_c=\eta/(16N_1)$,
+$\delta_{\rm node}=\eta/(64N_1)$, $B_{\rm int}=2M_ne^{a_tp_t}$,
+and $N_t=\max\{1,\lceil a_t^{-1}\log(1+4B_{\rm int}/\epsilon_c)\rceil\}$.
+Only the time trapezoid is used. Its error allocation is identical;
+the one-dimensional analytic tail is at most $\eta/8$ by
+\Cref{cp:harmonic-approximation}, still leaving total error below
+$\eta$.
+
+The count proof of \Cref{cp:harmonic} applies to this identical
+mode set and the same logarithmic tolerance. In particular its factor
+$\alpha^{-1}=128\beta^{30L}(Y/\lambda)^2\sqrt{d+3}\ell^{3/2}$
+is preserved before squaring the rank. This proves the complete retained
+bound \eqref{cp:harmonic-size}, with its label and dimension factors.
+
+\subsection{Exact implicit Gaussian execution}
+\label{cp:init:sec:implicit}
+
+The next finite-dimensional sampler is useful because the numerical
+construction accesses an initialized hidden matrix only through its actions.
+All its zero tests and normalizations are exact.
+
+\begin{lemma}[Adaptive queries to both directions of a Gaussian matrix]
+\label{cp:init:gaussian-sampler}
+
+For each of finitely many layers let the reference matrix have independent
+$N(0,1/n)$ entries, independently across layers and of the client's
+independent randomness. The client may choose the next layer, direction and
+query vector measurably from that randomness and its complete past
+transcript, and may stop within deterministic finite query budgets.
+There is an online sampler whose entire transcript has exactly the dense
+reference law. On an extension of its probability space, independent
+Gaussian reference matrices can be completed so that every returned reply
+is simultaneously the requested product with that one matrix.
+
+For $Q$ requests to one layer, the sampler uses at most
+$4nQ^2+6nQ+2$ scalar arithmetic operations, at most
+$n\min\{Q,2n-1\}$ standard normal samples, and
+$2n\min\{Q,2n\}+8n+5\min\{Q,2n\}+64$ real or address words.
+These counts exclude the client's own work and retained arrays. The
+completion matrices are proof objects, not arrays constructed by the algorithm.
+\end{lemma}
+
+\begin{proof}
+For one layer store $V,Y\in\R^{n\times p}$ and $U,R\in\R^{n\times q}$,
+initially empty, with
+\[
+V^\top V=I,\qquad U^\top U=I,\qquad U^\top Y=R^\top V,
+\]
+representing $Y=WV$, $R=W^\top U$. For a forward query $v$, compute
+$a=V^\top v$, $v_\perp=v-Va$, $\alpha=\|v_\perp\|_2$.
+If $\alpha=0$ return $Ya$; otherwise set $e=v_\perp/\alpha$ and
+\begin{equation}
+\label{cp:init:eq:sampler-forward}
+h=UR^\top e+n^{-1/2}[g-U(U^\top g)],
+\end{equation}
+return $Ya+\alpha h$ and append $(e,h)$ to $(V,Y)$.
+Here $g$ is a fresh standard Gaussian vector if $q<n$; if $q=n$
+omit the Gaussian term. Transpose queries use this identical algorithm
+with $(V,Y,p)\leftrightarrow(U,R,q)$, hence innovation
+\begin{equation}
+\label{cp:init:eq:sampler-transpose}
+h=VY^\top f+n^{-1/2}[g-V(V^\top g)]
+\end{equation}
+for a normalized new direction $f$, and no draw if $p=n$.
+Each layer has independent draws and its own four column lists; no
+dense projector is formed.
+
+For proof only put $P=VV^\top$, $Q_0=UU^\top$ and
+$A=YV^\top+UR^\top(I-P)$. Compatibility implies $AV=Y$, $A^\top U=R$.
+The homogeneous observation space is exactly
+$\{(I-Q_0)B(I-P):B\in\R^{n\times n}\}$, orthogonal to $A$.
+Inductively the conditional law given the full transcript is
+\begin{equation}
+\label{cp:init:eq:sampler-kernel}
+W=A+(I-Q_0)G(I-P),\qquad G_{ij}\ {\rm independent}\ N(0,1/n).
+\end{equation}
+It holds initially. Given the past, the adaptive query is fixed.
+For a new forward direction set $P'=P+ee^\top$ and split
+\[
+(I-Q_0)G(I-P)=((I-Q_0)Ge)e^\top+(I-Q_0)G(I-P').
+\]
+The two terms are independent: their cross-covariances are
+$n^{-1}(I-Q_0)_{ia}[e^\top(I-P')]_b=0$.
+This remains true for singular Gaussians, since the joint characteristic
+function of linear images factors when their cross-covariance vanishes.
+Thus $We$ has the sampler law, and conditioning updates the mean to
+$A+(h-UR^\top e)e^\top$, precisely the new stored-state expression,
+while $U^\top h=R^\top e$ preserves compatibility.
+Transposition exchanges $P,Q_0$ and $(V,Y),(U,R)$ in this calculation:
+with $Q_0'=Q_0+ff^\top$, the independent split is
+$f((I-P)G^\top f)^\top+(I-Q_0')G(I-P)$ and the mean update is
+$A+f(h-VY^\top f)^\top$.
+Dependent queries leave the kernel unchanged; full opposite rank removes
+the innovation.
+
+Conditional layer kernels remain a product: a transcript-measurable
+choice of layer or direction reveals nothing further, and its reply
+conditions only that layer. Finite induction, partitioned by the finitely
+many stopping events if needed, proves equality of transcript laws.
+At stopping, use fresh independent $G$ in
+\eqref{cp:init:eq:sampler-kernel} for each layer. Integrating these
+conditional kernels gives the ordinary joint Gaussian matrix law,
+including independence from client randomness. The completion agrees on
+all final basis columns, hence on every earlier reply, pathwise.
+
+At ranks $p,q$, direct dot-product counts give at most
+$6np+8nq+9n+1\le8n(p+q)+10n$ operations per forward request;
+transpose swaps the ranks and dependent queries cost less.
+Since $p+q\le j-1$ before request $j$, summation gives
+$4nQ^2+6nQ$, plus two operations for $1/\sqrt n$.
+There are at most $2n-1$ drawing increments before a rank reaches $n$;
+afterward every new opposite action is determined.
+The four lists occupy $2n(p+q)$ words, with $p+q\le\min(Q,2n)$.
+Eight length-$n$ scratch vectors, five coefficient/address words per
+column and 64 scalar words give the stated memory. At most two
+comparisons per request suffice. Exact zero tests require neither a
+condition-number bound nor a nonsingular query Gram.
+\end{proof}
+
+\subsubsection{Factored numerical anchors and output coupling}
+\label{cp:init:sec:factored-execution}
+
+Fix all orders, scalar routines, generator ordering, orthogonalization
+signs and selector tie-breaking. On panel $b$ of length $\Delta_b$,
+use unscaled coefficients in $t-\tau_b$. In the polynomial network put
+$U_i^{(j)}=([r_a\delta_a^{(j)}]_i)_{a=1}^m$ and
+$H_k^{(j)}=([h_a^{(j)}]_k)_{a=1}^m$, both $n$ by $m$ matrices.
+Coefficient comparison in the actual gradient equations gives, for $s\ge1$,
+
+\begin{equation}
+\label{cp:init:eq:factored-jets}
+\begin{aligned}
+[W^{(1)}]_s&=-\frac2{ms}U_{s-1}^{(1)}(v_a)_{a=1}^m{}^\top,\\
+[W^{(j)}]_s&=-\frac2{mns}\sum_{i+k=s-1}U_i^{(j)}H_k^{(j-1)\top},\\
+[w]_s&=-\frac2{ms}\sum_a[r_ah_a^{(L)}]_{s-1}.
+\end{aligned}
+\end{equation}
+
+Only lower orders determine order $s$. Acting on a query series $X$ gives
+
+\begin{equation}
+\label{cp:init:eq:cached-action}
+-\frac2{mn}\sum_{i+k+c=s-1}
+             \frac{U_i^{(j)}(H_k^{(j-1)\top}X_c)}{i+k+1}.
+\end{equation}
+
+Cache $H_k^\top X_c$: for $b'$ queries, vector work is
+$O(nmb'K^2)$ and scalar sums cost $O(mb'K^3)$ per layer.
+Transposition exchanges the factors. Training coefficients are causal;
+passive jets use the completed training jets.
+
+The endpoint update groups into $mK$ outer products per hidden layer:
+
+\begin{equation}
+\label{cp:init:eq:anchor-increment}
+W_{b+1}^{(j)}-W_b^{(j)}
+=-\frac2{mn}\sum_{i=0}^{K-1}U_i^{(j)}V_i^{(j-1)\top},\qquad
+V_i^{(j-1)}=\sum_{k=0}^{K-1-i}
+             \frac{\Delta_b^{i+k+1}}{i+k+1}H_k^{(j-1)}.
+\end{equation}
+
+Explicit execution adds these outer products to the dense anchor;
+implicit execution appends them, with the scalar in $A_b$, to
+$A_b^{(j)},B_b^{(j)}\in\R^{n\times bmK}$:
+
+\begin{equation}
+\label{cp:init:eq:implicit-anchor}
+W_b^{(j)}=W_0^{(j)}+A_b^{(j)}B_b^{(j)\top},\qquad
+W_b^{(j)}X_c=\operatorname{Action}_j(X_c)
+                  +A_b^{(j)}(B_b^{(j)\top}X_c).
+\end{equation}
+
+Transpose actions exchange the factors. This exactly represents numerical
+anchors, without asserting low rank of the continuous dense trajectory.
+The first matrix is explicit and its higher coefficients use training
+input pairings in \eqref{cp:init:eq:factored-jets}, without $K$ dense
+first-matrix arrays; the readout is a vector. Hidden initialized-matrix
+requests are exactly:
+
+\begin{enumerate}
+\item $m$ forward actions per mixer for exact initialized training
+features/images using $\phi_j$; initial backward fields vanish.
+\item Constant-anchor actions on source/training coefficients through $K$
+per panel; all increments use the displayed factors.
+\item Images of completed Harmonic coefficients or Taylor nodes.
+\item Images $W_0^{(j)}U_{j-1}$ of the final source basis, at most
+$r$ per mixer, including any not spanned by earlier image requests.
+\end{enumerate}
+Harmonic uses both directions on $m+N_x$ inputs; Taylor uses $M$
+forward and $m$ backward inputs. Sufficient per-mixer counts are
+
+\begin{equation}
+\label{cp:init:eq:query-counts}
+Q_{\rm H}=m+2J(m+N_x)(K+1)+2N+r,\qquad
+Q_{\rm T}=m+J(M+m)(K+1)+(M+m)N_s+r.
+\end{equation}
+
+Use deterministic $\min(n,R)$ in place of $r$ to invoke the sampler;
+the realized cost may use actual $r$. No other hidden-matrix information
+(entries, norms or singular values) is accessed.
+Under completion, explicit and implicit executions agree by induction
+through layers, coefficients and panels, using
+\cref{cp:init:eq:implicit-anchor,cp:init:eq:cached-action}.
+Identical generator lists then give identical ranks, bases and selector
+decisions. For source bases
+$U_j^\top U_j/n=I$, selected row matrices $P_j=(U_j)_{I_j}$,
+and source metrics $M_j$, item 4 gives the same core matrix
+$U_j^\top W_0^{(j)}U_{j-1}/n$ and thus the same initialized mixer
+
+\[
+B_C^{(j)}(0)=P_j\frac{U_j^\top W_0^{(j)}U_{j-1}}n
+                         P_{j-1}^\top M_{j-1}.
+\]
+
+The first weights, zero raw readout, $c_C=y$, exact initial Gram and
+corrected-readout caches also agree. Hence retained arrays and autonomous
+futures agree pathwise, with the same source/fitting probability and no
+extra failure allowance. Transcripts and trained factors are discarded.
+
+\subsection{Complete operation and storage ledgers}
+\label{cp:init:sec:costs}
+
+Finite-order big-$O$ constants below are numerical: no problem parameter,
+order, scalar-evaluator cost or confidence is hidden. Assume
+$n\ge\max(m,d)$; full-width retention is available otherwise when
+the source budget reaches $n$. Let $R$ bound generators, $r$ be maximum
+actual rank and $q$ maximum selected support, so
+$r\le\min(n,R)$ and $r\le q\le9r$. These are local cost
+quantities, distinct from the source-dimension argument of \Cref{cp:selected}.
+
+\subsubsection{Scalar geometry, global coefficients, and selection}
+\label{cp:init:sec:geometry-cost}
+
+For Harmonic, assign each time node $t_a=T(1+\cos u_a)/2$ to
+one numerical panel, retaining multiplicity if two time angles have the
+same physical time. Let $I_b$ be those node indices. Form
+
+\[
+\mathcal B_{kc}^{(b)}=\frac{\gamma_k}{N_t}\sum_{a\in I_b}
+ \cos(ku_a)((t_a-\tau_b)/\Delta_b)^c.
+\]
+
+If $[g]_c(v_s)$ is an unscaled local source coefficient, first multiply
+it by $\Delta_b^c$ to obtain $G_{b,c}(v_s)$. Its global coefficient
+is exactly
+
+\begin{equation}
+\label{cp:init:eq:streamed-projection}
+\widetilde c_{kjb'}=
+ \sum_b\sum_s\omega_sY_{jb'}(v_s)
+                  \sum_{c=0}^K\mathcal B_{kc}^{(b)}G_{b,c}(v_s).
+\end{equation}
+
+Process each panel's training jets, spatial queries and anchor advance
+in that order; accumulate spatial coefficients before transforming retained
+mode pairs. Scalar tables cost
+$O((N_t+J)(p_t+1)(K+1))$ work, and projection costs
+$O(LnJ(K+1)(N_xH_{\rm sph}+N))$ work with
+$O(Ln(K+1)H_{\rm sph})$ extra vector words. Only $O(LnR)$
+global coefficient words persist across panels. Local panels do not
+create separate retained Harmonic source blocks.
+
+For finite basis evaluation, use the circle basis
+$1,\sqrt2\cos(j\varphi),\sqrt2\sin(j\varphi)$ and angle addition.
+For $d'\ge3$, at $v=(\cos\theta,\sin\theta\,u)$ use normalized
+
+\[
+(\sin\theta)^l C_{j-l}^{\,l+(d'-2)/2}(\cos\theta)
+                       Y_{lb}(u),\qquad 0\le l\le j,
+\]
+
+Sphere-Laplacian substitution gives eigenvalue $-j(j+d'-2)$.
+For each orthogonal lower harmonic, the remaining weight is
+$(1-z^2)^{l+(d'-3)/2}$. Multiplying the Gegenbauer equation
+$(1-z^2)y''-(2\mu+1)zy'+s(s+2\mu)y=0$ by
+$(1-z^2)^{\mu-1/2}$ and integrating by parts proves orthogonality:
+$\mu\ge1/2$ kills the boundary term. The dimension decomposition
+in \Cref{cp:harmonic-approximation} proves completeness. Use
+
+\[
+(s+1)C_{s+1}^{\mu}(z)=2(s+\mu)zC_s^\mu(z)
+ -(s+2\mu-1)C_{s-1}^\mu(z),\quad C_0^\mu=1,\quad C_1^\mu=2\mu z.
+\]
+
+from the generating function $(1-2zt+t^2)^{-\mu}$.
+For squared angular norm $N_{l,s}$ under probability-sphere measure,
+$\mu=l+(d'-2)/2$ gives
+
+\[
+N_{0,0}=1,\quad
+\frac{N_{l+1,0}}{N_{l,0}}=\frac{2l+d'-1}{2l+d'},\qquad
+\frac{N_{l,s+1}}{N_{l,s}}=
+ \frac{(s+2\mu)(s+\mu)}{(s+1)(s+\mu+1)}.
+\]
+
+The first ratio follows by integration by parts on sine powers; the
+second follows by pairing the recurrence for $zC_s^\mu$ with
+$C_{s+1}^\mu$ and using symmetry of multiplication by $z$.
+Only recurrences and inverse square roots are required. Per intermediate
+dimension there are $O((j_*+1)^2)$ degree pairs and $O(H_{\rm sph})$
+lower-basis products. Recompute spatial values per panel, giving
+
+\[
+\mathcal G_{\rm time}=\begin{cases}
+N_t+J,&d=1,\\
+N_t+N_x+JN_x(j_*+1),&d=2,\\
+N_\theta^2+dN_\theta+N_t+N_\varphi+d+d(j_*+1)^2
+ +JdN_x[1+(j_*+1)^2+H_{\rm sph}],&d\ge3,
+\end{cases}
+\]
+
+\begin{equation}
+\label{cp:init:eq:geometry-counts}
+\mathcal G_{\rm memory}=\begin{cases}
+N_t+1,&d=1,\\
+N_t+N_x+j_*+1,&d=2,\\
+dN_\theta+N_t+N_\varphi+d[1+(j_*+1)^2+H_{\rm sph}],&d\ge3.
+\end{cases}
+\end{equation}
+
+These bounds include $O(N_\theta^2)$ for \eqref{cp:init:eq:fejer},
+$O(dN_\theta)$ for sine powers, and $O(d)$ per node for coordinates
+and Jacobians, as well as the displayed basis recurrence.
+
+For either model, orthogonalizing $R$ generators costs $O(LnRr)$.
+Each of the at most $9r$ selector steps from \Cref{cp:selection}
+costs $O(r^3+nr^2)$ for shifted inverses and all-row quadratic forms.
+Thus selection costs $O(Lnr^3)$ since $r\le n$.
+
+For the final metric, suppress layer indices and let $P$ be the
+selected basis rows, $\mathsf D$ the positive diagonal selector
+weights and $G=P^\top\mathsf DP$. Formula \eqref{cp:metric}
+and direct multiplication give
+
+\[
+M=\mathsf D+\mathsf DP(G^{-2}-G^{-1})P^\top\mathsf D,\quad
+M^{-1}=\mathsf D^{-1}+P(I-G^{-1})P^\top,\quad
+P^\top M=G^{-1}P^\top\mathsf D.
+\]
+
+The $r$ by $r$ Gram has spectrum in $[1,4]$. Metric caches and
+core mixers cost $O(L(qr^2+r^3+q^2r))=O(Lq^2r)$.
+Basis images cost $O(n^2r)$ per explicit mixer, or requests in $Q$
+plus $O(nr^2)$ for implicit contraction. The initial training Gram,
+identical by exact source isometry, costs $O(nm^2+m^3)$ work and
+$O(m^2)$ words including factorization.
+
+Degree-$D$ activation composition with degree-$K$ series costs
+$O(DK^2)$ work and $O(DK)$ scratch: the $O(D)$ Chebyshev
+products each cost $O(k+1)$ at coefficient $k$.
+Preparing coefficients and derivatives costs $O(LD^2)$ once.
+Training and passive sources use this same routine.
+
+\subsubsection{Shared finite execution costs}
+\label{cp:init:sec:explicit-costs}
+\label{cp:init:sec:implicit-costs}
+
+The four ledgers share the same continuation, orthogonalization and
+selection routines. To expose that reuse without suppressing parameters,
+let $e$ be the explicit input dimension and $B,F$ local query-batch
+sizes, and put $P_e=(L-1)n^2+n(e+1)$. Define the exact sums
+\begin{align*}
+\mathcal W_{\rm ex}(P,B)={}&LD^2+mP+nm^2+m^3
+ +J\{PBK+LmBK^2(n+K)+LnBDK^2\}\\
+ &+LnRr+Lnr^3+Lq^2r,\\
+\mathcal M_{\rm ex}={}&P_d+LmnDK+LnR+Lq^2+LD+J+m^2+L,\\
+\mathcal W_{\rm im}(e,F,Q)={}&ne(1+m)+em^2+nm^2+m^3+L+e+m+1+L(D+1)^2\\
+ &+(L-1)nQ^2+(L-1)nm(m+F)J(J-1)K(K+1)\\
+ &+J[ne(m+F)+emF]+JLm(m+F)(K+1)^2(n+K+1)\\
+ &+JLn(m+F)(D+1)(K+1)^2+LnRr+Lnr^3\\
+ &+(L-1)nr^2+L(qr^2+r^3+q^2r)+qe,\\
+\mathcal M_{\rm im}(e,Q)={}&ne+(L-1)n[Q+JmK]+Lmn(D+1)(K+1)\\
+ &+LnR+Lq^2+q(e+Lm+1)+m^2+L(D+1)+J+L+e+m+1.
+\end{align*}
+The substitutions are $(e,F)=(d,N_x)$ for Harmonic and $(k,M)$
+for Taylor; in the latter $M$ includes training and the extra $m$
+pays backward queries. These symbols are local cost arguments.
+In each display below the work or peak memory is bounded by $O$ of the
+entire right-hand sum, with numerical constants only.
+
+For supplied matrices the Harmonic and Taylor work bounds are
+\begin{align}
+&\mathcal W_{\rm ex}(P_d,m+N_x)+P_d+L+d+m+1
+ +(N_t+J)(p_t+1)K \nonumber\\
+&\qquad+LnJK(N_xH_{\rm sph}+N)+Ln^2(N+r)
+ +\mathcal G_{\rm time}+N_t\log(2+N_t),
+\label{cp:init:eq:explicit-harmonic-work}\\
+&\mathcal W_{\rm ex}(P_k,M+m)+P_d+dM^2+ndk+L+k+m+1 \nonumber\\
+&\qquad+LnMKN_s+Ln^2R+N_s\log(2+N_s)+J_s+N_s,
+\label{cp:init:eq:explicit-taylor-work}
+\end{align}
+and their respective peak-memory sums are
+\begin{align}
+&\mathcal M_{\rm ex}+Lm^2K^2+LnKH_{\rm sph}
+ +(p_t+1)K+N_t+m(d+1)+d+\mathcal G_{\rm memory},
+\label{cp:init:eq:explicit-harmonic-memory}\\
+&\mathcal M_{\rm ex}+LnMK+LmMK^2+N_s+J_s+Md+dk+k+m+1.
+\label{cp:init:eq:explicit-taylor-memory}
+\end{align}
+Constant-anchor products cost $JPBK$; cached higher coefficients and
+activation compositions are the next two terms of $\mathcal W_{\rm ex}$.
+Grouping \eqref{cp:init:eq:anchor-increment} costs $O(nmK^2)$ and
+adding its $mK$ outer products costs $O(n^2mK)$ per layer and panel,
+already covered. Harmonic separately pays $Ln^2N$ for source images
+and $Ln^2r$ for basis images; Taylor bounds both by $Ln^2R$.
+The Taylor reduction costs $dM^2+ndk$. Sort source nodes into numerical
+panels and evaluate them in one pass for $O(LnMKN_s)$.
+One anchor, original matrices, current jets and global coefficients are
+live; neither a $JP_d$ trajectory nor $KP_d$ dense jets are stored.
+
+For fresh implicit matrices set $Q=Q_{\rm H}$ or $Q_{\rm T}$ from
+\eqref{cp:init:eq:query-counts}. The corresponding work sums are
+\begin{align}
+&\mathcal W_{\rm im}(d,N_x,Q_{\rm H})+(N_t+J)(p_t+1)(K+1)\nonumber\\
+&\qquad+LnJ(K+1)(N_xH_{\rm sph}+N)
+ +\mathcal G_{\rm time}+N_t\log(2+N_t),
+\label{cp:init:eq:implicit-harmonic-work}\\
+&\mathcal W_{\rm im}(k,M,Q_{\rm T})+dM^2
+ +Ln(M+m)(K+1)N_s\nonumber\\
+&\qquad+N_s\log(2+N_s)+N_s+J+J_s,
+\label{cp:init:eq:implicit-taylor-work}
+\end{align}
+and their peak-memory sums are
+\begin{align}
+&\mathcal M_{\rm im}(d,Q_{\rm H})+Lm^2(K+1)^2+Ln(K+1)H_{\rm sph}\nonumber\\
+&\qquad+m(d+1)+(p_t+1)(K+1)+N_t+\mathcal G_{\rm memory},
+\label{cp:init:eq:implicit-harmonic-memory}\\
+&\mathcal M_{\rm im}(k,Q_{\rm T})+Md+dk+LnM(K+1)
+ +LmM(K+1)^2+Mk+N_s+J_s.
+\label{cp:init:eq:implicit-taylor-memory}
+\end{align}
+The sampler contributes $(L-1)nQ^2$ work and $(L-1)nQ$ memory.
+At panel $b$, the $bmK$ trained-factor columns cost $O(nbmK)$
+per coefficient action. Summing at most $2(m+F)(K+1)$ actions
+and $\sum_{b<J}b=J(J-1)/2$ gives the second work term;
+the factor memory is $(L-1)nJmK$. Their grouped formation is
+covered by current-panel contractions. All image queries, the $nr^3$
+selector, and final Gram and metric solves are charged explicitly.
+
+Implicit Taylor samples only the $n$ by $k$ reduced first matrix.
+Its law is $W_0^{(1)}U_0$; an independent Gaussian component on the
+orthogonal input complement is completed only in the proof and is never
+queried. These finite sums therefore charge every accessed matrix action
+and every trained-factor product, independently of the eventual rank.
+
+\subsubsection{Primitive costs and fixed-parameter bounds}
+\label{cp:init:sec:specialization}
+
+Each model uses $4L(D+1)+Lnm$ original activation-value calls,
+plus at most $L$ unsupplied values at zero. Only the first $4L(D+1)$
+permit the tolerance of \eqref{cp:init:eq:activation-polynomial}.
+Setup needs no original derivatives; runtime uses original values and
+first derivatives.
+
+Supplied matrices need no draws; fresh explicit initialization adds
+$nd+(L-1)n^2$. Implicit Harmonic and Taylor use at most
+$nd+(L-1)nQ_{\rm H}$ and $nk+(L-1)nQ_{\rm T}$ respectively,
+with no readout or proof-completion draws. Harmonic's elementary-function
+call count is at most
+
+\[
+O(L+d+m+1+L(D+1)+N_t+A_{\rm ang}+(L-1)Q+Lr),\quad
+A_{\rm ang}=\begin{cases}
+0,&d=1,\\N_x,&d=2,\\
+N_\theta+N_\varphi+d(j_*+1)^2,&d\ge3.
+\end{cases}
+\]
+
+Taylor replaces time/angular terms by $N_s+J_s$ and adds $O(M)$
+input-basis square roots; explicit execution omits $Q$.
+These counts cover certificates, orders, geometry and normalizations;
+rounding/enumeration fit the finite tables. Nonprimitive scalar calls add
+their actual work, description and peak scratch. Envelopes and population
+gap certificates are supplied, not computed from analyticity.
+
+For separately fixed admissible parameters,
+\eqref{cp:init:eq:numerical-scales} and the source formulas give
+
+\begin{equation}
+\label{cp:init:eq:all-orders}
+\begin{array}{c|c|c}
+&\text{Harmonic}&\text{Taylor}\\ \hline
+J,D& O(\ell^{3/2})&O(\ell^{3/2})\\
+K&O(\ell)&O(\ell)\\
+\text{source sizes}&N_t,p_t+1=O(\ell^{5/2}),\quad
+ N_x,H_{\rm sph}=O(\ell^{3(d-1)/2})&
+ J_s=O(\ell^{1/2}),\quad K_s+1=O(\ell)\\
+R,r,q&O(\ell^{3d/2+1})&O(\ell^{3/2})\\
+Q&O(\ell^{3d/2+1})&O(\ell^{5/2}).
+\end{array}
+\end{equation}
+
+The two-point convention gives the same Harmonic exponents at $d=1$.
+For the supplied dense variants the full ledgers respectively imply
+
+\[
+O(n^2\ell^{3d/2+1}+n\ell^{9d/2+3}+\operatorname{polylog}(n)),\qquad
+O(n^2\ell^{5/2}+n\ell^5+\operatorname{polylog}(n)).
+\]
+
+At fixed parameters the leading terms dominate eventually, and memory
+is $O(n^2)$. For implicit Harmonic, sampler, trained-factor/activation
+and projection exponents are respectively $3d+2$, $3d/2+7/2$,
+and at most $\max(3d-1/2,3d/2+7/2)$. For $d\ge1$ all are
+dominated by the selector $O(nr^3)=O(n\ell^{9d/2+3})$;
+non-width terms are fixed powers of $\ell$ and memory is
+$O(n\ell^{3d/2+1})$. For implicit Taylor,
+
+\[
+nQ_{\rm T}^2=O(n\ell^5),\qquad
+nm(M+m)J^2K^2=O(n\ell^5),\qquad
+Jn(M+m)DK^2=O(n\ell^5).
+\]
+
+The selector costs $O(n\ell^{9/2})$ and all remaining work fits
+$O(n\ell^5)$, while transcript, factors, compositions and other
+buffers fit $O(n\ell^{5/2})$. This proves all four rows of
+\Cref{cp:initialization} including final assembly.
+
+Discard anchors, generators, bases, schedules, activation polynomials,
+transcripts and factors; retain exactly the inventory and optimizer of
+\Cref{cp:selected}. Selection uses the computed span and bound $R$,
+so accidental rank deficiencies need not survive approximation.
+Exact initialized additions preserve the Gram and pairing. Finite-precision
+values, ranks, barrier comparisons or infinite-time evolution would need
+new perturbation results: these are real-coordinate and operation counts.
+The setup covers $T=32\ell/\lambda$, not merely a short physical prefix.
+Dense Euler at step $h$ costs $\Theta(mP_dT/h)$ before assembly;
+the fixed-parameter Taylor/Harmonic setup ratios are
+$O(h\ell^{3/2})$, $O(h\ell^{3d/2})$. This neither proves that $h$
+is necessary nor compares against every high-order dense solver.

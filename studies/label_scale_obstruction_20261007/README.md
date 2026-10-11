@@ -30,6 +30,484 @@ simulation, empirical search, promotion or Git commit is authorized or done.
 
 ## Current results
 
+### Stronger positive push: arbitrary input triangles, 2026-10-11
+
+The new synthesis is
+[POSITIVE_PUSH_RESULT.md](POSITIVE_PUSH_RESULT.md). The two requested
+terminal outcomes remain open: unconditional arbitrary-label Gaussian
+fitting, or a fixed-data nonfitting event whose probability stays positive
+as width grows. This continuation does not change the integrated
+compression result, its small-label assumption, or the maintained book.
+
+There is a new deterministic landscape theorem. For the fully trained
+two-hidden-layer tanh model, **any three pairwise nonparallel unit inputs**,
+arbitrary labels, and \(n\ge3\), there is no finite local minimum with
+\(0<\mathcal L<\|y\|^2/3\). In particular the inputs may be linearly dependent
+and lie in a plane at arbitrary nonparallel angles. No small-label or
+equal-label-magnitude assumption is used. This covers the entire loss
+interval reachable after a strict decrease from zero output.
+It is not yet a Gaussian convergence theorem: absence of local minima
+does not exclude convergence to other critical points or escape.
+
+The complete new proof is Theorem 7 of
+[DEPENDENT_INPUT_PUSH.md](DEPENDENT_INPUT_PUSH.md). It closes the
+remaining mixed-sign rank-one case using two indefinite curvature forms,
+exact cancellation of the prediction differential, and a positive-index
+comparison. It includes zero readouts, zero backward-column coefficients,
+and the zero/equal-magnitude feature case. The preliminary minimal-circuit
+lemmas and signed-regular-triangle result in
+[DEPENDENT_GEOMETRY_RENEWAL.md](DEPENDENT_GEOMETRY_RENEWAL.md) are prior
+inputs, not new results of this push. Their general-triple
+local-minimum-open wording is superseded by the new theorem.
+The root reconstructed the complete proof and dependencies; the separate
+whole-proof internal reconstruction passed without a requested correction:
+[THREE_SAMPLE_LANDSCAPE_CHECK.md](THREE_SAMPLE_LANDSCAPE_CHECK.md).
+
+The new pointwise index bound in DEPENDENT_INPUT_PUSH.md improves
+the earlier dimension subtraction on high residual-backward-rank strata.
+A further author-checked result,
+[DEPENDENT_INDEX_EXTENSION.md](DEPENDENT_INDEX_EXTENSION.md), gives the
+full \(n\) unstable directions on a three-sample rank-two feature stratum
+when the residual has full support, the active top features have rank two,
+and each inactive neuron meets the stated mixed-derivative condition.
+Neither result covers all dependent-input bad critical points.
+[GAUSSIAN_SLICE_RECHECK.md](GAUSSIAN_SLICE_RECHECK.md) rechecks why \(n\),
+not merely \(n-1\), unstable directions suffice for the current
+exact-zero-readout slice argument.
+
+On the boundedness route,
+[BOUNDED_ESCAPE_PUSH.md](BOUNDED_ESCAPE_PUSH.md) derives a coercive
+integrating factor for two correlated inputs. Bounded readout and finite
+cumulative increases of every middle-column squared norm imply all-time
+bounded parameters, hence fitting almost surely on that event by the
+previous two-input theorem. Automatic validity of those conditions is
+unproved. The note also excludes every universal nonconstant \(C^2\) first
+integral of just the two row preactivations and column norm at nonzero
+correlation; this is a proof-route obstruction, not a neural-network
+counterexample.
+
+The negative search instead yielded a nonlinear exclusion:
+[GAUSSIAN_FAILURE_PUSH.md](GAUSSIAN_FAILURE_PUSH.md) rules out the
+specified positive, ordered, monotone saturation mechanism in a common-
+first-feature invariant family. It removes the earlier conditional
+derivative-ratio estimate in that ordered-residual class. General
+sign-changing Gaussian dynamics are not covered, and no new Gaussian
+failure probability is obtained.
+
+Only theoretical analysis and internal checks were performed. Existing
+renewal notes were read within this study; no other study's research was
+imported. No simulation, staging, or commit was performed.
+
+### Renewed nontrivial Gaussian-failure search, 2026-10-11
+
+The new request asks for actual learning followed by positive limiting loss
+under canonical initialization, without parallel/antiparallel inputs or a
+representability obstruction. This search retains the stronger probability
+target from the preceding discussion: fixed data and labels, independent of
+width, and a failure probability bounded away from zero as width grows.
+The earlier open bad basins with merely positive probability at each fixed
+width do not settle that target. **No such new negative example has been
+proved.** The positive progress is an exclusion of finite bad attractors,
+not an unconditional fitting theorem.
+
+For the fully trained **two-hidden-layer tanh network**, any \(m\) linearly
+independent unit inputs, any fixed labels \(y\ne0\), and
+\(n\ge\max\{1,2m-4\}\), the internally checked completion gives the
+following statement.
+With independent canonical Gaussian hidden weights and exactly zero
+readout, the initial loss decreases strictly almost surely, and
+\[
+ \mathcal L_\infty>0
+ \quad\Longrightarrow\quad
+ \|\theta(t)\|\longrightarrow\infty
+ \qquad\text{almost surely}.
+\]
+Here \(\theta\) comprises all trained weights and
+\(\mathcal L=\|f-y\|_2^2/m\). Equivalently, a trajectory with any finite
+parameter accumulation point fits the labels almost surely. There is no
+small-label assumption, orthogonality assumption, unquantified
+sufficient-width threshold, or assumed feature-Gram bound along training.
+All-zero labels give the trivial identically zero loss and are not an
+exception. For \(m=2\), input independence means exactly
+\(x_1\ne\pm x_2\), and the width condition is simply \(n\ge1\).
+For more samples, pairwise nonparallel inputs alone do not imply
+linear independence; the general theorem requires
+\(\operatorname{rank}X=m\), hence \(d\ge m\).
+
+The completed proof gives every finite positive-loss critical point
+below the initial loss at least \(n\) unstable directions. Its new
+rank-one argument uses the exact tanh derivative identity to construct
+an \(n\)-dimensional zero-Hessian feature subspace; readout variations
+cancel the remaining mixed terms. The resulting unstable count is
+essential: ordinary full-dimensional
+random-initialization saddle avoidance would not apply to the
+codimension-\(n\) exact-zero-readout slice. The actual initial vector field
+is transverse to that slice. Together these facts make the relevant
+center-stable intersections null for its Gaussian law. The analytic
+gradient-flow convergence alternative then shows that a nonconvergent
+positive-loss trajectory must leave every bounded parameter set.
+
+The earlier two-input source is Section 5 of
+[UNCONDITIONAL_NEGATIVE_ROUTE.md](UNCONDITIONAL_NEGATIVE_ROUTE.md).
+Its complete mathematical check is
+[TWO_SAMPLE_AVOIDANCE_CHECK.md](TWO_SAMPLE_AVOIDANCE_CHECK.md), including
+the explicit center-stable regularity construction and verification of
+the analytic-flow theorem's hypotheses. This upgrades that earlier route's
+unaudited positive pivot to an internally checked result.
+
+The initial multi-sample index argument is in
+[GAUSSIAN_SADDLE_INDEX.md](GAUSSIAN_SADDLE_INDEX.md), checked in
+[GAUSSIAN_SADDLE_INDEX_CHECK.md](GAUSSIAN_SADDLE_INDEX_CHECK.md).
+It left a rank-one exception. The complete new algebra in
+[GAUSSIAN_RANK_ONE_COMPLETION.md](GAUSSIAN_RANK_ONE_COMPLETION.md)
+closes that exception and reproduces the other-rank argument and
+zero-readout avoidance proof. Root has reconstructed the complete source.
+The separate final check, including the general-sample
+convergence-or-escape assembly, is
+[GAUSSIAN_RANK_ONE_COMPLETION_CHECK.md](GAUSSIAN_RANK_ONE_COMPLETION_CHECK.md).
+The rank-one-open wording in the
+earlier frozen index source/check is superseded by this completion.
+Positive-loss escape remains open.
+
+The escape route is recorded in
+[TWO_SAMPLE_ESCAPE_ROUTE.md](TWO_SAMPLE_ESCAPE_ROUTE.md). It proves a
+separate deterministic exclusion of eventual sign-coherent saturation
+with separated opposite residuals for nonpositively correlated inputs,
+as well as exact energy, projection and layer-balance identities. Root
+has reconstructed the complete argument, and the separate scoped check is
+[TWO_SAMPLE_ESCAPE_CHECK.md](TWO_SAMPLE_ESCAPE_CHECK.md).
+The sign assumptions do not follow from canonical
+Gaussian initialization. An alternate-activation route in
+[GAUSSIAN_CAPTURE_RENEWAL.md](GAUSSIAN_CAPTURE_RENEWAL.md) gives an
+**unreviewed** fixed-horizon corrective-neuron witness for a linear first
+activation and a suitable bounded top activation. It neither applies to
+tanh/tanh nor proves fitting or a nonfitting event, and is not a headline
+theorem.
+
+The remaining central obstacle for linearly independent inputs at the
+stated width is genuine positive-loss escape with mixed-sign weights,
+not finite-time existence or a finite bad equilibrium. For linearly
+dependent inputs, finite bad limits are not ruled out by this theorem.
+None of these results proves that arbitrary-label
+canonical trajectories are bounded, that their loss always vanishes, or
+that a positive-loss escape actually occurs. No exponential rate or
+compression conclusion is inferred from the avoidance theorem.
+
+This was analytical work with reused-context scoped routes and checks,
+not fresh isolated promotion reviews. The lead owns the initial saddle-index
+source and README integration; scoped agents own the rank-one completion,
+two-sample check, escape route, corrective-neuron route and separate checks.
+Frozen source
+versions and any final-version amendments are recorded in those reports.
+No experiment, maintained-book edit, integrated-compression edit, staging
+or commit was performed.
+
+### New rank-deficient, arbitrary-amplitude fitting class, 2026-10-11
+
+The renewed search now gives a positive all-time theorem for the original
+fully trained two-hidden-layer tanh model, independent canonical Gaussian
+hidden initialization, and **exactly zero readout**. It is not an
+engineered-initialization basin, a frozen-feature result, or an assumed
+correlated population evolution.
+
+Here is the simplest open class. Fix any number of samples \(m\ge3\) and
+any amplitude \(a>0\), independently of width. In four input dimensions,
+take \(x_1=e_1,x_2=e_2\), any \(m-2\) distinct nonantipodal unit inputs in
+the \(e_3,e_4\) plane, and labels \((a,-a,0,\ldots,0)\). There is a
+strictly positive, width-independent neighborhood of these **inputs and
+labels** in which every fixed dataset is fitted by the actual finite-width
+gradient flow with probability tending to one. Its loss decays
+exponentially after a deterministic finite time, with a positive rate that
+can be fixed for the neighborhood. No simultaneous probability event for
+all datasets in the neighborhood is asserted.
+
+Consequently the theorem allows \(m>4\), hence linearly dependent inputs;
+generic small perturbations remove exact cross-block orthogonality.
+Every label may be nonzero, and the additional labels may have any
+prescribed signs. Their magnitudes must remain in the stated neighborhood
+near zero: this is **not** an arbitrary-label-vector theorem. The first
+two labels have arbitrary fixed amplitude, with no small-amplitude bound.
+The neighborhood, eventual rate and sufficient width may depend badly on
+the chosen geometry and amplitude. No quantitative width threshold is
+claimed. Embedding the same unit inputs isometrically in a larger ambient
+space leaves the canonical law and dynamics unchanged.
+
+The complete open theorem and proof are
+[ZERO_LABEL_OPEN_EXTENSION.md](ZERO_LABEL_OPEN_EXTENSION.md).
+The broader exact-zero-background theorem in
+[ZERO_LABEL_EXTENSION_RESULT.md](ZERO_LABEL_EXTENSION_RESULT.md)
+allows any fixed number of orthogonal active samples with a common
+arbitrary label magnitude and arbitrary signs, plus any number of
+distinct nonantipodal inputs in their orthogonal complement.
+[ORTHOGONAL_FEATURE_GAP.md](ORTHOGONAL_FEATURE_GAP.md) supplies the
+additional active first-feature endpoint gap for every fixed active count.
+
+The new mechanism is to train an auxiliary active-only reference, while
+leaving its unused first-layer Gaussian coordinates independent.
+Conditional Gaussian concentration makes its predictions on the
+zero-label background vanish as width grows. Those background first
+features nevertheless have a positive-definite covariance, regardless
+of their linear input rank. The learned readout and the **middle-layer**
+tangent contribution then give a full endpoint fitting margin. A
+finite-horizon comparison transfers this margin to training on all
+samples; a deterministic finite-width argument controls the entire
+infinite future. Reference-only active-field tail bounds also make the
+transfer robust under the fixed input/label perturbations above.
+
+The base theorem has two internal reconstructions,
+[ZERO_LABEL_EXTENSION_CHECK.md](ZERO_LABEL_EXTENSION_CHECK.md) and
+[ZERO_LABEL_SECOND_CHECK.md](ZERO_LABEL_SECOND_CHECK.md); the first also
+checks the arbitrary-active-count lemma and final assembly. The open
+extension has its separate source-version check in
+[ZERO_LABEL_OPEN_CHECK.md](ZERO_LABEL_OPEN_CHECK.md).
+These are internal mathematical checks, not promotion reviews.
+The lead owns this README and the base theorem/endpoint lemma; scoped
+agents own their separate route, open-extension and check files.
+
+The unsuccessful general-population, direct-diversity and Gaussian-failure
+routes remain recorded in UNCONDITIONAL_POPULATION_ROUTE.md,
+UNCONDITIONAL_DIRECT_ROUTE.md and UNCONDITIONAL_NEGATIVE_ROUTE.md.
+They are not substituted for the proved positive theorem. This result
+supersedes the earlier absence of any rank-deficient arbitrary-amplitude
+fitting class, but does not settle arbitrary planar data and label ratios,
+general-data arbitrary-label fitting, or the original all-time compression
+and storage conclusions. Those remain separate proof obligations.
+
+All work is analytical: no simulation, numerical evidence, maintained-book
+edit, integrated-compression edit, staging or commit was performed.
+Reproduction means reconstructing the linked proofs at the source hashes
+in their check reports. Further work may enlarge the label-ratio/geometry
+class or derive compression estimates from its fitting margin; neither is
+silently included in this theorem.
+
+### Earlier intrinsic-dimension checkpoint, 2026-10-11
+
+The current question asks whether the canonical-Gaussian, arbitrary-amplitude
+tanh fitting theorem can extend far beyond linearly independent or
+near-orthogonal inputs. The user's distinction is correct: adding unused
+ambient dimensions changes nothing when normalized input inner products are
+preserved, and low input rank does not imply low nonlinear feature rank.
+This is a continuation of the same label-scale investigation, with the same
+fully trained model and exact zero readout, not a new initialization scheme.
+
+The current synthesis is
+[INTRINSIC_DIMENSION_RESULT.md](INTRINSIC_DIMENSION_RESULT.md). It records:
+
+- Exact reduction from ambient dimension to the sample span, including the
+  initialization law and gradient-flow mobilities.
+- Positive initialized population feature Grams and almost-sure full feature
+  rank for every `n>=m`, for distinct nonantipodal unit inputs regardless of
+  input rank.
+- A stronger finite-time statement: at each fixed deterministic finite
+  training time, the first feature matrix still has rank `m` almost surely,
+  for every fixed label vector. This uses analytic dependence of the actual
+  finite flow on Gaussian initial parameters. It supplies no width-uniform
+  or infinite-time eigenvalue lower bound and allows random isolated
+  rank-loss times.
+- A dimension-free middle-layer tangent coercivity inequality, and a complete
+  reconstruction of the rank-free small-label fitting baseline.
+- Exact obstructions to extending the old simultaneous-coordinate or fixed
+  row-metric cancellation to arbitrary signed nonorthogonal forcings. These
+  are proof-mechanism obstructions, not actual Gaussian nonfitting results.
+- A conditional arbitrary-amplitude route for arbitrarily many mixed-sign
+  samples in a plane, using dihedral symmetry and finite-feature-time support.
+  The required uncut population construction, compact-time Gram convergence,
+  and adaptive initialized-response bound remain unproved.
+- Two further conditional endpoint alternatives: protection of saturated
+  sign patterns under a root-conditional backward-energy bound, and a
+  tail-free algebraic tangent-gap argument for symmetric regular-simplex
+  states, including an exact mixed-sign conjugacy. Neither supplies the
+  missing correlated population construction or a new all-time fitting
+  theorem.
+
+At this earlier checkpoint the arbitrary-amplitude all-time fitting theorem
+had not been extended to that planar family or to rank-deficient data.
+The new open four-dimensional class above now resolves the latter
+obstruction for its stated geometries and labels; the arbitrary planar
+family remains open. The earlier audited near-orthogonal version is
+unchanged. No nonvanishing-probability Gaussian failure event or
+incompressibility theorem is claimed.
+
+The first-round scoped proof files are
+[INTRINSIC_GEOMETRY_ROUTE.md](INTRINSIC_GEOMETRY_ROUTE.md),
+[INTRINSIC_FEATURE_ROUTE.md](INTRINSIC_FEATURE_ROUTE.md), and
+[INTRINSIC_SYMMETRY_ROUTE.md](INTRINSIC_SYMMETRY_ROUTE.md).
+They were developed separately before their concrete derivations were
+compared. Fresh scoped internal checks are
+[INTRINSIC_GEOMETRY_CHECK.md](INTRINSIC_GEOMETRY_CHECK.md) and
+[INTRINSIC_FEATURE_SYMMETRY_CHECK.md](INTRINSIC_FEATURE_SYMMETRY_CHECK.md);
+the additional finite-time proposition has
+[INTRINSIC_FINITE_TIME_CHECK.md](INTRINSIC_FINITE_TIME_CHECK.md).
+The further endpoint alternatives are in
+[INTRINSIC_ENDPOINT_ROUTE.md](INTRINSIC_ENDPOINT_ROUTE.md), with
+[INTRINSIC_ENDPOINT_CHECK.md](INTRINSIC_ENDPOINT_CHECK.md).
+The lead owns this synthesis and README; route authors and checkers wrote
+only their assigned flat files. Source hashes, scope qualifications, and the
+minor neighborhood-wording correction are recorded with the checks.
+
+Only analytical work and proof reconstruction were performed; there is no
+empirical claim to reproduce. No shared-book edit, compression-theorem edit,
+simulation, staging, or commit was performed. The next substantive proof
+obligation is a width/mesh-uniform adaptive backward-response estimate over
+a finite scalar-ascent horizon, or an alternative endpoint-diversity argument
+that avoids it.
+
+### Renewed canonical-Gaussian search, 2026-10-10
+
+The user explicitly rejected engineered-initialization results as a resolution
+of the intended problem. This is a continuation of the original Gaussian
+question, not a new model. The active contract is the two-hidden-layer tanh
+network below with unit input columns, fully trained muP mobilities `(n,1,n)`,
+independent first entries `N(0,1)` and middle entries `N(0,1/n)`, and the exact
+zero readout used throughout this investigation. The book's distinct tiny
+Gaussian-readout convention is not silently identified with exact zero.
+
+The positive endpoint must cover a broad nonorthogonal multi-input class and
+arbitrary fixed bounded mixed-sign labels with success probability tending to
+one as width grows. The negative endpoint must give fixed inputs and labels,
+chosen independently of width and the realized initialization, with positive
+limiting loss on a Gaussian event whose probability stays bounded away from
+zero. Initial population feature Gram must remain positive definite; duplicate
+or antipodal incompatible labels and expressive-capacity failures are excluded.
+The order is finite-width infinite-time behavior followed by large width;
+population fitting or finite-time plateaus alone do not settle it.
+
+The previous coexistence theorem remains a checked auxiliary result only.
+Gaussian full support, engineered neighborhoods, conditioning on rare draws,
+and Gaussian perturbations of designed weights do not count toward either
+active endpoint. Frozen-feature, orthogonal-only, changed-mobility, and
+width-dependent-label substitutions likewise do not close this contract.
+In particular, a Gaussian large-label failure regime has not been established.
+
+Three fresh prompt-scoped first-round routes were pursued: exact geometry and
+invariants (`GAUSSIAN_POSITIVE_GEOMETRY.md`), probabilistic diversity and
+population-to-finite-width fitting (`GAUSSIAN_POPULATION_POSITIVE.md`), and
+nonvanishing Gaussian failure mass (`GAUSSIAN_NEGATIVE_MASS.md`). The lead
+owns this README and the Gaussian synthesis, including literature
+applicability checks. The independent first rounds were compared only after
+concrete derivations. No simulation, book edit, promotion, staging, or commit is
+authorized in this continuation.
+
+The current Gaussian synthesis is
+[GAUSSIAN_BOUNDARY_RESULT.md](GAUSSIAN_BOUNDARY_RESULT.md). A complete new
+positive subclass theorem is in
+[GAUSSIAN_NONLINEAR_TOP_POSITIVE.md](GAUSSIAN_NONLINEAR_TOP_POSITIVE.md):
+linear first activation, nonlinear top activation with a positive derivative
+floor and bounded `phi(z)-z phi'(z)`, any linearly independent unit inputs,
+and every finite label vector. It proves actual finite-width all-time fitting
+and finite parameter convergence on an explicit Gaussian event whose
+probability tends to one. A further event gives deterministic eventual
+exponential rates independent of width. There is no small-label hypothesis,
+orthogonality requirement, or engineered hidden initialization. The complete
+[internal check](GAUSSIAN_NONLINEAR_TOP_CHECK.md) passed; the synthesis makes
+its probability-one initial-rank qualification explicit.
+
+[GAUSSIAN_READOUT_EXTENSION.md](GAUSSIAN_READOUT_EXTENSION.md) extends this
+subclass theorem to independent Gaussian stored readouts with any uniformly
+bounded variance, including the maintained book's tiny-Gaussian convention.
+Its theorem is for each fixed label vector, not a simultaneous-all-labels
+event. The separate [readout check](GAUSSIAN_READOUT_CHECK.md) passed.
+These are internal reused-context checks, not promotion reviews.
+
+Neither result changes the activation qualifications: that arbitrary-label
+theorem is not for tanh/tanh. The tanh route has now also proved canonical
+Gaussian fitting for orthogonal inputs, any fixed common label amplitude,
+arbitrary signs, and open label neighborhoods. Exact natural coordinates
+remove its first-layer sensitivity obstruction; finite-time Gaussian
+identification and a full endpoint tangent margin yield actual finite-width
+all-time exponential fitting. The complete
+[orthogonal theorem check](GAUSSIAN_TANH_ORTHOGONAL_CHECK.md) passed.
+
+[GAUSSIAN_NONORTHOGONAL_EXTENSION.md](GAUSSIAN_NONORTHOGONAL_EXTENSION.md)
+is a complete extension to an open neighborhood of both input Grams
+and labels, with a radius independent of width. It uses reference-only
+Gaussian backward tails and a bounded-first-feature stability comparison,
+not an assumed nonorthogonal population flow. Its
+[separate internal audit](GAUSSIAN_NONORTHOGONAL_CHECK.md) passed. A separately
+checked addendum in the Gaussian synthesis also covers vanishing pointwise
+initial readout, including the maintained book's independent stored Gaussian
+variance `1/n^2`. It does not cover order-one stored variance for tanh/tanh.
+The proof files remain frozen; candidate-status headers record their status
+when frozen, while the linked checks record the subsequent verification.
+General correlated tanh data with arbitrary label ratios and a
+nonvanishing-probability Gaussian bad basin remain unresolved. A further
+all-ratios attempt isolated the residual-rotation term that prevents simply
+reusing the scalar progress identity; this is a proof obstruction, not a
+failure theorem. No claim of a large-label Gaussian failure regime is made.
+
+### Two-sided boundary search: coexistence theorem, 2026-10-10
+
+The current request continues the same investigation: alternate constructive
+fitting and non-fitting arguments to identify a broad arbitrary-label
+multi-input theorem or a comparably strong obstruction. The primary positive
+target retains the fully trained two-hidden-layer tanh model, zero readout,
+and canonical Gaussian hidden initialization, with high probability at
+sufficiently large width. Fixed arbitrary bounded label vectors may have
+mixed signs. A rare favorable initialization event, an assumed future Gram
+gap, or absence of finite local minima alone does not resolve that target.
+The requested negative endpoint similarly needs its initialization and
+probability quantifiers stated; an exactly stalled zero network is not a
+substitute. The old bad basins already occur at small label scales, so they
+do not establish a transition caused specifically by increasing label size.
+
+The new combined statement is
+[FITTING_BOUNDARY_RESULT.md](FITTING_BOUNDARY_RESULT.md). It proves:
+
+- For every distinct nonantipodal sphere dataset, every `n>=m`, and every
+  fixed finite label ball, an open zero-readout initialization set fits
+  every label vector in that ball exponentially. All layers train, and all
+  parameters have finite limits. The sufficient event is a highly saturated
+  full-rank sign code, not typical Gaussian initialization.
+- For `d>=2` and `m>=d^2+3d+4`, an open dense class of sphere datasets
+  admits a fixed mixed-sign label direction with an open bad basin at
+  every positive amplitude and every `n>=m`. Both initial feature matrices
+  can be full rank; parameters converge finitely while both feature ranks
+  collapse to one. The labels have any prescribed positive maximum
+  magnitude, independent of width. The limiting loss fraction can exceed
+  any prescribed `1-eta`, even though loss decreases strictly at first.
+- Consequently the same fixed inputs and labels can have both exponentially
+  fitting and stable non-fitting open initialization basins. Each has positive
+  Gaussian probability at each fixed width; neither probability has a
+  width-uniform lower bound from these proofs. This is not a contradiction
+  of sufficiently-large-width high-probability fitting.
+
+The negative proof combines a generic residual-moment construction with a
+new large-residual-curvature capture lemma. One residual multiplier works
+for every label amplitude; the earlier small capture scale is no longer
+needed for this enlarged sample regime. At `m>=d^2+3d+3`, the sharper
+sample-count construction retains its small-scale capture qualification.
+The new all-amplitude direction need not equal the old direction.
+
+Complete proofs are in
+[POSITIVE_ARBITRARY_LABELS.md](POSITIVE_ARBITRARY_LABELS.md),
+[NEGATIVE_LABEL_BOUNDARY.md](NEGATIVE_LABEL_BOUNDARY.md), and
+[TANH_LARGE_RESIDUAL_CAPTURE.md](TANH_LARGE_RESIDUAL_CAPTURE.md).
+Internal reused-context checks passed for the positive bootstrap, generic
+moment independence and replication, and the all-amplitude capture lemma:
+[positive check](POSITIVE_ARBITRARY_LABELS_CHECK.md),
+[moment check](GENERIC_MOMENT_CHECK.md), and
+[capture check](TANH_LARGE_RESIDUAL_CAPTURE_CHECK.md).
+The [combined-statement check](FITTING_BOUNDARY_SYNTHESIS_CHECK.md) also
+passed after making the nonzero-initial-loss hypothesis explicit in the
+integrated residual diagnostic; no central theorem correction was needed.
+These are not independent promotion reviews. Frozen proof files retain
+their original candidate-status headers; these linked checks record the
+subsequent verification status.
+
+The geometry route and its book-applicability audit are in
+[POSITIVE_GEOMETRY_ROUTE.md](POSITIVE_GEOMETRY_ROUTE.md). The natural
+orthogonal tanh balance has no universal extension of the same potential
+form to correlated full-rank inputs; this eliminates one proposed route,
+not fitting itself. The primary arbitrary-label high-probability theorem,
+an every-input stable-failure theorem, and width-asymptotic basin measures
+remain open. There is no claim that label magnitude alone determines the
+outcome, that small labels are necessary for high-probability fitting, or
+that non-fitting proves incompressibility.
+
+Only theory and internal proof checks were performed. No experiment,
+shared-book edit, change to the integrated compression theorem, staging,
+or commit was performed in this continuation.
+
 Complete derivations are in [LABEL_SCALE.md](LABEL_SCALE.md).
 The newer directional analysis is in
 [DIRECTIONAL_COERCIVITY.md](DIRECTIONAL_COERCIVITY.md).
@@ -39,6 +517,59 @@ The extension to many correlated inputs and two nonlinear hidden layers is in
 [MULTISAMPLE_NONLINEAR_BAD_BASIN.md](MULTISAMPLE_NONLINEAR_BAD_BASIN.md).
 The both-tanh continuation is in [TANH_BAD_BASIN.md](TANH_BAD_BASIN.md),
 with its contrasting geometry in [TANH_GEOMETRY.md](TANH_GEOMETRY.md).
+The newer classification results and their precise open boundary are in
+[TANH_CLASSIFICATION_RESULT.md](TANH_CLASSIFICATION_RESULT.md).
+
+### Broader tanh failure classes and necessary geometry, 2026-10-10
+
+The user's request to classify all stable bad configurations led to three
+complementary proof routes. The result is a substantial partial
+classification, not a full characterization of all initial conditions:
+
+- An arbitrary critical one-profile tanh network has an exact three-part
+  Hessian test after duplication to any width: collective curvature,
+  second-layer splitting curvature, and first-layer splitting curvature.
+  Strict versions produce an attracting critical manifold. The previous
+  bad-basin example is a strict member, and its basin persists under small
+  input and label perturbations. Replicating a general smaller network
+  has a corresponding exact test, but extra mixed equalities are needed;
+  duplication can create saddles. No strict multi-profile seed is asserted.
+- At every finite positive-loss local minimum, both feature matrices lose
+  column rank. More strongly, a feature matrix augmented with first-layer
+  derivative rows must be rank deficient. At least `n-rank(U)` first-layer
+  neurons lie at simultaneous critical zeros of explicit residual-weighted
+  tanh sums. Coincidence of all these neurons is not a necessary condition
+  established by the proof.
+- If the input matrix has full column rank and `n>=m`, every finite local
+  minimum fits. All positive-loss second-order stationary points are exactly
+  `w=W=0, Uy=0`; their Hessian vanishes and they have cubic descent directions.
+  Other positive-loss stationary points have negative Hessian curvature.
+- For every even `m>=4`, a paired positively correlated circle dataset and
+  an explicit symmetric zero-readout initialization produce genuine motion
+  in both hidden layers, positive limiting loss at least the variance of the
+  pair labels, and parameter norm tending to infinity. This initialization
+  has rank-one features and Gaussian probability zero. No open escape basin
+  or escape from initially full-rank weights is proved.
+
+The full derivations are in
+[TANH_REPLICATION_CLASS.md](TANH_REPLICATION_CLASS.md),
+[TANH_NECESSARY_GEOMETRY.md](TANH_NECESSARY_GEOMETRY.md), and
+[GLOBAL_FAILURE_ALTERNATIVES.md](GLOBAL_FAILURE_ALTERNATIVES.md).
+The last file proves the four-sample escape case; Section 5 of the integrated
+classification result proves the extension to any even sample count. The
+source hashes, corrections, root reconstruction, and reused-context internal
+cross-checks are recorded in
+[TANH_CLASSIFICATION_CHECK.md](TANH_CLASSIFICATION_CHECK.md),
+[TANH_NECESSARY_GEOMETRY_CHECK.md](TANH_NECESSARY_GEOMETRY_CHECK.md), and
+[GLOBAL_ESCAPE_CHECK.md](GLOBAL_ESCAPE_CHECK.md).
+
+The remaining problems are arbitrary dependent-input local-minimum
+classification, higher-order degeneracies, accessibility from the exact
+zero-readout initialization slice, and the classification of positive-loss
+escape. Finite-equilibrium classification alone cannot imply that every
+other configuration fits. These findings do not change the integrated
+compression theorem or prove incompressibility. No experiment, promotion,
+staging, or Git commit was performed for this continuation.
 
 ### Both activations tanh, 2026-10-10
 

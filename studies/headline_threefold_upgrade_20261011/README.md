@@ -1,5 +1,138 @@
 # Three proposed upgrades of the compression headline
 
+## Follow-up: final figure collection and notation-table presentation
+
+At the user's request, `paper/compact_figures.tex` now places every top-level
+static figure asset after the bibliography, with concise captions. The user
+explicitly excluded interactive-explainer thumbnails. There are 44 PDF stems
+and 50 included panels: `experimental_gallery.pdf` contributes all seven
+pages; same-stem PNG/SVG format copies are not repeated. Alternate assemblies
+are retained and identified. No figure was regenerated and no experiment was
+run. The symbol table's count column and counting prose are removed, with all
+symbols and definitions retained.
+
+The bounded [caption inventory](FIGURE_CAPTION_INVENTORY.md) and
+[layout inventory](FIGURE_LAYOUT_INVENTORY.md) use only the assigned paper
+assets and their adjacent metadata, not the other studies named by their
+historical producers. Captions distinguish model-discrepancy RMS from label
+error, individual fitted endpoints from common times, old eight-checkpoint
+plots from the newer replay, and the old seeded decoder from the later
+Taylor-family plots. Existing artwork labels are not silently relabelled.
+The plots remain earlier illustrations, not certificates for the current
+theorem; this distinction is also reflected in the abstract.
+
+The build is retained at
+`data/generated/headline_threefold_upgrade_20261011/figure_appendix.833uww/`.
+It has 113 pages: the figure collection occupies pages 90–113. Nonfloating
+image/caption blocks avoid float-only or orphan-caption pages; tall galleries
+have individual height limits. The final log has no unresolved references,
+overfull or underfull boxes, or new warnings; the inherited `amsmath`
+compatibility warning remains. The proof modules and theorem statements are
+unchanged. `SHORTEN_check.py` permits only the requested relocation and exact
+figure/table editorial edits in the main file, while continuing to check the
+older scientific sources, references, and book preservation.
+The new PDF has SHA-256
+`d922d0397a1646189af4e12e4fabe45a7c40ad87c3c9226bb17ed5dd999f8666`.
+The scoped Terra build check and coordinator inspected the rendered collection:
+all 50 asset-page pairs occur once, with no blank pages, stranded captions, or
+visible clipping. The final contact sheet and mechanical evidence are in the
+build directory. The coordinator also checked the compiled two-column symbol
+table (Symbols/Meaning) and published the checked PDF as `paper/compact.pdf`.
+This is an editorial continuation, not a new mathematical audit or promotion.
+
+## Follow-up: feature-learning theorem placement
+
+At the user's request, the unchanged `feature_learning_theorem.tex` input now
+appears directly after the main compression theorem and before efficient
+initialization. It is Theorem 1.2 on page 4; the main theorem is 1.1 on page 3,
+and initialization is Proposition 1.3 on page 5. A subsection heading keeps
+the initialization material separate. No theorem statement, proof, assumption
+or mathematical conclusion changed. The separate NTH storage benchmark stays
+in its existing proof section.
+
+The build at
+`data/generated/headline_threefold_upgrade_20261011/feature_theorem_move.RsouOA/`
+passes and remains 89 pages. A scoped Terra check inspected pages 3–5 and
+verified unchanged before/after hashes for all ten included TeX files. The
+final log has no unresolved references/citations or overfull/underfull boxes;
+the inherited `amsmath` compatibility warning remains. The coordinator
+checked the actual auxiliary numbering, final log, and page count. The current
+published `paper/compact.pdf` has SHA-256
+`cab13b27428ab50d483a9777a05c16e58376c6de87c57f86b85fdc350d7b4ba2`.
+`SHORTEN_check.py` now permits exactly this requested reorder and new heading
+while continuing to require all mathematical text to match. This is a
+statement-placement check, not another mathematical audit or book change.
+
+## Current continuation: shorten the new paper proofs
+
+The user requests a rollback commit first, then a substantial structural
+shortening of only the newly added width/setup arguments, with no loss of
+rigor, self-containment, quantitative strength or scope, followed by fresh
+independent audits. The rollback commit is
+`aa28e4693eecb93e6770db404878e959f5161fdf`. It includes this task's promoted
+chapter, paper and research package, but not unrelated concurrent work.
+The preceding compiled paper has 53 pages; the integrated rollback paper has
+94. Page reduction is an outcome, not an assumption or a target obtained by
+changing typography or moving necessary proofs outside the paper.
+
+This is a continuation of the same proof integration. The maintained book is
+read-only for this pass. The public paper theorem, initialization proposition,
+all quantitative powers and qualifications, and older proof bodies are frozen
+except for necessary reference/interface edits. Author candidates are separate
+study-owned TeX files; the coordinator owns integration and this record.
+Fresh reviewers receive frozen candidates and full necessary dependencies,
+without author discussion or earlier verdicts. No empirical campaign is added.
+
+The shortened candidate is frozen in
+`data/generated/headline_threefold_upgrade_20261011/short_paper_v2/`.
+It compiles to **89 pages**, versus 94 at rollback. The two proof modules
+contain 9,970 whitespace-delimited words versus 12,840 (22.4% fewer).
+These source-word and whole-PDF measurements are distinct; the paper has not
+been made smaller through font, margin or spacing changes. Only the width
+and initialization proof modules change. The main theorem, initialization
+proposition, all older included scientific sources, bibliography, book
+chapter and global notation are byte-identical to rollback.
+
+The structural changes replace auxiliary map recurrences by a verified
+power ledger, reuse the existing source/domain, signed-comparison,
+innovation and panel-construction arguments, exploit forward/transpose
+symmetry in the Gaussian sampler, and factor the eight finite cost bounds
+through four completely explicit common sums. The finite probability,
+numerical restart, exact pairing, adaptive Gaussian conditioning and full
+parameter/primitive-cost calculations remain in the paper. The author
+candidates and their exact reduction maps are
+[width](SHORT_WIDTH_NOTES.md), [setup](SHORT_SETUP_NOTES.md), and the
+[shared-opportunity analysis](SHORT_SHARED_OPPORTUNITIES.md); none is an
+independent acceptance report.
+
+The [paired-review assignment](SHORT_REVIEW_ASSIGNMENT.md) applies to the
+immutable version-1 scientific candidate. A separate frozen
+`short_preservation_evidence/baseline/` supplies all unchanged original paper
+sources for byte comparison. Version 2 changes only two inline formulas
+into displays, reorders one clause, and removes obsolete TeX comments;
+the [fresh final-integration assignment](SHORT_INTEGRATION_ASSIGNMENT.md)
+includes verifying that correspondence. Both fresh isolated mathematical
+reviews, [A](SHORT_REVIEW_A_V1.md) and [B](SHORT_REVIEW_B_V1.md), are complete
+and **PASS**, with no required correction. The separate fresh
+[final integration review](SHORT_INTEGRATION_V2.md) is also complete and
+**PASS**. The coordinator read all three full reports and checked their
+source identities. These are scoped audits of the two rewritten proofs and
+their complete necessary dependencies, not new audits of the whole book or
+the unchanged feature-learning/NTH theorems. All seven formal statements
+inside the rewritten modules match their originals.
+Both [version-1](SHORT_BUILD_V1.md) and [version-2](SHORT_BUILD_V2.md) build
+records are retained. Version 2 has no unresolved references/citations or
+overfull/underfull boxes; one inherited nonfatal `amsmath` compatibility
+warning remains. That pass published the reviewed 89-page PDF as `paper/compact.pdf`,
+SHA-256 `e1befdf23ffb05b4165c17048082da945e54a02305bc1cdd1f6766d5775bc122`.
+The later statement-only relocation and current PDF are recorded above.
+The 94-page rollback PDF remains in the rollback commit and in
+`paper_integration_v3/build/compact.pdf` under this study's generated folder.
+`SHORTEN_check.py` reproduces the preservation and reference checks and can
+freeze a fresh packet without changing Git. The shortening is left as
+uncommitted changes after the requested rollback commit. Unrelated concurrent
+edits are preserved.
+
 ## Approved promotion: width and efficient setup only
 
 ### Approved integration, 2026-10-11

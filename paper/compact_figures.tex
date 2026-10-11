@@ -1,0 +1,244 @@
+% Existing static assets only: one PDF per stem, including every gallery page.
+% Nonfloating blocks keep each caption with its image and avoid float-only pages.
+\clearpage
+\section{Figures and numerical illustrations}
+\label{cp:figures}
+\begingroup
+\raggedbottom
+\captionsetup{font=small,labelfont=bf,skip=4pt,hypcap=false}
+\newcommand{\figureplate}[4][1]{%
+  \par\noindent\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[page=#1,width=\linewidth,height=#2\textheight,
+                   keepaspectratio]{figures/#3.pdf}
+  \captionof{figure}{#4}\label{fig:archive:#3:#1}
+  \end{minipage}\par\medskip}
+
+This collection preserves the static figures already accompanying the paper,
+including alternate layouts and all seven pages of the illustrated gallery.
+Format copies and interactive explainers are omitted. These are earlier
+illustrations under their recorded protocols, not new experiments or
+certificates of the headline theorem. Unless stated otherwise, RMS means
+disagreement with dense predictions on sampled queries, not error against
+labels. Recorded times do not certify a continuous-time supremum, and
+separately fitted endpoints need not share a physical time. Historical
+artwork sometimes writes $P$ for the history order $q$. In radial plots,
+$f(\theta)$ denotes the prediction at input angle $\theta$.
+
+\figureplate{.23}{mechanism}{Response-memory reconstruction and the
+product-of-tails identity. Both histories use the same Legendre modes;
+the initialized mixer remains fixed and retained. The printed finite-horizon
+rates are schematic, not the present complete-trajectory estimates.}
+\figureplate{.32}{memory_mechanism}{Single-sample, three-mode illustration:
+paired forward and residual-weighted backward moments reconstruct the learned
+connection. The reconstructed network supplies the next responses; the
+polynomial basis is fixed while its neuron-valued coefficients evolve.}
+
+\figureplate{.31}{paired_projection}{Projecting both histories onto the same
+orthogonal history space cancels the two mixed terms, leaving the pairing of
+the omitted histories. Trajectory control additionally requires regularity
+and feedback stability.}
+\figureplate{.25}{clocks}{Illustrative four-mode fits of a normalized backward
+history in physical time and two alternative clocks. The displayed fit errors
+describe this example, not a general ordering of clock accuracy.}
+\figureplate{.19}{moments}{Three neuron histories reconstructed with one,
+two, and three Legendre coefficients, with coefficient distributions below.
+Errors are normalized by each history's range. This older nonzero-readout
+example illustrates memory coordinates, not the canonical initialization
+theorem.}
+
+\figureplate{.39}{learning_clocks}{A constructed smooth response path in
+physical time and a clock that also tracks response motion. Matching colors
+identify the same events; this is a coordinate-change schematic, not a
+measured training trajectory or a constant-speed assertion.}
+\figureplate{.39}{learning_in_motion}{Earlier eight-checkpoint circle
+comparison: two tanh hidden layers, $n=2048$, and $q=1,3,7$.
+Snapshots share physical times; discrepancies use 2048 query angles.
+Dotted numerical sensitivities and connecting lines do not certify the
+unobserved times.}
+
+\figureplate{.20}{trajectory}{Paired-label circle predictions at common times
+$0,5,20,80$: two tanh hidden layers, $n=2048$, $q=1,3,7$.
+Radius is $3+f(\theta)$ and black points are training labels.
+This is the later 39-checkpoint, two-tolerance Heun replay.}
+\figureplate{.28}{trajectory_rms}{Companion dense-versus-memory RMS at the
+38 positive common times of that replay. The coarse/fine sensitivity scale
+is an empirical numerical diagnostic, not a continuous-time bound.}
+\figureplate{.24}{orders}{Deep-circle endpoint discrepancies, coarse/fine
+sensitivity, and hidden-feature motion for $q=1,2,3$.
+These three-hidden-layer tanh runs have $n=4096$ and individual training-MSE
+$10^{-3}$ endpoints; the sensitivity ranges are not confidence intervals.}
+
+\figureplate{.59}{circle_deep}{Five circle tasks with three tanh hidden
+layers, $n=4096$, and $q=1,2,3$. Each curve uses its own training-MSE
+$10^{-3}$ endpoint: the comparison is between fitted functions, not common
+physical times.}
+\figureplate{.23}{circles_deep}{Compact radial view of the deep-circle
+family. Radius is $3+f(\theta)$; the printed values are RMS differences from
+dense predictions on 8192 circle queries. This is an alternate layout,
+not an additional experiment.}
+
+\figureplate{.43}{circle_shallow}{Earlier Cartesian circle comparison with
+two tanh hidden layers, $n=2048$, and $q=1,3,7$, at individual training-MSE
+$10^{-3}$ endpoints. This export uses archived dense references, unlike
+the selected references in the radial views.}
+\figureplate{.40}{circle_shallow_radial}{Shallow-circle radial comparison at
+the same loss threshold. Radius is $3+f(\theta)$; RMS uses 8192 queries
+against four fresh dense references and one refined archived reference.
+Black points mark training labels.}
+
+\figureplate{.59}{circle_deep_radial}{Larger radial panels for the deep-circle
+family: three tanh hidden layers, $n=4096$, $q=1,2,3$, and separately fitted
+training-MSE $10^{-3}$ endpoints. The printed discrepancies use 8192 circle
+queries; fixed dense mixers remain additional storage.}
+\figureplate{.23}{circles_shallow}{Compact radial layout of the shallow-circle
+family, using the same selected references as its larger radial view.
+The printed RMS values measure fitted-function disagreement, not label risk.}
+
+\figureplate{.39}{order_decay}{Observed circle discrepancy versus history
+order in five tasks. The inverse-order reference lines are visual comparisons,
+not fitted or certified convergence rates.}
+
+\figureplate{.25}{same_rank}{Selected circle endpoints compare response
+memory with two directly trained factor seeds at the same correction-rank
+bound. Equal correction rank does not imply equal total storage or a
+comparison with every low-rank optimizer.}
+\figureplate{.39}{factors}{Paired-label fitted functions and five-task rank
+sweeps for two tanh hidden layers of width 2048. RMS uses 8192 queries at
+individual training-MSE $10^{-3}$ endpoints; fixed mixers are additional,
+and omitted or precision-limited runs are not exact successes.}
+
+\figureplate{.39}{same_rank_dynamics}{Alternate presentation of the factor
+comparison, including the rank-24 paired-label example and five-task sweep.
+Despite the filename, these are separately fitted endpoints, not common-time
+dynamics. Hollow points have limited numerical precision; one capped run is
+omitted.}
+\figureplate{.39}{same_rank_radial_preview}{Enlarged paired-label comparison:
+dense training, order-3 memory, and two factor seeds with correction-rank
+bound 24. Radius is $3+f(\theta)$; RMS uses 8192 angles at individual
+training-MSE $10^{-3}$ endpoints.}
+
+\figureplate{.39}{frozen_ntk_radial_preview}{Dense training, its full frozen
+initial empirical NTK, and order-3 memory from the same width-2048
+initialization. Each reaches training MSE $10^{-3}$ at its own time.
+Radius is $30+f(\theta)$ here, preserving the large signed NTK excursions.}
+\figureplate{.36}{learning_controls_equal_mixed_odd}{Equally spaced
+mixed-label control: dense training, frozen initial NTK, two factor seeds,
+and order-3 memory. RMS uses 8192 queries at individual training-MSE
+$10^{-3}$ endpoints. The correction-rank bound is 12 after the antipodal
+quotient.}
+
+\figureplate{.36}{learning_controls_quadrant_alternating}{Quadrant
+alternating labels, with the same width-2048 two-hidden-layer tanh control
+protocol. The factor correction-rank bound is 24; the NTK panel explicitly
+uses a 100-times-wider output scale. RMS is disagreement with dense,
+not ground-truth error.}
+\figureplate{.36}{learning_controls_quadrant_center_edges}{Quadrant
+center-versus-edges labels under the same endpoint protocol. The NTK panel
+alone uses a 200-times-wider output scale, with signed ticks in original
+units. All reported RMS discrepancies use 8192 circle queries.}
+
+\figureplate{.36}{learning_controls_quadrant_pairs}{Quadrant paired labels:
+the same dense, frozen-NTK, rank-24 factor, and order-3 memory comparison.
+Each model fits separately to training MSE $10^{-3}$; the NTK output scale
+is explicitly widened tenfold.}
+
+\figureplate{.82}{learning_controls_gallery}{Overview of all five preceding
+control tasks. This combines the same observations, with marked NTK scale
+changes and correction-rank bounds 24 or 12; it is not another replicate.}
+\figureplate{.51}{learning_controls_gallery_a}{Page-friendly assembly of
+the three quadrant control tasks. The protocols, separate fitted endpoints,
+and marked NTK output-scale changes are unchanged.}
+\figureplate{.34}{learning_controls_gallery_b}{Companion assembly of the
+outlier and equally spaced mixed-label tasks. These are the remaining two
+rows of the full control gallery, not additional experiments.}
+
+\figureplate{.27}{mnist}{Earlier MNIST 3-versus-8 comparison: 100 training
+and 1984 held-out images, two tanh hidden layers, $n=4096$.
+The order-3 agreement plot and order-1--3 differences use individual
+training-MSE $10^{-3}$ endpoints. RMS is disagreement with dense predictions.}
+\figureplate{.46}{mnist_rms}{MNIST validation discrepancy across history
+orders and the displayed training-loss endpoints. Bars show observed
+refinement margins, not confidence intervals; open markers identify failures
+of the numerical gate.}
+
+\figureplate{.39}{mnist_residuals}{Alternate MNIST endpoint presentation.
+Signed memory-minus-dense differences share one vertical scale; order 2 is
+slightly closer than order 3 in this run. These are function-agreement
+measurements, not classification accuracies.}
+\figureplate{.25}{mnist_scatter}{Held-out MNIST predictions for $q=1,2,3$
+against dense predictions at the primary training-MSE $10^{-3}$ endpoints.
+This scatter layout uses the same endpoint data, not another replicate.}
+
+\figureplate{.41}{sphere_orders}{Sphere illustration with four ReLU hidden
+layers, $n=2048$, $m=64$, and 8192 equal-area queries. Both hemispheres and
+a shared error scale are shown. Each model stops at training RMS $0.01$;
+the single-seed Euler run uses step $1/128$. ReLU is outside the analytic
+activation theorem.}
+\figureplate{.41}{sphere_comparison}{Dense output, order-3 memory output,
+and their signed difference for the same sphere run. Black points are
+training locations. This fitted-endpoint illustration has no
+continuous-flow refinement certificate.}
+
+\figureplate{.39}{sphere3_time}{Saved sphere-3 query RMS from a width-4096
+dense reference over recorded times, with eight training and 30 test inputs.
+The export's ``Logarithmic'' family is called Taylor by its adjacent plotting
+script, not the seeded decoder below. Dense-control curves aggregate three
+small-network seeds and two dense pairs by geometric means.}
+\figureplate{.39}{sphere3_tradeoff_endpoint}{Sphere-3 fitted-endpoint RMS
+versus moving parameter count. Smaller-dense summaries are medians and
+observed ranges over three seeds. ``Logarithmic'' retains the same historical
+Taylor-family label; fixed storage and offline setup are additional.}
+
+\figureplate{.39}{sphere3_tradeoff_max_time}{Companion sphere-3 tradeoff for
+maximum RMS over recorded times, rather than endpoint RMS. The shaded
+small-network range is not a confidence interval; the horizontal axis still
+excludes fixed storage and source-construction costs.}
+\figureplate{.26}{compression_validation}{Earlier Harmonic circle
+confirmation at widths 1024, 2048, and 4096, with three held-out seeds per
+width. Curves show maximum-recorded-time query RMS and retained tensor
+scalars; shading is the observed seed range. Source setup and query workspace
+are additional.}
+
+\figureplate{.26}{compression_logarithmic}{Earlier dimension-five
+\emph{seeded decoder}, labelled ``Logarithmic'' in this artwork: finite-program
+query fidelity and persistent numerical payload across three widths.
+This is not Taylor. The dotted storage curve adds query workspace; flat
+payload in these tests is not an asymptotic scaling estimate.}
+\figureplate{.23}{compression_checks}{Further Harmonic dimension and
+PCA-based digits checks, followed by seeded-decoder dimension checks.
+The decoder's circle failure remains visible. Seed counts vary; ranges and
+the empirical factor-three threshold are not confidence statements.
+The digits task differs from the MNIST100 figures above.}
+\figureplate{.26}{learning_controls_two_outliers_alternating}{Remaining
+circle control: alternating labels with two outliers, under the earlier
+width-2048 tanh endpoint protocol. The NTK output scale is widened tenfold;
+RMS measures fitted-function disagreement on 8192 queries.}
+
+\figureplate[1]{.39}{experimental_gallery}{Original illustrated gallery,
+page 1: the three-mode memory mechanism. The next six plates preserve the
+remaining pages, including their explanatory headings; they reuse earlier
+illustrations rather than add experiments.}
+\figureplate[2]{.39}{experimental_gallery}{Gallery page 2: the earlier
+eight-checkpoint common-time circle comparison, not the later 39-checkpoint
+replay. Its numerical sensitivities are diagnostics between saved runs.}
+\figureplate[3]{.39}{experimental_gallery}{Gallery page 3: same-correction-rank
+factor controls at separately fitted endpoints. Rank equality is not an
+equal-total-storage claim.}
+\figureplate[4]{.39}{experimental_gallery}{Gallery page 4: the constructed
+smooth-path clock illustration. The change of coordinate preserves events,
+not necessarily their speed.}
+\figureplate[5]{.39}{experimental_gallery}{Gallery page 5: orthogonal pairing
+of two histories leaves a product of omitted tails. Feedback stability is a
+separate requirement for controlling the evolving network.}
+\figureplate[6]{.39}{experimental_gallery}{Gallery page 6: the earlier
+MNIST100 fitted-prediction comparison and signed differences. RMS measures
+disagreement with dense predictions, not error against labels.}
+\figureplate[7]{.39}{experimental_gallery}{Gallery page 7: deep-circle order
+sensitivity and hidden-feature motion. Refinement scales are empirical
+diagnostics, and the observed order trend need not be monotone.}
+\figureplate{.39}{order_sensitivity}{Standalone view of the deep-circle order,
+numerical-sensitivity, and feature-motion comparison. Each model uses its own
+training-MSE $10^{-3}$ endpoint; order 2 is closer than order 3 on the two
+alternating-label tasks, so the observed order trend is not uniformly monotone.}
+\endgroup

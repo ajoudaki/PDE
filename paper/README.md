@@ -9,15 +9,27 @@ with Harmonic (whole-sphere) and Taylor (declared finite-panel) source
 builders. The approved 2026-10-11 update transfers the reviewed Chapter 9
 polynomial-width and efficient-initialization results into the compact paper.
 The main theorem incorporates polynomial sufficient widths for Legendre and
-Taylor. The proposition immediately below it gives both supplied-dense and
-fresh-implicit-Gaussian setup costs for Harmonic and Taylor. Storage, error,
+Taylor. The nonlinear feature-learning theorem follows it directly, then the
+initialization proposition gives both supplied-dense and fresh-implicit-Gaussian
+setup costs for Harmonic and Taylor. Storage, error,
 label, activation, optimizer and query-domain qualifications are preserved.
+
+The subsequent proof-only refactor reduces the compiled compact paper from
+94 to 89 pages, reusing established in-paper arguments and shared finite cost
+formulas. Its headline theorem and initialization proposition are unchanged,
+as are the older proof modules and global notation. Two fresh mathematical
+audits and a separate final integration audit passed; the
+[shortening record](../studies/headline_threefold_upgrade_20261011/README.md)
+contains the exact scope, preservation checks and review reports.
+The later figure-only addition leaves that proof content unchanged and appends
+24 pages of existing static illustrations (113 pages in total). The symbol
+table now omits the count column while retaining every symbol and definition.
 
 ## Reading and source structure
 
 - `main.tex`: preceding long manuscript, with the setup and appendix guide
   from that version.
-- `compact.tex`: the shorter modular proof manuscript. Its final section,
+- `compact.tex`: the shorter modular proof manuscript. Its final proof section,
   `compact_nth.tex`, gives the matching frozen-top NTH literal-storage theorem
   and complete proof from the established book's Chapter 7. This separate
   benchmark uses two identity hidden layers, growing data and dimension,
@@ -26,6 +38,13 @@ label, activation, optimizer and query-domain qualifications are preserved.
   top and the hierarchy's own residual. The half-MSE clock is explicitly
   related to the manuscript's full-MSE clock. This addition is currently in
   the compact manuscript only and is unchanged by the width/setup update.
+- `compact_figures.tex`: the final, separately captioned collection of all
+  44 top-level static figure assets, including all seven pages of
+  `experimental_gallery.pdf` (50 included panels). PDF is used once per stem;
+  PNG/SVG format copies and interactive-explainer thumbnails are omitted.
+  Alternate assemblies are retained and identified as such. Historical RMS,
+  endpoint, control, and method-name distinctions are stated in the captions;
+  these earlier illustrations are not new experiments or theorem certificates.
 - `compact_width.tex`: complete quantitative source, actual dense lower,
   third-order Legendre approximation and polynomial-onset proofs.
 - `compact_initialization.tex`: complete supplied-dense and implicit-Gaussian
@@ -153,10 +172,17 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error \
   -outdir="$paper_build_dir" compact.tex
 ```
 
-The current integration build is retained in
-`data/generated/headline_threefold_upgrade_20261011/paper_integration_v3/build/`.
-After validation, its PDF is published as `paper/compact.pdf`; the preceding
-PDF is retained beside the integration build as `prior_compact.pdf`.
+The current 113-page build, including the end-of-paper figure collection, is in
+`data/generated/headline_threefold_upgrade_20261011/figure_appendix.833uww/`
+and published as `paper/compact.pdf`. Its figure section occupies pages 90–113.
+The preceding 89-page build, after the statement-only relocation, is retained in
+`data/generated/headline_threefold_upgrade_20261011/feature_theorem_move.RsouOA/`
+and is superseded only by the figure/table editorial changes. The reviewed
+pre-relocation build remains
+in `data/generated/headline_threefold_upgrade_20261011/short_paper_v2/build/`.
+The 94-page rollback build remains at
+`data/generated/headline_threefold_upgrade_20261011/paper_integration_v3/build/`;
+the still earlier PDF is retained beside that build as `prior_compact.pdf`.
 The longer `main.tex` can still be compiled separately, but it is not the
 current manuscript and its PDF is not replaced by this update.
 The static TeX sources, bibliography and included figures suffice to compile

@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,mathrsfs}
 \usepackage{booktabs,array,longtable,enumitem,microtype}
+\usepackage{graphicx,caption}
 \usepackage[hidelinks]{hyperref}
 \usepackage{bookmark}
 \usepackage[nameinlink,noabbrev]{cleveref}
@@ -53,8 +54,9 @@ literal-storage bound for a frozen-top neural tangent hierarchy. This
 manuscript also gives polynomial sufficient widths for Legendre and Taylor,
 and exact-real initialization bounds for both selected constructions:
 near-quadratic work from supplied dense matrices or near-linear work for a
-fresh Gaussian reference sampled implicitly. It makes no empirical or
-finite-precision claim.
+fresh Gaussian reference sampled implicitly. The guarantees are exact-real,
+not finite-precision. A final figure collection provides earlier numerical
+illustrations, separately from the theorems.
 \end{abstract}
 
 \section{Setup and the headline theorem}
@@ -169,26 +171,22 @@ Every storage count charges a nonprimitive activation evaluator's description
 and scratch separately.
 
 \paragraph{What must be remembered.}
-The following is the complete persistent notation. A row with several entries
-counts each entry separately; layer and sample indices do not create new
-objects. The two uses of $\delta$ are counted separately.
+The following is the complete persistent notation.
 \begin{center}\small
-\begin{tabular}{@{}p{0.24\linewidth}p{0.65\linewidth}r@{}}
+\begin{tabular}{@{}p{0.28\linewidth}p{0.66\linewidth}@{}}
 \toprule
-Symbols&Meaning&Count\\
+Symbols&Meaning\\
 \midrule
-$n,m,d,L,p$&width, training count, dimension, depth, passive count&5\\
-$x,v=x/\sqrt d,y,t$&input, normalized input, labels, physical time&4\\
+$n,m,d,L,p$&width, training count, dimension, depth, passive count\\
+$x,v=x/\sqrt d,y,t$&input, normalized input, labels, physical time\\
 $W,w,z,h,r,\delta_a^{(\ell)}$&weights, readout, preactivations, features,
- residuals, backward responses&6\\
+ residuals, backward responses\\
 $\phi,a,\beta,Q,\gamma,Y$&activations, strip, envelope, population Gram,
- gap, label RMS&6\\
-$\cL,\mathcal X,\|\cdot\|_{\mathcal X}$&loss, query domain, trajectory norm&3\\
-$\delta,C$&failure probability, activation/depth constant&2\\
+ gap, label RMS\\
+$\cL,\mathcal X,\|\cdot\|_{\mathcal X}$&loss, query domain, trajectory norm\\
+$\delta,C$&failure probability, activation/depth constant\\
 $f_n,\widetilde f_n,f_{\rm model},f_{\mathrm{NTK},n}$&dense, independent dense,
- compressed and frozen-kernel predictors&4\\
-\midrule
-&&30\\
+ compressed and frozen-kernel predictors\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -267,6 +265,10 @@ This strengthens only the width qualification: the storage formulas, label
 condition, query domains and physical optimizers are unchanged.
 \end{theorem}
 
+\input{feature_learning_theorem}
+
+\subsection{Efficient initialization}
+
 \begin{proposition}[Efficient initialization]
 \label{cp:initialization}
 Under \Cref{cp:headline}, Harmonic and Taylor admit the following exact-real
@@ -321,8 +323,6 @@ The sharp literal-array cost of a frozen-top neural tangent hierarchy is
 treated separately in \Cref{cp:nth:storage}, under a growing-data,
 deep-linear regime.
 
-\input{feature_learning_theorem}
-
 \paragraph{Proof architecture.}
 First establish fitting and finite residual activity without a source
 approximation. A common probabilistic source lemma then controls forward and
@@ -334,8 +334,9 @@ give a dense lower bound at a training input. \Cref{cp:assembly} combines
 these ingredients. A quantitative source argument and a third-order Legendre
 history estimate supply the polynomial width refinement. Numerical source
 construction and a two-direction Gaussian sampler prove
-\Cref{cp:initialization}. Every dependency is supplied below; the older
-decoder and empirical material remain outside this manuscript.
+\Cref{cp:initialization}. Every dependency is supplied below. The older
+decoder theory remains outside this manuscript; earlier numerical figures
+are collected separately at the end.
 
 \input{compact_fitting}
 \input{compact_foundations}
@@ -395,5 +396,7 @@ polynomial onset to the sharper coefficient in the display above.
 
 \bibliographystyle{plain}
 \bibliography{references}
+
+\input{compact_figures}
 
 \end{document}
