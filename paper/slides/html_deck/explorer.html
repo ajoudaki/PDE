@@ -84,7 +84,7 @@ main>p{display:none}
   <div class="viz-row ce-block">
     <label class="form-label">Align by
       <select data-role="alignment" class="form-select" aria-label="Align by">
-        <option value="settled">Recorded endpoints</option><option value="time">Physical time</option><option value="loss">Training loss</option>
+        <option value="settled">Recorded endpoints</option><option value="time">Physical time</option><option value="loss" selected>Training loss</option>
       </select>
     </label>
     <button type="button" class="btn" data-role="play" disabled>Play</button>
@@ -355,7 +355,7 @@ main>p{display:none}
       if(!groups.has(groupLabel)) { const group=document.createElement('optgroup'); group.label=groupLabel; el('experiment').append(group); groups.set(groupLabel,group); }
       const option=document.createElement('option'); option.value=c.id; option.textContent=c.label; groups.get(groupLabel).append(option);
     });
-    el('experiment').value='quad_d30';
+    el('experiment').value='quad_d15';
     function changeCase() { current=data.cases.find(c=>c.id===el('experiment').value); configure(); el('announce').textContent=current.label; }
     el('experiment').addEventListener('change',changeCase);
     el('width').addEventListener('change',configure); el('seed').addEventListener('change',configure);
