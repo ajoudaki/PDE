@@ -15,15 +15,18 @@ initialization proposition gives both supplied-dense and fresh-implicit-Gaussian
 setup costs for Harmonic and Taylor. Storage, error,
 label, activation, optimizer and query-domain qualifications are preserved.
 
-The current reading order is **Introduction → Setup and main results → Related
-work → Discussion → proofs → references → figures**. The 2026-10-11 literature
+The manuscript is split into a main paper and an appendix. The main paper
+reads **Introduction → Setup and main results → Experiments → Related work →
+Discussion → references** (about 16 pages); the appendix (`appendix.tex`)
+holds the proof roadmap, all proofs, the NTH benchmark, experimental
+protocols with additional experiments, and the earlier illustrations. The 2026-10-11 literature
 rewrite frames compression as identifying sufficient memory for deep nonlinear
 learning. The introduction gives a citation-backed, conjunction-specific novelty
 claim; related work includes a comparison table and source-level distinctions
 for the closest predecessors; discussion develops the scientific meaning of
 that memory. It introduces no additional global notation and leaves the setup,
 theorem statements, initialization proposition, and all proof modules unchanged.
-The proof roadmap closes the discussion before the technical sections begin.
+The proof roadmap opens the appendix.
 
 The subsequent proof-only refactor reduces the compiled compact paper from
 94 to 89 pages, reusing established in-paper arguments and shared finite cost
@@ -37,12 +40,24 @@ The later figure-only addition leaves that proof content unchanged and appends
 table now omits the count column while retaining every symbol and definition.
 The earlier introduction/discussion update added two pages, for 115 pages.
 The current expanded literature framing and bibliography produce 122 pages.
+The main/appendix split with the new experiments section gives 129 pages:
+a 16-page main paper and the appendix from page 17.
 
 ## Reading and source structure
 
-- `main.tex`: introduction, setup and main results, related work and
-  discussion, followed by the modular proofs. Its final proof section,
-  `compact_nth.tex`, gives the matching frozen-top NTH literal-storage theorem
+- `main.tex`: the main paper (introduction, setup and main results,
+  experiments, related work, discussion, references), ending with
+  `\appendix` and `\input{appendix}`.
+- `appendix.tex`: proof roadmap, the proof modules below in order, the
+  assembly of the headline theorem, `compact_nth.tex`,
+  `experiments_appendix.tex` and `compact_figures.tex`.
+- `experiments_appendix.tex`: experimental protocols, the cost table
+  `exp_costs_table.tex` and the additional experiment figures. The main and
+  appendix experiment figures are `figures/exp_*.pdf`, rendered by
+  `plot_figures.py` (run `20261012_093059_239291` under
+  `data/generated/paper_appendix_pilots_20261009/paper_plots/`) and copied
+  under an `exp_` prefix so they never overwrite the older gallery assets.
+- `compact_nth.tex` gives the matching frozen-top NTH literal-storage theorem
   and complete proof from the established book's Chapter 7. This separate
   benchmark uses two identity hidden layers, 4 ≤ m ≤ √n samples (fixed m
   already gives size n^Θ(log m)), fixed label magnitude and a short time
@@ -51,7 +66,7 @@ The current expanded literature framing and bibliography produce 122 pages.
   top and the hierarchy's own residual. The half-MSE clock is explicitly
   related to the manuscript's full-MSE clock. This addition is unchanged by
   the width/setup update and entry-point rename.
-- `compact_figures.tex`: the final, separately captioned collection of all
+- `compact_figures.tex`: the last appendix, "Earlier numerical illustrations", a separately captioned collection of all
   44 top-level static figure assets, including all seven pages of
   `experimental_gallery.pdf` (50 included panels). PDF is used once per stem;
   PNG/SVG format copies and interactive-explainer thumbnails are omitted.
