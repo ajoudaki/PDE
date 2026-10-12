@@ -9,8 +9,12 @@
  f_n(x)=\frac1n\,w^\top h^{(L)}(x),
 \]
 \[
- \mathcal L=\frac1m\sum_{a=1}^m\big(f_n(x_a)-y_a\big)^2,\qquad
- \dot\theta=-\operatorname{diag}(n,1,\dots,1,n)\,\nabla_\theta\mathcal L,
+ \mathcal L=\frac1m\sum_{a=1}^m\big(f_n(x_a)-y_a\big)^2,
+\]
+\[
+ \frac{d}{dt}\big(W^{(1)},W^{(2)},\dots,W^{(L)},w\big)
+ =-\Big(n\,\frac{\partial\mathcal L}{\partial W^{(1)}},\ \frac{\partial\mathcal L}{\partial W^{(2)}},\ \dots,\
+ \frac{\partial\mathcal L}{\partial W^{(L)}},\ n\,\frac{\partial\mathcal L}{\partial w}\Big),
 \]
 \[
  W^{(1)}_{ij}\sim\mathcal N(0,1),\quad
