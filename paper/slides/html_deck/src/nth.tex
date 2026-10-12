@@ -1,0 +1,16 @@
+\documentclass[12pt,border=2pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{minipage}{7.1in}
+\textbf{Theorem} (Matched literal storage).
+\textit{Take two identity hidden layers, a fixed short time window, labels
+$0<Y\le1$, and correlated inputs with $m$ samples, $m$ a multiple of four,
+$4\le m\le\sqrt n$. The smallest literal frozen-top hierarchy whose error is
+within a fixed multiple of the actual dense-run discrepancy, with fixed
+probability, has retained size}
+\[
+ \exp\big[c_Y\log m\,\log n\big]\ \le\ S_n\ \le\ \exp\big[C_Y\log m\,\log n\big],
+ \qquad\text{that is,}\qquad S_n=n^{\Theta(\log m)}.
+\]
+\end{minipage}
+\end{document}

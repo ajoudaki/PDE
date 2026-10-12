@@ -1,0 +1,22 @@
+\documentclass[12pt,border=2pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{minipage}{7.1in}
+\textbf{Theorem} (Compression preserves nonlinear feature learning).
+\textit{Suppose further that every activation is nonaffine and no two training
+inputs are parallel or antiparallel. There are $c_*,t_*>0$, independent of
+width, such that for each fixed $0<t\le t_*$, with probability tending to one,
+each compressed predictor satisfies}
+\[
+ \inf_{a\in\R^d,\,b\in\R}\ \sup_{x\in\mathcal X}
+ \big|f_{\rm model}(t,x)-a^\top x-b\big|\ \ge\ c_*t,
+ \qquad
+ \sup_{x\in\mathcal X}\big|f_{\rm model}(t,x)-f_{\mathrm{NTK},n}(t,x)\big|\ \ge\ c_*t^3,
+\]
+\textit{and every hidden layer of the dense reference moves,}
+\[
+ \Big(\frac1n\sum_{a=1}^m\big\|h^{(\ell)}(t,x_a)-h^{(\ell)}(0,x_a)\big\|_2^2\Big)^{1/2}
+ \ \ge\ c_*t^2\qquad(1\le\ell\le L).
+\]
+\end{minipage}
+\end{document}

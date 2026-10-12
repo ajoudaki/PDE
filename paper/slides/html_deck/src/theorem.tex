@@ -1,0 +1,30 @@
+\documentclass[12pt,border=2pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{minipage}{7.1in}
+\textbf{Theorem} (Compression of the complete learning trajectory).
+\textit{Fix depth $L\ge2$, $m$ training pairs on the sphere, and activations
+analytic on a strip with bounded derivative. Initialise with Gaussian weights
+and zero readout, assume a positive initial feature-Gram gap $\gamma$, and labels
+$0<Y\le(\gamma/m)\,\beta^{-30L}$, all fixed as the width $n\to\infty$. Each
+construction satisfies}
+\[
+ \frac{\|f_{\rm model}-f_n\|_{\mathcal X}}{\|f_n-\widetilde f_n\|_{\mathcal X}}
+ \xrightarrow{\ \mathbb P\ }0,
+ \qquad
+ \|g\|_{\mathcal X}=\sup_{t\in[0,\infty]}\ \sup_{x\in\mathcal X}|g(t,x)|,
+\]
+\textit{where $\widetilde f_n$ is an independently initialised dense run, with
+retained state}
+\[
+\begin{array}{@{}l@{\qquad}l@{\qquad}l@{}}
+ \text{Legendre} & n^{5/4+o(1)}\ \text{moving},\ \text{plus}\ (L-1)n^2\ \text{fixed} & \text{whole sphere}\\[2pt]
+ \text{Harmonic} & O\big((\log n)^{3d+2}\big)\ \text{in total} & \text{whole sphere}\\[2pt]
+ \text{Taylor} & O\big((\log n)^{3}\big)\ \text{in total} & \text{declared input panel}
+\end{array}
+\]
+\textit{Harmonic and Taylor also satisfy $\|f_{\rm model}-f_n\|_{\mathcal X}\le Y/n$.
+For Legendre and Taylor the sufficient width is polynomial in the problem
+parameters, the confidence and the accuracy.}
+\end{minipage}
+\end{document}
