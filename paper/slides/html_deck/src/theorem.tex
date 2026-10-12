@@ -1,30 +1,43 @@
 \documentclass[12pt,border=2pt]{standalone}
 \input{preamble}
 \begin{document}
-\begin{minipage}{7.1in}
-\textbf{Theorem} (Compression of the complete learning trajectory).
-\textit{Fix depth $L\ge2$, $m$ training pairs on the sphere, and activations
-analytic on a strip with bounded derivative. Initialise with Gaussian weights
-and zero readout, assume a positive initial feature-Gram gap $\gamma$, and labels
-$0<Y\le(\gamma/m)\,\beta^{-30L}$, all fixed as the width $n\to\infty$. Each
-construction satisfies}
-\[
+\begin{minipage}{7.95in}
+\setlength{\abovedisplayskip}{5pt}\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayshortskip}{3pt}\setlength{\belowdisplayshortskip}{5pt}
+\textbf{Theorem 2.1} (Compression of the complete learning trajectory).
+\textit{Train a width-$n$ network of fixed depth $L\ge2$ by full-batch gradient
+flow on squared loss with block mobilities $(n,1,\dots,1,n)$, from Gaussian
+weights and zero readout, on $m$ training pairs on the sphere. Let the
+activations be analytic on a strip with bounded derivative, the population
+feature Gram have gap $\gamma>0$, $m/\gamma\ge1$, and
+$0<Y\le(\gamma/m)\,\beta^{-30L}$, all fixed as $n\to\infty$. Each
+construction can be chosen so that}
+\begin{equation}\tag{7}
  \frac{\|f_{\rm model}-f_n\|_{\mathcal X}}{\|f_n-\widetilde f_n\|_{\mathcal X}}
  \xrightarrow{\ \mathbb P\ }0,
  \qquad
  \|g\|_{\mathcal X}=\sup_{t\in[0,\infty]}\ \sup_{x\in\mathcal X}|g(t,x)|,
-\]
-\textit{where $\widetilde f_n$ is an independently initialised dense run, with
-retained state}
-\[
-\begin{array}{@{}l@{\qquad}l@{\qquad}l@{}}
- \text{Legendre} & n^{5/4+o(1)}\ \text{moving},\ \text{plus}\ (L-1)n^2\ \text{fixed} & \text{whole sphere}\\[2pt]
- \text{Harmonic} & O\big((\log n)^{3d+2}\big)\ \text{in total} & \text{whole sphere}\\[2pt]
- \text{Taylor} & O\big((\log n)^{3}\big)\ \text{in total} & \text{declared input panel}
-\end{array}
-\]
-\textit{Harmonic and Taylor also satisfy $\|f_{\rm model}-f_n\|_{\mathcal X}\le Y/n$.
-For Legendre and Taylor the sufficient width is polynomial in the problem
-parameters, the confidence and the accuracy.}
+\end{equation}
+\textit{where $\widetilde f_n$ is an independent dense run, with at most these
+real coordinates:}
+\begin{align}
+ \text{Legendre, moving:}\quad&
+ Cm\Big(\frac m\gamma\Big)^3 n^{5/4}[\log(en)]^2e^{\sqrt{\log(en)}/2},
+ \tag{8}\\
+ \text{Harmonic, total:}\quad&
+ C(m+d)^2+\Big(\frac Cd\Big)^{d+1}\Big(\frac{Ym}\gamma\Big)^4[\log(en)]^{3d+2},
+ \tag{9}\\
+ \text{Taylor, total:}\quad&
+ C(m+p)^2\Big[\Big(\frac{Ym}\gamma\Big)^4[\log(en)]^3
+ +\Big(\frac m\gamma\Big)^2[\log(en)]^2[\log(e+\log(en))]^2\Big]
+ +C(m+p)d.
+ \tag{10}
+\end{align}
+\textit{Legendre also keeps $(L-1)n^2$ fixed mixer coordinates. Harmonic and
+Taylor also satisfy $\|f_{\rm model}-f_n\|_{\mathcal X}\le Y/n$ \textup{(11)} at
+every fixed confidence for large width. For Legendre and Taylor the
+sufficient width is polynomial \textup{(12)}. $\mathcal X$ is the whole sphere
+for Legendre and Harmonic, and the training inputs with $p$ declared passive
+inputs for Taylor.}
 \end{minipage}
 \end{document}
