@@ -1,96 +1,125 @@
-% Suggested replacement prose only; not installed in paper_MFP/main.tex.
-% Citation keys are supplied in references.bib in this study.
+% Suggested prose only; not installed in paper_MFP/main.tex.
+% The study's reassessment_calculus.md derives the initial-jet specialization.
 \section{Introduction}
 
-How can one calculate the expected initial derivatives of a deep neural
-network without deriving a separate system of equations for each observable?
-Even at fixed depth and fixed derivative order, the calculation rapidly
-involves forward activations, backward vectors, products of derivatives,
-normalized contractions, and repeated uses of the same weight matrices.
-Training derivatives add a further dependency: the direction of motion
-changes with the parameters and with the predictions on the entire batch.
-A useful calculus must retain these dependencies while turning the requested
-quantity into an explicit computation whose dimension is independent of
-network width.
+A theory of wide neural networks should support calculations with the
+quantities through which learning acts: predictions, losses, hidden features,
+kernels, and their responses to changes in the parameters. A useful question
+is therefore the following. Given a deep network, a correlated labelled batch,
+an observable, and a finite derivative order, can one obtain its mean-field
+expectation by a uniform set of symbolic rules? A satisfactory answer should
+specify the formulas it accepts, retain the network's actual parameter sharing
+and training dynamics, determine every covariance and response coefficient,
+and prove that the resulting calculation evaluates the requested limit.
 
-The probabilistic foundation for such calculations is supplied by Tensor
-Programs. Its Gaussian source-response rules account for matrix and transpose
-reuse, including singular query covariances and causal scalar averages
-\cite{yang2021tp3}. Smooth-program moment estimates supply the corresponding
-expectation and finite-$L^p$ limits \cite{golikov2022nongaus}. The later
-Tensor Programs IVb develops a broader language and an explicit
-backpropagation calculus \cite{yang2023tp4b}. These results
-already support feature-learning limits under maximal-update
-parameterization \cite{yang2021tp4}. Higher-order neural derivative
-hierarchies and symbolic Gaussian calculations also have substantial
-precedents \cite{huang2020nth,chen2020lantk,dyer2019feynman,aitken2020nonlinear}.
-The question addressed here is constructive: how to specify a derivative
-query, compile it without changing the finite network it describes, and
-return an inspectable Gaussian-expectation formula with a precise domain of
-validity.
+The difficulty is that differentiation changes the probabilistic computation.
+Forward propagation, backpropagation and subsequent derivatives reuse the same
+random matrices in both orientations. Derivatives of a training observable also
+differentiate the residuals and the direction of motion itself. Treating a
+reused matrix as fresh, or freezing a moving gradient direction, changes the
+answer. Direct finite-network differentiation resolves the algebra but leaves
+a random computation whose dimension grows with width. What is needed is a
+calculus connecting that finite computation to explicit Gaussian integrals.
 
-Mean-field peeling (MFP) provides this construction for a declared typed
-language of finite Gaussian neural programs. The language contains
-coordinate nonlinearities and their derivatives, sums and products,
-normalized averages, named matrix and transpose calls, and represented
-parameter updates. Its differentiation rules cover the specified input and
-parameter directions, scaled gradients, admitted contractions, finite
-updates, and finite moving-flow jets. Admissibility is determined by these
-rules; it is not an assumption that an arbitrary derivative tensor can be
-reduced successfully.
+Mean-field peeling (MFP) supplies this connection for a declared language of
+Gaussian neural derivative programs. Its master theorem connects exact
+finite-width derivative compilation to a constructive Gaussian limit;
+a symbolic compiler implements the same rules. The language contains coordinate
+nonlinearities and their derivatives, polynomial arithmetic, normalized
+averages, named matrix and transpose actions, represented parameter updates,
+and specified directional derivatives and gradient contractions. It is closed
+under fixed numbers of admitted gradient updates and arbitrary fixed-order
+initial gradient-flow jets. Thus the observable and derivative order are
+inputs to the calculus; the derivation rules do not have to be redesigned for
+each new calculation.
 
-For an admitted scalar observable $O_n$ at width $n$, the construction
-returns a finite Gaussian-expectation graph $\mathcal G_O$ such that
+More precisely, for an admitted scalar query $O_n$ at width $n$, the construction
+produces a finite Gaussian-expectation graph $\mathcal G_O$ and proves
 \[
-  O_n \longrightarrow \operatorname{Eval}(\mathcal G_O)
-  \quad\text{in }L^p,\qquad 1\leq p<\infty.
+ O_n\longrightarrow\operatorname{Eval}(\mathcal G_O)
+ \quad\text{in }L^p,\qquad 1\le p<\infty.
 \]
-The program, depth, sample count, derivative order, and number of updates
-are fixed before $n\to\infty$. Initial root tuples are independent across
-neurons, with fixed Gaussian laws that may have singular covariances;
-initial scalar parameters are deterministic. The activation is smooth and
-every derivative has polynomial growth. The theorem also supplies uniform
-moments and joint empirical laws for the resulting vector computations.
+Every node has an explicit integrand and covariance determined by earlier
+nodes; the final output is a polynomial in these expectation values and the
+fixed parameters. Matrix-reuse responses are computed from the program rather
+than supplied as unknown neural laws. Uniform moment estimates justify the
+expectation limit, and the construction includes singular covariances and
+causal feedback through empirical averages. Compilation of derivatives is an
+identity at each finite width; the Gaussian graph evaluates the infinite-width
+limit of that identity.
 
-There are two exactness statements. Compilation by the product, chain and
-adjoint rules is an identity at every finite width. Gaussian evaluation is
-an exact formula for the resulting width limit. For example, with
-$W_{ij}\sim N(0,1/n)$ independently and $G\sim N(0,1)$,
+For initial neural response, the calculus gives a sharper description. Consider
+a zero-bias MLP with $L$ hidden layers, width $n$, fixed inputs $x_a\in\mathbb R^d$
+and labels $y_a$, $1\le a\le m$, with
 \[
- \lim_{n\to\infty}\mathbb E
- \left[\frac1n\left\|W^{\mathsf T}\phi(W\mathbf1)\right\|^2\right]
- =\mathbb E[\phi(G)^2]+\mathbb E[\phi'(G)]^2.
+ \begin{aligned}
+ z_a^{(1)}&=W^{(1)}x_a/\sqrt d,&
+ z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)}\quad(2\le\ell\le L),\\
+ h_a^{(\ell)}&=\phi(z_a^{(\ell)}),&
+ f_{n,a}&=W^{(L+1)\top}h_a^{(L)}/n.
+ \end{aligned}
 \]
-The second term records reuse of the original matrix. For identity
-activation the finite-width expectation is $2+1/n$, while the graph
-evaluates to $2$. The same distinction applies to more elaborate neural
-queries.
+Initialize all parameter entries independently with centered Gaussian laws:
+first-layer variance one, hidden-matrix variance $1/n$, and stored-readout
+variance $\tau^2$ fixed. Use the stated mean-field gradient metric: mobility
+$n\kappa_\ell$ on the first-layer columns and readout, and $\kappa_\ell$ on
+hidden matrices, with fixed block factors. For squared loss
+$\mathcal L_n=m^{-1}\sum_a(f_{n,a}-y_a)^2$, every fixed-order
+initial flow jet of an admitted polynomial observable---including predictions,
+losses and feature kernels---reduces to finite sums and products of moments.
+Here the observables are assembled from original network quantities by
+polynomial arithmetic, permitted averages and contractions, and gradients of
+expressions in this same class. No additional nonlinear function is applied to
+a derivative field. The moments are
+\[
+ \mathbb E_{Z\sim N(0,\Sigma^{(\ell)})}
+       \prod_{j=1}^{k}\phi^{(r_j)}(Z_{a_j}),
+ \qquad a_j\in\{1,\ldots,m\},\quad r_j\ge0.
+\]
+Here $k$ is finite, indices may repeat, and the covariances are those of the
+original forward pass:
+\[
+ \Sigma^{(1)}_{ab}=x_a^\top x_b/d,\qquad
+ \Sigma^{(\ell+1)}_{ab}
+ =\mathbb E_{Z\sim N(0,\Sigma^{(\ell)})}\phi(Z_a)\phi(Z_b).
+\]
+This follows because finite differentiation raises activation derivative orders
+at the original preactivations; a terminating Wick--Stein reduction then removes
+the auxiliary polynomial Gaussian factors. Each remaining activation integral
+uses at most $m$ coordinates, independently of depth and derivative order.
+The number of terms and required activation derivatives can still grow.
+This is the initialization subclass of the general theorem; nonlinearities
+applied to updated preactivations require the general Gaussian graph.
 
-The construction separates physical derivatives of the finite network from
-formal Gaussian-source derivatives in the response corrections. Physical
-derivatives propagate through computed scalars and moving directions.
-Formal source derivatives hold already evaluated scalar expectations fixed
-and retain distinct source slots even when covariance is singular. These
-conventions determine the executable rules, rather than being left to
-informal simplification.
+The compiler makes these statements usable. A typed mathematical builder records
+the network and observable, including shared parameter blocks, symbolic input
+geometry and labels. General derivative and jet operations then return the
+formula, its Gaussian integrands and covariance tables, and an inspectable
+transformation trace. The worked examples cover matrix reuse, singular queries,
+represented updates, moving directions, MLP gradient observables and labelled
+feature-kernel jets. Generic Gaussian integrals remain explicit; polynomial
+specializations admit exact moment evaluation. To request the smaller
+activation-moment form, the caller declares the original preactivation nodes;
+the compiler rebases and prunes the integration coordinates while retaining
+the formal source identities. The distinction between physical
+network derivatives and formal source derivatives is enforced in the construction.
 
-The accompanying symbolic compiler implements this interface and returns
-the scalar formula, its Gaussian integrands and covariance tables, and the
-transformation trace. Generic Gaussian integrals may remain unevaluated;
-polynomial specializations can reduce to exact arithmetic. Worked examples
-progress from a reused transpose and represented updates to MLP gradient
-observables and the initial jets of a final hidden feature kernel under
-batch gradient flow, with symbolic input-geometry factors and labels.
-The latter kernel is a specified feature kernel, not the full tangent
-kernel. A separate initialization result reduces a restricted class to
-activation-derivative moments by Wick and Stein identities; its literal
-preactivation restriction is essential.
+The probabilistic foundation is the constructive Tensor Programs calculus
+\cite{yang2021tp3,golikov2022nongaus,yang2023tp4b}, including its
+feature-learning parameterizations \cite{yang2021tp4}. MFP develops that
+foundation into a specified calculus of neural derivative queries, with exact
+closure, an activation-moment reduction and an executable realization. Its
+scientific value is that a class of nonlinear response calculations becomes a
+single mathematical and computational task: specify the observable, expand its
+physical derivatives, and obtain a justified Gaussian formula. The relationship
+to derivative hierarchies, diagrammatic calculations and existing software is
+made precise below.
 
-The contribution is this explicit derivative language, constructive
-correctness argument, symbolic implementation, and collection of fully
-specified calculations. It is not a new general probabilistic program
-limit theorem. Nor does finiteness of the output graph imply efficient
-compilation, elementary Gaussian integrals, convergence of the Taylor
-series, or reconstruction of the network at positive training time.
-These boundaries keep the calculus usable without attributing guarantees
-to it that its finite-query theorem does not provide.
+The assumptions attach to the whole construction. The activation is smooth with
+polynomial growth of every derivative; root laws are fixed Gaussian laws, with
+independent neuronwise tuples and deterministic initial scalar parameters.
+Depth, data dimensions, derivative order, update count and the program are fixed
+before width tends to infinity. The theorem gives finite-query expectation
+limits, without requiring a convergent Taylor series or claiming a positive-time
+reconstruction or a general efficiency bound. These boundaries specify the
+calculus for which correctness is proved.

@@ -1,6 +1,11 @@
 {
   "date": "2026-10-11",
-  "purpose": "Frozen downloaded sources and validation outputs; coverage and primary URLs are in the linked paper reports, not inferred from file presence.",
+  "revision": 2,
+  "purpose": "Frozen downloaded sources, study artifacts and validation outputs. Reading coverage and primary URLs are recorded in the named source reports; file presence is not a reading or verification claim.",
+  "target_manuscript": {
+    "path": "paper_MFP/main.tex",
+    "sha256": "a43acbc76e53a3437ed5136137fd8e5497a6d65826447c1ac95764a1cba8d38e"
+  },
   "files": [
     {
       "path": "data/generated/mfp_literature_positioning_20261011/feynman/aitken.pdf",
@@ -13,9 +18,39 @@
       "sha256": "dfb01adedeb57b9bead3789e944fd537407296857462b5868b6f3c025a7f02a4"
     },
     {
+      "path": "data/generated/mfp_literature_positioning_20261011/feynman/dyer-refs.json",
+      "bytes": 962,
+      "sha256": "754f5e064c1d901431b2b6136f146bd1c51af171ceb3d30cf578621b0098b272"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/framing/build.log",
+      "bytes": 6705,
+      "sha256": "0acf0b68aad1c99f32276d9fad41071dcb81a2e391500b416e567c857d510a5a"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/framing/proposed_framing.log",
+      "bytes": 15746,
+      "sha256": "804bb15b772987657c4bdfd5a1627e12f61bb29cb10d2c9dc8d9acd0b812c41e"
+    },
+    {
       "path": "data/generated/mfp_literature_positioning_20261011/framing/proposed_framing.pdf",
       "bytes": 253501,
       "sha256": "24ef7c5d3bbe4dbfbfda50574e9389439dfcbe6ae5e68ba09a031775b8755b64"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/framing_v2/build.log",
+      "bytes": 14707,
+      "sha256": "3db47a24bd8b40cf62a0bed8e23d287ae54f0f8f767f187b0887df801e0c5111"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/framing_v2/proposed_framing.log",
+      "bytes": 15770,
+      "sha256": "e6e1549d59292cb7a4ce24a707e1f88464857c8e4a400056feff315d94e121c2"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/framing_v2/proposed_framing.pdf",
+      "bytes": 270760,
+      "sha256": "d389c1a4f8358cef6b76c89be23995ed6c7c56b8a76f8c2d2b53814337c0cf04"
     },
     {
       "path": "data/generated/mfp_literature_positioning_20261011/independent/checks.json",
@@ -28,9 +63,44 @@
       "sha256": "2a4cdd95357fe8b6363bb50ad8ebe2c57df9287492d5588c62953af2761c935d"
     },
     {
+      "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/calculus.log",
+      "bytes": 74198,
+      "sha256": "6c81de3c21840de327c6177659628bab784db710de70f41547362aecac815a63"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/kernel_jets/identity.json",
+      "bytes": 272386,
+      "sha256": "66134797a0008cf0a5a521f96615a1b4bf84e54c820c7292828ce8ebb3efce9a"
+    },
+    {
       "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/kernel_jets/manifest.json",
       "bytes": 1350,
       "sha256": "2bce00ab98f7c02da166752793d96a4b2f1ec4139d163a1cf4a182ef9627f45d"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/kernel_jets/quadratic.json",
+      "bytes": 1321169,
+      "sha256": "7ffe544acd5430c1a8a11d16df5f529a72b34dfee6286cbaed2c9538c51f9a6f"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/kernel_jets/symbolic.json",
+      "bytes": 1320972,
+      "sha256": "6f7aaa63e324ce53d67055fc7e04b126a60fa2e307c929a968d1b1d4a579262a"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/kernel_jets.log",
+      "bytes": 127,
+      "sha256": "7db925c4125563d290bacbce73e16be420d218342e6f48977a230cb667c79291"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/mlp_cubic.log",
+      "bytes": 28684,
+      "sha256": "ca37a250a8cb899418dfef216996f7bfc85b5ba2f031acbc1b1cc2be7ba9d2b9"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/mlp_symbolic.log",
+      "bytes": 20761,
+      "sha256": "fc69864e665ec908222fcbef901dbf1fdd2ebbaeede4bc8b57ad27ab521cc5b1"
     },
     {
       "path": "data/generated/mfp_literature_positioning_20261011/mfp_examples/runs.json",
@@ -58,6 +128,11 @@
       "sha256": "05569ae157ef8e5adb43cadcae39426949ba1f855112a227c7145ea9639d3dac"
     },
     {
+      "path": "data/generated/mfp_literature_positioning_20261011/nongaus/neurips-supp.zip",
+      "bytes": 1656469,
+      "sha256": "dc450374fccac0b016ec3720e1b84b08b73e5e4a3a9a54b16478893b5e1a3af2"
+    },
+    {
       "path": "data/generated/mfp_literature_positioning_20261011/nongaus/openreview-old.pdf",
       "bytes": 822062,
       "sha256": "24aa64245bf0469e3746971dab48c93f2bac5a393480f1bab7a80e449d670f38"
@@ -66,6 +141,101 @@
       "path": "data/generated/mfp_literature_positioning_20261011/nongaus/openreview-revision.pdf",
       "bytes": 892704,
       "sha256": "9f0702014afbff70c7c2457be01f5cda4ce1cb590bab3cdd20185f1dd641f7cb"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/nongaus/openreview-revisions.json",
+      "bytes": 876,
+      "sha256": "fd0a23638045e93985dd67a3e373abc374d0de6b63acc147356dd884b8e7758d"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_calculus/checks.log",
+      "bytes": 476,
+      "sha256": "bd98a137fa44598f833289833b1f208d54f7010e2c43679fef505173ab3d0f27"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_calculus/source_hashes.json",
+      "bytes": 2272,
+      "sha256": "2f56a6498ceff8b929d053d6a6e965d1acc66ca70d627e4fe34d8dd8e03e68dd"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/guillen26a.pdf",
+      "bytes": 1550056,
+      "sha256": "81dde33865d30d6ffd00078d66fc4888a2ec5670f408aff48be743e9e8ff5bcc"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/ntk-unlimited-22f40289b1aa4fc36fe670abcf03c3c30a141651/examples/inputs/debug_tensor.json",
+      "bytes": 296,
+      "sha256": "017fc08bb733595faa29f929304a2c5386237866ab632d0337090100b8d7b0fd"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/ntk-unlimited-22f40289b1aa4fc36fe670abcf03c3c30a141651/examples/inputs/input_Gelu_width_corrections.json",
+      "bytes": 172,
+      "sha256": "8000c9e8f4d7e3bd4120e4553515da8f20c33e234d65ca72f5851938441c1997"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/ntk-unlimited-22f40289b1aa4fc36fe670abcf03c3c30a141651/examples/inputs/input_ReLU_width_corrections.json",
+      "bytes": 171,
+      "sha256": "3a45fb10b493a3368985387df5ab21f88d8cea83648bab04a1ffbb07bc4ad3d8"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/ntk-unlimited-22f40289b1aa4fc36fe670abcf03c3c30a141651/examples/inputs/input_depth_stability.json",
+      "bytes": 365,
+      "sha256": "ebe088b22ae0338bd29ed487fc5543f1bc0b5558257deddaa8e8c46d30672dc0"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/ntk-unlimited-22f40289b1aa4fc36fe670abcf03c3c30a141651/examples/inputs/input_recursions.json",
+      "bytes": 542,
+      "sha256": "881ac0120437e39bb68db5346f776e6a3a92ec8adc857b36cb5a1d5c232471a9"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/ntk-unlimited-metadata.json",
+      "bytes": 6248,
+      "sha256": "a7e563c46d4442abdc51b9d3e746249a3622fe45f63c9ec04b5cc0880fae62ae"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_discovery/ntk-unlimited-tree.json",
+      "bytes": 14030,
+      "sha256": "3666090414131a9f44e998e8c96578bfdd8ec6def2c9911ab1814bd98e2fc06e"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_dmft/arxiv-v3.pdf",
+      "bytes": 1875711,
+      "sha256": "43b5f7262917ff751f8f4fe8660128973f6daace657eca1837451a4013bff92b"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_dmft/code-commit.txt",
+      "bytes": 41,
+      "sha256": "6b28348ec27a7986a35580831866985d3f8b682aad244bb859e6d180ce7ef585"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_dmft/journal-nsf.pdf",
+      "bytes": 2511362,
+      "sha256": "a7820b833792081f59103aac3724f63cf8647b707831b48fa48e8a820a05cb05"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_dmft/neurips-supplement.zip",
+      "bytes": 4000795,
+      "sha256": "69c0a673e53d35d5c393ab2140f085d672f4244a4f0ada2699a87ffd544d6d33"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_dmft_linear_check/finite_jet_check.json",
+      "bytes": 731,
+      "sha256": "00cc995663e4887ac88b9ba40ec7ed0487cdcb05d379290363bc01d6e8887a8b"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_quantitative_tp/1910.12478.pdf",
+      "bytes": 1323850,
+      "sha256": "dbc015a2364ad0e2417f1e05a1127f6c457d248a007a73d66a76946bd4de956c"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_quantitative_tp/2607.06290v1.pdf",
+      "bytes": 682104,
+      "sha256": "f6c52d5420441da07916f3e2cf559c1cbc340068a7fdd5f5f7a4a5c6d4609aa9"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/reassessment_validation.json",
+      "bytes": 569,
+      "sha256": "494ba640ea96761d4117c2d60fe852f5eb8ddadb3d48c23e5d6adb30a2492afd"
     },
     {
       "path": "data/generated/mfp_literature_positioning_20261011/root/feynman.pdf",
@@ -118,6 +288,21 @@
       "sha256": "c397e68fd2bc9a3333c49c5b1a07e064c9e8ba0d1868628fc6d19a7104d3c12a"
     },
     {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/GP4A_metadata.json",
+      "bytes": 7465,
+      "sha256": "565cde94c36766a5bb2d5984bdd19a7fa06d392aff9eb8ec231d2f317e082b38"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/mfp_interface_probes.log",
+      "bytes": 259,
+      "sha256": "1f94da65009338d073d4cbf8085d2f43ac6733da9e84cbe4cd4e4923f3a662de"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/neural-tangents_metadata.json",
+      "bytes": 35832,
+      "sha256": "685aaefe496f8951c154a6a3443376f6c45d9ffa9ce2bbbfb5e49d2c519a400f"
+    },
+    {
       "path": "data/generated/mfp_literature_positioning_20261011/software/source_manifest.json",
       "bytes": 26813,
       "sha256": "90afee93bc2371054e45b4f15cf9de97a34a0c7548d9a6c2c41d2ab00ccdcacd"
@@ -126,6 +311,31 @@
       "path": "data/generated/mfp_literature_positioning_20261011/software/tensorgrad/paper/cookbook.pdf",
       "bytes": 1084398,
       "sha256": "998e31d74bcfc320532f944dbc3b9135fc4134c9a2ab8ea844aee041f5327700"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/tensorgrad_metadata.json",
+      "bytes": 99000,
+      "sha256": "9f3ac90caebd5f39bb6a84d730f0fab03f71a843ebedb3e61dd16d184cb37c9b"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/tensorgrad_moving_second_unnormalized.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/tensorgrad_probe_initial.log",
+      "bytes": 25,
+      "sha256": "bf654b3a124f4e9a90e8b87ccb09cd2cf8a30286cb246ae26ce03c8c2c108fdf"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/tensorgrad_probe_results.json",
+      "bytes": 1711,
+      "sha256": "c48eb716eec479fd992482a70984e351399c31dd24352ef5a1f89eafe2a0b875"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/software/tensorgrad_probe_small_results.json",
+      "bytes": 313,
+      "sha256": "169eae1c80998a04544363f7f3cf3578bc2b1eabcb1e1bd24a0db20ce0cce640"
     },
     {
       "path": "data/generated/mfp_literature_positioning_20261011/tp3/tp3.pdf",
@@ -163,6 +373,11 @@
       "sha256": "d93eaf9ca5263627e96eb9c56dd60605aee3ed9f86bef4da3fed1d41dd2198c3"
     },
     {
+      "path": "data/generated/mfp_literature_positioning_20261011/tp4/software_commit.json",
+      "bytes": 5763,
+      "sha256": "05220e5f9b0c988c408ba6e040967093af3b4de1ec719dc924c169dfdf7d0a09"
+    },
+    {
       "path": "data/generated/mfp_literature_positioning_20261011/tp4/supp.pdf",
       "bytes": 820744,
       "sha256": "c397e68fd2bc9a3333c49c5b1a07e064c9e8ba0d1868628fc6d19a7104d3c12a"
@@ -171,6 +386,11 @@
       "path": "data/generated/mfp_literature_positioning_20261011/tp4b/ng_appendix.pdf",
       "bytes": 790700,
       "sha256": "d72e99b926952aa133d28f21216783f46ea652c5877a68bd5d765563a7f4adb8"
+    },
+    {
+      "path": "data/generated/mfp_literature_positioning_20261011/tp4b/non_gaussian_supp.zip",
+      "bytes": 1656469,
+      "sha256": "dc450374fccac0b016ec3720e1b84b08b73e5e4a3a9a54b16478893b5e1a3af2"
     },
     {
       "path": "data/generated/mfp_literature_positioning_20261011/tp4b/non_gaussian_tp.pdf",
@@ -186,6 +406,140 @@
       "path": "data/generated/mfp_literature_positioning_20261011/tp4b/tp4b-v2.pdf",
       "bytes": 2098654,
       "sha256": "fb5653c418d4b35dbd5133810cc9313a75a2167b820dada18d6428b3bb0538b1"
+    }
+  ],
+  "study_artifacts": [
+    {
+      "path": "studies/mfp_literature_positioning_20261011/README.md",
+      "sha256": "952d585428faa120b0c0cbd7910b48a2a673f343da2492381cf399702479e743"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/independent_formula_checks.md",
+      "sha256": "29b32213b4dbbef6cf7176416f06d8a5a26214226884cd3e194c783c0711c570"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/independent_mfp_audit.md",
+      "sha256": "ebc53d67d7c8b7b613e3f31e0b41ae66ff636dca89d35d9d67cd6f392ee5a123"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/independent_proof_checks.md",
+      "sha256": "b3ae599917c67b086981ba34f2041c3418b7990510926c8f058ed2d0c2019b30"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/literature_review.md",
+      "sha256": "f79b697d86d4d329dd8aefe29cef18b9f5a15ab4e637ca9fc052790a2b0a44a8"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/literature_review_v1.md",
+      "sha256": "8236af15c11d8b83413c50c4adecee2fda616d5e67e81892ed6fbd1c9cbbda82"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/manuscript_assessment.md",
+      "sha256": "75b8a4c6f973feb75aa68f52bd440650c3fb5886631fd396b183d6a37689e38f"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/proposed_framing.tex",
+      "sha256": "add1b329fc5b41b035f9110d6fdeb5544155ec64e0d7a112dca4062269402935"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/proposed_framing_v1.tex",
+      "sha256": "3e0f7d52bef03e6158a6f8357f9c903f488288479b390817e4616f6402fce2e0"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/proposed_introduction.tex",
+      "sha256": "17556b49da99d4a6f72675c932bece9f6020cc95519f615e28d39c97ad20cd60"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/proposed_introduction_v1.tex",
+      "sha256": "6b51a6024e64ece78b605d4d32e830a1611162322630ebbde189e44cb90525da"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/proposed_related_work.tex",
+      "sha256": "bf1436f7724c9e293881cacd72848f9643fe948ef2e33cd8aadb3652a875469c"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/proposed_related_work_v1.tex",
+      "sha256": "6ce759c8f0a13ea0cfae172f20256120887fd10021c3be550af11ec07ec665bb"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_calculus.md",
+      "sha256": "06bb2d03d2cd39e5240f4dec644a748d54d5490cc411becedf72e64c17f349a1"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_calculus_checks.py",
+      "sha256": "1a4252e5fa3b5c47895c4bb98697cef357dffbe767945c5f59c9f547e1f231ca"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_discovery.md",
+      "sha256": "0cc3968fb4f1cf9318b87ec93ef2de02890fc1745f0e790644d0c071e247b3d6"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_dmft.md",
+      "sha256": "549265f5567cf2e108a3ec0ca0ae081e9e842bb657dc01b62f6ba39caeccf3f0"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_dmft_linear_check.md",
+      "sha256": "416cd183ee1884ddb30751e73bc3cf2922452ae9119bf99e1f8072b77bd59465"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_dmft_linear_check.py",
+      "sha256": "7901b6ce6c32aef8d75b933197e411b2a4164e77695877fcfc3b5bef05a510bb"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_framing_check.md",
+      "sha256": "151163549a83772e1f8bd45821cb22cb1eefd4576ab51d069f12331c68220c44"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_normal_form_check.md",
+      "sha256": "27ec6c4d7dba40872a2c0cccc8d4fe89a8c576ece8486a11aa8f70e6c6e58478"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_quantitative_tp.md",
+      "sha256": "ad21b66f106d76c191aab757d74ed96722976db13d648fe319111e9930a8525b"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/reassessment_tp4b.md",
+      "sha256": "51c855e4e9c81a83f3ed945381abf0ee442bdfc9e47f86ccb77b6a1e8f423f15"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/references.bib",
+      "sha256": "c7940b13cb5534af672a62cb178cad88a88e969d3f4f68ed6cfbc1e1d5263769"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/references_v1.bib",
+      "sha256": "6f04fd9df5e0b78db411c9e2a1e57bfa8f4b958e9c3b2399da8520ae5d60fc64"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_feynman.md",
+      "sha256": "b8d299a0cc16b610351a5ff631910652fdbf048db26d0c6ffaf7097e2f8dab75"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_lantk.md",
+      "sha256": "6a457884b35ef09ed0b2553065ce6f4efcadc1c16204e5bcfc72bd0a34920c7e"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_nongaus.md",
+      "sha256": "17b589fd95daefe237a7979a87c805e3231f2f6d15e7dad9906cf52aeabc886c"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_nth.md",
+      "sha256": "7d6f0049a5c768997a52ff22c5b4d2a000e370a6a03b7d711cf12c92f588651d"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_software.md",
+      "sha256": "fcddfc7a5d38fdcb9df9971179ba05b467702deb75faeb0d3b8c98520b208a92"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_tp3.md",
+      "sha256": "8841a4383ad0ae9fb20b58f3b459132f07f8e1ef2999cc5bf484e02249250033"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_tp4.md",
+      "sha256": "86dfc7dcc21f98cc3b2a7a3f27986b9b953d399f2f95f0c84653969d62731b14"
+    },
+    {
+      "path": "studies/mfp_literature_positioning_20261011/review_tp4b.md",
+      "sha256": "c5999c688a2f042bd2abb212d4b815b1da8b2b965b1405aa4072ad7b72ed76b4"
     }
   ]
 }

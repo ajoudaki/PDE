@@ -37,27 +37,33 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-We give a modular proof of three trajectory-compression constructions for
-Gaussian-initialized deep nonlinear networks with learned hidden features.
-Legendre compression retains $n^{5/4+o(1)}$ moving coordinates and fixed dense
-mixers. Harmonic compression retains $O((\log n)^{3d+2})$ real coordinates
-for the whole input sphere. Taylor compression retains
-$O((\log n)^3)$ real coordinates on a fixed panel declared at initialization.
-All three have error negligible relative to actual independent dense-run
-variability, uniformly over their query domain and the complete training
-trajectory, including the fitted limit. The two selected constructions also
-attain absolute error $Y/n$. The common ingredients are finite residual
-activity, analytic response approximation, and geometry-preserving reduction;
-the selected dynamics use an additional readout correction to cancel unstable
-feedback. A separate short-time deep-linear benchmark shows that a literal
-frozen-top neural tangent hierarchy needs, and suffices with, retained size
-$n^{\Theta(\log m)}$, already for a fixed number $m$ of training samples. This
-manuscript also gives polynomial sufficient widths for Legendre and Taylor,
-and exact-real initialization bounds for both selected constructions:
-near-quadratic work from supplied dense matrices or near-linear work for a
-fresh Gaussian reference sampled implicitly. The guarantees are exact-real,
-not finite-precision. A final figure collection provides earlier numerical
-illustrations, separately from the theorems.
+Does large width make deep learning dynamics small? We show that a deep
+nonlinear network's learning trajectory can be reproduced by an autonomous
+state with only polylogarithmically many retained coordinates in exact-real
+arithmetic. The reference is a finite fully connected network with Gaussian
+hidden weights and zero initial readout,
+not merely its infinite-width limit. Compression error is negligible
+relative to actual independent-seed discrepancy, measured over the same
+query domain and complete training trajectory, including the fitted limit.
+At fixed problem parameters, Harmonic compression uses
+$O((\log n)^{3d+2})$ coordinates for all inputs on the sphere, and Taylor
+uses $O((\log n)^3)$ for a finite input panel declared at setup; $n$ is
+dense width and $d$ input dimension. Legendre provides an intermediate
+reduction to $n^{5/4+o(1)}$ moving coordinates while retaining fixed dense
+mixers. The guarantees hold at arbitrary fixed depth under analytic
+activation regularity, a positive initial feature-Gram gap, and a
+width-independent small-label condition. Under additional nondegeneracy
+assumptions, an early-time theorem separates the compressed predictions
+from affine predictors and the reference's frozen initial kernel, and
+proves motion of every dense hidden layer. Thus the reduction preserves
+genuinely nonlinear feature learning. A separate short-time deep-linear
+benchmark gives $n^{\Theta(\log m)}$ storage for a literal frozen-top
+hierarchy with $m$ samples at accuracy comparable to dense-run discrepancy:
+closure alone need not yield polylogarithmic compression. The common
+mechanism is regular response memory with stable nonlinear feedback.
+Numerical implementations and comparisons with small-dense, low-rank,
+and frozen-feature controls examine this mechanism beyond the theorem's
+conservative stability regime.
 \end{abstract}
 
 \section{Introduction}
@@ -86,28 +92,8 @@ of a finite network representable by a much smaller autonomous state?
 An evolving distribution or a two-time response kernel can be a powerful
 theory without yet supplying that finite state.
 
-Several lines of work come close from different directions. The neural
-tangent hierarchy and finite-width effective theories construct closed
-expansions beyond the leading kernel description
-\cite{huang2020nth,dyer2020asymptotics,roberts2021principles}.
-Projected infinite-width models make a different, structured feature learner
-computable \cite{yang2022efficient}. Neural Tangent Transfer explicitly seeks
-sparse initializations with matching training trajectories
-\cite{liu2020transfer}; low-rank training and analytic moment compression
-offer further dynamical reductions
-\cite{schotthofer2022lottery,wang2026universal}.
-The unresolved step is not the idea of reducing dynamics. It is a guarantee
-that a small, fixed-size state shadows the specified dense network throughout
-training and through convergence, in a regime with a width-independent
-nonlinear feature-learning signal. In the closest results, a key part of
-this conjunction is absent:
-the reference is changed, the compressible structure is assumed, the error is
-controlled only on a finite horizon, or the nonlinear fidelity remains
-empirical. \Cref{cp:related} makes these distinctions at the level of the
-actual constructions and guarantees.
-
 \paragraph{A small sufficient state for deep learning.}
-We establish this conjunction for the fully connected network with Gaussian
+We give a positive answer for the fully connected network with Gaussian
 hidden weights, zero initial readout, and gradient flow specified below, at
 arbitrary fixed depth with at least two hidden layers. The compression is
 valid through convergence; under the additional nondegeneracy assumptions
@@ -136,6 +122,20 @@ coordinates and keeping the fixed dense mixers. The main theorem exposes
 the data and geometry dependence; the polylogarithmic counts include fixed
 coefficients and working arrays, not just trainable coordinates.
 
+\paragraph{The contract: deep, nonlinear, and feature-learning.}
+The target keeps three ingredients together: at least two hidden layers,
+nonlinear dependence on the input, and feature learning that does not vanish
+as width grows. Each matters. A fixed nonlinear feature map can produce a
+nonlinear predictor without learning features; a deep linear network can
+change its representations without ever producing a nonlinear input map.
+The complementary theorem below tests these two distinctions separately.
+Lazy-training theory explains when linearization is valid
+\cite{chizat2019lazy}; two-layer mean-field theory retains representation
+learning in a shallow architecture \cite{mei2018meanfield}; deep-linear
+theory reveals nonlinear learning dynamics without nonlinear input maps
+\cite{saxe2014exact,arora2018implicit}. These are major simplifications of
+different parts of the problem. Our contract is to retain all three ingredients.
+
 Why insist on depth? With one hidden layer and fixed input dimension, each
 neuron has a fixed-dimensional parameter vector. Between two wide hidden
 layers, learning acts through an $n$-by-$n$ interaction matrix. Replacing
@@ -144,6 +144,22 @@ representation. Harmonic and Taylor remove this quadratic retained
 environment while preserving the nonlinear feedback that determines future
 learning. This is the structural obstacle that a shallow reduction or an
 assumed low-rank parameterization does not resolve.
+
+\paragraph{Closure alone does not imply compression.}
+The neural tangent hierarchy and finite-width effective theories already
+provide closed expansions beyond the leading kernel description
+\cite{huang2020nth,dyer2020asymptotics,roberts2021principles}.
+A separate theorem here quantifies why closing equations is not enough:
+for a specified short-time deep-linear family with $m$ training samples,
+a literal frozen-top hierarchy requires retained size
+$n^{\Theta(\log m)}$ to attain error within a fixed multiple of actual
+dense-run discrepancy. Even at fixed sample count this is a power of width
+whose exponent grows with the number of samples.
+This is a benchmark for that representation and family, not a lower bound
+against every encoding or Huang--Yau's original parameterization.
+Our reductions instead exploit redundancy among responses before closing
+their dynamics. \Cref{cp:related} compares this route with population limits,
+projected models, low-rank training, and earlier dynamical compression.
 
 \paragraph{An intrinsic accuracy benchmark.}
 The reference is a particular finite dense realization, not an assumed ideal
@@ -197,6 +213,9 @@ derivative, including unbounded activation values, a positive initial
 population feature-Gram gap, and sufficiently small nonzero labels. The label
 cap is fixed independently of width: this is not a limit in which the labels
 and feature-learning signal shrink to zero as the network widens.
+The numerical illustrations also include unit-label training, well outside
+this sufficient cap, to test whether the mechanism is useful beyond its
+conservative certificate.
 Under the local additional assumptions of nonaffine activations and no
 parallel or antiparallel training inputs, \Cref{thm:nonlinear-learning}
 proves width-independent early-time separation from every affine input
@@ -557,12 +576,40 @@ fitting, below actual dense-run discrepancy, under
 \Cref{cp:setup}'s assumptions.\\
 \bottomrule
 \end{tabular}
-\caption{Closest routes to a reduced description of learning. Counts include
-fixed data and runtime arrays; the separate Legendre construction reduces
+\caption{Closest routes to a reduced description of learning. Our total-state
+counts include fixed data and runtime arrays; the separate Legendre construction reduces
 moving state while retaining dense mixers. This comparison does not
 assert that every predecessor addresses the same training regime.}
 \label{tab:positioning}
 \end{table}
+
+\paragraph{Three instructive simplifications of learning.}
+Lazy training, shallow mean-field dynamics, and deep-linear networks isolate
+different ingredients of the learning problem and have led to substantial
+theory. Chizat, Oyallon, and Bach \cite{chizat2019lazy} identify a scaling
+regime in which scaled gradient flow is approximated by its linearization
+at initialization; under stronger
+loss and nondegeneracy assumptions their control extends uniformly in time.
+The simplification is precisely that adaptive feature changes become small.
+Mei, Montanari, and Nguyen \cite{mei2018meanfield} instead retain nonlinear
+feature motion and describe one-hidden-layer, one-pass SGD by an evolving neuron
+distribution, with quantitative finite-horizon approximation and additional
+optimization results. Their symmetry reductions and finite-atom computations
+are useful reductions, but do not establish a general deep finite-state closure.
+
+Deep-linear models preserve depth and nonlinear parameter dynamics while
+their input--output maps remain linear. Saxe, McClelland, and Ganguli
+\cite{saxe2014exact} solve task-aligned mode dynamics under structured input
+covariance, revealing how representations develop on different time scales.
+Arora, Cohen, and Hazan \cite{arora2018implicit} obtain an exact autonomous
+end-to-end matrix flow under balanced initialization. Its state dimension
+does not grow with hidden width: this is a genuine closed reduction, not
+merely a description of changing weights. Such results make the target here
+sharper. We seek small-state dynamics without freezing feature adaptation,
+removing hidden-layer interactions, or restricting the predictor to a linear
+function of its input. The additional activity theorem certifies
+nonaffine compressed predictions and departure from the reference's frozen
+kernel, alongside motion of every dense hidden layer.
 
 \paragraph{From population dynamics to a finite retained state.}
 Multilayer mean-field theory \cite{nguyen2023rigorous} and Neural Hilbert
@@ -580,8 +627,8 @@ Nor is seed dependence absent from prior theory. Pham and Nguyen
 correction and state quantitative finite-horizon estimates; Bordelon and
 Pehlevan \cite{bordelon2023finite} develop a dynamical fluctuation expansion.
 Our distinction is not priority for coupling to initialization or studying
-prediction variance. Even granting the advertised finite-horizon estimates,
-these descriptions do not supply a polylogarithmic autonomous representation
+prediction variance. Their stated finite-horizon estimates do not supply
+a polylogarithmic autonomous representation
 with the present all-time approximation guarantee. Taking width to infinity
 at each fixed time and then studying large time is different from one error
 bound covering every time at a finite width.
@@ -611,10 +658,11 @@ ensemble endpoint formulas.
 
 Their relevant fixed-depth expansions are around kernel scaling, where
 feature-learning corrections vanish with width at fixed training time.
-General deep nonlinear
-power counting in Dyer--Gur-Ari is partly conjectural, and a perturbative
-formula at the fitted endpoint is not a pathwise remainder estimate uniform
-through fitting. The present result instead couples its small system to a
+Diagrammatic power counting organizes finite-width corrections systematically;
+its general deep nonlinear extension is formulated conjecturally
+\cite{dyer2020asymptotics}. Perturbative endpoint formulas and pathwise
+remainder estimates uniform through fitting are distinct guarantees.
+The present result instead couples its small system to a
 regime with a width-independent feature-learning certificate.
 Our separate \Cref{cp:nth:storage} isolates another obstacle: a literal
 frozen-top hierarchy in its specified short-time deep-linear family has
@@ -623,14 +671,16 @@ not a lower bound for Huang--Yau's parameterization, every hierarchy
 implementation, or the nonlinear family of the main theorem.
 
 \paragraph{Assumed compressibility versus compressibility derived from training.}
-Wang et al.\ \cite{wang2026universal} are a particularly close predecessor:
-their goal includes polylogarithmic compression of learning dynamics, not
-just trained functions. Their analytic moment argument uses fixed-dimensional
-objects and a symmetric analytic observable. The dynamical extension
-(Theorem~5) requires the observable composed with training to satisfy the
-same structural and regularity assumption. Section~5 explicitly leaves the
-compressed-width scaling for deep networks open and questions preservation
-of that assumption by training. In an all-wide hidden layer, a neuron's
+Wang et al.\ \cite{wang2026universal} identify symmetry and analytic moment
+matching as mechanisms for polylogarithmic support reduction, with the
+explicit ambition of preserving learning dynamics rather than only trained
+functions. Their setting consists of fixed-dimensional objects and a
+symmetric analytic observable. Extending the reduction through training
+requires the composed observable to retain this structure and regularity;
+preservation of that premise and the compressed-width rate for all-wide
+deep networks remain open in their account
+\cite[Theorem~5 and Section~5]{wang2026universal}.
+In an all-wide hidden layer, a neuron's
 incoming and outgoing coordinates grow with neighboring widths. A
 fixed-object-dimension logarithmic power therefore does not establish a
 width-uniform deep-network compression theorem. Likewise, analyticity of
@@ -644,10 +694,14 @@ and substantive reduction: evolve matrix factors using projected gradients
 and robust low-rank integration. Its approximation analysis assumes a small
 component of the full gradient normal to the low-rank manifold
 (supplementary assumption~P2). It does not derive that premise from
-Gaussian-initialized all-wide deep training. Moreover, the error
-accumulation argument is finite-horizon; the printed main statement's
-omission of terminal-time dependence cannot be used as an all-time
-certificate. In contrast, we neither assume low rank of the trained dense
+Gaussian-initialized all-wide deep training. Its geometric integrator analysis
+provides a finite-horizon comparison: the terminal-time dependence introduced
+by accumulation of local errors must be retained.\footnote{Although the main
+statement lists constants without terminal time, the supplementary proof
+of Theorem~1 accumulates errors by a Lipschitz estimate. Such an estimate
+does not furnish a time-uniform constant. The finite-horizon robustness
+result is the relevant comparison here.}
+In contrast, we neither assume low rank of the trained dense
 matrices nor require the compressed flow to inherit stability automatically.
 We derive a small response space and separately prove stability of its
 closed nonlinear evolution.
@@ -655,15 +709,17 @@ closed nonlinear evolution.
 \paragraph{Trajectory transfer, low-dimensional training, and learned reductions.}
 Neural Tangent Transfer \cite{liu2020transfer} explicitly seeks a sparse
 initialization whose later predictions follow a dense teacher, and therefore
-anticipates our dynamical objective. Its exact proposition is for a linear
-model under perfect initial output and kernel matching; the nonlinear
-trajectory claim is empirical. In that proposition's binary-mask model,
-exact kernel matching even forces each removed input coordinate to vanish
-on the training set: the removed Gram contributions are positive
-semidefinite and cannot cancel. The proposition does not establish
-nontrivial compression for generic inputs. This restriction does not
-invalidate the useful nonlinear heuristic; it explains why the exact
-theorem is not already the desired nonlinear compression guarantee.
+anticipates our dynamical objective. Its linear-model proposition identifies
+matching initial outputs and kernels as sufficient for matching trajectories;
+the deep nonlinear implementation provides empirical support for using this
+principle in sparse initialization. Exact matching is restrictive in the
+proposition's binary-mask setting,\footnote{The removed kernel is a sum of
+positive-semidefinite outer products of the removed input columns. It can
+vanish only when those columns vanish on the training set. Thus the exact
+premise does not yield nontrivial masking for generic data.}
+and the nonlinear method has no width-dependent, complete-trajectory
+error guarantee. The advance here is to supply such a guarantee while
+retaining feature learning, not to originate the trajectory-transfer objective.
 
 Intrinsic-dimension experiments \cite{li2018intrinsic}, concentration in
 tiny gradient subspaces \cite{gurari2018gradient}, and training in
@@ -732,29 +788,18 @@ specializing to a declared input panel; Harmonic pays a larger logarithmic
 power to support inputs first queried after setup. This tradeoff is part of
 the meaning of dynamical memory, not merely an implementation detail.
 
-\paragraph{Why deep learning can have a small dynamical description.}
-The crucial regularity is in the responses through which training acts,
-not an assumption that every trained matrix is low rank. A hidden-matrix
-update pairs a forward feature with a backward sensitivity and integrates
-that pairing over training. Many microscopic entries can therefore be
-driven by a much smaller family of response curves.
-Legendre compresses their temporal memory while keeping the neuron
-coordinates. Harmonic additionally compresses their variation over inputs;
-Taylor restricts the input family and adapts temporal pieces to the
-slowing of learning. They expose successive reductions of the same
-interaction structure.
-
+\paragraph{Why logarithms, and what they mean.}
 Analyticity explains why logarithms enter. Exponentially accurate
 approximation requires only logarithmically many modes for inverse-width
 accuracy. The number of input directions, temporal pieces, and the cost of
 preserving their inner-product geometry determine the final powers.
-But approximation alone would produce a small description of a dense
-trajectory, not a small learner. The latter must generate its own future.
-Finite residual activity and the preserved sign of dissipative feedback
-prevent small representation errors from accumulating over infinite physical
-time; the selected models' readout correction cancels the dangerous
-readout--residual coupling. This stability argument is why the result
-cannot be obtained simply by fitting polynomials to recorded features.
+This concerns regularity of the responses that drive learning, not low rank
+of every dense weight matrix. It also distinguishes a large microscopic
+system from a large variety of observable behaviors: increasing width need
+not create proportionally many independent response histories.
+The stored-state bounds make that distinction quantitative, while the
+feedback analysis ensures that it survives autonomous evolution rather
+than only reconstruction of a recorded path.
 
 \paragraph{Intrinsic precision and population interpretations.}
 The finite network is the primary object: no population solution is needed
@@ -776,11 +821,7 @@ population interpretation without assuming that the population predictor
 is the scientifically preferred object.
 
 \paragraph{Scope and the next questions.}
-The small-label assumption ensures stability but remains independent of
-width. Under the separate nondegeneracy assumptions, the early-time
-feature-learning separations remain positive as width grows, so small
-labels do not turn the theorem into a lazy limit. Extending the
-complete-trajectory result to unrestricted labels or nonsmooth activations
+Extending the complete-trajectory result to unrestricted labels or nonsmooth activations
 such as exact ReLU remains open. So do optimal state counts, practical
 finite-precision guarantees, and a similarly small Taylor construction
 supporting arbitrary inputs first supplied after setup. The theorem does
@@ -811,9 +852,8 @@ give a dense lower bound at a training input. \Cref{cp:assembly} combines
 these ingredients. A quantitative source argument and a third-order Legendre
 history estimate supply the polynomial width refinement. Numerical source
 construction and a two-direction Gaussian sampler prove
-\Cref{cp:initialization}. Every dependency is supplied below. The older
-decoder theory remains outside this manuscript; earlier numerical figures
-are collected separately at the end.
+\Cref{cp:initialization}. Every dependency is supplied below; earlier
+numerical figures are collected separately at the end.
 
 \input{compact_fitting}
 \input{compact_foundations}

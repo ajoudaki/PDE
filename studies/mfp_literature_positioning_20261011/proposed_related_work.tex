@@ -1,85 +1,124 @@
 % Suggested prose only; not installed in the manuscript.
 \section{Related work}
 
-\paragraph{Gaussian program limits and feature learning.}
-Tensor Programs III provides the closest probabilistic framework
-\cite{yang2021tp3}. Its Box~1 defines the Gaussian source-response
-recursion for reused matrices and transposes. The scalar-feedback extension
-in Theorem~E.15 permits pseudo-Lipschitz maps without a rank-stability
-assumption; the smooth polynomial-growth maps used here satisfy that
-condition. Its handling of singular Gaussian laws also precedes MFP's
-formal-source bookkeeping. Non-Gaussian Tensor Programs states almost-sure
-and finite-$L^p$ convergence and develops the raw-entry moment bounds used
-here \cite{golikov2022nongaus}. For our fixed deterministic initial scalars,
-the Gaussian limit theorem and those moment bounds give the required
-expectation convergence. Our proof makes this specialization and its
-derivative compilation explicit. The later Tensor Programs IVb extends
-the language to nonlinear outer operations, constructs backpropagation
-programs, and gives a master theorem including finite-$L^p$ convergence
-under polynomial smoothness and uniform input moments
-\cite{yang2023tp4b}. Its proved Gaussian construction applies to our fixed
-deterministic initial scalars. Its language and adaptive-update scope are
-broader than the MFP frontend; our contribution is not an extension beyond
-that probabilistic scope.
+\paragraph{Constructive Gaussian program theory.}
+Tensor Programs provides the closest mathematical foundation.
+Tensor Programs III gives a constructive Gaussian source-response rule for
+named matrix and transpose reuse, including singular query covariances and
+causal scalar feedback \cite{yang2021tp3}. Non-Gaussian Tensor Programs supplies
+the smooth raw-entry moment estimates relevant to expectation convergence
+\cite{golikov2022nongaus}. Tensor Programs IVb gives a broader primitive
+language, explicit backpropagation constructions and a master theorem with
+finite-$L^p$ convergence under polynomial smoothness and uniform initial-input
+moments \cite{yang2023tp4b}. Its fixed-input Gaussian branch covers MFP's
+compiled primitive programs. Tensor Programs IV and IVb also construct
+feature-learning training programs; after rescaling parameter blocks, the
+maximal-update regime agrees with the normalization of our MLP examples
+\cite{yang2021tp4,yang2023tp4b}.
 
-Tensor Programs IV derives recursive Gaussian limits for fixed finite
-training histories in feature-learning parameterizations
-\cite{yang2021tp4}. Its maximal-update model agrees with the normalization
-of our showcased MLP after rescaling the vector parameter blocks. In
-particular, our feature-kernel jets do not introduce a different
-feature-learning regime. That paper also calculates selected derivatives
-of post-update features and outputs. MFP supplies a uniform query language
-and compiler for admitted derivatives rather than a new principle that
-such finite calculations have Gaussian-program limits.
+These are constructive antecedents, with covariance and response calculations
+already determined by the program. The further task addressed by MFP is to give
+one explicit contract for neural derivative queries and carry it through to
+symbolic output. This requires specifying the permitted matrix directions and
+contractions, proving exact closure under their differentiation and updates,
+retaining the distinction between moving and frozen directions, and connecting
+the resulting programs to the Gaussian evaluator. The initialization theorem
+then proves a more specific output form in activation-derivative moments.
+These finite closure and reduction arguments have their own correctness
+obligations, although they use established chain, adjoint and Stein identities.
+The compiler implements this complete transformation. Its contribution should
+be assessed as a calculus with a precise mathematical and executable domain,
+with full credit to the probabilistic machinery on which it builds.
 
-\paragraph{Higher derivatives, tangent hierarchies and diagrams.}
-The neural tangent hierarchy organizes repeated gradient contractions of
-network outputs and studies quantitative truncation of training dynamics
-in the tangent-kernel scaling \cite{huang2020nth}. Chen, He and
-Su give a recursive symbolic program for this hierarchy and present
-selected Gaussian initialization calculations in a shallow network,
-using them to motivate label-dependent kernels \cite{chen2020lantk}.
-These are direct predecessors for derivative recurrences and
-label-dependent kernel expressions. Their particular hierarchy and
-normalization differ from an arbitrary admitted MFP query and from our
-feature-kernel example. Their stated positive-time approximation theorems
-address a temporal question beyond the finite initial jets studied here.
+Recent quantitative work strengthens the conclusions on a different domain.
+Agazzi, Mosig Garc\'{\i}a and Trevisan prove inverse-square-root-width
+Wasserstein estimates for forward tensor programs with globally Lipschitz
+nonlinearities, including a kernel-feedback extension under a joint
+nondegeneracy assumption \cite{agazzi2026quantitative}. These are stronger
+finite-width guarantees than MFP supplies on the common scope. Their language
+does not include shared transpose calls, and its Lipschitz hypotheses do not
+remain valid under general directional differentiation: even for
+$\phi=\tanh$, the coordinate map $(z,v)\mapsto\phi'(z)v$ is not globally
+Lipschitz. Thus a forward quantitative limit cannot automatically be applied
+to every differentiated program in the present calculus.
 
-Feynman-diagram methods organize Gaussian contractions and finite-width
-asymptotics of products of neural derivative tensors
-\cite{dyer2019feynman}. Aitken and Gur-Ari establish the corresponding
-correlation-function scaling theorem for fixed polynomial activations
-\cite{aitken2020nonlinear}. Wick expansion in that setting yields explicit
-coefficients, not merely an existence result. These methods can retain
-finite-width information that MFP's leading-limit graph discards. MFP
-instead allows its stated smooth polynomial-growth activation class and
-compiles finite derivative and update programs into recursively specified
-Gaussian integrals. Its restricted activation-moment reduction uses
-classical Wick and Stein identities rather than introducing a new
-Gaussian integration principle.
+\paragraph{Derivative hierarchies and diagrammatic calculation.}
+The neural tangent hierarchy organizes repeated gradient contractions and
+studies quantitative approximation of training in the tangent-kernel regime
+\cite{huang2020nth}. Label-Aware NTK gives a recursive symbolic program for
+that hierarchy and works out shallow-network initialization calculations to
+motivate label-dependent kernels \cite{chen2020lantk}. These are direct
+predecessors for derivative recurrences and symbolic label dependence. A
+hierarchy identity specifies the next finite derivative; obtaining its
+initialization expectation still requires a probabilistic calculation. MFP
+supplies that calculation for its declared smooth program class, while its
+finite initial jets address a different temporal claim from positive-time
+hierarchy truncation.
 
-\paragraph{Executable infinite networks and symbolic tensor calculus.}
-Neural Tangents translates supported architectures into numerical infinite
-NNGP and NTK kernels, and also provides empirical kernels, prediction
-solvers and arbitrary-order finite-network Taylor expansions
-\cite{novak2020neuraltangents}. Its current activation interface includes
-both user-supplied Gaussian moment functions and numerical quadrature;
-its supported layer families include particular weight-sharing cases.
-It therefore provides a substantially stronger baseline than a library
-restricted to first derivatives or closed-form activations. MFP's returned
-object is different: a symbolic Gaussian-expectation graph for an admitted
-derivative/update program, with the general named-matrix response rule
-applied automatically.
+Feynman-diagram methods organize contracted neural derivative tensors and
+finite-width corrections \cite{dyer2019feynman}. The polynomial-activation
+scaling theorem of Aitken and Gur-Ari supports exact Wick calculations for
+arbitrary fixed derivative contractions in its model
+\cite{aitken2020nonlinear}. Such calculations can recover corresponding
+polynomial MFP coefficients once parameter metrics and width factors are
+matched. They also retain subleading finite-width information absent from
+MFP's leading-limit graph. MFP's output instead retains smooth activation
+functions symbolically through their Gaussian derivative moments and is
+specified for a compositional derivative/update language.
 
-Tensorgrad supplies symbolic tensor differentiation, symbolic Gaussian
-means and covariances, tensor Gaussian integration by parts, and shared
-matrix algebra \cite{ahle2026tensorgrad}. These capabilities already
-compose into some of our elementary moving-derivative examples. The
-additional MFP transformation eliminates the growing-width matrix
-calculation and supplies a fixed-dimensional limiting graph for its
-declared neural-program class. Conversely, Tensorgrad admits tensor
-algebra beyond our restricted frontend, and Neural Tangents offers
-numerical integration and architectural functionality that MFP does not
-replace. The comparison concerns the scope and semantics of the complete
-transformation, not priority for symbolic differentiation or Gaussian
-expectation nodes separately.
+Guillen, Misof and Gerken provide an especially close computational precedent:
+a diagrammatic calculus for preactivation, NTK, dNTK and ddNTK statistics,
+with implemented Gaussian recursions in NTK Unlimited \cite{guillen2026finite}.
+Their all-order statement concerns powers of $1/n$ in the statistics of the
+designated tensors. The inspected implementation takes supplied tensor
+recurrences, simplifies them symbolically and compiles them to numerical
+Gaussian integration. MFP accepts the neural program and physical derivative
+request itself, and derives the corresponding Gaussian graph. This distinction
+concerns the mathematical input and the work automated, rather than whether
+both systems contain symbolic expectation nodes. Their finite-width expansion
+also develops corrections around the tangent-kernel scaling; MFP's featured
+jets retain the mean-field metric in which hidden features can move at leading
+order. Neither a change of names nor a finite truncation in $1/n$ identifies
+those training regimes.
+
+\paragraph{Nonlinear dynamical descriptions.}
+Dynamical mean-field theory provides a different route to calculating feature
+learning. Bordelon and Pehlevan formulate coupled Gaussian driving processes,
+response functions and time-dependent kernels for nonlinear training, and
+supply a numerical self-consistency procedure \cite{bordelon2023dmft}.
+Their framework retains the response to matrix reuse and must be distinguished
+from a gradient-independence approximation. Its discrete-time connection to
+Tensor Programs gives a rigorous route for fixed admitted training histories;
+the continuum path-integral derivation and its discrete-to-continuous limit
+have separate, explicitly unresolved proof obligations. Fixed initial jets
+can already be reached by differentiating a finite update program before
+applying the program theorem. MFP makes that procedure uniform and executable,
+with the stated moment guarantees and initialization reduction.
+The difference relevant to the dynamical solver is the
+computational question: solving the coupled history-dependent dynamics versus
+compiling a specified finite derivative query into a causal expectation graph.
+MFP's initial-jet calculation determines its coefficients without solving for
+an unknown positive-time kernel trajectory. It does not replace a dynamical
+solution or assert that a finite list of initial coefficients reconstructs one.
+
+\paragraph{Software for kernels, derivatives and Gaussian algebra.}
+Neural Tangents automates supported architecture-to-NNGP/NTK calculations,
+provides numerical kernel evaluation and prediction tools, and supports
+arbitrary-order finite-network Taylor expansions
+\cite{novak2020neuraltangents}. Tensorgrad supplies symbolic tensor
+differentiation, Gaussian expectations with symbolic means and covariances,
+and Wick/Stein simplification \cite{ahle2026tensorgrad}. These are substantial
+capabilities: higher-order differentiation and Gaussian symbolic integration
+are already available, including compositions that reproduce elementary
+moving-derivative examples.
+
+MFP's distinctive executable task is the elimination of growing-width neural
+matrix calculations through the response-corrected program limit. Its general
+moving-jet operation, represented updates, formal-source bookkeeping and
+initialization reduction act on the same typed input language. Among the
+interfaces inspected, we found no earlier package exposing that complete
+neural-program-to-derivative-limit transformation. This bounded comparison
+supports the stated contribution without requiring priority for its individual
+operations. Existing software also supplies capabilities beyond MFP, including
+numerical quadrature, wider architecture support and broader tensor algebra.
+The relevant test is which complete calculation each system accepts and returns.

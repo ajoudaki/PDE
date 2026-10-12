@@ -42,3 +42,43 @@ No reviewed source establishes the manuscript's full conjunction of finite-refer
 The literature-audit phase left the paper and maintained book unchanged. At the user's subsequent request, commit `507ca54` checkpointed all then-uncommitted repository material before manuscript editing. Other studies were committed only as authorized repository state, not read as research inputs. The present editorial continuation changes the introduction, related work, discussion and bibliography; the theorem statements and proof modules are preserved.
 
 The completed rewrite adds a six-family comparison table and distinguishes derived response compressibility and closed-loop stability from conditional or formal reductions. A fresh scoped editorial review and correction pass checked its novelty and qualification claims. Extra historical checks fully read the original four-page backpropagation article and the published NTK paper plus supplement. The final PDF compiles to 122 pages with no missing citations/references or overfull/underfull boxes; revised pages were visually checked. Exact comparisons preserve the setup, both theorem statements, initialization proposition, assembly and all proof/figure modules. See the final section of [evidence_log.md](evidence_log.md) for details and limits. The maintained book is unchanged.
+
+## Editorial revision after checkpoint `d0a9968`
+
+The user's next request first checkpointed the current owned manuscript and
+study files in `d0a9968`. Other active studies were not incorporated. The
+subsequent revision changes the abstract to question–answer form, moves the
+result before niche comparisons, introduces the deep/nonlinear/feature-learning
+contract and the accuracy-qualified literal-hierarchy contrast, and rephrases
+Related work in scientific rather than referee-report language. Discussion no
+longer repeats the label-cap and feedback-stability explanations.
+
+Two bounded primary-source reviews supply the missing reduced-regime category:
+[lazy and shallow mean field](REDUCED_REGIMES_SHALLOW.md), and
+[deep-linear dynamics](REDUCED_REGIMES_LINEAR.md). In particular, the paper
+credits balanced deep-linear networks with an exact width-independent
+end-to-end matrix flow. A scoped editorial reread checked the revised claims
+against the unchanged formal statements. Its corrections make the hierarchy
+accuracy target explicit, restore exact-real and zero-readout qualifications
+in the abstract, and avoid implying architectural irreducibility from the
+activity certificate.
+
+The new experimental-section request is **pending source access**, not complete.
+[EXPERIMENT_EDITORIAL_CHECK.md](EXPERIMENT_EDITORIAL_CHECK.md) records what the
+current plotting and generation code establishes, and recomputed legacy
+prediction discrepancies. Modern figure data are in another study's generated
+namespace; the user has been asked for permission to inspect only their direct
+data/configuration/producer dependencies. Their existence was checked, but
+their contents were not read. The main plotting labels identify 8×8 Digits,
+not raw MNIST; the older MNIST Legendre bundle does not establish a modern
+Taylor/MNIST result. No new training or empirical reproduction was launched.
+The unit-label sentence in the introduction is supported directly by the
+saved circle labels in `paper/figures/response_memory_source.npz`.
+
+The revised PDF is built in this study's `revision_build/` directory and
+published as `paper/main.pdf`: 122 pages, no unresolved references/citations
+or overfull/underfull boxes. The pre-existing `amsmath` warning remains.
+Setup/main results and all material from the first proof input onward match
+`d0a9968` exactly. Next authorized work is finalizing the modern experimental
+section after its source-access question is resolved; no campaign expansion
+is proposed.

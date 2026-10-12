@@ -147,11 +147,16 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error \
 ```
 
 The current 122-page publication is `paper/main.pdf`, built in
-`data/generated/compression_literature_positioning_20261011/framing_build/`.
+`data/generated/compression_literature_positioning_20261011/revision_build/`.
 The introduction occupies pages 1–3, related work and its table pages 8–11,
 and discussion pages 11–12; proofs start on page 12. The source-preservation
 and citation-review checks are recorded in the
 [literature study](../studies/compression_literature_positioning_20261011/README.md).
+The latest editorial revision updates the abstract, result-first introduction,
+reduced-regime literature and discussion without changing theorem statements
+or proofs. The requested modern experimental section remains pending verification
+of its saved figure inputs; the existing final gallery is unchanged. The modern
+plotting entry point's main digit panels use 8×8 Digits, not raw MNIST.
 
 The preceding 115-page build, including the earlier introduction and
 related-work discussion, is in

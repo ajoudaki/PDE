@@ -101,3 +101,56 @@ A fresh reader checked the rewritten three sections against the unchanged setup,
 Exact string comparisons against `507ca54:paper/main.tex` confirm unchanged preamble/abstract, the complete Setup and main results block (including the initialization proposition), and everything from the first proof input onward. Git reports no differences in any proof module, feature-learning theorem module or figure module. No new persistent symbol was introduced.
 
 Build command, from `paper/`: `latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=../data/generated/compression_literature_positioning_20261011/framing_build main.tex`. Final build exits successfully at 122 pages, with no undefined citations/references and no overfull/underfull boxes. The sole remaining warning is the pre-existing `amsmath` notice about `atopwithdelims` in an unchanged proof. The revised front matter and comparison/discussion pages were rendered for visual inspection. The existing theorem/proof content is not counted as newly audited merely because compilation succeeds.
+
+## Abstract, reduced-regime context, and experimental inventory revision
+
+Checkpoint `d0a9968` precedes this revision. The new primary-source coverage is
+Chizat–Oyallon–Bach (published main 11 pages plus 9-page supplement),
+Mei–Montanari–Nguyen (complete 103-page author version), Saxe–McClelland–Ganguli
+(arXiv v3, 22 pages including Appendices A–G), and Arora–Cohen–Hazan (published
+10-page main plus 8-page supplement). Exact versions, source hashes,
+reconstructions and limits are in `REDUCED_REGIMES_SHALLOW.md` and
+`REDUCED_REGIMES_LINEAR.md`. The coordinator reviewed those complete reports;
+these are source-specific checks, not new manuscript proof reviews.
+
+The scoped framing reader checked the revised abstract, introduction, related
+work and discussion against the unchanged formal statements. Applied findings:
+state the hierarchy's seed-relative accuracy target; qualify the abstract by
+exact-real arithmetic and zero initial readout; describe activity certificates
+directly rather than implying shallow-model irreducibility; replace
+"advertised estimates" with "stated estimates"; remove obsolete decoder-history
+language. This review did not certify the provisional modern empirical claims.
+
+The experimental inventory read only `paper/` inputs and code. Its complete
+report is `EXPERIMENT_EDITORIAL_CHECK.md`. Modern figure dependencies require
+cross-study access not yet approved in this continuation. Running
+`python -B paper/plot_figures.py --only accuracy trajectory storage --check`
+confirmed that the three input files exist, without opening their contents.
+This is neither validation of their outcomes nor reproduction of experiments.
+Direct NumPy inspection of the permitted legacy response bundle gave circle
+labels `[1,1,-1,-1,1,1,-1,-1]`, with RMS 1, supporting the introduction's
+unit-label illustration. Legacy MNIST prediction RMS was recomputed in the
+inventory report, but its preprocessing remains unverified.
+
+Build, from `paper/`:
+`latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=../data/generated/compression_literature_positioning_20261011/revision_build main.tex`.
+Exit 0, 122 pages; no unresolved references/citations or overfull/underfull
+boxes. The unchanged-proof `atopwithdelims` warning remains. Abstract and table
+pages were rendered for visual inspection. Exact string comparison with
+`d0a9968:paper/main.tex` preserves the complete Setup/main-results block and
+everything from `\input{compact_fitting}` to the end. No proof or figure module
+was edited. Scope-limited `git diff --check` passed; a checkout-wide invocation
+encountered inherited unreadable migration files, which were left untouched.
+
+Revision source SHA-256 values:
+
+```text
+paper/main.tex
+2e25e9a8b49d9b6c8ce45c6a6e3f61edf9340dc22a16b785e2b39798eeb16a89
+paper/references.bib
+ac86eda7103083a0c1914f248177f0aef79619ba2305c58b912b0956fdd36ee2
+paper/figures/response_memory_source.npz
+86fdd60042a8007079b4cfabfb831296fd7a06689948d39e0c669b1e51697e42
+paper/plot_figures.py
+098a19cc914b0259cf16d8ef18844a0fa286406a3382e20e42c9d64fb44fcec0
+```
