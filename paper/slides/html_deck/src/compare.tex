@@ -1,0 +1,19 @@
+\documentclass[12pt,border=2pt]{standalone}
+\input{preamble}
+\begin{document}
+\renewcommand{\arraystretch}{1.42}
+\begin{tabular}{@{}l@{\hspace{0.18in}}c@{\hspace{0.18in}}c@{\hspace{0.2in}}l@{\hspace{0.2in}}l@{}}
+\toprule
+\textsc{Description} & \textsc{Fixed state} & \textsc{Features learn} & \textsc{Retained size} & \textsc{Valid for}\\
+\midrule
+Dense network & \checkmark & \checkmark & $(L-1)\,n^2$ & all time\\
+Kernel limit (NTK) & \checkmark & $\times$ & $m^2$ kernel entries & the lazy regime\\
+Mean field, Tensor Programs, DMFT & $\times$ & \checkmark & distributions or two-time kernels & infinite width\\
+Literal tangent hierarchy & \checkmark & \checkmark & $n^{\Theta(\log m)}$, proved & short time\\
+\midrule
+Legendre & \checkmark & \checkmark & $n^{5/4+o(1)}$ moving${}+{}$fixed mixers & all time, whole sphere\\
+Taylor & \checkmark & \checkmark & $(\log n)^{3}$ & all time, declared inputs\\
+Harmonic & \checkmark & \checkmark & $(\log n)^{3d+2}$ & all time, whole sphere\\
+\bottomrule
+\end{tabular}
+\end{document}

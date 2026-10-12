@@ -1,0 +1,22 @@
+\documentclass[12pt,border=2pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{minipage}{7.4in}
+\[
+ z^{(1)}=\frac{W^{(1)}x}{\sqrt d},\qquad
+ z^{(\ell)}=W^{(\ell)}h^{(\ell-1)},\qquad
+ h^{(\ell)}=\phi\big(z^{(\ell)}\big),\qquad
+ f_n(x)=\frac1n\,w^\top h^{(L)}(x),
+\]
+\[
+ \mathcal L=\frac1m\sum_{a=1}^m\big(f_n(x_a)-y_a\big)^2,\qquad
+ \dot\theta=-\operatorname{diag}(n,1,\dots,1,n)\,\nabla_\theta\mathcal L,
+\]
+\[
+ W^{(1)}_{ij}\sim\mathcal N(0,1),\quad
+ W^{(\ell)}_{ij}\sim\mathcal N(0,1/n),\quad
+ w(0)=0,\qquad
+ \|g\|_{\mathcal X}=\sup_{t\in[0,\infty]}\ \sup_{x\in\mathcal X}|g(t,x)|.
+\]
+\end{minipage}
+\end{document}
