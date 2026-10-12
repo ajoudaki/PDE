@@ -1,0 +1,15 @@
+\documentclass[12pt,border=2pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{minipage}{6.9in}
+\[
+ \|f-g\|_{\mathcal X}
+ \;=\;
+ \sup_{\substack{t\,\in\,[0,\infty]\\[2pt] \text{\footnotesize all training time,}\\ \text{\footnotesize to the fitted limit}}}
+ \ \ 
+ \sup_{\substack{x\,\in\,\mathcal X\\[2pt] \text{\footnotesize all inputs}}}
+ \ \big|f(t,x)-g(t,x)\big|
+ \qquad\text{for any two models } f,\ g
+\]
+\end{minipage}
+\end{document}

@@ -6,7 +6,7 @@ here=$(cd "$(dirname "$0")" && pwd)
 cd "$here"
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
-for name in theorem feature nth selected setup define compare; do
+for name in theorem feature nth selected setup define compare norm; do
   pdflatex -interaction=nonstopmode -halt-on-error -output-directory "$work" \
     "$here/$name.tex" > "$work/$name.log" || { tail -20 "$work/$name.log"; exit 1; }
   pdftocairo -png -transp -singlefile -r 396 "$work/$name.pdf" "$here/../img/$name"
